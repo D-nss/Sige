@@ -91,6 +91,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'extecamp' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('BD_EXTECAMP_HOST', 'localhost'),
+            'port' => env('DB_PORT', '1433'),
+            'database' => env('BD_EXTECAMP_NAME', 'forge'),
+            'username' => env('BD_EXTECAMP_USER', 'forge'),
+            'password' => env('BD_EXTECAMP_PASS', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*
