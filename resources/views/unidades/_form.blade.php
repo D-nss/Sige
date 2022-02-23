@@ -1,24 +1,27 @@
-<div class="form-group">
-    <input type="text" class="form-control" name="name" placeholder="Nome Completo" value="{{isset($registro->name) ? $registro->name : ''}}">
-</div>
-<div class="form-group">
-  <input type="email" class="form-control" name="email" placeholder="Endereço de Email" value="{{isset($registro->email) ? $registro->email : ''}}">
-</div>
-<div class="form-group">
-    <select class="form-control">
-        <option>Selecione o Tipo (Permissão)</option>
-        <option>Coordenador</option>
-        <option>Avaliador</option>
-        <option>Conselheiro</option>
-        <option>Administrador Sistema</option>
-    </select>
-  </div>
+<div class="row mb-3">
+    <label for="nome" class="col-md-4 col-form-label text-md-end">Nome</label>
 
-<div class="form-group row">
-  <div class="col-sm-6 mb-3 mb-sm-0">
-    <input type="password" class="form-control" name="password" placeholder="Senha">
-  </div>
-  <div class="col-sm-6">
-    <input type="password" class="form-control" name="password_confirmacao" placeholder="Confirmação Senha">
-  </div>
+    <div class="col-md-6">
+        <input id="nome" type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" value="{{isset($unidade->nome) ? $unidade->nome : ''}}" required autocomplete="nome" autofocus>
+
+        @error('nome')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+
+<div class="row mb-3">
+    <label for="sigla" class="col-md-4 col-form-label text-md-end">SIGLA</label>
+
+    <div class="col-md-6">
+        <input id="sigla" type="text" class="form-control @error('sigla') is-invalid @enderror" name="sigla" value="{{isset($unidade->sigla) ? $unidade->sigla : ''}}" required autocomplete="sigla">
+
+        @error('sigla')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 </div>

@@ -25,3 +25,15 @@
             @enderror
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="unidade">Unidade<span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select class="form-control" id="unidade" name="unidade">
+            <option value="">Escolha a Unidade</option>
+            @foreach($unidades as $unidade)
+                <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+            @endforeach
+          </select>
+        </div>
+    </div>

@@ -635,13 +635,13 @@
                     </div>
                 </div>
                 <div class="dropdown-divider m-0"></div>
-                <a class="dropdown-item fw-500 pt-3 pb-3" href="{{ route('logout') }}"
+                <a class="dropdown-item fw-500 pt-3 pb-3" href="#"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                     <span data-i18n="drpdwn.page-logout">Sair</span>
                     <span class="float-right fw-n">&commat;fulanodasilva</span>
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="#" method="POST" class="d-none">
                     @csrf
                 </form>
             </div>

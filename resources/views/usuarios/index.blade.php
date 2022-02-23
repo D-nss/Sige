@@ -26,7 +26,7 @@
                             <td>{{$usuario->id}}</td>
                             <td>{{$usuario->name}}</td>
                             <td>Matricula</td>
-                            <td>Unidade</td>
+                            <td>{{$usuario->unidade->sigla}}</td>
                             <td>{{$usuario->email}}</td>
                             <td>Telefone</td>
                             <td> {{$usuario->updated_at->format('d/m/Y H:i:s')}}</td>

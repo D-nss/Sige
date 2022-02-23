@@ -35,61 +35,49 @@
         TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.
         -->
         <ul id="js-nav-menu" class="nav-menu">
-            <li class="active">
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Ações de Extensão</span>
-                </a>
-            </li>
-            <li>
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Mapa da Extensão</span>
-                </a>
-            </li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">Minhas Ações de Extensão</span>
+                    <span class="nav-link-text" data-i18n="nav.category">UNIDADE: ABCDEF</span>
                 </a>
                 <ul>
                     <li>
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Cadastrar Ação de Extensão</span>
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Dados Indicadores</span>
                         </a>
                         <ul>
                             <li>
                                 <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Sublevel Item</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" title="Another Item" data-filter-tags="utilities menu child another item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Another Item</span>
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Dados</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Submeter Proposta de Projeto</span>
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                         </a>
                         <ul>
                             <li>
                                 <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Sublevel Item</span>
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Ação de Extensão</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);" title="Another Item" data-filter-tags="utilities menu child another item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Another Item</span>
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Concluídos</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="disabled">
                         <a href="javascript:void(0);" title="Disabled item" data-filter-tags="utilities disabled item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Disabled item</span>
+                            <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Ações Culturais</span>
                         </a>
                     </li>
                 </ul>
@@ -97,25 +85,19 @@
             <li class="active">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Extensão da Unidade</span>
+                    <span class="nav-link-text" data-i18n="nav.blankpage">Editais Extensão</span>
                 </a>
             </li>
             <li class="active">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Ações de Cultura</span>
+                    <span class="nav-link-text" data-i18n="nav.blankpage">Editais Cultura</span>
                 </a>
             </li>
             <li class="active">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Mapa Cultural</span>
-                </a>
-            </li>
-            <li class="active">
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Cultura da Unidade</span>
+                    <span class="nav-link-text" data-i18n="nav.blankpage">Editais Bolsas</span>
                 </a>
             </li>
             <li class="active">
@@ -133,24 +115,7 @@
                 <ul>
                     <li>
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Sub-category</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Sublevel Item</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" title="Another Item" data-filter-tags="utilities menu child another item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Another Item</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="disabled">
-                        <a href="javascript:void(0);" title="Disabled item" data-filter-tags="utilities disabled item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Disabled item</span>
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Cadastrar Usuário</span>
                         </a>
                     </li>
                 </ul>
@@ -176,12 +141,6 @@
             <li>
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Usuários</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Unidades</span>
                 </a>
             </li>
@@ -190,27 +149,6 @@
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Logs</span>
                 </a>
-            </li>
-            <!-- Example of open and active states -->
-            <li class="active open">
-                <a href="#" title="Category" data-filter-tags="category">
-                    <i class="fal fa-plus"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">Open Item</span>
-                </a>
-                <ul>
-                    <li class="active open">
-                        <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Open Sub-category</span>
-                        </a>
-                        <ul>
-                            <li class="active">
-                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Active Item</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
             </li>
         </ul>
         <div class="filter-message js-filter-message bg-success-600"></div>

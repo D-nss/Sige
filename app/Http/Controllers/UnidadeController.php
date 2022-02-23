@@ -15,7 +15,10 @@ class UnidadeController extends Controller
      */
     public function index()
     {
-        //
+        $unidades = Unidade::all();
+        return view('unidades.index', [
+            'unidades' => $unidades
+        ]);
     }
 
     /**
@@ -25,7 +28,7 @@ class UnidadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('unidades.create');
     }
 
     /**
@@ -36,7 +39,12 @@ class UnidadeController extends Controller
      */
     public function store(StoreUnidadeRequest $request)
     {
-        //
+        return dd($request);
+        /*$unidade = new Unidade();
+        $unidade->nome = $request->nome;
+        $unidade->sigla = $request->sigla;
+        $unidade->save();
+        return redirect()->route('unidade.index');*/
     }
 
     /**
@@ -47,7 +55,9 @@ class UnidadeController extends Controller
      */
     public function show(Unidade $unidade)
     {
-        //
+        return view('unidades.show', [
+            'unidade' => $unidade
+        ]);
     }
 
     /**
@@ -58,7 +68,9 @@ class UnidadeController extends Controller
      */
     public function edit(Unidade $unidade)
     {
-        //
+        return view('unidades.edit', [
+            'unidade' => $unidade
+        ]);
     }
 
     /**
@@ -70,7 +82,10 @@ class UnidadeController extends Controller
      */
     public function update(UpdateUnidadeRequest $request, Unidade $unidade)
     {
-        //
+        $unidade->nome = $request->nome;
+        $unidade->sigla = $request->sigla;
+        $unidade->save();
+        return redirect()->route('unidade.index');
     }
 
     /**
@@ -81,6 +96,7 @@ class UnidadeController extends Controller
      */
     public function destroy(Unidade $unidade)
     {
-        //
+        $unidade->delete();
+        return redirect()->route('unidade.index');
     }
 }

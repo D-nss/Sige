@@ -12,7 +12,7 @@
               <!-- Default Card Example -->
               <div class="card mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-green">Preencha corretamente os campos para criar um novo Usuario</h6>
+                  <h6 class="m-0 font-weight-bold text-green">Preencha corretamente os campos para editar o Usuario</h6>
                 </div>
                 <div class="card-body">
                     <form action="{{route('user.update', ['user' => $usuario->id])}}" method="POST">

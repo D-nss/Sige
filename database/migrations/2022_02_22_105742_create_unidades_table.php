@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('unidades', function (Blueprint $table) {
             $table->id();
+            $table->string('nome')->nullable();
+            $table->string('sigla');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cadastrar nova Unidade')
+@section('title', 'Cadastrar Nova Unidade')
 
 @section('content')
         <!-- Begin Page Content -->
@@ -15,11 +15,11 @@
                   <h6 class="m-0 font-weight-bold text-green">Preencha corretamente os campos para criar uma nova Unidade</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('unidades.store')}}" method="POST">
+                    <form action="{{route('unidade.store')}}" method="POST">
                         @csrf
                         @include('unidades._form')
                         <button class="btn btn-primary btn-user btn-block btn-verde">
-                            Criar Usuário
+                            Criar Unidade
                         </button>
                         <a href="/unidades" class="btn btn-secondary btn-user btn-block ">
                             <span class="icon text-white-50">

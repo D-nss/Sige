@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Unidade extends Model
 {
     use HasFactory;
+
+    public function usuarios(){
+        return $this->hasMany(User::class);
+    }
 }
