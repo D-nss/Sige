@@ -39,12 +39,11 @@ class UnidadeController extends Controller
      */
     public function store(StoreUnidadeRequest $request)
     {
-        return dd($request);
-        /*$unidade = new Unidade();
+        $unidade = new Unidade();
         $unidade->nome = $request->nome;
         $unidade->sigla = $request->sigla;
         $unidade->save();
-        return redirect()->route('unidade.index');*/
+        return redirect()->route('unidade.index');
     }
 
     /**

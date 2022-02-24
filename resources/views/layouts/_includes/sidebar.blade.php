@@ -53,22 +53,22 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="disabled">
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                         </a>
                         <ul>
-                            <li>
+                            <li class="disabled">
                                 <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Ação de Extensão</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="disabled">
                                 <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="disabled">
                                 <a href="javascript:void(0);" title="Another Item" data-filter-tags="utilities menu child another item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Concluídos</span>
                                 </a>
@@ -82,25 +82,25 @@
                     </li>
                 </ul>
             </li>
-            <li class="active">
+            <li class="disabled">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Editais Extensão</span>
                 </a>
             </li>
-            <li class="active">
+            <li class="disabled">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Editais Cultura</span>
                 </a>
             </li>
-            <li class="active">
+            <li class="disabled">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Editais Bolsas</span>
                 </a>
             </li>
-            <li class="active">
+            <li class="disabled">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Relatórios</span>
@@ -114,37 +114,37 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                        <a href="/usuarios/novo" title="Menu child" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Cadastrar Usuário</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li>
+                <a href="/unidades" title="Blank Project" data-filter-tags="blank page">
+                    <i class="fal fa-globe"></i>
+                    <span class="nav-link-text" data-i18n="nav.blankpage">Unidades</span>
+                </a>
+            </li>
+            <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Editais</span>
                 </a>
             </li>
-            <li>
+            <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Cronogramas</span>
                 </a>
             </li>
-            <li>
+            <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Áreas Temáticas</span>
                 </a>
             </li>
-            <li>
-                <a href="#" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Unidades</span>
-                </a>
-            </li>
-            <li>
+            <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Logs</span>

@@ -16,10 +16,10 @@
     <table class="table table-bordered" id="dt-unidades" width="100%" cellspacing="0">
     <thead>
     <tr>
-    <th><i class="fas fa-user"></i> Id</th>
-    <th><i class="fas fa-user"></i> Nome Unidade</th>
-    <th><i class="fas fa-envelope"></i> SIGLA</th>
-    <th><i class="far fa-clock"></i> Atualizado em</th>
+    <th> <i class="fal fa-landmark"></i></th>
+    <th>Nome Unidade</th>
+    <th>SIGLA</th>
+    <th>Atualizado em</th>
     <th>Ações</th>
     </tr>
     </thead>

@@ -32,6 +32,11 @@
                             <td> {{$usuario->updated_at->format('d/m/Y H:i:s')}}</td>
                             <td>
                                 <a href="{{ route('user.show', ['user' => $usuario->id]) }}">link</a>
+                                <form action="{{ route('user.desativar', ['user' => $usuario->id]) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="submit" value="Desativar">
+                                </form>
                                 <form action="{{ route('user.destroy', ['user' => $usuario->id]) }}" method="post">
                                     @csrf
                                     @method('delete')

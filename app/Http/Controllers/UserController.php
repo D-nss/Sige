@@ -48,6 +48,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->unidade_id = $request->unidade;
+        $user->ativo = true;
         $user->save();
         return redirect()->route('user.index');
     }
@@ -102,6 +103,19 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * Atribui ao usuário seu atributo 'ativo' como falso
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function desativar(User $user)
+    {
+        $user->ativo = false;
+        $user->save();
         return redirect()->route('user.index');
     }
 }
