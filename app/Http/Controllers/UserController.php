@@ -112,6 +112,19 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    public function ativar(User $user)
+    {
+        $user->ativo = true;
+        $user->save();
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * Atribui ao usuário seu atributo 'ativo' como falso
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
     public function desativar(User $user)
     {
         $user->ativo = false;

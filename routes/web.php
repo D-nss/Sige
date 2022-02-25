@@ -38,4 +38,5 @@ Route::group(['middleware'=>'auth'], function(){
 
 Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
 Route::resource('/unidades', UnidadeController::class)->names('unidade')->parameters(['unidades' => 'unidade']);
+Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');
 Route::put('/usuarios/{user}/desativar', [UserController::class, 'desativar'])->name('user.desativar');

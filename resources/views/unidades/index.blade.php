@@ -17,8 +17,8 @@
     <thead>
     <tr>
     <th> <i class="fal fa-landmark"></i></th>
-    <th>Nome Unidade</th>
-    <th>SIGLA</th>
+    <th>Nome</th>
+    <th>Sigla</th>
     <th>Atualizado em</th>
     <th>Ações</th>
     </tr>

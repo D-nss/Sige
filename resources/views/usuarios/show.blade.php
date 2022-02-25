@@ -27,7 +27,9 @@
                                     <div class="row no-gutters row-grid">
                                         <div class="col-12">
                                             <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                                                <img src="/smartadmin-4.5.1/img/demo/avatars/avatar-m.png" class="rounded-circle shadow-2 img-thumbnail" alt="">
+                                                <span class="fa-5x d-inline l-h-n">
+                                                    <i class="fal fa-user"></i>
+                                                </span>
                                                 <h5 class="mb-0 fw-700 text-center mt-3">
                                                     {{$usuario->name}}
                                                     <small class="text-muted mb-0">{{$usuario->unidade->sigla}}</small>

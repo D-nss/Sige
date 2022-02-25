@@ -23,7 +23,7 @@
                         </button>
                         <a href="/usuarios" class="btn btn-secondary btn-user btn-block ">
                             <span class="icon text-white-50">
-                              <i class="fas fa-arrow-left"></i>
+                                <i class="fal fa-long-arrow-left"></i>
                             </span>
                             <span class="text">Voltar</span>
                           </a>
