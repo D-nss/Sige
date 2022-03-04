@@ -42,16 +42,19 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Dados Indicadores</span>
+                        <a href="{{ url('/indicadores') }}" title="Indicadores">
+                            <span class="nav-link-text">Dados Indicadores</span>
                         </a>
-                        <ul>
+                        <!-- <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Dados Indicadores</span>
+                        </a> -->
+                        <!-- <ul>
                             <li>
                                 <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Dados</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                     <li class="disabled">
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">

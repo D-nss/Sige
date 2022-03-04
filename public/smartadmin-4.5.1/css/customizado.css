@@ -2,3 +2,17 @@
     width: 180px;
     height: 60px;
 }
+
+.btn-light-green {
+    color: #444;
+    background: #69F0AE;
+}
+
+.btn-light-green:hover {
+    background: #00E676;
+    color: #fff;
+}
+
+.active {
+    color:#00be6f !important;
+}

@@ -28,6 +28,7 @@ Versão: 4.5.1
         <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
         <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/datagrid/datatables/datatables.bundle.css')}}">
+        <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/formplugins/smartwizard/smartwizard.css')}}">
     </head>
     <!-- BEGIN Body -->
     <!-- Possible Classes
@@ -233,6 +234,7 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/vendors.bundle.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/app.bundle.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/datagrid/datatables/datatables.bundle.js')}}"></script>
+        <script src="{{asset('smartadmin-4.5.1/js/formplugins/smartwizard/smartwizard.js')}}"></script>
         <script>
             $(document).ready(function()
             {
@@ -272,6 +274,66 @@ Versão: 4.5.1
                     var theadColor = $(this).attr("data-bg");
                     console.log(theadColor);
                     $('#dt-unidades').removeClassPrefix('bg-').addClass(theadColor);
+                });
+
+                $('#dt-indicadores').dataTable(
+                {
+                    responsive: true
+                });
+
+            });
+
+            $(document).ready(function()
+            {
+
+                // Smart Wizard
+                $('#smartwizard').smartWizard(
+                {
+                    selected: 0, // Initial selected step, 0 = first step 
+                    keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    autoAdjustHeight: false, // Automatically adjust content height
+                    cycleSteps: false, // Allows to cycle the navigation of steps
+                    backButtonSupport: true, // Enable the back button support
+                    useURLhash: false, // Enable selection of the step based on url hash
+                    showStepURLhash: false,
+                    lang:
+                    { // Language variables
+                        next: 'Próximo',
+                        previous: 'Anterior'
+                    },
+                    toolbarSettings:
+                    {
+                        toolbarPosition: 'bottom', // none, top, bottom, both
+                        toolbarButtonPosition: 'right', // left, right
+                        showNextButton: true, // show/hide a Next button
+                        showPreviousButton: true, // show/hide a Previous button
+                        toolbarExtraButtons: [
+                        $('<button></button>').text('Finalizar')
+                                    .addClass('btn btn-primary btn-user btn-block btn-verde')
+                                    .on('click', function(){ 
+                                    //alert('Finsih button click');                            
+                                    }),
+                        // $('<button></button>').text('Cancelar')
+                        //             .addClass('btn btn-danger')
+                        //             .on('click', function(){ 
+                        //             alert('Cancel button click');                            
+                        //             })
+                        ]
+                    },
+                    anchorSettings:
+                    {
+                        anchorClickable: true, // Enable/Disable anchor navigation
+                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        markDoneStep: true, // add done css
+                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                    },
+                    contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+                    contentCache: true, //ajax content
+                    disabledSteps: [], // Array Steps disabled
+                    errorSteps: [], // Highlight step with errors
+                    theme: 'dots', //dots, default, circles
+                    transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+                    transitionSpeed: '400'
                 });
 
             });
