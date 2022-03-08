@@ -31,11 +31,11 @@
       <td>{{$unidade->sigla}}</td>
       <td> {{$unidade->updated_at->format('d/m/Y H:i:s')}}</td>
       <td>
-        <a href="{{ route('unidade.show', ['unidade' => $unidade->id]) }}">link</a>
+        <a style="float: left;" class="btn btn-xs btn-success waves-effect waves-themed"  href="{{ route('unidade.show', ['unidade' => $unidade->id]) }}">link</a>
         <form action="{{ route('unidade.destroy', ['unidade' => $unidade->id]) }}" method="post">
             @csrf
             @method('delete')
-            <input type="submit" value="Remover">
+            <button type="submit" class="btn btn-xs btn-dark waves-effect waves-themed">Remover</button>
         </form>
     </td>
     </tr>

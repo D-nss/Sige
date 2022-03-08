@@ -38,18 +38,18 @@
                                     <span class="badge badge-danger badge-pill">Desativado</span>
                                 @endif
                             <td>
-                                <a href="{{ route('user.show', ['user' => $usuario->id]) }}">link</a>
+                                <a style="float: left;" class="btn btn-xs btn-success waves-effect waves-themed" href="{{ route('user.show', ['user' => $usuario->id]) }}">link</a>
                                 @if ($usuario->ativo)
                                     <form action="{{ route('user.desativar', ['user' => $usuario->id]) }}" method="post">
                                         @csrf
                                         @method('put')
-                                        <input type="submit" value="Desativar">
+                                        <button type="submit" class="btn btn-xs btn-dark waves-effect waves-themed">Desativar</button>
                                     </form>
                                 @else
                                     <form action="{{ route('user.ativar', ['user' => $usuario->id]) }}" method="post">
                                         @csrf
                                         @method('put')
-                                        <input type="submit" value="Ativar">
+                                        <button type="submit" class="btn btn-xs btn-info waves-effect waves-themed">Ativar</button>
                                     </form>
                                 @endif
                             </td>

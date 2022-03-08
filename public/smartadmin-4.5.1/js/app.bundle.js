@@ -19,11 +19,11 @@ var myapp_config = {
 	Reference: http://benalman.com/code/projects/jquery-throttle-debounce/examples/throttle/
 	*/
 	throttleDelay: 450, // for window.scrolling & window.resizing
-	filterDelay: 150,   // for keyup.functions 
+	filterDelay: 150,   // for keyup.functions
 	/*
 	DETECT MOBILE DEVICES
-	Description: Detects mobile device - if any of the listed device is 
-	detected a class is inserted to $.root_ and the variable thisDevice 
+	Description: Detects mobile device - if any of the listed device is
+	detected a class is inserted to $.root_ and the variable thisDevice
 	is decleard. (so far this is covering most hand held devices)
 	*/
 	thisDevice: null, // desktop or mobile
@@ -32,7 +32,7 @@ var myapp_config = {
 	mobileResolutionTrigger: 992, //the resolution when the mobile activation fires
 	/*
 	DETECT IF WEBKIT
-	Description: this variable is used to fire the custom scroll plugin. 
+	Description: this variable is used to fire the custom scroll plugin.
 	If it is a non-webkit it will fire the plugin.
 	*/
 	isWebkit: ((!!window.chrome && !!window.chrome.webstore) === true || Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 === true),
@@ -53,7 +53,7 @@ var myapp_config = {
 	debugState: true, // outputs debug information on browser console
 	/*
 	Turn on ripple effect for buttons and touch events
-	Dependency: 
+	Dependency:
 	*/
 	rippleEffect: true, // material design effect that appears on all buttons
 	/*
@@ -65,7 +65,7 @@ var myapp_config = {
 	Activate last tab
 	Stores the last tab in localstorage and activates it
 	*/
-	activateLastTab: true,	
+	activateLastTab: true,
 	/*
 	Primary menu anchor point #js-primary-nav
 	This is the root anchor point where the menu script will begin its build
@@ -73,7 +73,7 @@ var myapp_config = {
 	navAnchor: $('#js-primary-nav'), //changing this may implicate slimscroll plugin target
 	navHooks: $('#js-nav-menu'), //changing this may implicate CSS targets
 	navAccordion: true, //nav item when one is expanded the other closes
-	navInitalized: 'js-nav-built', //nav finished class 
+	navInitalized: 'js-nav-built', //nav finished class
 	navFilterInput: $('#nav_filter_input'), //changing this may implicate CSS targets
 	navHorizontalWrapperId: 'js-nav-menu-wrapper',
 	/*
@@ -134,7 +134,7 @@ var myapp_config = {
 		/**
 		 * pass the options variable to the function
 		 *
-		 *   $(id).navigation({ 
+		 *   $(id).navigation({
 		 *       accordion: true,
 		 *       animate: 'easeOutExpo',
 		 *       speed: 200,
@@ -144,7 +144,7 @@ var myapp_config = {
 		 *   });
 		 *
 		 **/
-	     
+
 	    navigation: function(options) {
 
 	        var defaults = {
@@ -246,7 +246,7 @@ var myapp_config = {
 				                                    	.html(opts.closedSign);
 
 				                                    if (myapp_config.debugState)
-				                                        console.log("nav item closed")    
+				                                        console.log("nav item closed")
 				                                });
 				                            }
 				                        }
@@ -265,7 +265,7 @@ var myapp_config = {
 				                    	.find("a:first")
 				                    	.attr('aria-expanded', false)
 				                    	.find("b:first").delay(opts.speed)
-				                    	.html(opts.closedSign);  
+				                    	.html(opts.closedSign);
 
 				                    if (myapp_config.debugState)
 				                        console.log("nav item closed")
@@ -286,12 +286,12 @@ var myapp_config = {
 				                });
 				            }
 				        }
-				    });    
+				    });
 
 				} else {
-				    
+
 				    if (myapp_config.debugState)
-				        console.log(self.get(0) + " this menu already exists");       
+				        console.log(self.get(0) + " this menu already exists");
 				}
 
 	    },
@@ -300,7 +300,7 @@ var myapp_config = {
 	     * DOC: $(id).destroy();
 	     **/
 	    navigationDestroy: function() {
-	        
+
 			self = $(this);
 
 			if (self.hasClass(myapp_config.navInitalized)) {
@@ -309,15 +309,15 @@ var myapp_config = {
 			    self.removeClass(myapp_config.navInitalized).find("ul").removeAttr("style");
 
 			    if (myapp_config.debugState)
-			        console.log( self.get(0) + " destroyed");     
+			        console.log( self.get(0) + " destroyed");
 
 			} else {
 			    console.log("menu does not exist")
 			}
 
-	        
+
 	    }
-	}); 
+	});
 
 })(jQuery, window, document);
  /*!
@@ -356,7 +356,7 @@ var myapp_config = {
                 /* define variables */
                 wrapperWidth,
                 currentMarginLeft,
-                contentWidth,               
+                contentWidth,
                 setMargin,
                 maxMargin,
 
@@ -443,7 +443,7 @@ var myapp_config = {
 
                 // Add code to restore the element to its original state...
 
-                $el.css('margin-left', '0px');                           
+                $el.css('margin-left', '0px');
                 $el.unwrap(parent);
                 $el.prev().off().remove();
                 $el.next().off().remove();
@@ -513,14 +513,14 @@ var myapp_config = {
 var initApp = (function(app) {
 
 	/**
-	 * List filter 
+	 * List filter
 	 * DOC: searches list items, it could be UL or DIV elements
 	 * usage: initApp.listFilter($('.list'), $('#intput-id'));
 	 *        inside the .list you will need to insert 'data-filter-tags' inside <a>
 	 * @param  list
-	 * @param  input 
+	 * @param  input
 	 * @param  anchor
-	 * @return 
+	 * @return
 	 */
 	app.listFilter = function (list, input, anchor) {
 
@@ -536,25 +536,25 @@ var initApp = (function(app) {
 
 			var filter = $(this).val().toLowerCase(),
 				listPrev = $(list).next().filter('.js-filter-message');
-	
+
 			/* when user types more than 1 letter start search filter */
 			if(filter.length > 1) {
 
 				/* this finds all data-filter-tags in a list that contain the input val,
 				   hiding the ones not containing the input while showing the ones that do */
-				
-				/* (1) hide all that does not match */   
+
+				/* (1) hide all that does not match */
 				$(list).find($("[data-filter-tags]:not([data-filter-tags*='" + filter + "'])"))
 					.parentsUntil(list).removeClass('js-filter-show')
 					.addClass('js-filter-hide');
 
-				/* (2) hide all that does match */	
+				/* (2) hide all that does match */
 				$(list).find($("[data-filter-tags*='" + filter + "']"))
 					.parentsUntil(list).removeClass('js-filter-hide')
 					.addClass('js-filter-show');
 
-				/* if element exists then print results */	
-				if (listPrev){	
+				/* if element exists then print results */
+				if (listPrev){
 					listPrev.text("showing " + $(list).find('li.js-filter-show').length + " from " + $(list).find('[data-filter-tags]').length + " total");
 				}
 
@@ -567,7 +567,7 @@ var initApp = (function(app) {
 				if (listPrev){
 					listPrev.text("");
 				}
-			} 
+			}
 
 			return false;
 
@@ -584,15 +584,15 @@ var initApp = (function(app) {
 	};
 
 	/**
-	 * Load scripts using lazyload method 
+	 * Load scripts using lazyload method
 	 * usage: initApp.loadScript("js/my_lovely_script.js", myFunction);
 	 * @param  {[type]}   scriptName
-	 * @param  {Function} callback  
-	 * @return {[type]}             
+	 * @param  {Function} callback
+	 * @return {[type]}
 	 */
 	app.loadScript = function (scriptName, callback) {
 
-		if (!myapp_config.jsArray[scriptName]) {	
+		if (!myapp_config.jsArray[scriptName]) {
 			var promise = jQuery.Deferred();
 
 			/* adding the script tag to the head as suggested before */
@@ -610,7 +610,7 @@ var initApp = (function(app) {
 			/* fire the loading */
 			body.appendChild(script);
 			myapp_config.jsArray[scriptName] = promise.promise();
-		}	
+		}
 
 		else if (myapp_config.debugState)
 			console.log("This script was already loaded: " + scriptName);
@@ -623,12 +623,12 @@ var initApp = (function(app) {
 	};
 
 	/**
-	 * Javascript Animation for save settings 
+	 * Javascript Animation for save settings
 	 * @return
 	 **/
 	app.saveSettings = function () {
 
-		/* if saveSettings function exists */		
+		/* if saveSettings function exists */
 		if (typeof saveSettings !== 'undefined' && $.isFunction(saveSettings) && myapp_config.storeLocally) {
 
 			/* call accessIndicator animation */
@@ -643,7 +643,7 @@ var initApp = (function(app) {
 		} else {
 			console.log("save function does not exist");
 		}
-		
+
 	};
 
 	/**
@@ -666,7 +666,7 @@ var initApp = (function(app) {
 	};
 
 	/**
-	 * Reset settings 
+	 * Reset settings
 	 * DOC: removes all classes from root_ then saves
 	 * @return {[type]}
 	 **/
@@ -691,7 +691,7 @@ var initApp = (function(app) {
 	};
 
 	/**
-	 * Factory Reset 
+	 * Factory Reset
 	 * DOC: Resets all of localstorage
 	 * @return {[type]}
 	 **/
@@ -723,7 +723,7 @@ var initApp = (function(app) {
 				closeButton: false,
 				callback: function (result) {
 					if (result == true) {
-						//close panel 
+						//close panel
 						localStorage.clear();
 						initApp.resetSettings();
 						location.reload();
@@ -739,7 +739,7 @@ var initApp = (function(app) {
 				location.reload();
 			}
 
-		}				
+		}
 
 		//e.preventDefault();
 
@@ -765,11 +765,11 @@ var initApp = (function(app) {
 	/*
 	 * usage: initApp.pushSettings("className1 className2")
 	 * save settings to localstorage: initApp.pushSettings("className1 className2", true)
-	 * DOC: pushSettings will also auto save to localStorage if "storeLocally == true" 
+	 * DOC: pushSettings will also auto save to localStorage if "storeLocally == true"
 	 * we will use this "pushSettings" when loading settings from a database
-	 * @param  {[type]} DB_string   
+	 * @param  {[type]} DB_string
 	 * @param  {[type]} saveToLocal
-	 * @return {[type]}            
+	 * @return {[type]}
 	 */
 	app.pushSettings = function (DB_string, saveToLocal) {
 
@@ -814,10 +814,10 @@ var initApp = (function(app) {
 		} else {
 			console.log("ERROR: You must specify the class you need to remove")
 		}
-	
+
 
 		//initApp.pushSettings(layouts);
-		
+
 	};
 
 	/*
@@ -835,8 +835,8 @@ var initApp = (function(app) {
 	/*
 	 * Play Sounds
 	 * usage: initApp.playSound(path, sound);
-	 * @param  {[string]} path 
-	 * @param  {[string]} sound 
+	 * @param  {[string]} path
+	 * @param  {[string]} sound
 	 */
 	app.playSound = function(path, sound) {
 		var audioElement = document.createElement('audio');
@@ -881,7 +881,7 @@ var initApp = (function(app) {
 	 **/
 	app.detectBrowserType = function () {
 
-		/* safari, chrome or IE detect */	
+		/* safari, chrome or IE detect */
 		if(myapp_config.isChrome){
 
 			myapp_config.root_.addClass('chrome webkit');
@@ -903,12 +903,12 @@ var initApp = (function(app) {
 	/**
 	 * Add device type
 	 * DOC: Detect if mobile or desktop
-	 **/		
+	 **/
 	app.addDeviceType = function() {
-		
+
 		if (!myapp_config.isMobile) {
 
-			/* desktop */	
+			/* desktop */
 			myapp_config.root_.addClass('desktop');
 			myapp_config.thisDevice = 'desktop';
 
@@ -917,18 +917,18 @@ var initApp = (function(app) {
 			/* mobile */
 			myapp_config.root_.addClass('mobile');
 			myapp_config.thisDevice = 'mobile';
-			 
+
 		}
 
 		return myapp_config.thisDevice;
-		
+
 	};
 
 	/**
 	 * Fix logo position on .header-function-fixed & .nav-function-hidden
 	 * DOC: Counters browser bug for fixed position and overflow:hidden for the logo (firefox/IE/Safari)
 	 *      Will not fire for webkit devices or Chrome as its not needed
-	 * @return {[type]}     
+	 * @return {[type]}
 	 **/
 	 app.windowScrollEvents = function () {
 		if ( myapp_config.root_.is('.nav-function-hidden.header-function-fixed:not(.nav-function-top)') &&  myapp_config.thisDevice === 'desktop') {
@@ -945,12 +945,12 @@ var initApp = (function(app) {
 	 * DOC: sometimes settings can trigger certain plugins; so we check this condition and activate accordingly
 	 * E.g: the fixed navigation activates custom scroll plugin for the navigation, but this only happens when
 	 *		it detects desktop browser and destroys the plugin when navigation is on top or if its not fixed.
-	 * @return {[type]}		
+	 * @return {[type]}
 	 **/
 	 app.checkNavigationOrientation = function() {
 
 		/**
-		 * DOC: add the plugin with the following rules: fixed navigation is selected, top navigation is not active, minify nav is not active, 
+		 * DOC: add the plugin with the following rules: fixed navigation is selected, top navigation is not active, minify nav is not active,
 		 * and the device is desktop. We do not need to activate the plugin when loading from a mobile phone as it is not needed for touch screens.
 		 **/
 		switch ( true ) {
@@ -970,7 +970,7 @@ var initApp = (function(app) {
 
 					if ( document.getElementById(myapp_config.navHorizontalWrapperId) ) {
 						myapp_config.navHooks.menuSlider('destroy');
-						
+
 						if (myapp_config.debugState)
 						console.log("----top controls destroyed");
 					}
@@ -980,9 +980,9 @@ var initApp = (function(app) {
 
 				} else {
 					console.log("$.fn.slimScroll...NOT FOUND");
-				}	
+				}
 
-				break;			
+				break;
 
 			case ( myapp_config.navAnchor.parent().hasClass('slimScrollDiv') && myapp_config.thisDevice === 'desktop' && typeof $.fn.slimScroll !== 'undefined' ):
 
@@ -993,13 +993,13 @@ var initApp = (function(app) {
 				/* clear event listners (IE bug) */
 				events = jQuery._data( myapp_config.navAnchor[0], "events" );
 
-				if (events) 
+				if (events)
 					jQuery._removeData( myapp_config.navAnchor[0], "events" );
 
 				if (myapp_config.debugState)
 					console.log("slimScroll destroyed");
 
-				break;					
+				break;
 
 		}
 
@@ -1031,7 +1031,7 @@ var initApp = (function(app) {
 				if (myapp_config.debugState)
 				console.log("----top controls destroyed -- case 2");
 
-				break;	
+				break;
 
 			/* fires when users switch off nav-function-top class */
 			case ( !myapp_config.root_.hasClass('nav-function-top') && $("#js-nav-menu-wrapper").length == true ):
@@ -1041,29 +1041,29 @@ var initApp = (function(app) {
 
 				/* build horizontal nav */
 				if (myapp_config.debugState)
-				console.log("----top controls destroyed -- case 3");				
+				console.log("----top controls destroyed -- case 3");
 
-				break;	
+				break;
 
 		}
 
 	};
-	
+
 	/**
 	 * Activate Nav
 	 * DOC: activation should not take place if top navigation is on
-	 * @param  {[type]} id 
-	 * @return {[type]} 
+	 * @param  {[type]} id
+	 * @return {[type]}
 	 **/
 	app.buildNavigation = function(id) {
-		
+
 		/**
 		 * build nav
 		 * app.navigation.js
 		 **/
 		if ($.fn.navigation) {
 
-			$(id).navigation({ 
+			$(id).navigation({
 
 				accordion : myapp_config.navAccordion,
 				speed : myapp_config.navSpeed,
@@ -1084,18 +1084,18 @@ var initApp = (function(app) {
 
 	/**
 	 * Destroy Nav
-	 * @param  {[type]} id 
-	 * @return {[type]} 
+	 * @param  {[type]} id
+	 * @return {[type]}
 	 **/
 	app.destroyNavigation = function(id) {
-		
+
 		/**
 		 * destroy nav
 		 * app.navigation.js
 		 **/
 		if ($.fn.navigation) {
 
-			$(id).navigationDestroy(); 
+			$(id).navigationDestroy();
 
 			return (id);
 		} else {
@@ -1112,7 +1112,7 @@ var initApp = (function(app) {
 	 * @param  {[type]} parentClass
 	 * @param  {[type]} focusClass
 	 * @param  {[type]} disabledClass
-	 * @return {[type]} 
+	 * @return {[type]}
 	 **/
 	app.appForms = function(parentClass,focusClass,disabledClass){
 
@@ -1157,15 +1157,15 @@ var initApp = (function(app) {
 				deleteClass(this, parentClass, focusClass);
 			});
 		});
-	}; 
-	
+	};
+
 	/**
 	 * Mobile Check Activate
 	 * DOC: check on window resize if screen width is less than [value]
 	 * @return {int}
 	 */
 	app.mobileCheckActivation = function(){
-		
+
 		if ( window.innerWidth < myapp_config.mobileResolutionTrigger ) {
 
 			myapp_config.root_.addClass('mobile-view-activated');
@@ -1182,13 +1182,13 @@ var initApp = (function(app) {
 			console.log( "mobileCheckActivation on " + $(window).width() + " | activated: " + myapp_config.mobileMenuTrigger);
 
 		return myapp_config.mobileMenuTrigger;
-	}; 
+	};
 
 	/**
 	 *  Toggle visibility
 	 * 	DOC: show and hide content with a button action
 	 *  Usage: onclick="initApp.toggleVisibility('foo');"
-	 *  @param  {[type]} id 
+	 *  @param  {[type]} id
 	 *  @return {[type]}
 	 **/
 	app.toggleVisibility = function (id) {
@@ -1221,17 +1221,16 @@ var initApp = (function(app) {
 				$('.modal-backdrop').addClass('modal-backdrop-transparent');
 			});
 		});
-		
+
 		/* Add app date to js-get-date */
 		if ( myapp_config.appDateHook.length ) {
-			var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-				day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+			var months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+				day = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
 				now = new Date(),
-				formatted = day[now.getDay()] + ', ' +  
-							months[now.getMonth()] + ' ' +  
-							now.getDate() + ', ' +
+				formatted = day[now.getDay()] + ', ' +
+                            now.getDate() + ' de ' + months[now.getMonth()] + ' de ' +
 							now.getFullYear();
-			myapp_config.appDateHook.text(formatted);				
+			myapp_config.appDateHook.text(formatted);
 		}
 
 		/* Check conflicting classes to build/destroy slimscroll */
@@ -1239,16 +1238,16 @@ var initApp = (function(app) {
 
 		/* Activate the last tab clicked using localStorage */
 		if ( myapp_config.activateLastTab ) {
-			
+
 			var lastTab = localStorage.getItem('lastTab');
-			 
+
 			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				localStorage.setItem('lastTab', $(this).attr('href'));
 			});
-			
+
 			if (lastTab) {
 				$('[href="' + lastTab + '"]').tab('show');
-			} 
+			}
 		}
 
 		/**
@@ -1285,7 +1284,7 @@ var initApp = (function(app) {
 			});
 
 			if (myapp_config.debugState)
-				console.log("%c✔ SlimScroll plugin active", "color: #148f32");	
+				console.log("%c✔ SlimScroll plugin active", "color: #148f32");
 
 		} else {
 			console.log("WARN! $.fn.slimScroll not loaded or user is on desktop");
@@ -1333,14 +1332,14 @@ var initApp = (function(app) {
 			console.log("this")
 		}*/
 
-		/* 
+		/*
 		 * Disable popper.js's forced hardware accelaration styles
 		 */
-		if( typeof($.fn.dropdown) !== 'undefined'){ 
+		if( typeof($.fn.dropdown) !== 'undefined'){
 			Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
 		} else {
 			console.log("OOPS! bs.popover is not loaded");
-		} 
+		}
 
 		/**
 		 * Dropdowns will not close on click
@@ -1352,7 +1351,7 @@ var initApp = (function(app) {
 
 		/**
 		 * Waves effect (plugin has issues with IE9)
-		 * DOC: http://fian.my.id/Waves/#start 
+		 * DOC: http://fian.my.id/Waves/#start
 		 **/
 		if (window.Waves && myapp_config.rippleEffect) {
 
@@ -1360,8 +1359,8 @@ var initApp = (function(app) {
 			Waves.init();
 
 			if (myapp_config.debugState)
-				console.log("%c✔ Waves plugin active", "color: #148f32");	
-			
+				console.log("%c✔ Waves plugin active", "color: #148f32");
+
 		} else {
 			if (myapp_config.debugState)
 				console.log("%c✘ Waves plugin inactive! ", "color: #fd3995");
@@ -1370,7 +1369,7 @@ var initApp = (function(app) {
 
 		/**
 		 * Action buttons
-		 **/		
+		 **/
 		myapp_config.root_
 			.on('click touchend', '[data-action]', function(e) {
 
@@ -1404,7 +1403,7 @@ var initApp = (function(app) {
 							$(this).toggleClass('active');
 						}
 
-						/* focus input if available 
+						/* focus input if available
 						   FAQ: We had to put a delay timer to slow it down for chrome
 						*/
 						if(inputFocus != undefined) {
@@ -1486,7 +1485,7 @@ var initApp = (function(app) {
 								console.log( "panel id:" + selectedPanel.attr('id') + " | action: collapsed" );
 
 						});
-				
+
 						/* return ID of panel */
 						//return selectedPanel.attr('id');
 
@@ -1559,7 +1558,7 @@ var initApp = (function(app) {
 							});
 
 						} else {
-							
+
 							if (confirm( 'Do you wish to delete panel ' + selectedPanel.children('.panel-hdr').children('h2').text().trim() + '?' )) {
 								killPanel();
 							}
@@ -1570,7 +1569,7 @@ var initApp = (function(app) {
 
 					/**
 					 * update header css, 'theme-update' trigger
-					 * eg:  data-action = "theme-update" 
+					 * eg:  data-action = "theme-update"
 					 *      data-theme = "css/cust-theme-1.css"
 					 **/
 					case ( actiontype === 'theme-update' ):
@@ -1595,7 +1594,7 @@ var initApp = (function(app) {
 
 						initApp.factoryReset();
 
-						break;	
+						break;
 
 					/**
 					 * app print
@@ -1618,7 +1617,7 @@ var initApp = (function(app) {
 
 						initApp.loadScript(loadurl,loadfunction);
 
-						break;	
+						break;
 
 					/**
 					 * app language selection
@@ -1631,10 +1630,10 @@ var initApp = (function(app) {
 						if (!$.i18n) {
 						//jQuery.getScript('http://url/to/the/script');
 
-							initApp.loadScript("js/i18n/i18n.js", 
+							initApp.loadScript("js/i18n/i18n.js",
 
 								function activateLang () {
-									
+
 									$.i18n.init({
 										resGetPath: 'media/data/__lng__.json',
 										load: 'unspecific',
@@ -1644,8 +1643,8 @@ var initApp = (function(app) {
 										$('[data-i18n]').i18n();
 										$('[data-lang]').removeClass('active');
 										$('[data-lang="' + applang + '"]').addClass('active');
-									});								
-									
+									});
+
 								}
 							);
 
@@ -1659,14 +1658,14 @@ var initApp = (function(app) {
 
 						}
 
-						break;	
+						break;
 
 					/**
 					 * app 'fullscreen' trigger
 					 **/
 					case ( actiontype === 'app-fullscreen' ):
 
-						/* NOTE: this may not work for all browsers if the browser security does not permit it 
+						/* NOTE: this may not work for all browsers if the browser security does not permit it
 						   IE issues: http://stackoverflow.com/questions/33732805/fullscreen-not-working-in-ie */
 
 						if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {
@@ -1704,8 +1703,8 @@ var initApp = (function(app) {
 								console.log("%capp fullscreen toggle inactive! ", "color: #ed1c24");
 						}
 
-						break; 
-				
+						break;
+
 					/**
 					 * app 'playsound' trigger
 					 * usage: data-action="playsound" data-soundpath="media/sound/" data-soundfile="filename" (no file extensions)
@@ -1727,10 +1726,10 @@ var initApp = (function(app) {
 				if (myapp_config.debugState)
 					console.log("data-action clicked: " + actiontype);
 
-				/* stop default link action */				
-				e.stopPropagation(); 
-				e.preventDefault();		
-		}); 
+				/* stop default link action */
+				e.stopPropagation();
+				e.preventDefault();
+		});
 
 		/**
 		 * Windows mobile 8 fix ~
@@ -1751,24 +1750,24 @@ var initApp = (function(app) {
 		 * DOC: only show this if debug state tree
 		 **/
 		 if (myapp_config.debugState)
-			console.log("%c✔ Finished app.init() v" + myapp_config.VERSION + '\n' + "---------------------------", "color: #148f32");	
+			console.log("%c✔ Finished app.init() v" + myapp_config.VERSION + '\n' + "---------------------------", "color: #148f32");
 	};
 
 	return app;
-	
+
 })({});
 
 /*
 	"Night is a bag that bursts with the golden dust of dawn..."
 
-	Oh wow, you actually opened this file and read it all the way though! Congrats! 
+	Oh wow, you actually opened this file and read it all the way though! Congrats!
 	Please do drop me a line at @myplaneticket :)
 
 */
 var layouts = (function(setlayout) {
 
 	setlayout.errorMessage = function(layout){
-		
+
 		console.log("('" + layout + "')" +" is not a valid entry, enter 'on' or 'off'");
 	}
 
@@ -2003,26 +2002,26 @@ var layouts = (function(setlayout) {
 
 		switch ( true ) {
 
-			case ( layout === 'sm' ): 
-				initApp.pushSettings('mod-skin-light') 
+			case ( layout === 'sm' ):
+				initApp.pushSettings('mod-skin-light')
 				break;
 
-			case ( layout === 'md' ): 
-				initApp.pushSettings('mod-skin-light') 
+			case ( layout === 'md' ):
+				initApp.pushSettings('mod-skin-light')
 				break;
 
-			case ( layout === 'lg' ): 
-				initApp.pushSettings('mod-skin-light') 
+			case ( layout === 'lg' ):
+				initApp.pushSettings('mod-skin-light')
 				break;
 
-			case ( layout === 'xl' ): 
-				initApp.pushSettings('mod-skin-light') 
+			case ( layout === 'xl' ):
+				initApp.pushSettings('mod-skin-light')
 				break;
 
-			default: 
+			default:
 				console.log("('" + layout + "')" +" is not a valid entry, enter 'sm', 'md', 'lg', or 'xl'");
 				break;
-		}	
+		}
 
 	};*/
 
@@ -2036,30 +2035,30 @@ var layouts = (function(setlayout) {
 
 		switch ( true ) {
 
-			case ( layout === 'default' ): 
+			case ( layout === 'default' ):
 				initApp.removeSettings('mod-skin-light', false);
 				initApp.removeSettings('mod-skin-dark', true);
 				break;
 
-			case ( layout === 'light' ): 
+			case ( layout === 'light' ):
 				initApp.removeSettings('mod-skin-dark', false);
 				initApp.pushSettings('mod-skin-light', true);
 				break;
 
-			case ( layout === 'dark' ): 
+			case ( layout === 'dark' ):
 				initApp.removeSettings('mod-skin-light', false);
 				initApp.pushSettings('mod-skin-dark', true);
 				break;
 
-			default: 
+			default:
 				console.log("('" + layout + "')" +" is not a valid entry, enter 'default', 'light', or 'dark'");
 				break;
-		}	
+		}
 
 	};
 
 	return setlayout;
-	
+
 })({});
 /**
  * Bind the throttled handler to the resize event.
@@ -2085,9 +2084,9 @@ $(window).resize(
 
 
 		 /** -- insert your resize codes below this line -- **/
-	 
+
 	})
-); 
+);
 
 /**
  * Bind the throttled handler to the scroll event
@@ -2102,7 +2101,7 @@ $(window).scroll(
 		  * If one is longer/shorter than the other, measure them to be equal.
 		  * This event is only fired on desktop.
 		  **/
-		  
+
 
 		  /** -- insert your other scroll codes below this line -- **/
 
@@ -2124,12 +2123,12 @@ $(window).on('scroll', initApp.windowScrollEvents);
 document.addEventListener('DOMContentLoaded', function() {
 
 	/**
-	 * detect desktop or mobile 
+	 * detect desktop or mobile
 	 **/
 	initApp.addDeviceType();
 
 	/**
-	 * detect Webkit Browser 
+	 * detect Webkit Browser
 	 **/
 	initApp.detectBrowserType();
 
@@ -2158,7 +2157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	 **/
 	initApp.appForms('.input-group', 'has-length', 'has-disabled');
 
-}); 
+});
 
 /**
  * Mobile orientation change events
@@ -2180,14 +2179,14 @@ $(window).on("blur focus", function(e) {
     /**
      * reduce double fire issues
      **/
-    if (prevType != e.type) {   
+    if (prevType != e.type) {
         switch (e.type) {
             case "blur":
-                myapp_config.root_.toggleClass("blur") 
+                myapp_config.root_.toggleClass("blur")
 
                 if (myapp_config.debugState)
                 console.log("blur");
-            
+
                 break;
             case "focus":
                 myapp_config.root_.toggleClass("blur")

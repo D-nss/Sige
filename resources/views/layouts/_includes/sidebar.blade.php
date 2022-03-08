@@ -1,7 +1,12 @@
 <aside class="page-sidebar">
     <div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{asset('smartadmin-4.5.1/img/logo-sige-branco.png')}}" alt="SIGE" aria-roledescription="logo">
+            <span class="fa-4x d-inline l-h-n">
+                <i class="fal fa-people-carry"></i>
+            </span>
+            <span class="page-logo-text mr-1 fw-900 fs-xxl p-2">
+                SIGEC
+            </span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
