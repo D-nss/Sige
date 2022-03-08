@@ -37,7 +37,7 @@
                         </tfoot>
                     </table>
                     <!-- datatable end -->
-                </div>
+                </div> 
             
             </div>
             

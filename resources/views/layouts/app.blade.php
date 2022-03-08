@@ -233,13 +233,16 @@ Versão: 4.5.1
 						+ src/../jquery-snippets.js (core) -->
         <script src="{{asset('smartadmin-4.5.1/js/vendors.bundle.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/app.bundle.js')}}"></script>
-        <script src="{{asset('smartadmin-4.5.1/js/datagrid/datatables/datatables.bundle.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/formplugins/smartwizard/smartwizard.js')}}"></script>
+        <script src="{{asset('smartadmin-4.5.1/js/datagrid/datatables/datatables.bundle.js')}}"></script>
         <script>
             $(document).ready(function()
             {
                 $('#dt-usuarios').dataTable(
                 {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
                     responsive: true
                 });
 
@@ -259,6 +262,9 @@ Versão: 4.5.1
 
                 $('#dt-unidades').dataTable(
                 {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
                     responsive: true
                 });
 
@@ -278,8 +284,14 @@ Versão: 4.5.1
 
                 $('#dt-indicadores').dataTable(
                 {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
                     responsive: true
                 });
+
+                $('#dt-indicadores_filter').addClass('form-inline');
+                $('#dt-indicadores_length').addClass('form-inline');
 
             });
 
@@ -337,7 +349,6 @@ Versão: 4.5.1
                 });
 
             });
-
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
