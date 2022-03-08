@@ -3261,6 +3261,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
             {
                 $('#dt-basic-example').dataTable(
                 {
+                    language: {
+                        url: "../smartadmin-4.5.1/js/pt_BR.json",
+                    },
                     responsive: true
                 });
 
@@ -3277,6 +3280,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     console.log(theadColor);
                     $('#dt-basic-example').removeClassPrefix('bg-').addClass(theadColor);
                 });
+
 
             });
 
