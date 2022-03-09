@@ -48,13 +48,13 @@
             </a>
         </div>
         <!-- app settings -->
-        <div class="hidden-md-down">
+        <!-- <div class="hidden-md-down">
             <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-settings">
                 <i class="fal fa-cog"></i>
             </a>
-        </div>
+        </div> -->
         <!-- app shortcuts -->
-        <div>
+        <!-- <div>
             <a href="#" class="header-icon" data-toggle="dropdown" title="Meus Serviços">
                 <i class="fal fa-cube"></i>
             </a>
@@ -219,14 +219,14 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- app message -->
-        <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-messenger">
+        <!-- <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-messenger">
             <i class="fal fa-globe"></i>
             <span class="badge badge-icon">!</span>
-        </a>
+        </a> -->
         <!-- app notification -->
-        <div>
+        <!-- <div>
             <a href="#" class="header-icon" data-toggle="dropdown" title="Você tem 11 notificações">
                 <i class="fal fa-bell"></i>
                 <span class="badge badge-icon">11</span>
@@ -315,9 +315,9 @@
                                 </li>
                                 <li>
                                     <a href="#" class="d-flex align-items-center">
-                                        <span class="status status-success mr-2">
+                                        <span class="status status-success mr-2"> -->
                                             <!-- <img src="img/demo/avatars/avatar-m.png" data-src="img/demo/avatars/avatar-h.png" class="profile-image rounded-circle" alt="Sarah McBrook" /> -->
-                                            <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-h.png')"></span>
+                                        <!--    <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-h.png')"></span>
                                         </span>
                                         <span class="d-flex flex-column flex-1 ml-1">
                                             <span class="name">Sarah McBrook</span>
@@ -385,9 +385,9 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="d-flex align-items-center show-child-on-hover">
-                                        <!--<img src="img/demo/avatars/avatar-m.png" data-src="img/demo/avatars/avatar-k.png" class="profile-image rounded-circle" alt="k" />-->
-                                        <div class="d-flex flex-column flex-1">
+                                    <div class="d-flex align-items-center show-child-on-hover"> -->
+                                        <!-- <img src="img/demo/avatars/avatar-m.png" data-src="img/demo/avatars/avatar-k.png" class="profile-image rounded-circle" alt="k" />-->
+                                        <!-- <div class="d-flex flex-column flex-1">
                                             <span class="name">
                                                 Troy Norman'<span class="fw-300">s new connections</span>
                                             </span>
@@ -408,9 +408,9 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="d-flex align-items-center show-child-on-hover">
+                                    <div class="d-flex align-items-center show-child-on-hover"> -->
                                         <!--<img src="img/demo/avatars/avatar-m.png" data-src="img/demo/avatars/avatar-e.png" class="profile-image-sm rounded-circle align-self-start mt-1" alt="k" />-->
-                                        <div class="d-flex flex-column flex-1">
+                                        <!-- <div class="d-flex flex-column flex-1">
                                             <span class="name">Dr John Cook <span class="fw-300">sent a <span class="text-danger">new signal</span></span></span>
                                             <span class="msg-a fs-sm mt-2">Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</span>
                                             <span class="fs-nano text-muted mt-1">10 minutes ago</span>
@@ -446,9 +446,9 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="d-flex align-items-center show-child-on-hover">
+                                    <div class="d-flex align-items-center show-child-on-hover"> -->
                                         <!--<img src="img/demo/avatars/avatar-m.png" data-src="img/demo/avatars/avatar-h.png" class="profile-image rounded-circle align-self-start mt-1" alt="k" />-->
-                                        <div class="d-flex flex-column flex-1">
+                                        <!-- <div class="d-flex flex-column flex-1">
                                             <div class="name mb-2">
                                                 Lisa Lamar<span class="fw-300"> updated project</span>
                                             </div>
@@ -581,7 +581,7 @@
                     <a href="#" class="fs-xs fw-500 ml-auto">ver todas as notificações</a>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- app user menu -->
         <div>
             <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">

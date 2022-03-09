@@ -61,7 +61,7 @@
                             </li>
                         </ul> -->
                     </li>
-                    <li class="disabled">
+                    <!-- <li class="disabled">
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                         </a>
@@ -87,9 +87,9 @@
                         <a href="javascript:void(0);" title="Disabled item" data-filter-tags="utilities disabled item">
                             <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Ações Culturais</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
-            </li>
+            <!-- </li>
             <li class="disabled">
                 <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
@@ -113,7 +113,7 @@
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Relatórios</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-title">Administração</li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
@@ -134,7 +134,7 @@
                     <span class="nav-link-text" data-i18n="nav.blankpage">Unidades</span>
                 </a>
             </li>
-            <li class="disabled">
+            <!-- <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Editais</span>
@@ -157,7 +157,7 @@
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Logs</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
         <div class="filter-message js-filter-message bg-success-600"></div>
     </nav>
@@ -168,7 +168,7 @@
             <i class="ni ni-chevron-right"></i>
             <i class="ni ni-chevron-right"></i>
         </a>
-        <ul class="list-table m-auto nav-footer-buttons">
+        <!-- <ul class="list-table m-auto nav-footer-buttons">
             <li>
                 <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
                     <i class="fal fa-comments"></i>
@@ -184,6 +184,6 @@
                     <i class="fal fa-phone"></i>
                 </a>
             </li>
-        </ul>
+        </ul> -->
     </div> <!-- END NAV FOOTER -->
 </aside>
