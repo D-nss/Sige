@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => 'keycloak-web'], function () {
-    //
+    //Route::get('/teste', [UserControllers::class, 'teste']);
 });
 
 /*
