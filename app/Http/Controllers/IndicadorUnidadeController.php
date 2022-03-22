@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\Indicador;
+use App\Models\Unidade;
 use App\Models\ItemsPlanes;
 use App\Models\IndicadorUnidade;
 
@@ -19,8 +22,9 @@ class IndicadorUnidadeController extends Controller
      */
     public function index()
     {
-        //id da unidade esta fixo pegar a unidade do usuario logado
-        $indicadores  = IndicadorUnidade::where('unidade_id', 38)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
+        //id da unidade do usuario logado
+        $unidade_id  = User::where('email', Auth::user()->id)->unidade();
+        $indicadores  = IndicadorUnidade::where('unidade_id', $unidade_id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
         return view('indicadores.index', compact('indicadores'));
     }
 
@@ -32,7 +36,7 @@ class IndicadorUnidadeController extends Controller
     public function create()
     {
         $indicadores = Indicador::all()->toArray();
-        
+
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
         //echo json_encode($indicadoresSerializado);
         return view('indicadores.create', compact('indicadoresSerializado'));
@@ -50,11 +54,13 @@ class IndicadorUnidadeController extends Controller
         $dados = array();
         $validar = array();
 
-        //id da unidade esta fixo pegar a unidade do usuario logado
+        //id da unidade do usuario logado
+        $unidade_id  = User::where('email', Auth::user()->id)->unidade();
+
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
                 array_push($validar, [$key => 'required|numeric']);
-                array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $r, 'unidade_id' => 38, 'ano_base' => $request->ano_base));
+                array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $r, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base));
             }
         }
 
@@ -72,7 +78,7 @@ class IndicadorUnidadeController extends Controller
             session()->flash('alert', 'danger');
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -83,11 +89,14 @@ class IndicadorUnidadeController extends Controller
      */
     public function show($ano)
     {
+        //id da unidade do usuario logado
+        $unidade_id  = User::where('email', Auth::user()->id)->unidade();
+
         $indicardoresPorUnidade = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
-            ->where('indicadores_unidades.unidade_id', 38)
+            ->where('indicadores_unidades.unidade_id', $unidade_id)
             ->where('indicadores_unidades.ano_base', $ano)
             ->get(['indicadores_unidades.indicador_id', 'indicadores.indicador', 'indicadores_unidades.valor', 'indicadores_unidades.ano_base']);
-        
+
         return view('indicadores.show', compact('indicardoresPorUnidade', 'ano'));
     }
 
@@ -99,14 +108,16 @@ class IndicadorUnidadeController extends Controller
      */
     public function edit($ano)
     {
-        //id da unidade esta fixo pegar a unidade do usuario logado
+        //id da unidade do usuario logado
+        $unidade_id  = User::where('email', Auth::user()->id)->unidade();
+
         $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
-        ->where('indicadores_unidades.unidade_id', 38)
+        ->where('indicadores_unidades.unidade_id', $unidade_id)
         ->where('indicadores_unidades.ano_base', $ano)
         ->get();
 
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
-        
+
         $edit = true;
         //echo json_encode($indicadoresSerializado);
         return view('indicadores.edit', compact(['indicadoresSerializado', 'ano', 'edit']));
@@ -150,7 +161,7 @@ class IndicadorUnidadeController extends Controller
                 session()->flash('alert', 'warning');
                 return redirect('/indicadores/' . $request->ano_base );
             }
-            
+
         }
     }
 
@@ -168,17 +179,17 @@ class IndicadorUnidadeController extends Controller
     public function serializarIndicadores($indicadores)
     {
         $indicadoresSerializado = array();
-        
+
         foreach($indicadores as $indicador)
-        {            
+        {
             $next = next($indicadores);
             $nextItemPlanes = $next['item_planes'] ?? '';
-            
+
             if($indicador['item_planes'] != $nextItemPlanes)
             {
                 $itemPlanes = $indicador['item_planes'];
 
-                $indicadoresSerializado[$itemPlanes] = array(); 
+                $indicadoresSerializado[$itemPlanes] = array();
             }
 
         }

@@ -22,7 +22,13 @@ Route::get('/', function () {
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => 'keycloak-web'], function () {
-    //Route::get('/teste', [UserControllers::class, 'teste']);
+    //Route::get('/teste', [UserController::class, 'teste']);
+    Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
+    Route::resource('/unidades', UnidadeController::class)->names('unidade')->parameters(['unidades' => 'unidade']);
+    Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');
+    Route::put('/usuarios/{user}/desativar', [UserController::class, 'desativar'])->name('user.desativar');
+    /* -------------- rotas idicadores ---------------- */
+    Route::resource('/indicadores', IndicadorUnidadeController::class);
 });
 
 /*
@@ -36,9 +42,3 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('acoes', 'AcoesController');
 });*/
 
-Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
-Route::resource('/unidades', UnidadeController::class)->names('unidade')->parameters(['unidades' => 'unidade']);
-Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');
-Route::put('/usuarios/{user}/desativar', [UserController::class, 'desativar'])->name('user.desativar');
-/* -------------- rotas idicadores ---------------- */
-Route::resource('/indicadores', IndicadorUnidadeController::class);
