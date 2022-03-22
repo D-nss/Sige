@@ -3,9 +3,10 @@
 /public/storage
 /storage/*.key
 
-# subpasta para track
-**/vendor/*
-!**/vendor/vizir
+# subpasta para track (Descomentar caso necessite modificar o pacote utilizado para o Keycloak)
+# **/vendor/*
+# !**/vendor/vizir
+/vendor
 
 .env
 .env.backup

@@ -11,6 +11,7 @@ use Vizir\KeycloakWebGuard\Exceptions\KeycloakCallbackException;
 use Vizir\KeycloakWebGuard\Models\KeycloakUser;
 use Vizir\KeycloakWebGuard\Facades\KeycloakWeb;
 use Illuminate\Contracts\Auth\UserProvider;
+
 class KeycloakWebGuard implements Guard
 {
     /**
@@ -35,6 +36,11 @@ class KeycloakWebGuard implements Guard
      * @return bool
      */
     public function check()
+    {
+        return (bool) $this->user();
+    }
+    
+    public function hasUser()
     {
         return (bool) $this->user();
     }
@@ -72,16 +78,6 @@ class KeycloakWebGuard implements Guard
     public function setUser(?Authenticatable $user)
     {
         $this->user = $user;
-    }
-
-    /**
-     * Determine if the guard has a user instance.
-     *
-     * @return bool
-     */
-    public function hasUser()
-    {
-        return (bool) $this->user();
     }
 
     /**
@@ -150,16 +146,15 @@ class KeycloakWebGuard implements Guard
 
         return true;
     }
-
+    
     /**
-     * Check user is authenticated and has a role
+     * Check user is authenticated and return his resource roles
      *
-     * @param array|string $roles
      * @param string $resource Default is empty: point to client_id
      *
-     * @return boolean
-     */
-    public function hasRole($roles, $resource = '')
+     * @return array
+    */
+    public function roles($resource = '')
     {
         if (empty($resource)) {
             $resource = Config::get('keycloak-web.client_id');
@@ -182,6 +177,19 @@ class KeycloakWebGuard implements Guard
         $resourceRoles = $resourceRoles[ $resource ] ?? [];
         $resourceRoles = $resourceRoles['roles'] ?? [];
 
-        return empty(array_diff((array) $roles, $resourceRoles));
+        return $resourceRoles;
+    }
+
+    /**
+     * Check user has a role
+     *
+     * @param array|string $roles
+     * @param string $resource Default is empty: point to client_id
+     *
+     * @return boolean
+     */
+    public function hasRole($roles, $resource = '')
+    {
+        return empty(array_diff((array) $roles, $this->roles($resource)));
     }
 }
