@@ -23,7 +23,7 @@ class IndicadorUnidadeController extends Controller
     public function index()
     {
         //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->unidade;
+        $unidade_id  = User::where('email', Auth::user()->id)->get(['unidade_id']);
         $indicadores  = IndicadorUnidade::where('unidade_id', $unidade_id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
         return view('indicadores.index', compact('indicadores'));
     }
@@ -55,7 +55,7 @@ class IndicadorUnidadeController extends Controller
         $validar = array();
 
         //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->unidade;
+        $unidade_id  = User::where('email', Auth::user()->id)->get(['unidade_id']);
 
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
@@ -90,7 +90,7 @@ class IndicadorUnidadeController extends Controller
     public function show($ano)
     {
         //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->unidade;
+        $unidade_id  = User::where('email', Auth::user()->id)->get(['unidade_id']);
 
         $indicardoresPorUnidade = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
             ->where('indicadores_unidades.unidade_id', $unidade_id)
@@ -109,7 +109,7 @@ class IndicadorUnidadeController extends Controller
     public function edit($ano)
     {
         //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->unidade;
+        $unidade_id  = User::where('email', Auth::user()->id)->get(['unidade_id']);
 
         $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
         ->where('indicadores_unidades.unidade_id', $unidade_id)

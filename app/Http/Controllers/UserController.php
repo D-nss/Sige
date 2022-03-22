@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function teste()
     {
-        $user = User::where('email', Auth::user()->id);
+        $user = User::where('email', Auth::user()->id)->get();
 
         //$dados['usuarios'] = User::all();
         return view('usuarios.teste', [
