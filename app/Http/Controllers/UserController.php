@@ -13,9 +13,10 @@ class UserController extends Controller
     public function teste()
     {
         $user = Auth::user();
+
         //$dados['usuarios'] = User::all();
         return view('usuarios.teste', [
-            'usuario' => $user
+            'usuario' => $user,
         ]);
     }
     /**
