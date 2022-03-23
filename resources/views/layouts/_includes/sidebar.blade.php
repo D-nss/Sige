@@ -24,11 +24,21 @@
         <div class="info-card">
             <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
             <div class="info-card-text">
-                <a href="#" class="d-flex align-items-center text-white">
-                    <span class="text-truncate text-truncate-sm d-inline-block">
-                        emailfulano@unicamp.br
-                    </span>
-                </a>
+                @auth
+                    <a href="#" class="d-flex align-items-center text-white">
+                        <span class="text-truncate text-truncate-sm d-inline-block">
+                            {{Auth::user()->id}}
+                        </span>
+                    </a>
+                    <span class="d-inline-block text-truncate text-truncate-sm">{{User::where('email', Auth::user()->id)->first()->unidade->sigla}},<br> Unicamp</span>
+                @endauth
+                @guest
+                    <a href="#" class="d-flex align-items-center text-white">
+                        <span class="text-truncate text-truncate-sm d-inline-block">
+                            Visitante
+                        </span>
+                    </a>
+                @endguest
                 <span class="d-inline-block text-truncate text-truncate-sm">Reitoria,<br> Unicamp</span>
             </div>
             <img src="{{asset('smartadmin-4.5.1/img/card-backgrounds/cover-3-lg.png')}}" class="cover" alt="cover">
