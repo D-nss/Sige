@@ -620,7 +620,7 @@
                     <i class="float-right text-muted fw-n">Ctrl + P</i>
                 </a>
                 <div class="dropdown-divider m-0"></div>
-                <a class="dropdown-item fw-500 pt-3 pb-3" href="{{route('logout')}}">
+                <a class="dropdown-item fw-500 pt-3 pb-3" href="dev2.proec.unicamp.br/logout">
                     <span data-i18n="drpdwn.page-logout">Sair</span>
                     <span class="float-right fw-n">{{Auth::user()->id}}</span>
                 </a>
