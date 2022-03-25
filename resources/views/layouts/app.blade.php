@@ -20,7 +20,7 @@ Versão: 4.5.1
         <!-- Styles -->
         <link id="vendorsbundle" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/vendors.bundle.css')}}">
         <link id="appbundle" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/app.bundle.css')}}">
-        <link id="myskin" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/themes/cust-theme-13.css')}}">
+        <link id="myskin" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/themes/cust-theme-3.css')}}">
         <link id="customizado" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/customizado.css')}}">
 
         <!-- Place favicon.ico in the root directory -->
@@ -290,7 +290,7 @@ Versão: 4.5.1
                     },
                     responsive: true,
                     dom:
-                        /*	--- Layout Structure 
+                        /*	--- Layout Structure
                         	--- Options
                         	l	-	length changing input control
                         	f	-	filtering input
@@ -336,7 +336,7 @@ Versão: 4.5.1
                 // Smart Wizard
                 $('#smartwizard').smartWizard(
                 {
-                    selected: 0, // Initial selected step, 0 = first step 
+                    selected: 0, // Initial selected step, 0 = first step
                     keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
                     autoAdjustHeight: false, // Automatically adjust content height
                     cycleSteps: false, // Allows to cycle the navigation of steps
@@ -357,13 +357,13 @@ Versão: 4.5.1
                         toolbarExtraButtons: [
                         $('<button></button>').text('Finalizar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
-                                    .on('click', function(){ 
-                                    //alert('Finsih button click');                            
+                                    .on('click', function(){
+                                    //alert('Finsih button click');
                                     }),
                         // $('<button></button>').text('Cancelar')
                         //             .addClass('btn btn-danger')
-                        //             .on('click', function(){ 
-                        //             alert('Cancel button click');                            
+                        //             .on('click', function(){
+                        //             alert('Cancel button click');
                         //             })
                         ]
                     },

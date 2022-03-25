@@ -31,12 +31,14 @@
                         </span>
                     </a>
                     <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }},<br> Unicamp</span>
+                    <button href="/logout" type="button" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</button>
                 @else
                     <a href="#" class="d-flex align-items-center text-white">
                         <span class="text-truncate text-truncate-sm d-inline-block">
                             Visitante
                         </span>
                     </a>
+                    <button href="/login" type="button" class="btn btn-xs btn-primary waves-effect waves-themed">Entrar</button>
                     <span class="d-inline-block text-truncate text-truncate-sm"><br> Unicamp</span>
                 @endif
             </div>
@@ -52,7 +54,7 @@
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">UNIDADE</span>
+                    <span class="nav-link-text" data-i18n="nav.category">UNIDADE: </span>{{ isset($unidade) ? $unidade->sigla : '<button type="button" class="btn btn-xs btn-primary waves-effect waves-themed">Entrar</button>'}}
                 </a>
                 <ul>
                     <li>
