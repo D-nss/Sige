@@ -30,8 +30,8 @@
                             {{Auth::user()->id}}
                         </span>
                     </a>
-                    <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }},<br> Unicamp</span>
-                    <a href="/login" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</a>
+                    <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }},<br>
+                    <a href="/logout" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</a>
                 @else
                     <a href="#" class="d-flex align-items-center text-white">
                         <span class="text-truncate text-truncate-sm d-inline-block">
@@ -39,7 +39,6 @@
                         </span>
                     </a>
                     <a href="/login" class="btn btn-xs btn-primary waves-effect waves-themed">Entrar</a>
-                    <span class="d-inline-block text-truncate text-truncate-sm"><br> Unicamp</span>
                 @endif
             </div>
             <img src="{{asset('smartadmin-4.5.1/img/card-backgrounds/cover-3-lg.png')}}" class="cover" alt="cover">
@@ -56,8 +55,6 @@
                     <i class="fal fa-file"></i>
                     <span class="nav-link-text" data-i18n="nav.category">UNIDADE:
                         @if(isset($unidade)) {{$unidade->sigla}}
-                        @else
-                        <a href="/login" class="btn btn-xs btn-primary waves-effect waves-themed">Entrar</a>
                         @endif</span>
                 </a>
                 <ul>
