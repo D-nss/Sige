@@ -16,7 +16,7 @@
                 <h4>{{ $indicador->ano_base }}</h4>
                 <div>
                 <a class="btn btn-secondary" href="{{ url('/indicadores/' . $indicador->ano_base . '/editar') }}">Editar</a>
-                <a class="btn btn-light-green" href="{{ url('/indicadores/' . $indicador->ano_base) }}">Ver</a>
+                <a class="btn btn-primary" href="{{ url('/indicadores/' . $indicador->ano_base) }}">Ver</a>
                 </div>
             </div>
             @endforeach
