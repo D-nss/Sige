@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
-            <h1>Indicadores</h1>
+            <h1>Indicadores - {{$unidade->sigla}}</h1>
             <hr>
             <a class="btn btn-primary" href="{{ url('/indicadores/novo') }}">Adicionar Indicadores</a>
             <hr>
@@ -19,7 +19,7 @@
                 <a class="btn btn-light-green" href="{{ url('/indicadores/' . $indicador->ano_base) }}">Ver</a>
                 </div>
             </div>
-            @endforeach            
+            @endforeach
         </div>
     </div>
 </div>

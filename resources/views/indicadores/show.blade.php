@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-xl-12">
             <div id="checkicon">
-                <h1>Dados dos indicadores da unidade 38 ano base {{ $ano }}</h1>
-            
+                <h1>Dados dos indicadores da unidade: {{$unidade->sigla}}, ano base {{ $ano }}</h1>
+
                 @include('indicadores._status')
 
                 <div class=" p-3 panel">
@@ -37,10 +37,10 @@
                         </tfoot>
                     </table>
                     <!-- datatable end -->
-                </div> 
-            
+                </div>
+
             </div>
-            
+
         </div>
     </div>
 </div>

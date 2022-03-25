@@ -583,6 +583,7 @@
             </div>
         </div> -->
         <!-- app user menu -->
+        @if(Auth::hasUser())
         <div>
             <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">
                 <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
@@ -597,8 +598,8 @@
                             <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
                         </span>
                         <div class="info-card-text">
-                            <div class="fs-lg text-truncate text-truncate-lg">Fulano da Silva</div>
-                            <span class="text-truncate text-truncate-md opacity-80">fulanodasilva@unicamp.br</span>
+                            <div class="fs-lg text-truncate text-truncate-lg">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}</div>
+                            <span class="text-truncate text-truncate-md opacity-80">{{Auth::user()->id}}</span>
                         </div>
                     </div>
                 </div>
@@ -619,16 +620,15 @@
                     <i class="float-right text-muted fw-n">Ctrl + P</i>
                 </a>
                 <div class="dropdown-divider m-0"></div>
-                <a class="dropdown-item fw-500 pt-3 pb-3" href="#"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                <a class="dropdown-item fw-500 pt-3 pb-3" href="{{route('lougout')}}">
                     <span data-i18n="drpdwn.page-logout">Sair</span>
-                    <span class="float-right fw-n">&commat;fulanodasilva</span>
+                    <span class="float-right fw-n">{{Auth::user()->id}}</span>
                 </a>
                 <form id="logout-form" action="#" method="POST" class="d-none">
                     @csrf
                 </form>
             </div>
         </div>
+        @endif
     </div>
 </header>

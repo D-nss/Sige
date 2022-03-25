@@ -22,10 +22,13 @@ class IndicadorUnidadeController extends Controller
      */
     public function index()
     {
-        //id da unidade do usuario logado
-        $unidade_id  =  User::where('email', Auth::user()->id)->first()->unidade->id;
-        $indicadores  = IndicadorUnidade::where('unidade_id', $unidade_id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
-        return view('indicadores.index', compact('indicadores'));
+        //unidade do usuario logado
+        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
+        $indicadores  = IndicadorUnidade::where('unidade_id', $unidade->id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
+        return view('indicadores.index', [
+            'indicadores' => $indicadores,
+            'unidade' => $unidade
+        ]);
     }
 
     /**
@@ -39,7 +42,13 @@ class IndicadorUnidadeController extends Controller
 
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
         //echo json_encode($indicadoresSerializado);
-        return view('indicadores.create', compact('indicadoresSerializado'));
+        //unidade do usuario logado
+        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
+
+        return view('indicadores.create', [
+            'indicadoresSerializado' => $indicadoresSerializado,
+            'unidade' => $unidade
+        ]);
     }
 
     /**
@@ -89,15 +98,19 @@ class IndicadorUnidadeController extends Controller
      */
     public function show($ano)
     {
-        //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->first()->unidade->id;
+        //unidade do usuario logado
+        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
         $indicardoresPorUnidade = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
-            ->where('indicadores_unidades.unidade_id', $unidade_id)
+            ->where('indicadores_unidades.unidade_id', $unidade->id)
             ->where('indicadores_unidades.ano_base', $ano)
             ->get(['indicadores_unidades.indicador_id', 'indicadores.indicador', 'indicadores_unidades.valor', 'indicadores_unidades.ano_base']);
 
-        return view('indicadores.show', compact('indicardoresPorUnidade', 'ano'));
+        return view('indicadores.show', [
+            'indicardoresPorUnidade' => $indicardoresPorUnidade,
+            'ano' => $ano,
+            'unidade' => $unidade
+        ]);
     }
 
     /**

@@ -37,7 +37,7 @@
                             Visitante
                         </span>
                     </a>
-                    <span class="d-inline-block text-truncate text-truncate-sm">Reitoria,<br> Unicamp</span>
+                    <span class="d-inline-block text-truncate text-truncate-sm"><br> Unicamp</span>
                 @endif
             </div>
             <img src="{{asset('smartadmin-4.5.1/img/card-backgrounds/cover-3-lg.png')}}" class="cover" alt="cover">
@@ -52,7 +52,7 @@
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">UNIDADE: ABCDEF</span>
+                    <span class="nav-link-text" data-i18n="nav.category">UNIDADE</span>
                 </a>
                 <ul>
                     <li>
@@ -123,7 +123,7 @@
                     <span class="nav-link-text" data-i18n="nav.blankpage">Relatórios</span>
                 </a>
             </li> -->
-            <li class="nav-title">Administração</li>
+            <!--<li class="nav-title">Administração</li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
@@ -142,7 +142,7 @@
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Unidades</span>
                 </a>
-            </li>
+            </li>-->
             <!-- <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
