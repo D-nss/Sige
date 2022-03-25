@@ -121,11 +121,11 @@ class IndicadorUnidadeController extends Controller
      */
     public function edit($ano)
     {
-        //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->first()->unidade->id;
+        //unidade do usuario logado
+        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
         $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
-        ->where('indicadores_unidades.unidade_id', $unidade_id)
+        ->where('indicadores_unidades.unidade_id', $unidade->id)
         ->where('indicadores_unidades.ano_base', $ano)
         ->get();
 
@@ -133,7 +133,12 @@ class IndicadorUnidadeController extends Controller
 
         $edit = true;
         //echo json_encode($indicadoresSerializado);
-        return view('indicadores.edit', compact(['indicadoresSerializado', 'ano', 'edit']));
+        return view('indicadores.edit', [
+            'indicadoresSerializado' => $indicadoresSerializado,
+            'ano' => $ano,
+            'edit' => $edit,
+            'unidade' => $unidade
+        ]);
     }
 
     /**
