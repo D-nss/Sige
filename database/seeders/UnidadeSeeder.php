@@ -175,6 +175,18 @@ class UnidadeSeeder extends Seeder
             'sigla'=>'RTV'
             ] );
 
+            Unidade::create( [
+            'sigla'=>'PROEC'
+            ] );
+
+            Unidade::create( [
+            'sigla'=>'DTIC'
+            ] );
+
+            Unidade::create( [
+            'sigla'=>'COCEN'
+            ] );
+
             Unidade::query()->update([
                 'nome' => Unidade::raw('sigla'), // SQL: UPDATE unidades SET nome = sigla;
                 'created_at' => now(),

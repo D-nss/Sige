@@ -12,7 +12,8 @@ class UserController extends Controller
 {
     public function teste()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        //$user = User::where('email', Auth::user()->id)->first();
+        $user = Auth::user();
 
         //$dados['usuarios'] = User::all();
         return view('usuarios.teste', [
@@ -84,8 +85,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $unidades = Unidade::all();
         return view('usuarios.edit', [
-            'usuario' => $user
+            'usuario' => $user,
+            'unidades' => $unidades
         ]);
     }
 

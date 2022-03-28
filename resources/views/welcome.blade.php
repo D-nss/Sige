@@ -175,9 +175,9 @@
                   <div class="card-body">
                     <form class="user">
                       {{ csrf_field() }}
-                      <button href="/login" class="btn btn-primary btn-user btn-block btn-verde">
+                      <a href="/login" class="btn btn-primary btn-user btn-block btn-verde">
                         Entrar
-                      </button>
+                      </a>
                     </form>
                   </div>
                 </div>
