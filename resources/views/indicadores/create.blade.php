@@ -8,15 +8,7 @@
         <div class="col-xl-12">
             <h1>Adicionar Indicadores da unidade - {{$unidade->sigla}}</h1>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            @include('indicadores._status')
 
             <div id="panel-1" class="panel">
             <form action="{{ url('/indicadores') }}" method="post">
