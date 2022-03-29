@@ -29,7 +29,7 @@
                 <label for="" class="form-label" style="color: #333">{{ $indicador['indicador'] }} <i class="fal fa-comment-exclamation" data-toggle="tooltip" data-placement="right" title="{{ $indicador['descricao_indicador'] }}"></i></label>
                 <div class="row">
                     <div class="col-sm-3">
-                        <input type="number" class="form-control" name="indicador{{ $indicador['id'] }}" value="{{ isset($indicador['valor']) ? $indicador['valor'] : '' }}" placeholder="Valor do Indicador" required="required" pattern="[0-9]+$">  
+                        <input type="number" class="form-control" name="indicador{{ $indicador['id'] }}" value="{{ isset($indicador['valor']) ? $indicador['valor'] : 0 }}" placeholder="Valor do Indicador" required="required" pattern="[0-9]+$">  
                     </div>
                 </div>       
             </div>
