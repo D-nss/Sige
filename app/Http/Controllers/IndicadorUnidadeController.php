@@ -41,7 +41,7 @@ class IndicadorUnidadeController extends Controller
         $indicadores = Indicador::all()->toArray();
 
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
-        //echo json_encode($indicadoresSerializado);
+        
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
@@ -61,19 +61,26 @@ class IndicadorUnidadeController extends Controller
     {
 
         $dados = array();
-        $validar = array();
 
         //id da unidade do usuario logado
         $unidade_id  = User::where('email', Auth::user()->id)->first()->unidade->id;
 
+        $buscaAnoExistente = IndicadorUnidade::where('unidade_id', $unidade_id)->where('ano_base', $request->ano_base)->count();
+
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
-                array_push($validar, [$key => 'required|numeric']);
                 array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $r, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base));
             }
         }
 
-        $indicadores_unidade = DB::table('indicadores_unidades')->insert($dados);
+        if(!!$buscaAnoExistente) {
+            session()->flash('status', 'Desculpe! Ano base já cadastrado');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
+        else {
+            $indicadores_unidade = DB::table('indicadores_unidades')->insert($dados);
+        }
 
         if($indicadores_unidade)
         {
