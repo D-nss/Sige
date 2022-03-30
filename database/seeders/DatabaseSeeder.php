@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,9 +28,20 @@ class DatabaseSeeder extends Seeder
         //     'remember_token' => Str::random(10)
         // ]);
 
+        //Papeis (Roles)
+        $this->call(RoleSeeder::class);
+
+        //Unidades
+        $this->call(UnidadeSeeder::class);
+
+        //Usuários Super/Admin iniciais do sistema
+        $this->call(AdminSeeder::class);
+
+        //Indicadores
         $this->call([
             IndicadorSeeder::class,
         ]);
+
 
 
     }

@@ -30,7 +30,11 @@
         <label for="unidade" class="col-md-4 col-form-label text-md-end">Unidade</label>
         <div class="col-md-6">
             <select class="form-control" id="unidade" name="unidade">
-                <option value="">Escolha a Unidade</option>
+                @if(isset($usuario->unidade))
+                    <option value="{{$usuario->unidade->id}}">{{$usuario->unidade->nome}}</option>
+                @else
+                    <option value="">Escolha a Unidade</option>
+                @endif
                 @foreach($unidades as $unidade)
                     <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
                 @endforeach
