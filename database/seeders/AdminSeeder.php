@@ -20,7 +20,6 @@ class AdminSeeder extends Seeder
             'email' => 'evanoliv@unicamp.br',
             'unidade_id' => 42, //DTIC
             'ativo' => true,
-            'email_verified_at' => now(),
         ])->assignRole('super', 'admin');
 
         User::create([
@@ -28,7 +27,6 @@ class AdminSeeder extends Seeder
             'email' => 'aadilson@unicamp.br',
             'unidade_id' => 42, //DTIC
             'ativo' => true,
-            'email_verified_at' => now(),
         ])->assignRole('super', 'admin');
 
         User::create([
@@ -36,7 +34,6 @@ class AdminSeeder extends Seeder
             'email' => 'hiltoncr@unicamp.br',
             'unidade_id' => 42, //DTIC
             'ativo' => true,
-            'email_verified_at' => now(),
         ])->assignRole('super', 'admin');
     }
 }
