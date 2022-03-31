@@ -62,6 +62,26 @@ class IndicadorUnidadeController extends Controller
 
         $dados = array();
 
+        // Validação dos Indicadores
+        $validate = array();
+        
+        foreach($request->input() as $key => $r){
+            if($key == "ano_base") {
+                $validate[$key] = 'min:4|max:4';
+                continue;
+            }
+
+            $validate[$key] = 'max:50000|integer|min:0';
+
+            if($key == '_token') {
+                unset($validate[$key]);
+            }
+        }
+
+        $this->validate($request, $validate);
+        // Fim da Validação
+
+
         //id da unidade do usuario logado
         $unidade_id  = User::where('email', Auth::user()->id)->first()->unidade->id;
 

@@ -14,6 +14,9 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <input type="number" class="form-control" name="ano_base" value="{{ isset($ano) ? $ano : ''}}" placeholder="Ex: 2022" {{ isset($ano) ? 'readonly' : ''}} required="required" pattern="[0-9]+$">
+                        @error( 'ano_base' )
+                            <span class="text-danger font-weight-bold mt-2">{{ $message }}</span>
+                        @enderror 
                     </div>
                 </div>
             </div>
@@ -30,6 +33,9 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <input type="number" class="form-control" name="indicador{{ $indicador['id'] }}" value="{{ isset($indicador['valor']) ? $indicador['valor'] : 0 }}" placeholder="Valor do Indicador" required="required" pattern="[0-9]+$">  
+                        @error( 'indicador' .  $indicador['id'] )
+                            <span class="text-danger font-weight-bold mt-2">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>       
             </div>
