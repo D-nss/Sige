@@ -604,12 +604,12 @@
                     </div>
                 </div>
                 <div class="dropdown-divider m-0"></div>
-                <a href="#" class="dropdown-item">
+                <!-- <a href="#" class="dropdown-item">
                     <span data-i18n="drpdwn.reset_layout">Meu Perfil</span>
                 </a>
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
                     <span data-i18n="drpdwn.settings">Configurações</span>
-                </a>
+                </a> -->
                 <div class="dropdown-divider m-0"></div>
                 <a href="#" class="dropdown-item" data-action="app-fullscreen">
                     <span data-i18n="drpdwn.fullscreen">Tela Cheia</span>
