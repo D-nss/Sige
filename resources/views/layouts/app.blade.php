@@ -22,6 +22,7 @@ Versão: 4.5.1
         <link id="appbundle" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/app.bundle.css')}}">
         <link id="myskin" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/themes/cust-theme-3.css')}}">
         <link id="customizado" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/customizado.css')}}">
+        <link rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/fa-regular.css')}}">
 
         <!-- Place favicon.ico in the root directory -->
         <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
@@ -236,6 +237,7 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/formplugins/smartwizard/smartwizard.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/datagrid/datatables/datatables.bundle.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/datagrid/datatables/datatables.export.js')}}"></script>
+        <script src="{{asset('smartadmin-4.5.1/js/upload.js')}}"></script>
         <script>
             $(document).ready(function()
             {
@@ -262,6 +264,38 @@ Versão: 4.5.1
                 });
 
                 $('#dt-unidades').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-orcamento').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-propostas').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-participantes').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-classificacao').dataTable(
                 {
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
@@ -328,11 +362,6 @@ Versão: 4.5.1
                 $('#dt-indicadores_filter').addClass('form-inline');
                 $('#dt-indicadores_length').addClass('form-inline');
 
-            });
-
-            $(document).ready(function()
-            {
-
                 // Smart Wizard
                 $('#smartwizard').smartWizard(
                 {
@@ -383,7 +412,195 @@ Versão: 4.5.1
                     transitionSpeed: '400'
                 });
 
+                // Smart Wizard
+                $('#swproposta').smartWizard(
+                {
+                    selected: 0, // Initial selected step, 0 = first step 
+                    keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    autoAdjustHeight: false, // Automatically adjust content height
+                    cycleSteps: true, // Allows to cycle the navigation of steps
+                    backButtonSupport: true, // Enable the back button support
+                    useURLhash: false, // Enable selection of the step based on url hash
+                    showStepURLhash: false,
+                    lang:
+                    { // Language variables
+                        next: 'Próximo',
+                        previous: 'Anterior'
+                    },
+                    toolbarSettings:
+                    {
+                        toolbarPosition: 'bottom', // none, top, bottom, both
+                        toolbarButtonPosition: 'right', // left, right
+                        showNextButton: true, // show/hide a Next button
+                        showPreviousButton: true, // show/hide a Previous button
+                        toolbarExtraButtons: [
+                        $('<button></button>').text('Finalizar')
+                                    .addClass('btn btn-primary btn-user btn-block btn-verde')
+                                    .on('click', function(){ 
+                                    alert('Finsih button click');                            
+                                    }),
+                        // $('<button></button>').text('Cancelar')
+                        //             .addClass('btn btn-danger')
+                        //             .on('click', function(){ 
+                        //             alert('Cancel button click');                            
+                        //             })
+                        ]
+                    },
+                    anchorSettings:
+                    {
+                        anchorClickable: true, // Enable/Disable anchor navigation
+                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        markDoneStep: true, // add done css
+                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                    },
+                    contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+                    contentCache: true, //ajax content
+                    disabledSteps: [], // Array Steps disabled
+                    errorSteps: [], // Highlight step with errors
+                    theme: 'default', //dots, default, circles
+                    transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+                    transitionSpeed: '400'
+                });
+
+                // Smart Wizard
+                $('#swpropostashow').smartWizard(
+                {
+                    selected: 0, // Initial selected step, 0 = first step 
+                    keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    autoAdjustHeight: false, // Automatically adjust content height
+                    cycleSteps: true, // Allows to cycle the navigation of steps
+                    backButtonSupport: true, // Enable the back button support
+                    useURLhash: false, // Enable selection of the step based on url hash
+                    showStepURLhash: false,
+                    lang:
+                    { // Language variables
+                        next: 'Próximo',
+                        previous: 'Anterior'
+                    },
+                    toolbarSettings:
+                    {
+                        toolbarPosition: 'bottom', // none, top, bottom, both
+                        toolbarButtonPosition: 'right', // left, right
+                        showNextButton: true, // show/hide a Next button
+                        showPreviousButton: true, // show/hide a Previous button
+                        toolbarExtraButtons: [
+                        $('<button></button>').text('Finalizar')
+                                    .addClass('btn btn-primary btn-user btn-block btn-verde')
+                                    .on('click', function(){ 
+                                    $('#analiseModal').modal('show');                            
+                                    }),
+                        // $('<button></button>').text('Cancelar')
+                        //             .addClass('btn btn-danger')
+                        //             .on('click', function(){ 
+                        //             alert('Cancel button click');                            
+                        //             })
+                        ]
+                    },
+                    anchorSettings:
+                    {
+                        anchorClickable: true, // Enable/Disable anchor navigation
+                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        markDoneStep: true, // add done css
+                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                    },
+                    contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+                    contentCache: true, //ajax content
+                    disabledSteps: [], // Array Steps disabled
+                    errorSteps: [], // Highlight step with errors
+                    theme: 'default', //dots, default, circles
+                    transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+                    transitionSpeed: '400'
+                });
+
+                // Smart Wizard
+                $('#swpropostaavaliacao').smartWizard(
+                {
+                    selected: 0, // Initial selected step, 0 = first step 
+                    keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    autoAdjustHeight: false, // Automatically adjust content height
+                    cycleSteps: true, // Allows to cycle the navigation of steps
+                    backButtonSupport: true, // Enable the back button support
+                    useURLhash: false, // Enable selection of the step based on url hash
+                    showStepURLhash: false,
+                    lang:
+                    { // Language variables
+                        next: 'Próximo',
+                        previous: 'Anterior'
+                    },
+                    toolbarSettings:
+                    {
+                        toolbarPosition: 'bottom', // none, top, bottom, both
+                        toolbarButtonPosition: 'right', // left, right
+                        showNextButton: true, // show/hide a Next button
+                        showPreviousButton: true, // show/hide a Previous button
+                        toolbarExtraButtons: [
+                        $('<button></button>').text('Finalizar')
+                                    .addClass('btn btn-primary btn-user btn-block btn-verde')
+                                    .on('click', function(){ 
+                                    $('#analiseModal').modal('show');                            
+                                    }),
+                        // $('<button></button>').text('Cancelar')
+                        //             .addClass('btn btn-danger')
+                        //             .on('click', function(){ 
+                        //             alert('Cancel button click');                            
+                        //             })
+                        ]
+                    },
+                    anchorSettings:
+                    {
+                        anchorClickable: true, // Enable/Disable anchor navigation
+                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        markDoneStep: true, // add done css
+                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                    },
+                    contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+                    contentCache: true, //ajax content
+                    disabledSteps: [], // Array Steps disabled
+                    errorSteps: [], // Highlight step with errors
+                    theme: 'default', //dots, default, circles
+                    transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+                    transitionSpeed: '400'
+                });
+
+                $('#nova_questao').click(function(){
+                    $(`#div_nova_questao`).removeClass('d-none');
+                    $(`#div_questao_existente`).addClass('d-none');
+                    $(`#nova_questao`).addClass('d-none');
+                    $(`#questao_existente`).removeClass('d-none');
+                });
+
+                $('#questao_existente').click(function(){
+                    $(`#div_nova_questao`).addClass('d-none');
+                    $(`#div_questao_existente`).removeClass('d-none');
+                    $(`#nova_questao`).removeClass('d-none');
+                    $(`#questao_existente`).addClass('d-none');
+                });
+
+                $("#parcerias_sim").click(function() {
+                    if($("#parcerias_sim").val() == 'sim') {
+                        $("#arquivo_parceria").removeClass("d-none");
+                        $("#arquivo_parceria").addClass("d-block");
+                    }
+                });
+
+                $("#parcerias_nao").click(function() {
+                    if($("#parcerias_nao").val() == 'nao') {
+                        $("#arquivo_parceria").removeClass("d-block");
+                        $("#arquivo_parceria").addClass("d-none");
+                    }
+                });
+
             });
+
+            function enableDateInput(id, element){
+                if ($(element).is(':checked')) {
+                    $(`#${id}`).removeClass('disabled');
+                }
+                else {
+                    $(`#${id}`).addClass('disabled');
+                }
+                
+            }
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
