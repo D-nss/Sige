@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'Detalhes do usuário: ' . $usuario->name)
+@section('title', 'Detalhes da Permissão: ' . $permission->name)
 
 @section('content')
 <!-- BEGIN Page Content -->
                     <!-- the #js-page-content id is needed for some plugins to initialize -->
                     <main id="js-page-content" role="main" class="page-content">
                         <ol class="breadcrumb page-breadcrumb">
-                            <li class="breadcrumb-item"><a href="/usuarios">Usuários</a></li>
-                            <li class="breadcrumb-item">Detalhes Usuário</li>
-                            <li class="breadcrumb-item active">{{$usuario->name}}</li>
+                            <li class="breadcrumb-item"><a href="/usuarios">Permissões</a></li>
+                            <li class="breadcrumb-item">Detalhes da Permissão</li>
+                            <li class="breadcrumb-item active">{{$permission->name}}</li>
                             <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
                         </ol>
                         <div class="subheader">
                             <h1 class="subheader-title">
-                                <i class='subheader-icon fal fa-plus-circle'></i> {{$usuario->name}}
+                                <i class='subheader-icon fal fa-plus-circle'></i> {{$permission->name}}
                                 <small>
-                                    Detalhes do usuário
+                                    Detalhes da Permissão
                                 </small>
                             </h1>
                         </div>
@@ -31,14 +31,14 @@
                                                     <i class="fal fa-user"></i>
                                                 </span>
                                                 <h5 class="mb-0 fw-700 text-center mt-3">
-                                                    {{$usuario->name}}
-                                                    <small class="text-muted mb-0">{{$usuario->unidade->sigla}}</small>
+                                                    {{$permission->name}}
+                                                    <small class="text-muted mb-0">{{$permission->name}}</small>
                                                 </h5>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="p-3 text-center">
-                                                <a href="javascript:void(0);" class="btn-link font-weight-bold">{{$usuario->email}}</a>
+                                                <a href="javascript:void(0);" class="btn-link font-weight-bold">{{$permission->name}}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -175,9 +175,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
-                            <!-- div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
+                            <div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
                                 <div class="card border mb-g">
                                     <div class="card-body pl-4 pt-4 pr-4 pb-0">
                                         <div class="d-flex flex-column">
@@ -417,108 +417,43 @@
                                     </div>
                                 </div>
                                 <!-- post article - end
-                            </div> -->
+                            </div>
                             <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
-                                <!-- add : -->
-                                <h2>Papeis</h2>
-                                <div>
-                                    @if ($usuario->roles)
-                                        @foreach ($usuario->roles as $user_role)
-                                            <form method="POST"
-                                                action="{{ route('user.roles.remove', [$usuario->id, $user_role->id]) }}"
-                                                onsubmit="return confirm('Voce tem certeza em remover?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <div class="card mb-2">
-                                                    <div class="card-body">
-                                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                                <i class="fas fa-graduation-cap icon-stack-1x opacity-100 color-primary-500"></i>
-                                                            </div>
-                                                            <div class="ml-3">
-                                                                <strong>
-                                                                    {{ $user_role->name }}
-                                                                </strong>
-                                                                <br>
-                                                                <button type="submit">Remover Papel</button>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endforeach
-                                    @endif
+                                <!-- add :
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
+                                            <div class='icon-stack display-3 flex-shrink-0'>
+                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                                                <i class="fas fa-graduation-cap icon-stack-1x opacity-100 color-primary-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <strong>
+                                                    Add Qualifications
+                                                </strong>
+                                                <br>
+                                                Adding qualifications will help gain more clients
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <form method="POST" action="{{ route('user.roles', $usuario->id) }}">
-                                        @csrf
-                                        <div class="sm:col-span-6">
-                                            <label for="role">Papeis</label>
-                                            <select id="role" name="role" autocomplete="role-name">
-                                                @foreach ($roles as $role)
-                                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('role')
-                                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                                        @enderror
+                                <div class="card mb-g">
+                                    <div class="card-body">
+                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
+                                            <div class='icon-stack display-3 flex-shrink-0'>
+                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                                                <i class="fas fa-handshake icon-stack-1x opacity-100 color-warning-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <strong>
+                                                    Add Skills
+                                                </strong>
+                                                <br>
+                                                Gain more potential clients by adding skills
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button type="submit">Atribuir</button>
-                                </div>
-                                </form>
-                                <h2>Permissões</h2>
-                                <div>
-                                    @if ($usuario->permissions)
-                                        @foreach ($usuario->permissions as $user_permission)
-                                            <form method="POST"
-                                                action="{{ route('user.permissions.revoke', [$usuario->id, $user_permission->id]) }}"
-                                                onsubmit="return confirm('Você tem certeza em Remover?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <div class="card mb-g">
-                                                    <div class="card-body">
-                                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                                                                <i class="fas fa-handshake icon-stack-1x opacity-100 color-warning-500"></i>
-                                                            </div>
-                                                            <div class="ml-3">
-                                                                <strong>
-                                                                    {{ $user_permission->name }}
-                                                                </strong>
-                                                                <br>
-                                                                <button type="submit">Remover Permissão</button>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div>
-                                    <form method="POST" action="{{ route('user.permissions', $usuario->id) }}">
-                                        @csrf
-                                        <div class="sm:col-span-6">
-                                            <label for="permission">Permissões</label>
-                                            <select id="permission" name="permission" autocomplete="permission-name">
-                                                @foreach ($permissions as $permission)
-                                                    <option value="{{ $permission->name }}">{{ $permission->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('name')
-                                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                                        @enderror
-                                </div>
-                                <div>
-                                    <button type="submit">Atribuir</button>
-                                </div>
-                                </form>
-
                                 <!-- rating
                                 <div class="card mb-g">
                                     <div class="row row-grid no-gutters">
@@ -694,6 +629,22 @@
                                         </div>
                                     </div>
                                 </div> -->
+                                <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
+                                    <div class="card" style="width: 18rem;">
+                                        <div class="card-header">
+                                            Papeis com a permissão
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            @if ($permission->roles)
+                                                @foreach ($permission->roles as $permission_role)
+                                                    <li class="list-group-item">{{$permission_role->name}}</li>
+                                                @endforeach
+                                            @else
+                                                <li class="list-group-item">Não há Papeis com a permissão</li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </main>

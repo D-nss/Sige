@@ -41,3 +41,13 @@
               </select>
         </div>
     </div>
+
+    <div class="row mb-3">
+        <div class="form-group">
+            <strong>Papeis:</strong>
+            <select class="form-control" id="roles" name="roles[]" multiple="multiple">
+                @foreach ($roles as $role)
+                    <option {{ isset($userRoles) && in_array($userRoles->id, $role->id) ? "selected" : ""}} value="{{$role->id}}">{{$role->name}}</option>
+                @endforeach
+        </div>
+    </div>

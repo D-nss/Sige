@@ -6,6 +6,12 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
             <!-- datatable start -->
             <table id="dt-usuarios" class="table table-bordered table-hover table-striped w-100">
                 <thead>

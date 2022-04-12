@@ -5,11 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
     public function teste()
     {
         //$user = User::where('email', Auth::user()->id)->first();
@@ -41,10 +53,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = Role::pluck('name','name')->all();
         $unidades = Unidade::all();
-        return view('usuarios.create', [
-            'unidades' => $unidades
-        ]);
+        return view('usuarios.create', compact('roles', 'unidades'));
     }
 
     /**
@@ -55,12 +66,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'unidade_id' => 'required',
+            'roles' => 'required'
+        ]);
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->unidade_id = $request->unidade;
         $user->ativo = true;
+        $user->assignRole($request->input('roles'));
         $user->save();
+
+        session()->flash('status', 'Usuário Criado com sucesso!');
+        session()->flash('alert', 'success');
+
         return redirect()->route('user.index');
     }
 
@@ -77,6 +100,68 @@ class UserController extends Controller
         ]);
     }
 
+    public function assignRole(Request $request, User $user)
+    {
+        if ($user->hasRole($request->role)) {
+            session()->flash('status', 'Papel existente.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
+        $user->assignRole($request->role);
+
+        session()->flash('status', 'Papel atribuído.');
+        session()->flash('alert', 'success');
+        return back();
+    }
+
+    public function removeRole(User $user, Role $role)
+    {
+        if ($user->hasRole($role)) {
+            $user->removeRole($role);
+            session()->flash('status', 'Papel removido.');
+            session()->flash('alert', 'success');
+
+            return back();
+        }
+
+        session()->flash('status', 'Papel não existente.');
+        session()->flash('alert', 'danger');
+
+        return back();
+    }
+
+    public function givePermission(Request $request, User $user)
+    {
+        if ($user->hasPermissionTo($request->permission)) {
+            session()->flash('status', 'Permissão existente.');
+            session()->flash('alert', 'danger');
+
+            return back();
+        }
+        $user->givePermissionTo($request->permission);
+        session()->flash('status', 'Permissão adicionado.');
+        session()->flash('alert', 'success');
+
+        return back();
+    }
+
+    public function revokePermission(User $user, Permission $permission)
+    {
+        if ($user->hasPermissionTo($permission)) {
+            $user->revokePermissionTo($permission);
+            session()->flash('status', 'Permissão revogado.');
+            session()->flash('alert', 'success');
+
+            return back();
+        }
+
+        session()->flash('status', 'Permissão não existente.');
+        session()->flash('alert', 'danger');
+
+        return back()->with('message', 'Permissão não existente.');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -85,10 +170,15 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $roles = Role::pluck('name','name')->all();
+        $userRoles = $user->roles->pluck('name','name')->all();
+
         $unidades = Unidade::all();
         return view('usuarios.edit', [
             'usuario' => $user,
-            'unidades' => $unidades
+            'unidades' => $unidades,
+            'roles' => $roles,
+            'userRoles' => $userRoles
         ]);
     }
 
@@ -101,9 +191,24 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,',
+            'roles' => 'required'
+        ]);
+
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->unidade_id = $request->unidade;
+
+        DB::table('model_has_roles')->where('model_id',$user->id)->delete();
+
+        $user->assignRole($request->input('roles'));
         $user->save();
+
+        session()->flash('status', 'Usuário Atualizado com sucesso');
+        session()->flash('alert', 'success');
+
         return redirect()->route('user.index');
     }
 
@@ -115,8 +220,17 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if ($user->hasRole('super')) {
+            session()->flash('status', 'é super usuário.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
         $user->delete();
-        return redirect()->route('user.index');
+
+        session()->flash('status', 'Usuário removido.');
+        session()->flash('alert', 'success');
+
+        return back();
     }
 
     /**

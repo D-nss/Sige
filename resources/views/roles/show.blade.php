@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'Detalhes do usuário: ' . $usuario->name)
+@section('title', 'Detalhes do Papel: ' . $role->name)
 
 @section('content')
 <!-- BEGIN Page Content -->
                     <!-- the #js-page-content id is needed for some plugins to initialize -->
                     <main id="js-page-content" role="main" class="page-content">
                         <ol class="breadcrumb page-breadcrumb">
-                            <li class="breadcrumb-item"><a href="/usuarios">Usuários</a></li>
-                            <li class="breadcrumb-item">Detalhes Usuário</li>
-                            <li class="breadcrumb-item active">{{$usuario->name}}</li>
+                            <li class="breadcrumb-item"><a href="/usuarios">Papeis</a></li>
+                            <li class="breadcrumb-item">Detalhes Papel</li>
+                            <li class="breadcrumb-item active">{{$role->name}}</li>
                             <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
                         </ol>
                         <div class="subheader">
                             <h1 class="subheader-title">
-                                <i class='subheader-icon fal fa-plus-circle'></i> {{$usuario->name}}
+                                <i class='subheader-icon fal fa-plus-circle'></i> {{$role->name}}
                                 <small>
-                                    Detalhes do usuário
+                                    Detalhes do papel
                                 </small>
                             </h1>
                         </div>
@@ -31,14 +31,14 @@
                                                     <i class="fal fa-user"></i>
                                                 </span>
                                                 <h5 class="mb-0 fw-700 text-center mt-3">
-                                                    {{$usuario->name}}
-                                                    <small class="text-muted mb-0">{{$usuario->unidade->sigla}}</small>
+                                                    {{$role->name}}
+                                                    <small class="text-muted mb-0">{{$role->name}}</small>
                                                 </h5>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="p-3 text-center">
-                                                <a href="javascript:void(0);" class="btn-link font-weight-bold">{{$usuario->email}}</a>
+                                                <a href="javascript:void(0);" class="btn-link font-weight-bold">{{$role->name}}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -175,9 +175,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div-->
                             </div>
-                            <!-- div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
+                            <!--div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
                                 <div class="card border mb-g">
                                     <div class="card-body pl-4 pt-4 pr-4 pb-0">
                                         <div class="d-flex flex-column">
@@ -417,283 +417,22 @@
                                     </div>
                                 </div>
                                 <!-- post article - end
-                            </div> -->
+                            </div -->
                             <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
-                                <!-- add : -->
-                                <h2>Papeis</h2>
-                                <div>
-                                    @if ($usuario->roles)
-                                        @foreach ($usuario->roles as $user_role)
-                                            <form method="POST"
-                                                action="{{ route('user.roles.remove', [$usuario->id, $user_role->id]) }}"
-                                                onsubmit="return confirm('Voce tem certeza em remover?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <div class="card mb-2">
-                                                    <div class="card-body">
-                                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                                <i class="fas fa-graduation-cap icon-stack-1x opacity-100 color-primary-500"></i>
-                                                            </div>
-                                                            <div class="ml-3">
-                                                                <strong>
-                                                                    {{ $user_role->name }}
-                                                                </strong>
-                                                                <br>
-                                                                <button type="submit">Remover Papel</button>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div>
-                                    <form method="POST" action="{{ route('user.roles', $usuario->id) }}">
-                                        @csrf
-                                        <div class="sm:col-span-6">
-                                            <label for="role">Papeis</label>
-                                            <select id="role" name="role" autocomplete="role-name">
-                                                @foreach ($roles as $role)
-                                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('role')
-                                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                                        @enderror
-                                </div>
-                                <div>
-                                    <button type="submit">Atribuir</button>
-                                </div>
-                                </form>
-                                <h2>Permissões</h2>
-                                <div>
-                                    @if ($usuario->permissions)
-                                        @foreach ($usuario->permissions as $user_permission)
-                                            <form method="POST"
-                                                action="{{ route('user.permissions.revoke', [$usuario->id, $user_permission->id]) }}"
-                                                onsubmit="return confirm('Você tem certeza em Remover?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <div class="card mb-g">
-                                                    <div class="card-body">
-                                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                                                                <i class="fas fa-handshake icon-stack-1x opacity-100 color-warning-500"></i>
-                                                            </div>
-                                                            <div class="ml-3">
-                                                                <strong>
-                                                                    {{ $user_permission->name }}
-                                                                </strong>
-                                                                <br>
-                                                                <button type="submit">Remover Permissão</button>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div>
-                                    <form method="POST" action="{{ route('user.permissions', $usuario->id) }}">
-                                        @csrf
-                                        <div class="sm:col-span-6">
-                                            <label for="permission">Permissões</label>
-                                            <select id="permission" name="permission" autocomplete="permission-name">
-                                                @foreach ($permissions as $permission)
-                                                    <option value="{{ $permission->name }}">{{ $permission->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('name')
-                                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                                        @enderror
-                                </div>
-                                <div>
-                                    <button type="submit">Atribuir</button>
-                                </div>
-                                </form>
-
-                                <!-- rating
-                                <div class="card mb-g">
-                                    <div class="row row-grid no-gutters">
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <h2 class="mb-0 fs-xl">
-                                                    Dr. Codex Lantern's Rating
-                                                </h2>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3 d-flex text-primary align-items-center fs-xl">
-                                                <i class="fas fa-star mr-1"></i>
-                                                <i class="fas fa-star mr-1"></i>
-                                                <i class="fas fa-star mr-1"></i>
-                                                <i class="fas fa-star mr-1"></i>
-                                                <i class="fal fa-star mr-1"></i>
-                                                <span class="ml-auto">4/5 Stars</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <div class="fw-500 fs-xs">Staff</div>
-                                                <div class="progress progress-xs mt-2">
-                                                    <div class="progress-bar bg-primary-300 bg-primary-gradient" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <div class="fw-500 fs-xs">Punctuality</div>
-                                                <div class="progress progress-xs mt-2">
-                                                    <div class="progress-bar bg-primary-300 bg-primary-gradient" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <div class="fw-500 fs-xs">Helpfulness</div>
-                                                <div class="progress progress-xs mt-2">
-                                                    <div class="progress-bar bg-primary-300 bg-primary-gradient" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <div class="fw-500 fs-xs">Knowledge</div>
-                                                <div class="progress progress-xs mt-2">
-                                                    <div class="progress-bar bg-primary-300 bg-primary-gradient" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <div class="fw-500 fs-xs">Bedside manners</div>
-                                                <div class="progress progress-xs mt-2">
-                                                    <div class="progress-bar bg-danger-300 bg-warning-gradient" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3 text-center">
-                                                <a href="javascript:void(0);" class="btn-link font-weight-bold">View all</a>
-                                            </div>
-                                        </div>
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        Permissões do Papel
                                     </div>
+                                    <ul class="list-group list-group-flush">
+                                        @if ($role->permissions)
+                                            @foreach ($role->permissions as $role_permission)
+                                                <li class="list-group-item">{{$role_permission->name}}</li>
+                                            @endforeach
+                                        @else
+                                            <li class="list-group-item">Não há Permissões</li>
+                                        @endif
+                                    </ul>
                                 </div>
-                                <!-- skills
-                                <div class="card mb-g">
-                                    <div class="row row-grid no-gutters">
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <h2 class="mb-0 fs-xl">
-                                                    Current Project
-                                                </h2>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <h5 class="text-danger">
-                                                    Xray improvement algorythm
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        Migration of new API to local servers
-                                                    </small>
-                                                    <span class="badge badge-danger fw-n position-absolute pos-top pos-right mt-3 mr-3">Delayed</span>
-                                                </h5>
-                                                <div class="row fs-b fw-300">
-                                                    <div class="col text-left">
-                                                        Progress
-                                                    </div>
-                                                    <div class="col text-right">
-                                                        26%
-                                                    </div>
-                                                </div>
-                                                <div class="progress progress-xs d-flex mb-2 mt-1">
-                                                    <span class="progress-bar bg-danger-500 progress-bar-striped" role="progressbar" style="width: 26%" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100"></span>
-                                                </div>
-                                                <div class="fw-300 mb-3">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            Budget
-                                                        </div>
-                                                        <div class="col text-right text-danger">
-                                                            -$155,473.70
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3">
-                                                <h5>
-                                                    Radioactive Isotope Research
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        Accelerator based methods of Technetium99m production – target preparation and processing and beam monitoring technologies
-                                                    </small>
-                                                    <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-3 mr-3">A</span>
-                                                </h5>
-                                                <div class="row fs-b fw-300">
-                                                    <div class="col text-left">
-                                                        Progress
-                                                    </div>
-                                                    <div class="col text-right">
-                                                        90%
-                                                    </div>
-                                                </div>
-                                                <div class="progress progress-xs d-flex mb-2 mt-1">
-                                                    <span class="progress-bar bg-primary-500 progress-bar-striped" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></span>
-                                                </div>
-                                                <div class="fw-300 mb-0">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            Budget
-                                                        </div>
-                                                        <div class="col text-right">
-                                                            $1,325,987.30
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-3 text-center">
-                                                <div class="text-left fw-400 ">
-                                                    <div class="text-secondary mb-1">Project Owners</div>
-                                                    <div class="fs-sm d-flex align-items-center">
-                                                        <a href="#" class="btn-m-s">
-                                                            <img src="img/demo/avatars/avatar-a.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                        </a>
-                                                        <a href="#" class="btn-m-s">
-                                                            <img src="img/demo/avatars/avatar-b.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                        </a>
-                                                        <a href="#" class="btn-m-s">
-                                                            <img src="img/demo/avatars/avatar-c.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                        </a>
-                                                        <a href="#" class="btn-m-s">
-                                                            <img src="img/demo/avatars/avatar-e.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                        </a>
-                                                        <a href="#" class="btn-m-s">
-                                                            <img src="img/demo/avatars/avatar-h.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                        </a>
-                                                        <a href="#" class="btn-m-s">
-                                                            <img src="img/demo/avatars/avatar-k.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                        </a>
-                                                        <a href="#" class="btn-m-s fs-xs">
-                                                            <span data-hasmore="+7" class="rounded-circle profile-image-sm">
-                                                                <img src="img/demo/avatars/avatar-j.png" class="profile-image-sm rounded-circle" alt="aa">
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </main>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnidadeController;
@@ -23,10 +25,30 @@ Route::get('/', function () {
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => 'keycloak-web'], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
+
+    //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
-    Route::resource('/unidades', UnidadeController::class)->names('unidade')->parameters(['unidades' => 'unidade']);
     Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');
     Route::put('/usuarios/{user}/desativar', [UserController::class, 'desativar'])->name('user.desativar');
+
+    //Papeis e Permissões
+    Route::resource('/roles', RoleController::class);
+    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+
+    Route::resource('/permissions', PermissionController::class);
+    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
+
+    //Usuarios - Papeis/Permissões
+    Route::post('/usuarios/{user}/roles', [UserController::class, 'assignRole'])->name('user.roles');
+    Route::delete('/usuarios/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('user.roles.remove');
+    Route::post('/usuarios/{user}/permissions', [UserController::class, 'givePermission'])->name('user.permissions');
+    Route::delete('/usuarios/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('user.permissions.revoke');
+
+    //Unidades
+    Route::resource('/unidades', UnidadeController::class)->names('unidade')->parameters(['unidades' => 'unidade']);
+
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
 
@@ -34,84 +56,84 @@ Route::group(['middleware' => 'keycloak-web'], function () {
     Route::get('lista-editais', function(){
         return view('edital.index2');
     });
-    
+
     Route::get('editais/novo', function(){
         return view('edital.create');
     });
-    
+
     Route::get('editais/{id}/editar', function(){
         return view('edital.edit');
     });
-    
+
     Route::get('/processo-editais', function(){
         return view('processo-edital.index');
     });
-    
+
     Route::get('/processo-editais/{id}/editar', function(){
     $processo = 1;
     return view('processo-edital.edit', compact('processo'));
     });
-    
+
     Route::get('/processo-editais/novo', function(){
         return view('processo-edital.create');
     });
-    
+
     Route::get('/cronograma/novo', function(){
         return view('cronograma.create');
     });
-    
+
     Route::get('/cronograma/{id}/editar', function(){
         return view('cronograma.edit');
     });
-    
+
     Route::get('/conselheiros/novo', function(){
         return view('conselheiro.create');
     });
-    
+
     Route::get('/questoes/novo', function(){
         return view('questoes.create');
     });
-    
+
     Route::get('/proposta/novo', function(){
         return view('proposta.create');
     });
-    
+
     Route::get('/proposta', function(){
         return view('proposta.index');
     });
-    
+
     Route::get('/proposta/analise', function(){
         return view('proposta.analise');
     });
-    
+
     Route::get('/proposta/parecer-final', function(){
         return view('proposta.parecer-final');
     });
-    
+
     Route::get('/proposta/avaliacao', function(){
         return view('proposta.avaliacao');
     });
-    
+
     Route::get('/proposta/classificacao', function(){
         return view('proposta.classificacao');
     });
-    
+
     Route::get('/proposta/enviadas', function(){
         return view('proposta.enviadas');
     });
-    
+
     Route::get('/orcamento/novo', function(){
         return view('orcamento.create');
     });
-    
+
     Route::get('/campos/novo', function(){
         return view('campos.create');
     });
-    
+
     Route::get('/areas-tematicas', function(){
         return view('areas-tematicas.index');
     });
-    
+
 });
 
 /*
