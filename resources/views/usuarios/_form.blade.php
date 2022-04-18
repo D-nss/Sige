@@ -49,5 +49,6 @@
                 @foreach ($roles as $role)
                     <option {{ isset($userRoles) && in_array($userRoles->id, $role->id) ? "selected" : ""}} value="{{$role->id}}">{{$role->name}}</option>
                 @endforeach
+            </select>
         </div>
     </div>

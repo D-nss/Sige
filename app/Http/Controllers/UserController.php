@@ -16,10 +16,10 @@ class UserController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:user-create', ['only' => ['create','store']]);
-        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        //$this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+        //$this->middleware('permission:user-create', ['only' => ['create','store']]);
+        //$this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        //$this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
     public function teste()
@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::all();
         $unidades = Unidade::all();
         return view('usuarios.create', compact('roles', 'unidades'));
     }
@@ -95,9 +95,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('usuarios.show', [
-            'usuario' => $user
-        ]);
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('usuarios.show', compact(['usuario' => $user], 'roles', 'permissions'));
     }
 
     public function assignRole(Request $request, User $user)
@@ -170,8 +171,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::pluck('name','name')->all();
-        $userRoles = $user->roles->pluck('name','name')->all();
+        $roles = Role::all();
+        $userRoles = $user->roles->all();
 
         $unidades = Unidade::all();
         return view('usuarios.edit', [
