@@ -435,7 +435,7 @@
                                                         <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
                                                             <div class='icon-stack display-3 flex-shrink-0'>
                                                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                                <i class="fal fa-user-tag opacity-100 color-primary-500"></i>
+                                                                <i class="fal fa-user-tag icon-stack-1x opacity-100 color-primary-500"></i>
                                                             </div>
                                                             <div class="ml-3">
                                                                 <strong>
@@ -461,12 +461,13 @@
                                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="mx-auto">
+                                                @error('role')
+                                                    <span class="text-red-400 text-sm">{{ $message }}</span>
+                                                @enderror
+                                                <button class="btn btn-xs btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
+                                            </div>
                                         </div>
-                                        @error('role')
-                                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                                        @enderror
-
-                                    <button class="btn btn-xs btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
                                 </div>
                                 </form>
                                 <h2>Permissões</h2>
@@ -483,14 +484,14 @@
                                                         <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
                                                             <div class='icon-stack display-3 flex-shrink-0'>
                                                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                                                                <i class="fal fa-key  opacity-100 color-warning-500"></i>
+                                                                <i class="fal fa-key icon-stack-1x opacity-100 color-warning-500"></i>
                                                             </div>
                                                             <div class="ml-3">
                                                                 <strong>
                                                                     {{ $user_permission->name }}
                                                                 </strong>
                                                                 <br>
-                                                                <button type="submit">Remover Permissão</button>
+                                                                <button class="btn btn-xs btn-secondary waves-effect waves-themed" type="submit">Remover Permissão</button>
                                                             </div>
                                                         </a>
                                                     </div>
@@ -509,12 +510,13 @@
                                                     <option value="{{ $permission->name }}">{{ $permission->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="mx-auto">
+                                                @error('name')
+                                                    <span class="text-red-400 text-sm">{{ $message }}</span>
+                                                @enderror
+                                                <button class="btn btn-xs btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
+                                            </div>
                                         </div>
-                                        @error('name')
-                                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                                        @enderror
-
-                                    <button class="btn btn-xs btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
                                 </div>
                                 </form>
 
