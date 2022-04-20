@@ -19,7 +19,6 @@
                 @foreach ($permissions as $permission)
                     <option {{ isset($role) && in_array($role->permissions, $permission->id) ? "selected" : ""}} value="{{$permission->id}}">{{$permission->name}}</option>
                 @endforeach
+            </select>
         </div>
     </div>
-
-
