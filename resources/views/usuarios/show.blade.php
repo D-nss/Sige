@@ -434,14 +434,14 @@
                                                         <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
                                                             <div class='icon-stack display-3 flex-shrink-0'>
                                                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                                <i class="fas fa-graduation-cap icon-stack-1x opacity-100 color-primary-500"></i>
+                                                                <i class="fal fa-graduation-cap icon-stack-1x opacity-100 color-primary-500"></i>
                                                             </div>
                                                             <div class="ml-3">
                                                                 <strong>
                                                                     {{ $user_role->name }}
                                                                 </strong>
                                                                 <br>
-                                                                <button type="submit">Remover Papel</button>
+                                                                <button class="btn btn-xs btn-secondary waves-effect waves-themed" type="submit">Remover Papel</button>
                                                             </div>
                                                         </a>
                                                     </div>
@@ -450,11 +450,11 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <div>
+                                <div class="card mb-2">
                                     <form method="POST" action="{{ route('user.roles', $usuario->id) }}">
                                         @csrf
-                                        <div class="sm:col-span-6">
-                                            <label for="role">Papeis</label>
+                                        <div class="card-body">
+                                            <label for="role">Papeis: </label>
                                             <select id="role" name="role" autocomplete="role-name">
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
@@ -464,9 +464,8 @@
                                         @error('role')
                                             <span class="text-red-400 text-sm">{{ $message }}</span>
                                         @enderror
-                                </div>
-                                <div>
-                                    <button type="submit">Atribuir</button>
+
+                                    <button class="btn btn-xs btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
                                 </div>
                                 </form>
                                 <h2>Permissões</h2>
@@ -499,11 +498,11 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <div>
+                                <div class="card mb-2">
                                     <form method="POST" action="{{ route('user.permissions', $usuario->id) }}">
                                         @csrf
-                                        <div class="sm:col-span-6">
-                                            <label for="permission">Permissões</label>
+                                        <div class="card-body">
+                                            <label for="permission">Permissões: </label>
                                             <select id="permission" name="permission" autocomplete="permission-name">
                                                 @foreach ($permissions as $permission)
                                                     <option value="{{ $permission->name }}">{{ $permission->name }}</option>
@@ -513,9 +512,8 @@
                                         @error('name')
                                             <span class="text-red-400 text-sm">{{ $message }}</span>
                                         @enderror
-                                </div>
-                                <div>
-                                    <button type="submit">Atribuir</button>
+
+                                    <button class="btn btn-xs btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
                                 </div>
                                 </form>
 

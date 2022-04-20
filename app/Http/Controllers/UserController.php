@@ -69,7 +69,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'unidade_id' => 'required',
+            'unidade' => 'required',
             'roles' => 'required'
         ]);
 
@@ -97,8 +97,8 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-
-        return view('usuarios.show', compact(['usuario' => $user], 'roles', 'permissions'));
+        $usuario = $user;
+        return view('usuarios.show', compact('usuario', 'roles', 'permissions'));
     }
 
     public function assignRole(Request $request, User $user)
