@@ -20,6 +20,7 @@
                                 </small>
                             </h1>
                         </div>
+                        @include('layouts._includes.alert')
                         <div class="row">
                             <div class="col-lg-6 col-xl-3 order-lg-1 order-xl-1">
                                 <!-- profile summary -->
@@ -434,7 +435,7 @@
                                                         <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
                                                             <div class='icon-stack display-3 flex-shrink-0'>
                                                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                                <i class="far fa-user-tag icon-stack-1x opacity-100 color-primary-500"></i>
+                                                                <i class="fal fa-user-tag opacity-100 color-primary-500"></i>
                                                             </div>
                                                             <div class="ml-3">
                                                                 <strong>
@@ -482,7 +483,7 @@
                                                         <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
                                                             <div class='icon-stack display-3 flex-shrink-0'>
                                                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                                                                <i class="far fa-key icon-stack-1x opacity-100 color-warning-500"></i>
+                                                                <i class="fal fa-key  opacity-100 color-warning-500"></i>
                                                             </div>
                                                             <div class="ml-3">
                                                                 <strong>
