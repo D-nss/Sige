@@ -10,6 +10,7 @@
 
             <div class="col-lg-12">
 
+              @include('layouts._includes._status')
               <!-- Default Card Example -->
               @include('processo-edital._panel')
 

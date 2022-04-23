@@ -9,6 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Avaliador;
+use App\Models\Inscricao;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -48,4 +51,9 @@ class User extends Authenticatable
     public function unidade(){
         return $this->belongsTo(Unidade::class);
     }
+
+    public function avaliador(){
+        return $this->belongsTo(Avaliador::class);
+    }
+
 }

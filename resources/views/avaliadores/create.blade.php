@@ -10,7 +10,9 @@
 
             <div class="col-lg-12">
 
-              @include('conselheiro._form')
+              @include('layouts._includes._status')
+
+              @include('avaliadores._form')
 
             </div>
           </div>

@@ -10,6 +10,8 @@
 
             <div class="col-lg-12">
 
+              @include('layouts._includes._status')
+
               @include('questoes._form')
 
             </div>

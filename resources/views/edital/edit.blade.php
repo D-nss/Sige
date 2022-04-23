@@ -4,18 +4,18 @@
 
 @section('content')
 <h1>Alterar Edital</h1>
-        <!-- Begin Page Content -->
+        
         <div class="container">
           <div class="row">
 
             <div class="col-lg-12">
-
-              <!-- Default Card Example -->
+              
+              @include('layouts._includes._status')
+              
               @include('edital._form')
 
             </div>
           </div>
         </div>
-        <!-- /.container-fluid -->
 
 @endsection

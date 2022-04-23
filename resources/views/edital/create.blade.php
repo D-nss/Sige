@@ -9,7 +9,8 @@
           <div class="row">
 
             <div class="col-lg-12">
-
+              
+              @include('layouts._includes._status')
               <!-- Default Card Example -->
               @include('edital._form')
 

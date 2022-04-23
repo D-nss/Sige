@@ -10,7 +10,7 @@
             <div id="checkicon">
                 <h1>Dados dos indicadores da unidade: {{$unidade->sigla}}, ano base {{ $ano }}</h1>
 
-                @include('indicadores._status')
+                @include('layouts._includes._status')
 
                 <div class=" p-3 panel">
                     <!-- datatable start -->

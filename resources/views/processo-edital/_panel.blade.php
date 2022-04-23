@@ -4,12 +4,14 @@
             
             <h2>Edital</h2>
             
-            @if( isset($processo) )
-                <h3 class="text-secondary">Titulo do Edital</h3>
-                <p style="color: #999;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In massa nisi, scelerisque vitae urna quis, hendrerit ultrices quam. Mauris ut tortor pellentesque, congue lacus at, sagittis urna. Quisque vestibulum purus in nisi fermentum, nec imperdiet odio commodo. Nulla interdum tincidunt lectus. Pellentesque dictum, dui a gravida eleifend, dolor leo placerat erat, at volutpat magna leo sollicitudin nisl</p>
-                <p class="text-success"><strong>Valor:</strong> R$ 10.000,00</p>
-                <a href="#" class="btn btn-danger btn-lg btn-icon rounded-circle"><i class="far fa-file-pdf"></i></a>
-                <a href="#" class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
+            @if( isset($edital) )
+                <h3 class="text-secondary">{{ $edital->titulo }}</h3>
+                <p style="color: #999;">{{ $edital->resumo }}</p>
+                <p class="text-success font-size-16"><strong>Valor Recurso:</strong> R$ {{ number_format($edital->total_recurso, 2, ',', '.') }}</p>
+                <p class="text-primary font-size-16"><strong>Valor por proposta:</strong> R$ {{ number_format($edital->valor_max_inscricao, 2, ',', '.') }}</p>
+                <a href="{{ url('storage/' . $edital->anexo_edital) }}" class="btn btn-danger btn-lg btn-icon rounded-circle" target="_blank"><i class="far fa-file-pdf"></i></a>
+                <a href='{{ url("editais/$edital->id/editar") }}' class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
+                <a href='{{ url("/editais/$edital->id/criterios") }}' class="btn btn-primary rounded">Critérios <i class="far fa-list"></i></a>
             @else
                 <a href="{{ url('editais/novo') }}" class="btn btn-success btn-lg btn-icon rounded-circle">
                     <i class="far fa-plus"></i>
@@ -19,104 +21,96 @@
 
         </div>
         <hr class="border-top border-bottom">
-        <div class="campos-proposta">
-            
-            <h2>Campos da Proposta</h2>
-            
-            @if( isset($processo) )
-                <ul style="color: #999;">
-                    <li>1. Título:</li>
-                    <li>2. Tipo de Extensão:</li>
-                    <li>3. Estado:</li>
-                    <li>4. Cidade:</li>
-                    <li>5. Número de pessoas da UNICAMP que serão envolvidas:</li>
-                    <li>6. Número de pessoas externas que serão envolvidas:</li>
-                    <li>7. Realidade social, econômica e cultural da Comunidade: (máx. 3000 caracteres)</li>
-                    <li>8. O projeto já está em execução?</li>
-                    <li>9. Tipo de envolvimento da equipe com a Comunidade</li>
-                    <li>10. Há parcerias com outras instituições (públicas ou privadas) para o desenvolvimento do projeto?</li>
-                </ul>
-                <p class="text-primary font-size-14 font-weight-bold">Usar Área Temáticas : Sim</p>
-                <p class="text-info font-size-14 font-weight-bold">Usar Linhas de Extensão : Sim</p>
-            @else
-                <a href="{{ url('campos/novo') }}" class="btn btn-success btn-lg btn-icon rounded-circle">
-                    <i class="far fa-plus"></i>
-                </a>
-                Adicionar Campo
-            @endif
-            
-        </div>
-        <hr class="border-top border-bottom">
         <div class="cronograma">
             <h2>Cronograma</h2>
             
-            @if( isset($processo) )
+            @if( isset($edital) && !empty($edital->cronogramas->toArray()) )
                 <ul>
-                    <li><strong class="text-secondary">Data Divulgação: </strong><span style="color: #999;">25/05/2022</span></li>
-                    <li><strong class="text-secondary">Data Inicio Inscrições: </strong><span style="color: #999;">25/05/2022</span></li>
-                    <li><strong class="text-secondary">Data Termino Inscrições: </strong><span style="color: #999;">25/05/2022</span></li>
-                    <li><strong class="text-secondary">Data Termino dos Projetos: </strong><span style="color: #999;">25/05/2022</span></li>
-                    <li><strong class="text-secondary">Data Limite comprovante comitê: </strong><span style="color: #999;">25/05/2022</span></li>
+                    @foreach($edital->cronogramas as $cronograma)
+                    <li><strong class="text-secondary">{{ $cronograma->dt_input }}: </strong><span style="color: #999;">{{ date('d/m/Y', strtotime($cronograma->data)) }}</span></li>
+                    @endforeach
                 </ul>
-                <a href="#" class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
+                <div class="d-flex justify-content-start align-items-center">
+                    <a href='{{ url("editais/$edital->id/cronograma") }}' class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
+                    <form action="{{ url('cronograma/prorrogar') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="edital_id" value="{{$edital->id}}">
+                        <input type="hidden" name="dias" value="5">
+                        <button type="submit" class="btn btn-primary btn-lg btn-icon rounded-circle ml-1"><i class="far fa-plus"></i> 5</i></button>
+                    </form>
+                    <form action="{{ url('cronograma/prorrogar') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="edital_id" value="{{$edital->id}}">
+                        <input type="hidden" name="dias" value="10">
+                        <button type="submit" class="btn btn-primary btn-lg btn-icon rounded-circle ml-1"><i class="far fa-plus"></i> 10</button>
+                    </form>
+                    <form action="{{ url('cronograma/prorrogar') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="edital_id" value="{{$edital->id}}">
+                        <input type="hidden" name="dias" value="15">
+                        <button type="submit" class="btn btn-primary btn-lg btn-icon rounded-circle ml-1"><i class="far fa-plus"></i> 15</button>
+                    </form>
+                </div>
             @else
-                <a href="{{ url('cronograma/novo') }}" class="btn btn-success btn-lg btn-icon rounded-circle">
+                <a href='{{ url("editais/$edital->id/cronograma") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
                     <i class="far fa-plus"></i>
                 </a>
                 Adicionar Cronograma
             @endif
         </div>
         <hr class="border-top border-bottom">
-        <div class="conselheiros">
-            <h2>Conselheiros / Avaliadores</h2>
-            
-            @if( isset($processo) )
-                <div class="pl-2">
-                    <h4>Conselheiros</h4>
-                        <ul style="color: #999;">
-                            <li>Prof. Dr. José Fulano de tal</li>
-                            <li>Prof. Dra. Maria Fulano de tal</li>
-                        </ul>
-
-                    <h4>Pareceristas</h4>
-                        <ul style="color: #999;">
-                            <li>Prof. Dr. José Fulano de tal</li>
-                            <li>Prof. Dra. Maria Fulano de tal</li>
-                        </ul>
-                </div>
-                <a href="#" class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
-            @else
-                <a href="{{ url('conselheiros/novo') }}" class="btn btn-success btn-lg btn-icon rounded-circle">
-                    <i class="far fa-plus"></i>
-                </a>
-                Adicionar Conselheiros / Avaliadores
-            @endif
-        </div>
-        <hr class="border-top border-bottom">
         <div class="questoes-avaliativas" >
-            <h3>Questões Avaliativas</h3>
+            <h2>Questões</h2>
             
-            @if( isset($processo) )
+            @if( isset($edital) && !empty($edital->questoes->toArray()) )
                 <ul style="color: #999;">
-                    <li>1. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>2. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>3. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>4. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>5. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>6. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>7. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>8. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>9. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
-                    <li>10. Por que o projeto deve ser enquadrado como iniciativa de extensão comunitária?</li>
+                    <h4>Questões da Proposta</h4>
+                    @foreach($edital->questoes as $questao)
+                        @if($questao->tipo == 'Proposta')
+                            <li>{{ $questao->enunciado }}</li>
+                        @endif
+                    @endforeach
                 </ul>
 
-                <a href="#" class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
+                <ul style="color: #999;">
+                    <h4>Questões de Avaliação</h4>
+                    @foreach($edital->questoes as $questao)
+                        @if($questao->tipo == 'Avaliativa')
+                            <li>{{ $questao->enunciado }}</li>
+                        @endif
+                    @endforeach
+                </ul>
+
+                <a href='{{ url("editais/$edital->id/questoes") }}' class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
             @else
-                <a href="{{ url('questoes/novo') }}" class="btn btn-success btn-lg btn-icon rounded-circle">
+                <a href='{{ url("editais/$edital->id/questoes") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
                     <i class="far fa-plus"></i>
                 </a>
                 Adicionar Questões
             @endif
         </div>
+        <hr class="border-top border-bottom">
+        <div class="conselheiros">
+            <h2>Avaliadores</h2>
+            
+            @if( isset($avaliadores) && !empty($avaliadores->toArray()) )
+                <div class="pl-2">
+                    <ul style="color: #999;">
+                        @foreach($avaliadores as $avaliador)
+                            <li>{{ $avaliador->name }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <a href='{{ url("editais/$edital->id/avaliadores") }}' class="btn btn-info btn-lg btn-icon rounded-circle">
+                    <i class="far fa-edit"></i>
+                </a>
+            @else
+                <a href='{{ url("editais/$edital->id/avaliadores") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
+                    <i class="far fa-plus"></i>
+                </a>
+                Adicionar Avaliadores
+            @endif
+        </div>
+        
     </div>
 </div>

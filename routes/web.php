@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\IndicadorUnidadeController;
+use App\Http\Controllers\AvaliadorController;
+use App\Http\Controllers\CriterioController;
+use App\Http\Controllers\CronogramaController;
+use App\Http\Controllers\EditalController;
+use App\Http\Controllers\QuestaoController;
+use App\Http\Controllers\InscricaoController;
+use App\Http\Controllers\OrcamentoController;
+use App\Http\Controllers\AreaTematicaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,86 +60,47 @@ Route::group(['middleware' => 'keycloak-web'], function () {
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
 
-    /* -------------- rotas para views do sistema de editais ------*/
-    Route::get('lista-editais', function(){
-        return view('edital.index2');
-    });
+    /* -------------- rotas editais ---------------- */
+    Route::resource('/editais', EditalController::class);
 
-    Route::get('editais/novo', function(){
-        return view('edital.create');
-    });
+    Route::get('/editais/{edital}/criterios', [EditalController::class, 'editarCriterios']);
+    Route::resource('/criterios', CriterioController::class);
 
-    Route::get('editais/{id}/editar', function(){
-        return view('edital.edit');
-    });
+    Route::resource('/cronogramas', CronogramaController::class);
+    Route::get('/editais/{edital}/cronograma', [EditalController::class, 'editarCronograma']);
+    Route::post('/cronograma/prorrogar', [CronogramaController::class, 'prorrogar']);
+
+    Route::resource('/questoes', QuestaoController::class);
+    Route::get('/editais/{edital}/questoes', [EditalController::class, 'editarQuestoes']);
+
+    Route::resource('/avaliadores', AvaliadorController::class);
+    Route::get('/editais/{edital}/avaliadores', [EditalController::class, 'editarAvaliadores']);
+
+    Route::resource('/inscricao', InscricaoController::class);
+    Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
+    Route::post('/inscricao/{id}/analise', [InscricaoController::class, 'analise']);
+    Route::post('/inscricao/{id}/avaliacao', [InscricaoController::class, 'avaliacao']);
+    Route::get('/inscricoes-para-analise', [InscricaoController::class, 'listagemParaAnalise']);
+
+    Route::get('/inscricao/{id}/orcamento', [OrcamentoController::class, 'create']);
+    Route::resource('/orcamento', OrcamentoController::class);
+
+    Route::resource('areas-tematicas', AreaTematicaController::class);
 
     Route::get('/processo-editais', function(){
-        return view('processo-edital.index');
-    });
+        $editais = App\Models\Edital::all();
 
-    Route::get('/processo-editais/{id}/editar', function(){
-    $processo = 1;
-    return view('processo-edital.edit', compact('processo'));
+        return view('processo-edital.index', compact('editais'));
     });
-
-    Route::get('/processo-editais/novo', function(){
-        return view('processo-edital.create');
-    });
-
-    Route::get('/cronograma/novo', function(){
-        return view('cronograma.create');
-    });
-
-    Route::get('/cronograma/{id}/editar', function(){
-        return view('cronograma.edit');
-    });
-
-    Route::get('/conselheiros/novo', function(){
-        return view('conselheiro.create');
-    });
-
-    Route::get('/questoes/novo', function(){
-        return view('questoes.create');
-    });
-
-    Route::get('/proposta/novo', function(){
-        return view('proposta.create');
-    });
-
-    Route::get('/proposta', function(){
-        return view('proposta.index');
-    });
-
-    Route::get('/proposta/analise', function(){
-        return view('proposta.analise');
-    });
-
-    Route::get('/proposta/parecer-final', function(){
-        return view('proposta.parecer-final');
-    });
-
-    Route::get('/proposta/avaliacao', function(){
-        return view('proposta.avaliacao');
-    });
-
-    Route::get('/proposta/classificacao', function(){
-        return view('proposta.classificacao');
-    });
-
-    Route::get('/proposta/enviadas', function(){
-        return view('proposta.enviadas');
-    });
-
-    Route::get('/orcamento/novo', function(){
-        return view('orcamento.create');
-    });
-
-    Route::get('/campos/novo', function(){
-        return view('campos.create');
-    });
-
-    Route::get('/areas-tematicas', function(){
-        return view('areas-tematicas.index');
+    
+    Route::get('/processo-editais/{id}/editar', function($id){
+        $edital = App\Models\Edital::find($id);
+        $cronograma = App\Models\Cronograma::where('edital_id', $id)->get()->toArray();
+        $avaliadores = App\Models\Avaliador::join('users', 'users.id', 'avaliadores.user_id')
+                                ->where('avaliadores.edital_id', $id)
+                                ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
+    
+        return view('processo-edital.edit', compact('edital', 'cronograma', 'avaliadores'));
     });
 
 });

@@ -8,7 +8,7 @@
         <div class="col-xl-12">
             <h1>Adicionar Indicadores da unidade - {{$unidade->sigla}}</h1>
 
-            @include('indicadores._status')
+            @include('layouts._include._status')
 
             <div id="panel-1" class="panel">
             <form action="{{ url('/indicadores') }}" method="post">
