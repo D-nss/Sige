@@ -25,7 +25,19 @@ class UserController extends Controller
     public function teste()
     {
         //$user = User::where('email', Auth::user()->id)->first();
-        $user = Auth::user();
+        //$user = Auth::user();
+
+        $user = User::where('email', Auth::user()->id)->first();
+        if ($user){
+            Auth::login($user);
+        } else {
+            User::create([
+                'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
+                'email' => Auth::user()->id,
+                'unidade_id' => Auth::user()->codigoUnidade, //DTIC
+                'ativo' => true,
+            ])->assignRole('user');
+        }
 
         //$dados['usuarios'] = User::all();
         return view('usuarios.teste', [
@@ -172,7 +184,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        $userRoles = $user->roles->all();
+        $userRoles = $user->getRoleNames();
 
         $unidades = Unidade::all();
         return view('usuarios.edit', [
@@ -194,7 +206,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,',
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'roles' => 'required'
         ]);
 
