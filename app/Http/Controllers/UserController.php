@@ -29,12 +29,13 @@ class UserController extends Controller
 
         $user = User::where('email', Auth::user()->id)->first();
         if ($user){
-            Auth::login($user);
+            //Auth::login($user);
         } else {
+            $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade);
             User::create([
                 'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
                 'email' => Auth::user()->id,
-                'unidade_id' => Auth::user()->codigoUnidade, //DTIC
+                'unidade_id' => $unidade->id, //DTIC
                 'ativo' => true,
             ])->assignRole('user');
         }
@@ -44,6 +45,8 @@ class UserController extends Controller
             'usuario' => $user,
         ]);
     }
+
+
     /**
      * Display a listing of the resource.
      *
