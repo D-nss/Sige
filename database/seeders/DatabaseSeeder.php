@@ -44,9 +44,10 @@ class DatabaseSeeder extends Seeder
         //$this->call(IndicadorSeeder::class);
 
         //Linhas de Extensão
-        $this->call(LinhasExtensaoTableSeeder::class);
+        //$this->call(LinhasExtensaoTableSeeder::class);
         //Areas Tematicas
-        $this->call(AreasTematicasTableSeeder::class);
+        //$this->call(AreasTematicasTableSeeder::class);
 
+        $this->call(MunicipiosTableSeeder::call);
     }
 }
