@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome')->nullable();
             $table->string('sigla');
+            $table->string('codigo')->nullable(); //Código Únidade retornada na Autenticação do usuário
             $table->timestamps();
         });
     }

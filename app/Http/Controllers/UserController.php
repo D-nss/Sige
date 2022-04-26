@@ -24,14 +24,32 @@ class UserController extends Controller
 
     public function teste()
     {
-        //$user = User::where('email', Auth::user()->id)->first();
-        $user = Auth::user();
+        //buscando usuário do autenticado no SiSe no sistema
 
-        //$dados['usuarios'] = User::all();
+        $user = User::where('email', Auth::user()->id)->first();
+
+        //se nao encontrado
+        if (!$user){
+            $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade)->first();
+
+            if($unidade){
+                User::create([
+                    'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
+                    'email' => Auth::user()->id,
+                    'unidade_id' => $unidade->id,
+                    'ativo' => true,
+                ])->assignRole('user');
+            } else {
+                return 'unidade não encontrada, entre em contato com administrador do sistema!';
+            }
+        }
+
         return view('usuarios.teste', [
             'usuario' => $user,
         ]);
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -172,7 +190,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        $userRoles = $user->roles->all();
+        $userRoles = $user->getRoleNames();
 
         $unidades = Unidade::all();
         return view('usuarios.edit', [
@@ -194,7 +212,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,',
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'roles' => 'required'
         ]);
 

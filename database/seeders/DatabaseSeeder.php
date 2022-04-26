@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
         //     'remember_token' => Str::random(10)
         // ]);
 
+        //Permissões (Permissions)
+         $this->call(PermissionSeeder::class);
+
         //Papeis (Roles)
         //$this->call(RoleSeeder::class);
 

@@ -180,7 +180,8 @@ class UnidadeSeeder extends Seeder
             ] );
 
             Unidade::create( [
-            'sigla'=>'DTIC'
+            'sigla'=>'DTIC',
+            'codigo'=>'1.3.39.0.0.0.0'
             ] );
 
             Unidade::create( [
