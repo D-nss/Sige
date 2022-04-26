@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         //Permissões (Permissions)
-         $this->call(PermissionSeeder::class);
+        //$this->call(PermissionSeeder::class);
 
         //Papeis (Roles)
         //$this->call(RoleSeeder::class);
