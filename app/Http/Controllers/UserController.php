@@ -24,23 +24,20 @@ class UserController extends Controller
 
     public function teste()
     {
-        //$user = User::where('email', Auth::user()->id)->first();
-        //$user = Auth::user();
-
         $user = User::where('email', Auth::user()->id)->first();
+
         if ($user){
-            //Auth::login($user);
+            Auth::login($user);
         } else {
-            $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade);
+            $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade)->first();
             User::create([
                 'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
                 'email' => Auth::user()->id,
-                'unidade_id' => $unidade->id, //DTIC
+                'unidade_id' => $unidade->id,
                 'ativo' => true,
             ])->assignRole('user');
         }
 
-        //$dados['usuarios'] = User::all();
         return view('usuarios.teste', [
             'usuario' => $user,
         ]);
