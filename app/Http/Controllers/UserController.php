@@ -24,18 +24,24 @@ class UserController extends Controller
 
     public function teste()
     {
+        //buscando usuário do autenticado no SiSe no sistema
+
         $user = User::where('email', Auth::user()->id)->first();
 
-        if ($user){
-            Auth::login($user);
-        } else {
+        //se nao encontrado
+        if (!$user){
             $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade)->first();
-            User::create([
-                'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
-                'email' => Auth::user()->id,
-                'unidade_id' => $unidade->id,
-                'ativo' => true,
-            ])->assignRole('user');
+
+            if($unidade){
+                User::create([
+                    'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
+                    'email' => Auth::user()->id,
+                    'unidade_id' => $unidade->id,
+                    'ativo' => true,
+                ])->assignRole('user');
+            } else {
+                return 'unidade não encontrada, entre em contato com administrador do sistema!';
+            }
         }
 
         return view('usuarios.teste', [
