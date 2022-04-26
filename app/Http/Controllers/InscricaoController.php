@@ -74,7 +74,7 @@ class InscricaoController extends Controller
                 'url_projeto' => $request->link_projeto,
                 'url_lattes' => $request->link_lattes,
                 'status' => 'Pendente',
-                'linha_extencao_id' => $request->linha_extensao,
+                'linha_extensao_id' => $request->linha_extensao,
                 'user_id' => 2,
                 'unidade_id' => 42,
                 'edital_id' => $request->edital_id
