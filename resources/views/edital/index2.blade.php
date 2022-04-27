@@ -5,7 +5,7 @@
 @section('content')
 <h1>Editais</h1>
 <div class="my-3">
-    @foreach($editais as $edital)
+    @forelse($editais as $edital)
         <div class="row bg-white shadow border p-3 mb-3">
             <div class="col-sm-2 d-flex align-items-center">
                 <img src="{{ asset('smartadmin-4.5.1/img/logo_pex_21_covid.png')}}" class="card-img-top" alt="...">
@@ -24,10 +24,12 @@
                 </div>
             </div>
         </div>
-    @endforeach
-    
+        @empty
+            <div class="row bg-white shadow border p-3 mb-3">
+                <h3>Não há editais incluídos</h3>
+            </div>
+        @endforelse
 
-    
 </div>
 
 @endsection
