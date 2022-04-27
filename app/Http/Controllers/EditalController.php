@@ -33,14 +33,14 @@ class EditalController extends Controller
     public function create()
     {
         $user = User::where('email', Auth::user()->id)->first();
-        echo json_encode( $user->hasRole('admin') );
-        // if(!auth()->user()->hasRole('admin')){
-        //     session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
-        //     session()->flash('alert', 'warning');
-        //     return redirect()->back();
-        // }
 
-        // return view('edital.create');
+        if(!$user->hasRole('admin')){
+            session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
+            session()->flash('alert', 'warning');
+            return redirect()->back();
+        }
+
+        return view('edital.create');
     }
 
     /**
@@ -50,13 +50,7 @@ class EditalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        if(!auth()->user()->hasRole('admin')){
-            session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
-            session()->flash('alert', 'warning');
-            return redirect()->back();
-        }
-        
+    {        
         $uploaded = new UploadFile();
 
         $edital = Edital::create([
