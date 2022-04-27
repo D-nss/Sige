@@ -55,66 +55,78 @@ class InscricaoController extends Controller
 
     //    $validated = $request->validate($validar);
 
-
-        $areasTematicasInsert = array();
-        $respostasQuestoesInsert = array();
-        $upload = new UploadFile();
-
-        $exception = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload) {
-            
-            $inscricao = Inscricao::create([
-                'titulo' => $request->titulo,
-                'tipo' => $request->tipo_extensao,
-                'municipio_id' => $request->cidade,
-                'resumo' => $request->resumo,
-                'palavras_chaves' => $request->palavras_chaves,
-                'parceria' => $request->parceria,
-                'anexo_parceria' => !!$request->comprovante_parceria ? $upload->execute($request, 'comprovante_parceria', 'pdf', 3000000) : '',
-                'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 3000000),
-                'url_projeto' => $request->link_projeto,
-                'url_lattes' => $request->link_lattes,
-                'status' => 'Pendente',
-                'linha_extensao_id' => $request->linha_extensao,
-                'user_id' => 2,
-                'unidade_id' => 42,
-                'edital_id' => $request->edital_id
-            ]);
-
-            foreach($request->areas_tematicas as $areas) {
-                array_push($areasTematicasInsert,[
-                    'area_tematica_id' => $areas, 
-                    'inscricao_id' => $inscricao->id
-                ]);
-            }
-
-            DB::table('inscricoes_areas_tematicas')->insert($areasTematicasInsert);
-
-            foreach($request->all() as $key => $resposta) {
-                if(substr($key, 0, 8) == 'questao-') {
-                    array_push($respostasQuestoesInsert, [
-                        'questao_id' => substr($key, 8, strlen($key)), 
-                        'inscricao_id' => $inscricao->id, 
-                        'resposta' => $resposta
-                    ]);
-                }
-            }
-
-            DB::table('questoes_respondidas')->insert($respostasQuestoesInsert);
-            
-        });
-
-        if(is_null($exception)) {
-            session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
-            session()->flash('alert', 'success');
-
-            return redirect()->to("inscricao/$inscricao->id/orcamento");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
-            session()->flash('alert', 'danger');
+        $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', 2)->first();
+        $checaInscricaoEmAberto = Inscricao::where('user_id', 2)->where('status', '<>', 'Concluido')->first();
+        
+        if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
+            session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
+            session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
+        else {
+            $areasTematicasInsert = array();
+            $respostasQuestoesInsert = array();
+            $upload = new UploadFile();
+            $inscricao = '';
+
+            $exception = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $inscricao) {
+                
+                $inscricao = Inscricao::create([
+                    'titulo' => $request->titulo,
+                    'tipo' => $request->tipo_extensao,
+                    'municipio_id' => $request->cidade,
+                    'resumo' => $request->resumo,
+                    'palavras_chaves' => $request->palavras_chaves,
+                    'parceria' => $request->parceria,
+                    'anexo_parceria' => !!$request->comprovante_parceria ? $upload->execute($request, 'comprovante_parceria', 'pdf', 3000000) : '',
+                    'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 3000000),
+                    'url_projeto' => $request->link_projeto,
+                    'url_lattes' => $request->link_lattes,
+                    'status' => 'Pendente',
+                    'linha_extensao_id' => $request->linha_extensao,
+                    'user_id' => 2,
+                    'unidade_id' => 42,
+                    'edital_id' => $request->edital_id
+                ]);
+
+                foreach($request->areas_tematicas as $areas) {
+                    array_push($areasTematicasInsert,[
+                        'area_tematica_id' => $areas, 
+                        'inscricao_id' => $inscricao->id
+                    ]);
+                }
+
+                DB::table('inscricoes_areas_tematicas')->insert($areasTematicasInsert);
+
+                foreach($request->all() as $key => $resposta) {
+                    if(substr($key, 0, 8) == 'questao-') {
+                        array_push($respostasQuestoesInsert, [
+                            'questao_id' => substr($key, 8, strlen($key)), 
+                            'inscricao_id' => $inscricao->id, 
+                            'resposta' => $resposta
+                        ]);
+                    }
+                }
+
+                DB::table('questoes_respondidas')->insert($respostasQuestoesInsert);
+                
+            });
+
+            if(is_null($exception)) {
+                session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
+                session()->flash('alert', 'success');
+
+                return redirect()->to("inscricao/$inscricao->id/orcamento");
+            }
+            else {
+                session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
+                session()->flash('alert', 'danger');
+
+                return redirect()->back();
+            }
+        }
+        
     }
 
     /**
