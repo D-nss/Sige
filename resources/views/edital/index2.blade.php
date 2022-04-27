@@ -5,6 +5,8 @@
 @section('content')
 <h1>Editais</h1>
 <div class="my-3">
+    @include('layouts._includes._status')
+    
     @forelse($editais as $edital)
         <div class="row bg-white shadow border p-3 mb-3">
             <div class="col-sm-2 d-flex align-items-center">
@@ -26,7 +28,7 @@
         </div>
         @empty
             <div class="row bg-white shadow border p-3 mb-3">
-                <h3>Não há editais incluídos</h3>
+                <h3>Não há editais</h3>
             </div>
         @endforelse
 

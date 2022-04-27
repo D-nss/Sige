@@ -31,7 +31,7 @@ class EditalController extends Controller
      */
     public function create()
     {
-        if(!auth()->user()->hasRole('super|admin')){
+        if(!auth()->user()->hasRole('admin')){
             session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
             session()->flash('alert', 'warning');
             return redirect()->back();
@@ -48,7 +48,7 @@ class EditalController extends Controller
      */
     public function store(Request $request)
     {
-        if(!auth()->user()->hasRole('super|admin')){
+        if(!auth()->user()->hasRole('admin')){
             session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
             session()->flash('alert', 'warning');
             return redirect()->back();
