@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Avaliador;
 use App\Models\Edital;
@@ -31,7 +32,8 @@ class EditalController extends Controller
      */
     public function create()
     {
-        echo json_encode(auth()->user()->hasRole('admin'));
+        $user = User::where('email', Auth::user()->id)->first();
+        echo json_encode( $user->hasRole() );
         // if(!auth()->user()->hasRole('admin')){
         //     session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
         //     session()->flash('alert', 'warning');
