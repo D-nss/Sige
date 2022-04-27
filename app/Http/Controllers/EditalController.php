@@ -19,7 +19,9 @@ class EditalController extends Controller
      */
     public function index()
     {
-        return view('edital.index2');
+        $editais = Edital::join('cronogramas', 'cronogramas.edital_id', 'editais.id')->get();
+
+        return view('edital.index2', compact('editais'));
     }
 
     /**
@@ -29,6 +31,12 @@ class EditalController extends Controller
      */
     public function create()
     {
+        if(!auth()->user()->hasRole('super|admin')){
+            session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
+            session()->flash('alert', 'warning');
+            return redirect()->back();
+        }
+
         return view('edital.create');
     }
 
@@ -40,6 +48,12 @@ class EditalController extends Controller
      */
     public function store(Request $request)
     {
+        if(!auth()->user()->hasRole('super|admin')){
+            session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
+            session()->flash('alert', 'warning');
+            return redirect()->back();
+        }
+        
         $uploaded = new UploadFile();
 
         $edital = Edital::create([
