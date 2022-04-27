@@ -33,7 +33,7 @@ class EditalController extends Controller
     public function create()
     {
         $user = User::where('email', Auth::user()->id)->first();
-        echo json_encode( $user->hasRole() );
+        echo json_encode( $user->hasRole('admin') );
         // if(!auth()->user()->hasRole('admin')){
         //     session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
         //     session()->flash('alert', 'warning');
