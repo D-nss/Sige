@@ -29,25 +29,27 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         //Permissões (Permissions)
-        $this->call(PermissionSeeder::class);
+        //$this->call(PermissionSeeder::class);
 
         //Papeis (Roles)
-        $this->call(RoleSeeder::class);
+        //$this->call(RoleSeeder::class);
 
         //Unidades
-        $this->call(UnidadeSeeder::class);
+        //$this->call(UnidadeSeeder::class);
 
         //Usuários Super/Admin iniciais do sistema
-        $this->call(AdminSeeder::class);
+        //$this->call(AdminSeeder::class);
 
         //Indicadores
-        $this->call(IndicadorSeeder::class);
+        //$this->call(IndicadorSeeder::class);
 
         //Linhas de Extensão
-        $this->call(LinhasExtensaoTableSeeder::class);
+        //$this->call(LinhasExtensaoTableSeeder::class);
         //Areas Tematicas
-        $this->call(AreasTematicasTableSeeder::class);
+        //$this->call(AreasTematicasTableSeeder::class);
 
-        $this->call(MunicipiosTableSeeder::class);
+        //$this->call(MunicipiosTableSeeder::class);
+
+        $this->call(ModeloCronogramaTableSeeder::class);
     }
 }
