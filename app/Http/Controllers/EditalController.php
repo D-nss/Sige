@@ -21,8 +21,8 @@ class EditalController extends Controller
     public function index()
     {
         $editais = Edital::join('cronogramas', 'cronogramas.edital_id', 'editais.id')->get();
-
-        return view('edital.index2', compact('editais'));
+        echo json_encode($editais);
+        //return view('edital.index2', compact('editais'));
     }
 
     /**
