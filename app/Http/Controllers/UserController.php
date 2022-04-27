@@ -33,7 +33,7 @@ class UserController extends Controller
             $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade)->first();
 
             if($unidade){
-                User::create([
+                $user = User::create([
                     'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
                     'email' => Auth::user()->id,
                     'unidade_id' => $unidade->id,
