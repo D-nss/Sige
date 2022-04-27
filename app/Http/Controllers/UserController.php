@@ -30,14 +30,14 @@ class UserController extends Controller
 
         //se nao encontrado
         if (!$user){
-            $unidade = Unidade::where('codigo', Auth::user()->codigoUnidade)->first();
+            $unidade = Unidade::where(DB::raw('lower(sigla)'), 'like', strtolower(Auth::user()->unidade))->first();
 
             if($unidade){
                 $user = User::create([
                     'name' => implode(' ',array_unique(explode(' ', Auth::user()->name))),
                     'email' => Auth::user()->id,
                     'unidade_id' => $unidade->id,
-                    'ativo' => true,
+                    'ativo' => true
                 ])->assignRole('user');
             } else {
                 return 'unidade não encontrada, entre em contato com administrador do sistema!';

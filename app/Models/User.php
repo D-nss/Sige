@@ -12,7 +12,9 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Avaliador;
 use App\Models\Inscricao;
 
-class User extends Authenticatable
+use Vizir\KeycloakWebGuard\Models\KeycloakUser;
+
+class User extends KeycloakUser
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -28,8 +30,23 @@ class User extends Authenticatable
         'name',
         'email',
         'unidade_id',
-        'ativo'
+        'ativo',
+        'unidade',
     ];
+
+    /**
+     * Check user has roles
+     *
+     * @see KeycloakWebGuard::hasRole()
+     *
+     * @param  string|array  $roles
+     * @param  string  $resource
+     * @return boolean
+     */
+    public function hasRole($roles, $resource = '')
+    {
+        return Auth::hasRole($roles, $resource);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
