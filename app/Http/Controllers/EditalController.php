@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Avaliador;
+use App\Models\AreaTematica;
 use App\Models\Edital;
 use App\Models\UploadFile;
 use App\Models\User;
@@ -171,10 +172,11 @@ class EditalController extends Controller
     public function editarAvaliadores(Edital $edital)
     {  
         $users = User::all();
+        $areas = AreaTematica::all();
         $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
                                 ->where('avaliadores.edital_id', $edital->id)
                                 ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
 
-        return view('avaliadores.create', compact('edital', 'users', 'avaliadores'));
+        return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'areas'));
     }
 }
