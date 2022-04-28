@@ -3,7 +3,7 @@
 @section('title', 'Cadastrar novo Processo Edital')
 
 @section('content')
-<h1>Propostas</h1>
+<h1>Inscrições</h1>
 
 <div class="row p-4">
     <div class="col-md-12">

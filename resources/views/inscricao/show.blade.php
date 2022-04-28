@@ -156,7 +156,7 @@
                         <div id="step-7" class="tab-pane" role="tabpanel">
                             @if($inscricao->status == 'Avaliado')
                                 <h3 class="text-secondary">Já Avaliado</h3>
-                            @else
+                            @elseif($inscricao->status == 'Deferido')
                             <form action='{{ url("/inscricao/$inscricao->id/avaliacao") }}' method="post" id="avaliacao-form">
                                 @csrf
                                 
@@ -206,6 +206,8 @@
                                     </div>
                                 @endforeach
                             </form>
+                            @else
+                                <h3 class="text-secondary">Não disponível para avaliação</h3>
                             @endif
                         </div>
                         @endif
@@ -223,7 +225,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            @if($inscricao->status == 'Deferido' || $inscricao->status == 'Indeferido')
+                            @if($inscricao->status != 'Submetido' )
                                 <h4>Já Avaliado</h4>
                                 <a href="#" onclick="history.back()" class="btn btn-secondary btn-user ">
                                     <span class="icon text-white-50">

@@ -10,6 +10,10 @@ use App\Models\Orcamento;
 
 class OrcamentoController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('role:docente,super,admin');
+    }
     /**
      * Display a listing of the resource.
      *

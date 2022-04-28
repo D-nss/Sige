@@ -12,7 +12,11 @@ use App\Models\UploadFile;
 use App\Models\User;
 
 class EditalController extends Controller
-{
+{   
+    public function __construct()
+    {
+        //$this->middleware('role:admin,super')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +25,8 @@ class EditalController extends Controller
     public function index()
     {
         $editais = Edital::all();
-        echo json_encode($editais[0]->cronogramas);
-        //return view('edital.index2', compact('editais'));
+        
+        return view('edital.index2', compact('editais'));
     }
 
     /**
@@ -32,13 +36,6 @@ class EditalController extends Controller
      */
     public function create()
     {
-        $user = User::where('email', Auth::user()->id)->first();
-
-        if(!$user->hasRole('admin')){
-            session()->flash('status', 'Desculpe! Você não possui permissão de acesso');
-            session()->flash('alert', 'warning');
-            return redirect()->back();
-        }
 
         return view('edital.create');
     }

@@ -34,4 +34,9 @@ class Inscricao extends Model
         'edital_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

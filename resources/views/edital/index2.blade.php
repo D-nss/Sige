@@ -16,13 +16,19 @@
                 <p class="font-weight-bold" style="font-size: 16px;">{{ $edital->titulo }}</p>
             </div>
             <div class="col-sm-3 d-flex align-items-center">
-                <p style="font-size: 12px; color: #999;">{{ substr( $edital->titulo, 0, 500 ) }}</p>
+                <p style="font-size: 12px; color: #999;">{{ substr( $edital->resumo, 0, 350 ) . ' ... ' }}</p>
             </div>
             <div class="col-sm-4 d-flex align-items-center">
                 <div>
-                    <a href="{{ url( 'storage/' . $edital->anexo_projeto ) }}" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-file-pdf"></i> Edital em PDF</a>
-                    <a href="{{ url( 'inscricao/' . $edital->id . '/novo' ) }}" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"> <i class="far fa-arrow-alt-to-top"></i> Enviar Porpostas</a>
-                    <a href="#" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-list-alt"></i> Classificação</a>
+                    <a href='{{ asset( "storage/$edital->anexo_edital" ) }}' target="_blank" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-file-pdf"></i> Edital em PDF</a>
+                    
+                    @foreach($edital->cronogramas as $cronograma)
+                        @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->data) && $cronograma->dt_input == 'dt_inscricao')
+                            <a href="{{ url( 'inscricao/' . $edital->id . '/novo' ) }}" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"> <i class="far fa-arrow-alt-to-top"></i> Enviar Porpostas</a>
+                        @endif
+                    @endforeach
+                    
+                    <!-- <a href="#" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-list-alt"></i> Classificação</a> -->
                 </div>
             </div>
         </div>

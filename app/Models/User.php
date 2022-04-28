@@ -57,4 +57,9 @@ class User extends Authenticatable
         return $this->belongsTo(Avaliador::class);
     }
 
+    public function inscricao() 
+    {
+        return $this->hasMany(Inscricao::class);
+    }
+
 }

@@ -15,6 +15,10 @@ use App\Models\IndicadorUnidade;
 
 class IndicadorUnidadeController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('role:coordenador_ext,super,admin');
+    }
     /**
      * Display a listing of the resource.
      *

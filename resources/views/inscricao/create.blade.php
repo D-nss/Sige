@@ -3,7 +3,7 @@
 @section('title', 'Cadastrar novo Processo Edital')
 
 @section('content')
-<h1>Proposta</h1>
+<h1>Inscrição</h1>
         <!-- Begin Page Content -->
         <div class="container">
           <div class="row">
@@ -85,7 +85,7 @@
                                     Não <input type="radio" name="parceria" id="parcerias_nao"  value="Não" checked required="true">
                                     <br>
                                     <div id="arquivo_parceria" class="d-none">
-                                        <label for="comprovante_parceria" class="font-weight-bold">Enviar o comprovante no campo abaixo: </label>
+                                        <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
                                         <div class="preview-zone hidden">
                                             <div class="box box-solid">
                                                 <div class="box-header with-border">

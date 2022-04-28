@@ -4,13 +4,15 @@
 
 @section('content')
 <h1>Processos de Editais</h1>
-<div class="row">
+<div class="row mb-3">
     <div class="col-sm-3">
         <a href="{{ route('editais.create') }}" class="btn btn-success btn-lg btn-icon rounded-circle" >
             <i class="far fa-plus"></i>
         </a>
     </div>
 </div>
+
+@include('layouts._includes._status')
 
 <div class="row">
     @if( isset( $editais ) )
