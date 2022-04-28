@@ -10,8 +10,9 @@
         <label for="area_tematica" class="font-weight-bold">Área Temática: </label>
         <select name="area_tematica" id="area_tematica" class="form-control mb-3">
             <option value="">Selecionar ...</option>
-            <option value="1">Cultura</option>
-            <option value="2">Meio Ambiente</option>
+            @foreach($areas as $area)
+                <option value="{{ $area->id }}">{{ $area->nome }}</option>
+            @endforeach
         </select>
 
         <label for="docente" class="font-weight-bold">Docente: </label>
