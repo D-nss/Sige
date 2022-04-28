@@ -15,6 +15,10 @@ use App\Models\LinhaExtensao;
 
 class InscricaoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:coordenador');
+    }
     /**
      * Display a listing of the resource.
      *
