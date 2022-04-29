@@ -109,12 +109,13 @@
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Editais</span>
                 </a>
                 <ul>
-                    {{ Auth::user()->hasRole('admin|super') }}
+                    @if(Auth::user()->hasRole('admin|super')
                     <li class="">
                         <a href="{{ url('processo-editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Processos de Editais</span>
                         </a>
                     </li>
+                    @endif
                     <li class="">
                         <a href="{{ url('editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Editais</span>
