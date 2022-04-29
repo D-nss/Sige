@@ -127,7 +127,7 @@ class InscricaoController extends Controller
                 'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 3000000),
                 'url_projeto' => $request->link_projeto,
                 'url_lattes' => $request->link_lattes,
-                'status' => 'Pendente',
+                'status' => 'Submetido',
                 'linha_extensao_id' => $request->linha_extensao,
                 'user_id' => $user->id,
                 'unidade_id' => $user->unidade->id,
@@ -339,7 +339,7 @@ class InscricaoController extends Controller
         {
             session()->flash('status', 'Avaliação cadastrada com sucesso!');
             session()->flash('alert', 'success');
-            return redirect()->to('/inscricoes-para-analise');
+            return redirect()->to('inscricao');
         }
         else
         {
