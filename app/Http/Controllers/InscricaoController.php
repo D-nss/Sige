@@ -135,6 +135,8 @@ class InscricaoController extends Controller
                 'edital_id' => $request->edital_id
             ]);
 
+            echo json_encode($inscricao);
+
             foreach($request->areas_tematicas as $areas) {
                 array_push($areasTematicasInsert,[
                     'area_tematica_id' => $areas, 
@@ -158,7 +160,6 @@ class InscricaoController extends Controller
             
         });
 
-        dd($inscricao);
         // if(is_null($exception)) {
         //     session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
         //     session()->flash('alert', 'success');
