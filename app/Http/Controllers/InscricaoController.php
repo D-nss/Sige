@@ -19,7 +19,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:docente,super,admin')->except(['analise','avaliacao']);
+        $this->middleware('role:coordenador,super,admin');
     }
     /**
      * Display a listing of the resource.
