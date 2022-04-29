@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Edital;
 use App\Models\Inscricao;
@@ -27,7 +28,7 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
             $inscricoes = Inscricao::all();
@@ -47,8 +48,10 @@ class InscricaoController extends Controller
      */
     public function create($id)
     {
-        $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', 2)->first();
-        $checaInscricaoEmAberto = Inscricao::where('user_id', 2)->where('status', '<>', 'Concluido')->first();
+        $user = User::where('email', Auth::user()->id)->first();
+
+        $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
+        $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
         
         if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
             session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
@@ -95,8 +98,10 @@ class InscricaoController extends Controller
 
     //    $validated = $request->validate($validar);
 
-        $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', 2)->first();
-        $checaInscricaoEmAberto = Inscricao::where('user_id', 2)->where('status', '<>', 'Concluido')->first();
+        $user = User::where('email', Auth::user()->id)->first();
+
+        $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
+        $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
         
         if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
             session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
@@ -125,8 +130,8 @@ class InscricaoController extends Controller
                 'url_lattes' => $request->link_lattes,
                 'status' => 'Pendente',
                 'linha_extensao_id' => $request->linha_extensao,
-                'user_id' => 2,
-                'unidade_id' => 42,
+                'user_id' => $user->id,
+                'unidade_id' => $user->unidade->id,
                 'edital_id' => $request->edital_id
             ]);
 
@@ -309,12 +314,13 @@ class InscricaoController extends Controller
 
     public function avaliacao(Request $request, $id) 
     {
+        $user = User::where('email', Auth::user()->id)->first();
         $dados = array();
 
         foreach( $request->except('_token') as $key => $value) {
             $questao_id = substr($key, 8, strlen($key));
             array_push($dados, array(
-                'user_id'      => 2,
+                'user_id'      => $user->id,
                 'inscricao_id' => $id,
                 'questao_id'   => $questao_id,
                 'valor'        => $value
