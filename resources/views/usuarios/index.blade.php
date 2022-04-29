@@ -12,6 +12,14 @@
                 </div>
             @endif
 
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <a href="/usuarios/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >
+                        <i class="far fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+
             <!-- datatable start -->
             <table id="dt-usuarios" class="table table-bordered table-hover table-striped w-100">
                 <thead>

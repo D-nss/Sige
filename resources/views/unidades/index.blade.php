@@ -5,6 +5,15 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <h1>Unidades</h1>
+
+    <div class="row mb-3">
+        <div class="col-sm-3">
+            <a href="/unidades/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >
+                <i class="far fa-plus"></i>
+            </a>
+        </div>
+    </div>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -45,6 +54,8 @@
     </div>
     </div>
     </div>
+
+
 
     </div>
     <!-- /.container-fluid -->

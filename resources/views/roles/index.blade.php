@@ -5,6 +5,16 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <h1>Papeis</h1>
+    <div class="row">
+
+    <div class="row mb-3">
+        <div class="col-sm-3">
+            <a href="/roles/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >
+                <i class="far fa-plus"></i>
+            </a>
+        </div>
+    </div>
 
             <!-- datatable start -->
             <table id="dt-roles" class="table table-bordered table-hover table-striped w-100">
@@ -33,6 +43,8 @@
                 </tfoot>
             </table>
             <!-- datatable end -->
+
+    </div>
 </div>
 <!-- /.container-fluid -->
 
