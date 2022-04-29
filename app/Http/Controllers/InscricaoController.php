@@ -113,9 +113,9 @@ class InscricaoController extends Controller
         $areasTematicasInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
-        $inscricao = '';
+        $url = '';
 
-        $exception = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $inscricao, $user) {
+        $exception = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $url, $user) {
             
             $inscricao = Inscricao::create([
                 'titulo' => $request->titulo,
@@ -135,7 +135,7 @@ class InscricaoController extends Controller
                 'edital_id' => $request->edital_id
             ]);
 
-            echo json_encode($inscricao);
+            $url = "inscricao/$inscricao->id/orcamento";
 
             foreach($request->areas_tematicas as $areas) {
                 array_push($areasTematicasInsert,[
@@ -160,11 +160,13 @@ class InscricaoController extends Controller
             
         });
 
+        echo json_encode($url);
+
         // if(is_null($exception)) {
         //     session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
         //     session()->flash('alert', 'success');
 
-        //     return redirect()->to("inscricao/$inscricao->id/orcamento");
+        //     return redirect()->to();
         // }
         // else {
         //     session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
