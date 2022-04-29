@@ -73,7 +73,7 @@
                             </li>
                         </ul> -->
                     </li>
-                    
+
                     <!-- <li class="disabled">
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
@@ -103,7 +103,7 @@
                     </li> -->
                 </ul>
             </li>
-            
+
             <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Editais</span>
@@ -124,7 +124,76 @@
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
                         </a>
                     </li>
-                    
+
+                </ul>
+            </li>
+            <li class="nav-title">Administração</li>
+            <li>
+                <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Usuarios</span>
+                </a>
+                <ul>
+                    <li class="">
+                        <a href="/usuarios" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Usuarios</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/usuarios/novo" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Usuario</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Papeis</span>
+                </a>
+                <ul>
+                    <li class="">
+                        <a href="/roles" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Papeis</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/roles/novo" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Papel</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Permissões</span>
+                </a>
+                <ul>
+                    <li class="">
+                        <a href="/permissions" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Permissões</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/permissions/novo" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Permissão</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Unidades</span>
+                </a>
+                <ul>
+                    <li class="">
+                        <a href="/unidades" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Unidades</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/unidades/novo" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Unidade</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!--<li class="nav-title">Administração</li>
