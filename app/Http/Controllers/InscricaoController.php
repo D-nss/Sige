@@ -116,7 +116,7 @@ class InscricaoController extends Controller
 
         $inscricao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user) {
             
-            $inscricao = Inscricao::create([
+            $inscricaoCriada = Inscricao::create([
                 'titulo' => $request->titulo,
                 'tipo' => $request->tipo_extensao,
                 'municipio_id' => $request->cidade,
@@ -155,23 +155,21 @@ class InscricaoController extends Controller
 
             DB::table('questoes_respondidas')->insert($respostasQuestoesInsert);
             
-            return $inscricao;
+            return $inscricaoCriada;
         });
 
-        echo json_encode($inscricao);
+        if(is_null($inscricao) || empty($inscricao)) {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
+            session()->flash('alert', 'danger');
 
-        // if(is_null($exception)) {
-        //     session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
-        //     session()->flash('alert', 'success');
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
+            session()->flash('alert', 'success');
 
-        //     return redirect()->to("inscricao/$inscricao->id/orcamento");
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
-        //     session()->flash('alert', 'danger');
-
-        //     return redirect()->back();
-        // }
+            return redirect()->to("inscricao/$inscricao->id/orcamento");
+        }
         
     }
 
