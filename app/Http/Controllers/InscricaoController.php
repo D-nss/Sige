@@ -339,7 +339,7 @@ class InscricaoController extends Controller
         {
             session()->flash('status', 'Avaliação cadastrada com sucesso!');
             session()->flash('alert', 'success');
-            return redirect()->to('/inscricoes-para-analise');
+            return redirect()->to('inscricao');
         }
         else
         {
