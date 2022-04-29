@@ -19,7 +19,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:docente,super,admin')->except(['analise','avaliacao']);
+        $this->middleware('role:docente,super,admin')->except(['analise','avaliacao']);
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
             $inscricoes = Inscricao::all();
@@ -48,7 +48,7 @@ class InscricaoController extends Controller
      */
     public function create($id)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -198,6 +198,7 @@ class InscricaoController extends Controller
             ->get();
 
         $edital = Edital::findOrFail($inscricao->edital_id);
+        $criterios = $edital->criterios;
 
         if(isset($request->analise)) {
             $analise = $request->analise;
@@ -205,27 +206,23 @@ class InscricaoController extends Controller
         }
         else {
             $analise = '';
-            $criterios = '';
         }
 
         if(isset($request->avaliacao)) {
             $avaliacao = $request->avaliacao;
             $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
                 return data_get($value, 'tipo') == 'Avaliativa';
-            });
-
-            $criterios = $edital->criterios;
+            });            
         }
         else {
             $avaliacao = '';
-            $criterios = '';
             $questoesAvaliacao = '';
         }
 
         $valorMaxPorInscricao = $edital->valor_max_inscricao;
         $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
         $itensOrcamento = Orcamento::where('inscricao_id', $id)->get();
-        
+
         return view('inscricao.show', compact(
                 'inscricao', 
                 'inscricoesAreaTematica',
