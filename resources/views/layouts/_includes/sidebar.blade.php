@@ -5,7 +5,7 @@
                 <i class="fal fa-people-carry"></i>
             </span>
             <span class="page-logo-text mr-1 fw-900 fs-xxl p-2">
-                SIGEC
+                ExtCult
             </span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
@@ -73,6 +73,7 @@
                             </li>
                         </ul> -->
                     </li>
+                    
                     <!-- <li class="disabled">
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
@@ -101,31 +102,36 @@
                         </a>
                     </li> -->
                 </ul>
-            <!-- </li>
-            <li class="disabled">
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Editais Extensão</span>
-                </a>
             </li>
-            <li class="disabled">
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Editais Cultura</span>
+            
+            <li>
+                <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Editais</span>
                 </a>
+                <ul>
+                    
+                    <li class="">
+                        <a href="{{ url('processo-editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Processos de Editais</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url('editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Editais</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url('inscricao/enviadas') }}" title="Another Item" data-filter-tags="utilities menu child another item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Suas Inscrições</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="disabled">
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Editais Bolsas</span>
-                </a>
-            </li>
-            <li class="disabled">
-                <a href="blank.html" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Relatórios</span>
-                </a>
-            </li> -->
             <!--<li class="nav-title">Administração</li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">

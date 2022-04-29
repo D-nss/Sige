@@ -11,7 +11,7 @@
     <tbody>
         @foreach($inscricoes as $inscricao)
             <tr>
-                <td>{{ $inscricao->titulo }}}</td>
+                <td>{{ $inscricao->titulo }}</td>
                 <td>{{ $inscricao->user->name}}</td>
                 <td>{{ $inscricao->status }}</td>
                 <td>
