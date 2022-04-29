@@ -58,6 +58,23 @@ class InscricaoController extends Controller
         }
 
         $edital = Edital::find($id);
+
+        foreach($edital->cronogramas as $cronograma) {
+            if($cronograma->dt_input == 'dt_inscricao' && strtotime(date('Y-m-d')) < strtotime($cronograma->data) ) {
+                session()->flash('status', 'Desculpe! As inscrições ainda não estão abertas!');
+                session()->flash('alert', 'warning');
+
+                return redirect()->back();
+            }
+            
+            if($cronograma->dt_input == 'dt_termino_inscricao' && strtotime(date('Y-m-d')) > strtotime($cronograma->data) ) {
+                session()->flash('status', 'Desculpe! As inscrições já se encerraram!');
+                session()->flash('alert', 'warning');
+
+                return redirect()->back();
+            }
+        }
+        
         return view('inscricao.create', compact('edital'));
     }
 
