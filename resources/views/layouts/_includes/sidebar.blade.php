@@ -124,11 +124,7 @@
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
                         </a>
                     </li>
-                    <li class="">
-                        <a href="{{ url('inscricao/enviadas') }}" title="Another Item" data-filter-tags="utilities menu child another item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Suas Inscrições</span>
-                        </a>
-                    </li>
+                    
                 </ul>
             </li>
             <!--<li class="nav-title">Administração</li>
