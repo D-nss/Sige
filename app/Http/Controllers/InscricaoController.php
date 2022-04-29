@@ -137,7 +137,7 @@ class InscricaoController extends Controller
             foreach($request->areas_tematicas as $areas) {
                 array_push($areasTematicasInsert,[
                     'area_tematica_id' => $areas, 
-                    'inscricao_id' => $inscricao->id
+                    'inscricao_id' => $inscricaoCriada->id
                 ]);
             }
 
@@ -147,7 +147,7 @@ class InscricaoController extends Controller
                 if(substr($key, 0, 8) == 'questao-') {
                     array_push($respostasQuestoesInsert, [
                         'questao_id' => substr($key, 8, strlen($key)), 
-                        'inscricao_id' => $inscricao->id, 
+                        'inscricao_id' => $inscricaoCriada->id, 
                         'resposta' => $resposta
                     ]);
                 }
