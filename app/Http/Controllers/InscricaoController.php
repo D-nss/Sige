@@ -127,7 +127,7 @@ class InscricaoController extends Controller
                 'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 3000000),
                 'url_projeto' => $request->link_projeto,
                 'url_lattes' => $request->link_lattes,
-                'status' => 'Pendente',
+                'status' => 'Submetido',
                 'linha_extensao_id' => $request->linha_extensao,
                 'user_id' => $user->id,
                 'unidade_id' => $user->unidade->id,
