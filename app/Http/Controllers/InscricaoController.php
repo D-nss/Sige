@@ -158,18 +158,19 @@ class InscricaoController extends Controller
             
         });
 
-        if(is_null($exception)) {
-            session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
-            session()->flash('alert', 'success');
+        dd($inscricao);
+        // if(is_null($exception)) {
+        //     session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
+        //     session()->flash('alert', 'success');
 
-            return redirect()->to("inscricao/$inscricao->id/orcamento");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
-            session()->flash('alert', 'danger');
+        //     return redirect()->to("inscricao/$inscricao->id/orcamento");
+        // }
+        // else {
+        //     session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
+        //     session()->flash('alert', 'danger');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
         
     }
 
