@@ -115,7 +115,7 @@ class InscricaoController extends Controller
         $upload = new UploadFile();
         $inscricao = '';
 
-        $exception = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $inscricao) {
+        $exception = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $inscricao, $user) {
             
             $inscricao = Inscricao::create([
                 'titulo' => $request->titulo,
