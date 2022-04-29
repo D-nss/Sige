@@ -5,9 +5,17 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
-            <div class="col d-flex align-items-center">
-                <a href="javascript:void(0);" class="btn btn-success shadow-0 btn-sm ml-auto flex-shrink-0">Nova Permissão</a>
-            </div>
+
+    <h1>Permissões</h1>
+    <div class="row">
+
+    <div class="row mb-3">
+        <div class="col-sm-3">
+            <a href="/pemissions/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >
+                <i class="far fa-plus"></i>
+            </a>
+        </div>
+    </div>
 
             <!-- datatable start -->
             <table id="dt-permissions" class="table table-bordered table-hover table-striped w-100">
@@ -41,6 +49,7 @@
                 </tfoot>
             </table>
             <!-- datatable end -->
+    </div>
 </div>
 <!-- /.container-fluid -->
 
