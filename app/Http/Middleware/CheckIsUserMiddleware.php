@@ -49,7 +49,8 @@ class CheckIsUserMiddleware
             }
         }
 
-        Auth::setUser($user);
+        Auth::guard('web_user')->login($user);
+        //Auth::setUser($user);
 
         return $next($request);
     }

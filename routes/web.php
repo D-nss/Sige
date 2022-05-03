@@ -30,6 +30,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
+    Route::get('/teste', [UserController::class, 'teste']);
+});
+
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);

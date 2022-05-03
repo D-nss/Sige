@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'super'])->givePermissionTo(
+        Role::create(['name' => 'super', 'guard_name' => 'web_user'])->givePermissionTo(
             'user-list',
             'user-create',
             'user-edit',
@@ -26,13 +26,13 @@ class RoleSeeder extends Seeder
             'role-delete'
         );
 
-        Role::create(['name' => 'admin'])->givePermissionTo(
+        Role::create(['name' => 'admin', 'guard_name' => 'web_user'])->givePermissionTo(
             'user-list',
             'user-create',
             'user-edit',
             'user-delete'
         );
 
-        Role::create(['name' => 'user']);
+        Role::create(['name' => 'user','guard_name' => 'web_user']);
     }
 }

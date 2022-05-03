@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->foreignIdFor(Unidade::class);
             $table->boolean('ativo');
-            $table->string('codigoUnidade'); // Obtido da Autenticação SiSe
+            $table->string('codigoUnidade') ->nullable();; // Obtido da Autenticação SiSe
             //$table->timestamp('email_verified_at')->nullable();
             //$table->string('password');
             $table->rememberToken();

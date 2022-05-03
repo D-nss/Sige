@@ -13,8 +13,9 @@ class PermissionMiddleware
     {
         //$authGuard = app('auth')->guard($guard);
         //Pegando Autenticação do Keycloak e buscando usuário do banco e setando ele no sistema
-        Auth::setUser(User::where('email', Auth::user()->id)->first());
-        $authGuard = Auth::guard();
+        $user = User::where('email', Auth::user()->id)->first();
+        Auth::guard('web_user')->login($user);
+        $authGuard = app('auth')->guard('web_user');
 
         if ($authGuard->guest()) {
             throw UnauthorizedException::notLoggedIn();
