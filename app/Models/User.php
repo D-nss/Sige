@@ -17,7 +17,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     //teste
-    protected $guard_name = 'web';
+    protected $guard_name = 'web_user';
 
     /**
      * The attributes that are mass assignable.
@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->belongsTo(Avaliador::class);
     }
 
-    public function inscricao() 
+    public function inscricao()
     {
         return $this->hasMany(Inscricao::class);
     }

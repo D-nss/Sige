@@ -6,7 +6,19 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <div class="row">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
+            @if ($message = Session::get('unidade_error'))
+                <div class="alert alert-danger">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
+            <div class="row">
 
                     <div class="col-lg-12">
                     <div class="panel panel-default">

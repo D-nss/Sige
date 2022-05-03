@@ -31,7 +31,7 @@ Route::get('/', function () {
 });
 
 // Adicionar as rotas que necessitam de Autenticação
-Route::group(['middleware' => 'keycloak-web'], function () {
+Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
 
     //Usuarios
@@ -92,14 +92,14 @@ Route::group(['middleware' => 'keycloak-web'], function () {
 
         return view('processo-edital.index', compact('editais'));
     });
-    
+
     Route::get('/processo-editais/{id}/editar', function($id){
         $edital = App\Models\Edital::find($id);
         $cronograma = App\Models\Cronograma::where('edital_id', $id)->get()->toArray();
         $avaliadores = App\Models\Avaliador::join('users', 'users.id', 'avaliadores.user_id')
                                 ->where('avaliadores.edital_id', $id)
                                 ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
-    
+
         return view('processo-edital.edit', compact('edital', 'cronograma', 'avaliadores'));
     });
 
