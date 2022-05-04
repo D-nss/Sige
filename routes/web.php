@@ -13,7 +13,9 @@ use App\Http\Controllers\EditalController;
 use App\Http\Controllers\QuestaoController;
 use App\Http\Controllers\InscricaoController;
 use App\Http\Controllers\OrcamentoController;
-use App\Http\Controllers\AreaTematicaController;
+use App\Http\Controllers\SubcomissaoTematicaController;
+use App\Http\Controllers\MunicipioController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +81,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     Route::resource('/avaliadores', AvaliadorController::class);
     Route::get('/editais/{edital}/avaliadores', [EditalController::class, 'editarAvaliadores']);
+    Route::get('get-avaliador-by-subcomissao', [AvaliadorController::class, 'getAvaliadorBySubcomissao']);
 
     Route::resource('/inscricao', InscricaoController::class);
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
@@ -88,8 +91,13 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     Route::get('/inscricao/{id}/orcamento', [OrcamentoController::class, 'create']);
     Route::resource('/orcamento', OrcamentoController::class);
+    Route::get('get-item-by-id', [ItemController::class, 'getItemById']);
 
     Route::resource('areas-tematicas', AreaTematicaController::class);
+
+    Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
+
+    Route::resource('subcomissao-tematica', SubcomissaoTematicaController::class);
 
     Route::get('/processo-editais', function(){
         $editais = App\Models\Edital::all();
