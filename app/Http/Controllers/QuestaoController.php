@@ -40,6 +40,12 @@ class QuestaoController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'tipo' => 'required',
+            'enunciado' => 'required|max:255',
+            'edital_id' => 'required'
+        ]);
+
         $questao = Questao::create([
             'tipo' => $request->tipo,
             'enunciado' => $request->enunciado,

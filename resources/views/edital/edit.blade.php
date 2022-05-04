@@ -11,6 +11,8 @@
             <div class="col-lg-12">
               
               @include('layouts._includes._status')
+
+              @include('layouts._includes._validacao')
               
               @include('edital._form')
 

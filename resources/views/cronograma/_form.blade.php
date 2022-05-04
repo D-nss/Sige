@@ -22,7 +22,7 @@
                 @foreach($modelo_cronograma as $mc)
                 <div class="mb-3">
                     <label for="{{ $mc->dt_input }}" class="font-weight-bold">{{ $mc->dt_label }}:</label>
-                    <input type="date" name="{{ $mc->dt_input }}" id="{{ $mc->dt_input }}" class="form-control" placeholder="dd/mm/aaaa" value="@if(!empty($edital->cronogramas->toArray())){{ $edital->cronogramas[$i]->data }}@endif" onblur="validadorData(this, '{{ $mc->validate }}', '{{ $mc->msg_erro}}')" required/>
+                    <input type="date" name="{{ $mc->dt_input }}" id="{{ $mc->dt_input }}" class="form-control" placeholder="dd/mm/aaaa" value="@if(!empty($edital->cronogramas->toArray())){{ $edital->cronogramas[$i]->data }}@endif" onblur="validadorData(this, '{{ $mc->validate }}', '{{ $mc->msg_erro}}')" />
                     <span class="font-size-14 text-danger" id="erro_{{ $mc->dt_input }}"></script>
                 </div>
                 <?php 

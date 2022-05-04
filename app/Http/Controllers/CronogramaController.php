@@ -42,6 +42,13 @@ class CronogramaController extends Controller
     public function store(Request $request)
     {
         $dados = array();
+        $validar = array();
+
+        foreach($request->all() as $key => $inputs) {
+            $validar[$key] = 'required';
+        }
+
+        $validated = $request->validate($validar);
 
         $edital_id = $request->edital_id;
 
@@ -101,6 +108,14 @@ class CronogramaController extends Controller
      */
     public function update(Request $request, $edital_id)
     {
+        $validar = array();
+
+        foreach($request->all() as $key => $inputs) {
+            $validar[$key] = 'required';
+        }
+
+        $validated = $request->validate($validar);
+        
         $linhasAfetadas = array();
 
         foreach($request->input() as $key => $r){

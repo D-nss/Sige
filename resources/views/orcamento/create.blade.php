@@ -19,38 +19,27 @@
 
                                 <label class="font-weight-bold" for="tipo_item">Tipo do Item:</label>
                                 
-                                <select class="form-control mb-3" name="tipo_item" id="tipo_item"  required="" >
+                                <select class="form-control mb-3" name="tipo_item" id="tipo_item"  required >
                                     <option>Selecione o tipo</option>
-                                    <option value="1">Materiais de Consumo</option>
-                                    <option value="2">Serviços Terceiros e Encargos</option>
-                                    <option value="3">Equipamentos e Instalações</option>      
+                                    @foreach($tiposItens as $tipoItem)
+                                        <option value="{{ $tipoItem->id }}">{{ $tipoItem->nome }}</option>
+                                    @endforeach
                                 </select>
                                 
                                 <label class="font-weight-bold" for="item">Item:</label>
                              
-                                <select class="form-control mb-3" name="item" id="item" required="" >
-                                    <option value="1">Escritório/Papelaria</option>
-                                    <option value="2">Informática</option>
-                                    <option value="3">Fotografia/filmagem/arquivo</option>
-                                    <option value="4">Esportes</option><option value="5">Didático</option>
-                                    <option value="6">Gêneros Alimentícios</option
-                                    ><option value="7">Equipamento Proteção Individual</option>
-                                    <option value="8">Alimentação Pronta</option>
-                                    <option value="9">Odontológico/hospitalar/ambulatorial</option>
-                                    <option value="10">Produtos químicos, reagentes e assemelhados</option>
-                                    <option value="11">Básico de construção/Elétrico/Hidráulico</option>
-                                    <option value="12">Correios</option><option value="13">Vestuários</option>
-                                    <option value="14">Outros Materiais de consumo</option>
+                                <select class="form-control mb-3" name="item" id="item" required >
+                                    
                                 </select>
                             
                                 <label class="font-weight-bold" for="descricao">Descrição do Item:</label>
-                                <input type="text" class="form-control mb-3" name="descricao" id="descricao" required="">
+                                <input type="text" class="form-control mb-3" name="descricao" id="descricao" required>
                         
                                 <label class="font-weight-bold" for="justificativa">Justificativa do Item:</label>
-                                <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required=""></textarea>
+                                <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required></textarea>
 
                                 <label class="font-weight-bold" for="valoro">Valor solicitado:</label>
-                                <input type="text" class="form-control mb-3" name="valor" id="valor" required="">
+                                <input type="text" class="form-control mb-3" name="valor" id="valor" required>
                                 
                                 <button type="submit" class="btn btn-success btn-block">Inserir Item</button>
                                 
@@ -93,7 +82,7 @@
                             </table>
                             <div class="mt-3">
                                 <span class="alert alert-success font-size-14 font-weight-bold">Total R$ {{ number_format($totalItens, 2, ',', '.') }}</span>
-                                <span class="alert alert-info font-size-14 font-weight-bold">Total Disponível R$ {{ number_format($valorMaxPorInscricao, 2, ',', '.') }}</span>
+                                <span class="alert alert-info font-size-14 font-weight-bold">Total Disponível R$ {{ number_format($valorMaxPorInscricao - $totalItens, 2, ',', '.') }}</span>
                             </div>
                             <a href="{{ url('inscricao') }}" class="btn btn-primary float-right">Finalizar</a>
                         </div>

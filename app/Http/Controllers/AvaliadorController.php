@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Avaliador;
+use App\Models\User;
 
 class AvaliadorController extends Controller
 {
@@ -40,8 +41,13 @@ class AvaliadorController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'avaliador' => 'required',
+            'edital_id' => 'required'
+        ]);
+        
         $avaliador = Avaliador::create([
-            'user_id' => $request->docente,
+            'user_id' => $request->avaliador,
             'edital_id' => $request->edital_id,
         ]);
 
@@ -118,5 +124,17 @@ class AvaliadorController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    public function getAvaliadorBySubcomissao(Request $request)
+    {
+        if($request->ajax()) {
+            $avaliadores = User::join('unidades', 'users.unidade_id', 'unidades.id')
+                    ->where('unidades.subcomissao_tematica_id', $request->get('subcomissao_id'))
+                    ->get(['users.id', 'users.name']);
+
+            echo json_encode($avaliadores);
+        }
+        
     }
 }

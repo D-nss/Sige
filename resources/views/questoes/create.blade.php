@@ -12,6 +12,8 @@
 
               @include('layouts._includes._status')
 
+              @include('layouts._includes._validacao')
+
               @include('questoes._form')
 
             </div>

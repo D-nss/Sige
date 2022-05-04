@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Inscricao;
 use App\Models\Edital;
 use App\Models\Orcamento;
+use App\Models\TipoItem;
 
 class OrcamentoController extends Controller
 {
@@ -36,8 +37,10 @@ class OrcamentoController extends Controller
         $valorMaxPorInscricao = $valorMaxPorInscricao[0]['valor_max_inscricao'];
         $orcamentoItens = Orcamento::where('inscricao_id', $inscricao->id)->get();
         $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
+
+        $tiposItens = TipoItem::all();
         
-        return view('orcamento.create', compact('inscricao', 'valorMaxPorInscricao', 'orcamentoItens', 'totalItens'));
+        return view('orcamento.create', compact('inscricao', 'valorMaxPorInscricao', 'orcamentoItens', 'totalItens', 'tiposItens'));
     }
 
     /**
@@ -48,6 +51,15 @@ class OrcamentoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validated = $request->validate([
+            'tipo_item' => 'required|max:190',
+            'item' => 'required|max:190',
+            'descricao' => 'required|max:190',
+            'justificativa' => 'required|max:190',
+            'valor' => 'required|numeric',
+        ]);
+
         $inscricao = Inscricao::find($request->inscricao_id);
         $valorMaxPorInscricao = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao']);
         $valorMaxPorInscricao = $valorMaxPorInscricao[0]['valor_max_inscricao'];

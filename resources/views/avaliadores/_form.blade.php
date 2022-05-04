@@ -7,20 +7,17 @@
     <form action="{{ url('avaliadores') }}" method="POST">
         @csrf
         <input type="hidden" name="edital_id" value="{{ $edital->id }}">
-        <label for="area_tematica" class="font-weight-bold">Área Temática: </label>
-        <select name="area_tematica" id="area_tematica" class="form-control mb-3">
+        <label for="subcomissao_tematica" class="font-weight-bold">Subcomissão Temática: </label>
+        <select name="subcomissao_tematica" id="subcomissao_tematica" class="form-control mb-3">
             <option value="">Selecionar ...</option>
-            @foreach($areas as $area)
-                <option value="{{ $area->id }}">{{ $area->nome }}</option>
+            @foreach($subcomissoes as $subcomissao)
+                <option value="{{ $subcomissao->id }}">{{ $subcomissao->nome }}</option>
             @endforeach
         </select>
 
-        <label for="docente" class="font-weight-bold">Docente: </label>
-        <select name="docente" id="docente" class="form-control mb-3">
-            <option value="">Selecionar ...</option>
-            @foreach($users as $user)
-                <option value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
+        <label for="avaliador" class="font-weight-bold">Avaliador: </label>
+        <select name="avaliador" id="avaliador" class="form-control mb-3">
+            
         </select>
 
         <!-- <label for="atribuicao" class="font-weight-bold">Atribuição: </label>
@@ -46,7 +43,7 @@
        
         <tr>
             <th>Docente</th>
-            <th>Área Temática</th>
+            <th>Unidade</th>
             <th></th>
         </tr>
         </thead>
@@ -54,7 +51,7 @@
             @foreach($avaliadores as $avaliador)
             <tr>
                 <td>{{ $avaliador->name }}</td>
-                <td>{{ $avaliador->unidade_id }}</td>
+                <td>{{ $avaliador->unidade }}</td>
                 <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle" data-toggle="modal" data-target="#exampleModal{{ $avaliador->avaliador_id }}">

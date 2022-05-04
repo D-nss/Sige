@@ -14,12 +14,13 @@ use App\Models\Orcamento;
 use App\Models\QuestaoRespondida;
 use App\Models\LinhaExtensao;
 use App\Models\User;
+use App\Models\Municipio;
 
 class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:coordenador,super,admin');
+        //$this->middleware('role:coordenador,super,admin');
     }
     /**
      * Display a listing of the resource.
@@ -77,8 +78,12 @@ class InscricaoController extends Controller
                 return redirect()->back();
             }
         }
+
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         
-        return view('inscricao.create', compact('edital'));
+        $linhas_extensao = LinhaExtensao::all(); 
+
+        return view('inscricao.create', compact('edital', 'linhas_extensao', 'estados'));
     }
 
     /**
@@ -89,16 +94,24 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-    //     $inputsParaValidar = $request->except(['_token', 'estado', 'comprovante_parceria', 'link_lattes', 'link_projeto', 'palavras_chaves']);
-    //     $validar = array();
+        $inputsParaValidar = $request->except(['_token', 'estado', 'comprovante_parceria', 'link_lattes', 'link_projeto', 'palavras_chaves']);
+        $validar = array();
 
-    //     foreach($inputsParaValidar as $key => $inputs) {
-    //         $validar[$key] = 'required';
-    //     }
+        foreach($inputsParaValidar as $key => $inputs) {
+            if($key == 'resumo') {
+                $validar[$key] = 'required|max:1000';
+            }
+            elseif(substr($key, 0, 8) == 'questao-'){
+                $validar[$key] = 'required|max:450';
+            }
+            else {
+                $validar[$key] = 'required|max:190';
+            }
+        }
 
-    //    $validated = $request->validate($validar);
+        $validated = $request->validate($validar);
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -311,7 +324,7 @@ class InscricaoController extends Controller
 
     public function avaliacao(Request $request, $id) 
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
         $dados = array();
 
         foreach( $request->except('_token') as $key => $value) {

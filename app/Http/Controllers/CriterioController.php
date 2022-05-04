@@ -41,6 +41,11 @@ class CriterioController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'descricao' => 'required',
+            'edital_id' => 'required'
+        ]);
+        
         $criterio = Criterio::create([
             'descricao' => $request->descricao,
             'edital_id' => $request->edital_id,

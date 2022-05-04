@@ -11,6 +11,7 @@ use App\Models\AreaTematica;
 use App\Models\Edital;
 use App\Models\UploadFile;
 use App\Models\User;
+use App\Models\SubcomissaoTematica;
 
 class EditalController extends Controller
 {   
@@ -49,6 +50,20 @@ class EditalController extends Controller
      */
     public function store(Request $request)
     {        
+        $inputsParaValidar = $request->except(['anexo_imagem']);
+        $validar = array();
+
+        foreach($inputsParaValidar as $key => $inputs) {
+            if($key == 'resumo') {
+                $validar[$key] = 'required|max:1000';
+            }
+            else {
+                $validar[$key] = 'required';
+            }
+        }
+
+        $validated = $request->validate($validar);
+
         $uploaded = new UploadFile();
 
         $edital = Edital::create([
@@ -108,6 +123,20 @@ class EditalController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $inputsParaValidar = $request->except(['anexo_imagem']);
+        $validar = array();
+
+        foreach($inputsParaValidar as $key => $inputs) {
+            if($key == 'resumo') {
+                $validar[$key] = 'required|max:1000';
+            }
+            else {
+                $validar[$key] = 'required';
+            }
+        }
+        
+        $validated = $request->validate($validar);
+        
         $uploaded = new UploadFile();
 
         $anexo_edital = Edital::where('id',$id)->get(['anexo_edital', 'anexo_imagem'])->toArray();
@@ -172,11 +201,12 @@ class EditalController extends Controller
     public function editarAvaliadores(Edital $edital)
     {  
         $users = User::all();
-        $areas = AreaTematica::all();
+        $subcomissoes = SubcomissaoTematica::all();
         $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
+                                ->join('unidades', 'users.unidade_id', 'unidades.id')
                                 ->where('avaliadores.edital_id', $edital->id)
-                                ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
+                                ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id', 'unidades.nome as unidade']);
 
-        return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'areas'));
+        return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'subcomissoes'));
     }
 }
