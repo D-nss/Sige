@@ -27,9 +27,9 @@ class PermissionController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate(['name' => 'required']);
+        $this->validate($request, ['name' => 'required']);
 
-        Permission::create($validated);
+        Permission::create(['name' => $request->input('name'), 'guard_name' => 'web_user']);
 
         session()->flash('status', 'Permissão criada.');
         session()->flash('alert', 'success');
@@ -71,7 +71,7 @@ class PermissionController extends Controller
 
     public function assignRole(Request $request, Permission $permission)
     {
-        if ($permission->hasRole($request->role)) {
+        if ($permission->hasRole($request->role, 'web_user')) {
             session()->flash('status', 'Papel existente.');
             session()->flash('alert', 'danger');
             return back();
@@ -86,7 +86,7 @@ class PermissionController extends Controller
 
     public function removeRole(Permission $permission, Role $role)
     {
-        if ($permission->hasRole($role)) {
+        if ($permission->hasRole($role, 'web_user')) {
             $permission->removeRole($role);
             session()->flash('status', 'Papel removido.');
             session()->flash('alert', 'success');
