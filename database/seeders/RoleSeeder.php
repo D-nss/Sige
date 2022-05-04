@@ -15,24 +15,20 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'super', 'guard_name' => 'web_user'])->givePermissionTo(
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-delete'
-        );
+        //Papeis do Sistema. Adicionar conforme o decorrer do desenvolvimento
+        $roles = [
+            'super',
+            'admin',
+            'edital-administrador',
+            'edital-analista',
+            'edital-avaliador',
+            'edital-coordenador',
+            'indicadores-admin',
+            'indicadores-user',
+        ];
 
-        Role::create(['name' => 'admin', 'guard_name' => 'web_user'])->givePermissionTo(
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete'
-        );
-
-        Role::create(['name' => 'user','guard_name' => 'web_user']);
+        foreach ($roles as $role) {
+             Role::create(['name' => $role, 'guard_name' => 'web_user']);
+        }
     }
 }

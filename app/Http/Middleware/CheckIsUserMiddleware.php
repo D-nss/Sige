@@ -38,7 +38,7 @@ class CheckIsUserMiddleware
                     'unidade_id' => $unidade->id,
                     'codigoUnidade' => Auth::user()->codigoUnidade,
                     'ativo' => true,
-                ])->assignRole('user');
+                ])->assignRole('edital-coordenador');
 
             session()->flash('success', 'Olá '.$user->name.'! Você foi cadastrado no sistema. Agora acesse o menu para realizar as operações desejadas');
 

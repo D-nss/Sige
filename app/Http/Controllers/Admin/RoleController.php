@@ -9,6 +9,11 @@ use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('role:super');
+    }
+
     public function index()
     {
         $roles = Role::whereNotIn('name', ['admin'])->get();

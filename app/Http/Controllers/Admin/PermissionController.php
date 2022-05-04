@@ -9,6 +9,11 @@ use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('role:super');
+    }
+
     public function index()
     {
         $permissions = Permission::all();
