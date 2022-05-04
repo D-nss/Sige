@@ -5,6 +5,7 @@
 @section('content')
         <!-- Begin Page Content -->
         <div class="container-fluid">
+            <h1>Editar Papel</h1>
           <div class="row">
 
             <div class="col-lg-6">
@@ -45,18 +46,17 @@
                                     onsubmit="return confirm('Você tem certeza?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit">{{ $role_permission->name }}</button>
+                                    <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">{{ $role_permission->name }}</button>
                                 </form>
                             @endforeach
                         @endif
                     </div>
-                    <div class="max-w-xl mt-6">
+                    <div class="row mb-3">
+                        <label for="permission" class="col-md-4 col-form-label text-md-end">Permissão</label>
                         <form method="POST" action="{{ route('roles.permissions', $role->id) }}">
                             @csrf
-                            <div class="sm:col-span-6">
-                                <label for="permission"
-                                    class="block text-sm font-medium text-gray-700">Permission</label>
-                                <select id="permission" name="permission" autocomplete="permission-name"
+                            <div class="col-md-6">
+                                <select class="form-control" id="permission" name="permission" autocomplete="permission-name"
                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     @foreach ($permissions as $permission)
                                         <option value="{{ $permission->name }}">{{ $permission->name }}</option>
@@ -67,9 +67,9 @@
                                 <span class="text-red-400 text-sm">{{ $message }}</span>
                             @enderror
                     </div>
-                    <div class="sm:col-span-6 pt-5">
+                    <div class="form-control">
                         <button type="submit"
-                            class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Atribuir</button>
+                        class="btn btn-xs btn-success waves-effect waves-themed" >Atribuir</button>
                     </div>
                     </form>
 

@@ -5,6 +5,7 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <h1>Lista dos Usuários</h1>
 
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -26,10 +27,8 @@
                     <tr>
                         <th><i class="fal fa-user"></i></th>
                         <th>Nome</th>
-                        <th>Matricula</th>
                         <th>Unidade</th>
                         <th>Email</th>
-                        <th>Telefone</th>
                         <th>Acessado em</th>
                         <th>Estado</th>
                         <th>Ações</th>
@@ -40,10 +39,8 @@
                         <tr>
                             <td>{{$usuario->id}}</td>
                             <td>{{$usuario->name}}</td>
-                            <td>Matricula</td>
                             <td>{{$usuario->unidade->sigla}}</td>
                             <td>{{$usuario->email}}</td>
-                            <td>Telefone</td>
                             <td> {{$usuario->updated_at->format('d/m/Y H:i:s')}}</td>
                             <td>
                                 @if ($usuario->ativo)
@@ -70,20 +67,6 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th><i class="fal fa-user"></i></th>
-                        <th>Nome</th>
-                        <th>Matricula</th>
-                        <th>Unidade</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th>Acessado em</th>
-                        <th>Estado</th>
-
-                        <th>Ações</th>
-                    </tr>
-                </tfoot>
             </table>
             <!-- datatable end -->
 </div>

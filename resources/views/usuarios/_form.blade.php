@@ -43,8 +43,8 @@
     </div>
 
     <div class="row mb-3">
-        <div class="form-group">
-            <strong>Papeis:</strong>
+        <label for="roles" class="col-md-4 col-form-label text-md-end">Papeis</label>
+        <div class="col-md-6">
             <select class="form-control" id="roles" name="roles[]" multiple="multiple">
                 @foreach ($roles as $role)
                     <option {{ isset($userRoles) && $userRoles->contains($role->name) ? "selected" : ""}} value="{{$role->id}}">{{$role->name}}</option>
