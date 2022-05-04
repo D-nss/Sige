@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\SubcomissaoTematica;
+
 return new class extends Migration
 {
     /**
@@ -18,6 +20,7 @@ return new class extends Migration
             $table->string('nome')->nullable();
             $table->string('sigla');
             $table->string('codigo')->nullable(); //Código Únidade retornada na Autenticação do usuário
+            $table->foreignIdFor(SubcomissaoTematica::class)->nullable();
             $table->timestamps();
         });
     }
