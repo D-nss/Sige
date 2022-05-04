@@ -17,6 +17,12 @@
         </div>
     </div>
 
+    @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
             <!-- datatable start -->
             <table id="dt-permissions" class="table table-bordered table-hover table-striped w-100">
                 <thead>
@@ -31,22 +37,15 @@
                         <tr>
                             <td>{{$permission->id}}</td>
                             <td>{{$permission->name}}</td>
-                            <td><a href="{{ route('permissions.edit', $permission->id) }}" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">Edit</a>
+                            <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-xs btn-success waves-effect waves-themed">Edit</a>
                                 <form method="POST" action="{{ route('permissions.destroy', $permission->id) }}" onsubmit="return confirm('Voce tem certeza?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Remover</button>
+                                <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                              </form>  </td>
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th><i class="fal fa-user"></i></th>
-                        <th>Permissão</th>
-                        <th>Ações</th>
-                    </tr>
-                </tfoot>
             </table>
             <!-- datatable end -->
     </div>

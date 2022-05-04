@@ -5,6 +5,7 @@
 @section('content')
         <!-- Begin Page Content -->
         <div class="container-fluid">
+            <h1>Editar Unidade</h1>
           <div class="row">
 
             <div class="col-lg-6">

@@ -5,6 +5,7 @@
 @section('content')
         <!-- Begin Page Content -->
         <div class="container-fluid">
+            <h1>Editar Permissão</h1>
           <div class="row">
 
             <div class="col-lg-6">
@@ -46,17 +47,17 @@
                                     onsubmit="return confirm('Você tem certeza?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit">{{ $permission_role->name }}</button>
+                                    <button class="btn btn-xs btn-success waves-effect waves-themed" type="submit">{{ $permission_role->name }}</button>
                                 </form>
                             @endforeach
                         @endif
                     </div>
-                    <div class="max-w-xl mt-6">
+                    <div class="row mb-3">
+                        <label for="role" class="col-md-4 col-form-label text-md-end">Papeis</label>
                         <form method="POST" action="{{ route('permissions.roles', $permission->id) }}">
                             @csrf
-                            <div class="sm:col-span-6">
-                                <label for="role" >Papeis:</label>
-                                <select id="role" name="role" autocomplete="role-name">
+                            <div class="col-md-6">
+                                <select class="form-control" id="role" name="role" autocomplete="role-name">
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
@@ -66,8 +67,8 @@
                                 <span class="text-red-400 text-sm">{{ $message }}</span>
                             @enderror
                     </div>
-                    <div class="sm:col-span-6 pt-5">
-                        <button type="submit">Atribuir</button>
+                    <div class="form-control">
+                        <button class="btn btn-xs btn-success waves-effect waves-themed" type="submit">Atribuir</button>
                     </div>
                     </form>
 
