@@ -28,8 +28,9 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate(['name' => ['required', 'min:3']]);
-        Role::create($validated);
+        $this->validate($request, ['name' => ['required', 'min:3']]);
+
+        Role::create(['name' => $request->input('name'), 'guard_name' => 'web_user']);
 
         session()->flash('status', 'Papel criado com sucesso.');
         session()->flash('alert', 'success');
