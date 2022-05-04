@@ -661,6 +661,63 @@ Versão: 4.5.1
 
             });
 
+            $('#estado').change(function(){
+                
+                $.ajax({
+                    url: "{{ url('get-municipios-by-uf') }}",
+                    method: "GET",
+                    dataType: 'json',
+                    data: { uf: $('#estado').val() },
+                    success: function(data) {
+                        var content = '';
+
+                        data.map(municipio => {
+                            content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
+                        });
+
+                        $('#cidade').html(content);
+                    }
+                });
+            });
+
+            $('#subcomissao_tematica').change(function(){
+                
+                $.ajax({
+                    url: "{{ url('get-avaliador-by-subcomissao') }}",
+                    method: "GET",
+                    dataType: 'json',
+                    data: { subcomissao_id: $('#subcomissao_tematica').val() },
+                    success: function(data) {
+                        var content = '';
+
+                        data.map(avaliador => {
+                            content += `<option value="${avaliador.id}">${avaliador.name}</option>`;
+                        });
+
+                        $('#avaliador').html(content);
+                    }
+                });
+            });
+
+            $('#tipo_item').change(function(){
+                
+                $.ajax({
+                    url: "{{ url('get-item-by-id') }}",
+                    method: "GET",
+                    dataType: 'json',
+                    data: { tipo_item: $('#tipo_item').val() },
+                    success: function(data) {
+                        var content = '';
+
+                        data.map(item => {
+                            content += `<option value="${item.id}">${item.nome}</option>`;
+                        });
+
+                        $('#item').html(content);
+                    }
+                });
+            });
+
             function enableDateInput(id, element){
                 if ($(element).is(':checked')) {
                     $(`#${id}`).removeClass('disabled');
