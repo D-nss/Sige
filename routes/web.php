@@ -14,6 +14,7 @@ use App\Http\Controllers\QuestaoController;
 use App\Http\Controllers\InscricaoController;
 use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\SubcomissaoTematicaController;
+use App\Http\Controllers\AreaTematicaController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ItemController;
 
@@ -68,6 +69,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class);
+    Route::post('edital/{id}/divulgar', [EditalController::class, 'divulgar']);
 
     Route::get('/editais/{edital}/criterios', [EditalController::class, 'editarCriterios']);
     Route::resource('/criterios', CriterioController::class);
