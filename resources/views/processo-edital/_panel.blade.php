@@ -111,6 +111,11 @@
                 Adicionar Avaliadores
             @endif
         </div>
+
+        <form action="{{ url('edital/'. $edital->id .'/divulgar') }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-success float-right">Divulgar</button>
+        </form>
         
     </div>
 </div>

@@ -21,7 +21,8 @@ return new class extends Migration
             $table->float('total_recurso', 10, 2);
             $table->float('valor_max_inscricao', 10, 2);
             $table->string('anexo_edital', 255);
-            $table->string('anexo_imagem', 255);
+            $table->string('anexo_imagem', 255)->nullable();
+            $table->string('status', 30)->nullable();
             $table->timestamps();
         });
     }

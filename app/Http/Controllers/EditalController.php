@@ -27,6 +27,10 @@ class EditalController extends Controller
     public function index()
     {
         $editais = Edital::all();
+
+        $editais = $editais->filter(function($value, $key) {
+            return data_get($value, 'status') != null;
+        });
         
         return view('edital.index2', compact('editais'));
     }
@@ -208,5 +212,25 @@ class EditalController extends Controller
                                 ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id', 'unidades.nome as unidade']);
 
         return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'subcomissoes'));
+    }
+
+    public function divulgar($id) 
+    {
+        $edital = Edital::findOrFail($id);
+        $edital->status = 'Divulgação';
+
+        if( $edital->update() ) {
+
+            session()->flash('status', 'Edital Divulgado com sucesso!!!');
+            session()->flash('alert', 'success');
+
+            return redirect()->to("processo-editais");
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao divulgar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
     }
 }

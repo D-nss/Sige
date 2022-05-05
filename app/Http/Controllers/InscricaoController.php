@@ -15,6 +15,7 @@ use App\Models\QuestaoRespondida;
 use App\Models\LinhaExtensao;
 use App\Models\User;
 use App\Models\Municipio;
+use App\Models\Cronograma;
 
 class InscricaoController extends Controller
 {
@@ -29,12 +30,13 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
             $inscricoes = Inscricao::all();
 
-            return view('inscricao.index', compact('inscricoes', 'user'));
+            $cronograma = new Cronograma();
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
         
         $inscricoes = Inscricao::where('user_id', $user->id)->get();
@@ -49,7 +51,7 @@ class InscricaoController extends Controller
      */
     public function create($id)
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -111,7 +113,7 @@ class InscricaoController extends Controller
 
         $validated = $request->validate($validar);
 
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -195,6 +197,43 @@ class InscricaoController extends Controller
     public function show(Request $request, $id)
     {
         $inscricao = Inscricao::findOrFail($id);
+        $edital = Edital::findOrFail($inscricao->edital_id);
+        $cronograma = new Cronograma();
+
+        if(isset($request->analise)) {
+            //analisa se esta fora do periodo de analise
+            if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
+                session()->flash('status', 'Perído de analise ainda não foi aberto.');
+                session()->flash('alert', 'warning');
+
+                return redirect()->back();
+            }
+
+            $analise = $request->analise;
+            $criterios = $edital->criterios;
+        }
+        else {
+            $analise = '';
+        }
+
+        if(isset($request->avaliacao)) { 
+            //analisa se esta fora do periodo de avaliação
+            if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_pereceristas', $inscricao->edital_id)) ) {
+                session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
+                session()->flash('alert', 'warning');
+
+                return redirect()->back();
+            }
+
+            $avaliacao = $request->avaliacao;
+            $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
+                return data_get($value, 'tipo') == 'Avaliativa';
+            }); 
+        }
+        else {
+            $avaliacao = '';
+            $questoesAvaliacao = '';
+        }
 
         $linhaextensao = LinhaExtensao::findOrFail($inscricao->linha_extensao_id);
         
@@ -210,27 +249,8 @@ class InscricaoController extends Controller
             )->where('questoes_respondidas.inscricao_id', $id)
             ->get();
 
-        $edital = Edital::findOrFail($inscricao->edital_id);
+        
         $criterios = $edital->criterios;
-
-        if(isset($request->analise)) {
-            $analise = $request->analise;
-            $criterios = $edital->criterios;
-        }
-        else {
-            $analise = '';
-        }
-
-        if(isset($request->avaliacao)) {
-            $avaliacao = $request->avaliacao;
-            $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
-                return data_get($value, 'tipo') == 'Avaliativa';
-            });            
-        }
-        else {
-            $avaliacao = '';
-            $questoesAvaliacao = '';
-        }
 
         $valorMaxPorInscricao = $edital->valor_max_inscricao;
         $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
@@ -324,7 +344,7 @@ class InscricaoController extends Controller
 
     public function avaliacao(Request $request, $id) 
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
         $dados = array();
 
         foreach( $request->except('_token') as $key => $value) {

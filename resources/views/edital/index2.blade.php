@@ -7,6 +7,8 @@
 <div class="my-3">
     @include('layouts._includes._status')
 
+    <h4>Listagem dos editais abertos e em andamento</h4>
+
     @forelse($editais as $edital)
         <div class="row bg-white shadow border p-3 mb-3">
             <div class="col-sm-2 d-flex align-items-center">
@@ -22,8 +24,9 @@
                 <div>
                     <a href='{{ asset( "storage/$edital->anexo_edital" ) }}' target="_blank" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-file-pdf"></i> Edital em PDF</a>
                     
+                    @if($edital->status == 'Inscrições Abertas')
                     <a href="{{ url( 'inscricao/' . $edital->id . '/novo' ) }}" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"> <i class="far fa-arrow-alt-to-top"></i> Enviar Porpostas</a>
-                            
+                    @endif  
                     <!-- <a href="#" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-list-alt"></i> Classificação</a> -->
                 </div>
             </div>

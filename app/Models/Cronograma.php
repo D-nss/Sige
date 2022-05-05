@@ -21,4 +21,10 @@ class Cronograma extends Model
     {
         return $this->belongsTo(Edital::class);
     }
+
+    public function getDate($dt_input, $edital_id)
+    {
+        $cronograma = Cronograma::where('dt_input', $dt_input)->where('edital_id', $edital_id)->get(['data']);
+        return $cronograma[0]->data;
+    }
 }
