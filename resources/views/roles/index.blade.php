@@ -16,11 +16,7 @@
         </div>
     </div>
 
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
+    @include('layouts._includes._status')
 
             <!-- datatable start -->
             <table id="dt-roles" class="table table-bordered table-hover table-striped w-100">

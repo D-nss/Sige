@@ -7,11 +7,7 @@
 <div class="container-fluid">
     <h1>Lista dos Usuários</h1>
 
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
+            @include('layouts._includes._status')
 
             <div class="row mb-3">
                 <div class="col-sm-3">
