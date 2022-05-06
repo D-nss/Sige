@@ -218,12 +218,14 @@ class InscricaoController extends Controller
 
         if(isset($request->avaliacao)) { 
             //analisa se esta fora do periodo de avaliação
-            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pereceristas', $inscricao->edital_id)) ) {
-                session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
-                session()->flash('alert', 'warning');
+            // if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pereceristas', $inscricao->edital_id)) ) {
+            //     session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
+            //     session()->flash('alert', 'warning');
 
-                return redirect()->back();
-            }
+            //     return redirect()->back();
+            // }
+
+            echo $cronograma->getDate('dt_pareceristas', $inscricao->edital_id);
 
             $avaliacao = $request->avaliacao;
             $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
@@ -256,20 +258,20 @@ class InscricaoController extends Controller
         $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
         $itensOrcamento = Orcamento::where('inscricao_id', $id)->get();
 
-        return view('inscricao.show', compact(
-                'inscricao', 
-                'inscricoesAreaTematica',
-                'linhaextensao',
-                'respostasQuestoes', 
-                'itensOrcamento', 
-                'totalItens', 
-                'valorMaxPorInscricao', 
-                'analise',
-                'avaliacao',
-                'questoesAvaliacao',
-                'criterios'
-            )
-        );
+        // return view('inscricao.show', compact(
+        //         'inscricao', 
+        //         'inscricoesAreaTematica',
+        //         'linhaextensao',
+        //         'respostasQuestoes', 
+        //         'itensOrcamento', 
+        //         'totalItens', 
+        //         'valorMaxPorInscricao', 
+        //         'analise',
+        //         'avaliacao',
+        //         'questoesAvaliacao',
+        //         'criterios'
+        //     )
+        // );
     }
 
     /**
