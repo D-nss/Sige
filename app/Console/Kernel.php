@@ -5,6 +5,9 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use App\Models\Cronograma;
+use App\Models\Edital;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -15,7 +18,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function(){
+            $editais = Edital::select('id')->get();
+            $data = new Cronograma();
+
+            foreach($editais as $edital) {
+                $data = $data->getDate('dt_termino_inscricao', $edital->id);
+                echo $data;
+            }
+
+        })->everyFiveMinutes();
     }
 
     /**
