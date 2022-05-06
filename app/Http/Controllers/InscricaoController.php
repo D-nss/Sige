@@ -202,7 +202,7 @@ class InscricaoController extends Controller
 
         if(isset($request->analise)) {
             //analisa se esta fora do periodo de analise
-            if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
+            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
                 session()->flash('status', 'Perído de analise ainda não foi aberto.');
                 session()->flash('alert', 'warning');
 
@@ -218,7 +218,7 @@ class InscricaoController extends Controller
 
         if(isset($request->avaliacao)) { 
             //analisa se esta fora do periodo de avaliação
-            if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_pereceristas', $inscricao->edital_id)) ) {
+            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pereceristas', $inscricao->edital_id)) ) {
                 session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
                 session()->flash('alert', 'warning');
 

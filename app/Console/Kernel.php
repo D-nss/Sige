@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
                 }
             }
 
-        })->everyMinute();
+        })->dailyAt('00:01')->timezone('America/Fortaleza');
     }
 
     /**
