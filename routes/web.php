@@ -37,8 +37,6 @@ Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
     Route::get('/teste', [UserController::class, 'teste']);
 });
 
-Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
-
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
@@ -98,6 +96,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('get-item-by-id', [ItemController::class, 'getItemById']);
 
     Route::resource('areas-tematicas', AreaTematicaController::class);
+
+    Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
 
     Route::resource('subcomissao-tematica', SubcomissaoTematicaController::class);
 
