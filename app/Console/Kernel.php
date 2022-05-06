@@ -19,15 +19,19 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function(){
-            $editais = Edital::select('id')->get();
+            $editais = Edital::select('titulo', 'id', 'status')->get();
             $data = new Cronograma();
 
             foreach($editais as $edital) {
                 $data = $data->getDate('dt_termino_inscricao', $edital->id);
-                echo $data;
+                 if(strtotime(date('Y-m-d')) > strtotime($data) && $edital->status == 'Divulgação' ) {
+                     $edital = Edital::find($edital->id);
+                     $edital->status = 'Em Andamento';
+                     echo $edital->save() ? "Edital $edital->titulo alterado status para em andamento" : "Erro ao alterar o estatus do Edital $edital->titulo";
+                }
             }
 
-        })->everyFiveMinutes();
+        })->everyMinute();
     }
 
     /**
