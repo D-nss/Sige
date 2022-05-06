@@ -667,7 +667,7 @@ Versão: 4.5.1
                     url: "{{ url('get-municipios-by-uf') }}",
                     method: "GET",
                     dataType: 'json',
-                    data: { uf: $('#estado').val() },
+                    data: { _token : $('meta[name="csrf-token"]').attr('content'), uf: $('#estado').val() },
                     success: function(data) {
                         var content = '';
 
@@ -686,7 +686,7 @@ Versão: 4.5.1
                     url: "{{ url('get-avaliador-by-subcomissao') }}",
                     method: "GET",
                     dataType: 'json',
-                    data: { subcomissao_id: $('#subcomissao_tematica').val() },
+                    data: { _token : $('meta[name="csrf-token"]').attr('content'), subcomissao_id: $('#subcomissao_tematica').val() },
                     success: function(data) {
                         var content = '';
 
@@ -705,7 +705,7 @@ Versão: 4.5.1
                     url: "{{ url('get-item-by-id') }}",
                     method: "GET",
                     dataType: 'json',
-                    data: { tipo_item: $('#tipo_item').val() },
+                    data: { _token : $('meta[name="csrf-token"]').attr('content'), tipo_item: $('#tipo_item').val() },
                     success: function(data) {
                         var content = '';
 
