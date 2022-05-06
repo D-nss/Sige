@@ -257,20 +257,20 @@ class InscricaoController extends Controller
         $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
         $itensOrcamento = Orcamento::where('inscricao_id', $id)->get();
 
-        // return view('inscricao.show', compact(
-        //         'inscricao', 
-        //         'inscricoesAreaTematica',
-        //         'linhaextensao',
-        //         'respostasQuestoes', 
-        //         'itensOrcamento', 
-        //         'totalItens', 
-        //         'valorMaxPorInscricao', 
-        //         'analise',
-        //         'avaliacao',
-        //         'questoesAvaliacao',
-        //         'criterios'
-        //     )
-        // );
+        return view('inscricao.show', compact(
+                'inscricao', 
+                'inscricoesAreaTematica',
+                'linhaextensao',
+                'respostasQuestoes', 
+                'itensOrcamento', 
+                'totalItens', 
+                'valorMaxPorInscricao', 
+                'analise',
+                'avaliacao',
+                'questoesAvaliacao',
+                'criterios'
+            )
+        );
     }
 
     /**
