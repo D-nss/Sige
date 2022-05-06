@@ -11,7 +11,7 @@
 
     <div class="row mb-3">
         <div class="col-sm-3">
-            <a href="/pemissions/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >
+            <a href="/permissions/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >
                 <i class="far fa-plus"></i>
             </a>
         </div>
