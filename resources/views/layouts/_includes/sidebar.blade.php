@@ -49,8 +49,10 @@
         <!--
         TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.
         -->
+
         <ul id="js-nav-menu" class="nav-menu">
-            <li class="active open">
+            @role('super,admin,indicadores-admin,indicadores-user', 'web_user')
+            <li class="open">
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
                     <span class="nav-link-text" data-i18n="nav.category">UNIDADE:
@@ -58,7 +60,7 @@
                         @endif</span>
                 </a>
                 <ul>
-                    <li class="active">
+                    <li>
                         <a href="{{ url('/indicadores') }}" title="Indicadores">
                             <span class="nav-link-text">Dados Indicadores</span>
                         </a>
@@ -103,6 +105,8 @@
                     </li> -->
                 </ul>
             </li>
+            @endrole
+
 
             <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
