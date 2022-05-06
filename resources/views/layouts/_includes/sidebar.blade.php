@@ -51,7 +51,7 @@
         -->
 
         <ul id="js-nav-menu" class="nav-menu">
-            @role('super,admin,indicadores-admin,indicadores-user', 'web_user')
+            @hasanyrole('super|admin|indicadores-admin|indicadores-user', 'web_user')
             <li class="open">
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
@@ -105,7 +105,7 @@
                     </li> -->
                 </ul>
             </li>
-            @endrole
+            @endhasanyrole
 
 
             <li>
