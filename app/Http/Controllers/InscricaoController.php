@@ -33,10 +33,12 @@ class InscricaoController extends Controller
         $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
-            $subcomissao = Auth::user()->unidade->subcomissao;
-            $inscricoes = Inscricao::all();
+            $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
+                                   ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
+                                   ->where('u.id', Auth::user()->unidade->id)                   
+                                   ->get();
 
-            echo json_encode($subcomissao);
+            echo json_encode($inscricoes);
             // $cronograma = new Cronograma();
             // return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
