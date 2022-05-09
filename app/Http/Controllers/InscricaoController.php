@@ -35,18 +35,17 @@ class InscricaoController extends Controller
         if( $user->hasRole('analista|avaliador|super|admin') ) {
             $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                    ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                   ->where('u.sigla', Auth::user()->unidade)                   
+                                   ->where('u.sigla', Auth::user()->unidade)              
                                    ->get();
 
-            echo json_encode($inscricoes);
-            // $cronograma = new Cronograma();
-            // return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+            $cronograma = new Cronograma();
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
 
-        // session()->flash('status', 'Desculpe! Acesso não autorizado');
-        // session()->flash('alert', 'warning');
+        session()->flash('status', 'Desculpe! Acesso não autorizado');
+        session()->flash('alert', 'warning');
 
-        // return redirect()->back();
+        return redirect()->back();
     }
 
     /**
