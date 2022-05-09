@@ -30,9 +30,12 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
+            if($user->hasRole('super|admin')) {
+                $inscricoes = Inscricao::all();
+            }
             $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                    ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
                                    ->where('u.sigla', Auth::user()->unidade)              
@@ -55,7 +58,7 @@ class InscricaoController extends Controller
      */
     public function create($id)
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -117,7 +120,7 @@ class InscricaoController extends Controller
 
         $validated = $request->validate($validar);
 
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -349,7 +352,7 @@ class InscricaoController extends Controller
 
     public function avaliacao(Request $request, $id) 
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
         $dados = array();
 
         foreach( $request->except('_token') as $key => $value) {
