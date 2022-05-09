@@ -73,7 +73,14 @@ class OrcamentoController extends Controller
             return redirect()->back(); 
         }
 
-        $orcamento = Orcamento::create($request->all());
+        $orcamento = Orcamento::create([
+            'inscricao_id' => $request->inscricao_id,
+            'tipo_item'  => $request->tipo_item,
+            'item'  => $request->item,
+            'descricao'  => $request->descricao,
+            'justificativa'  => $request->justificativa,
+            'valor'  => floatval($request->valor)
+        ]);
 
         if($orcamento) {
             session()->flash('status', 'Item cadastrado com sucesso!');
