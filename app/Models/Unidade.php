@@ -12,4 +12,7 @@ class Unidade extends Model
     public function usuarios(){
         return $this->hasMany(User::class);
     }
+    public function subcomissao(){
+        return $this->belongsTo(SubcomissaoTematica::class);
+    }
 }
