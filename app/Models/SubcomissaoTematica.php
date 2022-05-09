@@ -17,7 +17,7 @@ class SubcomissaoTematica extends Model
         'nome'
     ];
 
-    public function unidades()
+    public function unidade()
     {
         return $this->hasMany(Unidade::class);
     }
