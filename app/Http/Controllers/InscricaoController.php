@@ -33,7 +33,7 @@ class InscricaoController extends Controller
         $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
-            $subcomissao = Auth::user()->unidade;
+            $subcomissao = Auth::user()->unidade->subcomissao;
             $inscricoes = Inscricao::all();
 
             echo json_encode($subcomissao);
