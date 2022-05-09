@@ -35,7 +35,7 @@ class InscricaoController extends Controller
         if( $user->hasRole('analista|avaliador|super|admin') ) {
             $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                    ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                   ->where('u.id', Auth::user()->unidade->id)                   
+                                   ->where('u.sigla', Auth::user()->unidade)                   
                                    ->get();
 
             echo json_encode($inscricoes);
