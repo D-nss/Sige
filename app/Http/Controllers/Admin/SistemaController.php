@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class SistemaController extends Controller
 {
-    //
+    function __construct()
+    {
+        $this->middleware('role:super');
+    }
 }
