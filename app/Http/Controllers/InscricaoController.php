@@ -30,18 +30,21 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         if( $user->hasRole('analista|avaliador|super|admin') ) {
+            $subcomissao = Auth::user()->unidade->subcomissao;
             $inscricoes = Inscricao::all();
 
-            $cronograma = new Cronograma();
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+            echo json_encode($subcomissao);
+            // $cronograma = new Cronograma();
+            // return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
-        
-        $inscricoes = Inscricao::where('user_id', $user->id)->get();
 
-        return view('inscricao.enviadas', compact('inscricoes', 'user'));
+        // session()->flash('status', 'Desculpe! Acesso não autorizado');
+        // session()->flash('alert', 'warning');
+
+        // return redirect()->back();
     }
 
     /**
@@ -51,7 +54,7 @@ class InscricaoController extends Controller
      */
     public function create($id)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -113,7 +116,7 @@ class InscricaoController extends Controller
 
         $validated = $request->validate($validar);
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -345,7 +348,7 @@ class InscricaoController extends Controller
 
     public function avaliacao(Request $request, $id) 
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
         $dados = array();
 
         foreach( $request->except('_token') as $key => $value) {
