@@ -14,7 +14,9 @@ class KeycloakUser implements Authenticatable
      */
     protected $fillable = [
         'name',
-        'email'
+        'email',
+        'unidade',
+        'codigoUnidade'
     ];
 
     /**
