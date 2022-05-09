@@ -75,8 +75,8 @@ class EditalController extends Controller
             'titulo' => $request->titulo,
             'tipo' => $request->tipo,
             'resumo' => $request->resumo,
-            'total_recurso' => floatval(str_replace('.','', $request->total_recurso)),
-            'valor_max_inscricao' => floatval(str_replace('.','', $request->valor_max_inscricao)),
+            'total_recurso' => $request->total_recurso,
+            'valor_max_inscricao' => $request->valor_max_inscricao,
             'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000), //chama o função execute da model UploadFile e faz o upload do arquivo
             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : '',
         ]);
