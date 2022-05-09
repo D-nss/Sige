@@ -51,13 +51,13 @@
         -->
 
         <ul id="js-nav-menu" class="nav-menu">
+            @if(Auth::hasUser())
             @hasanyrole('super|admin|indicadores-admin|indicadores-user', 'web_user')
             <li class="open">
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
                     <span class="nav-link-text" data-i18n="nav.category">UNIDADE:
-                        @if(isset($unidade)) {{$unidade->sigla}}
-                        @endif</span>
+                        {{ Auth::user()->unidade }}</span>
                 </a>
                 <ul>
                     <li>
@@ -106,31 +106,39 @@
                 </ul>
             </li>
             @endhasanyrole
-
+            @endif
 
             <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Editais</span>
                 </a>
                 <ul>
+                    @if(Auth::hasUser())
+                    @hasanyrole('super|admin|edital-administrador', 'web_user')
                     <li class="">
                         <a href="{{ url('processo-editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Processos de Editais</span>
                         </a>
                     </li>
+                    @endhasrole
+                    @endif
                     <li class="">
                         <a href="{{ url('editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Editais</span>
                         </a>
                     </li>
+                    @if(Auth::hasUser())
                     <li class="">
                         <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
                         </a>
                     </li>
+                    @endif
 
                 </ul>
             </li>
+            @if(Auth::hasUser())
+            @hasanyrole('super|admin', 'web_user')
             <li class="nav-title">Administração</li>
             <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
@@ -200,6 +208,8 @@
                     </li>
                 </ul>
             </li>
+            @endhasanyrole
+            @endif
             <!--<li class="nav-title">Administração</li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
