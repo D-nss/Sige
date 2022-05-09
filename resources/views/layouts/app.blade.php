@@ -240,6 +240,8 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/datagrid/datatables/datatables.export.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/upload.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/tagsinput.js')}}"></script>
+        <script src="{{asset('smartadmin-4.5.1/js/jquery.mask.js')}}"></script>
+        
         <script>
             $(document).ready(function()
             {
@@ -659,6 +661,10 @@ Versão: 4.5.1
                     }
                 });
 
+                $('#total_recurso').mask("#.##0,00", {reverse: true});
+                $('#valor_max_inscricao').mask("#.##0,00", {reverse: true});
+                $('#valor').mask("#.##0,00", {reverse: true});
+
             });
 
             $('#estado').change(function(){
@@ -727,6 +733,7 @@ Versão: 4.5.1
                 }
                 
             }
+
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->

@@ -26,10 +26,10 @@
         <textarea name="resumo" class="form-control mb-3" rows="6" required>{{ isset($edital->resumo) ? $edital->resumo : old('resumo') }}</textarea>
 
         <label for="total_recurso" class="font-weight-bold">Valor Total do Recurso:</label>
-        <input type="text" name="total_recurso" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->total_recurso) ? $edital->total_recurso : old('total_recurso') }}" required />
+        <input type="text" name="total_recurso" id="total_recurso" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->total_recurso) ? $edital->total_recurso : old('total_recurso') }}" required />
 
         <label for="valor_max_inscricao" class="font-weight-bold">Valor Máximo por Inscrição:</label>
-        <input type="text" name="valor_max_inscricao" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->valor_max_inscricao) ? $edital->valor_max_inscricao : old('valor_max_inscricao') }}" required />
+        <input type="text" name="valor_max_inscricao" id="valor_max_inscricao" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->valor_max_inscricao) ? $edital->valor_max_inscricao : old('valor_max_inscricao') }}" required />
 
         <div class="row">
             <div class="col-md-12">
