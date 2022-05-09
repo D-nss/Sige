@@ -38,7 +38,7 @@
                                 <label class="font-weight-bold" for="justificativa">Justificativa do Item:</label>
                                 <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required></textarea>
 
-                                <label class="font-weight-bold" for="valoro">Valor solicitado:</label>
+                                <label class="font-weight-bold" for="valor">Valor solicitado:</label>
                                 <input type="text" class="form-control mb-3" name="valor" id="valor" required>
                                 
                                 <button type="submit" class="btn btn-success btn-block">Inserir Item</button>
