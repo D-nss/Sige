@@ -390,5 +390,26 @@ class InscricaoController extends Controller
         }
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function inscricoesPorUsuario()
+    {
+        $user = User::where('email', Auth::user()->id)->first();
 
+        if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|super|admin') ) {
+
+            $inscricoes = Inscricao::where('id', Auth::user()->id)->get();
+
+            $cronograma = new Cronograma();
+            return view('inscricao.enviadas', compact('inscricoes', 'user', 'cronograma'));
+        }
+
+        session()->flash('status', 'Desculpe! Acesso não autorizado');
+        session()->flash('alert', 'warning');
+
+        return redirect()->back();
+    }
 }
