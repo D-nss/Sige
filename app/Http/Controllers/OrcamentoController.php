@@ -13,7 +13,7 @@ class OrcamentoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:docente,super,admin');
+        $this->middleware('role:edital-coordenador,edital-administrador,super');
     }
     /**
      * Display a listing of the resource.

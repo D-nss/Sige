@@ -11,7 +11,7 @@ class CronogramaController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:super,admin');
+        $this->middleware('role:edital-administrador,super');
     }
     /**
      * Display a listing of the resource.

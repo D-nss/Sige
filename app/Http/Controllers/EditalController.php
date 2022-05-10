@@ -17,8 +17,7 @@ class EditalController extends Controller
 {   
     public function __construct()
     {
-        //$this->middleware('role:admin,super')->except('index');
-        //$this->middleware('role:admin,super')->except('index');
+        $this->middleware('role:edital-administrador,super')->except('index');
     }
     /**
      * Display a listing of the resource.

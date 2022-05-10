@@ -8,6 +8,10 @@ use App\Models\Unidade;
 
 class UnidadeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:super');
+    }
     /**
      * Display a listing of the resource.
      *

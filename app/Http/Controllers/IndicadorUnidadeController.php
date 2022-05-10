@@ -17,7 +17,7 @@ class IndicadorUnidadeController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:coordenador_ext,super,admin');
+        $this->middleware('role:indicadores-user,indicadores-admin,super');
     }
     /**
      * Display a listing of the resource.
