@@ -21,7 +21,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador,edital-administrador,super,admin');
+        //$this->middleware('role:edital-coordenador,edital-administrador,super,admin');
     }
     /**
      * Display a listing of the resource.
@@ -397,11 +397,11 @@ class InscricaoController extends Controller
      */
     public function inscricoesPorUsuario()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|super|admin') ) {
 
-            $inscricoes = Inscricao::where('id', Auth::user()->id)->get();
+            $inscricoes = Inscricao::where('id', $user->id)->get();
 
             $cronograma = new Cronograma();
             return view('inscricao.enviadas', compact('inscricoes', 'user', 'cronograma'));

@@ -40,7 +40,7 @@ Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
 Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
 
 // Adicionar as rotas que necessitam de Autenticação
-Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
+//Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
 
     //Usuarios
@@ -92,7 +92,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
     Route::post('/inscricao/{id}/analise', [InscricaoController::class, 'analise']);
     Route::post('/inscricao/{id}/avaliacao', [InscricaoController::class, 'avaliacao']);
-    Route::get('inscricao/enviadas', [InscricaoController::class, 'inscricoesPorUsuario']);
+    Route::get('inscricoes-enviadas', [InscricaoController::class, 'inscricoesPorUsuario']);
 
     Route::get('/inscricao/{id}/orcamento', [OrcamentoController::class, 'create']);
     Route::resource('/orcamento', OrcamentoController::class);
@@ -118,7 +118,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
         return view('processo-edital.edit', compact('edital', 'cronograma', 'avaliadores'));
     });
 
-});
+//});
 
 /*
 Route::get('/login',['as'=>'login','uses'=>'LoginController@index']);
