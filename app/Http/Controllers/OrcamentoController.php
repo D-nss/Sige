@@ -35,7 +35,7 @@ class OrcamentoController extends Controller
         $inscricao = Inscricao::find($id);
         $valorMaxPorInscricao = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao']);
         $valorMaxPorInscricao = $valorMaxPorInscricao[0]['valor_max_inscricao'];
-        $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
+        $orcamentoItens = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
                                    ->where('inscricao_id', $id)
                                    ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
