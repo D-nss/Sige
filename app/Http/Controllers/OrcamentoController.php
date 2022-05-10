@@ -35,6 +35,7 @@ class OrcamentoController extends Controller
         $inscricao = Inscricao::find($id);
         $valorMaxPorInscricao = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao']);
         $valorMaxPorInscricao = $valorMaxPorInscricao[0]['valor_max_inscricao'];
+        
         $orcamentoItens = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
                                    ->where('inscricao_id', $id)
@@ -60,14 +61,16 @@ class OrcamentoController extends Controller
             'item' => 'required|max:190',
             'descricao' => 'required|max:190',
             'justificativa' => 'required|max:190',
-            'valor' => 'required|numeric',
+            'valor' => 'required',
         ]);
+
+        $valor = str_replace(',', '.', str_replace('.', '',$request->valor));
 
         $inscricao = Inscricao::find($request->inscricao_id);
         $valorMaxPorInscricao = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao']);
         $valorMaxPorInscricao = $valorMaxPorInscricao[0]['valor_max_inscricao'];
         $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
-        $totalItens += $request->valor;
+        $totalItens += $valor;
 
         if($totalItens > $valorMaxPorInscricao) {
             session()->flash('status', 'Desculpe! O valor ultrapassa o total disponível');
@@ -82,7 +85,7 @@ class OrcamentoController extends Controller
             'item'  => $request->item,
             'descricao'  => $request->descricao,
             'justificativa'  => $request->justificativa,
-            'valor'  => str_replace(',', '.', str_replace('.', '',$request->valor)),
+            'valor'  => $valor,
         ]);
 
         if($orcamento) {

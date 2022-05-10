@@ -9,6 +9,8 @@
     <div class="row">
         <div class="col-lg-12">
             @include('layouts._includes._status')
+
+            @include('layouts._includes._validacao')
             <div class="card mb-4 p-3">
                 <div class="card-body">
                     <div class="row">
@@ -63,10 +65,10 @@
                                         @foreach($orcamentoItens as $item)
                                             <tr>
                                                 <td>{{ $item->item }}</td>
-                                                <td>{{ $item->tipo_item}}</td>
+                                                <td>{{ $item->tipoitem}}</td>
                                                 <td>{{ $item->descricao}}</td>
                                                 <td>{{ $item->justificativa}}</td>
-                                                <td>R$ {{ $item->valor }}</td>
+                                                <td>R$ {{ number_format($item->valor, 2, ',', '.') }}</td>
                                                 <td>
                                                     <form action='{{ url("/orcamento/$item->id") }}' method="post">
                                                         @csrf
