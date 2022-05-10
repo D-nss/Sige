@@ -92,7 +92,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
     Route::post('/inscricao/{id}/analise', [InscricaoController::class, 'analise']);
     Route::post('/inscricao/{id}/avaliacao', [InscricaoController::class, 'avaliacao']);
-    Route::get('/enviadas', [InscricaoController::class, 'inscricoesPorUsuario']);
+    Route::get('inscricao/enviadas', [InscricaoController::class, 'inscricoesPorUsuario']);
 
     Route::get('/inscricao/{id}/orcamento', [OrcamentoController::class, 'create']);
     Route::resource('/orcamento', OrcamentoController::class);
