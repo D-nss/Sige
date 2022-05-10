@@ -129,9 +129,26 @@
                     </li>
                     @if(Auth::hasUser())
                     <li class="">
-                        <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                        <!-- <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
+                        </a> -->
+                        <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
                         </a>
+                        <ul>
+                            <li class="">
+                                <a href="{{ url('enviadas') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Suas Inscrições</span>
+                                </a>
+                            </li>
+                            @hasanyrole('super|admin|edital-administrador', 'web_user')
+                            <li class="">
+                                <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>
+                                </a>
+                            </li>
+                            @endhasrole
+                        </ul>
                     </li>
                     @endif
 
