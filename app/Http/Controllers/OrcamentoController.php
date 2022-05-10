@@ -82,7 +82,7 @@ class OrcamentoController extends Controller
             'item'  => $request->item,
             'descricao'  => $request->descricao,
             'justificativa'  => $request->justificativa,
-            'valor'  => $request->valor
+            'valor'  => str_replace(',', '.', str_replace('.', '',$request->valor)),
         ]);
 
         if($orcamento) {
