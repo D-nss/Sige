@@ -71,6 +71,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class);
+    Route::get('editais', [EditalController::class, 'index'])->middleware('role:edital-coordenador');
     Route::post('edital/{id}/divulgar', [EditalController::class, 'divulgar']);
 
     Route::get('/editais/{edital}/criterios', [EditalController::class, 'editarCriterios']);
