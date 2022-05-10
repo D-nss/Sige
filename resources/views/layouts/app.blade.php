@@ -496,7 +496,7 @@ Versão: 4.5.1
                                         @elseif(isset($avaliacao) && $avaliacao == true)
                                             $('#avaliacao-form').submit();
                                         @else
-                                            window.location.href = "{{ url('inscricao') }}";
+                                            history.back();
                                         @endif
                                     }),
                         // $('<button></button>').text('Cancelar')
