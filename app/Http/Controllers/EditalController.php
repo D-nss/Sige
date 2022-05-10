@@ -27,6 +27,7 @@ class EditalController extends Controller
      */
     public function index()
     {
+        
         $editais = Edital::all();
 
         $editais = $editais->filter(function($value, $key) {
@@ -54,7 +55,8 @@ class EditalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {    
+           
         $inputsParaValidar = $request->except(['anexo_imagem']);
         $validar = array();
 
@@ -71,12 +73,14 @@ class EditalController extends Controller
 
         $uploaded = new UploadFile();
 
+        
+
         $edital = Edital::create([
             'titulo' => $request->titulo,
             'tipo' => $request->tipo,
             'resumo' => $request->resumo,
-            'total_recurso' => $request->total_recurso,
-            'valor_max_inscricao' => $request->valor_max_inscricao,
+            'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
+            'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
             'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000), //chama o função execute da model UploadFile e faz o upload do arquivo
             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : '',
         ]);
@@ -151,8 +155,8 @@ class EditalController extends Controller
                             'titulo' => $request->titulo,
                             'tipo' => $request->tipo,
                             'resumo' => $request->resumo,
-                            'total_recurso' => floatval($request->total_recurso),
-                            'valor_max_inscricao' => floatval($request->valor_max_inscricao),
+                            'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
+                            'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
                             'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $anexo_edital[0]['anexo_edital'],
                             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $anexo_edital[0]['anexo_imagem'],
                         ]);
