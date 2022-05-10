@@ -21,7 +21,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:super,edital-coordenador,edital-administrador');
+        $this->middleware('role:edital-coordenador,edital-administrador,super,admin');
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class InscricaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if( $user->hasRole('analista|avaliador|super|admin') ) {
+        if( $user->hasRole('edital-analista|edital-avaliador|super|admin') ) {
             if($user->hasRole('super|admin')) {
                 $inscricoes = Inscricao::all();
             }
