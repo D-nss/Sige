@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Orcamento;
 use App\Models\User;
+use App\Models\Municipio;
 
 class Inscricao extends Model
 {
@@ -42,6 +43,11 @@ class Inscricao extends Model
     public function edital()
     {
         return $this->belongsTo(Edital::class);
+    }
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class);
     }
 
 }
