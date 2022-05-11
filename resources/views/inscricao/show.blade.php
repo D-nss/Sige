@@ -63,12 +63,12 @@
                             <h2 class="text-secondary">{{ $inscricao->titulo }}</h2>
                             <div class="row pt-3 border-bottom">
                                 <div class="col-md-6">
-                                    <p class="font-size-14"><span class="font-weight-bold">Coordenador: </span> {{ $inscricao->user_id }}</p>
+                                    <p class="font-size-14"><span class="font-weight-bold">Coordenador: </span> {{ $inscricao->user->name }}</p>
                                     <p class="font-size-14"><span class="font-weight-bold">Tipo de Extensão: </span> {{ $inscricao->tipo }}</p>
                                 </div>
                                 <div class="col-md-6 ">
-                                    <p class="font-size-14"><span class="font-weight-bold">Cidade: </span> {{ $inscricao->municipio_id }}</p>
-                                    <p class="font-size-14"><span class="font-weight-bold">Estado: </span> São Paulo</p>
+                                    <p class="font-size-14"><span class="font-weight-bold">Cidade: </span> {{ $inscricao->municipio->nome_municipio }}</p>
+                                    <p class="font-size-14"><span class="font-weight-bold">Estado: </span> {{ $inscricao->municipio->uf }}</p>
                                 </div>
                             </div>
 
