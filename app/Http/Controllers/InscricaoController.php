@@ -32,9 +32,10 @@ class InscricaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if( $user->hasAnyRole('edital-analista','edital-avaliador','super','admin') ) {
-            if($user->hasAnyRole('super','admin')) {
+        if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
+            if($user->hasAnyRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
+                echo json_encode($inscricoes);
             }
             $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                    ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
