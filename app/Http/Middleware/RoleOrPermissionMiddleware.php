@@ -11,6 +11,9 @@ class RoleOrPermissionMiddleware
 {
     public function handle($request, Closure $next, $roleOrPermission, $guard = null)
     {
+        if(Auth::check()) {
+            return redirect()->to('login');
+        }
         //$authGuard = Auth::guard($guard);
         $user = User::where('email', Auth::user()->id)->first();
         Auth::guard('web_user')->login($user);
