@@ -35,23 +35,22 @@ class InscricaoController extends Controller
         if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
             if($user->hasAnyRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
-                echo json_encode($inscricoes);
             }
-        //     else {
-        //         $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
-        //                                 ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-        //                                 ->where('u.sigla', Auth::user()->unidade)              
-        //                                 ->get();
-        //     }
+            else {
+                $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
+                                        ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
+                                        ->where('u.sigla', Auth::user()->unidade)              
+                                        ->get();
+            }
             
-        //     $cronograma = new Cronograma();
-        //     return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+            $cronograma = new Cronograma();
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
 
-        // session()->flash('status', 'Desculpe! Acesso não autorizado');
-        // session()->flash('alert', 'warning');
+        session()->flash('status', 'Desculpe! Acesso não autorizado');
+        session()->flash('alert', 'warning');
 
-        // return redirect()->back();
+        return redirect()->back();
     }
 
     /**
