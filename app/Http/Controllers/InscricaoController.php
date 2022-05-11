@@ -397,7 +397,7 @@ class InscricaoController extends Controller
      */
     public function inscricoesPorUsuario()
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|super|admin') ) {
 
