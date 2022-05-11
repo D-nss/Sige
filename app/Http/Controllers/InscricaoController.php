@@ -37,19 +37,21 @@ class InscricaoController extends Controller
                 $inscricoes = Inscricao::all();
                 echo json_encode($inscricoes);
             }
-            $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
-                                   ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                   ->where('u.sigla', Auth::user()->unidade)              
-                                   ->get();
-
-            $cronograma = new Cronograma();
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+        //     else {
+        //         $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
+        //                                 ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
+        //                                 ->where('u.sigla', Auth::user()->unidade)              
+        //                                 ->get();
+        //     }
+            
+        //     $cronograma = new Cronograma();
+        //     return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
 
-        session()->flash('status', 'Desculpe! Acesso não autorizado');
-        session()->flash('alert', 'warning');
+        // session()->flash('status', 'Desculpe! Acesso não autorizado');
+        // session()->flash('alert', 'warning');
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     /**
