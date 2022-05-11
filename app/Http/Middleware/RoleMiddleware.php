@@ -11,9 +11,6 @@ class RoleMiddleware
 {
     public function handle($request, Closure $next, $role, $guard = null)
     {
-        if(Auth::check()) {
-            return redirect()->to('login');
-        }
         //$authGuard = Auth::guard($guard);
         //Pegando Autenticação do Keycloak e buscando usuário do banco e setando ele no sistema
         $user = User::where('email', Auth::user()->id)->first();

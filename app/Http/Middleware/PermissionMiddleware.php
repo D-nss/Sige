@@ -11,9 +11,6 @@ class PermissionMiddleware
 {
     public function handle($request, Closure $next, $permission, $guard = null)
     {
-        if(Auth::check()) {
-            return redirect()->to('login');
-        }
         //$authGuard = app('auth')->guard($guard);
         //Pegando Autenticação do Keycloak e buscando usuário do banco e setando ele no sistema
         $user = User::where('email', Auth::user()->id)->first();

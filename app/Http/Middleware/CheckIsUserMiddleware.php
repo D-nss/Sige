@@ -21,9 +21,6 @@ class CheckIsUserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()) {
-            return redirect()->to('login');
-        }
         //Usuário do autenticado no SiSe no sistema
         $user = User::where('email', Auth::user()->id)->first();
 
