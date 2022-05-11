@@ -10,12 +10,13 @@
     </thead>
     <tbody>
         @foreach($inscricoes as $inscricao)
-            @if( $user->hasAnyRole('super','edital-administrador') || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)))
+            @if( $user->hasRole('edital-administrador') || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)))
             <tr>
                 <td>{{ $inscricao->titulo }}</td>
                 <td>{{ $inscricao->user->name}}</td>
                 <td>{{ $inscricao->status }}</td>
                 <td>
+                    <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-info"><i class="far fa-eye"></i> Ver</a>
                     <a href='{{ url("storage/$inscricao->anexo_projeto") }}' target="_blank" class="btn btn-danger btn-sm m-1">Ver PDF</a>
                     @if($user->hasAnyRole('edital-analista','super','edital-administrador') && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)))
                         <a href='{{ url("inscricao/$inscricao->id/?analise=true") }}' class="btn btn-warning btn-sm m-1">Análise</a>
