@@ -23,6 +23,7 @@ class Edital extends Model
         'resumo',
         'total_recurso',
         'valor_max_inscricao',
+        'valor_max_programa',
         'anexo_edital',
         'anexo_imagem'
     ];
