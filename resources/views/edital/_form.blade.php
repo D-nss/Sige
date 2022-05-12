@@ -14,7 +14,7 @@
         <input type="text" name="titulo" class="form-control mb-3" placeholder="Título" value ="{{ isset($edital->titulo) ? $edital->titulo : old('titulo') }}" required/>
 
         <label for="tipo" class="font-weight-bold">Tipo:</label>
-        <select name="tipo" class="form-control mb-3" required>
+        <select name="tipo" id="tipo" class="form-control mb-3" required>
             <option value="">Selecione ... </option>
             <option value="EAD" {{ (isset($edital->tipo) && $edital->tipo == 'EAD') || old('tipo') == 'EAD' ? 'selected' : '' }}>EAD</option>
             <option value="PEX" {{ (isset($edital->tipo) && $edital->tipo == 'PEX') || old('tipo') == 'PEX' ? 'selected' : '' }}>PEX</option>
@@ -31,6 +31,11 @@
         <label for="valor_max_inscricao" class="font-weight-bold">Valor Máximo por Inscrição:</label>
         <input type="text" name="valor_max_inscricao" id="valor_max_inscricao" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->valor_max_inscricao) ? number_format($edital->valor_max_inscricao, 2, ',', '') : old('valor_max_inscricao') }}" required />
 
+        <div class="{{ isset($edital->valor_max_programa) ? 'd-block' : 'd-none' }}" id="div_valor_programa">
+            <label for="valor_max_programa" class="font-weight-bold">Valor Máximo por Programa:</label>
+            <input type="text" name="valor_max_programa" id="valor_max_programa" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->valor_max_programa) ? number_format($edital->valor_max_programa, 2, ',', '') : old('valor_max_programa') }}" />
+        </div>
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

@@ -661,8 +661,20 @@ Versão: 4.5.1
                     }
                 });
 
+                $('#tipo').change(function(){
+                    if( $('#tipo').val() == 'PEX' ) {
+                        $("#div_valor_programa").removeClass("d-none");
+                        $("#div_valor_programa").addClass("d-block");
+                    }
+                    else {
+                        $("#div_valor_programa").removeClass("d-block");
+                        $("#div_valor_programa").addClass("d-none");
+                    }
+                });
+
                 $('#total_recurso').mask("#.##0,00", {reverse: true});
                 $('#valor_max_inscricao').mask("#.##0,00", {reverse: true});
+                $('#valor_max_programa').mask("#.##0,00", {reverse: true});
                 $('#valor').mask("#.##0,00", {reverse: true});
 
             });
