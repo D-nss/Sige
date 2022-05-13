@@ -264,7 +264,8 @@ class InscricaoController extends Controller
         
         $criterios = $edital->criterios;
 
-        $valorMaxPorInscricao = $edital->valor_max_inscricao;
+        $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
+
         $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
         $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
