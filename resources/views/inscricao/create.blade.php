@@ -59,7 +59,7 @@
                                     <input type="hidden" name="edital_id" value="{{ $edital->id }}" />
 
                                     <label for="titulo" class="font-weight-bold">Título: </label>
-                                    <input type="text" name="titulo" class="form-control w-75" placeholder="Título" required="true" value="@if(isset($inscricao->titulo)) {{ $inscricao->titulo }}  @else {{ old('titulo') }} @endif" required>
+                                    <input type="text" name="titulo" class="form-control w-75" placeholder="Título" required="true" value="@if(isset($inscricao->titulo)){{ $inscricao->titulo }}@else{{ old('titulo') }}@endif" required>
                                     <p style="color: #D0D3D4;">(máx. 100 caracteres)</p>
 
                                     <label for="tipo_extensao" class="font-weight-bold">Tipo de Extensão: </label>
@@ -131,16 +131,16 @@
 
                                     <div class="mb-3">
                                         <label for="link_lattes" class="font-weight-bold">Link Lattes</label>
-                                        <input type="text" name="link_lattes" class="form-control w-75 mb-4" placeholder="https://seulattes.com" value="@if(isset($inscricao->link_lattes)) {{ $inscricao->link_lattes }} @else {{ old('link_lattes') }} @endif" required>
+                                        <input type="text" name="link_lattes" class="form-control w-75 mb-4" placeholder="https://seulattes.com" value="@if(isset($inscricao->link_lattes)){{ $inscricao->link_lattes }}@else{{ old('link_lattes') }}@endif" required>
 
                                         <label for="link_projeto" class="font-weight-bold">Link Projeto</label>
-                                        <input type="text" name="link_projeto" class="form-control w-75 mb-4" placeholder="https://seuprojeto.com" value="@if(isset($inscricao->link_projeto)) {{ $inscricao->link_projeto }} @else {{ old('link_projeto') }} @endif" required>
+                                        <input type="text" name="link_projeto" class="form-control w-75 mb-4" placeholder="https://seuprojeto.com" value="@if(isset($inscricao->link_projeto)){{ $inscricao->link_projeto }}@else{{ old('link_projeto') }}@endif" required>
 
                                         <label for="resumo" class="font-weight-bold">Resumo</label>
-                                        <textarea name="resumo" class="form-control mb-4" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)) {{ $inscricao->resumo }} @else {{ old('resumo') }} @endif</textarea>
+                                        <textarea name="resumo" class="form-control mb-4" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
 
                                         <label for="palavras_chave" class="font-weight-bold">Palavras Chaves</label>
-                                        <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)) {{ $inscricao->palavras_chaves }} @else {{ old('palavras_chaves') }} @endif" required />
+                                        <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)){{ $inscricao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif" required />
                                     </div>
 
                                     <div class="preview-zone hidden">
