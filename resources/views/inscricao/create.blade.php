@@ -154,7 +154,7 @@
                                             </div>
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
-                                                @if($inscricao->anexo_projeto)
+                                                @if(isset($inscricao->anexo_projeto))
                                                 <a href='{{ url("storage/$inscricao->anexo_projeto") }}' class="btn btn-link" target="_blank">
                                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                     <br>
@@ -181,7 +181,7 @@
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
                                         <?php $j = 0; ?>
                                         @foreach($areas_tematicas as $area_tematica)
-                                            <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas') == '{{ $area_tematica->id }}' || $inscricao->areas->contains($area_tematica->id)) selected @endif>{{ $area_tematica->nome }}</option>
+                                            <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
                                             <?php $j++; ?>
                                         @endforeach
                                             <!-- <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
@@ -202,7 +202,7 @@
                                                 <div class="col-md-6">
                                                     @foreach($chunked as $linha_extensao)
                                                         <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $linha_extensao->descricao }}">
-                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || $inscricao->linha_extensao_id == $linha_extensao->id ) checked @endif required>{{ $linha_extensao->nome }}</label>
+                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || (isset($inscricao->linha_extensao_id) && $inscricao->linha_extensao_id == $linha_extensao->id) ) checked @endif required>{{ $linha_extensao->nome }}</label>
                                                         <br>
                                                     @endforeach
                                                 </div>
