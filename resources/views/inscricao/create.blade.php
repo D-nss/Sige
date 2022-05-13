@@ -92,7 +92,7 @@
                                     Sim <input type="radio" name="parceria" id="parcerias_sim"  value="Sim" @if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') checked @endif required="true">
                                     Não <input type="radio" name="parceria" id="parcerias_nao"  value="Não" @if(isset($inscricao->parceria) && $inscricao->parceria == 'Não') checked @endif required="true">
                                     <br>
-                                    <div id="arquivo_parceria" class="@if(isset($inscricao->anexo_parceria) && $inscricao->anexo_parceria == 'Sim') d-block @else d-none @endif">
+                                    <div id="arquivo_parceria" class="@if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') d-block @else d-none @endif">
                                         <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
                                         <div class="preview-zone hidden">
                                             <div class="box box-solid">
