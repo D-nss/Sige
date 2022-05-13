@@ -13,6 +13,6 @@ class InscricaoAreaTematica extends Model
 
     protected $fillable = [
         'area_tematica_id',
-        'incricao_id'
+        'inscricao_id'
     ];
 }

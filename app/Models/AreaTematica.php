@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Inscricao;
-
 class AreaTematica extends Model
 {
     use HasFactory;
@@ -16,9 +14,4 @@ class AreaTematica extends Model
     protected $fillable = [
         'nome',
     ];
-
-    public function inscricoes()
-    {
-        return $this->belongsToMany(Inscricao::class);
-    }
 }

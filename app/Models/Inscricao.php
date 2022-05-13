@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Orcamento;
 use App\Models\User;
 use App\Models\Municipio;
+use App\Models\AreaTematica;
 
 class Inscricao extends Model
 {
@@ -48,6 +49,11 @@ class Inscricao extends Model
     public function municipio()
     {
         return $this->belongsTo(Municipio::class);
+    }
+
+    public function areas()
+    {
+        return $this->belongsToMany(AreaTematica::class, 'inscricoes_areas_tematicas', 'inscricao_id', 'area_tematica_id' );
     }
 
 }

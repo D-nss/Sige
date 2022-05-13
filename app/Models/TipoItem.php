@@ -10,4 +10,5 @@ class TipoItem extends Model
     use HasFactory;
 
     protected $table = 'tipo_item';
+
 }

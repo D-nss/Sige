@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Edital;
 use App\Models\Inscricao;
 use App\Models\InscricaoAreaTematica;
+use App\Models\AreaTematica;
 use App\Models\UploadFile;
 use App\Models\Orcamento;
 use App\Models\QuestaoRespondida;
@@ -92,9 +93,10 @@ class InscricaoController extends Controller
 
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         
-        $linhas_extensao = LinhaExtensao::all(); 
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
 
-        return view('inscricao.create', compact('edital', 'linhas_extensao', 'estados'));
+        return view('inscricao.create', compact('edital', 'linhas_extensao', 'estados', 'areas_tematicas'));
     }
 
     /**
@@ -293,7 +295,28 @@ class InscricaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
+        $cronograma = new Cronograma();
+
+        $inscricao = Inscricao::findOrFail($id);
+        $edital = Edital::findOrFail($inscricao->edital_id);
+        $respostasQuestoes = DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->get();
+        $inscricaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $inscricao->municipio_id)->get();
+        
+        return view(
+                    'inscricao.create', 
+                    compact(
+                            'edital',
+                            'linhas_extensao', 
+                            'estados', 
+                            'inscricao', 
+                            'respostasQuestoes', 
+                            'inscricaoLocal', 
+                            'areas_tematicas',
+                        )
+                    );
     }
 
     /**
@@ -305,7 +328,80 @@ class InscricaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputsParaValidar = $request->except(['estado', 'comprovante_parceria', 'pdf_projeto', 'link_lattes', 'link_projeto', 'palavras_chaves']);
+        $validar = array();
+
+        foreach($inputsParaValidar as $key => $inputs) {
+            if($key == 'resumo') {
+                $validar[$key] = 'required|max:1000';
+            }
+            elseif(substr($key, 0, 8) == 'questao-'){
+                $validar[$key] = 'required|max:450';
+            }
+            else {
+                $validar[$key] = 'required|max:190';
+            }
+        }
+
+        $validated = $request->validate($validar);
+
+        $user = User::where('email', Auth::user()->id)->first();
+        
+        $inscricao = Inscricao::findOrFail($id);
+        $areasTematicasInsert = array();
+        $respostasQuestoesInsert = array();
+        $upload = new UploadFile();
+
+        $transacao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user, $inscricao) {
+            
+            $inscricao->titulo = $request->titulo;
+            $inscricao->tipo = $request->tipo_extensao;
+            $inscricao->municipio_id = $request->cidade;
+            $inscricao->resumo = $request->resumo;
+            $inscricao->palavras_chaves = $request->palavras_chaves;
+            $inscricao->parceria = $request->parceria;
+            if($request->comprovante_parceria != null || $request->comprovante_parceria != '') {
+                $inscricao->anexo_parceria = $upload->execute($request, 'comprovante_parceria', 'pdf', 3000000);
+            }
+            if($request->pdf_projeto != null || $request->pdf_projeto != '') {
+                $inscricao->anexo_projeto = $upload->execute($request, 'pdf_projeto', 'pdf', 3000000);
+            }
+            $inscricao->url_projeto = $request->link_projeto;
+            $inscricao->url_lattes = $request->link_lattes;
+            $inscricao->linha_extensao_id = $request->linha_extensao;
+            $inscricaoAtualizada = $inscricao->save();
+
+            DB::table('inscricoes_areas_tematicas')->where('inscricao_id', $inscricao->id)->delete();
+            foreach($request->areas_tematicas as $area) {
+                DB::table('inscricoes_areas_tematicas')->insert([
+                    'area_tematica_id' => $area,
+                    'inscricao_id' => $inscricao->id
+                ]);
+            }
+
+            foreach($request->all() as $key => $resposta) {
+                if(substr($key, 0, 8) == 'questao-') {
+                    DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->where('questao_id', substr($key, 8, strlen($key)))->update([ 
+                        'resposta' => $resposta
+                    ]);
+                }
+            }
+            
+            return $inscricaoAtualizada;
+        });
+
+        if(is_null($transacao) || empty($transacao)) {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Inscrição atualizada com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->to("inscricoes-enviadas");
+        }
     }
 
     /**

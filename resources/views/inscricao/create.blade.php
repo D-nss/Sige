@@ -15,8 +15,13 @@
 
             <div class="card mb-4 p-3">
                 <div class="card-body">
-                    <form action="{{ url('inscricao') }}" id="form_proposta" method="post" enctype="multipart/form-data">
-                        @csrf             
+                    @if(isset($inscricao))
+                        <form action='{{ url("inscricao/$inscricao->id") }}' id="form_proposta" method="post" enctype="multipart/form-data">
+                        @method('PUT')
+                    @else
+                        <form action="{{ url('inscricao') }}" id="form_proposta" method="post" enctype="multipart/form-data">     
+                    @endif  
+                    @csrf             
                     <div id="swproposta">
                         <ul class="nav d-flex justify-content-between">
                             <li>
@@ -54,14 +59,14 @@
                                     <input type="hidden" name="edital_id" value="{{ $edital->id }}" />
 
                                     <label for="titulo" class="font-weight-bold">Título: </label>
-                                    <input type="text" name="titulo" class="form-control w-75" placeholder="Título" required="true" value="{{ old('titulo') }}" required>
+                                    <input type="text" name="titulo" class="form-control w-75" placeholder="Título" required="true" value="@if(isset($inscricao->titulo)) {{ $inscricao->titulo }}  @else {{ old('titulo') }} @endif" required>
                                     <p style="color: #D0D3D4;">(máx. 100 caracteres)</p>
 
                                     <label for="tipo_extensao" class="font-weight-bold">Tipo de Extensão: </label>
                                     <select name="tipo_extensao" class="form-control w-25" required="true" value="{{ old('tipo_extensao') }}" required>
                                         <option value="">Selecione ... </option>
-                                        <option value="Programa">Programa</option>
-                                        <option value="Projeto">Projeto</option>
+                                        <option value="Programa" @if(isset($inscricao->tipo) && $inscricao->tipo == 'Programa') selected @endif>Programa</option>
+                                        <option value="Projeto" @if(isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') selected @endif>Projeto</option>
                                     </select>
 
                                     <hr class="border-top border-bottom">
@@ -71,21 +76,23 @@
                                     <select name="estado" id="estado" class="form-control w-25 mb-4" required="true" value="{{ old('estado ') }}" required>
                                         <option value="">Selecione ...</option>
                                         @foreach($estados as $estado)
-                                            <option value="{{ $estado->uf }}">{{ $estado->uf }}</option>
+                                            <option value="{{ $estado->uf }}" @if(isset($inscricaoLocal) && $inscricaoLocal[0]->uf == $estado->uf) selected @endif>{{ $estado->uf }}</option>
                                         @endforeach
                                     </select>
                                     <label for="cidade" class="font-weight-bold">Cidade: </label>
                                     <select name="cidade" id="cidade" class="form-control w-50" required="true" value="{{ old('cidade') }}" required>
-                                        
+                                    @if( isset($inscricaoLocal) ) 
+                                        <option value="{{ $inscricao->municipio_id }}">{{ $inscricaoLocal[0]->nome_municipio }}</option>
+                                    @endif
                                     </select> 
 
                                     <hr class="border-top border-bottom">
 
                                     <h4 class="text-success">Há parcerias com outras instituições (públicas ou privadas) para o desenvolvimento do projeto?</h4>
-                                    Sim <input type="radio" name="parceria" id="parcerias_sim"  value="Sim" required="true">
-                                    Não <input type="radio" name="parceria" id="parcerias_nao"  value="Não" checked required="true">
+                                    Sim <input type="radio" name="parceria" id="parcerias_sim"  value="Sim" @if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') checked @endif required="true">
+                                    Não <input type="radio" name="parceria" id="parcerias_nao"  value="Não" @if(isset($inscricao->parceria) && $inscricao->parceria == 'Não') checked @endif required="true">
                                     <br>
-                                    <div id="arquivo_parceria" class="d-none">
+                                    <div id="arquivo_parceria" class="@if(isset($inscricao->anexo_parceria)) d-block @else d-none @endif">
                                         <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
                                         <div class="preview-zone hidden">
                                             <div class="box box-solid">
@@ -97,7 +104,15 @@
                                                     </button>
                                                 </div>
                                                 </div>
-                                                <div class="box-body" id="comprovante-box-body"></div>
+                                                <div class="box-body" id="comprovante-box-body">
+                                                    @if(isset($inscricao->anexo_parceria))
+                                                    <a href='{{ url("storage/$inscricao->anexo_parceria") }}' class="btn btn-link" target="_blank">
+                                                        <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                        <br>
+                                                        Arquivo Parceria
+                                                    </a>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="dropzone-wrapper">
@@ -116,16 +131,16 @@
 
                                     <div class="mb-3">
                                         <label for="link_lattes" class="font-weight-bold">Link Lattes</label>
-                                        <input type="text" name="link_lattes" class="form-control w-75 mb-4" placeholder="https://seulattes.com" value="{{ old('link_lattes') }}" required>
+                                        <input type="text" name="link_lattes" class="form-control w-75 mb-4" placeholder="https://seulattes.com" value="@if($inscricao->link_lattes) {{ $inscricao->link_lattes }} @else {{ old('link_lattes') }} @endif" required>
 
                                         <label for="link_projeto" class="font-weight-bold">Link Projeto</label>
-                                        <input type="text" name="link_projeto" class="form-control w-75 mb-4" placeholder="https://seuprojeto.com" value="{{ old('link_projeto') }}" required>
+                                        <input type="text" name="link_projeto" class="form-control w-75 mb-4" placeholder="https://seuprojeto.com" value="@if($inscricao->link_projeto) {{ $inscricao->link_projeto }} @else {{ old('link_projeto') }} @endif" required>
 
                                         <label for="resumo" class="font-weight-bold">Resumo</label>
-                                        <textarea name="resumo" class="form-control mb-4" cols="30" rows="5" placeholder="Resumo do seu projeto" required>{{ old('resumo') }}</textarea>
+                                        <textarea name="resumo" class="form-control mb-4" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if($inscricao->resumo) {{ $inscricao->resumo }} @else {{ old('resumo') }} @endif</textarea>
 
                                         <label for="palavras_chave" class="font-weight-bold">Palavras Chaves</label>
-                                        <input type="text" name="palavras_chaves" value="" data-role="tagsinput" value="{{ old('palavras_chaves') }}" required />
+                                        <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if($inscricao->palavras_chaves) {{ $inscricao->palavras_chaves }} @else {{ old('palavras_chaves') }} @endif" required />
                                     </div>
 
                                     <div class="preview-zone hidden">
@@ -138,7 +153,15 @@
                                                 </button>
                                             </div>
                                             </div>
-                                            <div class="box-body" id="projeto-box-body"></div>
+                                            <div class="box-body" id="projeto-box-body">
+                                                @if($inscricao->anexo_projeto)
+                                                <a href='{{ url("storage/$inscricao->anexo_projeto") }}' class="btn btn-link" target="_blank">
+                                                    <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                    <br>
+                                                    Arquivo Projeto
+                                                </a>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="dropzone-wrapper">
@@ -147,7 +170,7 @@
                                             <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
                                             
                                         </div>
-                                        <input type="file" name="pdf_projeto" class="dropzone" id="projeto_arquivo" value="" required="true" value="{{ old('pdf_projeto') }}">
+                                        <input type="file" name="pdf_projeto" class="dropzone" id="projeto_arquivo" value="" @if(isset($inscricao->anexo_projeto)) required="false" @else required="true" @endif value="{{ old('pdf_projeto') }}">
                                         
                                     </div>
                                     <p class="text-warning font-size-16">O projeto deve ter no mínimo 20 páginas e ser no formato PDF</p>
@@ -156,14 +179,18 @@
                                     <h3 class="text-success">Áreas Temáticas</h3>
                                     <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
-                                        <option value="1" @if(old('areas_tematicas') == '1') selected @endif>Comunicação</option>
-                                        <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
+                                        <?php $j = 0; ?>
+                                        @foreach($areas_tematicas as $area_tematica)
+                                            <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas') == '{{ $area_tematica->id }}' || $inscricao->areas->contains($area_tematica->id)) selected @endif>{{ $area_tematica->nome }}</option>
+                                            <?php $j++; ?>
+                                        @endforeach
+                                            <!-- <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
                                         <option value="3" @if(old('areas_tematicas') == '3') selected @endif>Direitos Humanos e Justiça</option>
                                         <option value="4" @if(old('areas_tematicas') == '4') selected @endif>Educação</option>
                                         <option value="5" @if(old('areas_tematicas') == '5') selected @endif>Meio Ambiente</option>
                                         <option value="6" @if(old('areas_tematicas') == '6') selected @endif>Saúde</option>
                                         <option value="7" @if(old('areas_tematicas') == '7') selected @endif>Tecnologia e Produção</option>
-                                        <option value="8" @if(old('areas_tematicas') == '8') selected @endif>Trabalho</option>
+                                        <option value="8" @if(old('areas_tematicas') == '8') selected @endif>Trabalho</option> -->
                                     </select>
 
                                 </div>
@@ -175,124 +202,22 @@
                                                 <div class="col-md-6">
                                                     @foreach($chunked as $linha_extensao)
                                                         <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $linha_extensao->descricao }}">
-                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id ) checked @endif required>{{ $linha_extensao->nome }}</label>
+                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || $inscricao->linha_extensao_id == $linha_extensao->id ) checked @endif required>{{ $linha_extensao->nome }}</label>
                                                         <br>
                                                     @endforeach
                                                 </div>
                                             @endforeach
-                                            <!-- <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Dança, teatro, técnicas circenses, performance; formação, capacitação e qualificação de pessoas que atuam na área; memória, produção e difusão cultural e artística."><input type="radio" name="linha_extensao" value="2" data-bv-field="linha_extensao"> Artes Cênicas</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Ações multiculturais, envolvendo as diversas áreas da produção e da prática artística em um único programa integrado; memória, produção e difusão cultural e artística."><input type="radio" name="linha_extensao" value="3" data-bv-field="linha_extensao"> Artes Integradas</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Escultura, pintura, desenho, gravura, instalação, apropriação; formação, memória, produção e difusão cultural e artística."><input type="radio" name="linha_extensao" value="4" data-bv-field="linha_extensao"> Artes Plásticas</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Artes gráficas, fotografia, cinema, vídeo; memória, produção e difusão cultural e artística."><input type="radio" name="linha_extensao" value="5" data-bv-field="linha_extensao"> Artes Visuais</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Elaboração, implementação e avaliação de planos estratégicos de comunicação; realização de assessorias e consultorias para organizações de natureza diversa em atividades de publicidade, propaganda e de relações públicas; suporte de comunicação a programas e projetos de mobilização social, a organizações governamentais e da sociedade civil."><input type="radio" name="linha_extensao" value="6" data-bv-field="linha_extensao"> Comunicação Estratégica</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Produção de origem animal, vegetal, mineral e laboratorial; manejo, transformação, manipulação, dispensação, conservação e comercialização de produtos e subprodutos."><input type="radio" name="linha_extensao" value="7" data-bv-field="linha_extensao"> Desenvolvimento de Produtos</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Elaboração de diagnóstico e de propostas de planejamento regional (urbano e rural) envolvendo práticas destinadas à elaboração de planos diretores, a soluções, tratamento de problemas e melhoria da qualidade de vida da população local, tendo em vista sua capacidade produtiva e potencial de incorporação na implementação das ações; participação em fóruns Desenvolvimento Local Integrado e Sustentável – DLIS; participação e assessoria a conselhos regionais, estaduais e locais de desenvolvimento e a fóruns de municípios e associações afins; elaboração de matrizes e estudos sobre desenvolvimento regional integrado, tendo como base recursos locais renováveis e práticas sustentáveis; permacultura; definição de indicadores e métodos de avaliação de desenvolvimento, crescimento e sustentabilidade."><input type="radio" name="linha_extensao" value="8" data-bv-field="linha_extensao"> Desenvolvimento Regional</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Constituição e/ou implementação de iniciativas de reforma agrária, matrizes produtivas locais ou regionais e de políticas de desenvolvimento rural; assistência técnica; planejamento do desenvolvimento rural sustentável; organização rural; comercialização; agroindústria; gestão de propriedades e/ou organizações; arbitragem de conflitos de reforma agrária; educação para o desenvolvimento rural; definição de critérios e de políticas de fomento para o meio rural; avaliação de impactos de políticas de desenvolvimento rural."><input type="radio" name="linha_extensao" value="9" data-bv-field="linha_extensao"> Desenvolvimento Rural e Questão Agrária</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Processos de investigação e produção de novas tecnologias, técnicas, processos produtivos, padrões de consumo e produção (inclusive tecnologias sociais, práticas e protocolos de produção de bens e serviços); serviços tecnológicos; estudos de viabilidade técnica, financeira e econômica; adaptação de tecnologias."><input type="radio" name="linha_extensao" value="10" data-bv-field="linha_extensao"> Desenvolvimento tecnológico</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Planejamento, implementação e avaliação de processos e metodologias visando proporcionar soluções e o tratamento de problemas das comunidades urbanas; urbanismo."><input type="radio" name="linha_extensao" value="11" data-bv-field="linha_extensao"> Desenvolvimento Urbano</label><br><label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Apoio a organizações e ações de memória social, defesa, proteção e promoção de direitos humanos; direito agrário e fundiário; assistência jurídica e judiciária, individual e coletiva, a instituições e organizações; bioética médica e jurídica; ações educativas e preventivas para garantia de direitos humanos."><input type="radio" name="linha_extensao" value="12" data-bv-field="linha_extensao"> Direitos Individuais e Coletivos</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Formação técnica profissional, visando a valorização, aperfeiçoamento, promoção do acesso aos direitos trabalhistas e inserção no mercado de trabalho."><input type="radio" name="linha_extensao" value="13" data-bv-field="linha_extensao"> Educação Profissional</label><br><label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Constituição e gestão de empresas juniores, pré-incubadoras, incubadoras de empresas, parques e pólos tecnológicos, cooperativas e empreendimentos solidários e outras ações voltadas para a identificação, aproveitamento de novas oportunidades e recursos de maneira inovadora, com foco na criação de empregos e negócios, estimulando a pró-atividade."><input type="radio" name="linha_extensao" value="14" data-bv-field="linha_extensao"> Empreendedorismo</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Defesa, proteção, promoção e apoio a oportunidades de trabalho, emprego e renda para empreendedores, setor informal, proprietários rurais, formas cooperadas/associadas de produção, empreendimentos produtivos solidários, economia solidária, agricultura familiar, dentre outros."><input type="radio" name="linha_extensao" value="15" data-bv-field="linha_extensao"> Emprego e Renda / Trabalho e Renda</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Planejamento, implementação e avaliação de metodologias de intervenção e de investigação tendo como tema o perfil epidemiológico de endemias e epidemias e a transmissão de doenças no meio rural e urbano; previsão e prevenção."><input type="radio" name="linha_extensao" value="16" data-bv-field="linha_extensao"> Endemias e Epidemias</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Difusão e divulgação de conhecimentos científicos e tecnológicos em espaços de ciência, como museus, observatórios, planetários, estações marinhas, entre outros; organização desses espaços."><input type="radio" name="linha_extensao" value="17" data-bv-field="linha_extensao"> Espaços de Ciência</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Práticas esportivas, experiências culturais, atividades físicas e vivências de lazer para crianças, jovens e adultos, como princípios de cidadania, inclusão, participação social e promoção da saúde; esportes e lazer nos projetos político-pedagógico das escolas; desenvolvimento de metodologias e inovações pedagógicas no ensino da Educação Física, Esportes e Lazer; iniciação e prática esportiva; detecção e fomento de talentos esportivos."><input type="radio" name="linha_extensao" value="18" data-bv-field="linha_extensao"> Esporte e Lazer</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Estilismo e moda"><input type="radio" name="linha_extensao" value="19" data-bv-field="linha_extensao"> Estilismo</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Uso correto de medicamentos para a assistência à saúde, em seus processos que envolvem a farmacoterapia; farmácia nuclear; diagnóstico laboratorial; análises químicas, físico-químicas, biológicas, microbiológicas e toxicológicas de fármacos, insumos farmacêuticos, medicamentos e fitoterápicos."><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Fármacos e Medicamentos</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Formação de Professores (Formação Docente)"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Formação de Professores (Formação Docente)</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Gestão do Trabalho"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Gestão do Trabalho</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Gestão Informacional"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Gestão Informacional</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Gestão Institucional"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Gestão Institucional</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Gestão Pública"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Gestão Pública</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Grupos Sociais Vulneráveis"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Grupos Sociais Vulneráveis</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Infância e Adolescência"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Infância e Adolescência</label>
-                                            <br>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Inovação Tecnológica"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Inovação Tecnológica</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Jornalismo"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Jornalismo</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Jovens e Adultos"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Jovens e Adultos</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Línguas Estrangeiras"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Línguas Estrangeiras</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Metodologias e Estratégias de Ensino/Aprendizagem"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Metodologias e Estratégias de Ensino/Aprendizagem</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Mídias-Artes"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Mídias-Artes</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Mídias"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Mídias</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Música"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Música</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Organizações da Sociedade Civil e Movimentos Sociais e Populares"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Organizações da Sociedade Civil e Movimentos Sociais e Populares</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Patrimônio Cultural, Histórico, Natural e Imaterial."><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Patrimônio Cultural, Histórico, Natural e Imaterial.</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pessoas com Deficiências, Incapacidades, e Necessidades Especiais."><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Pessoas com Deficiências, Incapacidades, e Necessidades Especiais.</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Propriedade Intelectual e Patente"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Propriedade Intelectual e Patente</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Questões Ambientais"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Questões Ambientais</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Recursos Hídricos"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Recursos Hídricos</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Resíduos Sólidos"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Resíduos Sólidos</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Saúde Animal"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Saúde Animal</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Saúde da Família"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Saúde da Família</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Saúde e Proteção no Trabalho"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Saúde e Proteção no Trabalho</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Saúde Humana"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Saúde Humana</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Segurança Alimentar e Nutricional"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Segurança Alimentar e Nutricional</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Segurança Pública e Defesa Social"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Segurança Pública e Defesa Social</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tecnologia da Informação"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Tecnologia da Informação</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Temas Específicos/Desenvolvimento Humano."><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Temas Específicos/Desenvolvimento Humano.</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Terceira Idade"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Terceira Idade</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Turismo"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Turismo</label>
-                                            <br>
-                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Uso de Drogas e Dependência Química"><input type="radio" name="linha_extensao" value="20" data-bv-field="linha_extensao"> Uso de Drogas e Dependência Química</label>
-                                            <br> -->
-                                        
+                                           
                                     </div>  
                                 </div>
                                 <div id="step-4" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Questões (Máx. 450 caracteres)</h3>
                                     <div>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 0; ?>
                                         @foreach($edital->questoes as $questao)
                                             @if($questao->tipo == 'Proposta')
-                                                <label for="questao-{{ $questao->id }}" class="text-secondary font-size-16">{{ $i . ' - ' . $questao->enunciado }}</label>
-                                                <textarea class="form-control  mb-3" name="questao-{{ $questao->id }}" cols="30" rows="5" required>{{ old("questao-$questao->id") }}</textarea>
+                                                <label for="questao-{{ $questao->id }}" class="text-secondary font-size-16">{{ ($i + 1)  . ' - ' . $questao->enunciado }}</label>
+                                                <textarea class="form-control  mb-3" name="questao-{{ $questao->id }}" cols="30" rows="5" required>@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
                                                 <?php $i ++; ?>
                                             @endif
                                         @endforeach

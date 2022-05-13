@@ -30,9 +30,10 @@
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->created_at)) }}</td>
                             <td>
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) )
+                                <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info"><i class="far fa-edit"></i> Editar</a>
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary"><i class="far fa-list"></i> Orçamento</a>
                                 @endif
-                                <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-info"><i class="far fa-eye"></i> Ver</a>
+                                <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger"><i class="far fa-eye"></i> Ver</a>
                             </td>
                         </tr>
                     @endforeach
