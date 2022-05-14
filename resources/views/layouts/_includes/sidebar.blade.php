@@ -52,7 +52,7 @@
 
         <ul id="js-nav-menu" class="nav-menu">
             @if(Auth::hasUser())
-            @hasanyrole('super|admin|indicadores-admin|indicadores-user', 'web_user')
+            
             <li class="open">
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-file"></i>
@@ -103,12 +103,12 @@
                     </li> -->
                 </ul>
             </li>
-            <li>
-                <a href="{{ url('/indicadores') }}" title="Indicadores" >
-                    <span class="nav-link-text">Dados Indicadores</span>
-                </a>
-            </li>
-            
+            @hasrole('indicadores-user', 'web_user')
+                <li>
+                    <a href="{{ url('/indicadores') }}" title="Indicadores" >
+                        <span class="nav-link-text">Dados Indicadores</span>
+                    </a>
+                </li>
             @endhasanyrole
             @endif
 
