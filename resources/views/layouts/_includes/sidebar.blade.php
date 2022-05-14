@@ -61,7 +61,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="{{ url('/indicadores') }}" title="Indicadores">
+                        <a href="{{ url('/indicadores') }}" title="Indicadores" class="active">
                             <span class="nav-link-text">Dados Indicadores</span>
                         </a>
                         <!-- <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
