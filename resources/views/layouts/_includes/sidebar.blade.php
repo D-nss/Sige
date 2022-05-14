@@ -103,7 +103,7 @@
                     </li> -->
                 </ul>
             </li>
-            @hasrole('indicadores-user', 'web_user')
+            @hasanyrole('super|admin|indicadores-admin|indicadores-user', 'web_user')
                 <li>
                     <a href="{{ url('/indicadores') }}" title="Indicadores" >
                         <span class="nav-link-text">Dados Indicadores</span>
@@ -124,7 +124,7 @@
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Processos de Editais</span>
                         </a>
                     </li>
-                    @endhasrole
+                    @endhasanyrole
                     @endif
                     <li class="">
                         <a href="{{ url('editais') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
@@ -151,7 +151,7 @@
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>
                                 </a>
                             </li>
-                            @endhasrole
+                            @endhasanyrole
                         </ul>
                     </li>
                     @endif
