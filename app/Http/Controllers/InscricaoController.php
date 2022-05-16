@@ -107,12 +107,18 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-        $inputsParaValidar = $request->except(['estado', 'comprovante_parceria', 'link_lattes', 'link_projeto', 'palavras_chaves']);
+        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:1000';
+            }
+            elseif($key == 'pdf_projeto') {
+                $validar[$key] = 'required|mimes:pdf';
+            }
+            elseif($key == 'comprovante_parceria') {
+                $validar[$key] = 'mimes:pdf';
             }
             elseif(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:450';
@@ -344,12 +350,18 @@ class InscricaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inputsParaValidar = $request->except(['estado', 'comprovante_parceria', 'pdf_projeto', 'link_lattes', 'link_projeto', 'palavras_chaves']);
+        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:1000';
+            }
+            elseif($key == 'pdf_projeto') {
+                $validar[$key] = 'mimes:pdf';
+            }
+            elseif($key == 'comprovante_parceria') {
+                $validar[$key] = 'mimes:pdf';
             }
             elseif(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:450';
