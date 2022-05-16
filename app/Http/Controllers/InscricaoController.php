@@ -207,14 +207,23 @@ class InscricaoController extends Controller
      */
     public function show(Request $request, $id)
     {
+
         $inscricao = Inscricao::findOrFail($id);
         $edital = Edital::findOrFail($inscricao->edital_id);
         $cronograma = new Cronograma();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if(isset($request->analise)) {
+            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super')) {
+                session()->flash('status', 'Acesso não autorizado para análise.');
+                session()->flash('alert', 'warning');
+
+                return redirect()->back();
+            }
+
             //analisa se esta fora do periodo de analise
             if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
-                session()->flash('status', 'Perído de analise ainda não foi aberto.');
+                session()->flash('status', 'Período de analise ainda não foi aberto.');
                 session()->flash('alert', 'warning');
 
                 return redirect()->back();
@@ -228,6 +237,12 @@ class InscricaoController extends Controller
         }
 
         if(isset($request->avaliacao)) { 
+            if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super')) {
+                session()->flash('status', 'Acesso não autorizado para avaliação.');
+                session()->flash('alert', 'warning');
+
+                return redirect()->back();
+            }
             //analisa se esta fora do periodo de avaliação
             if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
                 session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
