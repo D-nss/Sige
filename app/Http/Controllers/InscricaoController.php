@@ -423,7 +423,16 @@ class InscricaoController extends Controller
     public function analise(Request $request, $id)
     {
         $inscricao = Inscricao::findOrFail($id);
+
+        if($inscricao->user_id == Auth::user()->id) {
+            session()->flash('status', 'Desculpe! Não é permitido a análise da própria inscrição');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         $inscricao->status = $request->status;
+        $inscricao->analista_user_id = Auth::user()->id;
        
         if( !is_null($request->criterios) ) {
             $justificativa = "Critérios não atendidos: \n";
@@ -436,19 +445,19 @@ class InscricaoController extends Controller
     
             $inscricao->justificativa = $justificativa;
         }
-        
-        if($inscricao->update()) {
-            session()->flash('status', 'Analise enviada com sucesso.');
-            session()->flash('alert', 'success');
+        echo json_encode($justificativa);
+        // if($inscricao->update()) {
+        //     session()->flash('status', 'Analise enviada com sucesso.');
+        //     session()->flash('alert', 'success');
 
-            return redirect()->to("inscricao/$inscricao->id");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
-            session()->flash('alert', 'danger');
+        //     return redirect()->to("inscricao/$inscricao->id");
+        // }
+        // else {
+        //     session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
+        //     session()->flash('alert', 'danger');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
 
     }
 
