@@ -214,7 +214,7 @@ class InscricaoController extends Controller
         $user = User::where('email', Auth::user()->id)->first();
 
         if(isset($request->analise)) {
-            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super')) {
+            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
                 session()->flash('status', 'Acesso não autorizado para análise.');
                 session()->flash('alert', 'warning');
 
@@ -237,7 +237,7 @@ class InscricaoController extends Controller
         }
 
         if(isset($request->avaliacao)) { 
-            if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super')) {
+            if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
                 session()->flash('status', 'Acesso não autorizado para avaliação.');
                 session()->flash('alert', 'warning');
 
