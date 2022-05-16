@@ -49,7 +49,7 @@ return [
      *
      * @see Vizir\KeycloakWebGuard\Controllers\AuthController::callback()
      */
-    'redirect_url' => '/',
+    'redirect_url' => 'dashboard',
 
     /**
      * The routes for authenticate

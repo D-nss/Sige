@@ -40,8 +40,11 @@ Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
 Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
 
 // Adicionar as rotas que necessitam de Autenticação
-//Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
+Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    });
 
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
@@ -71,7 +74,7 @@ Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosBy
 
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class);
-    Route::get('editais', [EditalController::class, 'index'])->middleware('role:edital-coordenador');
+    Route::get('editais', [EditalController::class, 'index']);
     Route::post('edital/{id}/divulgar', [EditalController::class, 'divulgar']);
 
     Route::get('/editais/{edital}/criterios', [EditalController::class, 'editarCriterios']);
@@ -118,7 +121,7 @@ Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosBy
         return view('processo-edital.edit', compact('edital', 'cronograma', 'avaliadores'));
     });
 
-//});
+});
 
 /*
 Route::get('/login',['as'=>'login','uses'=>'LoginController@index']);
