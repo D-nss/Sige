@@ -445,19 +445,19 @@ class InscricaoController extends Controller
     
             $inscricao->justificativa = $justificativa;
         }
-        echo json_encode($justificativa);
-        // if($inscricao->update()) {
-        //     session()->flash('status', 'Analise enviada com sucesso.');
-        //     session()->flash('alert', 'success');
+        
+        if($inscricao->update()) {
+            session()->flash('status', 'Analise enviada com sucesso.');
+            session()->flash('alert', 'success');
 
-        //     return redirect()->to("inscricao/$inscricao->id");
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
-        //     session()->flash('alert', 'danger');
+            return redirect()->to("inscricao/$inscricao->id");
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
     }
 
