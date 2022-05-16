@@ -37,6 +37,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Unidade::class);
             $table->foreignIdFor(Edital::class);
+            $table->bigInteger('analista_user_id')->nullable();
             $table->bigInteger('avaliador_user_id')->nullable();
             $table->timestamps();
         });
