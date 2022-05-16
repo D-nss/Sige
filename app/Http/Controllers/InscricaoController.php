@@ -423,8 +423,9 @@ class InscricaoController extends Controller
     public function analise(Request $request, $id)
     {
         $inscricao = Inscricao::findOrFail($id);
+        $user = User::where('email', Auth::user()->id)->first();
 
-        if($inscricao->user_id == Auth::user()->id) {
+        if($inscricao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Não é permitido a análise da própria inscrição');
             session()->flash('alert', 'danger');
 
@@ -432,7 +433,7 @@ class InscricaoController extends Controller
         }
 
         $inscricao->status = $request->status;
-        $inscricao->analista_user_id = Auth::user()->id;
+        $inscricao->analista_user_id = $user->id;
        
         if( !is_null($request->criterios) ) {
             $justificativa = "Critérios não atendidos: \n";
