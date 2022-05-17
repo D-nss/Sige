@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Cadastrar novo Processo Edital')
+@section('title', 'Cadastrar Orçamento')
 
 @section('content')
-<h1>Orçamento da Inscricão de Título: {{ $inscricao->titulo}}</h1>
+<h1>Orçamento da Inscricão de Título: <span class="text-success">{{ $inscricao->titulo}}</span></h1>
 
 <div class="container">
     <div class="row">
