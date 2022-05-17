@@ -56,12 +56,18 @@ class EditalController extends Controller
     public function store(Request $request)
     {    
            
-        $inputsParaValidar = $request->except(['anexo_imagem', 'valor_max_programa']);
+        $inputsParaValidar = $request->except(['valor_max_programa']);
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:1000';
+            }
+            elseif($key == 'anexo_edital') {
+                $validar[$key] = 'required|mimes:pdf';
+            }
+            elseif($key == 'anexo_imagem') {
+                $validar[$key] = 'mimes:jpeg,jpg,bmp,png';
             }
             else {
                 $validar[$key] = 'required';
@@ -132,12 +138,18 @@ class EditalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inputsParaValidar = $request->except(['anexo_imagem']);
+        $inputsParaValidar = $request->except();
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:1000';
+            }
+            elseif($key == 'anexo_edital') {
+                $validar[$key] = 'mimes:pdf';
+            }
+            elseif($key == 'anexo_imagem') {
+                $validar[$key] = 'mimes:jpeg,jpg,bmp,png';
             }
             else {
                 $validar[$key] = 'required';

@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('criterios', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao', 255);
+            $table->string('descricao', 550);
             $table->foreignIdFor(Edital::class);
             $table->timestamps();
         });

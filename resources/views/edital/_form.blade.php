@@ -61,7 +61,7 @@
                             <i class="glyphicon glyphicon-download-alt"></i>
                             <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
                         </div>
-                        <input type="file" name="anexo_edital" class="dropzone" id="edital_arquivo" value="{{ old('anexo_edital') }}" required>
+                        <input type="file" name="anexo_edital" class="dropzone" id="edital_arquivo" value="{{ old('anexo_edital') }}" @if( !isset($edital) ) required @endif>
                         
                     </div>
                     <div id="alert-pdf-format"></div>
