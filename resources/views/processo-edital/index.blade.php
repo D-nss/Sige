@@ -4,7 +4,7 @@
 
 @section('content')
 <h1>Processos de Editais</h1>
-<h3>Crie e gerencie seus editais</h3>
+<h3 class="font-color-light">Crie e gerencie seus editais</h3>
 <div class="row mb-3">
     <div class="col-sm-3">
         <a href="{{ route('editais.create') }}" class="btn btn-success btn-lg btn-icon rounded-circle" >
@@ -29,7 +29,11 @@
         </div>
     </div>
     @empty
-        <h4>Não há nenhum processo de edital cadastrado</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="font-color-light">Não há nenhum processo de edital cadastrado</h4>
+        </div>
+    </div>
     @endforelse
     @endif
 </div>
