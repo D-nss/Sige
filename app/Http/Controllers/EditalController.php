@@ -67,7 +67,7 @@ class EditalController extends Controller
                 $validar[$key] = 'required|mimes:pdf';
             }
             elseif($key == 'anexo_imagem') {
-                $validar[$key] = 'mimes:jpeg,jpg,bmp,png';
+                $validar[$key] = 'mimes:png';
             }
             else {
                 $validar[$key] = 'required';
@@ -149,7 +149,7 @@ class EditalController extends Controller
                 $validar[$key] = 'mimes:pdf';
             }
             elseif($key == 'anexo_imagem') {
-                $validar[$key] = 'mimes:jpeg,jpg,bmp,png';
+                $validar[$key] = 'mimes:png';
             }
             else {
                 $validar[$key] = 'required';
