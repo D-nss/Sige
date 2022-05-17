@@ -52,7 +52,7 @@
                                     <h4 class="text-secondary">Antes de iniciar sua inscrição leia os critérios necessários</h4>
                                     <ul style="color: #999;">
                                         @foreach($edital->criterios as $criterio)
-                                            <li>{{ $criterio->descricao }}</li>{{ $criterio->descricao . "\n"}} 
+                                            <li>{{ $criterio->descricao }}</li>
                                         @endforeach
                                     </ul>
 
