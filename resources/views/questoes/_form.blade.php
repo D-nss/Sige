@@ -14,7 +14,7 @@
                     <select class="form-control mb-3" name="tipo">
                         <option value="">Selecione ...</option>
                         <option value="Avaliativa">Avaliativa</option>
-                        <option value="Proposta">Proposta</option>
+                        <option value="Complementar">Complementar</option>
                     </select>
 
                     <label for="browser" class="font-weight-bold">Escolha a questão na Lista:</label>
@@ -45,7 +45,7 @@
                         <select class="form-control mb-3" name="tipo">
                             <option value="">Selecione ...</option>
                             <option value="Avaliativa">Avaliativa</option>
-                            <option value="Proposta">Proposta</option>
+                            <option value="Complementar">Complementar</option>
                         </select>
 
                         <button class="btn btn-primary btn-user btn-verde font-weight-bold">
@@ -56,7 +56,7 @@
 
             <div class="border border-success rounded-lg  mt-3 p-3">
 
-                <h3 class="font-weight-bold">Questões da Proposta</h3>
+                <h3 class="font-weight-bold">Questões Complementares</h3>
                 <table class="table">
                 <thead class="thead-light">
                     <tr>
@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                     @foreach($edital->questoes as $questao)
-                        @if($questao->tipo == 'Proposta')
+                        @if($questao->tipo == 'Complementar')
                             <tr>
                                 <td>{{ $questao->enunciado }}</td>
                                 <td>{{ $questao->tipo }}</td>

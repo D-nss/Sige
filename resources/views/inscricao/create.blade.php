@@ -41,7 +41,7 @@
                             </li>
                             <li>
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-4">
-                                    Questões
+                                    Questões Complementares
                                 </a>
                             </li>
                         </ul>
@@ -211,11 +211,11 @@
                                     </div>  
                                 </div>
                                 <div id="step-4" class="tab-pane" role="tabpanel">
-                                    <h3 class="text-success">Questões (Máx. 450 caracteres)</h3>
+                                    <h3 class="text-success">Questões Complementares (Máx. 450 caracteres)</h3>
                                     <div>
                                         <?php $i = 0; ?>
                                         @foreach($edital->questoes as $questao)
-                                            @if($questao->tipo == 'Proposta')
+                                            @if($questao->tipo == 'Complementar')
                                                 <label for="questao-{{ $questao->id }}" class="text-secondary font-size-16">{{ ($i + 1)  . ' - ' . $questao->enunciado }}</label>
                                                 <textarea class="form-control  mb-3" name="questao-{{ $questao->id }}" cols="30" rows="5" required>@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
                                                 <?php $i ++; ?>
