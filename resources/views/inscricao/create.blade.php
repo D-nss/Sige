@@ -49,12 +49,14 @@
                         <div class="tab-content mt-3">
                             
                                 <div id="step-1" class="tab-pane" role="tabpanel">
-                                    <h3 class="text-success">Dados</h3>
-                                    <p style="color: #999;">
+                                    <h4 class="text-secondary">Antes de iniciar sua inscrição leia os critérios necessários</h4>
+                                    <ul style="color: #999;">
                                         @foreach($edital->criterios as $criterio)
-                                            {{ $criterio->descricao . '; '}} 
+                                            <li>{{ $criterio->descricao }}</li>{{ $criterio->descricao . "\n"}} 
                                         @endforeach
-                                    </p>
+                                    </ul>
+
+                                    <h3 class="text-success">Dados</h3>
 
                                     <input type="hidden" name="edital_id" value="{{ $edital->id }}" />
 
