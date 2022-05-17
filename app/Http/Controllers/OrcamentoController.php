@@ -68,7 +68,7 @@ class OrcamentoController extends Controller
 
         $inscricao = Inscricao::find($request->inscricao_id);
         $edital = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao','valor_max_programa','tipo']);
-        $valorMaxPorInscricao = $edital[0]['tipo'] == 'PEX' ? $edital[0]['valor_max_programa'] : $edital[0]['valor_max_inscricao'] ;
+        $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital[0]['valor_max_programa'] : $edital[0]['valor_max_inscricao'] ;
         $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
         $totalItens += $valor;
 
