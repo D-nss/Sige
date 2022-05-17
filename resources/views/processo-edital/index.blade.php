@@ -29,10 +29,8 @@
         </div>
     </div>
     @empty
-    <div class="row">
-        <div class="col-md-6">
-            <h4 class="font-color-light">Não há nenhum processo de edital cadastrado</h4>
-        </div>
+    <div class="col-md-6">
+        <h4 class="font-color-light">Não há nenhum processo de edital cadastrado</h4>
     </div>
     @endforelse
     @endif
