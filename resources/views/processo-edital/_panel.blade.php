@@ -64,9 +64,9 @@
             
             @if( isset($edital) && !empty($edital->questoes->toArray()) )
                 <ul style="color: #999;">
-                    <h4>Questões da Proposta</h4>
+                    <h4>Questões Complementares</h4>
                     @foreach($edital->questoes as $questao)
-                        @if($questao->tipo == 'Proposta')
+                        @if($questao->tipo == 'Complementar')
                             <li>{{ $questao->enunciado }}</li>
                         @endif
                     @endforeach
