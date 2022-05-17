@@ -16,10 +16,7 @@
         <label for="tipo" class="font-weight-bold">Tipo:</label>
         <select name="tipo" id="tipo" class="form-control mb-3" required>
             <option value="">Selecione ... </option>
-            <option value="EAD" {{ (isset($edital->tipo) && $edital->tipo == 'EAD') || old('tipo') == 'EAD' ? 'selected' : '' }}>EAD</option>
             <option value="PEX" {{ (isset($edital->tipo) && $edital->tipo == 'PEX') || old('tipo') == 'PEX' ? 'selected' : '' }}>PEX</option>
-            <option value="PRP" {{ (isset($edital->tipo) && $edital->tipo == 'PRP') || old('tipo') == 'PRP' ? 'selected' : '' }}>PRP</option>
-            <option value="PRG" {{ (isset($edital->tipo) && $edital->tipo == 'PRG') || old('tipo') == 'PRG' ? 'selected' : '' }}>PRG</option>
         </select>
 
         <label for="resumo" class="font-weight-bold">Resumo:</label>

@@ -56,7 +56,7 @@
 
             <div class="border border-success rounded-lg  mt-3 p-3">
 
-                <h3 class="font-weight-bold">Qestões da Proposta</h3>
+                <h3 class="font-weight-bold">Questões da Proposta</h3>
                 <table class="table">
                 <thead class="thead-light">
                     <tr>
