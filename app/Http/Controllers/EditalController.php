@@ -138,7 +138,7 @@ class EditalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inputsParaValidar = $request->except();
+        $inputsParaValidar = $request->except(['valor_max_programa']);
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
