@@ -403,7 +403,7 @@ Versão: 4.5.1
                     anchorSettings:
                     {
                         anchorClickable: true, // Enable/Disable anchor navigation
-                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        enableAllAnchors: true, // Activates all anchors clickable all times
                         markDoneStep: true, // add done css
                         enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
                     },
@@ -453,7 +453,7 @@ Versão: 4.5.1
                     anchorSettings:
                     {
                         anchorClickable: true, // Enable/Disable anchor navigation
-                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        enableAllAnchors: true, // Activates all anchors clickable all times
                         markDoneStep: true, // add done css
                         enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
                     },
@@ -509,7 +509,7 @@ Versão: 4.5.1
                     anchorSettings:
                     {
                         anchorClickable: true, // Enable/Disable anchor navigation
-                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        enableAllAnchors: true, // Activates all anchors clickable all times
                         markDoneStep: true, // add done css
                         enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
                     },
@@ -559,7 +559,7 @@ Versão: 4.5.1
                     anchorSettings:
                     {
                         anchorClickable: true, // Enable/Disable anchor navigation
-                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        enableAllAnchors: true, // Activates all anchors clickable all times
                         markDoneStep: true, // add done css
                         enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
                     },
@@ -609,7 +609,7 @@ Versão: 4.5.1
                     anchorSettings:
                     {
                         anchorClickable: true, // Enable/Disable anchor navigation
-                        enableAllAnchors: false, // Activates all anchors clickable all times
+                        enableAllAnchors: true, // Activates all anchors clickable all times
                         markDoneStep: true, // add done css
                         enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
                     },
