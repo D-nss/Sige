@@ -142,7 +142,7 @@
                                         <td>{{ $item->tipoitem }}</td>
                                         <td>{{ $item->descricao}}</td>
                                         <td>{{ $item->justificativa}}</td>
-                                        <td>R$ {{ $item->valor }}</td>
+                                        <td>R$ {{ number_format($item->valor, 2, ',', '.') }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
