@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                   <h1>Seja bem vindo!</h1>
                   <h2>Sistema de Informação Gestão de Extensão e Cultura</h2>
-                  <img src="{{ asset('smartadmin-4.5.1/img/proec.svg') }}" alt="Proec - ExteCult" class="" style="fill:white;"/>
+                  <img src="{{ asset('smartadmin-4.5.1/img/proec.svg') }}" alt="Proec - ExteCult" class="w-50" style="fill:white;"/>
                 </div>
               </div>
           <!-- </div>
