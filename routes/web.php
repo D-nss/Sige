@@ -42,8 +42,8 @@ Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosBy
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
-    Route::get('dashboard', function () {
-        return view('dashboard');
+    Route::get('home', function () {
+        return view('home');
     });
 
     //Usuarios
