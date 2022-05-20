@@ -1,7 +1,7 @@
 // Code By Webdevtrick ( https://webdevtrick.com )
 function readFile(input, id) {
     if (input.files && input.files[0]) {
-      if(/*input.files[0].type == 'application/pdf' &&*/ input.files[0].size <= 300000) {
+      if(/*input.files[0].type == 'application/pdf' &&*/ input.files[0].size <= 3000000) {
         
         var reader = new FileReader();
     
