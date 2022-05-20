@@ -87,8 +87,8 @@ class EditalController extends Controller
             'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
             'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
             'valor_max_programa' => str_replace(',', '.', str_replace('.', '',$request->valor_max_programa)),
-            'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 30000000), //chama o função execute da model UploadFile e faz o upload do arquivo
-            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 30000000) : '',
+            'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000), //chama o função execute da model UploadFile e faz o upload do arquivo
+            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : '',
         ]);
 
         if($edital) {
@@ -170,8 +170,8 @@ class EditalController extends Controller
                             'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
                             'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
                             'valor_max_programa' => str_replace(',', '.', str_replace('.', '',$request->valor_max_programa)),
-                            'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 30000000) : $anexo_edital[0]['anexo_edital'],
-                            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 30000000) : $anexo_edital[0]['anexo_imagem'],
+                            'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $anexo_edital[0]['anexo_edital'],
+                            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $anexo_edital[0]['anexo_imagem'],
                         ]);
         
         if($edital) {
