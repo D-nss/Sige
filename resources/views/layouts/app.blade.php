@@ -751,19 +751,12 @@ Versão: 4.5.1
                 $('.loading_div_questao_existente').prop('disabled', true);
                 $spin.removeClass('d-none');
                 $(".spin-text").text('Loading...');
-
-                if($('#div_questao_existente')) {
-                    $('#div_questao_existente').submit();
-                }
+                $('#div_questao_existente').submit();
 
                 setTimeout(function(){
                     $('.loading_div_questao_existente').prop('disabled', false);
                     $spin.addClass('d-none');
-
-                    if($('#div_questao_existente')) {
-                        $(".spin-text").text('Adicionar');
-                    }
-
+                    $(".spin-text").text('Adicionar');
                 });
 
             });
@@ -773,19 +766,12 @@ Versão: 4.5.1
                 $('.loading_div_nova_questao').prop('disabled', true);
                 $spin.removeClass('d-none');
                 $(".spin-text").text('Loading...');
-
-                if($('#div_nova_questao')) {
-                    $('#div_nova_questao').submit();
-                }
+                $('#div_nova_questao').submit();
 
                 setTimeout(function(){
                     $('.loading_div_nova_questao').prop('disabled', false);
                     $spin.addClass('d-none');
-
-                    if($('#div_nova_questao')) {
-                        $(".spin-text").text('Adicionar');
-                    }
-
+                    $(".spin-text").text('Adicionar');
                 });
 
             });
