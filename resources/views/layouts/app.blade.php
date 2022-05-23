@@ -809,7 +809,7 @@ Versão: 4.5.1
                     }
 
                     if($('#form-cronograma')) {
-                        @if(!empty($edital->cronogramas->toArray()))
+                        @if(isset($edital) && !empty($edital->cronogramas->toArray()))
                             $(".spin-text").text('Atualizar');
                         @else
                             $(".spin-text").text('Salvar');
