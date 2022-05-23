@@ -26,7 +26,7 @@
                         @endforeach
                     </datalist>
 
-                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading_div_questao_existente">
                         <div class="spinner-border spinner-border-sm d-none spin" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -53,7 +53,7 @@
                             <option value="Complementar">Complementar</option>
                         </select>
 
-                        <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                        <button class="btn btn-primary btn-user btn-verde font-weight-bold loading_div_nova_questao">
                             <div class="spinner-border spinner-border-sm d-none spin" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
