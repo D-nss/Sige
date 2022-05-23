@@ -26,11 +26,11 @@
                         @endforeach
                     </datalist>
 
-                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading_div_questao_existente">
+                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading-questao-existente">
                         <div class="spinner-border spinner-border-sm d-none spin" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
-                        <span class="spin-text">
+                        <span class="spin-text-questao-existente">
                             Adicionar
                         </span>
                     </button>
@@ -53,11 +53,11 @@
                             <option value="Complementar">Complementar</option>
                         </select>
 
-                        <button class="btn btn-primary btn-user btn-verde font-weight-bold loading_div_nova_questao">
+                        <button class="btn btn-primary btn-user btn-verde font-weight-bold loading-nova-questao">
                             <div class="spinner-border spinner-border-sm d-none spin" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                            <span class="spin-text">
+                            <span class="spin-text-nova-questao">
                                 Adicionar
                             </span>
                         </button>

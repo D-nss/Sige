@@ -746,33 +746,39 @@ Versão: 4.5.1
                 
             }
 
-            $('.loading_div_questao_existente').on('click',function(){
+            $('.loading-questao-existente').on('click',function(){
                 var $spin = $(".spin");
-                $('.loading_div_questao_existente').prop('disabled', true);
+                $('.loading-questao-existente').prop('disabled', true);
                 $spin.removeClass('d-none');
-                $(".spin-text").text('Loading...');
+                $(".spin-text-questao-existente").text('Loading...');
+
                 $('#div_questao_existente').submit();
 
                 setTimeout(function(){
-                    $('.loading_div_questao_existente').prop('disabled', false);
+                    $('.loading-questao-existente').prop('disabled', false);
                     $spin.addClass('d-none');
-                    $(".spin-text").text('Adicionar');
-                });
+
+                    $(".spin-text-questao-existente").text('Adicionar');
+
+                },10000);
 
             });
 
-            $('.loading_div_nova_questao').on('click',function(){
+            $('.loading-nova-questao').on('click',function(){
                 var $spin = $(".spin");
-                $('.loading_div_nova_questao').prop('disabled', true);
+                $('.loading-nova-questao').prop('disabled', true);
                 $spin.removeClass('d-none');
-                $(".spin-text").text('Loading...');
+                $(".spin-text-nova-questao").text('Loading...');
+
                 $('#div_nova_questao').submit();
 
                 setTimeout(function(){
-                    $('.loading_div_nova_questao').prop('disabled', false);
+                    $('.loading-nova-questao').prop('disabled', false);
                     $spin.addClass('d-none');
-                    $(".spin-text").text('Adicionar');
-                });
+
+                    $(".spin-text-nova-questao").text('Adicionar');
+
+                },10000);
 
             });
 
