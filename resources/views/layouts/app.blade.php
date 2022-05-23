@@ -746,6 +746,50 @@ Versão: 4.5.1
                 
             }
 
+            $('.loading_div_questao_existente').on('click',function(){
+                var $spin = $(".spin");
+                $('.loading_div_questao_existente').prop('disabled', true);
+                $spin.removeClass('d-none');
+                $(".spin-text").text('Loading...');
+
+                if($('#div_questao_existente')) {
+                    $('#div_questao_existente').submit();
+                }
+
+                setTimeout(function(){
+                    $('.loading_div_questao_existente').prop('disabled', false);
+                    $spin.addClass('d-none');
+
+                    if($('#div_questao_existente')) {
+                        $(".spin-text").text('Adicionar');
+                    }
+
+                });
+
+            });
+
+            $('.loading_div_nova_questao').on('click',function(){
+                var $spin = $(".spin");
+                $('.loading_div_nova_questao').prop('disabled', true);
+                $spin.removeClass('d-none');
+                $(".spin-text").text('Loading...');
+
+                if($('#div_nova_questao')) {
+                    $('#div_nova_questao').submit();
+                }
+
+                setTimeout(function(){
+                    $('.loading_div_nova_questao').prop('disabled', false);
+                    $spin.addClass('d-none');
+
+                    if($('#div_nova_questao')) {
+                        $(".spin-text").text('Adicionar');
+                    }
+
+                });
+
+            });
+
             $('.loading').on('click',function(){
                 var $spin = $(".spin");
                 $('.loading').prop('disabled', true);
@@ -774,14 +818,6 @@ Versão: 4.5.1
 
                 if($('#form-orcamento')) {
                     $('#form-orcamento').submit();
-                }
-
-                if($('#div_questao_existente')) {
-                    $('#div_questao_existente').submit();
-                }
-
-                if($('#div_nova_questao')) {
-                    $('#div_nova_questao').submit();
                 }
 
                 setTimeout(function(){
@@ -818,10 +854,6 @@ Versão: 4.5.1
 
                     if($('#form-orcamento')) {
                         $(".spin-text").text('Inserir Item');
-                    }
-
-                    if($('#div_questao_existente')) {
-                        $(".spin-text").text('Adicionar');
                     }
 
                     if($('#div_nova_questao')) {
