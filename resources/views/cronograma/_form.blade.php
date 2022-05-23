@@ -6,7 +6,7 @@
 <div class="card-body">
     
 @if(!empty($edital->cronogramas->toArray()))
-    <form action='{{ url("cronogramas/$edital->id") }}' method="POST">
+    <form action='{{ url("cronogramas/$edital->id") }}' method="POST" id="form-cronograma">
         @method('PUT')
 @else
     <form action='{{ url("cronogramas") }}' method="POST" id="form-cronograma">
