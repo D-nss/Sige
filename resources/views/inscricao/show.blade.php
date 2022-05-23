@@ -234,7 +234,7 @@
                                     <span class="text">Voltar</span>
                                 </a>
                             @else
-                            <form action='{{ url("inscricao/$inscricao->id/analise") }}' method="post">
+                            <form action='{{ url("inscricao/$inscricao->id/analise") }}' method="post" id="form-analise">
                                 @csrf
                                 <label for="" class="font-weight-bold">Opção</label>
                                 <select class="form-control mb-2" name="status" id="status">
@@ -260,7 +260,14 @@
 
                                 </div>
                                 
-                                <button class="btn btn-success">Enviar</button>
+                                <button class="btn btn-success loading">
+                                    <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <span class="spin-text">
+                                        Enviar
+                                    </span>
+                                </button>
 
                             </form>
                             @endif

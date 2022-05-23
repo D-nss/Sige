@@ -441,7 +441,11 @@ Versão: 4.5.1
                         $('<button></button>').text('Finalizar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
                                     .on('click', function(){ 
-                                        $('#form_proposta').submit();                             
+                                        $(this).text('');
+                                        $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
+                                        $(this).append('<span> Loading...</span>');
+                                        $(this).prop('disabled', true);
+                                        $('#form_proposta').submit();                 
                                     }),
                         // $('<button></button>').text('Cancelar')
                         //             .addClass('btn btn-danger')
@@ -494,6 +498,10 @@ Versão: 4.5.1
                                         @if(isset($analise) && $analise == true)
                                             $('#analiseModal').modal('show');
                                         @elseif(isset($avaliacao) && $avaliacao == true)
+                                            $(this).text('');
+                                            $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
+                                            $(this).append('<span> Loading...</span>');
+                                            $(this).prop('disabled', true);
                                             $('#avaliacao-form').submit();
                                         @else
                                             history.back();
@@ -804,6 +812,10 @@ Versão: 4.5.1
                     $('#form-avaliadores').submit();
                 }
 
+                if($('#form-analise')) {
+                    $('#form-analise').submit();
+                }
+
                 if($('#form-cronograma')) {
                     $('#form-cronograma').submit();
                 }
@@ -846,6 +858,10 @@ Versão: 4.5.1
 
                     if($('#form-orcamento')) {
                         $(".spin-text").text('Inserir Item');
+                    }
+
+                    if($('#form-analise')) {
+                        $(".spin-text").text('Enviar');
                     }
                     
                 },10000);

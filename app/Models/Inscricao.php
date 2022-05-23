@@ -56,4 +56,9 @@ class Inscricao extends Model
         return $this->belongsToMany(AreaTematica::class, 'inscricoes_areas_tematicas', 'inscricao_id', 'area_tematica_id' );
     }
 
+    public function avaliadores()
+    {
+        return $this->belongsToMany(User::class, 'avaliadores_por_inscricao', 'inscricao_id', 'user_id' );
+    }
+
 }

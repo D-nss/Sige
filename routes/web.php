@@ -17,6 +17,7 @@ use App\Http\Controllers\SubcomissaoTematicaController;
 use App\Http\Controllers\AreaTematicaController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AvaliadorPorInscricaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +95,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::resource('/inscricao', InscricaoController::class);
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
     Route::post('/inscricao/{id}/analise', [InscricaoController::class, 'analise']);
-    Route::post('/inscricao/{id}/avaliacao', [InscricaoController::class, 'avaliacao']);
+    Route::get('/inscricao/{id}/avaliadores', [InscricaoController::class, 'indicarAvaliador']);
     Route::get('inscricoes-enviadas', [InscricaoController::class, 'inscricoesPorUsuario']);
 
     Route::get('/inscricao/{id}/orcamento', [OrcamentoController::class, 'create']);
@@ -102,6 +103,9 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('get-item-by-id', [ItemController::class, 'getItemById']);
 
     Route::resource('areas-tematicas', AreaTematicaController::class);
+
+    Route::post('avaliador-por-inscricao/store', [AvaliadorPorInscricaoController::class, 'store']);
+    Route::post('avaliador-por-inscricao/delete', [AvaliadorPorInscricaoController::class, 'delete']);
 
     Route::resource('subcomissao-tematica', SubcomissaoTematicaController::class);
 

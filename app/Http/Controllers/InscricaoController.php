@@ -33,25 +33,25 @@ class InscricaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
-            if($user->hasAnyRole('edital-administrador')) {
+        // if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
+        //     if($user->hasAnyRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
-            }
-            else {
-                $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
-                                        ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                        ->where('u.sigla', Auth::user()->unidade)              
-                                        ->get();
-            }
-            
+            // }
+            // else {
+            //     $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
+            //                             ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
+            //                             ->where('u.sigla', $user->unidade/*Auth::user()->unidade*/)              
+            //                             ->get();
+            // }
+            $avaliadores = 
             $cronograma = new Cronograma();
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
-        }
+            return view('inscricao.index', compact('inscricoes', 'user', 'avaliadores', 'cronograma'));
+        // }
 
-        session()->flash('status', 'Desculpe! Acesso não autorizado');
-        session()->flash('alert', 'warning');
+        // session()->flash('status', 'Desculpe! Acesso não autorizado');
+        // session()->flash('alert', 'warning');
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     /**
@@ -220,7 +220,7 @@ class InscricaoController extends Controller
         $user = User::where('email', Auth::user()->id)->first();
 
         if(isset($request->analise)) {
-            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
+            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') /*|| $inscricao->user_id == $user->id*/) {
                 session()->flash('status', 'Acesso não autorizado para análise.');
                 session()->flash('alert', 'warning');
 
@@ -441,6 +441,18 @@ class InscricaoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function indicarAvaliador($id)
+    {
+        $inscricao = Inscricao::findOrFail($id);
+        $users = User::all();
+        
+        return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
 
     /**

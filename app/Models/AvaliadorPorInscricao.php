@@ -10,5 +10,10 @@ class AvaliadorPorInscricao extends Model
     use HasFactory;
 
     protected $table = 'avaliadores_por_inscricao';
+
+    protected $fillable = [
+        'user_id',
+        'inscricao_id'
+    ];
     
 }
