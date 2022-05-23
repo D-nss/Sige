@@ -855,10 +855,6 @@ Versão: 4.5.1
                     if($('#form-orcamento')) {
                         $(".spin-text").text('Inserir Item');
                     }
-
-                    if($('#div_nova_questao')) {
-                        $(".spin-text").text('Adicionar');
-                    }
                     
                 },10000);
             });
