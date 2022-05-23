@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <form action="{{ url('orcamento')}}" method="post" >
+                            <form action="{{ url('orcamento')}}" method="post" id="form-orcamento">
                                 @csrf
                                 <input type="hidden" name="inscricao_id" value="{{ $inscricao->id }}">
 
@@ -43,7 +43,14 @@
                                 <label class="font-weight-bold" for="valor">Valor solicitado:</label>
                                 <input type="text" class="form-control mb-3" name="valor" id="valor" required>
                                 
-                                <button type="submit" class="btn btn-success btn-block">Inserir Item</button>
+                                <button type="submit" class="btn btn-success btn-block loading">
+                                    <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <span class="spin-text">
+                                        Inserir Item
+                                    </span>
+                                </button>
                                 
                             </form>
                         </div>

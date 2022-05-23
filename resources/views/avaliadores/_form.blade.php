@@ -4,7 +4,7 @@
     <h6 class="m-0 font-weight-bold text-green">Preencha corretamente os campos para cadastar os conselheiros</h6>
 </div>
 <div class="card-body">
-    <form action="{{ url('avaliadores') }}" method="POST">
+    <form action="{{ url('avaliadores') }}" method="POST" id="form-avaliadores">
         @csrf
         <input type="hidden" name="edital_id" value="{{ $edital->id }}">
         <label for="subcomissao_tematica" class="font-weight-bold">Subcomissão Temática: </label>
@@ -28,8 +28,13 @@
         </select> -->
 
         <div class="mt-3">
-            <button class="btn btn-primary btn-user btn-verde font-weight-bold">
-                Adicionar
+            <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <span class="spin-text">
+                    Adicionar
+                </span>
             </button>
             
         </div>

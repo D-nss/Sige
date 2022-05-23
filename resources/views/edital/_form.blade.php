@@ -4,10 +4,10 @@
 </div>
 <div class="card-body">
     @if( isset($edital) )
-        <form action='{{ url("/editais/$edital->id") }}' method="POST" enctype="multipart/form-data">
+        <form action='{{ url("/editais/$edital->id") }}' method="POST" enctype="multipart/form-data" id="form-edital">
             @method('PUT')
     @else
-        <form action="{{ url('/editais') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url('/editais') }}" method="POST" enctype="multipart/form-data" id="form-edital">
     @endif
         @csrf
         <label for="titulo" class="font-weight-bold">Titulo:</label>
@@ -110,8 +110,13 @@
                 </span>
                 <span class="text">Voltar</span>
             </a>
-            <button type="submit" class="btn btn-primary btn-user btn-verde font-weight-bold">
-                {{ isset($edital) ? 'Atualizar' : 'Salvar' }}
+            <button type="submit" class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <span class="spin-text">
+                    {{ isset($edital) ? 'Atualizar' : 'Salvar' }}
+                </span>
             </button>
         </div>
         </form>

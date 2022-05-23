@@ -1,4 +1,4 @@
-<form action="{{ url('criterios') }}" method="POST">
+<form action="{{ url('criterios') }}" method="POST" id="form-criterios">
     @csrf
     
     <input type="hidden" name="edital_id" value="@if( $edital ) {{ $edital->id }} @endif">
@@ -6,8 +6,13 @@
     <input type="text" name="descricao" class="form-control mb-3" placeholder="Descrição do critério" value="{{ old('descricao') }}" required />
 
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary btn-user btn-verde font-weight-bold">
-            Salvar
+        <button type="submit" class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+            <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <span class="spin-text">
+                    Salvar
+                </span>
         </button>
     </div>
 </form>

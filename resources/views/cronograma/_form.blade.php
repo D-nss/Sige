@@ -9,7 +9,7 @@
     <form action='{{ url("cronogramas/$edital->id") }}' method="POST">
         @method('PUT')
 @else
-    <form action='{{ url("cronogramas") }}' method="POST">
+    <form action='{{ url("cronogramas") }}' method="POST" id="form-cronograma">
 @endif
         @csrf       
         <div class="row">
@@ -58,12 +58,17 @@
                         </span>
                         <span class="text">Voltar</span>
                     </a>
-                    <button class="btn btn-primary btn-user btn-verde font-weight-bold">
-                        @if(!empty($edital->cronogramas->toArray()))
-                            Atualizar
-                        @else
-                            Salvar
-                        @endif
+                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                        <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <span class="spin-text">
+                            @if(!empty($edital->cronogramas->toArray()))
+                                Atualizar
+                            @else
+                                Salvar
+                            @endif
+                        </span>
                     </button>
                     
                 </div>

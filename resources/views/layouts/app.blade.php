@@ -746,6 +746,91 @@ Versão: 4.5.1
                 
             }
 
+            $('.loading').on('click',function(){
+                var $spin = $(".spin");
+                $('.loading').prop('disabled', true);
+                $spin.removeClass('d-none');
+                $(".spin-text").text('Loading...');
+                
+                if($('#form-criterios')) {
+                    $('#form-criterios').submit();
+                }
+
+                if($('#form-divulgar')) {
+                    $('#form-divulgar').submit();
+                }
+
+                if($('#form-edital')) {
+                    $('#form-edital').submit();
+                }
+
+                if($('#form-avaliadores')) {
+                    $('#form-avaliadores').submit();
+                }
+
+                if($('#form-cronograma')) {
+                    $('#form-cronograma').submit();
+                }
+
+                if($('#form-orcamento')) {
+                    $('#form-orcamento').submit();
+                }
+
+                if($('#div_questao_existente')) {
+                    $('#div_questao_existente').submit();
+                }
+
+                if($('#div_nova_questao')) {
+                    $('#div_nova_questao').submit();
+                }
+
+                setTimeout(function(){
+                    $('.loading').prop('disabled', false);
+                    $spin.addClass('d-none');
+
+                    if($('#form-criterios')) {
+                        $(".spin-text").text('Salvar');
+                    }
+
+                    if($('#form-divulgar')) {
+                        $(".spin-text").text('Divulgar');
+                    }
+
+                    if($('#form-edital')) {
+                        @if(isset($edital))
+                            $(".spin-text").text('Atualizar');
+                        @else
+                            $(".spin-text").text('Salvar');
+                        @endif
+                    }
+
+                    if($('#form-avaliadores')) {
+                        $(".spin-text").text('Adicionar');
+                    }
+
+                    if($('#form-cronograma')) {
+                        @if(!empty($edital->cronogramas->toArray()))
+                            $(".spin-text").text('Atualizar');
+                        @else
+                            $(".spin-text").text('Salvar');
+                        @endif
+                    }
+
+                    if($('#form-orcamento')) {
+                        $(".spin-text").text('Inserir Item');
+                    }
+
+                    if($('#div_questao_existente')) {
+                        $(".spin-text").text('Adicionar');
+                    }
+
+                    if($('#div_nova_questao')) {
+                        $(".spin-text").text('Adicionar');
+                    }
+                    
+                },10000);
+            });
+
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->

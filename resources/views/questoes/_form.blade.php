@@ -26,8 +26,13 @@
                         @endforeach
                     </datalist>
 
-                    <button class="btn btn-primary btn-user btn-verde font-weight-bold">
-                        Adicionar
+                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                        <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <span class="spin-text">
+                            Adicionar
+                        </span>
                     </button>
                 </div>
             </form>
@@ -48,8 +53,13 @@
                             <option value="Complementar">Complementar</option>
                         </select>
 
-                        <button class="btn btn-primary btn-user btn-verde font-weight-bold">
-                            Adicionar
+                        <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                            <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <span class="spin-text">
+                                Adicionar
+                            </span>
                         </button>
                     </div>
                 </form>

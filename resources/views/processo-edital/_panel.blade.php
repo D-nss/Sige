@@ -112,9 +112,14 @@
             @endif
         </div>
 
-        <form action="{{ url('edital/'. $edital->id .'/divulgar') }}" method="post">
+        <form action="{{ url('edital/'. $edital->id .'/divulgar') }}" method="post" id="form-divulgar">
             @csrf
-            <button type="submit" class="btn btn-success float-right">Divulgar</button>
+            <button type="button" class="btn btn-success float-right loading">
+                <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <span class="spin-text">Divulgar</span>
+            </button>
         </form>
         
     </div>
