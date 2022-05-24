@@ -31,7 +31,8 @@ use App\Http\Controllers\AvaliadorPorInscricaoController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $editais = \App\Models\Edital::where('status', 'Divulgação')->get(['id', 'titulo', 'anexo_edital']);
+    return view('welcome', compact('editais'));
 });
 
 Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
