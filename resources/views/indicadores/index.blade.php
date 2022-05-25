@@ -16,14 +16,13 @@
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
             <div class="d-inline-flex flex-column justify-content-center">
-            
+            Adicionar Indicadores <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/indicadores/novo') }}"><i class="far fa-plus"></i></a>
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row">
         <div class="col-xl-12">
-            <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/indicadores/novo') }}"><i class="far fa-plus"></i></a>Adicionar Indicadores
-            
+        
             @foreach($indicadores as $indicador)
             <div class="p-3 mb-5 bg-white hv-light-green rounded d-flex justify-content-between">
                 <h4>{{ $indicador->ano_base }}</h4>
