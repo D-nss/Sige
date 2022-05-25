@@ -5,13 +5,24 @@
 @section('content')
 
 <div class="container-fluid">
+    @include('layouts._includes._status')
+
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <span class="text-success">Indicadores</span>
+            <small>
+            Dados dos indicadores da unidade: <span class="text-secondary">{{$unidade->sigla}}</span>, ano base {{ $ano }} 
+            </small>
+        </h1>
+        <div class="subheader-block d-lg-flex align-items-center">
+            <div class="d-inline-flex flex-column justify-content-center">
+            
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xl-12">
             <div id="checkicon">
-                <h1>Dados dos indicadores da unidade: {{$unidade->sigla}}, ano base {{ $ano }}</h1>
-
-                @include('layouts._includes._status')
-
                 <div class=" p-3 panel">
                     <!-- datatable start -->
                     <table id="dt-indicadores" class="table table-bordered table-hover table-striped w-100">

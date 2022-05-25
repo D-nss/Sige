@@ -4,21 +4,32 @@
 
 @section('content')
 <div class="container-fluid">
+    @include('layouts._includes._status')
+
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <span class="text-success">Indicadores</span>
+            <small>
+            Adicionar indicadores da unidade <span class="text-secondary">{{$unidade->sigla}}</span>
+            </small>
+        </h1>
+        <div class="subheader-block d-lg-flex align-items-center">
+            <div class="d-inline-flex flex-column justify-content-center">
+            
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xl-12">
-            <h1>Adicionar Indicadores da unidade - {{$unidade->sigla}}</h1>
-
-            @include('layouts._includes._status')
-
             <div id="panel-1" class="panel">
-            <form action="{{ url('/indicadores') }}" method="post">
-            @csrf
-                <div id="smartwizard" class="sw-main sw-theme-default p-4">
+                <form action="{{ url('/indicadores') }}" method="post">
+                    @csrf
+                    <div id="smartwizard" class="sw-main sw-theme-default p-4">
 
-                @include('indicadores._form')
+                    @include('indicadores._form')
 
-                </div>
-            </form>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
