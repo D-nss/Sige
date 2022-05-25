@@ -8,9 +8,9 @@
                 <h3 class="text-secondary">{{ $edital->titulo }}</h3>
                 <p style="color: #999;">{{ $edital->resumo }}</p>
                 <p class="text-success font-size-16"><strong>Valor Recurso:</strong> R$ {{ number_format($edital->total_recurso, 2, ',', '.') }}</p>
-                <p class="text-primary font-size-16"><strong>Valor por proposta:</strong> R$ {{ number_format($edital->valor_max_inscricao, 2, ',', '.') }}</p>
+                <p class="text-primary font-size-16"><strong>Valor por inscrição:</strong> R$ {{ number_format($edital->valor_max_inscricao, 2, ',', '.') }}</p>
                 @if(isset($edital->valor_max_programa) && $edital->valor_max_programa != null)
-                    <p class="text-primary font-size-16"><strong>Valor por proposta:</strong> R$ {{ number_format($edital->valor_max_programa, 2, ',', '.') }}</p>
+                    <p class="text-primary font-size-16"><strong>Valor por programa:</strong> R$ {{ number_format($edital->valor_max_programa, 2, ',', '.') }}</p>
                 @endif
                 <a href="{{ url('storage/' . $edital->anexo_edital) }}" class="btn btn-danger btn-lg btn-icon rounded-circle" target="_blank"><i class="far fa-file-pdf"></i></a>
                 <a href='{{ url("editais/$edital->id/editar") }}' class="btn btn-info btn-lg btn-icon rounded-circle"><i class="far fa-edit"></i></a>
