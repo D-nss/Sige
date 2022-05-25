@@ -11,7 +11,7 @@
         <h1 class="subheader-title">
             <span class="text-success">Indicadores</span>
             <small>
-            Cadastro de indicadores da unidade <span class="text-secondary">{{$unidade->sigla}}</span>
+            Gestão de indicadores da unidade <span class="text-secondary">{{$unidade->sigla}}</span>
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
