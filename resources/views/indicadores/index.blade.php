@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/indicadores/novo') }}"><i class="far fa-plus"></i></a>Adicionar Indicadores
+            <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/indicadores/novo') }}"><i class="far fa-plus"></i></a> Adicionar Indicadores
             <div class="mt-3">
                 @foreach($indicadores as $indicador)
                 <div class="p-3 mb-5 bg-white hv-light-green rounded d-flex justify-content-between">
