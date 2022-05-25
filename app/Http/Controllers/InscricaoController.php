@@ -45,7 +45,7 @@ class InscricaoController extends Controller
             }
              
             $cronograma = new Cronograma();
-            return view('inscricao.index', compact('inscricoes', 'user', 'avaliadores', 'cronograma'));
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');
