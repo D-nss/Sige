@@ -28,8 +28,8 @@
                 <div class="p-3 mb-5 bg-white hv-light-green rounded d-flex justify-content-between">
                     <h4>{{ $indicador->ano_base }}</h4>
                     <div>
-                    <a class="btn btn-warning" href="{{ url('/indicadores/' . $indicador->ano_base . '/editar') }}">Editar</a>
-                    <a class="btn btn-info" href="{{ url('/indicadores/' . $indicador->ano_base) }}">Ver</a>
+                    <a class="btn btn-warning" href="{{ url('/indicadores/' . $indicador->ano_base . '/editar') }}">Editar <i class="far fa-edit"></i></a>
+                    <a class="btn btn-info" href="{{ url('/indicadores/' . $indicador->ano_base) }}">Ver <i class="far fa-eye"></i></a>
                     </div>
                 </div>
                 @endforeach
