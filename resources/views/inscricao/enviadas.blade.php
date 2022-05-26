@@ -3,10 +3,24 @@
 @section('title', 'Cadastrar novo Processo Edital')
 
 @section('content')
-<h1>Suas Inscrições Enviadas</h1>
+<div class="container-fluid">
+    @include('layouts._includes._status')
+    @include('layouts._includes._validacao')
 
-<div class="panel">
-    <div class="row p-4">
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <span class="text-success">Suas incrições</span>
+            <small>
+            Inscrições em que você se inscreveu
+            </small>
+        </h1>
+        <div class="subheader-block d-lg-flex align-items-center">
+            <div class="d-inline-flex flex-column justify-content-center">
+            
+            </div>
+        </div>
+    </div>
+    <div class="row panel p-4">
         <div class="col-md-12">
             
             @include('layouts._includes._status')
