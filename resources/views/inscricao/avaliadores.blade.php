@@ -27,10 +27,8 @@
               @include('layouts._includes._validacao')
               <div class="card">
                   <div class="card-body">
-                      <h4>Inscrição:</h4>
-                      <h4 class="text-success">{{ $inscricao->titulo }}</h4>
-                      <h4>Autor:</h4>
-                      <h4 class="text-success">{{ $inscricao->user->name }}</h4>
+                      <h6>Autor:</h6>
+                      <h6 class="text-success">{{ $inscricao->user->name }}</h6>
                       <form action="{{ url('avaliador-por-inscricao/store') }}" method="post">
                         @csrf
                         <input type="hidden" name="inscricao_id" value="{{ $inscricao->id }}">
