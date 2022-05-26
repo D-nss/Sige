@@ -22,7 +22,7 @@
     </div>
 
     <div class="row p-4">
-        <div class="col-md-12">
+        <div class="col-xl-12">
             @include('layouts._includes._status')
             <div class="card">
 
