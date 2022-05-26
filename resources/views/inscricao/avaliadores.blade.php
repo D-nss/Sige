@@ -11,7 +11,10 @@
         <h1 class="subheader-title">
             <span class="text-success">Indicação de Avaliador</span>
             <small>
-            Indicação dos avaliadores para inscrição {{ $inscricao->titulo}}
+              Indicação dos avaliadores para inscrição {{ $inscricao->titulo}}
+            </small>
+            <small>
+              Autor {{ $inscricao->user->name }}
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
@@ -27,8 +30,6 @@
               @include('layouts._includes._validacao')
               <div class="card">
                   <div class="card-body">
-                      <h6>Autor:</h6>
-                      <h6 class="text-success">{{ $inscricao->user->name }}</h6>
                       <form action="{{ url('avaliador-por-inscricao/store') }}" method="post">
                         @csrf
                         <input type="hidden" name="inscricao_id" value="{{ $inscricao->id }}">
