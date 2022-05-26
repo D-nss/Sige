@@ -21,16 +21,13 @@
         </div>
     </div>
 
-    <div class="row p-4">
+    <div class="row panel p-4">
         <div class="col-xl-12">
-            @include('layouts._includes._status')
-            <div class="card">
 
-                <div class="card-body">
-                    @include('inscricao._table')
-                </div>
-                
+            <div class="card-body">
+                @include('inscricao._table')
             </div>
+                
         </div>
     </div>
 </div>

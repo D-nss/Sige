@@ -21,9 +21,7 @@
         </div>
     </div>
     <div class="row panel p-4">
-        <div class="col-md-12">
-            
-            @include('layouts._includes._status')
+        <div class="col-xl-12">
 
             <table class="table table-bordered table-hover" id="dt-propostas">
                 <thead>
