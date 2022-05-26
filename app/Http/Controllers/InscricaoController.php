@@ -214,9 +214,9 @@ class InscricaoController extends Controller
     public function show(Request $request, $id)
     {
 
-        // $inscricao = Inscricao::findOrFail($id);
-        // $edital = Edital::findOrFail($inscricao->edital_id);
-        // $cronograma = new Cronograma();
+        $inscricao = Inscricao::findOrFail($id);
+        $edital = Edital::findOrFail($inscricao->edital_id);
+        $cronograma = new Cronograma();
         // $user = User::where('email', Auth::user()->id)->first();
 
         // if(isset($request->analise)) {
