@@ -217,7 +217,7 @@ class InscricaoController extends Controller
         $inscricao = Inscricao::findOrFail($id);
         $edital = Edital::findOrFail($inscricao->edital_id);
         $cronograma = new Cronograma();
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = Auth::user();
 
         if(isset($request->analise)) {
             if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
