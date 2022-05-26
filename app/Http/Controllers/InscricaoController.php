@@ -41,7 +41,7 @@ class InscricaoController extends Controller
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
                                         ->where('u.sigla', Auth::user()->unidade)              
-                                        ->get();
+                                        ->get(['inscricoes.*']);
             }
             
             $cronograma = new Cronograma();
@@ -213,100 +213,99 @@ class InscricaoController extends Controller
      */
     public function show(Request $request, $id)
     {
-        echo $id;
-        // $inscricao = Inscricao::findOrFail($id);
-        // $edital = Edital::findOrFail($inscricao->edital_id);
-        // $cronograma = new Cronograma();
-        // $user = User::where('email', Auth::user()->id)->first();
+        $inscricao = Inscricao::find($id);
+        $edital = Edital::findOrFail($inscricao->edital_id);
+        $cronograma = new Cronograma();
+        $user = User::where('email', Auth::user()->id)->first();
 
-        // if(isset($request->analise)) {
-        //     if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
-        //         session()->flash('status', 'Acesso não autorizado para análise.');
-        //         session()->flash('alert', 'warning');
+        if(isset($request->analise)) {
+            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
+                session()->flash('status', 'Acesso não autorizado para análise.');
+                session()->flash('alert', 'warning');
 
-        //         return redirect()->back();
-        //     }
+                return redirect()->back();
+            }
 
-        //     //analisa se esta fora do periodo de analise
-        //     if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
-        //         session()->flash('status', 'Período de analise ainda não foi aberto.');
-        //         session()->flash('alert', 'warning');
+            //analisa se esta fora do periodo de analise
+            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
+                session()->flash('status', 'Período de analise ainda não foi aberto.');
+                session()->flash('alert', 'warning');
 
-        //         return redirect()->back();
-        //     }
+                return redirect()->back();
+            }
 
-        //     $analise = $request->analise;
-        //     $criterios = $edital->criterios;
-        // }
-        // else {
-        //     $analise = '';
-        // }
+            $analise = $request->analise;
+            $criterios = $edital->criterios;
+        }
+        else {
+            $analise = '';
+        }
 
-        // if(isset($request->avaliacao)) { 
-        //     if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
-        //         session()->flash('status', 'Acesso não autorizado para avaliação.');
-        //         session()->flash('alert', 'warning');
+        if(isset($request->avaliacao)) { 
+            if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
+                session()->flash('status', 'Acesso não autorizado para avaliação.');
+                session()->flash('alert', 'warning');
 
-        //         return redirect()->back();
-        //     }
-        //     //analisa se esta fora do periodo de avaliação
-        //     if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
-        //         session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
-        //         session()->flash('alert', 'warning');
+                return redirect()->back();
+            }
+            //analisa se esta fora do periodo de avaliação
+            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
+                session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
+                session()->flash('alert', 'warning');
 
-        //         return redirect()->back();
-        //     }
+                return redirect()->back();
+            }
 
 
-        //     $avaliacao = $request->avaliacao;
-        //     $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
-        //         return data_get($value, 'tipo') == 'Avaliativa';
-        //     }); 
-        // }
-        // else {
-        //     $avaliacao = '';
-        //     $questoesAvaliacao = '';
-        // }
+            $avaliacao = $request->avaliacao;
+            $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
+                return data_get($value, 'tipo') == 'Avaliativa';
+            }); 
+        }
+        else {
+            $avaliacao = '';
+            $questoesAvaliacao = '';
+        }
 
-        // $linhaextensao = LinhaExtensao::findOrFail($inscricao->linha_extensao_id);
+        $linhaextensao = LinhaExtensao::findOrFail($inscricao->linha_extensao_id);
         
-        // $inscricoesAreaTematica = InscricaoAreaTematica::join(
-        //     'areas_tematicas', 'areas_tematicas.id',
-        //     'inscricoes_areas_tematicas.area_tematica_id'
-        //     )->where('inscricao_id',$id)
-        //     ->get();
+        $inscricoesAreaTematica = InscricaoAreaTematica::join(
+            'areas_tematicas', 'areas_tematicas.id',
+            'inscricoes_areas_tematicas.area_tematica_id'
+            )->where('inscricao_id',$id)
+            ->get();
 
-        // $respostasQuestoes = QuestaoRespondida::join(
-        //     'questoes', 'questoes_respondidas.questao_id', 
-        //     'questoes.id'
-        //     )->where('questoes_respondidas.inscricao_id', $id)
-        //     ->get();
+        $respostasQuestoes = QuestaoRespondida::join(
+            'questoes', 'questoes_respondidas.questao_id', 
+            'questoes.id'
+            )->where('questoes_respondidas.inscricao_id', $id)
+            ->get();
 
         
-        // $criterios = $edital->criterios;
+        $criterios = $edital->criterios;
 
-        // $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
+        $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
 
-        // $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
-        // $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
-        //                            ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
-        //                            ->where('inscricao_id', $id)
-        //                            ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
+        $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
+        $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
+                                   ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
+                                   ->where('inscricao_id', $id)
+                                   ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
 
-        // return view('inscricao.show', compact(
-        //         'inscricao', 
-        //         'inscricoesAreaTematica',
-        //         'linhaextensao',
-        //         'respostasQuestoes', 
-        //         'itensOrcamento', 
-        //         'totalItens', 
-        //         'valorMaxPorInscricao', 
-        //         'analise',
-        //         'avaliacao',
-        //         'questoesAvaliacao',
-        //         'criterios'
-        //     )
-        // );
+        return view('inscricao.show', compact(
+                'inscricao', 
+                'inscricoesAreaTematica',
+                'linhaextensao',
+                'respostasQuestoes', 
+                'itensOrcamento', 
+                'totalItens', 
+                'valorMaxPorInscricao', 
+                'analise',
+                'avaliacao',
+                'questoesAvaliacao',
+                'criterios'
+            )
+        );
     }
 
     /**
