@@ -3,9 +3,23 @@
 @section('title', 'Indicação de avaliador')
 
 @section('content')
-<h1>Indicação de Avaliador</h1>
-        <!-- Begin Page Content -->
-        <div class="container">
+<div class="container-fluid">
+    @include('layouts._includes._status')
+    @include('layouts._includes._validacao')
+
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <span class="text-success">Indicação de Avaliador</span>
+            <small>
+            Indicação dos avaliadores para inscrição {{ $inscricao->titulo}}
+            </small>
+        </h1>
+        <div class="subheader-block d-lg-flex align-items-center">
+            <div class="d-inline-flex flex-column justify-content-center">
+            
+            </div>
+        </div>
+    </div>
           <div class="row">
             <div class="col-lg-12">
               @include('layouts._includes._status')

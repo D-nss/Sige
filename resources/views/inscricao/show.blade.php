@@ -4,17 +4,33 @@
 
 @section('content')
 
-@if( isset($analise) && $analise == true )
-    <h1>Analise da Inscrição</h1>
-@else
-    <h1>Visualização da Inscrição</h1>
-@endif
+<div class="container-fluid">
+    @include('layouts._includes._status')
+    @include('layouts._includes._validacao')
 
-<div class="container">
+    <div class="subheader">
+        <h1 class="subheader-title">
+            @if( isset($analise) && $analise == true )
+                <span class="text-success">Análise da Inscrição</span>
+                <small>
+                    Exibição dos dados da inscrição e análise
+                </small>
+            @else
+                <span class="text-success">Visualização da Inscrição</span>
+                <small>
+                    Exibição dos dados da inscrição
+                </small>
+            @endif
+            
+        </h1>
+        <div class="subheader-block d-lg-flex align-items-center">
+            <div class="d-inline-flex flex-column justify-content-center">
+            
+            </div>
+        </div>
+    </div>
      <div class="col-md-12">
 
-        @include('layouts._includes._status')
-        
         <div class="card row">
             <div class="card-body">                   
                 <div id="swpropostashow">
