@@ -457,6 +457,15 @@ class InscricaoController extends Controller
     {
         $inscricao = Inscricao::findOrFail($id);
         $users = User::all();
+
+        $user = User::where('email', Auth::user()->id)->first();
+
+        if($inscricao->user_id == $user->id) {
+            session()->flash('status', 'Desculpe! Não é permitido adicionar avaliadores à própria inscrição');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
         
         return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
