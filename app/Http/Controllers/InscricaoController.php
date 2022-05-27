@@ -22,7 +22,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-coordenador,edital-administrador,super,admin');
+        $this->middleware('role:edital-coordenador,edital-administrador,super,admin');
     }
     /**
      * Display a listing of the resource.
