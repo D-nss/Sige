@@ -44,11 +44,8 @@ class InscricaoController extends Controller
                                         ->get(['inscricoes.*']);
             }
             
-            foreach($inscricoes as $inscricao) {
-                echo json_encode($inscricao->avaliadores);
-            }
-            //$cronograma = new Cronograma();
-            //return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+            $cronograma = new Cronograma();
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');
