@@ -10,8 +10,7 @@
     </thead>
     <tbody>
         @foreach($inscricoes as $inscricao)
-        {{ $inscricao->avaliadores }}
-            @if( $user->hasRole('edital-administrador') || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)))
+            @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) )
             <tr>
                 <td>{{ $inscricao->titulo }}</td>
                 <td>{{ $inscricao->user->name}}</td>
