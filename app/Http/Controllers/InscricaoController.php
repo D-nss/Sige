@@ -22,7 +22,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador,edital-administrador,super,admin');
+        //$this->middleware('role:edital-coordenador,edital-administrador,super,admin');
     }
     /**
      * Display a listing of the resource.
@@ -37,10 +37,17 @@ class InscricaoController extends Controller
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
             }
-            else {
+            
+            if($user->hasRole('edital-analista')) {
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
                                         ->where('u.sigla', Auth::user()->unidade)              
+                                        ->get(['inscricoes.*']);
+            }
+
+            if($user->hasRole('edital-avaliador')) {
+                $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
+                                        ->where('ai.user_id', Auth::user()->id)    
                                         ->get(['inscricoes.*']);
             }
             
