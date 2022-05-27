@@ -41,7 +41,7 @@ class InscricaoController extends Controller
             elseif($user->hasRole('edital-analista')) {
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                        ->where('u.sigla', $user->unidade)              
+                                        ->where('u.sigla', Auth::user()->unidade)              
                                         ->get(['inscricoes.*']);
             }
 
