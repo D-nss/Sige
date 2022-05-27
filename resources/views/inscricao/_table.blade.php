@@ -11,7 +11,7 @@
     <tbody>
         @foreach($inscricoes as $inscricao)
             @if( $user->hasRole('edital-administrador') || strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)))
-            <!-- {{ dd($inscricao->avaliadores) }} -->
+           
             <tr>
                 <td>{{ $inscricao->titulo }}</td>
                 <td>{{ $inscricao->user->name}}</td>
