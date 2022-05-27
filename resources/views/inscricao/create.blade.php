@@ -132,17 +132,23 @@
                                     <h4 class="text-success">Informações do projeto: </h4>
 
                                     <div class="mb-3">
-                                        <label for="link_lattes" class="font-weight-bold">Link Lattes</label>
-                                        <input type="text" name="link_lattes" class="form-control w-75 mb-4" placeholder="https://seulattes.com" value="@if(isset($inscricao->url_lattes)){{ $inscricao->url_lattes }}@else{{ old('link_lattes') }}@endif" required>
-                                        <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
+                                        <div class="mb-4">
+                                            <label for="link_lattes" class="font-weight-bold">Link Lattes</label>
+                                            <input type="text" name="link_lattes" class="form-control w-75" placeholder="https://seulattes.com" value="@if(isset($inscricao->url_lattes)){{ $inscricao->url_lattes }}@else{{ old('link_lattes') }}@endif" required>
+                                            <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
+                                        </div>
                                         
-                                        <label for="link_projeto" class="font-weight-bold">Link Projeto</label>
-                                        <input type="text" name="link_projeto" class="form-control w-75 mb-4" placeholder="https://seuprojeto.com" value="@if(isset($inscricao->url_projeto)){{ $inscricao->url_projeto }}@else{{ old('link_projeto') }}@endif" required>
-                                        <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
-                                       
-                                        <label for="resumo" class="font-weight-bold">Resumo</label>
-                                        <textarea name="resumo" class="form-control mb-4" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
-                                        <p style="color: #D0D3D4;">(máx. 1000 caracteres)</p>
+                                        <div class="mb-4">
+                                            <label for="link_projeto" class="font-weight-bold">Link Projeto</label>
+                                            <input type="text" name="link_projeto" class="form-control w-75" placeholder="https://seuprojeto.com" value="@if(isset($inscricao->url_projeto)){{ $inscricao->url_projeto }}@else{{ old('link_projeto') }}@endif" required>
+                                            <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <label for="resumo" class="font-weight-bold">Resumo</label>
+                                            <textarea name="resumo" class="form-control" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
+                                            <p style="color: #D0D3D4;">(máx. 1000 caracteres)</p>
+                                        </div>                                        
 
                                         <label for="palavras_chave" class="font-weight-bold">Palavras Chaves</label>
                                         <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)){{ $inscricao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif" required />
