@@ -38,14 +38,14 @@ class InscricaoController extends Controller
                 $inscricoes = Inscricao::all();
             }
             
-            if($user->hasRole('edital-analista')) {
+            elseif($user->hasRole('edital-analista')) {
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
                                         ->where('u.sigla', $user->unidade)              
                                         ->get(['inscricoes.*']);
             }
 
-            if($user->hasRole('edital-avaliador')) {
+            elseif($user->hasRole('edital-avaliador')) {
                 $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
                                         ->where('ai.user_id', $user->id)    
                                         ->get(['inscricoes.*']);
