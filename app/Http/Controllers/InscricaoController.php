@@ -50,9 +50,9 @@ class InscricaoController extends Controller
                                         ->where('ai.user_id', Auth::user()->id)    
                                         ->get(['inscricoes.*']);
             }
-            
-            $cronograma = new Cronograma();
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+            echo Auth::user()->id;
+            //$cronograma = new Cronograma();
+            //return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');
