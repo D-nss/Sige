@@ -1,6 +1,7 @@
 <table class="table table-bordered table-striped table-hover" id="dt-propostas">
     <thead>
         <tr>
+            <th>Edital</th>
             <th>Inscrição</th>
             <th>Coordenador</th>
             <th>Status</th>
@@ -12,6 +13,7 @@
         @foreach($inscricoes as $inscricao)
             @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) )
             <tr>
+                <td>{{ $inscricao->edital->titulo }}</td>
                 <td>{{ $inscricao->titulo }}</td>
                 <td>{{ $inscricao->user->name}}</td>
                 <td>{{ $inscricao->status }}</td>
