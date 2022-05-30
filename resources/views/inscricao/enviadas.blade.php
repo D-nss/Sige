@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover" id="dt-propostas">
                 <thead>
                     <tr>
+                        <th>Edital</th>
                         <th>Titulo</th>
                         <th>Tipo</th>
                         <th>Status</th>
@@ -36,6 +37,7 @@
                 <tbody>
                     @foreach($inscricoes as $inscricao)
                         <tr class="alert @if($inscricao->status == 'Pendente') alert-warning @elseif($inscricao->status == 'Deferida') alert-secondary @elseif($inscricao->status == 'Aprovada') alert-success @endif">
+                            <td>{{ $inscricao->edital->titulo }}</td>
                             <td>{{ $inscricao->titulo }}</td>
                             <td>{{ $inscricao->tipo }}</td>
                             <td>{{ $inscricao->status }}</td>
