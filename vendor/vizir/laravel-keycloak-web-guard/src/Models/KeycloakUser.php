@@ -16,7 +16,8 @@ class KeycloakUser implements Authenticatable
         'name',
         'email',
         'unidade',
-        'codigoUnidade'
+        'codigoUnidade',
+        'employeetype'
     ];
 
     /**

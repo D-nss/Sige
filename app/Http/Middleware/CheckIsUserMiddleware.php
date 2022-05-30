@@ -38,7 +38,7 @@ class CheckIsUserMiddleware
                     'unidade_id' => $unidade->id,
                     'codigoUnidade' => Auth::user()->codigoUnidade,
                     'ativo' => true,
-                ])->assignRole('edital-coordenador');
+                ]);
 
             session()->flash('success', 'Olá '.$user->name.'! Você foi cadastrado no sistema. Agora acesse o menu para realizar as operações desejadas');
 
@@ -46,6 +46,10 @@ class CheckIsUserMiddleware
                 //Gerar log do acesso barrado devido ao não retorno da unidade do usuário autenticado no SiSe
                 session()->flash('danger', 'Olá '.$nome.'! Unidade não encontrada, entre em contato com Administrador do sistema para utilização');
                 return redirect('/');
+            }
+
+            if (Auth::user()->employeetype == 'PROFESSOR/PESQUISADOR VISITANTE'){
+                $user->assignRole('edital-coordenador');
             }
         }
 
