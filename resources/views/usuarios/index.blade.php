@@ -17,6 +17,13 @@
                 </div>
             </div>
 
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-green">Para ver detalhes e atualizar os dados, clique sobre o botão link do registro.</h6>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+
             <!-- datatable start -->
             <table id="dt-usuarios" class="table table-bordered table-hover table-striped w-100">
                 <thead>
@@ -65,6 +72,9 @@
                 </tbody>
             </table>
             <!-- datatable end -->
+        </div>
+        </div>
+        </div>
 </div>
 <!-- /.container-fluid -->
 

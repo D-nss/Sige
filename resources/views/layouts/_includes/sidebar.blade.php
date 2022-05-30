@@ -52,57 +52,7 @@
 
         <ul id="js-nav-menu" class="nav-menu">
             @if(Auth::hasUser())
-            
-            <li class="open">
-                <a href="#" title="Category" data-filter-tags="category">
-                    <i class="fal fa-file"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">UNIDADE:
-                        {{ Auth::user()->unidade }}</span>
-                </a>
-                <ul>
-                    <li>
-                        
-                        <!-- <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Dados Indicadores</span>
-                        </a> -->
-                        <!-- <ul>
-                            <li>
-                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Dados</span>
-                                </a>
-                            </li>
-                        </ul> -->
-                    </li>
 
-                    <!-- <li class="disabled">
-                        <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
-                        </a>
-                        <ul>
-                            <li class="disabled">
-                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Ação de Extensão</span>
-                                </a>
-                            </li>
-                            <li class="disabled">
-                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>
-                                </a>
-                            </li>
-                            <li class="disabled">
-                                <a href="javascript:void(0);" title="Another Item" data-filter-tags="utilities menu child another item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Concluídos</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="disabled">
-                        <a href="javascript:void(0);" title="Disabled item" data-filter-tags="utilities disabled item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Ações Culturais</span>
-                        </a>
-                    </li> -->
-                </ul>
-            </li>
             @hasanyrole('super|admin|indicadores-admin|indicadores-user', 'web_user')
                 <li>
                     <a href="{{ url('/indicadores') }}" title="Indicadores" >
