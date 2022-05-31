@@ -241,7 +241,7 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/upload.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/tagsinput.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/jquery.mask.js')}}"></script>
-        
+
         <script>
             $(document).ready(function()
             {
@@ -250,6 +250,7 @@ Versão: 4.5.1
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
                     },
+                    order: [[0,'asc']],
                     responsive: true
                 });
 
@@ -272,6 +273,7 @@ Versão: 4.5.1
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
                     },
+                    order: [[0,'asc']],
                     responsive: true
                 });
 
@@ -419,7 +421,7 @@ Versão: 4.5.1
                 // Smart Wizard
                 $('#swproposta').smartWizard(
                 {
-                    selected: 0, // Initial selected step, 0 = first step 
+                    selected: 0, // Initial selected step, 0 = first step
                     keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
                     autoAdjustHeight: false, // Automatically adjust content height
                     cycleSteps: true, // Allows to cycle the navigation of steps
@@ -440,17 +442,17 @@ Versão: 4.5.1
                         toolbarExtraButtons: [
                         $('<button></button>').text('Finalizar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
-                                    .on('click', function(){ 
+                                    .on('click', function(){
                                         $(this).text('');
                                         $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
                                         $(this).append('<span> Loading...</span>');
                                         $(this).prop('disabled', true);
-                                        $('#form_proposta').submit();                 
+                                        $('#form_proposta').submit();
                                     }),
                         // $('<button></button>').text('Cancelar')
                         //             .addClass('btn btn-danger')
-                        //             .on('click', function(){ 
-                        //             alert('Cancel button click');                            
+                        //             .on('click', function(){
+                        //             alert('Cancel button click');
                         //             })
                         ]
                     },
@@ -473,7 +475,7 @@ Versão: 4.5.1
                 // Smart Wizard
                 $('#swpropostashow').smartWizard(
                 {
-                    selected: 0, // Initial selected step, 0 = first step 
+                    selected: 0, // Initial selected step, 0 = first step
                     keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
                     autoAdjustHeight: false, // Automatically adjust content height
                     cycleSteps: true, // Allows to cycle the navigation of steps
@@ -494,7 +496,7 @@ Versão: 4.5.1
                         toolbarExtraButtons: [
                         $('<button></button>').text( @if( (isset($analise) && $analise == true ) || (isset($avaliacao) && $avaliacao == true) ) 'Finalizar' @else 'Voltar' @endif )
                                     .addClass('btn btn-primary btn-block')
-                                    .on('click', function(){ 
+                                    .on('click', function(){
                                         @if(isset($analise) && $analise == true)
                                             $('#analiseModal').modal('show');
                                         @elseif(isset($avaliacao) && $avaliacao == true)
@@ -509,8 +511,8 @@ Versão: 4.5.1
                                     }),
                         // $('<button></button>').text('Cancelar')
                         //             .addClass('btn btn-danger')
-                        //             .on('click', function(){ 
-                        //             alert('Cancel button click');                            
+                        //             .on('click', function(){
+                        //             alert('Cancel button click');
                         //             })
                         ]
                     },
@@ -533,7 +535,7 @@ Versão: 4.5.1
                 // Smart Wizard
                 $('#swpropostaanalise').smartWizard(
                 {
-                    selected: 0, // Initial selected step, 0 = first step 
+                    selected: 0, // Initial selected step, 0 = first step
                     keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
                     autoAdjustHeight: false, // Automatically adjust content height
                     cycleSteps: true, // Allows to cycle the navigation of steps
@@ -554,13 +556,13 @@ Versão: 4.5.1
                         toolbarExtraButtons: [
                         $('<button></button>').text('Finalizar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
-                                    .on('click', function(){ 
-                                    $('#analiseModal').modal('show');                            
+                                    .on('click', function(){
+                                    $('#analiseModal').modal('show');
                                     }),
                         // $('<button></button>').text('Cancelar')
                         //             .addClass('btn btn-danger')
-                        //             .on('click', function(){ 
-                        //             alert('Cancel button click');                            
+                        //             .on('click', function(){
+                        //             alert('Cancel button click');
                         //             })
                         ]
                     },
@@ -583,7 +585,7 @@ Versão: 4.5.1
                 // Smart Wizard
                 $('#swpropostaavaliacao').smartWizard(
                 {
-                    selected: 0, // Initial selected step, 0 = first step 
+                    selected: 0, // Initial selected step, 0 = first step
                     keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
                     autoAdjustHeight: false, // Automatically adjust content height
                     cycleSteps: true, // Allows to cycle the navigation of steps
@@ -604,13 +606,13 @@ Versão: 4.5.1
                         toolbarExtraButtons: [
                         $('<button></button>').text('Finalizar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
-                                    .on('click', function(){ 
-                                    $('#analiseModal').modal('show');                            
+                                    .on('click', function(){
+                                    $('#analiseModal').modal('show');
                                     }),
                         // $('<button></button>').text('Cancelar')
                         //             .addClass('btn btn-danger')
-                        //             .on('click', function(){ 
-                        //             alert('Cancel button click');                            
+                        //             .on('click', function(){
+                        //             alert('Cancel button click');
                         //             })
                         ]
                     },
@@ -688,7 +690,7 @@ Versão: 4.5.1
             });
 
             $('#estado').change(function(){
-                
+
                 $.ajax({
                     url: "{{ url('get-municipios-by-uf') }}",
                     method: "GET",
@@ -707,7 +709,7 @@ Versão: 4.5.1
             });
 
             $('#subcomissao_tematica').change(function(){
-                
+
                 $.ajax({
                     url: "{{ url('get-avaliador-by-subcomissao') }}",
                     method: "GET",
@@ -726,7 +728,7 @@ Versão: 4.5.1
             });
 
             $('#tipo_item').change(function(){
-                
+
                 $.ajax({
                     url: "{{ url('get-item-by-id') }}",
                     method: "GET",
@@ -751,7 +753,7 @@ Versão: 4.5.1
                 else {
                     $(`#${id}`).addClass('disabled');
                 }
-                
+
             }
 
             $('.loading-questao-existente').on('click',function(){
@@ -795,7 +797,7 @@ Versão: 4.5.1
                 $('.loading').prop('disabled', true);
                 $spin.removeClass('d-none');
                 $(".spin-text").text('Loading...');
-                
+
                 if($('#form-criterios')) {
                     $('#form-criterios').submit();
                 }
@@ -863,7 +865,7 @@ Versão: 4.5.1
                     if($('#form-analise')) {
                         $(".spin-text").text('Enviar');
                     }
-                    
+
                 },10000);
             });
 
