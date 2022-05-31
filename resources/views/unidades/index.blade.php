@@ -27,7 +27,6 @@
     <table class="table table-bordered" id="dt-unidades" width="100%" cellspacing="0">
     <thead>
     <tr>
-    <th> <i class="fal fa-landmark"></i></th>
     <th>Nome</th>
     <th>Sigla</th>
     <th>Atualizado em</th>
@@ -37,7 +36,6 @@
     <tbody>
     @foreach($unidades as $unidade)
     <tr href="/unidades/{{$unidade->id}}">
-      <td>{{$unidade->id}}</td>
       <td>{{$unidade->nome}}</td>
       <td>{{$unidade->sigla}}</td>
       <td> {{$unidade->updated_at->format('d/m/Y H:i:s')}}</td>

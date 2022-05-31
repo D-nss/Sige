@@ -273,7 +273,6 @@ Versão: 4.5.1
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
                     },
-                    order: [[0,'asc']],
                     responsive: true
                 });
 

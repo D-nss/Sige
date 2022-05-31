@@ -28,7 +28,6 @@
             <table id="dt-usuarios" class="table table-bordered table-hover table-striped w-100">
                 <thead>
                     <tr>
-                        <th><i class="fal fa-user"></i></th>
                         <th>Nome</th>
                         <th>Unidade</th>
                         <th>Email</th>
@@ -41,7 +40,6 @@
                 <tbody>
                     @foreach($usuarios as $usuario)
                         <tr>
-                            <td>{{$usuario->id}}</td>
                             <td>{{$usuario->name}}</td>
                             <td>{{$usuario->unidade->sigla}}</td>
                             <td>{{$usuario->email}}</td>
