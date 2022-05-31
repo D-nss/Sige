@@ -14,10 +14,10 @@ use App\Models\User;
 use App\Models\SubcomissaoTematica;
 
 class EditalController extends Controller
-{   
+{
     public function __construct()
     {
-        $this->middleware('role:edital-administrador,super')->except('index');
+        $this->middleware('role:edital-administrador|super')->except('index');
     }
     /**
      * Display a listing of the resource.
@@ -26,13 +26,13 @@ class EditalController extends Controller
      */
     public function index()
     {
-        
+
         $editais = Edital::all();
 
         $editais = $editais->filter(function($value, $key) {
             return data_get($value, 'status') != null;
         });
-        
+
         return view('edital.index2', compact('editais'));
     }
 
@@ -54,8 +54,8 @@ class EditalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
-           
+    {
+
         $inputsParaValidar = $request->except(['valor_max_programa']);
         $validar = array();
 
@@ -78,7 +78,7 @@ class EditalController extends Controller
 
         $uploaded = new UploadFile();
 
-        
+
 
         $edital = Edital::create([
             'titulo' => $request->titulo,
@@ -155,9 +155,9 @@ class EditalController extends Controller
                 $validar[$key] = 'required';
             }
         }
-        
+
         $validated = $request->validate($validar);
-        
+
         $uploaded = new UploadFile();
 
         $anexo_edital = Edital::where('id',$id)->get(['anexo_edital', 'anexo_imagem'])->toArray();
@@ -173,7 +173,7 @@ class EditalController extends Controller
                             'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $anexo_edital[0]['anexo_edital'],
                             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $anexo_edital[0]['anexo_imagem'],
                         ]);
-        
+
         if($edital) {
 
             session()->flash('status', 'Edital Atualizado com sucesso!!!');
@@ -187,7 +187,7 @@ class EditalController extends Controller
 
             return redirect()->back();
         }
- 
+
     }
 
     /**
@@ -211,17 +211,17 @@ class EditalController extends Controller
     public function editarCronograma(Edital $edital)
     {
         $modelo_cronograma = DB::table('modelo_cronograma')->where('tipo_edital', $edital->tipo)->get();
-        
+
         return view('cronograma.create', compact('edital', 'modelo_cronograma'));
     }
 
     public function editarQuestoes(Edital $edital)
-    {  
+    {
         return view('questoes.create', compact('edital'));
     }
 
     public function editarAvaliadores(Edital $edital)
-    {  
+    {
         $users = User::all();
         $subcomissoes = SubcomissaoTematica::all();
         $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
@@ -232,7 +232,7 @@ class EditalController extends Controller
         return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'subcomissoes'));
     }
 
-    public function divulgar($id) 
+    public function divulgar($id)
     {
         $edital = Edital::findOrFail($id);
         $edital->status = 'Divulgação';

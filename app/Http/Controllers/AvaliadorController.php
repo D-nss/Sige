@@ -11,7 +11,7 @@ class AvaliadorController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-administrador,super');
+        $this->middleware('role:edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +45,7 @@ class AvaliadorController extends Controller
             'avaliador' => 'required',
             'edital_id' => 'required'
         ]);
-        
+
         $avaliador = Avaliador::create([
             'user_id' => $request->avaliador,
             'edital_id' => $request->edital_id,
@@ -64,7 +64,7 @@ class AvaliadorController extends Controller
 
             return redirect()->back();
         }
-        
+
     }
 
     /**
@@ -135,6 +135,6 @@ class AvaliadorController extends Controller
 
             echo json_encode($avaliadores);
         }
-        
+
     }
 }

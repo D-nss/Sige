@@ -11,7 +11,7 @@ class CronogramaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-administrador,super');
+        $this->middleware('role:edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -115,7 +115,7 @@ class CronogramaController extends Controller
         }
 
         $validated = $request->validate($validar);
-        
+
         $linhasAfetadas = array();
 
         foreach($request->input() as $key => $r){
@@ -126,7 +126,7 @@ class CronogramaController extends Controller
             //atualiza as datas
             $linha = DB::table('cronogramas')->where('edital_id', $edital_id)->where('dt_input', $key)->update([ 'data' => $r ]);
             array_push($linhasAfetadas, $linha);
-            
+
         }
 
         //checa se ocorreu tudo certo com base no array linhasAfetadas
@@ -164,7 +164,7 @@ class CronogramaController extends Controller
         //
     }
 
-    public function prorrogar(Request $request) 
+    public function prorrogar(Request $request)
     {
         $cronogramas = Cronograma::where('edital_id', $request->edital_id)->get();
 
@@ -187,7 +187,7 @@ class CronogramaController extends Controller
                 $cronograma->data = $data;
                 $cronograma->update();
             }
-            
+
         }
 
         session()->flash('status', 'As proximas datas do cronograma foram prorrogadas em ' . $request->dias . ' dias.');

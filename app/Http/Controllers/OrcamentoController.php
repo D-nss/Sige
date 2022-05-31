@@ -13,7 +13,7 @@ class OrcamentoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador,edital-administrador,super');
+        $this->middleware('role:edital-coordenador|edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class OrcamentoController extends Controller
         $inscricao = Inscricao::find($id);
         $edital = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao','valor_max_programa','tipo']);
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital[0]['valor_max_programa'] : $edital[0]['valor_max_inscricao'] ;
-        
+
         $orcamentoItens = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
                                    ->where('inscricao_id', $id)
@@ -43,7 +43,7 @@ class OrcamentoController extends Controller
         $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
 
         $tiposItens = TipoItem::all();
-        
+
         return view('orcamento.create', compact('inscricao', 'valorMaxPorInscricao', 'orcamentoItens', 'totalItens', 'tiposItens'));
     }
 
@@ -76,7 +76,7 @@ class OrcamentoController extends Controller
             session()->flash('status', 'Desculpe! O valor ultrapassa o total disponível');
             session()->flash('alert', 'warning');
 
-            return redirect()->back(); 
+            return redirect()->back();
         }
 
         $orcamento = Orcamento::create([
@@ -98,7 +98,7 @@ class OrcamentoController extends Controller
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar item.');
             session()->flash('alert', 'warning');
 
-            return redirect()->back(); 
+            return redirect()->back();
         }
 
     }
@@ -111,7 +111,7 @@ class OrcamentoController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -155,7 +155,7 @@ class OrcamentoController extends Controller
             session()->flash('status', 'Desculpe! Houve erro ao remover item.');
             session()->flash('alert', 'warning');
 
-            return redirect()->back(); 
+            return redirect()->back();
         }
     }
 }

@@ -11,7 +11,7 @@ class CriterioController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-administrador,super');
+        $this->middleware('role:edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +45,7 @@ class CriterioController extends Controller
             'descricao' => 'required',
             'edital_id' => 'required'
         ]);
-        
+
         $criterio = Criterio::create([
             'descricao' => $request->descricao,
             'edital_id' => $request->edital_id,

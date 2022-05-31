@@ -22,7 +22,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador,edital-administrador,super,admin');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin');
     }
     /**
      * Display a listing of the resource.
@@ -37,20 +37,20 @@ class InscricaoController extends Controller
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
             }
-            
+
             elseif($user->hasRole('edital-analista')) {
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                        ->where('u.sigla', Auth::user()->unidade)              
+                                        ->where('u.sigla', Auth::user()->unidade)
                                         ->get(['inscricoes.*']);
             }
 
             elseif($user->hasRole('edital-avaliador')) {
                 $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
-                                        ->where('ai.user_id', $user->id)    
+                                        ->where('ai.user_id', $user->id)
                                         ->get(['inscricoes.*']);
             }
-            
+
             $cronograma = new Cronograma();
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
@@ -72,7 +72,7 @@ class InscricaoController extends Controller
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
-        
+
         if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
             session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
             session()->flash('alert', 'warning');
@@ -89,7 +89,7 @@ class InscricaoController extends Controller
 
                 return redirect()->back();
             }
-            
+
             if($cronograma->dt_input == 'dt_termino_inscricao' && strtotime(date('Y-m-d')) > strtotime($cronograma->data) ) {
                 session()->flash('status', 'Desculpe! As inscrições já se encerraram!');
                 session()->flash('alert', 'warning');
@@ -99,7 +99,7 @@ class InscricaoController extends Controller
         }
 
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
-        
+
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
 
@@ -141,20 +141,20 @@ class InscricaoController extends Controller
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
-        
+
         if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
             session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
-        
+
         $areasTematicasInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
 
         $inscricao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user) {
-            
+
             $inscricaoCriada = Inscricao::create([
                 'titulo' => $request->titulo,
                 'tipo' => $request->tipo_extensao,
@@ -175,7 +175,7 @@ class InscricaoController extends Controller
 
             foreach($request->areas_tematicas as $areas) {
                 array_push($areasTematicasInsert,[
-                    'area_tematica_id' => $areas, 
+                    'area_tematica_id' => $areas,
                     'inscricao_id' => $inscricaoCriada->id
                 ]);
             }
@@ -185,15 +185,15 @@ class InscricaoController extends Controller
             foreach($request->all() as $key => $resposta) {
                 if(substr($key, 0, 8) == 'questao-') {
                     array_push($respostasQuestoesInsert, [
-                        'questao_id' => substr($key, 8, strlen($key)), 
-                        'inscricao_id' => $inscricaoCriada->id, 
+                        'questao_id' => substr($key, 8, strlen($key)),
+                        'inscricao_id' => $inscricaoCriada->id,
                         'resposta' => $resposta
                     ]);
                 }
             }
 
             DB::table('questoes_respondidas')->insert($respostasQuestoesInsert);
-            
+
             return $inscricaoCriada;
         });
 
@@ -209,7 +209,7 @@ class InscricaoController extends Controller
 
             return redirect()->to("inscricao/$inscricao->id/orcamento");
         }
-        
+
     }
 
     /**
@@ -248,7 +248,7 @@ class InscricaoController extends Controller
             $analise = '';
         }
 
-        if(isset($request->avaliacao)) { 
+        if(isset($request->avaliacao)) {
             if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
                 session()->flash('status', 'Acesso não autorizado para avaliação.');
                 session()->flash('alert', 'warning');
@@ -267,7 +267,7 @@ class InscricaoController extends Controller
             $avaliacao = $request->avaliacao;
             $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
                 return data_get($value, 'tipo') == 'Avaliativa';
-            }); 
+            });
         }
         else {
             $avaliacao = '';
@@ -275,7 +275,7 @@ class InscricaoController extends Controller
         }
 
         $linhaextensao = LinhaExtensao::findOrFail($inscricao->linha_extensao_id);
-        
+
         $inscricoesAreaTematica = InscricaoAreaTematica::join(
             'areas_tematicas', 'areas_tematicas.id',
             'inscricoes_areas_tematicas.area_tematica_id'
@@ -283,12 +283,12 @@ class InscricaoController extends Controller
             ->get();
 
         $respostasQuestoes = QuestaoRespondida::join(
-            'questoes', 'questoes_respondidas.questao_id', 
+            'questoes', 'questoes_respondidas.questao_id',
             'questoes.id'
             )->where('questoes_respondidas.inscricao_id', $id)
             ->get();
 
-        
+
         $criterios = $edital->criterios;
 
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
@@ -300,13 +300,13 @@ class InscricaoController extends Controller
                                    ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
 
         return view('inscricao.show', compact(
-                'inscricao', 
+                'inscricao',
                 'inscricoesAreaTematica',
                 'linhaextensao',
-                'respostasQuestoes', 
-                'itensOrcamento', 
-                'totalItens', 
-                'valorMaxPorInscricao', 
+                'respostasQuestoes',
+                'itensOrcamento',
+                'totalItens',
+                'valorMaxPorInscricao',
                 'analise',
                 'avaliacao',
                 'questoesAvaliacao',
@@ -332,16 +332,16 @@ class InscricaoController extends Controller
         $edital = Edital::findOrFail($inscricao->edital_id);
         $respostasQuestoes = DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->get();
         $inscricaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $inscricao->municipio_id)->get();
-        
+
         return view(
-                    'inscricao.create', 
+                    'inscricao.create',
                     compact(
                             'edital',
-                            'linhas_extensao', 
-                            'estados', 
-                            'inscricao', 
-                            'respostasQuestoes', 
-                            'inscricaoLocal', 
+                            'linhas_extensao',
+                            'estados',
+                            'inscricao',
+                            'respostasQuestoes',
+                            'inscricaoLocal',
                             'areas_tematicas',
                         )
                     );
@@ -380,14 +380,14 @@ class InscricaoController extends Controller
         $validated = $request->validate($validar);
 
         $user = User::where('email', Auth::user()->id)->first();
-        
+
         $inscricao = Inscricao::findOrFail($id);
         $areasTematicasInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
 
         $transacao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user, $inscricao) {
-            
+
             $inscricao->titulo = $request->titulo;
             $inscricao->tipo = $request->tipo_extensao;
             $inscricao->municipio_id = $request->cidade;
@@ -415,12 +415,12 @@ class InscricaoController extends Controller
 
             foreach($request->all() as $key => $resposta) {
                 if(substr($key, 0, 8) == 'questao-') {
-                    DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->where('questao_id', substr($key, 8, strlen($key)))->update([ 
+                    DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->where('questao_id', substr($key, 8, strlen($key)))->update([
                         'resposta' => $resposta
                     ]);
                 }
             }
-            
+
             return $inscricaoAtualizada;
         });
 
@@ -466,7 +466,7 @@ class InscricaoController extends Controller
 
             return redirect()->back();
         }
-        
+
         return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
 
@@ -488,19 +488,19 @@ class InscricaoController extends Controller
 
         $inscricao->status = $request->status;
         $inscricao->analista_user_id = $user->id;
-       
+
         if( !is_null($request->criterios) ) {
             $justificativa = "Critérios não atendidos: \n";
 
             foreach($request->criterios as $criterio) {
                 $justificativa .= $criterio . "\n";
             }
-    
+
             $justificativa .= "\nJustificativa: \n" . !is_null($request->justificativa) ? $request->justificativa  : '';
-    
+
             $inscricao->justificativa = $justificativa;
         }
-        
+
         if($inscricao->update()) {
             session()->flash('status', 'Analise enviada com sucesso.');
             session()->flash('alert', 'success');
@@ -516,7 +516,7 @@ class InscricaoController extends Controller
 
     }
 
-    public function avaliacao(Request $request, $id) 
+    public function avaliacao(Request $request, $id)
     {
         $user = User::where('email', Auth::user()->id)->first();
         $dados = array();

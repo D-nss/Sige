@@ -17,7 +17,7 @@ class IndicadorUnidadeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:indicadores-user,indicadores-admin,super');
+        $this->middleware('role:indicadores-user|indicadores-admin|super');
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +45,7 @@ class IndicadorUnidadeController extends Controller
         $indicadores = Indicador::all()->toArray();
 
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
-        
+
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
@@ -68,7 +68,7 @@ class IndicadorUnidadeController extends Controller
 
         // Validação dos Indicadores
         $validate = array();
-        
+
         foreach($request->input() as $key => $r){
             if($key == "ano_base") {
                 $validate[$key] = 'min:4|max:4';
