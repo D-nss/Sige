@@ -644,12 +644,15 @@ Versão: 4.5.1
                     $(`#questao_existente`).addClass('d-none');
                 });
 
-                $("#parceria").click(function() {
+                $("#parcerias_sim").click(function() {
                     if($("#parcerias_sim").val() == 'Sim') {
                         $("#arquivo_parceria").removeClass("d-none");
                         $("#arquivo_parceria").addClass("d-block");
                     }
-                    else if($("#parcerias_nao").val() == 'Não') {
+                });
+
+                $("#parcerias_nao").click(function() {
+                    if($("#parcerias_nao").val() == 'Não') {
                         $("#arquivo_parceria").removeClass("d-block");
                         $("#arquivo_parceria").addClass("d-none");
                     }

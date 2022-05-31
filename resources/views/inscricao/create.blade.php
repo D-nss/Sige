@@ -93,8 +93,8 @@
                                     <hr class="border-top border-bottom">
 
                                     <h4 class="text-success">Há parcerias com outras instituições (públicas ou privadas) para o desenvolvimento do projeto?</h4>
-                                    Sim <input type="radio" name="parceria" id="parceria"  value="Sim" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || old('parceria') == 'Sim') checked @endif required="true">
-                                    Não <input type="radio" name="parceria" id="parceria"  value="Não" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Não') || old('parceria') == 'Não') checked @endif required="true">
+                                    Sim <input type="radio" name="parceria" id="parceria_sim"  value="Sim" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || old('parceria') == 'Sim') checked @endif required="true">
+                                    Não <input type="radio" name="parceria" id="parceria_nao"  value="Não" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Não') || old('parceria') == 'Não') checked @endif required="true">
                                     <br>
                                     <div id="arquivo_parceria" class="@if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') d-block @else d-none @endif">
                                         <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
