@@ -98,9 +98,9 @@
                                                 var content = '';
                                                 var cidade = document.getElementById('cidade');
                                                 var old = '{{ old('cidade') }}';
-                                                console.log(old);
+
                                                 data.map(municipio => {
-                                                    content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
+                                                    content += `<option value="${municipio.id}" ${old == municipio.id ? 'selected' : ''}>${municipio.nome_municipio}</option>`;
                                                 });
 
                                                 cidade.innerHTML = content;
