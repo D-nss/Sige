@@ -90,21 +90,16 @@
 
                                     @if( old('cidade') )
                                         <script>
-                                            $.ajax({
-                                                url: "{{ url('get-municipios-by-uf') }}",
-                                                method: "GET",
-                                                dataType: 'json',
-                                                data: { _token : $('meta[name="csrf-token"]').attr('content'), uf: $('#estado').val() },
-                                                success: function(data) {
-                                                    var content = '';
+                                            function loadDoc() {
+                                            const xhttp = new XMLHttpRequest();
+                                            xhttp.onload = function() {
+                                                console.log(this.responseText);
+                                            }
+                                            xhttp.open("GET", "{{ url('get-municipios-by-uf') }}/?uf=" + document.getElementById('estado').value);
+                                            xhttp.send();
+                                            }
 
-                                                    data.map(municipio => {
-                                                        content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
-                                                    });
-
-                                                    $('#cidade').html(content);
-                                                }
-                                            });
+                                            loadDoc()
                                         </script>
                                     @endif
                                     </select> 
