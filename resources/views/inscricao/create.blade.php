@@ -99,7 +99,7 @@
                                                 var cidade = document.getElementById('cidade');
 
                                                 data.map(municipio => {
-                                                    content += `<option value="${municipio.id}" @if( old('cidade') == ${municipio.id} ) selected @endif>${municipio.nome_municipio}</option>`;
+                                                    content += `<option value="${municipio.id}" @if( old('cidade') == '${municipio.id}' ) selected @endif>${municipio.nome_municipio}</option>`;
                                                 });
 
                                                 cidade.innerHTML = content;
