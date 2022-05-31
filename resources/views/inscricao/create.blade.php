@@ -93,7 +93,15 @@
                                             function loadDoc() {
                                             const xhttp = new XMLHttpRequest();
                                             xhttp.onload = function() {
-                                                console.log(this.responseText);
+                                                data = this.responseText;
+                                                var content = '';
+                                                var cidade = document.getElementById('cidade');
+
+                                                data.map(municipio => {
+                                                    content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
+                                                });
+
+                                                cidade.innerHtml = content;
                                             }
                                             xhttp.open("GET", "{{ url('get-municipios-by-uf') }}/?uf=" + document.getElementById('estado').value);
                                             xhttp.send();
