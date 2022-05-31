@@ -99,10 +99,11 @@
                                                 var cidade = document.getElementById('cidade');
 
                                                 data.map(municipio => {
-                                                    content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
+                                                    console.log(municipio);
+                                                    //content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
                                                 });
 
-                                                cidade.innerHtml = content;
+                                                //cidade.innerHtml = content;
                                             }
                                             xhttp.open("GET", "{{ url('get-municipios-by-uf') }}/?uf=" + document.getElementById('estado').value);
                                             xhttp.send();
