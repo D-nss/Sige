@@ -31,17 +31,18 @@
                             </li>
                             <li>
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-2">
-                                    Áreas
+                                    Complementos
+
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-3">
-                                    Linhas de Extensão
+                                    Áreas
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-4">
-                                    Questões Complementares
+                                    Linhas Extensão
                                 </a>
                             </li>
                         </ul>
@@ -65,11 +66,11 @@
                                     <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
 
                                     <label for="tipo_extensao" class="font-weight-bold">Tipo de Extensão: </label>
-                                    <select name="tipo_extensao" class="form-control w-25" required="true" value="{{ old('tipo_extensao') }}" required>
+                                    <select name="tipo_extensao" class="form-control w-25" required="true" required>
                                         <option value="">Selecione ... </option>
-                                        <option value="Programa" @if(isset($inscricao->tipo) && $inscricao->tipo == 'Programa') selected @endif>Programa</option>
-                                        <option value="Projeto" @if(isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') selected @endif>Projeto</option>
-                                    </select>
+                                        <option value="Programa" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Programa') || old('estado ') == 'Programa') selected @endif>Programa</option>
+                                        <option value="Projeto" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') || old('estado ') == 'Projeto') selected @endif>Projeto</option>
+                                    </select>)
 
                                     <hr class="border-top border-bottom">
 
@@ -78,11 +79,12 @@
                                     <select name="estado" id="estado" class="form-control w-25 mb-4" required="true" value="{{ old('estado ') }}" required>
                                         <option value="">Selecione ...</option>
                                         @foreach($estados as $estado)
-                                            <option value="{{ $estado->uf }}" @if(isset($inscricaoLocal) && $inscricaoLocal[0]->uf == $estado->uf) selected @endif>{{ $estado->uf }}</option>
+                                            <option value="{{ $estado->uf }}" @if((isset($inscricaoLocal) && $inscricaoLocal[0]->uf == $estado->uf) || old('estado ') == $estado->uf) selected @endif>{{ $estado->uf }}</option>
                                         @endforeach
                                     </select>
                                     <label for="cidade" class="font-weight-bold">Cidade: </label>
-                                    <select name="cidade" id="cidade" class="form-control w-50" required="true" value="{{ old('cidade') }}" required>
+                                    <select name="cidade" id="cidade" class="form-control w-50" required="true" required>
+                                        <option value="@if(old('cidade')) selected @endif">{{ old('cidade') }}</option>
                                     @if( isset($inscricaoLocal) ) 
                                         <option value="{{ $inscricao->municipio_id }}">{{ $inscricaoLocal[0]->nome_municipio }}</option>
                                     @endif
@@ -91,8 +93,8 @@
                                     <hr class="border-top border-bottom">
 
                                     <h4 class="text-success">Há parcerias com outras instituições (públicas ou privadas) para o desenvolvimento do projeto?</h4>
-                                    Sim <input type="radio" name="parceria" id="parcerias_sim"  value="Sim" @if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') checked @endif required="true">
-                                    Não <input type="radio" name="parceria" id="parcerias_nao"  value="Não" @if(isset($inscricao->parceria) && $inscricao->parceria == 'Não') checked @endif required="true">
+                                    Sim <input type="radio" name="parceria" id="parceria"  value="Sim" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || old('parceria') == 'Sim') checked @endif required="true">
+                                    Não <input type="radio" name="parceria" id="parceria"  value="Não" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Não') || old('parceria') == 'Não') checked @endif required="true">
                                     <br>
                                     <div id="arquivo_parceria" class="@if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') d-block @else d-none @endif">
                                         <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
@@ -187,41 +189,6 @@
                                     <p class="text-warning font-size-16">O projeto deve ter no máximo 20 páginas e ser no formato PDF</p>
                                 </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel">
-                                    <h3 class="text-success">Áreas Temáticas</h3>
-                                    <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
-                                    <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
-                                        <?php $j = 0; ?>
-                                        @foreach($areas_tematicas as $area_tematica)
-                                            <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
-                                            <?php $j++; ?>
-                                        @endforeach
-                                            <!-- <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
-                                        <option value="3" @if(old('areas_tematicas') == '3') selected @endif>Direitos Humanos e Justiça</option>
-                                        <option value="4" @if(old('areas_tematicas') == '4') selected @endif>Educação</option>
-                                        <option value="5" @if(old('areas_tematicas') == '5') selected @endif>Meio Ambiente</option>
-                                        <option value="6" @if(old('areas_tematicas') == '6') selected @endif>Saúde</option>
-                                        <option value="7" @if(old('areas_tematicas') == '7') selected @endif>Tecnologia e Produção</option>
-                                        <option value="8" @if(old('areas_tematicas') == '8') selected @endif>Trabalho</option> -->
-                                    </select>
-
-                                </div>
-                                <div id="step-3" class="tab-pane" role="tabpanel">
-                                    <h3 class="text-success">Linhas de Extensão</h3>
-                                    <div class="col-sm-12 row">
-                                        
-                                            @foreach($linhas_extensao->chunk(2) as $chunked)
-                                                <div class="col-md-6">
-                                                    @foreach($chunked as $linha_extensao)
-                                                        <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $linha_extensao->descricao }}">
-                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || (isset($inscricao->linha_extensao_id) && $inscricao->linha_extensao_id == $linha_extensao->id) ) checked @endif required>{{ $linha_extensao->nome }}</label>
-                                                        <br>
-                                                    @endforeach
-                                                </div>
-                                            @endforeach
-                                           
-                                    </div>  
-                                </div>
-                                <div id="step-4" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Questões Complementares (Máx. 450 caracteres para cada questão)</h3>
                                     <div>
                                         <?php $i = 0; ?>
@@ -234,6 +201,45 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                <div id="step-3" class="tab-pane" role="tabpanel">
+                                    <h3 class="text-success">Áreas Temáticas</h3>
+                                    <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
+                                    <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
+                                            <option value="" selected></option>
+                                        @foreach($areas_tematicas as $area_tematica)
+                                            <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
+                                        @endforeach
+                                            <!-- <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
+                                        <option value="3" @if(old('areas_tematicas') == '3') selected @endif>Direitos Humanos e Justiça</option>
+                                        <option value="4" @if(old('areas_tematicas') == '4') selected @endif>Educação</option>
+                                        <option value="5" @if(old('areas_tematicas') == '5') selected @endif>Meio Ambiente</option>
+                                        <option value="6" @if(old('areas_tematicas') == '6') selected @endif>Saúde</option>
+                                        <option value="7" @if(old('areas_tematicas') == '7') selected @endif>Tecnologia e Produção</option>
+                                        <option value="8" @if(old('areas_tematicas') == '8') selected @endif>Trabalho</option> -->
+                                    </select>
+
+                                </div>
+                                <div id="step-4" class="tab-pane" role="tabpanel">
+                                    <h3 class="text-success">Linhas de Extensão</h3>
+                                    <div class="col-sm-12 row">
+                                        
+                                            @foreach($linhas_extensao->chunk(2) as $chunked)
+                                                <div class="col-md-6">
+                                                    <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="">
+                                                    <input type="radio" name="linha_extensao" value="" data-bv-field="linha_extensao"  checked required></label>
+                                                    <br>
+
+                                                    @foreach($chunked as $linha_extensao)
+                                                        <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $linha_extensao->descricao }}">
+                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || (isset($inscricao->linha_extensao_id) && $inscricao->linha_extensao_id == $linha_extensao->id) ) checked @endif required>{{ $linha_extensao->nome }}</label>
+                                                        <br>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                           
+                                    </div>  
+                                </div>
+                                
                             
                         </div>
                         
