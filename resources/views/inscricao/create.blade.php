@@ -133,6 +133,10 @@
                                                 </div>
                                                 </div>
                                                 <div class="box-body" id="comprovante-box-body">
+                                                    @if(old('comprovante_parceria'))
+                                                        <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="Comprovante" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                    @endif
+
                                                     @if(isset($inscricao->anexo_parceria))
                                                     <a href='{{ url("storage/$inscricao->anexo_parceria") }}' class="btn btn-link" target="_blank">
                                                         <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
@@ -191,6 +195,10 @@
                                             </div>
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
+                                                @if(old('pdf_projeto'))
+                                                    <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                @endif
+
                                                 @if(isset($inscricao->anexo_projeto))
                                                 <a href='{{ url("storage/$inscricao->anexo_projeto") }}' class="btn btn-link" target="_blank">
                                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
