@@ -68,8 +68,8 @@
                                     <label for="tipo_extensao" class="font-weight-bold">Tipo de Extensão: </label>
                                     <select name="tipo_extensao" class="form-control w-25" required="true" required>
                                         <option value="">Selecione ... </option>
-                                        <option value="Programa" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Programa') || old('estado ') == 'Programa') selected @endif>Programa</option>
-                                        <option value="Projeto" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') || old('estado ') == 'Projeto') selected @endif>Projeto</option>
+                                        <option value="Programa" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Programa') || old('tipo_extensao') == 'Programa') selected @endif>Programa</option>
+                                        <option value="Projeto" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') || old('tipo_extensao') == 'Projeto') selected @endif>Projeto</option>
                                     </select>
 
                                     <hr class="border-top border-bottom">
@@ -79,14 +79,33 @@
                                     <select name="estado" id="estado" class="form-control w-25 mb-4" required="true" value="{{ old('estado ') }}" required>
                                         <option value="">Selecione ...</option>
                                         @foreach($estados as $estado)
-                                            <option value="{{ $estado->uf }}" @if((isset($inscricaoLocal) && $inscricaoLocal[0]->uf == $estado->uf) || old('estado ') == $estado->uf) selected @endif>{{ $estado->uf }}</option>
+                                            <option value="{{ $estado->uf }}" @if((isset($inscricaoLocal) && $inscricaoLocal[0]->uf == $estado->uf) || old('estado') == $estado->uf) selected @endif>{{ $estado->uf }}</option>
                                         @endforeach
                                     </select>
                                     <label for="cidade" class="font-weight-bold">Cidade: </label>
                                     <select name="cidade" id="cidade" class="form-control w-50" required="true" required>
-                                        <option value="@if(old('cidade')) selected @endif">{{ old('cidade') }}</option>
                                     @if( isset($inscricaoLocal) ) 
                                         <option value="{{ $inscricao->municipio_id }}">{{ $inscricaoLocal[0]->nome_municipio }}</option>
+                                    @endif
+
+                                    @if( old('cidade') )
+                                        <script>
+                                            $.ajax({
+                                                url: "{{ url('get-municipios-by-uf') }}",
+                                                method: "GET",
+                                                dataType: 'json',
+                                                data: { _token : $('meta[name="csrf-token"]').attr('content'), uf: $('#estado').val() },
+                                                success: function(data) {
+                                                    var content = '';
+
+                                                    data.map(municipio => {
+                                                        content += `<option value="${municipio.id}" @if( old('cidade') == ${municipio.id} ) selected @enif>${municipio.nome_municipio}</option>`;
+                                                    });
+
+                                                    $('#cidade').html(content);
+                                                }
+                                            });
+                                        </script>
                                     @endif
                                     </select> 
 
