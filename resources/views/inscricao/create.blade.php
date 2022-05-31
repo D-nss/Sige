@@ -94,7 +94,7 @@
                                             const xhttp = new XMLHttpRequest();
                                             xhttp.onload = function() {
                                                 var data = this.responseText;
-                                                console.log(typeof data);
+                                                console.log(JSON.parse(data));
                                                 // var content = '';
                                                 // var cidade = document.getElementById('cidade');
 
