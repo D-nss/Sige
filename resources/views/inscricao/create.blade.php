@@ -70,7 +70,7 @@
                                         <option value="">Selecione ... </option>
                                         <option value="Programa" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Programa') || old('estado ') == 'Programa') selected @endif>Programa</option>
                                         <option value="Projeto" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') || old('estado ') == 'Projeto') selected @endif>Projeto</option>
-                                    </select>)
+                                    </select>
 
                                     <hr class="border-top border-bottom">
 
