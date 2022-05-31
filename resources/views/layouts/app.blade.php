@@ -645,14 +645,14 @@ Versão: 4.5.1
                 });
 
                 $("#parceria_sim").click(function() {
-                    if($("#parcerias_sim").val() == 'Sim') {
+                    if($("#parceria_sim").val() == 'Sim') {
                         $("#arquivo_parceria").removeClass("d-none");
                         $("#arquivo_parceria").addClass("d-block");
                     }
                 });
 
                 $("#parceria_nao").click(function() {
-                    if($("#parcerias_nao").val() == 'Não') {
+                    if($("#parceria_nao").val() == 'Não') {
                         $("#arquivo_parceria").removeClass("d-block");
                         $("#arquivo_parceria").addClass("d-none");
                     }
