@@ -127,7 +127,7 @@ class InscricaoController extends Controller
             if($key == 'comprovante_parceria') {
                 $validar[$key] = 'mimes:pdf';
             }
-            
+
             if(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:450';
             }
@@ -137,7 +137,7 @@ class InscricaoController extends Controller
         }
 
         //$validated = $request->validate($validar);
-        echo json_encode($validar);
+        echo json_encode($inputsParaValidar);
         // $user = User::where('email', Auth::user()->id)->first();
 
         // $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
