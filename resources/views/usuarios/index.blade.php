@@ -28,11 +28,11 @@
             <table id="dt-usuarios" class="table table-bordered table-hover table-striped w-100">
                 <thead>
                     <tr>
-                        <th><i class="fal fa-user"></i></th>
                         <th>Nome</th>
                         <th>Unidade</th>
                         <th>Email</th>
-                        <th>Acessado em</th>
+                        <th>Criado em</th>
+                        <th>Último acesso</th>
                         <th>Estado</th>
                         <th>Ações</th>
                     </tr>
@@ -40,10 +40,10 @@
                 <tbody>
                     @foreach($usuarios as $usuario)
                         <tr>
-                            <td>{{$usuario->id}}</td>
                             <td>{{$usuario->name}}</td>
                             <td>{{$usuario->unidade->sigla}}</td>
                             <td>{{$usuario->email}}</td>
+                            <td> {{$usuario->created_at->format('d/m/Y H:i:s')}}</td>
                             <td> {{$usuario->updated_at->format('d/m/Y H:i:s')}}</td>
                             <td>
                                 @if ($usuario->ativo)

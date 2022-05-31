@@ -57,6 +57,9 @@ class CheckIsUserMiddleware
             }
         }
 
+        $user->updated_at = now();
+        $user->save();
+
         Auth::guard('web_user')->login($user);
         //Auth::setUser($user);
 
