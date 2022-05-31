@@ -94,15 +94,15 @@
                                             const xhttp = new XMLHttpRequest();
                                             xhttp.onload = function() {
                                                 var data = this.responseText;
-                                                console.log(JSON.parse(data));
-                                                // var content = '';
-                                                // var cidade = document.getElementById('cidade');
+                                                data = JSON.parse(data);
+                                                var content = '';
+                                                var cidade = document.getElementById('cidade');
 
-                                                // data.map(municipio => {
-                                                //     content += `<option value="${municipio.id}">${municipio.nome_municipio}</option>`;
-                                                // });
+                                                data.map(municipio => {
+                                                    content += `<option value="${municipio.id}" @if( old('cidade') == '${municipio.id}' ) selected @endif>${municipio.nome_municipio}</option>`;
+                                                });
 
-                                                // cidade.innerHtml = content;
+                                                cidade.innerHTML = content;
                                             }
                                             xhttp.open("GET", "{{ url('get-municipios-by-uf') }}/?uf=" + document.getElementById('estado').value);
                                             xhttp.send();
