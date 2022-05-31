@@ -135,8 +135,8 @@ class InscricaoController extends Controller
             }
         }
 
-        $validated = $request->validate($validar);
-        echo json_encode($validated);
+        //$validated = $request->validate($validar);
+        echo json_encode($validar);
         // $user = User::where('email', Auth::user()->id)->first();
 
         // $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
