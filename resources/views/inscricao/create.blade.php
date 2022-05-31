@@ -93,7 +93,7 @@
                                             function loadDoc() {
                                             const xhttp = new XMLHttpRequest();
                                             xhttp.onload = function() {
-                                                data = this.responseText;
+                                                var data = this.responseText;
                                                 var content = '';
                                                 var cidade = document.getElementById('cidade');
 
