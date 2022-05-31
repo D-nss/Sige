@@ -222,13 +222,11 @@
                                 <div id="step-4" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Linhas de Extensão</h3>
                                     <div class="col-sm-12 row">
-                                        
+                                            <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="">
+                                            <input type="radio" name="linha_extensao" value="" data-bv-field="linha_extensao"  checked required></label>
+                                            <br>
                                             @foreach($linhas_extensao->chunk(2) as $chunked)
                                                 <div class="col-md-6">
-                                                    <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="">
-                                                    <input type="radio" name="linha_extensao" value="" data-bv-field="linha_extensao"  checked required></label>
-                                                    <br>
-
                                                     @foreach($chunked as $linha_extensao)
                                                         <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $linha_extensao->descricao }}">
                                                         <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || (isset($inscricao->linha_extensao_id) && $inscricao->linha_extensao_id == $linha_extensao->id) ) checked @endif required>{{ $linha_extensao->nome }}</label>
