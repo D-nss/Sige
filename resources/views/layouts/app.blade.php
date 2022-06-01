@@ -868,6 +868,12 @@ Versão: 4.5.1
                 },10000);
             });
 
+            $('#btn-submeter').click(function(){
+                let text = "Após a submissão não será possível alterar a inscrição. Deseja submeter?";
+                if (confirm(text) == true) {
+                    $('#form-submeter').submit();
+                }
+            });
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
