@@ -184,6 +184,10 @@
                                         <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)){{ $inscricao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif" required />
                                     </div>
 
+                                    @if( old('pdf_projeto') != null )
+                                        <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                    @endif
+
                                     <div class="preview-zone hidden">
                                         <div class="box box-solid">
                                             <div class="box-header with-border">
@@ -196,11 +200,6 @@
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
                                                 
-                                                @if( !is_null(old('pdf_projeto')) )
-                                                    {{ dd(old('pdf_projeto')) }}
-                                                    <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
-                                                @endif
-
                                                 @if(isset($inscricao->anexo_projeto))
                                                 <a href='{{ url("storage/$inscricao->anexo_projeto") }}' class="btn btn-link" target="_blank">
                                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
