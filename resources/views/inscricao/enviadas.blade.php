@@ -43,14 +43,14 @@
                             <td>{{ $inscricao->status }}</td>
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->created_at)) }}</td>
                             <td>
-                                <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger"><i class="far fa-eye"></i> Ver</a>
+                                <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
-                                <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info"><i class="far fa-edit"></i>Editar</a>
-                                <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary"><i class="far fa-list"></i>Orçamento</a>
+                                <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
+                                <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1"><i class="far fa-list"></i> Orçamento</a>
                                 <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post">
                                     @csrf
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="far fa-arrow-right"></i>Submeter
+                                    <button type="submit" class="btn btn-success m-1">
+                                        <i class="far fa-arrow-right"></i> Submeter
                                     </button>
                                 </form>
                                 @endif
