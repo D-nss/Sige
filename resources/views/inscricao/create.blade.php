@@ -134,6 +134,7 @@
                                                 </div>
                                                 <div class="box-body" id="comprovante-box-body">
                                                     @if( old('parceria') == 'Sim' )
+                                                       {{ old('pdf_projeto') }}
                                                         <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="Comprovante" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                     @endif
 
