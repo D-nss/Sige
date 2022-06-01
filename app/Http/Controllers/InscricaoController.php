@@ -167,7 +167,7 @@ class InscricaoController extends Controller
                 'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 3000000),
                 'url_projeto' => $request->link_projeto,
                 'url_lattes' => $request->link_lattes,
-                'status' => 'Submetido',
+                'status' => 'Salvo',
                 'linha_extensao_id' => $request->linha_extensao,
                 'user_id' => $user->id,
                 'unidade_id' => $user->unidade->id,
@@ -454,6 +454,37 @@ class InscricaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function submeter($id)
+    {
+        $inscricao = Inscricao::findOrFail($id);
+
+        if($inscricao->status === 'Submetido') {
+            session()->flash('status', 'Inscrição já submetida.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+
+        $inscricao->status = 'Submetido';
+
+        if($inscricao->save()) {
+            session()->flash('status', 'Inscrição submetida com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao submeter sua inscrição');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function indicarAvaliador($id)
     {
         $inscricao = Inscricao::findOrFail($id);
@@ -553,6 +584,8 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
     }
+
+    
 
     /**
      * Display a listing of the resource.
