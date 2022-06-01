@@ -120,7 +120,7 @@
                                     Sim <input type="radio" name="parceria" id="parceria_sim"  value="Sim" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || old('parceria') == 'Sim') checked @endif required="true">
                                     Não <input type="radio" name="parceria" id="parceria_nao"  value="Não" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Não') || old('parceria') == 'Não') checked @endif required="true">
                                     <br>
-                                    <div id="arquivo_parceria" class="@if(isset($inscricao->parceria) && $inscricao->parceria == 'Sim') d-block @else d-none @endif">
+                                    <div id="arquivo_parceria" class="@if( (isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || !empty(old('pdf_projeto')) ) d-block @else d-none @endif">
                                         <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
                                         <div class="preview-zone hidden">
                                             <div class="box box-solid">
@@ -133,7 +133,7 @@
                                                 </div>
                                                 </div>
                                                 <div class="box-body" id="comprovante-box-body">
-                                                    @if(old('comprovante_parceria'))
+                                                    @if( !empty(old('comprovante_parceria')) )
                                                         <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="Comprovante" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                     @endif
 
@@ -195,7 +195,7 @@
                                             </div>
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
-                                                @if(old('pdf_projeto'))
+                                                @if( !empty(old('pdf_projeto')) )
                                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                 @endif
 
