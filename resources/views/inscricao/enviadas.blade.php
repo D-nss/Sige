@@ -47,31 +47,7 @@
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
                                 <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1"><i class="far fa-list"></i> Orçamento</a>
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#default-example-modal">Default Modal</button>
-                                <div class="modal fade" id="default-example-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">
-                                                    Basic Modals
-                                                    <small class="m-0 text-muted">
-                                                        Below is a static modal example
-                                                    </small>
-                                                </h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ...
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <!-- Button trigger modal -->
                                 <!-- <button type="button" class="btn btn-success m-1" data-toggle="modal" data-target="#{{$inscricao->id}}Modal">
                                     <i class="far fa-arrow-right"></i> Submeter
@@ -113,6 +89,30 @@
         </div>
     </div>
 </div>
-
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#default-example-modal">Default Modal</button>
+                                <div class="modal fade" id="default-example-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">
+                                                    Basic Modals
+                                                    <small class="m-0 text-muted">
+                                                        Below is a static modal example
+                                                    </small>
+                                                </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ...
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 @endsection
