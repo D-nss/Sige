@@ -196,7 +196,7 @@
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
                                                 
-                                                @if( old('pdf_projeto') == null )
+                                                @if( old('pdf_projeto') != null )
                                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                 @endif
                                                 
