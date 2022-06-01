@@ -195,6 +195,7 @@
                                             </div>
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
+                                                {{ dd(old('pdf_projeto')) }}
                                                 @if( !empty(old('pdf_projeto')) )
                                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                 @endif
