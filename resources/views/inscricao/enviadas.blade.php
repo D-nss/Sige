@@ -47,12 +47,38 @@
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
                                 <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1"><i class="far fa-list"></i> Orçamento</a>
-                                <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success m-1">
-                                        <i class="far fa-arrow-right"></i> Submeter
-                                    </button>
-                                </form>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#{{$inscricao->id}}Modal">
+                                    <i class="far fa-arrow-right"></i> Submeter
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{$inscricao->id}}Modal" tabindex="-1" aria-labelledby="{{$inscricao->id}}ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="{{$inscricao->id}}ModalLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-danger">Após a submissão não será possível alterar sua inscrição!</p>
+                                            <p>Deseja submeter sua inscrição?</p>
+                                            <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="far fa-arrow-right"></i> Submeter
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 @endif
                             </td>
                         </tr>
