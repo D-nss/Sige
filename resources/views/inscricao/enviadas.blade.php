@@ -48,7 +48,7 @@
                                 <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1"><i class="far fa-list"></i> Orçamento</a>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#{{$inscricao->id}}Modal">
+                                <button type="button" class="btn btn-success m-1" data-toggle="modal" data-target="#{{$inscricao->id}}Modal">
                                     <i class="far fa-arrow-right"></i> Submeter
                                 </button>
 
