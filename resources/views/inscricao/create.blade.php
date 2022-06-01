@@ -120,7 +120,7 @@
                                     Sim <input type="radio" name="parceria" id="parceria_sim"  value="Sim" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || old('parceria') == 'Sim') checked @endif required="true">
                                     Não <input type="radio" name="parceria" id="parceria_nao"  value="Não" @if((isset($inscricao->parceria) && $inscricao->parceria == 'Não') || old('parceria') == 'Não') checked @endif required="true">
                                     <br>
-                                    <div id="arquivo_parceria" class="@if( (isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || !empty(old('pdf_projeto')) ) d-block @else d-none @endif">
+                                    <div id="arquivo_parceria" class="@if( (isset($inscricao->parceria) && $inscricao->parceria == 'Sim') || old('parceria') == 'Sim' ) d-block @else d-none @endif">
                                         <label for="comprovante_parceria" class="font-weight-bold">Caso deseje enviar o comprovante da parceria inclua o no campo abaixo: </label>
                                         <div class="preview-zone hidden">
                                             <div class="box box-solid">
@@ -133,7 +133,8 @@
                                                 </div>
                                                 </div>
                                                 <div class="box-body" id="comprovante-box-body">
-                                                    @if( !empty(old('comprovante_parceria')) )
+                                                    @if( old('parceria') == 'Sim' )
+                                                    {{ dd(old('pdf_projeto')) }}
                                                         <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="Comprovante" class="img-thumbnail mb-2" style="max-width: 75px;" />    
                                                     @endif
 
@@ -184,10 +185,6 @@
                                         <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)){{ $inscricao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif" required />
                                     </div>
 
-                                    @if( old('pdf_projeto') != null )
-                                        <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
-                                    @endif
-
                                     <div class="preview-zone hidden">
                                         <div class="box box-solid">
                                             <div class="box-header with-border">
@@ -199,6 +196,10 @@
                                             </div>
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
+                                                
+                                                @if( old('pdf_projeto') != null )
+                                                    <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="PDF Projeto" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                @endif
                                                 
                                                 @if(isset($inscricao->anexo_projeto))
                                                 <a href='{{ url("storage/$inscricao->anexo_projeto") }}' class="btn btn-link" target="_blank">
