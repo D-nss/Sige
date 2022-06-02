@@ -29,7 +29,7 @@ class IndicadorUnidadeController extends Controller
     {
         //unidade do usuario logado
         $user = User::where('email', Auth::user()->id)->first();
-        $indicadores  = IndicadorUnidade::where('unidade_id', $unidade->id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
+        $indicadores  = IndicadorUnidade::where('unidade_id', $user->unidade->id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
         $indicadoresParametros = IndicadoresParametros::first();
 
         return view('indicadores.index', [
