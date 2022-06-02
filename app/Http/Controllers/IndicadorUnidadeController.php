@@ -12,6 +12,7 @@ use App\Models\Indicador;
 use App\Models\Unidade;
 use App\Models\ItemsPlanes;
 use App\Models\IndicadorUnidade;
+use App\Models\IndicadoresParametros;
 
 class IndicadorUnidadeController extends Controller
 {
