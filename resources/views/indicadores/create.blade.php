@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
-                @if( strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite) )
+                @if( isset($indicadoresParametros->data_limite) && strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite) )
                 <form action="{{ url('/indicadores') }}" method="post">
                     @csrf
                     <div id="smartwizard" class="sw-main sw-theme-default p-4">
