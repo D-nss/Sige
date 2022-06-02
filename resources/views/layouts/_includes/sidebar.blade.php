@@ -66,7 +66,7 @@
                             <a href="{{ url('indicadores') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
                             </a>
-                            @hasanyrole('super|admin|indicadores-admin, 'web_user')
+                            @hasanyrole('super|admin|indicadores-admin', 'web_user')
                             <a href="{{ url('indicadores-parametros') }}" title="Parametros" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Parâmetros</span>
                             </a>
