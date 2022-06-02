@@ -166,27 +166,30 @@ class IndicadorUnidadeController extends Controller
 
         $indicadoresParametros = IndicadoresParametros::first();
 
-        if( (strtotime(date('Y-m-d')) > strtotime($indicadoresParametros->data_limite)) || !$user->hasRole('indicadores-editar') ) {
+        if( (strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite)) || $user->hasRole('indicadores-editar') ) {
+            $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
+            ->where('indicadores_unidades.unidade_id', $user->unidade->id)
+            ->where('indicadores_unidades.ano_base', $ano)
+            ->get();
+
+            $indicadoresSerializado = $this->serializarIndicadores($indicadores);
+
+            $edit = true;
+            //echo json_encode($indicadoresSerializado);
+            return view('indicadores.edit', [
+                'indicadoresSerializado' => $indicadoresSerializado,
+                'ano' => $ano,
+                'edit' => $edit,
+                'unidade' => $user->unidade
+            ]);
+        }
+        else {
             session()->flash('status', 'Desculpe! Edição de indicadores não permitida');
             session()->flash('alert', 'warning');
             return redirect()->back();
         }
 
-        $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
-        ->where('indicadores_unidades.unidade_id', $user->unidade->id)
-        ->where('indicadores_unidades.ano_base', $ano)
-        ->get();
-
-        $indicadoresSerializado = $this->serializarIndicadores($indicadores);
-
-        $edit = true;
-        //echo json_encode($indicadoresSerializado);
-        return view('indicadores.edit', [
-            'indicadoresSerializado' => $indicadoresSerializado,
-            'ano' => $ano,
-            'edit' => $edit,
-            'unidade' => $user->unidade
-        ]);
+        
     }
 
     /**
