@@ -141,7 +141,7 @@ class InscricaoController extends Controller
         foreach($inputsParaValidar as $key => $inputs) {
             if(substr($key, 0, 8) == 'questao-') {
                 $mensagens[$key.'.required'] = 'Uma questão complementar não foi preenchida';
-                $mensagens[$key.'.max:450'] = 'Uma questão complementar ultrapassou o máximo permitido de caracteres';
+                $mensagens[$key.'.max'] = 'Uma questão complementar ultrapassou o máximo permitido de caracteres';
             }
         }
 
