@@ -13,7 +13,7 @@
                 <label for="" class="form-label" style="color: #333">Indique o ano base <i class="far fa-comment-circle" data-toggle="tooltip" data-placement="right" title="Ano em que se refere os indicadores"></i></label>
                 <div class="row">
                     <div class="col-sm-3">
-                        <input type="number" class="form-control" name="ano_base" value="{{ isset($ano) ? $ano : isset($indicadoresParametros->ano_base)}}" placeholder="Ex: 2022" {{ isset($ano) ? 'readonly' : ''}} required="required" pattern="[0-9]+$">
+                        <input type="number" class="form-control" name="ano_base" value="{{ isset($ano) ? $ano : $indicadoresParametros->ano_base}}" placeholder="Ex: 2022" {{ isset($ano) ? 'readonly' : ''}} required="required" pattern="[0-9]+$">
                         @error( 'ano_base' )
                             <span class="text-danger font-weight-bold mt-2">{{ $message }}</span>
                         @enderror 
