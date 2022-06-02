@@ -28,12 +28,15 @@ class IndicadorUnidadeController extends Controller
     public function index()
     {
         //unidade do usuario logado
-        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
+        $user = User::where('email', Auth::user()->id)->first();
         $indicadores  = IndicadorUnidade::where('unidade_id', $unidade->id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
+        $indicadoresParametros = IndicadoresParametros::first();
 
         return view('indicadores.index', [
             'indicadores' => $indicadores,
-            'unidade' => $unidade
+            'indicadoresParametros' => $indicadoresParametros,
+            'unidade' => $user->unidade,
+            'user' => $user
         ]);
     }
 
@@ -51,10 +54,13 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
+        $anoExistente = IndicadorUnidade::where('unidade_id', $unidade)->where('ano_base', $indicadoresParametros->ano_base)->count();
+
         return view('indicadores.create', [
             'indicadoresSerializado' => $indicadoresSerializado,
             'indicadoresParametros' => $indicadoresParametros,
-            'unidade' => $unidade
+            'unidade' => $unidade,
+            'anoExistente' => $anoExistente
         ]);
     }
 

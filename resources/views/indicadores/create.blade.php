@@ -31,6 +31,8 @@
 
                     </div>
                 </form>
+                @elseif($anoExistente == 1)
+                    <h4 class="text-secondary m-3"> <i class="far fa-exclamation-circle"></i> Indicadores já cadastrados.</h4>
                 @else
                     <h4 class="text-secondary m-3"> <i class="far fa-exclamation-circle"></i> Desculpe! O período de cadastro dos indicadores já se encerrou.</h4>
                 @endif
