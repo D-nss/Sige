@@ -18,6 +18,7 @@ use App\Http\Controllers\AreaTematicaController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AvaliadorPorInscricaoController;
+use App\Http\Controllers\IndicadoresParametrosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
+    Route::resource('/indicadores-parametros', IndicadoresParametrosController::class);
 
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class);

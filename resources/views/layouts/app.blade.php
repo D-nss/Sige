@@ -875,6 +875,19 @@ Versão: 4.5.1
                 }
             });
 
+            $("#indicadores-parametros-editar-btn").click(function(){
+                $('#ano_base').prop('readonly', false);
+                $('#ano_base').removeClass('disabled');
+                $('#data_limite').prop('readonly', false);
+                $('#data_limite').removeClass('disabled');
+                $('#indicadores-parametros-editar-btn').prop('disabled', true);
+                $('#indicadores-parametros-salvar-btn').prop('disabled', false);
+            });
+
+            $("#indicadores-parametros-salvar-btn").click(function(){
+                $('#indicadores-parametros-form').submit();
+            });
+
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
     </body>

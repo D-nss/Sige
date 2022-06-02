@@ -29,6 +29,7 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
         $indicadores  = IndicadorUnidade::where('unidade_id', $unidade->id)->distinct()->orderBy('ano_base', 'desc')->get(['ano_base']);
+
         return view('indicadores.index', [
             'indicadores' => $indicadores,
             'unidade' => $unidade
@@ -43,14 +44,15 @@ class IndicadorUnidadeController extends Controller
     public function create()
     {
         $indicadores = Indicador::all()->toArray();
-
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
+        $indicadoresParametros = IndicadoresParametros::first();
 
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
         return view('indicadores.create', [
             'indicadoresSerializado' => $indicadoresSerializado,
+            'indicadoresParametros' => $indicadoresParametros,
             'unidade' => $unidade
         ]);
     }
