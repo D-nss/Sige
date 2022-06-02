@@ -32,7 +32,7 @@
                     </div>
                 </form>
                 @else
-                    <h4 class="text-light">Desculpe! O período de cadastro dos indicadores já se encerrou.</h4>
+                    <h4 class="text-secondary">Desculpe! O período de cadastro dos indicadores já se encerrou.</h4>
                 @endif
             </div>
         </div>
