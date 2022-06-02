@@ -33,7 +33,9 @@
                     </div>
                 </div>
                 @empty
+                <div id="panel-1" class="panel">
                     <h4 class="text-secondary m-3"><i class="far fa-exclamation-circle"></i> Você não possui indicadores cadastrados.</h4>
+                </div>
                 @endforelse
             </div>
         </div>
