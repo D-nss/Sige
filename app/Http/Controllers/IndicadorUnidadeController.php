@@ -162,10 +162,18 @@ class IndicadorUnidadeController extends Controller
     public function edit($ano)
     {
         //unidade do usuario logado
-        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
+        $user  =  User::where('email', Auth::user()->id)->first();
+
+        $indicadoresParametros = IndicadoresParametros::first();
+
+        if( (strtotime(date('Y-m-d')) > strtotime($indicadoresParametros->data_limite)) || !$user->hasRole('indicadores-editar') ) {
+            session()->flash('status', 'Desculpe! Edição de indicadores não permitida');
+            session()->flash('alert', 'warning');
+            return redirect()->back();
+        }
 
         $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
-        ->where('indicadores_unidades.unidade_id', $unidade->id)
+        ->where('indicadores_unidades.unidade_id', $user->unidade->id)
         ->where('indicadores_unidades.ano_base', $ano)
         ->get();
 
@@ -177,7 +185,7 @@ class IndicadorUnidadeController extends Controller
             'indicadoresSerializado' => $indicadoresSerializado,
             'ano' => $ano,
             'edit' => $edit,
-            'unidade' => $unidade
+            'unidade' => $user->unidade
         ]);
     }
 
