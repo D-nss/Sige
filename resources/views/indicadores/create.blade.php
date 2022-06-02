@@ -23,16 +23,18 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 @if( isset($indicadoresParametros) && strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite) )
-                <form action="{{ url('/indicadores') }}" method="post">
-                    @csrf
-                    <div id="smartwizard" class="sw-main sw-theme-default p-4">
+                    @if($anoExistente == 1)
+                        <h4 class="text-secondary m-3"> <i class="far fa-exclamation-circle"></i> Indicadores já cadastrados.</h4>
+                    @else
+                    <form action="{{ url('/indicadores') }}" method="post">
+                        @csrf
+                        <div id="smartwizard" class="sw-main sw-theme-default p-4">
 
-                    @include('indicadores._form')
+                        @include('indicadores._form')
 
-                    </div>
-                </form>
-                @elseif($anoExistente == 1)
-                    <h4 class="text-secondary m-3"> <i class="far fa-exclamation-circle"></i> Indicadores já cadastrados.</h4>
+                        </div>
+                    </form>
+                    @endif
                 @else
                     <h4 class="text-secondary m-3"> <i class="far fa-exclamation-circle"></i> Desculpe! O período de cadastro dos indicadores já se encerrou.</h4>
                 @endif
