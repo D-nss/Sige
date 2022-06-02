@@ -136,8 +136,16 @@ class InscricaoController extends Controller
             }
         }
 
-        $validated = $request->validate($validar);
-        
+        $mensagem = array();
+
+        foreach($request as $key => $inputs) {
+            if(substr($key, 0, 8) == 'questao-') {
+                array_push($mensagem, [$key.'.required' => 'Questao complementar é necessario ou está maior que 450 caracteres']);
+            }
+        }
+
+        $validated = $request->validate($validar,$mensagem);
+
         $user = User::where('email', Auth::user()->id)->first();
 
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
@@ -585,7 +593,7 @@ class InscricaoController extends Controller
         }
     }
 
-    
+
 
     /**
      * Display a listing of the resource.
