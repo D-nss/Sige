@@ -60,14 +60,14 @@
                     </a>
                     <ul>
                         <li class="">
-                            <a href="{{ url('indicadores/novo') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <a href="{{ url('indicadores/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
                             </a>
-                            <a href="{{ url('indicadores') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <a href="{{ url('indicadores') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
                             </a>
                             @hasanyrole('super|admin|indicadores-admin, 'web_user')
-                            <a href="{{ url('indicadores-parametros') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <a href="{{ url('indicadores-parametros') }}" title="Parametros" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Parâmetros</span>
                             </a>
                             @endhasanyrole
