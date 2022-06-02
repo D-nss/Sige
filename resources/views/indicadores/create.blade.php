@@ -23,6 +23,7 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 @if( isset($indicadoresParametros) && strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite) )
+                {{ dd($anoExistente) }}
                     @if($anoExistente == 1)
                         <h4 class="text-secondary m-3"> <i class="far fa-exclamation-circle"></i> Indicadores já cadastrados.</h4>
                     @else
