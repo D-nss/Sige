@@ -54,7 +54,7 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
-        $anoExistente = IndicadorUnidade::where('unidade_id', $unidade)->where('ano_base', $indicadoresParametros->ano_base)->count();
+        $anoExistente = IndicadorUnidade::where('unidade_id', $unidade->id)->where('ano_base', $indicadoresParametros->ano_base)->count();
 
         return view('indicadores.create', [
             'indicadoresSerializado' => $indicadoresSerializado,
