@@ -32,7 +32,7 @@ class IndicadorUnidadeController extends Controller
         $indicadores  = IndicadorUnidade::where('unidade_id', $user->unidade->id)
         ->distinct()
         ->orderBy('ano_base', 'desc')
-        ->get(['indicadores_unidades.ano_base', 'indicadores_parametros.data_limite']);
+        ->get(['ano_base']);
 
         $anosBase = IndicadoresParametros::all();
 
