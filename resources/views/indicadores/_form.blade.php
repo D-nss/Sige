@@ -13,7 +13,7 @@
                 <label for="" class="form-label" style="color: #333">Indique o ano base <i class="far fa-comment-circle" data-toggle="tooltip" data-placement="right" title="Ano em que se refere os indicadores"></i></label>
                 <div class="row">
                     <div class="col-sm-3">
-                        <select class="form-control" name="ano_base" placeholder="Selecione ..." required="required" pattern="[0-9]+$" @if(explode('/', Request::url())[5] == 'editar') disabled @endif>
+                        <select class="form-control" name="ano_base" placeholder="Selecione ..." required="required" pattern="[0-9]+$" @if(isset(explode('/', Request::url())[5]) && explode('/', Request::url())[5] == 'editar') disabled @endif>
                             @foreach($anos_base as $ano)
                                 <option value="{{ $ano->ano_base }}" @if( old('ano_base') == $ano->ano_base) selected @endif>{{ $ano->ano_base }}</option>
                             @endforeach
