@@ -167,7 +167,7 @@ class IndicadorUnidadeController extends Controller
         $user  =  User::where('email', Auth::user()->id)->first();
 
         $indicadoresParametros = IndicadoresParametros::where('ano_base', $ano)->get();
-        echo json_encode($indicadoresParametros);
+        echo json_encode($indicadoresParametros[0]->ano_base);
         // if( (strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite)) || $user->hasRole('indicadores-editar') ) {
         //     $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
         //     ->where('indicadores_unidades.unidade_id', $user->unidade->id)
