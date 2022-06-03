@@ -38,21 +38,38 @@
                                         <strong>
                                             <label for="ano_base">Ano Base</label>
                                         </strong>
-                                        <input type="text" class="form-control disabled" name="ano_base" id="ano_base" maxlength="4" value="@if(isset($indicadoresParametros->ano_base)){{$indicadoresParametros->ano_base}}@endif" readonly>
+                                        <input type="text" class="form-control" name="ano_base" id="ano_base" maxlength="4" value="@if(isset($indicadoresParametros->ano_base)){{$indicadoresParametros->ano_base}}@endif">
                                     </div>
                                     <div class="col">
                                         <strong>
                                             <label for="data_limite">Data Limite</label>
                                         </strong>
-                                        <input type="date" class="form-control disabled" name="data_limite" id="data_limite" value="@if(isset($indicadoresParametros->data_limite)){{$indicadoresParametros->data_limite}}@endif" readonly>
+                                        <input type="date" class="form-control" name="data_limite" id="data_limite" value="@if(isset($indicadoresParametros->data_limite)){{$indicadoresParametros->data_limite}}@endif">
                                     </div>
                                 </div>
                                 <div class="my-2">
-                                    <button class="btn btn-xs btn-primary waves-effect waves-themed" type="button" id="indicadores-parametros-editar-btn">Editar</button>
-                                    <button class="btn btn-xs btn-success waves-effect waves-themed" type="button" id="indicadores-parametros-salvar-btn" disabled>Salvar</button>
+                                    <button class="btn btn-xs btn-success waves-effect waves-themed" type="button" id="indicadores-parametros-salvar-btn">Salvar</button>
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="d-flex flex-start align-items-center">
+                        <ul class="list-group w-100">
+                        @foreach($indicadoresParametros as $ip)
+                            <li class="list-group-item">
+                                Ano Base: {{ $ip->ano_base }} <i class="fal fa-arrow-right mx-2"></i> Data Limite: {{ date('d/m/Y',  strtotime($ip->data_limite)) }}
+                                <form action="{{ url('indicadores-parametros/' . $ip->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-xs btn-secondary waves-effect waves-themed" type="submit" id="indicadores-parametros-remove-btn">Remover</button>
+                                </form>
+                            </li>
+                        @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
