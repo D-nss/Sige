@@ -44,7 +44,7 @@ class IndicadorUnidadeController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -56,13 +56,13 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
-        $anoExistente = IndicadorUnidade::where('unidade_id', $unidade->id)->where('ano_base', $indicadoresParametros->ano_base)->count();
+        $anos_base = IndicadoresParametros::distinct()->get(['ano_base']);
 
         return view('indicadores.create', [
             'indicadoresSerializado' => $indicadoresSerializado,
             'indicadoresParametros' => $indicadoresParametros,
             'unidade' => $unidade,
-            'anoExistente' => $anoExistente
+            'anos_base' => $anos_base,
         ]);
     }
 
