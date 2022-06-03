@@ -10,7 +10,7 @@ class IndicadoresParametrosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:indicadores-admin|super');
+        //$this->middleware('role:indicadores-admin|super');
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class IndicadoresParametrosController extends Controller
      */
     public function index()
     {
-        $indicadoresParametros = IndicadoresParametros::first();
+        $indicadoresParametros = IndicadoresParametros::all();
 
         return view('indicadores.manage', compact('indicadoresParametros'));
     }
@@ -34,27 +34,44 @@ class IndicadoresParametrosController extends Controller
     {
         $validated = $request->validate([
             'ano_base' => 'required|max:4',
-            'data_limite' => 'required'
+            'data_limite' => 'required|date'
         ]);
         
-        if(!!$request->id) {
-            $indicadoresParametros = IndicadoresParametros::find($request->id);
-        }
-        else {
-            $indicadoresParametros = new IndicadoresParametros();
-        }
-
+        $indicadoresParametros = new IndicadoresParametros();
         $indicadoresParametros->ano_base = $request->ano_base;
         $indicadoresParametros->data_limite = $request->data_limite;
 
         if($indicadoresParametros->save()) {
-            session()->flash('status', 'Parâmetros atualizados com sucesso!!!');
+            session()->flash('status', 'Parâmetros cadastrado com sucesso!!!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
-            session()->flash('status', 'Desculpe! Houve erro ao atualizar os parâmetros');
+            session()->flash('status', 'Desculpe! Houve erro ao cadastrar parâmetro');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $indicadoresParametros = IndicadoresParametros::findOrFail($id);
+        if($indicadoresParametros->delete()) {
+            session()->flash('status', 'Parâmetros removido com sucesso!!!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao remover parâmetro');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
