@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs step-anchor">
     <li class="nav-item done"><a href="#step-ano" class="nav-link">Ano Base</a></li>            
 @foreach($indicadoresSerializado as $k => $indicadores)
-    <li class="nav-item done"><a href="#step-{{ str_replace(".", "-", substr($k, 0, 4)) }}" class="nav-link">Item {{ substr($k, 0, 4) }}</a></li>
+    <li class="nav-item done"><a href="#step-{{ str_replace(".", "-", substr($k, 0, 4)) }}" class="nav-link">Item {{ substr($k, 0, 4) }}</a> <i class="fal fa-comment-exclamation" data-toggle="tooltip" data-placement="right" title="{{ $k }}"></i></li>
 @endforeach
 </ul>
 
@@ -28,9 +28,8 @@
     
     </div>
     @foreach($indicadoresSerializado as $k => $indicadores)
-    {{ dd($indicadores) }}
     <div id="step-{{ str_replace(".", "-", substr($k, 0, 4)) }}" class="tab-pane step-content" style="display:none;">
-    <h3 style="color:#666">{{ $k }} <i class="fal fa-comment-exclamation" data-toggle="tooltip" data-placement="right" title="{{ $indicadores }}"></i></h3>
+    <h3 style="color:#666">{{ $k }}</h3>
     <div class="mt-5">
         @foreach($indicadores as $j => $indicador)
             <div class="mb-3 form-group">
