@@ -18,6 +18,7 @@
                                 <option value="{{ $ano->ano_base }}" @if( old('ano_base') == $ano->ano_base) selected @endif>{{ $ano->ano_base }}</option>
                             @endforeach
                         </select>
+                        <p>{{Request::url()}}</p>
                         @error( 'ano_base' )
                             <span class="text-danger font-weight-bold mt-2">{{ $message }}</span>
                         @enderror 
