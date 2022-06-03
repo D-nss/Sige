@@ -34,12 +34,9 @@ class IndicadorUnidadeController extends Controller
         ->orderBy('ano_base', 'desc')
         ->get(['ano_base']);
 
-        $anosBase = IndicadoresParametros::all();
-
         return view('indicadores.index', [
             'indicadores' => $indicadores,
             'unidade' => $user->unidade,
-            'anosBase' => $anosBase,
             'user' => $user
         ]);
     }
