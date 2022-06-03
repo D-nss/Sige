@@ -30,14 +30,16 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $user = User::where('email', Auth::user()->id)->first();
         $indicadores  = IndicadorUnidade::where('unidade_id', $user->unidade->id)
-        ->join('indicadores_parametros', 'indicadores_parametros.ano_base', 'indicadores_unidades.ano_base')
         ->distinct()
         ->orderBy('ano_base', 'desc')
         ->get(['indicadores_unidades.ano_base', 'indicadores_parametros.data_limite']);
 
+        $anosBase = IndicadoresParametros::all();
+
         return view('indicadores.index', [
             'indicadores' => $indicadores,
             'unidade' => $user->unidade,
+            'anosBase' => $anosBase,
             'user' => $user
         ]);
     }

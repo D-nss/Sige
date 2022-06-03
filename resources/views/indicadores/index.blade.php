@@ -26,6 +26,7 @@
             <div class="mt-3">
                 @forelse($indicadores as $indicador)
                 <div class="p-3 mb-5 bg-white hv-light-green rounded d-flex justify-content-between">
+                    {{ dd( $anosBase->filter(function($value, $key) { return data_get($value, 'ano_base') != $indicador->ano_base; }) ) }}
                     <h4>{{ $indicador->ano_base }}</h4>
                     <div>
                     @if( (strtotime(date('Y-m-d')) <= strtotime($indicador->data_limite)) || $user->hasRole('indicadores-editar') )
