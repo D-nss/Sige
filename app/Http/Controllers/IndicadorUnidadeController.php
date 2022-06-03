@@ -166,7 +166,7 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $user  =  User::where('email', Auth::user()->id)->first();
 
-        $indicadoresParametros = IndicadoresParametros::first();
+        $indicadoresParametros = IndicadoresParametros::where('ano_base', $ano)->get();
 
         if( (strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros->data_limite)) || $user->hasRole('indicadores-editar') ) {
             $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
@@ -176,13 +176,16 @@ class IndicadorUnidadeController extends Controller
 
             $indicadoresSerializado = $this->serializarIndicadores($indicadores);
 
+            $anos_base = IndicadoresParametros::distinct()->get(['ano_base']);
+
             $edit = true;
             //echo json_encode($indicadoresSerializado);
             return view('indicadores.edit', [
                 'indicadoresSerializado' => $indicadoresSerializado,
                 'ano' => $ano,
                 'edit' => $edit,
-                'unidade' => $user->unidade
+                'unidade' => $user->unidade,
+                'anos_base' => $anos_base,
             ]);
         }
         else {
