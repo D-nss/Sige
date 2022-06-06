@@ -387,7 +387,16 @@ class InscricaoController extends Controller
             }
         }
 
-        $validated = $request->validate($validar);
+        $mensagens = array();
+
+        foreach($inputsParaValidar as $key => $inputs) {
+            if(substr($key, 0, 8) == 'questao-') {
+                $mensagens[$key.'.required'] = 'Uma questão complementar não foi preenchida';
+                $mensagens[$key.'.max'] = 'Uma questão complementar ultrapassou o máximo permitido de caracteres';
+            }
+        }
+
+        $validated = $request->validate($validar,$mensagens);
 
         $user = User::where('email', Auth::user()->id)->first();
 
