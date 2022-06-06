@@ -36,7 +36,7 @@ class IndicadorUnidadeController extends Controller
 
         foreach($indicadores as $key => $row) {
             $data_limite = IndicadoresParametros::where('ano_base', $row['ano_base'])->get(['data_limite'])->first();
-            $indicadores[$key]['data_limite'] = $data_limite;
+            $indicadores[$key]['data_limite'] = $data_limite->data_limite;
         }
         echo json_encode($indicadores);
         // return view('indicadores.index', [
