@@ -35,12 +35,10 @@ class IndicadorUnidadeController extends Controller
         ->get(['ano_base'])->toArray();
 
         foreach($indicadores as $key => $row) {
-            var_dump($key);
-            echo '<br>';
-            echo '<hr>';
-            echo '<br>';
-            var_dump($row);
+            array_push($row, ['data_limite' => '2022-06-06']);
         }
+
+        echo json_encode($indicadores);
         // return view('indicadores.index', [
         //     'indicadores' => $indicadores,
         //     'unidade' => $user->unidade,
