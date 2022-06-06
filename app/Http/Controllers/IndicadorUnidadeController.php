@@ -34,11 +34,16 @@ class IndicadorUnidadeController extends Controller
         ->orderBy('ano_base', 'desc')
         ->get(['ano_base']);
 
-        return view('indicadores.index', [
-            'indicadores' => $indicadores,
-            'unidade' => $user->unidade,
-            'user' => $user
-        ]);
+        foreach($indicadores as $key => $row) {
+            var_dump($key);
+            echo '<br>';
+            var_dump($row);
+        }
+        // return view('indicadores.index', [
+        //     'indicadores' => $indicadores,
+        //     'unidade' => $user->unidade,
+        //     'user' => $user
+        // ]);
     }
 
     /**
