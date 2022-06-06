@@ -29,9 +29,9 @@
                     <h4>{{ $indicador['ano_base'] }}</h4>
                     <div>
                         @if( strtotime( date('Y-m-d') ) <= strtotime($indicador['data_limite']) )
-                        <a class="btn btn-warning" href="{{ url('/indicadores/' . $indicador->ano_base . '/editar') }}">Editar <i class="far fa-edit"></i></a>
+                        <a class="btn btn-warning" href="{{ url('/indicadores/' . $indicador['ano_base'] . '/editar') }}">Editar <i class="far fa-edit"></i></a>
                         @endif
-                        <a class="btn btn-info" href="{{ url('/indicadores/' . $indicador->ano_base) }}">Ver <i class="far fa-eye"></i></a>
+                        <a class="btn btn-info" href="{{ url('/indicadores/' . $indicador['ano_base']) }}">Ver <i class="far fa-eye"></i></a>
                     </div>
                 </div>
                 @empty
