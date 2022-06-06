@@ -38,12 +38,12 @@ class IndicadorUnidadeController extends Controller
             $data_limite = IndicadoresParametros::where('ano_base', $row['ano_base'])->get(['data_limite'])->first();
             $indicadores[$key]['data_limite'] = $data_limite->data_limite;
         }
-        echo json_encode($indicadores);
-        // return view('indicadores.index', [
-        //     'indicadores' => $indicadores,
-        //     'unidade' => $user->unidade,
-        //     'user' => $user
-        // ]);
+        
+        return view('indicadores.index', [
+            'indicadores' => $indicadores,
+            'unidade' => $user->unidade,
+            'user' => $user
+        ]);
     }
 
     /**
