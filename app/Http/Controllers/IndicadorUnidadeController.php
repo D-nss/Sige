@@ -37,6 +37,8 @@ class IndicadorUnidadeController extends Controller
         foreach($indicadores as $key => $row) {
             var_dump($key);
             echo '<br>';
+            echo '<hr>';
+            echo '<br>';
             var_dump($row);
         }
         // return view('indicadores.index', [
