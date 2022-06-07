@@ -33,20 +33,27 @@
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>unidades</th>
                                             <th>Opções<th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($subComissoesTematicas as $subComissaoTematica)
                                         <tr>
-                                            <td>{{ $subComissaoTematica->nome }}</td>
                                             <td>
-                                                @foreach($subComissaoTematica->unidades as $unidade)
-                                                <div class="text-info">  
-                                                    {{ $unidade->nome }}
-                                                </div>  
-                                                @endforeach
+                                                
+                                                <div class="frame-heading text-secondary">
+                                                {{ $subComissaoTematica->nome }}
+                                                </div>
+                                                <div class="frame-wrap">
+                                                    <span class="font-color-light">Unidades</span>
+                                                    <div class="demo">
+                                                    @foreach($subComissaoTematica->unidades as $unidade)
+                                                    
+                                                        <span class="badge badge-primary">{{ $unidade->nome }}</span>
+                                                            
+                                                    @endforeach
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 <!-- Button trigger modal -->
