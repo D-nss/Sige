@@ -173,7 +173,7 @@
                                         
                                         <div class="mb-4">
                                             <label for="resumo" class="font-weight-bold">Resumo</label>
-                                            <textarea name="resumo" id="resumo" class="form-control" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
+                                            <textarea name="resumo" id="resumo" class="form-control" cols="30" rows="5" placeholder="Resumo do seu projeto" maxlength="2500" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
                                             <p style="color: #D0D3D4;">(máx. 2500 caracteres)<span class="caracteres-resumo"></span></p>
                                         </div>                                        
 
