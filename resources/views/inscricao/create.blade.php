@@ -221,17 +221,9 @@
                                         @foreach($edital->questoes as $questao)
                                             @if($questao->tipo == 'Complementar')
                                                 <label for="questao-{{ $questao->id }}" class="text-secondary font-size-16">{{ ($i + 1)  . ' - ' . $questao->enunciado }}</label>
-                                                <textarea class="form-control  mb-3" name="questao-{{ $questao->id }}" id="questao-{{ $questao->id }}" cols="30" rows="5" required>@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
-                                                <p style="color: #D0D3D4;">(máx. 10000 caracteres)<span class="caracteres-questao-{{ $questao->id }}"></span></p>
-                                                <script>
-                                                    $(document).on("input", "#questao-{{ $questao->id }}", function () {
-                                                        var limite = 10000;
-                                                        var caracteresDigitados = $(this).val().length;
-                                                        var caracteresRestantes = limite - caracteresDigitados;
-
-                                                        $(".caracteres-questao-{{ $questao->id }}").text(caracteresRestantes + ' Caracteres restantes');
-                                                    });
-                                                </script>
+                                                <textarea class="form-control  mb-3" name="questao-{{ $questao->id }}" id="questao-{{ $questao->id }}" cols="30" rows="5" required oninput="contadorCaracteresFaltantes()">@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
+                                                <span style="color: #D0D3D4;">(máx. 10000 caracteres)<span class="caracteres-questao-{{ $questao->id }}"></span></span>
+                                               
                                                 <?php $i ++; ?>
                                             @endif
                                         @endforeach

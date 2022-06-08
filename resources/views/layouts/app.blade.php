@@ -896,6 +896,15 @@ Versão: 4.5.1
                 $(".caracteres-resumo").text(caracteresRestantes + ' Caracteres restantes');
             });
 
+            function contadorCaracteresFaltantes(id)
+            {
+                var limite = 10000;
+                var caracteresDigitados = document.getElementById(`${id}`).value.length;
+                var caracteresRestantes = limite - caracteresDigitados;
+
+                document.getElementById(`caracteres-${id}`).innerHTML = caracteresRestantes + ' Caracteres restantes';
+            }
+
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
     </body>
