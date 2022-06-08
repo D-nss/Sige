@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('titulo', 255);
             $table->string('tipo', 45);
             $table->foreignIdFor(Municipio::class);
-            $table->string('resumo', 1000);
+            $table->string('resumo', 2500);
             $table->string('palavras_chaves', 190)->nullable();
             $table->char('parceria', 10);
             $table->string('anexo_parceria', 255)->nullable();

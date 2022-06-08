@@ -26,12 +26,12 @@
                         <ul class="nav d-flex justify-content-between">
                             <li>
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-1">
-                                    Dados
+                                    Dados Iniciais
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-2">
-                                    Complementos
+                                    Detalhamento
 
                                 </a>
                             </li>
@@ -173,8 +173,8 @@
                                         
                                         <div class="mb-4">
                                             <label for="resumo" class="font-weight-bold">Resumo</label>
-                                            <textarea name="resumo" class="form-control" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
-                                            <p style="color: #D0D3D4;">(máx. 1000 caracteres)</p>
+                                            <textarea name="resumo" id="resumo" class="form-control" cols="30" rows="5" placeholder="Resumo do seu projeto" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
+                                            <p style="color: #D0D3D4;">(máx. 2500 caracteres)<span class="caracteres-resumo"></span></p>
                                         </div>                                        
 
                                         <label for="palavras_chave" class="font-weight-bold">Palavras Chaves</label>

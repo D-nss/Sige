@@ -78,8 +78,6 @@ class EditalController extends Controller
 
         $uploaded = new UploadFile();
 
-
-
         $edital = Edital::create([
             'titulo' => $request->titulo,
             'tipo' => $request->tipo,

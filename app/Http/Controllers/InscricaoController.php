@@ -34,23 +34,24 @@ class InscricaoController extends Controller
         $user = User::where('email', Auth::user()->id)->first();
 
         if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
+            /* lista todas as inscrições se o user for administrador */
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
             }
-
+            /* lista todas as inscrições da unidade do user que é analista */
             elseif($user->hasRole('edital-analista')) {
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
                                         ->where('u.sigla', Auth::user()->unidade)
                                         ->get(['inscricoes.*']);
             }
-
+            /* lista as inscrições em que o user é avaliador */
             elseif($user->hasRole('edital-avaliador')) {
                 $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
                                         ->where('ai.user_id', $user->id)
                                         ->get(['inscricoes.*']);
             }
-
+            /* Objeto do  cronograma enviado à view para validação das datas conforme cronograma */
             $cronograma = new Cronograma();
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
         }
@@ -69,7 +70,7 @@ class InscricaoController extends Controller
     public function create($id)
     {
         $user = User::where('email', Auth::user()->id)->first();
-
+        /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
 
@@ -81,7 +82,7 @@ class InscricaoController extends Controller
         }
 
         $edital = Edital::find($id);
-
+        /* Checa se está no período de inscrições */
         foreach($edital->cronogramas as $cronograma) {
             if($cronograma->dt_input == 'dt_inscricao' && strtotime(date('Y-m-d')) < strtotime($cronograma->data) ) {
                 session()->flash('status', 'Desculpe! As inscrições ainda não estão abertas!');
@@ -148,7 +149,7 @@ class InscricaoController extends Controller
         $validated = $request->validate($validar,$mensagens);
 
         $user = User::where('email', Auth::user()->id)->first();
-
+        /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
 
@@ -162,9 +163,9 @@ class InscricaoController extends Controller
         $areasTematicasInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
-
+        /* Inserção no banco de dados usando transação, caso alguma inserção de erro ele retorna o banco ao estado anterior */
         $inscricao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user) {
-
+            /* Faz a inserção da inscrição */
             $inscricaoCriada = Inscricao::create([
                 'titulo' => $request->titulo,
                 'tipo' => $request->tipo_extensao,
@@ -182,16 +183,16 @@ class InscricaoController extends Controller
                 'unidade_id' => $user->unidade->id,
                 'edital_id' => $request->edital_id
             ]);
-
+            /* Prepara os dados para inserção das areas temáticas */
             foreach($request->areas_tematicas as $areas) {
                 array_push($areasTematicasInsert,[
                     'area_tematica_id' => $areas,
                     'inscricao_id' => $inscricaoCriada->id
                 ]);
             }
-
+            /* faz a inserção das áreas temáticas */
             DB::table('inscricoes_areas_tematicas')->insert($areasTematicasInsert);
-
+            /* preopara os dados para inserção das respostas das questões complementares */
             foreach($request->all() as $key => $resposta) {
                 if(substr($key, 0, 8) == 'questao-') {
                     array_push($respostasQuestoesInsert, [
@@ -201,7 +202,7 @@ class InscricaoController extends Controller
                     ]);
                 }
             }
-
+            /* faz a inserção das respostas das questões complementares */
             DB::table('questoes_respondidas')->insert($respostasQuestoesInsert);
 
             return $inscricaoCriada;
@@ -404,7 +405,7 @@ class InscricaoController extends Controller
         $areasTematicasInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
-
+        /* Atualização no banco de dados usando transação, caso alguma atualização de erro ele retorna o banco ao estado anterior */
         $transacao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user, $inscricao) {
 
             $inscricao->titulo = $request->titulo;

@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('questoes_respondidas', function (Blueprint $table) {
             $table->id();
-            $table->string('resposta', 450);
+            $table->string('resposta', 10000);
             $table->foreignIdFor(Questao::class);
             $table->foreignIdFor(Inscricao::class);
             $table->timestamps();

@@ -888,6 +888,14 @@ Versão: 4.5.1
                 $('#indicadores-parametros-form').submit();
             });
 
+            $(document).on("input", "#resumo", function () {
+                var limite = 2500;
+                var caracteresDigitados = $(this).val().length;
+                var caracteresRestantes = limite - caracteresDigitados;
+
+                $(".caracteres-resumo").text(caracteresRestantes + 'Caracteres restantes');
+            });
+
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
     </body>

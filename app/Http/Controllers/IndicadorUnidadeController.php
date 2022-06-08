@@ -34,6 +34,7 @@ class IndicadorUnidadeController extends Controller
         ->orderBy('ano_base', 'desc')
         ->get(['ano_base'])->toArray();
 
+        //
         foreach($indicadores as $key => $row) {
             $data_limite = IndicadoresParametros::where('ano_base', $row['ano_base'])->get(['data_limite'])->first();
             $indicadores[$key]['data_limite'] = isset($data_limite->data_limite) ? $data_limite->data_limite : '';
@@ -103,9 +104,9 @@ class IndicadorUnidadeController extends Controller
 
         //id da unidade do usuario logado
         $unidade_id  = User::where('email', Auth::user()->id)->first()->unidade->id;
-
+        /* Busca se possui ano base ja cadstrado para a unidade */
         $buscaAnoExistente = IndicadorUnidade::where('unidade_id', $unidade_id)->where('ano_base', $request->ano_base)->count();
-
+        /* Prepara os dados para serem inseridos no bando de dados */
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
                 array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $r, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base));
@@ -211,8 +212,7 @@ class IndicadorUnidadeController extends Controller
     public function update(Request $request, $ano)
     {
         $linhasAfetadas = array();
-
-        //id da unidade esta fixo pegar a unidade do usuario logado
+        
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
                 $linha = DB::table('indicadores_unidades')->where('id', substr($key, 9, strlen($key)))->update([ 'valor' => $r ]);
