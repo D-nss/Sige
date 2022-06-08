@@ -898,10 +898,11 @@ Versão: 4.5.1
 
             function contadorCaracteresFaltantes(id)
             {
+                console.log(id);
                 var limite = 10000;
-                var caracteresDigitados = document.getElementById(`${id}`).length;
+                var caracteresDigitados = document.querySelector(`#${id}`);
                 var caracteresRestantes = limite - caracteresDigitados;
-
+                console.log(caracteresDigitados);
                 document.getElementById(`caracteres-${id}`).innerHTML = caracteresRestantes + ' Caracteres restantes';
             }
 
