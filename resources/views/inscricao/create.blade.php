@@ -8,7 +8,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-                
+
             @include('layouts._includes._status')
 
             @include('layouts._includes._validacao')
@@ -19,9 +19,9 @@
                         <form action='{{ url("inscricao/$inscricao->id") }}' id="form_proposta" method="post" enctype="multipart/form-data">
                         @method('PUT')
                     @else
-                        <form action="{{ url('inscricao') }}" id="form_proposta" method="post" enctype="multipart/form-data">     
-                    @endif  
-                    @csrf             
+                        <form action="{{ url('inscricao') }}" id="form_proposta" method="post" enctype="multipart/form-data">
+                    @endif
+                    @csrf
                     <div id="swproposta">
                         <ul class="nav d-flex justify-content-between">
                             <li>
@@ -46,9 +46,9 @@
                                 </a>
                             </li>
                         </ul>
-                       
+
                         <div class="tab-content mt-3">
-                            
+
                                 <div id="step-1" class="tab-pane" role="tabpanel">
                                     <h4 class="text-secondary">Antes de iniciar sua inscrição leia os critérios necessários</h4>
                                     <ul style="color: #999;">
@@ -84,7 +84,7 @@
                                     </select>
                                     <label for="cidade" class="font-weight-bold">Cidade: </label>
                                     <select name="cidade" id="cidade" class="form-control w-50" required="true" required>
-                                    @if( isset($inscricaoLocal) ) 
+                                    @if( isset($inscricaoLocal) )
                                         <option value="{{ $inscricao->municipio_id }}">{{ $inscricaoLocal[0]->nome_municipio }}</option>
                                     @endif
 
@@ -112,7 +112,7 @@
                                             loadDoc()
                                         </script>
                                     @endif
-                                    </select> 
+                                    </select>
 
                                     <hr class="border-top border-bottom">
 
@@ -136,7 +136,7 @@
 
                                                     @if(isset($inscricao->anexo_parceria))
                                                     <a href='{{ url("storage/$inscricao->anexo_parceria") }}' class="btn btn-link" target="_blank">
-                                                        <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                        <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />
                                                         <br>
                                                         Arquivo Parceria
                                                     </a>
@@ -153,7 +153,7 @@
                                         </div>
                                         <p class="text-warning font-size-16">O comprovante deve ser no formato PDF</p>
                                     </div>
-                                    
+
                                     <hr class="border-top border-bottom">
 
                                     <h4 class="text-success">Informações do projeto: </h4>
@@ -164,18 +164,18 @@
                                             <input type="text" name="link_lattes" class="form-control w-75" placeholder="https://seulattes.com" value="@if(isset($inscricao->url_lattes)){{ $inscricao->url_lattes }}@else{{ old('link_lattes') }}@endif" required>
                                             <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
                                         </div>
-                                        
+
                                         <div class="mb-4">
                                             <label for="link_projeto" class="font-weight-bold">Link Projeto</label>
                                             <input type="text" name="link_projeto" class="form-control w-75" placeholder="https://seuprojeto.com" value="@if(isset($inscricao->url_projeto)){{ $inscricao->url_projeto }}@else{{ old('link_projeto') }}@endif" required>
                                             <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
                                         </div>
-                                        
+
                                         <div class="mb-4">
                                             <label for="resumo" class="font-weight-bold">Resumo</label>
                                             <textarea name="resumo" id="resumo" class="form-control" cols="30" rows="5" placeholder="Resumo do seu projeto" maxlength="2500" required>@if(isset($inscricao->resumo)){{ $inscricao->resumo }}@else{{ old('resumo') }}@endif</textarea>
                                             <p style="color: #D0D3D4;">(máx. 2500 caracteres)<span class="caracteres-resumo"></span></p>
-                                        </div>                                        
+                                        </div>
 
                                         <label for="palavras_chave" class="font-weight-bold">Palavras Chaves</label>
                                         <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)){{ $inscricao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif" required />
@@ -192,10 +192,10 @@
                                             </div>
                                             </div>
                                             <div class="box-body" id="projeto-box-body">
-                                                
+
                                                 @if(isset($inscricao->anexo_projeto))
                                                 <a href='{{ url("storage/$inscricao->anexo_projeto") }}' class="btn btn-link" target="_blank">
-                                                    <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />    
+                                                    <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />
                                                     <br>
                                                     Arquivo Projeto
                                                 </a>
@@ -207,10 +207,10 @@
                                         <div class="dropzone-desc">
                                             <i class="glyphicon glyphicon-download-alt"></i>
                                             <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
-                                            
+
                                         </div>
                                         <input type="file" name="pdf_projeto" class="dropzone" id="projeto_arquivo" value="" @if(isset($inscricao->anexo_projeto)) required="false" @else required="true" @endif value="{{ old('pdf_projeto') }}">
-                                        
+
                                     </div>
                                     <p class="text-warning font-size-16">O projeto deve ter no máximo 20 páginas e ser no formato PDF</p>
                                 </div>
@@ -223,7 +223,7 @@
                                                 <label for="questao-{{ $questao->id }}" class="text-secondary font-size-16">{{ ($i + 1)  . ' - ' . $questao->enunciado }}</label>
                                                 <textarea class="form-control" name="questao-{{ $questao->id }}" id="questao-{{ $questao->id }}" maxlength="10000" cols="30" rows="5" required oninput="contadorCaracteresFaltantes('questao-{{ $questao->id }}')">@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
                                                 <span style="color: #D0D3D4;">(máx. 10000 caracteres)<span class="caracteres-questao-{{ $questao->id }}"></span></span>
-                                               
+
                                                 <?php $i ++; ?>
                                             @endif
                                             </div>
@@ -233,7 +233,6 @@
                                     <h3 class="text-success">Áreas Temáticas</h3>
                                     <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
-                                            <option value="" selected></option>
                                         @foreach($areas_tematicas as $area_tematica)
                                             <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
                                         @endforeach
@@ -262,13 +261,13 @@
                                                     @endforeach
                                                 </div>
                                             @endforeach
-                                           
-                                    </div>  
+
+                                    </div>
                                 </div>
-                                
-                            
+
+
                         </div>
-                        
+
                     </div>
                     </form>
                 </div>
