@@ -893,7 +893,7 @@ Versão: 4.5.1
                 var caracteresDigitados = $(this).val().length;
                 var caracteresRestantes = limite - caracteresDigitados;
 
-                $(".caracteres-resumo").text(caracteresRestantes + 'Caracteres restantes');
+                $(".caracteres-resumo").text(caracteresRestantes + ' Caracteres restantes');
             });
 
         </script>
