@@ -146,6 +146,9 @@ class InscricaoController extends Controller
             }
         }
 
+        $validar['areas_tematicas'] = 'required';
+        $validar['pdf_projeto'] = 'required|mimes:pdf';
+
         $validated = $request->validate($validar,$mensagens);
 
         $user = User::where('email', Auth::user()->id)->first();
@@ -396,6 +399,9 @@ class InscricaoController extends Controller
                 $mensagens[$key.'.max'] = 'Uma questão complementar ultrapassou o máximo permitido de caracteres';
             }
         }
+
+        $validar['areas_tematicas'] = 'required';
+        $validar['pdf_projeto'] = 'required|mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
 
