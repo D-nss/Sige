@@ -901,7 +901,7 @@ Versão: 4.5.1
                 var limite = 10000;
                 var caracteresDigitados = document.querySelector(`#${id}`).value.lenght;
                 var caracteresRestantes = limite - caracteresDigitados;
-                document.getElementById(`caracteres-${id}`).innerHTML = caracteresRestantes + ' Caracteres restantes';
+                document.querySelector(`.caracteres-${id}`).innerHTML = caracteresRestantes + ' Caracteres restantes';
             }
 
         </script>
