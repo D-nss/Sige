@@ -216,18 +216,18 @@
                                 </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Detalhamento</h3>
-                                    <div>
                                         <?php $i = 0; ?>
                                         @foreach($edital->questoes as $questao)
+                                            <div class="mb-4">
                                             @if($questao->tipo == 'Complementar')
                                                 <label for="questao-{{ $questao->id }}" class="text-secondary font-size-16">{{ ($i + 1)  . ' - ' . $questao->enunciado }}</label>
-                                                <textarea class="form-control  mb-3" name="questao-{{ $questao->id }}" id="questao-{{ $questao->id }}" cols="30" rows="5" required oninput="contadorCaracteresFaltantes('questao-{{ $questao->id }}')">@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
+                                                <textarea class="form-control" name="questao-{{ $questao->id }}" id="questao-{{ $questao->id }}" cols="30" rows="5" required oninput="contadorCaracteresFaltantes('questao-{{ $questao->id }}')">@if(isset($respostasQuestoes)) {{ $respostasQuestoes[$i]->resposta }}  @else {{ old("questao-$questao->id") }} @endif</textarea>
                                                 <span style="color: #D0D3D4;">(máx. 10000 caracteres)<span class="caracteres-questao-{{ $questao->id }}"></span></span>
                                                
                                                 <?php $i ++; ?>
                                             @endif
+                                            </div>
                                         @endforeach
-                                    </div>
                                 </div>
                                 <div id="step-3" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Áreas Temáticas</h3>
