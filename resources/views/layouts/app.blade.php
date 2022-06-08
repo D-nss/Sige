@@ -899,7 +899,7 @@ Versão: 4.5.1
             function contadorCaracteresFaltantes(id)
             {
                 var limite = 10000;
-                var caracteresDigitados = document.getElementById(`${id}`).value.length;
+                var caracteresDigitados = document.getElementById(`${id}`).length;
                 var caracteresRestantes = limite - caracteresDigitados;
 
                 document.getElementById(`caracteres-${id}`).innerHTML = caracteresRestantes + ' Caracteres restantes';
