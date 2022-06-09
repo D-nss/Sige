@@ -623,7 +623,9 @@ class InscricaoController extends Controller
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|super|admin') ) {
 
-            $inscricoes = Inscricao::where('user_id', $user->id)->get();
+            $inscricoes = Inscricao::whereHas('orcamento_itens', function(Builder $query) {
+                $query->where('user_id', $user->id);
+            })->get();
 
             $cronograma = new Cronograma();
             return view('inscricao.enviadas', compact('inscricoes', 'user', 'cronograma'));

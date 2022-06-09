@@ -22,24 +22,6 @@
     </div>
     <div class="row panel p-4">
         <div class="col-xl-12">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                </button>
-                <div class="d-flex align-items-center">
-                    <div class="alert-icon width-3">
-                        <span class="icon-stack icon-stack-sm">
-                            <i class="base-2 icon-stack-3x color-success-600"></i>
-                            <i class="base-10 text-white icon-stack-1x"></i>
-                            <i class="ni md-profile color-success-800 icon-stack-2x"></i>
-                        </span>
-                    </div>
-                    <div class="flex-1">
-                        <span class="h5 m-0 fw-700">Small Icon Stack!</span>
-                        Custom alert background with <strong>small</strong> sized icon stack.
-                    </div>
-                </div>
-            </div>
 
             <table class="table table-bordered table-hover" id="dt-propostas">
                 <thead>
@@ -67,6 +49,7 @@
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
                                     <i class="far fa-list"></i> 
                                     Orçamento
+                                    {{ dd($inscricao) }}
                                     @if($inscricao->orcamento == null)
                                         <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right">!</span>
                                     @endif
