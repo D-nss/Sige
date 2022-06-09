@@ -623,7 +623,7 @@ class InscricaoController extends Controller
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|super|admin') ) {
 
-            $inscricoes = Inscricao::whereHas('orcamento', function(Builder $query) {
+            $inscricoes = Inscricao::whereHas('orcamento', function($query) {
                 $query->where('user_id', $user->id);
             })->get();
 
