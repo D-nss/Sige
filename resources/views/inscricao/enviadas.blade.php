@@ -50,7 +50,7 @@
                                     <i class="far fa-list"></i> 
                                     Orçamento
                                     @if( empty($inscricao->orcamento->toArray()) )
-                                        <span class="badge bg-danger-300 ml-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento"><i class="fal fa-exclamation-circle"></i></span>
+                                        <span class="badge bg-danger-300 ml-2 p-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento">!</span>
                                     @endif
                                 </a>
                                 <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
