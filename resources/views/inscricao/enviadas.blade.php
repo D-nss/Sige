@@ -50,7 +50,7 @@
                                         <i class="far fa-list"></i> 
                                         Orçamento
                                         @if( empty($inscricao->orcamento->toArray()) )
-                                            <span class="badge bg-danger-300 ml-2 px-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento"><strong class="text-light font-weight-bold">!</strong></span>
+                                            <span class="badge bg-danger-300 ml-2 px-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento"><strong class="text-light">!</strong></span>
                                         @endif
                                     </a>
                                     @if( !empty($inscricao->orcamento->toArray()) )
