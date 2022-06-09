@@ -51,6 +51,11 @@ class Inscricao extends Model
         return $this->belongsTo(Municipio::class);
     }
 
+    public function orcamento()
+    {
+        return $this->hasMany(Orcamento::class);
+    }
+
     public function areas()
     {
         return $this->belongsToMany(AreaTematica::class, 'inscricoes_areas_tematicas', 'inscricao_id', 'area_tematica_id' );

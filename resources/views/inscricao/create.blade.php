@@ -248,8 +248,10 @@
                                             @foreach($linhas_extensao->chunk(2) as $chunked)
                                                 <div class="col-md-6">
                                                     @foreach($chunked as $linha_extensao)
-                                                        <label class="radio-inline" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{ $linha_extensao->descricao }}">
-                                                        <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || (isset($inscricao->linha_extensao_id) && $inscricao->linha_extensao_id == $linha_extensao->id) ) checked @endif required>{{ $linha_extensao->nome }}</label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="linha_extensao" value="{{ $linha_extensao->id }}" data-bv-field="linha_extensao" @if( old('linha_extensao') == $linha_extensao->id || (isset($inscricao->linha_extensao_id) && $inscricao->linha_extensao_id == $linha_extensao->id) ) checked @endif required>{{ $linha_extensao->nome }}
+                                                            <i class="fal fa-comment-alt-lines" data-toggle="tooltip" data-placement="right" title="{{ $linha_extensao->descricao }}" style="color: #2196F3;"></i>
+                                                        </label>
                                                         <br>
                                                     @endforeach
                                                 </div>
