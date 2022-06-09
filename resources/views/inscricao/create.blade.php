@@ -235,7 +235,7 @@
                                     <select name="areas_tematicas[]" id="areas_tematicas" class="form-control mb-3" style="height: 150px;" multiple required>
                                     
                                         @foreach($areas_tematicas as $key => $area_tematica)
-                                            <option value="{{ $area_tematica->id }}" @if( isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id) ) selected @endif>{{ $area_tematica->nome }}</option>
+                                            <option value="{{ $area_tematica->id }}" @if( (collect(old('areas_tematicas'))->contains($key)) || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id)) ) selected @endif>{{ $area_tematica->nome }}</option>
                                         @endforeach
                                             <!-- <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
                                         <option value="3" @if(old('areas_tematicas') == '3') selected @endif>Direitos Humanos e Justiça</option>
