@@ -73,7 +73,7 @@
                                 <input type="text" class="form-control mb-3" name="descricao" id="descricao" required value="{{ old('descricao') }}">
                         
                                 <label class="font-weight-bold" for="justificativa">Justificativa do Item:</label>
-                                <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required>value="{{ old('justificativa') }}"</textarea>
+                                <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required>{{ old('justificativa') }}</textarea>
 
                                 <label class="font-weight-bold" for="valor">Valor solicitado:</label>
                                 <input type="text" class="form-control mb-3" name="valor" id="valor" required value="{{ old('valor') }}">
