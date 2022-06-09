@@ -53,14 +53,12 @@
                                             <span class="badge bg-danger-300 ml-2 px-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento"><strong class="text-light">!</strong></span>
                                         @endif
                                     </a>
-                                    @if( !empty($inscricao->orcamento->toArray()) )
                                     <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
                                         @csrf
                                         <button type="button" id="btn-submeter" class="btn btn-success m-1">
                                             <i class="far fa-arrow-right"></i> Submeter
                                         </button>
                                     </form>
-                                    @endif
                                 @endif
                             </td>
                         </tr>
