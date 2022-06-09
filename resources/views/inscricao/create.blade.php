@@ -233,8 +233,6 @@
                                     <h3 class="text-success">Áreas Temáticas</h3>
                                     <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
-                                   
-                                    {{ var_dump( old('areas_tematicas[]') )}}
                                     
                                         @foreach($areas_tematicas as $area_tematica)
                                             <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas[]') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
@@ -247,7 +245,7 @@
                                         <option value="7" @if(old('areas_tematicas') == '7') selected @endif>Tecnologia e Produção</option>
                                         <option value="8" @if(old('areas_tematicas') == '8') selected @endif>Trabalho</option> -->
                                     </select>
-
+				    {{ old('areas_tematicas') != null ? old('areas_teamticas') : 'nulo' }}
                                 </div>
                                 <div id="step-4" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Linhas de Extensão</h3>
