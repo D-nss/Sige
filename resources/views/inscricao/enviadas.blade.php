@@ -43,14 +43,13 @@
                             <td>{{ $inscricao->status }}</td>
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->updated_at)) }}</td>
                             <td>
-                                {{ var_dump($inscricao->orcamento->toArray()) }}
                                 <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
                                 <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
                                     <i class="far fa-list"></i> 
                                     Orçamento
-                                    @if( empty($inscricao->orcamento) )
+                                    @if( empty($inscricao->orcamento->toArray()) )
                                         <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right" data-toggle="tooltip" data-placement="right" title="Você possui uma pendência! Preenchimento do orçamento">!</span>
                                     @endif
                                 </a>
