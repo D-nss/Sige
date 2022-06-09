@@ -234,8 +234,8 @@
                                     <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
                                     
-                                        @foreach($areas_tematicas as $area_tematica)
-                                            <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas[]') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
+                                        @foreach($areas_tematicas as $key => $area_tematica)
+                                            <option value="{{ $area_tematica->id }}" @if( collect( old('areas_tematicas') )->contains($key) || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
                                         @endforeach
                                             <!-- <option value="2" @if(old('areas_tematicas') == '2') selected @endif>Cultura</option>
                                         <option value="3" @if(old('areas_tematicas') == '3') selected @endif>Direitos Humanos e Justiça</option>
@@ -245,7 +245,7 @@
                                         <option value="7" @if(old('areas_tematicas') == '7') selected @endif>Tecnologia e Produção</option>
                                         <option value="8" @if(old('areas_tematicas') == '8') selected @endif>Trabalho</option> -->
                                     </select>
-				    {{ old('areas_tematicas') != null ? old('areas_teamticas') : 'nulo' }}
+
                                 </div>
                                 <div id="step-4" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Linhas de Extensão</h3>
