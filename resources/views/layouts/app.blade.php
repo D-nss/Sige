@@ -871,7 +871,8 @@ Versão: 4.5.1
             $('#btn-submeter').click(function(){
                 let text = "Após a submissão não será possível alterar a inscrição. Deseja submeter?";
                 if (confirm(text) == true) {
-                    $('#form-submeter').submit();
+                    alert('true')
+                    //$('#form-submeter').submit();
                 }
             });
 
