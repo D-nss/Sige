@@ -43,6 +43,7 @@
                             <td>{{ $inscricao->status }}</td>
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->updated_at)) }}</td>
                             <td>
+                                {{ var_dump($inscricao->orcamento) }}
                                 <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
                                 <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
