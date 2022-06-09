@@ -49,7 +49,7 @@
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1"><i class="far fa-list"></i> Orçamento</a>
                                 <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
                                     @csrf
-                                    <button id="btn-submeter" class="btn btn-success m-1">
+                                    <button type="button" id="btn-submeter" class="btn btn-success m-1">
                                         <i class="far fa-arrow-right"></i> Submeter
                                     </button>
                                 </form>
