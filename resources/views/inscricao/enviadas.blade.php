@@ -16,7 +16,7 @@
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
             <div class="d-inline-flex flex-column justify-content-center">
-            
+
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
                             <td>{{ $inscricao->titulo }}</td>
                             <td>{{ $inscricao->tipo }}</td>
                             <td>{{ $inscricao->status }}</td>
-                            <td>{{ date('d/m/Y H:i', strtotime($inscricao->created_at)) }}</td>
+                            <td>{{ date('d/m/Y H:i', strtotime($inscricao->updated_at)) }}</td>
                             <td>
                                 <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
@@ -77,7 +77,7 @@
                                         <i class="far fa-arrow-right"></i> Submeter
                                     </button>
                                 </form>
-                                
+
                                 @endif
                             </td>
                         </tr>
