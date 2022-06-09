@@ -491,7 +491,7 @@ class InscricaoController extends Controller
         }
 
         if( empty($inscricao->orcamento->toArray()) ) {
-            session()->flash('status', 'Desculpe! Faltou o preenchimento do orçamento');
+            session()->flash('status', 'Desculpe! Para submeter é necessário o preenchimento do orçamento.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
