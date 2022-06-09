@@ -36,24 +36,47 @@
                                 <select class="form-control mb-3" name="tipo_item" id="tipo_item"  required >
                                     <option>Selecione o tipo</option>
                                     @foreach($tiposItens as $tipoItem)
-                                        <option value="{{ $tipoItem->id }}">{{ $tipoItem->nome }}</option>
+                                        <option value="{{ $tipoItem->id }}" {{ old('tipo_item') == $tipoItem->id ? 'selected' : '' }}>{{ $tipoItem->nome }}</option>
                                     @endforeach
                                 </select>
                                 
                                 <label class="font-weight-bold" for="item">Item:</label>
                              
                                 <select class="form-control mb-3" name="item" id="item" required >
-                                    
+                                @if( old('item') )
+                                    <script>
+                                        function loadDoc() {
+                                        const xhttp = new XMLHttpRequest();
+                                        xhttp.onload = function() {
+                                            var data = this.responseText;
+                                            data = JSON.parse(data);
+                                            var content = '';
+                                            var cidade = document.getElementById('item');
+                                            var old = '{{ old('item') }}';
+
+                                            data.map(item => {
+                                                content += `<option value="${item.id}" ${old == item.id ? 'selected' : ''}>${item.nome}</option>`;
+                                            });
+
+                                            cidade.innerHTML = content;
+                                        }
+                                        xhttp.open("GET", "{{ url('get-item-by-id') }}/?tipo_item=" + document.getElementById('tipo_item').value);
+                                        xhttp.send();
+                                        }
+
+                                        loadDoc()
+                                    </script>
+                                @endif
                                 </select>
                             
                                 <label class="font-weight-bold" for="descricao">Descrição do Item:</label>
-                                <input type="text" class="form-control mb-3" name="descricao" id="descricao" required>
+                                <input type="text" class="form-control mb-3" name="descricao" id="descricao" required value="{{ old('descricao') }}">
                         
                                 <label class="font-weight-bold" for="justificativa">Justificativa do Item:</label>
-                                <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required></textarea>
+                                <textarea type="text" class="form-control mb-3" name="justificativa" id="justificativa" required>value="{{ old('justificativa') }}"</textarea>
 
                                 <label class="font-weight-bold" for="valor">Valor solicitado:</label>
-                                <input type="text" class="form-control mb-3" name="valor" id="valor" required>
+                                <input type="text" class="form-control mb-3" name="valor" id="valor" required value="{{ old('valor') }}">
                                 
                                 <button type="submit" class="btn btn-success btn-block loading">
                                     <div class="spinner-border spinner-border-sm d-none spin" role="status">
