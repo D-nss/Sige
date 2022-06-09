@@ -49,9 +49,8 @@
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
                                     <i class="far fa-list"></i> 
                                     Orçamento
-                                    {{ dd($inscricao->orcamento) }}
                                     @if($inscricao->orcamento == null)
-                                        <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right">!</span>
+                                        <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right" data-toggle="tooltip" data-placement="right" title="Você possui uma pendência! Preenchimento do orçamento">!</span>
                                     @endif
                                 </a>
                                 <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
