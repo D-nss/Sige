@@ -51,9 +51,9 @@ class CheckIsUserMiddleware
             if (Auth::user()->employeetype == 'PROFESSOR/PESQUISADOR VISITANTE' || Auth::user()->employeetype == 'Funcionário UNICAMP'){
                 $user->assignRole('edital-coordenador');
                 //para teste:
-                $user->assignRole('admin');
-                $user->assignRole('super');
-                $user->assignRole('indicadores-user');
+                //$user->assignRole('admin');
+                //$user->assignRole('super');
+                //$user->assignRole('indicadores-user');
             }
         }
 
