@@ -233,9 +233,9 @@
                                     <h3 class="text-success">Áreas Temáticas</h3>
                                     <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
-                                    @if(  old('areas_tematicas[]') !== null)
-                                    {{ dd( old('areas_tematicas[]') )}}
-                                    @endif
+                                   
+                                    {{ var_dump( old('areas_tematicas[]') )}}
+                                    
                                         @foreach($areas_tematicas as $area_tematica)
                                             <option value="{{ $area_tematica->id }}" @if(old('areas_tematicas[]') == '{{ $area_tematica->id }}' || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id))) selected @endif>{{ $area_tematica->nome }}</option>
                                         @endforeach
