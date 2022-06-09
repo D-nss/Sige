@@ -233,7 +233,7 @@
                                     <h3 class="text-success">Áreas Temáticas</h3>
                                     <h5>Pressione a tecla Ctrl para poder selecionar mais de uma opção</h5>
                                     <select name="areas_tematicas[]" class="form-control mb-3" style="height: 150px;" multiple required>
-                                    @if( isser( old('areas_tematicas') ) )
+                                    @if( isset( old('areas_tematicas') ) )
                                     {{ dd( old('areas_tematicas') )}}
                                     @endif
                                         @foreach($areas_tematicas as $area_tematica)
