@@ -46,11 +46,11 @@
                                 <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
                                 @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
                                 <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
-                                <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
+                                <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1 position-relative js-waves-off">
                                     <i class="far fa-list"></i> 
                                     Orçamento
                                     @if( empty($inscricao->orcamento->toArray()) )
-                                        <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right" data-toggle="tooltip" data-placement="right" title="Você possui uma pendência! Preenchimento do orçamento">!</span>
+                                        <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento">!</span>
                                     @endif
                                 </a>
                                 <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
