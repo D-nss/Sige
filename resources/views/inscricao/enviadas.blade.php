@@ -49,7 +49,7 @@
                                 <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
                                     <i class="far fa-list"></i> 
                                     Orçamento
-                                    @if($inscricao->orcamento == null)
+                                    @if( empty($inscricao->orcamento) )
                                         <span class="badge border border-light rounded-pill bg-danger-500 position-absolute pos-top pos-right" data-toggle="tooltip" data-placement="right" title="Você possui uma pendência! Preenchimento do orçamento">!</span>
                                     @endif
                                 </a>
