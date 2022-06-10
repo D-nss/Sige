@@ -10,7 +10,7 @@ class IndicadoresParametrosController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:indicadores-admin|super');
+        $this->middleware('role:indicadores-admin|super');
     }
     /**
      * Display a listing of the resource.
