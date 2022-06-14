@@ -19,6 +19,7 @@ use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AvaliadorPorInscricaoController;
 use App\Http\Controllers\IndicadoresParametrosController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
