@@ -1,5 +1,5 @@
 <?php
-    $user = User::where('email', Auth::user()->id)->first();
+    $user = \App\Models\User::where('email', Auth::user()->id)->first();
 ?>
 <div>
     <a href="#" class="header-icon" data-toggle="dropdown" title="Você tem 11 notificações">
