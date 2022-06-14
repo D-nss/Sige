@@ -225,13 +225,15 @@
             <i class="fal fa-globe"></i>
             <span class="badge badge-icon">!</span>
         </a> -->
-        <!-- app notification -->
-        @include('layouts._includes.notification')
+        
         <!-- app user menu -->
         @if(Auth::hasUser())
+        <!-- app notification -->
+        @include('layouts._includes.notification')
+        
         <div>
-            <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">
-                <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+            <a href="#" data-toggle="dropdown" title="{{ Auth::user()->id }}" class="header-icon d-flex align-items-center justify-content-center ml-2">
+                <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="{{ Auth::user()->id }}">
                 <!-- you can also add username next to the avatar with the codes below:
                 <span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
                 <i class="ni ni-chevron-down hidden-xs-down"></i> -->
@@ -240,7 +242,7 @@
                 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                         <span class="mr-2">
-                            <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
+                            <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="rounded-circle profile-image" alt="{{ Auth::user()->id }}">
                         </span>
                         <div class="info-card-text">
                             <div class="fs-lg text-truncate text-truncate-lg">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}</div>
