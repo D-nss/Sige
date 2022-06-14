@@ -130,6 +130,10 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
         return view('processo-edital.edit', compact('edital', 'cronograma', 'avaliadores'));
     });
 
+    Route::get('notificacoes', [NotificationController::class, 'index'])->name('notificacoes.index');
+    Route::get('notificacao/{id}', [NotificationController::class, 'show'])->name('notificacao.show');
+    Route::post('notificacoes/marcar-como-lida', [NotificationController::class, 'markAsRead'])->name('marcar.como.lida');
+
 });
 
 /*
