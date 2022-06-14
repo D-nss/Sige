@@ -34,17 +34,20 @@ class Kernel extends ConsoleKernel
         })->dailyAt('00:01')->timezone('America/Fortaleza');
 
         $schedule->call(function(){
-            $user = \App\Models\User::where('email', 'aadilson@unicamp.br')->first();//simulando usuário logado
+            $users = \App\Models\User::all();
 
-            foreach($user->inscricoes as $inscricao) {
-                $checaNotificacaoNaoLida = $inscricao->user->unreadNotifications->filter(function($value, $key) {
-                    return data_get($value, 'type') == 'App\Notifications\OrcamentoFaltante';
-                });
-
-                if( empty($inscricao->orcamento->toArray()) && empty($checaNotificacaoNaoLida->toArray()) ) {
-                    $inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
+            foreach($users as $user) {
+                foreach($user->inscricoes as $inscricao) {
+                    $checaNotificacaoNaoLida = $inscricao->user->unreadNotifications->filter(function($value, $key) {
+                        return data_get($value, 'type') == 'App\Notifications\OrcamentoFaltante';
+                    });
+    
+                    if( empty($inscricao->orcamento->toArray()) && empty($checaNotificacaoNaoLida->toArray()) ) {
+                        $inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
+                    }
                 }
             }
+            
         })->dailyAt('00:01')->timezone('America/Fortaleza');
     }
 

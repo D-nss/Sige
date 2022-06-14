@@ -10,7 +10,7 @@ class NotificationController extends Controller
 {
     public function index() 
     {
-        $user = User::where('email', 'aadilson@unicamp.br')->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $notifications = $user->unreadNotifications;
         
@@ -19,7 +19,7 @@ class NotificationController extends Controller
 
     public function show($id)
     {
-        $user = User::where('email', 'aadilson@unicamp.br')->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         foreach ($user->unreadNotifications as $notification) {
             if($notification->id == $id) {
@@ -30,7 +30,7 @@ class NotificationController extends Controller
 
     public function markAsRead(Request $request)
     {
-        $user = User::where('email', 'aadilson@unicamp.br')->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $id = $request->notification_id;
 
