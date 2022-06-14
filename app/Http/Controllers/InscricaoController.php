@@ -500,6 +500,7 @@ class InscricaoController extends Controller
         $inscricao->status = 'Submetido';
 
         if($inscricao->save()) {
+            $inscricao->user->notify(new \App\Notifications\InscricaoSubmetida($inscricao));
             session()->flash('status', 'Inscrição submetida com sucesso.');
             session()->flash('alert', 'success');
 
