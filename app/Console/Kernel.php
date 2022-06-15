@@ -41,7 +41,10 @@ class Kernel extends ConsoleKernel
                     $checaNotificacaoNaoLida = $inscricao->user->unreadNotifications->filter(function($value, $key) {
                         return data_get($value, 'type') == 'App\Notifications\OrcamentoFaltante';
                     });
-    
+
+                    echo $user->name . ' - ' . empty($inscricao->orcamento->toArray()) . "\n";
+                    echo $user->email . ' - ' . empty($checaNotificacaoNaoLida->toArray()) . "\n";
+
                     if( empty($inscricao->orcamento->toArray()) && empty($checaNotificacaoNaoLida->toArray()) ) {
                         //$inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
                         echo $inscricao->user->email . "\n";
@@ -49,7 +52,7 @@ class Kernel extends ConsoleKernel
                 }
             }
             
-        })->dailyAt('10:12')->timezone('America/Fortaleza');
+        })->dailyAt('10:22')->timezone('America/Fortaleza');
     }
 
     /**
