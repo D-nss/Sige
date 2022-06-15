@@ -48,7 +48,7 @@ class Kernel extends ConsoleKernel
                 }
             }
             
-        })->dailyAt('10:22')->timezone('America/Fortaleza');
+        })->dailyAt('10:34')->timezone('America/Fortaleza');
     }
 
     /**
