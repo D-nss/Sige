@@ -43,7 +43,8 @@ class Kernel extends ConsoleKernel
                     });
     
                     if( empty($inscricao->orcamento->toArray()) && empty($checaNotificacaoNaoLida->toArray()) ) {
-                        $inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
+                        //$inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
+                        echo $inscricao->user->email . "\n";
                     }
                 }
             }
