@@ -9,10 +9,6 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    @include('layouts._includes._status')
-
-                    @include('layouts._includes._validacao')
-
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ url('subcomissao-tematica') }}" method="post" class="row">

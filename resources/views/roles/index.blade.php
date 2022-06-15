@@ -16,8 +16,6 @@
         </div>
     </div>
 
-    @include('layouts._includes._status')
-
             <!-- datatable start -->
             <table id="dt-roles" class="table table-bordered table-hover table-striped w-100">
                 <thead>

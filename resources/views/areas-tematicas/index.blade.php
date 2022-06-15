@@ -9,8 +9,6 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    @include('layouts._includes._status')
-
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ url('areas-tematicas') }}" method="post" class="row">

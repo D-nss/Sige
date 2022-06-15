@@ -9,10 +9,6 @@
           <div class="row">
             <div class="col-lg-12">
 
-            @include('layouts._includes._status')
-
-            @include('layouts._includes._validacao')
-
             <div class="card mb-4 p-3">
                 <div class="card-body">
                     @if(isset($inscricao))

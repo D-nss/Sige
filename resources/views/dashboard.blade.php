@@ -6,8 +6,6 @@
 
 <div class="container-fluid">
 
-    @include('layouts._includes._status')
-
     <!-- <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-default">

@@ -31,6 +31,7 @@ Versão: 4.5.1
         <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/datagrid/datatables/datatables.bundle.css')}}">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/formplugins/smartwizard/smartwizard.css')}}">
+        <link rel="stylesheet" media="screen, print" href="{{ asset('smartadmin-4.5.1/css/notifications/toastr/toastr.css') }}">
     </head>
     <!-- BEGIN Body -->
     <!-- Possible Classes
@@ -241,6 +242,7 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/upload.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/tagsinput.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/jquery.mask.js')}}"></script>
+        <script src="{{asset('smartadmin-4.5.1/js/notifications/toastr/toastr.js')}}"></script>
 
         <script>
             $(document).ready(function()
@@ -685,6 +687,34 @@ Versão: 4.5.1
                 $('#valor_max_inscricao').mask("#.##0,00", {reverse: true});
                 $('#valor_max_programa').mask("#.##0,00", {reverse: true});
                 $('#valor').mask("#.##0,00", {reverse: true});
+
+                toastr.options = {
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: true,
+                    progressBar: true,
+                    rtl: false,
+                    positionClass: 'toast-top-full-width',
+                    preventDuplicates: true,
+                    onclick: null
+                };
+
+                @if( session('alert') == 'success')
+                    toastr.success('{{ session('status') }}');
+                @elseif( session('alert') == 'danger')
+                    toastr.error('{{ session('status') }}');
+                @elseif( session('alert') == 'warning')
+                    toastr.warning('{{ session('status') }}');
+                @endif
+
+                @if($errors->any())
+                    var content = '';
+                    @foreach($errors->all() as $error)
+                        content+='<li>{{ $error }}</li>'
+                    @endforeach
+
+                    toastr.error('<ul>' + content + '</ul>');
+                @endif
 
             });
 

@@ -17,8 +17,6 @@
         </div>
     </div>
 
-    @include('layouts._includes._status')
-
             <!-- datatable start -->
             <table id="dt-permissions" class="table table-bordered table-hover table-striped w-100">
                 <thead>

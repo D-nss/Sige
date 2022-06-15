@@ -7,8 +7,6 @@
 <div class="container-fluid">
     <h1>Lista dos Usuários</h1>
 
-            @include('layouts._includes._status')
-
             <div class="row mb-3">
                 <div class="col-sm-3">
                     <a href="/usuarios/novo" class="btn btn-success btn-lg btn-icon rounded-circle" >

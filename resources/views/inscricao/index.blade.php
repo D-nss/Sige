@@ -4,8 +4,6 @@
 
 @section('content')
 <div class="container-fluid">
-    @include('layouts._includes._status')
-    @include('layouts._includes._validacao')
 
     <div class="subheader">
         <h1 class="subheader-title">
