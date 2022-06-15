@@ -1,14 +1,16 @@
-
+<?php
+    $user = \App\Models\User::where('email', Auth::user()->id)->first();
+?>
 <div>
     <a href="#" class="header-icon" data-toggle="dropdown" title="Você tem 11 notificações">
         <i class="fal fa-bell"></i>
-        <span class="badge badge-icon">{{ count(Auth::user->unreadNotifications->toArray()) }}</span>
+        <span class="badge badge-icon">{{ count($user->unreadNotifications->toArray()) }}</span>
     </a>
     <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
         <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
             <h4 class="m-0 text-center color-white">
                 
-                {{ count(Auth::user->unreadNotifications->toArray()) }}
+                {{ count($user->unreadNotifications->toArray()) }}
                 <small class="mb-0 opacity-80">Notificações</small>
             </h4>
         </div>
@@ -33,7 +35,7 @@
                 <div class="custom-scroll h-100">
                     <ul class="notification">
                         <div id="notification">
-                        @foreach(Auth::user->unreadNotifications as $unreadNotification)
+                        @foreach($user->unreadNotifications as $unreadNotification)
                         <li>
                             <a href="{{ route('notificacao.show', $unreadNotification->id) }}" class="d-flex align-items-center">
                                 <span class="status status-danger mr-2">
