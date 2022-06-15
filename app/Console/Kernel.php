@@ -20,18 +20,18 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function(){
             $editais = Edital::select('titulo', 'id', 'status')->get();
-            $data = new Cronograma();
+            $cronograma = new Cronograma();
 
             foreach($editais as $edital) {
-                $data = $data->getDate('dt_termino_inscricao', $edital->id);
-                 if(strtotime(date('Y-m-d')) > strtotime($data) && $edital->status == 'Divulgação' ) {
+                $data = $cronograma->getDate('dt_termino_inscricao', $edital->id);
+                if(strtotime(date('Y-m-d')) > strtotime($data) && $edital->status == 'Divulgação' ) {
                      $edital = Edital::find($edital->id);
                      $edital->status = 'Em Andamento';
                      echo $edital->save() ? "Edital $edital->titulo alterado status para em andamento" : "Erro ao alterar o estatus do Edital $edital->titulo";
                 }
             }
 
-        })->dailyAt('00:01')->timezone('America/Fortaleza');
+        })->dailyAt('16:20')->timezone('America/Fortaleza');
 
         $schedule->call(function(){
             $users = \App\Models\User::all();
