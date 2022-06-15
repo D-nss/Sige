@@ -42,12 +42,8 @@ class Kernel extends ConsoleKernel
                         return data_get($value, 'type') == 'App\Notifications\OrcamentoFaltante';
                     });
 
-                    echo $user->name . ' - ' . empty($inscricao->orcamento->toArray()) . "\n";
-                    echo $user->email . ' - ' . empty($checaNotificacaoNaoLida->toArray()) . "\n";
-
                     if( empty($inscricao->orcamento->toArray()) && empty($checaNotificacaoNaoLida->toArray()) ) {
-                        //$inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
-                        echo $inscricao->user->email . "\n";
+                        $inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao));
                     }
                 }
             }
