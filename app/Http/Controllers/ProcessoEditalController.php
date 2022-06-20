@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Avaliador;
 use App\Models\Edital;
+use App\Models\Cronograma;
 
 class ProcessoEditalController extends Controller
 {
