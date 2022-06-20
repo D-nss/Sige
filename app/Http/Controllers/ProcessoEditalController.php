@@ -10,6 +10,11 @@ use App\Models\Cronograma;
 
 class ProcessoEditalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:edital-administrador|super|admin');
+    }
+
     public function index() {
         $editais = Edital::all();
 
