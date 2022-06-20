@@ -137,6 +137,10 @@
                                                         Arquivo Parceria
                                                     </a>
                                                     @endif
+
+                                                    @if($errors->any())
+                                                        <span class="font-weight-bold text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -195,6 +199,10 @@
                                                     <br>
                                                     Arquivo Projeto
                                                 </a>
+                                                @endif
+
+                                                @if($errors->any())
+                                                    <span class="font-weight-bold text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
                                                 @endif
                                             </div>
                                         </div>

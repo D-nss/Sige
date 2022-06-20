@@ -35,7 +35,7 @@
                     <ul class="nav d-flex justify-content-between">
                         <li>
                             <a class="nav-link font-weight-bold font-size-16 " href="#step-1">
-                                Dados
+                                Dados Iniciais
                             </a>
                         </li>
                         <li>
@@ -50,7 +50,7 @@
                         </li>
                         <li>
                             <a class="nav-link font-weight-bold font-size-16" href="#step-4">
-                                Questões Complementares
+                                Detalhamento
                             </a>
                         </li>
                         <li>
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                         <div id="step-4" class="tab-pane" role="tabpanel">
-                            <h2 class="text-secondary">Questões Complementares</h2>
+                            <h2 class="text-secondary">Detalhamento</h2>
                             <div class="row pt-3 mb-3 border-bottom">
                                 <div class="col-md-12">
                                     @foreach($respostasQuestoes as $respostaQuestao)

@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Edital;
+
+class ProcessoEditalController extends Controller
+{
+    public function index() {
+        $editais = Edital::all();
+
+        return view('processo-edital.index', compact('editais'));
+    }
+
+    public function edit($id){
+        $edital = Edital::find($id);
+
+        $cronogramas = Cronograma::join('modelo_cronograma', 'modelo_cronograma.dt_input', 'cronogramas.dt_input')
+                                            ->where('edital_id', $id)
+                                            ->get(['modelo_cronograma.dt_label', 'cronogramas.data'])
+                                            ->toArray();
+
+        $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
+                                ->where('avaliadores.edital_id', $id)
+                                ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
+
+        return view('processo-edital.edit', compact('edital', 'cronogramas', 'avaliadores'));
+    }
+}

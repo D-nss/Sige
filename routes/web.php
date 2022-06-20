@@ -20,6 +20,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AvaliadorPorInscricaoController;
 use App\Http\Controllers\IndicadoresParametrosController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ProcessoEditalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,21 +116,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     Route::resource('subcomissao-tematica', SubcomissaoTematicaController::class);
 
-    Route::get('/processo-editais', function(){
-        $editais = App\Models\Edital::all();
-
-        return view('processo-edital.index', compact('editais'));
-    });
-
-    Route::get('/processo-editais/{id}/editar', function($id){
-        $edital = App\Models\Edital::find($id);
-        $cronograma = App\Models\Cronograma::where('edital_id', $id)->get()->toArray();
-        $avaliadores = App\Models\Avaliador::join('users', 'users.id', 'avaliadores.user_id')
-                                ->where('avaliadores.edital_id', $id)
-                                ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
-
-        return view('processo-edital.edit', compact('edital', 'cronograma', 'avaliadores'));
-    });
+    Route::get('/processo-editais', [ProcessoEditalController::class, 'index'])->name('processo.editais');
+    Route::get('/processo-editais/{id}/editar', [ProcessoEditalController::class, 'edit'])->name('processo.editais.editar');
 
     Route::get('notificacoes', [NotificationController::class, 'index'])->name('notificacoes.index');
     Route::get('notificacao/{id}', [NotificationController::class, 'show'])->name('notificacao.show');

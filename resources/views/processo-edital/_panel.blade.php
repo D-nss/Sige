@@ -27,10 +27,10 @@
         <div class="cronograma">
             <h2>Cronograma</h2>
             
-            @if( isset($edital) && !empty($edital->cronogramas->toArray()) )
+            @if( isset($edital) && !empty($cronogramas) )
                 <ul>
-                    @foreach($edital->cronogramas as $cronograma)
-                    <li><strong class="text-secondary">{{ $cronograma->dt_input }}: </strong><span style="color: #999;">{{ date('d/m/Y', strtotime($cronograma->data)) }}</span></li>
+                    @foreach($cronogramas as $cronograma)
+                        <li><strong class="text-secondary">{{ $cronograma['dt_label'] }}: </strong><span style="color: #999;">{{ date('d/m/Y', strtotime($cronograma['data'])) }}</span></li>
                     @endforeach
                 </ul>
                 <div class="d-flex justify-content-start align-items-center">

@@ -53,6 +53,10 @@
                                     <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $edital->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />
                                 </a>
                             @endif
+
+                            @if($errors->any())
+                                <span class="font-weight-bold text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
+                            @endif
                         </div>
                     </div>
                     </div>
