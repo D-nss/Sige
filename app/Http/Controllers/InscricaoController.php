@@ -38,11 +38,12 @@ class InscricaoController extends Controller
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
             }
-            /* lista todas as inscrições da unidade do user que é analista */
+            /* lista todas as inscrições da unidade do user que é analista ou inscricoes que ele esta indicado como analista */
             elseif($user->hasRole('edital-analista')) {
                 $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
                                         ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-                                        ->where('u.sigla', Auth::user()->unidade)
+                                        ->where('u.sigla', $user->unidade->sigla)
+                                        ->orWhere('inscricoes.analista_user_id', $user->id)
                                         ->get(['inscricoes.*']);
             }
             /* lista as inscrições em que o user é avaliador */
