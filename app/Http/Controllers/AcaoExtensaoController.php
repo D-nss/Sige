@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
+use App\Models\LinhaExtensao;
 
 class AcaoExtensaoController extends Controller
 {
@@ -28,7 +29,10 @@ class AcaoExtensaoController extends Controller
      */
     public function create()
     {
-        return view('acoes-extensao.create');
+        $linhas = LinhaExtensao::all();
+        return view('acoes-extensao.create', [
+            'linhas' => $linhas
+        ]);
     }
 
     /**

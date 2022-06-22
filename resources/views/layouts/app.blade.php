@@ -716,6 +716,59 @@ Versão: 4.5.1
                     toastr.error('<ul>' + content + '</ul>');
                 @endif
 
+                $('#sw_acao_extensao').smartWizard(
+                {
+                    selected: 0, // Initial selected step, 0 = first step
+                    keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    autoAdjustHeight: false, // Automatically adjust content height
+                    cycleSteps: true, // Allows to cycle the navigation of steps
+                    backButtonSupport: true, // Enable the back button support
+                    useURLhash: false, // Enable selection of the step based on url hash
+                    showStepURLhash: false,
+                    lang:
+                    { // Language variables
+                        next: 'Próximo',
+                        previous: 'Anterior'
+                    },
+                    toolbarSettings:
+                    {
+                        toolbarPosition: 'bottom', // none, top, bottom, both
+                        toolbarButtonPosition: 'right', // left, right
+                        showNextButton: true, // show/hide a Next button
+                        showPreviousButton: true, // show/hide a Previous button
+                        toolbarExtraButtons: [
+                        $('<button></button>').text('Finalizar')
+                                    .addClass('btn btn-primary btn-user btn-block btn-verde')
+                                    .on('click', function(){
+                                        $(this).text('');
+                                        $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
+                                        $(this).append('<span> Loading...</span>');
+                                        $(this).prop('disabled', true);
+                                        $('#form_acao_extensao').submit();
+                                    }),
+                        // $('<button></button>').text('Cancelar')
+                        //             .addClass('btn btn-danger')
+                        //             .on('click', function(){
+                        //             alert('Cancel button click');
+                        //             })
+                        ]
+                    },
+                    anchorSettings:
+                    {
+                        anchorClickable: true, // Enable/Disable anchor navigation
+                        enableAllAnchors: true, // Activates all anchors clickable all times
+                        markDoneStep: true, // add done css
+                        enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                    },
+                    contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+                    contentCache: true, //ajax content
+                    disabledSteps: [], // Array Steps disabled
+                    errorSteps: [], // Highlight step with errors
+                    theme: 'default', //dots, default, circles
+                    transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+                    transitionSpeed: '400'
+                });
+
             });
 
             $('#estado').change(function(){
