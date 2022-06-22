@@ -66,4 +66,9 @@ class Inscricao extends Model
         return $this->belongsToMany(User::class, 'avaliadores_por_inscricao', 'inscricao_id', 'user_id' );
     }
 
+    public function analista()
+    {
+        return $this->belongsTo(User::class, 'analista_user_id');
+    }
+
 }

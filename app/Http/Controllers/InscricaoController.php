@@ -536,6 +536,60 @@ class InscricaoController extends Controller
         return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
 
+    public function indicarAnalista($id)
+    {
+        $inscricao = Inscricao::findOrFail($id);
+        $users = User::all();
+
+        $user = User::where('email', 'aadilson@unicamp.br')->first();
+
+        if($inscricao->user_id == $user->id) {
+            session()->flash('status', 'Desculpe! Não é permitido adicionar avaliadores à própria inscrição');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
+        return view('inscricao.indicar-analista', compact('inscricao', 'users'));
+    }
+
+    /**     
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    * */
+    public function indicarAnalistaStore(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'analista_id' => 'required',
+        ]);
+
+        $inscricao = Inscricao::findOrFail($id);
+        $inscricao->analista_user_id = $request->analista_id;
+
+        if($inscricao->update()) {
+            session()->flash('status', 'Analista cadastrado com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+
+    }
+
+    public function indicarAnalistaDelete(Request $request, $id)
+    {
+        $inscricao = Inscricao::findOrFail($id);
+        $inscricao->analista_user_id = NULL;
+        
+        if($inscricao->update()) {
+            session()->flash('status', 'Analista removido com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+
+    }
+
     /**
      * @param  int  $id
      * @return \Illuminate\Http\Response

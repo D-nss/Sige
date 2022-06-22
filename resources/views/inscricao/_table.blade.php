@@ -29,6 +29,9 @@
                     @endif
                     @if($user->hasAnyRole('edital-avaliador','super','edital-administrador') && $inscricao->status == 'Deferido' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)))
                         <a href='{{ url("inscricao/$inscricao->id/?avaliacao=true") }}' class="btn btn-success m-1">Avaliar</a>
+                    @endif
+                    @if($user->hasAnyRole('edital-administrador') && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)))
+                        <a href='{{ url("inscricao/$inscricao->id/indicar-analista") }}' class="btn btn-secondary m-1">Indicar Analista</a>
                     @endif                    
                 </td>
                 <td>
