@@ -8,11 +8,6 @@
     </ul>
     <div class="p-3">
         <div id="step-1" class="">
-            <div class="form-group">
-                <label class="form-label">label</label>
-                <input type="text" name="test" required="" class="form-control">
-            </div>
-
             <div class="form-group text-center">
                 <h4><b>CARACTERIZAÇÃO DA AÇÃO</b></h4>
             </div>
@@ -42,7 +37,7 @@
                     <option value="">Selecione Linha de Extensão</option>
                       @if (!empty($linhas))
                         @foreach ($linhas as $linha)
-                          <option value="{{$linha->id}}">{{$linha->nome}}></option>
+                          <option value="{{$linha->id}}">{{$linha->nome}}</option>
                         @endforeach
                       @endif
                   </select>
@@ -51,7 +46,41 @@
 
         </div>
         <div id="step-2" class="">
-            Step Content
+            <div class="form-group text-center">
+                <h4><b>DADOS GERAIS DA AÇÃO</b></h4>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="titulo">Título da Ação<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" id="titulo" name="titulo" required="required" class="form-control col-md-7 col-xs-12" >
+                </div>
+              </div>
+            <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <textarea id="descricao" name="descricao" required="required" class="form-control col-md-7 col-xs-12"></textarea>
+                </div>
+              </div>
+              <div class="item form-group">
+                <div class="control-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Palavras chaves<span class="required">*</span></label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input id="palavras_chaves" type="text" required="required" name="palavras_chaves" class="tags form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">Url (site)<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="publico_alvo">Público alvo<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" id="publico_alvo" required="required" name="publico_alvo" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
         </div>
         <div id="step-3" class="">
             Step Content
