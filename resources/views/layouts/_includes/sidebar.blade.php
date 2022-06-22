@@ -53,6 +53,27 @@
         <ul id="js-nav-menu" class="nav-menu">
             @if(Auth::hasUser())
 
+            @hasanyrole('super|admin', 'web_user')
+                <li>
+                    <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
+                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
+                    </a>
+                    <ul>
+                        <li class="">
+                            <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
+                            </a>
+                            <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endhasanyrole
+            @endif
+
+            @if(Auth::hasUser())
+
             @hasanyrole('super|admin|indicadores-admin|indicadores-user', 'web_user')
                 <li>
                     <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
