@@ -75,7 +75,7 @@
                           </li>
                       </ul>
                       @endif
-                      <a href="{{ url('inscricao') }}" class="btn btn-secondary btn-user float-left">
+                      <a href="{{ url('inscricao') }}" class="btn btn-secondary btn-user float-left mt-2">
                           <span class="icon text-white-50">
                               <i class="fal fa-long-arrow-left"></i>
                           </span>
