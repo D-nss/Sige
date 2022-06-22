@@ -616,7 +616,7 @@ class InscricaoController extends Controller
                 $justificativa .= $criterio . "\n";
             }
 
-            $justificativa .= "\nJustificativa: \n" . !is_null($request->justificativa) ? $request->justificativa  : '';
+            $justificativa .= "\n. Justificativa: \n" . !is_null($request->justificativa) ? $request->justificativa  : '';
 
             $inscricao->justificativa = $justificativa;
         }
