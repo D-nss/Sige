@@ -21,7 +21,7 @@
     <div class="row panel p-4">
         <div class="col-xl-12">
 
-            <table class="table table-bordered table-hover" id="dt-propostas">
+            <table class="table table-bordered table-hover" id="dt-propostas" style="width: 100%">
                 <thead>
                     <tr>
                         <th>Edital</th>

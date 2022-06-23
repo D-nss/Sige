@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped table-hover" id="dt-propostas">
+<table class="table table-bordered table-hover" id="dt-propostas" style="width: 100%">
     <thead>
         <tr>
             <th>Edital</th>
