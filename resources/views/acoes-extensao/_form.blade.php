@@ -9,12 +9,12 @@
     <div class="p-3">
         <div id="step-1" class="">
             <div class="form-group">
-                <label class="form-label" for="tipo">Tipo da Ação</label>
+                <label class="form-label" for="tipo">Tipo da Ação <span class="text-danger">*</span></label>
                 <select class="form-control" id="tipo" name="tipo">
                     @if(isset($acao_extensao))
                             <option value="{{$acao_extensao->tipo}}">Implementar Switch {{$acao_extensao->tipo}}</option>
                     @else
-                            <option value="">Tipo da Ação</option>
+                            <option value="">Selecione o Tipo da Ação</option>
                     @endif
                     <option value="1">Programa</option>
                     <option value="2">Projeto</option>
@@ -25,9 +25,9 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="linha_extensao_id">Linha de Extensão</label>
+                <label class="form-label" for="linha_extensao_id">Linha de Extensão <span class="text-danger">*</span></label>
                 <select class="form-control" id="linha_extensao_id" name="linha_extensao_id">
-                    <option value="">Selecione Linha de Extensão</option>
+                    <option value="">Selecione a Linha de Extensão</option>
                       @if (!empty($linhas))
                         @foreach ($linhas as $linha)
                           <option value="{{$linha->id}}">{{$linha->nome}}</option>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="example-multiselect">Áreas Temáticas (Escolha pelo menos um)</label>
+                <label class="form-label" for="example-multiselect">Áreas Temáticas <span class="text-danger">*</span> <i>(Escolha pelo menos um)</i></label>
                 <select id="example-multiselect" multiple="" class="form-control">
                     <option>1</option>
                     <option>2</option>
@@ -50,37 +50,50 @@
         </div>
         <div id="step-2" class="">
             <div class="form-group">
-                <label class="form-label" for="titulo">Título da Ação</label>
-                <input type="text" id="titulo" name="titulo" required="required" class="form-control">
+                <label class="form-label" for="titulo">Título da Ação <span class="text-danger">*</span></label>
+                <input type="text" id="titulo" name="titulo" required class="form-control">
             </div>
             <div class="form-group">
-                <label class="form-label" for="example-textarea">Descrição</label>
-                <textarea id="descricao" name="descricao" required="required" class="form-control" rows="5"></textarea>
+                <label class="form-label" for="example-textarea">Descrição <span class="text-danger">*</span></label>
+                <textarea id="descricao" name="descricao" required class="form-control" rows="5"></textarea>
             </div>
-
-              <div class="item form-group">
-                <div class="control-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Palavras chaves<span class="required">*</span></label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="palavras_chaves" type="text" required="required" name="palavras_chaves" class="tags form-control"/>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">Url (site)<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="publico_alvo">Público alvo<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="publico_alvo" required="required" name="publico_alvo" class="form-control col-md-7 col-xs-12">
-                </div>
-              </div>
+            <div class="form-group">
+                <label class="form-label" for="palavras_chaves">Palavras chaves </label>
+                <input type="text" id="palavras_chaves" name="palavras_chaves" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="url">Url (site) </label>
+                <input type="text" id="url" name="url" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="publico_alvo">Público alvo <span class="text-danger">*</span></label>
+                <input type="text" id="publico_alvo" name="publico_alvo" class="form-control">
+            </div>
         </div>
         <div id="step-3" class="">
-            Step Content
+            <div class="form-group">
+                <label class="form-label" for="data_inicio">Data de Início <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" type="date" id="data_inicio" name="data_inicio" placeholder="dd/mm/aaaa">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="data_fim">Data Fim </label>
+                <input type="text" class="form-control" type="date" id="data_fim" name="data_fim" placeholder="dd/mm/aaaa">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="situacao">Situação da Ação <span class="text-danger">*</span></label>
+                <select class="form-control" id="situacao" name="situacao">
+                    @if(isset($acao_extensao))
+                            <option value="{{$acao_extensao->situacao}}">Implementar Switch {{$acao_extensao->tipo}}</option>
+                    @else
+                            <option value="">Selecione a Situação</option>
+                    @endif
+                    <option value="1">Desativado</option>
+                    <option value="2">Em andamento</option>
+                    <option value="3">Concluído</option>
+                </select>
+            </div>
+
+
         </div>
         <div id="step-4" class="">
             Step Content
