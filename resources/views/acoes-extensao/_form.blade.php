@@ -8,14 +8,9 @@
     </ul>
     <div class="p-3">
         <div id="step-1" class="">
-            <div class="form-group text-center">
-                <h4><b>CARACTERIZAÇÃO DA AÇÃO</b></h4>
-            </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipo">Tipo da Ação<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <select class="form-control" id="tipo" name="tipo">
+            <div class="form-group">
+                <label class="form-label" for="tipo">Tipo da Ação</label>
+                <select class="form-control" id="tipo" name="tipo">
                     @if(isset($acao_extensao))
                             <option value="{{$acao_extensao->tipo}}">Implementar Switch {{$acao_extensao->tipo}}</option>
                     @else
@@ -26,41 +21,43 @@
                     <option value="3">Curso</option>
                     <option value="4">Evento</option>
                     <option value="5">Prestação de Serviços</option>
-                  </select>
-                </div>
-              </div>
+                </select>
+            </div>
 
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="linha">Linha de Extensão<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <select class="form-control" id="linha_extensao_id" name="linha_extensao_id">
+            <div class="form-group">
+                <label class="form-label" for="linha_extensao_id">Linha de Extensão</label>
+                <select class="form-control" id="linha_extensao_id" name="linha_extensao_id">
                     <option value="">Selecione Linha de Extensão</option>
                       @if (!empty($linhas))
                         @foreach ($linhas as $linha)
                           <option value="{{$linha->id}}">{{$linha->nome}}</option>
                         @endforeach
                       @endif
-                  </select>
-                </div>
-              </div>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="example-multiselect">Áreas Temáticas (Escolha pelo menos um)</label>
+                <select id="example-multiselect" multiple="" class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
 
         </div>
         <div id="step-2" class="">
-            <div class="form-group text-center">
-                <h4><b>DADOS GERAIS DA AÇÃO</b></h4>
+            <div class="form-group">
+                <label class="form-label" for="titulo">Título da Ação</label>
+                <input type="text" id="titulo" name="titulo" required="required" class="form-control">
             </div>
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="titulo">Título da Ação<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="titulo" name="titulo" required="required" class="form-control col-md-7 col-xs-12" >
-                </div>
-              </div>
-            <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição<span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <textarea id="descricao" name="descricao" required="required" class="form-control col-md-7 col-xs-12"></textarea>
-                </div>
-              </div>
+                <label class="form-label" for="example-textarea">Descrição</label>
+                <textarea id="descricao" name="descricao" required="required" class="form-control" rows="5"></textarea>
+            </div>
+
               <div class="item form-group">
                 <div class="control-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Palavras chaves<span class="required">*</span></label>
