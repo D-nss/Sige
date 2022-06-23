@@ -21,7 +21,7 @@
     <div class="row panel p-4">
         <div class="col-xl-12">
 
-            <table class="table table-bordered table-hover" id="dt-propostas">
+            <table class="table table-bordered table-hover" id="dt-propostas" style="width: 100%">
                 <thead>
                     <tr>
                         <th>Edital</th>
@@ -41,23 +41,25 @@
                             <td>{{ $inscricao->status }}</td>
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->updated_at)) }}</td>
                             <td>
-                                <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
-                                @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
-                                    <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
-                                    <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
-                                        <i class="far fa-list"></i> 
-                                        Orçamento
-                                        @if( empty($inscricao->orcamento->toArray()) )
-                                            <span class="badge bg-danger-300 ml-2 px-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento"><strong class="text-light">!</strong></span>
-                                        @endif
-                                    </a>
-                                    <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
-                                        @csrf
-                                        <button type="button" id="btn-submeter" class="btn btn-success m-1">
-                                            <i class="far fa-arrow-right"></i> Submeter
-                                        </button>
-                                    </form>
-                                @endif
+                                <div class="btn-group btn-group-sm">
+                                    <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger m-1"><i class="far fa-eye"></i> Ver</a>
+                                    @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
+                                        <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info m-1"><i class="far fa-edit"></i> Editar</a>
+                                        <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary m-1">
+                                            <i class="far fa-list"></i> 
+                                            Orçamento
+                                            @if( empty($inscricao->orcamento->toArray()) )
+                                                <span class="badge bg-danger-300 ml-2 px-2" data-toggle="tooltip" data-placement="top" title="Você possui uma pendência! Preenchimento do orçamento"><strong class="text-light">!</strong></span>
+                                            @endif
+                                        </a>
+                                        <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
+                                            @csrf
+                                            <button type="button" id="btn-submeter" class="btn btn-success m-1">
+                                                <i class="far fa-arrow-right"></i> Submeter
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach
