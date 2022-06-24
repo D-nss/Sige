@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
 use App\Models\LinhaExtensao;
 use App\Models\AreaTematica;
+use App\Models\Unidade;
+use App\Models\User;
+use App\Models\Municipio;
 
 class AcaoExtensaoController extends Controller
 {
@@ -17,9 +22,9 @@ class AcaoExtensaoController extends Controller
      */
     public function index()
     {
-        $acoesExtensao = AcaoExtensao::all();
+        $acoes_extensao = AcaoExtensao::all();
         return view('acoes-extensao.index', [
-            'acoesExtensao' => $acoesExtensao
+            'acoes_extensao' => $acoes_extensao
         ]);
     }
 
@@ -30,11 +35,17 @@ class AcaoExtensaoController extends Controller
      */
     public function create()
     {
-        $linhas = LinhaExtensao::all();
-        $areas = AreaTematica::all();
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
+        $unidades = Unidade::all();
+        //$user = User::where('email', Auth::user()->id)->first();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+
         return view('acoes-extensao.create', [
-            'linhas' => $linhas,
-            'areas' => $areas
+            'linhas_extensao' => $linhas_extensao,
+            'areas_tematicas' => $areas_tematicas,
+            'estados' => $estados,
+            'unidades' => $unidades
         ]);
     }
 
@@ -46,9 +57,9 @@ class AcaoExtensaoController extends Controller
      */
     public function store(StoreAcaoExtensaoRequest $request)
     {
-        $acaoExtensao = new AcaoExtensao();
+        $acao_extensao = new AcaoExtensao();
         //$acaoExtensao->atributo = $request->atributo;
-        $acaoExtensao->save();
+        $acao_extensao->save();
         return redirect()->route('acao-extensao.index');
     }
 
@@ -61,7 +72,7 @@ class AcaoExtensaoController extends Controller
     public function show(AcaoExtensao $acaoExtensao)
     {
         return view('acoes-extensao.show', [
-            'acaoExtensao' => $acaoExtensao
+            'acao_extensao' => $acaoExtensao
         ]);
     }
 
@@ -73,8 +84,10 @@ class AcaoExtensaoController extends Controller
      */
     public function edit(AcaoExtensao $acaoExtensao)
     {
+        $acaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $acaoExtensao->municipio_id)->get();
+
         return view('acoes-extensao.edit', [
-            'acaoExtensao' => $acaoExtensao
+            'acao_extensao' => $acaoExtensao
         ]);
     }
 

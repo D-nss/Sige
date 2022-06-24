@@ -23,31 +23,27 @@
                     <option value="5">Prestação de Serviços</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label class="form-label" for="linha_extensao_id">Linha de Extensão <span class="text-danger">*</span></label>
-                <select class="form-control" id="linha_extensao_id" name="linha_extensao_id">
+                <label class="form-label" for="linha_extensao">Linha de Extensão <span class="text-danger">*</span></label>
+                <select class="form-control" id="linha_extensao" name="linha_extensao">
                     <option value="">Selecione a Linha de Extensão</option>
-                      @if (!empty($linhas))
-                        @foreach ($linhas as $linha)
-                          <option value="{{$linha->id}}">{{$linha->nome}}</option>
+                      @if (!empty($linhas_extensao))
+                        @foreach ($linhas_extensao as $linha_extensao)
+                          <option value="{{$linha_extensao->id}}">{{$linha_extensao->nome}}</option>
                         @endforeach
                       @endif
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label" for="areas_tematicas">Áreas Temáticas <span class="text-danger">*</span> <i>(Escolha pelo menos um)</i></label>
-                <select name="areas_tematicas[]" id="areas_tematicas" multiple="" class="form-control">
-                    @if (!empty($areas))
-                        @foreach ($areas as $area)
-                            <option value="{{ $area->id }}">{{$area->nome}}</option>
+                <select name="areas_tematicas[]" id="areas_tematicas" multiple="" class="form-control" style="height: 150px;">
+                    @if (!empty($areas_tematicas))
+                        @foreach ($areas_tematicas as $area_tematica)
+                            <option value="{{ $area_tematica->id }}">{{$area_tematica->nome}}</option>
                         @endforeach
                     @endif
                 </select>
             </div>
-
-
         </div>
         <div id="step-2" class="">
             <div class="form-group">
@@ -83,17 +79,47 @@
             <div class="form-group">
                 <label class="form-label" for="estado">Estado <span class="text-danger">*</span></label>
                 <select class="form-control col-md-3" id="estado" name="estado">
-                    <option value="1">Selecione o Estado</option>
+                    <option value="">Selecione o Estado</option>
+                    @foreach($estados as $estado)
+                        <option value="{{ $estado->uf }}" @if((isset($acaoLocal) && $acaoLocal[0]->uf == $estado->uf) || old('estado') == $estado->uf) selected @endif>{{ $estado->uf }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label class="form-label" for="cidade">Cidade Principal <span class="text-danger">*</span></label>
-                <select class="form-control col-md-3" id="cidade" name="cidade">
-                    <option value="1">Selecione a Cidade</option>
+                <select class="form-control col-md-3" id="cidade" name="cidade" required>
+                    @if( isset($acaoLocal) )
+                        <option value="{{ $acao_extensao->municipio_id }}">{{ $acaoLocal[0]->nome_municipio }}</option>
+                    @endif
+
+                    @if( old('cidade') )
+                                        <script>
+                                            function loadDoc() {
+                                            const xhttp = new XMLHttpRequest();
+                                            xhttp.onload = function() {
+                                                var data = this.responseText;
+                                                data = JSON.parse(data);
+                                                var content = '';
+                                                var cidade = document.getElementById('cidade');
+                                                var old = '{{ old('cidade') }}';
+
+                                                data.map(municipio => {
+                                                    content += `<option value="${municipio.id}" ${old == municipio.id ? 'selected' : ''}>${municipio.nome_municipio}</option>`;
+                                                });
+
+                                                cidade.innerHTML = content;
+                                            }
+                                            xhttp.open("GET", "{{ url('get-municipios-by-uf') }}/?uf=" + document.getElementById('estado').value);
+                                            xhttp.send();
+                                            }
+
+                                            loadDoc()
+                                        </script>
+                    @endif
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label" for="municipio">Situação da Ação <span class="text-danger">*</span></label>
+                <label class="form-label" for="situacao">Situação da Ação <span class="text-danger">*</span></label>
                 <select class="form-control col-md-3" id="situacao" name="situacao">
                     @if(isset($acao_extensao))
                             <option value="{{$acao_extensao->situacao}}">Implementar Switch {{$acao_extensao->tipo}}</option>
@@ -114,7 +140,12 @@
             <div class="form-group">
                 <label class="form-label" for="unidade">Órgão/Unidade <span class="text-danger">*</span></label>
                 <select class="form-control col-md-3" id="unidade" name="unidade">
-                    <option value="1">Selecione a Unidade Responsável</option>
+                    <option value="">Selecione a Unidade Responsável</option>
+                    @if (!empty($unidades))
+                        @foreach ($unidades as $unidade)
+                          <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
             <div class="form-group">
@@ -124,7 +155,15 @@
             <div class="form-group">
                 <label class="form-label" for="tipo_coordenador">Tipo do Coordenador <span class="text-danger">*</span></label>
                 <select class="form-control col-md-3" id="tipo_coordenador" name="tipo_coordenador">
-                    <option value="1">Selecione o Tipo</option>
+                    @if(isset($acao_extensao))
+                            <option value="{{$acao_extensao->tipo_coordenador}}">Implementar Switch {{$acao_extensao->tipo_coordenador}}</option>
+                    @else
+                            <option value="">Selecione o Tipo do Coordenador</option>
+                    @endif
+                            <option value="1">Docente</option>
+                            <option value="2">Discente</option>
+                            <option value="3">Técnico Administrativo</option>
+                            <option value="4">Outro</option>
                 </select>
             </div>
             <div class="form-group">

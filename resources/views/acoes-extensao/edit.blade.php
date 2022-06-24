@@ -36,12 +36,6 @@
                         @csrf
                         @method('put')
                         @include('acoes-extensao._form')
-                        <a href="/acoes-extensao" class="btn btn-secondary btn-user btn-block ">
-                            <span class="icon text-white-50">
-                            <i class="fas fa-arrow-left"></i>
-                            </span>
-                            <span class="text">Voltar</span>
-                        </a>
                     </form>
                 </div>
             </div>
