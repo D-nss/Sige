@@ -688,6 +688,8 @@ Versão: 4.5.1
                 $('#valor_max_programa').mask("#.##0,00", {reverse: true});
                 $('#valor').mask("#.##0,00", {reverse: true});
 
+                $('#investimento').mask("#.##0,00", {reverse: true});
+
                 toastr.options = {
                     closeButton: true,
                     debug: false,

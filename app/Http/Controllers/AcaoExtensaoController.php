@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
 use App\Models\LinhaExtensao;
+use App\Models\AreaTematica;
 
 class AcaoExtensaoController extends Controller
 {
@@ -30,8 +31,10 @@ class AcaoExtensaoController extends Controller
     public function create()
     {
         $linhas = LinhaExtensao::all();
+        $areas = AreaTematica::all();
         return view('acoes-extensao.create', [
-            'linhas' => $linhas
+            'linhas' => $linhas,
+            'areas' => $areas
         ]);
     }
 

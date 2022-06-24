@@ -3,9 +3,22 @@
 @section('title', 'Cadastro de uma Ação de Extensão')
 
 @section('content')
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
+    <li class="breadcrumb-item">Ações de Extensão</li>
+    <li class="breadcrumb-item active">Nova Ação</li>
+    <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+</ol>
+<div class="subheader">
+    <h1 class="subheader-title">
+        <i class='subheader-icon fal fa-plus'></i> Nova Ação de Extensão
+        <small>
+            Cadastro de uma nova Ação de Extensão
+        </small>
+    </h1>
+</div>
 
 <div class="container-fluid">
-    <h1>Cadastrar nova Ação de Extensão</h1>
   <div class="row">
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
