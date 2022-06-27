@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\GrauEnvolvimentoEquipe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,6 +9,7 @@ use App\Models\User;
 use App\Models\Unidade;
 use App\Models\Municipio;
 use App\Models\LinhaExtensao;
+use App\Models\TipoParceiro;
 
 return new class extends Migration
 {
@@ -46,10 +48,10 @@ return new class extends Migration
             $table->integer('qtd_pos_graduacao')->nullable();
             //parceiros e comunidade
             $table->string('parceiro')->nullable();
-            $table->integer('tipo_parceiro')->nullable();
+            $table->foreignIdFor(TipoParceiro::class);
             $table->string('impactos_universidade')->nullable();
             $table->string('impactos_sociedade')->nullable();
-            $table->integer('grau_envolvimento_equipe')->nullable();
+            $table->foreignIdFor(GrauEnvolvimentoEquipe::class);
             $table->float('investimento', 10, 2)->nullable();
             //moderação e status
             $table->bigInteger('aprovado_user_id')->nullable();

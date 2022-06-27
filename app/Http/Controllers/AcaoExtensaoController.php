@@ -9,9 +9,11 @@ use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
 use App\Models\LinhaExtensao;
 use App\Models\AreaTematica;
+use App\Models\GrauEnvolvimentoEquipe;
 use App\Models\Unidade;
 use App\Models\User;
 use App\Models\Municipio;
+use App\Models\TipoParceiro;
 
 class AcaoExtensaoController extends Controller
 {
@@ -40,12 +42,16 @@ class AcaoExtensaoController extends Controller
         $unidades = Unidade::all();
         //$user = User::where('email', Auth::user()->id)->first();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $tipos_parceiro = TipoParceiro::all();
+        $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
 
         return view('acoes-extensao.create', [
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados,
-            'unidades' => $unidades
+            'unidades' => $unidades,
+            'tipos_parceiro' => $tipos_parceiro,
+            'graus_envolvimento_equipe' => $graus_envolvimento_equipe
         ]);
     }
 

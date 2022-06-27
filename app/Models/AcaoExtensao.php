@@ -33,10 +33,10 @@ class AcaoExtensao extends Model
         'qtd_graduacao',
         'qtd_pos_graduacao',
         'parceiro',
-        'tipo_parceiro',
+        'tipo_parceiro_id',
         'impactos_universidade',
         'impactos_sociedade',
-        'grau_envolvimento_equipe',
+        'grau_envolvimento_equipe_id',
         'investimento',
     ];
 
@@ -50,8 +50,8 @@ class AcaoExtensao extends Model
         return $this->belongsTo(Municipio::class);
     }
 
-    public function aprovado_user()
+    public function aprovado()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'aprovado_user_id');
     }
 }

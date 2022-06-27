@@ -56,7 +56,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="palavras_chaves">Palavras chaves </label>
-                <input type="text" id="palavras_chaves" name="palavras_chaves" class="form-control">
+                <input type="text" id="palavras_chaves" name="palavras_chaves" class="form-control" data-role="tagsinput" value="@if(isset($acao_extensao->palavras_chaves)){{ $acao_extensao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif">
             </div>
             <div class="form-group">
                 <label class="form-label" for="url">Url (site) </label>
@@ -187,7 +187,12 @@
             <div class="form-group">
                 <label class="form-label" for="tipo_parceiro">Tipo do Principal Parceiro</label>
                 <select class="form-control col-md-6" id="tipo_parceiro" name="tipo_parceiro">
-                    <option value="1">Selecione o Tipo</option>
+                    <option value="">Selecione o Tipo</option>
+                    @if (!empty($tipos_parceiro))
+                        @foreach ($tipos_parceiro as $tipo_parceiro)
+                          <option value="{{$tipo_parceiro->id}}">{{$tipo_parceiro->descricao}}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
             <div class="form-group">
@@ -201,7 +206,12 @@
             <div class="form-group">
                 <label class="form-label" for="grau_envolvimento_equipe">Tipo de envolvimento da equipe com a Comunidade <span class="text-danger">*</span></label>
                 <select class="form-control col-md-6" id="grau_envolvimento_equipe" name="grau_envolvimento_equipe">
-                    <option value="1">Selecione o tipo do envolvimento</option>
+                    <option value="">Selecione o tipo do envolvimento</option>
+                    @if (!empty($graus_envolvimento_equipe))
+                        @foreach ($graus_envolvimento_equipe as $grau_envolvimento_equipe)
+                          <option value="{{$grau_envolvimento_equipe->id}}">{{$grau_envolvimento_equipe->descricao}}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
             <div class="form-group">

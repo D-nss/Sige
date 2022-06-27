@@ -51,5 +51,11 @@ class DatabaseSeeder extends Seeder
         $this->call(MunicipiosTableSeeder::class);
 
         $this->call(ModeloCronogramaTableSeeder::class);
+
+        //Tipos de Parceiro
+        $this->call(TipoParceiroSeeder::class);
+
+        //Graus de Envolvimento Equipe
+        $this->call(GrauEnvolvimentoEquipeSeeder::class);
     }
 }
