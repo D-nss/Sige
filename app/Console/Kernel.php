@@ -49,6 +49,31 @@ class Kernel extends ConsoleKernel
             }
             
         })->dailyAt('00:01')->timezone('America/Fortaleza');
+
+        $schedule->call(function(){
+            $users = \App\Models\User::all();
+            $cronograma = new \App\Models\Cronograma();
+        
+            foreach($users as $user) {
+                foreach($user->inscricoes as $inscricao) {
+
+                    $data_inicial = $cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id);
+                    $data_final = date('Y-m-d');
+
+                    $diff = strtotime($data_inicial) - strtotime($data_final);
+
+                    $dias = floor($diff / (60 * 60 * 24));
+
+                    echo "A diferença é de $dias dias entre as datas";
+                    if(empty($inscricao->orcamento->toArray()) && $dias == 3 ) 
+                    {
+                        echo 'Sending mail notification...';
+                        $inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao, ['mail']));
+                    }
+                    
+                }
+            }
+        })->dailyAt('00:01')->timezone('America/Fortaleza');
     }
 
     /**
