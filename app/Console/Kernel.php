@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
                 }
             }
 
-        })->dailyAt('16:20')->timezone('America/Fortaleza');
+        })->dailyAt('00:01')->timezone('America/Fortaleza');
 
         $schedule->call(function(){
             $users = \App\Models\User::all();
