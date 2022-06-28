@@ -42,7 +42,7 @@ class QuestaoController extends Controller
     {
         $validated = $request->validate([
             'tipo' => 'required',
-            'enunciado' => 'required|max:255',
+            'enunciado' => 'required|max:1000',
             'edital_id' => 'required'
         ]);
 
