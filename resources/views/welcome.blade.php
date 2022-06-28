@@ -82,7 +82,8 @@
           <div class="panel-content">
               <div class="panel-tag">
                 <p><span class="text-secondary font-weight-bold">Dúvidas sobre editais:</span> pex@unicamp.br</p>  
-                <p><span class="text-secondary font-weight-bold">Dúvidas sobre Indicadores:</span> suporte@proec.unicamp.br</p>
+                <p><span class="text-secondary font-weight-bold">Dúvidas sobre Indicadores:</span> conex@unicamp.br</p>
+                <p><span class="text-secondary font-weight-bold">Dúvidas sobre Sistemas:</span> suporte@proec.unicamp.br</p>
                 <p><span class="text-secondary font-weight-bold">Endereço:</span>Av. Érico Veríssimo, 500 – Cidade Universitária “Zeferino Vaz” – Barão Geraldo CEP 13083-851 – Campinas – SP</p>
               
               </div>
