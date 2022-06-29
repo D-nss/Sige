@@ -37,7 +37,7 @@ return new class extends Migration
             $table->date('data_fim')->nullable();
             $table->integer('situacao'); // 1=Desativado, 2=Em Andamento, 3=Concluido
             $table->foreignIdFor(Municipio::class);
-            $table->string('georreferenciacao', 255); //lista latitude longitude
+            $table->string('georreferenciacao', 255)->nullable(); //lista latitude longitude
             //coordenador e equipe
             $table->foreignIdFor(User::class); //usuario que cadastrou a acao
             $table->foreignIdFor(Unidade::class);
@@ -48,10 +48,10 @@ return new class extends Migration
             $table->integer('qtd_pos_graduacao')->nullable();
             //parceiros e comunidade
             $table->string('parceiro')->nullable();
-            $table->foreignIdFor(TipoParceiro::class);
+            $table->foreignIdFor(TipoParceiro::class)->nullable();
             $table->string('impactos_universidade')->nullable();
             $table->string('impactos_sociedade')->nullable();
-            $table->foreignIdFor(GrauEnvolvimentoEquipe::class);
+            $table->foreignIdFor(GrauEnvolvimentoEquipe::class)->nullable();
             $table->float('investimento', 10, 2)->nullable();
             //moderação e status
             $table->bigInteger('aprovado_user_id')->nullable();

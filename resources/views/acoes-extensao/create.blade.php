@@ -29,9 +29,6 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <div class="panel-tag">
-                        Espaço para informar os erros na validação do formulário.
-                    </div>
                     <form action="{{route('acao_extensao.store')}}" id="form_acao_extensao" method="POST">
                         @csrf
                         @include('acoes-extensao._form')

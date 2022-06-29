@@ -38,6 +38,7 @@ class AcaoExtensao extends Model
         'impactos_sociedade',
         'grau_envolvimento_equipe_id',
         'investimento',
+        'status'
     ];
 
     public function user()
