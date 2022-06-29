@@ -63,13 +63,13 @@ return [
         'inscricao' => [
             'driver' => 'single',
             'path' => storage_path('logs/inscricoes.log'),
-            'level' => env('debug'),
+            'level' => 'debug',
         ],
 
         'orcamento' => [
             'driver' => 'single',
             'path' => storage_path('logs/orcamentos.log'),
-            'level' => env('debug'),
+            'level' => 'debug',
         ],
     ],
 
