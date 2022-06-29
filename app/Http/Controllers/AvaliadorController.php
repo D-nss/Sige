@@ -104,13 +104,12 @@ class AvaliadorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\Avaliador $avaliador
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Avaliador $avaliador)
     {
-        $avaliador = Avaliador::find($id);
-
+        //$avaliador = Avaliador::find($id);
         if($avaliador->delete()) {
 
             session()->flash('status', 'Avaliador removido com sucesso!!!');

@@ -71,7 +71,7 @@ class CriterioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Criterio $criterio
      * @return \Illuminate\Http\Response
      */
     public function show(Criterio $criterio)
@@ -82,7 +82,7 @@ class CriterioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Criterio $criterio
      * @return \Illuminate\Http\Response
      */
     public function edit(Criterio $criterio)
@@ -94,7 +94,7 @@ class CriterioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Criterio $criterio
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Criterio $criterio)
@@ -105,7 +105,7 @@ class CriterioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Criterio $criterio
      * @return \Illuminate\Http\Response
      */
     public function destroy(Criterio $criterio)

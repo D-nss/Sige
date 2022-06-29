@@ -21,7 +21,7 @@ class IndicadoresParametrosController extends Controller
     {
         $indicadoresParametros = IndicadoresParametros::all();
 
-        return view('indicadores.manage', compact('indicadoresParametros'));
+        return view('indicadores.parametros', compact('indicadoresParametros'));
     }
 
     /**
@@ -57,14 +57,14 @@ class IndicadoresParametrosController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * 
+     * @param  \App\Models\IndicadoresParametros $indicadoresParametro
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(IndicadoresParametros $indicadoresParametro)
     {
-        $indicadoresParametros = IndicadoresParametros::findOrFail($id);
-        if($indicadoresParametros->delete()) {
+        //$indicadoresParametros = IndicadoresParametros::findOrFail($id);
+        if($indicadoresParametro->delete()) {
             session()->flash('status', 'Parâmetros removido com sucesso!!!');
             session()->flash('alert', 'success');
 

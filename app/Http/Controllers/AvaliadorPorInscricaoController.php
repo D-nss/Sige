@@ -8,6 +8,11 @@ use App\Models\AvaliadorPorInscricao;
 
 class AvaliadorPorInscricaoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:edital-administrador|super');
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -42,6 +47,7 @@ class AvaliadorPorInscricaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param \App\Models\AvaliadorPorInscricao $avaliador_inscricao
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */

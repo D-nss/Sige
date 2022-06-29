@@ -107,7 +107,7 @@ class EditalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param   App\Models\Edital $edital
      * @return \Illuminate\Http\Response
      */
     public function show(Edital $edital)
@@ -118,23 +118,24 @@ class EditalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param   App\Models\Edital $edital
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Edital $edital)
     {
-        $edital = Edital::findOrFail($id);
+        
         return view('edital.edit', compact('edital'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Models\Edital $edital
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Edital $edital)
     {
         $inputsParaValidar = $request->except(['valor_max_programa']);
         $validar = array();
@@ -158,9 +159,7 @@ class EditalController extends Controller
 
         $uploaded = new UploadFile();
 
-        $anexo_edital = Edital::where('id',$id)->get(['anexo_edital', 'anexo_imagem'])->toArray();
-
-        $edital = Edital::where('id',$id)
+        $editalUpdated = Edital::where('id', $edital->id)
                         ->update([
                             'titulo' => $request->titulo,
                             'tipo' => $request->tipo,
@@ -168,16 +167,16 @@ class EditalController extends Controller
                             'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
                             'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
                             'valor_max_programa' => str_replace(',', '.', str_replace('.', '',$request->valor_max_programa)),
-                            'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $anexo_edital[0]['anexo_edital'],
-                            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $anexo_edital[0]['anexo_imagem'],
+                            'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $edital->anexo_edital,
+                            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $edital->anexo_imagem,
                         ]);
 
-        if($edital) {
+        if($editalUpdated) {
 
             session()->flash('status', 'Edital Atualizado com sucesso!!!');
             session()->flash('alert', 'success');
 
-            return redirect()->to("processo-editais/$id/editar");
+            return redirect()->to("processo-editais/$edital->id/editar");
         }
         else {
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar');
@@ -230,9 +229,15 @@ class EditalController extends Controller
         return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'subcomissoes'));
     }
 
-    public function divulgar($id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  App\Models\Edital $edital
+     * @return \Illuminate\Http\Response
+     */
+    public function divulgar(Edital $edital)
     {
-        $edital = Edital::findOrFail($id);
+        //$edital = Edital::findOrFail($id);
         $edital->status = 'Divulgação';
 
         if( $edital->update() ) {

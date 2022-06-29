@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_orcamento');
+        Schema::dropIfExists('tipo_item');
     }
 };

@@ -103,7 +103,7 @@ class CronogramaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $edital_id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $edital_id)

@@ -27,18 +27,18 @@ class OrcamentoController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Inscricao $inscricao)
     {
-        $inscricao = Inscricao::find($id);
+        //$inscricao = Inscricao::find($id);
         $edital = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao','valor_max_programa','tipo']);
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital[0]['valor_max_programa'] : $edital[0]['valor_max_inscricao'] ;
 
         $orcamentoItens = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
-                                   ->where('inscricao_id', $id)
+                                   ->where('inscricao_id', $inscricao->id)
                                    ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
         $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
 

@@ -79,39 +79,39 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
-    Route::resource('/indicadores-parametros', IndicadoresParametrosController::class);
+    Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
 
     /* -------------- rotas editais ---------------- */
-    Route::resource('/editais', EditalController::class);
+    Route::resource('/editais', EditalController::class)->parameters(['editais' => 'edital']);
     Route::get('editais', [EditalController::class, 'index']);
-    Route::post('edital/{id}/divulgar', [EditalController::class, 'divulgar']);
+    Route::post('edital/{edital}/divulgar', [EditalController::class, 'divulgar']);
 
     Route::get('/editais/{edital}/criterios', [EditalController::class, 'editarCriterios']);
-    Route::resource('/criterios', CriterioController::class);
+    Route::resource('/criterios', CriterioController::class)->parameters(['criterios' => 'criterio']);
 
     Route::resource('/cronogramas', CronogramaController::class);
     Route::get('/editais/{edital}/cronograma', [EditalController::class, 'editarCronograma']);
     Route::post('/cronograma/prorrogar', [CronogramaController::class, 'prorrogar']);
 
-    Route::resource('/questoes', QuestaoController::class);
+    Route::resource('/questoes', QuestaoController::class)->parameters(['questoes' => 'questao']);
     Route::get('/editais/{edital}/questoes', [EditalController::class, 'editarQuestoes']);
 
-    Route::resource('/avaliadores', AvaliadorController::class);
+    Route::resource('/avaliadores', AvaliadorController::class)->parameters(['avaliadores' => 'avaliador']);
     Route::get('/editais/{edital}/avaliadores', [EditalController::class, 'editarAvaliadores']);
     Route::get('get-avaliador-by-subcomissao', [AvaliadorController::class, 'getAvaliadorBySubcomissao']);
 
-    Route::resource('/inscricao', InscricaoController::class);
+    Route::resource('/inscricao', InscricaoController::class)->parameters(['inscricoes' => 'inscricao']);
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
-    Route::post('/inscricao/{id}/analise', [InscricaoController::class, 'analise']);
-    Route::post('/inscricao/{id}/avaliacao', [InscricaoController::class, 'avaliacao']);
-    Route::get('/inscricao/{id}/avaliadores', [InscricaoController::class, 'indicarAvaliador']);
-    Route::get('/inscricao/{id}/indicar-analista', [InscricaoController::class, 'indicarAnalista']);
-    Route::post('/inscricao/{id}/indicar-analista/store', [InscricaoController::class, 'indicarAnalistaStore']);
-    Route::post('/inscricao/{id}/indicar-analista/delete', [InscricaoController::class, 'indicarAnalistaDelete']);
-    Route::post('/inscricao/{id}/submeter', [InscricaoController::class, 'submeter']);
+    Route::post('/inscricao/{inscricao}/analise', [InscricaoController::class, 'analise']);
+    Route::post('/inscricao/{inscricao}/avaliacao', [InscricaoController::class, 'avaliacao']);
+    Route::get('/inscricao/{inscricao}/avaliadores', [InscricaoController::class, 'indicarAvaliador']);
+    Route::get('/inscricao/{inscricao}/indicar-analista', [InscricaoController::class, 'indicarAnalista']);
+    Route::post('/inscricao/{inscricao}/indicar-analista/store', [InscricaoController::class, 'indicarAnalistaStore']);
+    Route::post('/inscricao/{inscricao}/indicar-analista/delete', [InscricaoController::class, 'indicarAnalistaDelete']);
+    Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
     Route::get('inscricoes-enviadas', [InscricaoController::class, 'inscricoesPorUsuario']);
 
-    Route::get('/inscricao/{id}/orcamento', [OrcamentoController::class, 'create']);
+    Route::get('/inscricao/{inscricao}/orcamento', [OrcamentoController::class, 'create']);
     Route::resource('/orcamento', OrcamentoController::class);
     Route::get('get-item-by-id', [ItemController::class, 'getItemById']);
 

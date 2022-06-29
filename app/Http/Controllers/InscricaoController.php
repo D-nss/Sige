@@ -230,12 +230,12 @@ class InscricaoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, Inscricao $inscricao)
     {
-        $inscricao = Inscricao::find($id);
+        //$inscricao = Inscricao::find($id);
         $edital = Edital::findOrFail($inscricao->edital_id);
         $cronograma = new Cronograma();
         $user = User::where('email', Auth::user()->id)->first();
@@ -294,13 +294,13 @@ class InscricaoController extends Controller
         $inscricoesAreaTematica = InscricaoAreaTematica::join(
             'areas_tematicas', 'areas_tematicas.id',
             'inscricoes_areas_tematicas.area_tematica_id'
-            )->where('inscricao_id',$id)
+            )->where('inscricao_id',$inscricao->id)
             ->get();
 
         $respostasQuestoes = QuestaoRespondida::join(
             'questoes', 'questoes_respondidas.questao_id',
             'questoes.id'
-            )->where('questoes_respondidas.inscricao_id', $id)
+            )->where('questoes_respondidas.inscricao_id', $inscricao->id)
             ->get();
 
 
@@ -308,10 +308,10 @@ class InscricaoController extends Controller
 
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
 
-        $totalItens = Orcamento::where('inscricao_id', $id)->sum('valor');
+        $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
         $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
-                                   ->where('inscricao_id', $id)
+                                   ->where('inscricao_id', $inscricao->id)
                                    ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
 
         return view('inscricao.show', compact(
@@ -333,17 +333,17 @@ class InscricaoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Inscricao $inscricao)
     {
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $cronograma = new Cronograma();
 
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $edital = Edital::findOrFail($inscricao->edital_id);
         $respostasQuestoes = DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->get();
         $inscricaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $inscricao->municipio_id)->get();
@@ -366,10 +366,10 @@ class InscricaoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Inscricao $inscricao)
     {
         $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
@@ -402,13 +402,13 @@ class InscricaoController extends Controller
         }
 
         $validar['areas_tematicas'] = 'required';
-        $validar['pdf_projeto'] = 'required|mimes:pdf';
+        $validar['pdf_projeto'] = 'mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
 
         $user = User::where('email', Auth::user()->id)->first();
 
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $areasTematicasInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
@@ -477,13 +477,13 @@ class InscricaoController extends Controller
     }
 
     /**
-     * @param  int  $id
+     * @param  \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function submeter($id)
+    public function submeter(Inscricao $inscricao)
     {
-        $inscricao = Inscricao::findOrFail($id);
-
+        //$inscricao = Inscricao::findOrFail($id);
+       
         if($inscricao->status === 'Submetido') {
             session()->flash('status', 'Inscrição já submetida.');
             session()->flash('alert', 'success');
@@ -516,12 +516,12 @@ class InscricaoController extends Controller
     }
 
     /**
-     * @param  int  $id
+     * @param  \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function indicarAvaliador($id)
+    public function indicarAvaliador(Inscricao $inscricao)
     {
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $users = User::all();
 
         $user = User::where('email', Auth::user()->id)->first();
@@ -536,9 +536,13 @@ class InscricaoController extends Controller
         return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
 
-    public function indicarAnalista($id)
+    /**
+     * @param  \App\Models\Inscricao $inscricao
+     * @return \Illuminate\Http\Response
+     */
+    public function indicarAnalista(Inscricao $inscricao)
     {
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $users = User::all();
 
         $user = User::where('email', 'aadilson@unicamp.br')->first();
@@ -555,16 +559,17 @@ class InscricaoController extends Controller
 
     /**     
     * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
+    * @param  \App\Models\Inscricao $inscricao
     * @return \Illuminate\Http\Response
-    * */
-    public function indicarAnalistaStore(Request $request, $id)
+    *
+    */
+    public function indicarAnalistaStore(Request $request, Inscricao $inscricao)
     {
         $validated = $request->validate([
             'analista_id' => 'required',
         ]);
 
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $inscricao->analista_user_id = $request->analista_id;
 
         if($inscricao->update()) {
@@ -576,9 +581,15 @@ class InscricaoController extends Controller
 
     }
 
-    public function indicarAnalistaDelete(Request $request, $id)
+    /**     
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Inscricao $inscricao
+    * @return \Illuminate\Http\Response
+    *
+    */
+    public function indicarAnalistaDelete(Request $request, Inscricao $inscricao)
     {
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $inscricao->analista_user_id = NULL;
         
         if($inscricao->update()) {
@@ -590,13 +601,15 @@ class InscricaoController extends Controller
 
     }
 
-    /**
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function analise(Request $request, $id)
+    /**     
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Inscricao $inscricao
+    * @return \Illuminate\Http\Response
+    *
+    */
+    public function analise(Request $request, Inscricao $inscricao)
     {
-        $inscricao = Inscricao::findOrFail($id);
+        //$inscricao = Inscricao::findOrFail($id);
         $user = User::where('email', Auth::user()->id)->first();
 
         if($inscricao->user_id == $user->id) {
@@ -636,7 +649,13 @@ class InscricaoController extends Controller
 
     }
 
-    public function avaliacao(Request $request, $id)
+    /**     
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Inscricao $inscricao
+    * @return \Illuminate\Http\Response
+    *
+    */
+    public function avaliacao(Request $request, Inscricao $inscricao)
     {
         $user = User::where('email', Auth::user()->id)->first();
         $dados = array();
@@ -645,16 +664,16 @@ class InscricaoController extends Controller
             $questao_id = substr($key, 8, strlen($key));
             array_push($dados, array(
                 'user_id'      => $user->id,
-                'inscricao_id' => $id,
+                'inscricao_id' => $inscricao->id,
                 'questao_id'   => $questao_id,
                 'valor'        => $value
             ));
         }
 
-        $transacao = DB::transaction(function () use ($dados, $id) {
+        $transacao = DB::transaction(function () use ($dados, $inscricao) {
             DB::table('respostas_avaliacoes')->insert($dados);
 
-            $inscricao = Inscricao::findOrFail($id);
+            //$inscricao = Inscricao::findOrFail($id);
             $inscricao->status = 'Avaliado';
             $inscricao->update();
         });
