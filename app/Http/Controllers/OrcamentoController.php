@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Inscricao;
 use App\Models\Edital;
@@ -98,7 +99,7 @@ class OrcamentoController extends Controller
         }
         else {
             Log::channel('orcamento')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Novo item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
-            
+
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar item.');
             session()->flash('alert', 'warning');
 
