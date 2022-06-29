@@ -376,7 +376,7 @@ class InscricaoController extends Controller
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
-                $validar[$key] = 'required|max:1000';
+                $validar[$key] = 'required|max:2500';
             }
             elseif($key == 'pdf_projeto') {
                 $validar[$key] = 'mimes:pdf';
@@ -385,7 +385,7 @@ class InscricaoController extends Controller
                 $validar[$key] = 'mimes:pdf';
             }
             elseif(substr($key, 0, 8) == 'questao-'){
-                $validar[$key] = 'required|max:450';
+                $validar[$key] = 'required|max:10000';
             }
             else {
                 $validar[$key] = 'required|max:190';
