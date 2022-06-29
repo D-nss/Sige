@@ -213,12 +213,14 @@ class InscricaoController extends Controller
         });
 
         if(is_null($inscricao) || empty($inscricao)) {
+            Log::channel('inscricao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Inscricao não inserida  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova inscricao ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Finalize sua inscrição incluindo os itens do orçamento.');
             session()->flash('alert', 'success');
 
@@ -501,6 +503,7 @@ class InscricaoController extends Controller
         $inscricao->status = 'Submetido';
 
         if($inscricao->save()) {
+            Log::channel('inscricao')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Submissao de inscricao ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             $inscricao->user->notify(new \App\Notifications\InscricaoSubmetida($inscricao));
             session()->flash('status', 'Inscrição submetida com sucesso.');
             session()->flash('alert', 'success');
@@ -508,6 +511,7 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Submissao de inscricao ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao submeter sua inscrição');
             session()->flash('alert', 'danger');
 

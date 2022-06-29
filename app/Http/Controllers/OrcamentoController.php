@@ -89,12 +89,16 @@ class OrcamentoController extends Controller
         ]);
 
         if($orcamento) {
+            Log::channel('orcamento')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Novo item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
+
             session()->flash('status', 'Item cadastrado com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->to("/inscricao/$request->inscricao_id/orcamento");
         }
         else {
+            Log::channel('orcamento')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Novo item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
+            
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar item.');
             session()->flash('alert', 'warning');
 
