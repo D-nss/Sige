@@ -480,10 +480,11 @@ class InscricaoController extends Controller
     }
 
     /**
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Inscricao $inscricao
      * @return \Illuminate\Http\Response
      */
-    public function submeter(Inscricao $inscricao)
+    public function submeter(Inscricao $inscricao, Request $request)
     {
         //$inscricao = Inscricao::findOrFail($id);
        
