@@ -676,7 +676,7 @@ class InscricaoController extends Controller
             ));
         }
 
-        $transacao = DB::transaction(function () use ($dados, $inscricao) {
+        $transacao = DB::transaction(function () use ($dados, $inscricao, $user) {
             DB::table('respostas_avaliacoes')->insert($dados);
 
             //$inscricao = Inscricao::findOrFail($id);
