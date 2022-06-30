@@ -63,10 +63,25 @@ class AcaoExtensaoController extends Controller
      */
     public function store(StoreAcaoExtensaoRequest $request)
     {
-        $acao_extensao = new AcaoExtensao();
-        //$acaoExtensao->atributo = $request->atributo;
-        $acao_extensao->save();
-        return redirect()->route('acao-extensao.index');
+        //$user = User::where('email', Auth::user()->id)->first();
+        $dados = array('user_id' => 1);
+        $dados['areas_tematicas'] = implode(",", $request->areas_tematicas);
+        $dados['municipio_id'] = $request->cidade;
+        $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
+        $dados_form = $request->all();
+        $dados = array_merge($dados_form, $dados);
+        $dados['status'] = 'Pendente';
+        $acao_extensao = AcaoExtensao::create($dados);
+        if($acao_extensao){
+            session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
+            session()->flash('alert', 'success');
+        } else {
+            session()->flash('status', 'Erro ao adicionar a Ação de Extensão ao banco de dados.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+        //$acao_extensao->save();
+        return redirect()->route('acao_extensao.index');
     }
 
     /**
@@ -108,7 +123,7 @@ class AcaoExtensaoController extends Controller
     {
         //$acaoExtensao->nome = $request->nome;
         $acaoExtensao->save();
-        return redirect()->route('acao-extensao.index');
+        return redirect()->route('acao_extensao.index');
     }
 
     /**
@@ -120,6 +135,6 @@ class AcaoExtensaoController extends Controller
     public function destroy(AcaoExtensao $acaoExtensao)
     {
         $acaoExtensao->delete();
-        return redirect()->route('acao-extensao.index');
+        return redirect()->route('acao_extensao.index');
     }
 }

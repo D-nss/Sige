@@ -10,7 +10,7 @@
         <div id="step-1" class="">
             <div class="form-group">
                 <label class="form-label" for="tipo">Tipo da Ação <span class="text-danger">*</span></label>
-                <select class="form-control" id="tipo" name="tipo">
+                <select class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo">
                     @if(isset($acao_extensao))
                             <option value="{{$acao_extensao->tipo}}">Implementar Switch {{$acao_extensao->tipo}}</option>
                     @else
@@ -22,10 +22,15 @@
                     <option value="4">Evento</option>
                     <option value="5">Prestação de Serviços</option>
                 </select>
+                @error('tipo')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
-                <label class="form-label" for="linha_extensao">Linha de Extensão <span class="text-danger">*</span></label>
-                <select class="form-control" id="linha_extensao" name="linha_extensao">
+                <label class="form-label" for="linha_extensao_id">Linha de Extensão <span class="text-danger">*</span></label>
+                <select class="form-control @error('linha_extensao_id') is-invalid @enderror" id="linha_extensao_id" name="linha_extensao_id">
                     <option value="">Selecione a Linha de Extensão</option>
                       @if (!empty($linhas_extensao))
                         @foreach ($linhas_extensao as $linha_extensao)
@@ -33,44 +38,74 @@
                         @endforeach
                       @endif
                 </select>
+                @error('linha_extensao_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="areas_tematicas">Áreas Temáticas <span class="text-danger">*</span> <i>(Escolha pelo menos um)</i></label>
-                <select name="areas_tematicas[]" id="areas_tematicas" multiple="" class="form-control" style="height: 150px;">
+                <select name="areas_tematicas[]" id="areas_tematicas" multiple="" class="form-control @error('areas_tematicas') is-invalid @enderror" style="height: 150px;">
                     @if (!empty($areas_tematicas))
                         @foreach ($areas_tematicas as $area_tematica)
                             <option value="{{ $area_tematica->id }}">{{$area_tematica->nome}}</option>
                         @endforeach
                     @endif
                 </select>
+                @error('areas_tematicas')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
         </div>
         <div id="step-2" class="">
             <div class="form-group">
                 <label class="form-label" for="titulo">Título da Ação <span class="text-danger">*</span></label>
-                <input type="text" id="titulo" name="titulo" required class="form-control">
+                <input type="text" id="titulo" name="titulo" class="form-control @error('titulo') is-invalid @enderror">
+                @error('titulo')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="descricao">Descrição <span class="text-danger">*</span></label>
-                <textarea id="descricao" name="descricao" required class="form-control" rows="5"></textarea>
+                <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" rows="5"></textarea>
+                @error('descricao')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="palavras_chaves">Palavras chaves </label>
-                <input type="text" id="palavras_chaves" name="palavras_chaves" class="form-control" data-role="tagsinput" value="@if(isset($acao_extensao->palavras_chaves)){{ $acao_extensao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif">
+                <input type="text" id="palavras_chaves" name="palavras_chaves" class="form-control" data-role="tagsinput" placeholder="Digite entre virgulas" value="@if(isset($acao_extensao->palavras_chaves)){{ $acao_extensao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif">
             </div>
             <div class="form-group">
                 <label class="form-label" for="url">Url (site) </label>
-                <input type="text" id="url" name="url" class="form-control">
+                <input type="text" id="url" name="url" class="form-control" placeholder="https://www.unicamp.br">
             </div>
             <div class="form-group">
                 <label class="form-label" for="publico_alvo">Público alvo <span class="text-danger">*</span></label>
-                <input type="text" id="publico_alvo" name="publico_alvo" class="form-control" required>
+                <input type="text" id="publico_alvo" name="publico_alvo" class="form-control @error('publico_alvo') is-invalid @enderror">
+                @error('publico_alvo')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
         </div>
         <div id="step-3" class="">
             <div class="form-group">
                 <label class="form-label" for="data_inicio">Data de Início <span class="text-danger">*</span></label>
-                <input class="form-control col-md-3" type="date" id="data_inicio" name="data_inicio" placeholder="dd/mm/aaaa" required>
+                <input class="form-control col-md-3 @error('data_inicio') is-invalid @enderror" type="date" id="data_inicio" name="data_inicio" placeholder="dd/mm/aaaa">
+                @error('data_inicio')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="data_fim">Data Fim </label>
@@ -78,16 +113,21 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="estado">Estado <span class="text-danger">*</span></label>
-                <select class="form-control col-md-3" id="estado" name="estado">
+                <select class="form-control col-md-3 @error('estado') is-invalid @enderror" id="estado" name="estado">
                     <option value="">Selecione o Estado</option>
                     @foreach($estados as $estado)
                         <option value="{{ $estado->uf }}" @if((isset($acaoLocal) && $acaoLocal[0]->uf == $estado->uf) || old('estado') == $estado->uf) selected @endif>{{ $estado->uf }}</option>
                     @endforeach
                 </select>
+                @error('estado')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="cidade">Cidade Principal <span class="text-danger">*</span></label>
-                <select class="form-control col-md-3" id="cidade" name="cidade" required>
+                <select class="form-control col-md-3 @error('cidade') is-invalid @enderror" id="cidade" name="cidade">
                     @if( isset($acaoLocal) )
                         <option value="{{ $acao_extensao->municipio_id }}">{{ $acaoLocal[0]->nome_municipio }}</option>
                     @endif
@@ -117,10 +157,15 @@
                                         </script>
                     @endif
                 </select>
+                @error('cidade')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="situacao">Situação da Ação <span class="text-danger">*</span></label>
-                <select class="form-control col-md-3" id="situacao" name="situacao">
+                <select class="form-control col-md-3 @error('situacao') is-invalid @enderror" id="situacao" name="situacao">
                     @if(isset($acao_extensao))
                             <option value="{{$acao_extensao->situacao}}">Implementar Switch {{$acao_extensao->tipo}}</option>
                     @else
@@ -130,6 +175,11 @@
                     <option value="2">Em andamento</option>
                     <option value="3">Concluído</option>
                 </select>
+                @error('situacao')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="georreferenciacao">Georreferenciação <i>(*para o Mapa da Extensão)</i></label>
@@ -138,8 +188,8 @@
         </div>
         <div id="step-4" class="">
             <div class="form-group">
-                <label class="form-label" for="unidade">Órgão/Unidade <span class="text-danger">*</span></label>
-                <select class="form-control col-md-3" id="unidade" name="unidade">
+                <label class="form-label" for="unidade_id">Órgão/Unidade <span class="text-danger">*</span></label>
+                <select class="form-control col-md-3 @error('unidade_id') is-invalid @enderror" id="unidade_id" name="unidade_id">
                     <option value="">Selecione a Unidade Responsável</option>
                     @if (!empty($unidades))
                         @foreach ($unidades as $unidade)
@@ -147,14 +197,24 @@
                         @endforeach
                     @endif
                 </select>
+                @error('unidade_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="nome_coordenador">Nome do Coordenador <span class="text-danger">*</span></label>
-                <input type="text" id="nome_coordenador" name="nome_coordenador" required class="form-control">
+                <input type="text" id="nome_coordenador" name="nome_coordenador" class="form-control @error('nome_coordenador') is-invalid @enderror">
+                @error('nome_coordenador')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="tipo_coordenador">Tipo do Coordenador <span class="text-danger">*</span></label>
-                <select class="form-control col-md-3" id="tipo_coordenador" name="tipo_coordenador">
+                <select class="form-control col-md-3 @error('tipo_coordenador') is-invalid @enderror" id="tipo_coordenador" name="tipo_coordenador">
                     @if(isset($acao_extensao))
                             <option value="{{$acao_extensao->tipo_coordenador}}">Implementar Switch {{$acao_extensao->tipo_coordenador}}</option>
                     @else
@@ -165,10 +225,15 @@
                             <option value="3">Técnico Administrativo</option>
                             <option value="4">Outro</option>
                 </select>
+                @error('tipo_coordenador')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="equipe">Equipe</label>
-                <textarea id="equipe" name="equipe" class="form-control" rows="5" placeholder="Digite entre virgulas"></textarea>
+                <input id="equipe" name="equipe" class="form-control" data-role="tagsinput" placeholder="Digite entre virgulas">
             </div>
             <div class="form-group">
                 <label class="form-label" for="qtd_graduacao">Quantidade de alunos de graduação envolvidos na ação</label>
@@ -182,11 +247,11 @@
         <div id="step-5" class="">
             <div class="form-group">
                 <label class="form-label" for="parceiro">Parceiro(s)</label>
-                <input type="text" id="parceiro" name="parceiro" required class="form-control">
+                <input type="text" id="parceiro" name="parceiro" data-role="tagsinput" placeholder="Digite entre virgulas" class="form-control">
             </div>
             <div class="form-group">
-                <label class="form-label" for="tipo_parceiro">Tipo do Principal Parceiro</label>
-                <select class="form-control col-md-6" id="tipo_parceiro" name="tipo_parceiro">
+                <label class="form-label" for="tipo_parceiro_id">Tipo do Principal Parceiro</label>
+                <select class="form-control col-md-6" id="tipo_parceiro_id" name="tipo_parceiro_id">
                     <option value="">Selecione o Tipo</option>
                     @if (!empty($tipos_parceiro))
                         @foreach ($tipos_parceiro as $tipo_parceiro)
@@ -197,15 +262,25 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="impactos_universidade">Impactos para a universidade <span class="text-danger">*</span></label>
-                <textarea id="impactos_universidade" name="impactos_universidade" class="form-control" rows="5" required></textarea>
+                <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" rows="5"></textarea>
+                @error('impactos_universidade')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="impactos_sociedade">Impactos para a sociedade <span class="text-danger">*</span></label>
-                <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control" rows="5" required></textarea>
+                <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control @error('impactos_sociedade') is-invalid @enderror" rows="5"></textarea>
+                @error('impactos_sociedade')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
-                <label class="form-label" for="grau_envolvimento_equipe">Tipo de envolvimento da equipe com a Comunidade <span class="text-danger">*</span></label>
-                <select class="form-control col-md-6" id="grau_envolvimento_equipe" name="grau_envolvimento_equipe">
+                <label class="form-label" for="grau_envolvimento_equipe_id">Tipo de envolvimento da equipe com a Comunidade <span class="text-danger">*</span></label>
+                <select class="form-control col-md-6 @error('grau_envolvimento_equipe_id') is-invalid @enderror" id="grau_envolvimento_equipe_id" name="grau_envolvimento_equipe_id">
                     <option value="">Selecione o tipo do envolvimento</option>
                     @if (!empty($graus_envolvimento_equipe))
                         @foreach ($graus_envolvimento_equipe as $grau_envolvimento_equipe)
@@ -213,10 +288,20 @@
                         @endforeach
                     @endif
                 </select>
+                @error('grau_envolvimento_equipe_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="investimento">Investimento total (em Reais, R$) <span class="text-danger">*</span></label>
-                <input type="text" id="investimento" name="investimento" required class="form-control col-md-6">
+                <input type="text" id="investimento" name="investimento" class="form-control col-md-6 @error('investimento') is-invalid @enderror">
+                @error('investimento')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
         </div>
     </div>
