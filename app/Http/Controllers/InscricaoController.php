@@ -681,6 +681,7 @@ class InscricaoController extends Controller
 
             //$inscricao = Inscricao::findOrFail($id);
             $inscricao->status = 'Avaliado';
+            $inscricao->avaliador_user_id = $user->id;
             $inscricao->update();
         });
 
