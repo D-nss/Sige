@@ -3,11 +3,18 @@
 @section('title', 'Cadastrar novo Cronograma')
 
 @section('content')
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
+    <li class="breadcrumb-item">Processos Editais</li>
+    <li class="breadcrumb-item">Cronograma</li>
+    <li class="breadcrumb-item active">Editar Cronograma</li>
+    <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+</ol>
 <div class="container-fluid">
 
     <div class="subheader">
         <h1 class="subheader-title">
-            <span class="text-success">Cronograma</span>
+            <span class="text-success"><i class='subheader-icon fal fa-edit'></i>Cronograma</span>
             <small>
             Editar o cronograma para o edital <span class="text-secondary">{{$edital->titulo}}</span>
             </small>

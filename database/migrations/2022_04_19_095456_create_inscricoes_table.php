@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('url_projeto', 255)->nullable();
             $table->string('url_lattes', 255)->nullable();
             $table->string('status', 190)->nullable();
-            $table->string('justificativa', 500)->nullable();
+            $table->string('justificativa', 10000)->nullable();
             $table->foreignIdFor(LinhaExtensao::class);
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Unidade::class);

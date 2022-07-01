@@ -3,7 +3,28 @@
 @section('title', 'Cadastrar novo Processo Edital')
 
 @section('content')
-<h1>Inscrição</h1>
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
+    <li class="breadcrumb-item">Inscrição</li>
+    <li class="breadcrumb-item active">Nova Inscrição</li>
+    <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+</ol>
+<div class="subheader">
+    <h1 class="subheader-title">
+        <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Inscrição</span>
+        <small>
+            Cadastro de nova inscrição
+        </small>
+        <small>
+            Autor {{ $inscricao->user->name }}
+        </small>
+    </h1>
+    <div class="subheader-block d-lg-flex align-items-center">
+        <div class="d-inline-flex flex-column justify-content-center">
+        
+        </div>
+    </div>
+</div>
         <!-- Begin Page Content -->
         <div class="container">
           <div class="row">

@@ -3,7 +3,26 @@
 @section('title', 'Cadastrar novo Processo Edital')
 
 @section('content')
-<h1>Avaliação de Proposta</h1>
+<ol class="breadcrumb page-breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
+    <li class="breadcrumb-item">Inscrição</li>
+    <li class="breadcrumb-item">Avaliação</li>
+    <li class="breadcrumb-item active">Nova Avaliação</li>
+    <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+</ol>
+<div class="subheader">
+    <h1 class="subheader-title">
+        <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Avaliação</span>
+        <small>
+        Efetuar avaliação da inscrição <span class="text-secondary">{{$inscricao->titulo}}</span>
+        </small>
+    </h1>
+    <div class="subheader-block d-lg-flex align-items-center">
+        <div class="d-inline-flex flex-column justify-content-center">
+        
+        </div>
+    </div>
+</div>
         <!-- Begin Page Content -->
         <div class="container">
           <div class="row">
