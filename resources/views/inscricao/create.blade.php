@@ -16,7 +16,7 @@
             Cadastro de nova inscrição
         </small>
         <small>
-            Autor {{ $inscricao->user->name }}
+            
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
