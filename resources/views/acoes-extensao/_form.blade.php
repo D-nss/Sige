@@ -303,7 +303,7 @@
             <div class="form-group">
                 <label class="form-label" for="tipo_parceiro_id">Tipo do Principal Parceiro</label>
                 <select class="form-control col-md-6" id="tipo_parceiro_id" name="tipo_parceiro_id">
-                    @if(isset($acao_extensao))
+                    @if(isset($acao_extensao->tipo_parceiro))
                         <option value="{{$acao_extensao->tipo_parceiro->id}}">{{$acao_extensao->tipo_parceiro->descricao}}</option>
                     @else
                         <option value="">Selecione o Tipo</option>
