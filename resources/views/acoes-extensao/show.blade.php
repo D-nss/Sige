@@ -576,6 +576,7 @@
             </div>
         </div>
 
+        @if(isset($acao_extensao->parceiro))
         <div class="card mb-g">
             <div class="card-header bg-trans-gradient py-2 pr-2 d-flex align-items-center flex-wrap col-12">
                 <div class="p-1 text-white">
@@ -603,6 +604,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
     </div>
 </div>
