@@ -169,10 +169,31 @@
                 @if($acao_extensao->equipe != "")
                     @foreach (explode(',',$acao_extensao->equipe) as $colaborador)
                         <div class="col-4">
-                            <a href="javascript:void(0);" class="text-center p-3 d-flex flex-column hover-highlight">
+                            <a href="javascript:void(0);" class="text-center p-3 d-flex flex-column hover-highlight" data-toggle="modal" data-target="#{{$colaborador}}">
                                 <span class="profile-image rounded-circle d-block m-auto" style="background-image:url('{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}'); background-size: cover;"></span>
                                 <span class="d-block text-truncate text-muted fs-xs mt-1">{{$colaborador}}</span>
                             </a>
+                        </div>
+                        <!-- Modal center -->
+                        <div class="modal fade" id="{{$colaborador}}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">
+                                            Equipe
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{$colaborador}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 @endif
