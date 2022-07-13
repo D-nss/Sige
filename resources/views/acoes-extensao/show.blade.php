@@ -155,17 +155,17 @@
                 </div>
             </div>
         </div -->
-        <!-- contacts -->
+
         <div class="card mb-g">
-            <div class="card-header bg-trans-gradient py-2 pr-2 d-flex align-items-center flex-wrap col-12">
-                <div class="p-1 text-white">
-                    <h2 class="mb-0 fs-xl">
-                        <i class="fal fa-users"></i>&nbsp
-                        Equipe
-                    </h2>
-                </div>
-            </div>
             <div class="row row-grid no-gutters">
+                <div class="col-12">
+                    <div class="card-header p-3 text-white bg-trans-gradient py-2 pr-2 d-flex align-items-center flex-wrap col-12">
+                        <h2 class="mb-0 fs-xl">
+                            <i class="fal fa-users"></i>&nbsp
+                            Equipe
+                        </h2>
+                    </div>
+                </div>
                 @if($acao_extensao->equipe != "")
                     @foreach (explode(',',$acao_extensao->equipe) as $colaborador)
                         <div class="col-4">
@@ -176,24 +176,31 @@
                         </div>
                     @endforeach
                 @endif
+                <div class="col-12">
+                </div>
+                @if(isset($acao_extensao->qtd_graduacao))
                 <div class="col-6">
                     <div class="text-center py-3">
                         <h5 class="mb-0 fw-700">
-                            5
+                            {{$acao_extensao->qtd_graduacao}}
                             <small class="text-muted mb-0">Graduação</small>
                         </h5>
                     </div>
                 </div>
+                @endif
+                @if(isset($acao_extensao->qtd_pos_graduacao))
                 <div class="col-6">
                     <div class="text-center py-3">
                         <h5 class="mb-0 fw-700">
-                            5
+                            {{$acao_extensao->qtd_pos_graduacao}}
                             <small class="text-muted mb-0">Pós-Graduação</small>
                         </h5>
                     </div>
                 </div>
+                @endif
+
                 <div class="col-12">
-                    <div class="text-center py-3">
+                    <div class="text-center p-2">
                         <h5 class="mb-0 fw-700">
                             Envolvimento com a Comunidade:
                             <small class="text-muted mb-0">{{$acao_extensao->grau_envolvimento_equipe->descricao}}</small>
