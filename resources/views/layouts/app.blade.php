@@ -369,6 +369,14 @@ Versão: 4.5.1
                 $('#dt-indicadores_filter').addClass('form-inline');
                 $('#dt-indicadores_length').addClass('form-inline');
 
+                $('#dt-acoes-extensao').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
                 // Smart Wizard
                 $('#smartwizard').smartWizard(
                 {

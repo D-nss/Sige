@@ -4,14 +4,17 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
-    <li class="breadcrumb-item">Ações de Extensão</li>
+    <li class="breadcrumb-item"><a href="/acoes-extensao">Ações de Extensão</a></li>
     <li class="breadcrumb-item active">Alterar Ação</li>
+    <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
+    </button></a></li>
+    <li class="breadcrumb-item"><a href="#"><button type="button" class="btn btn-xs btn-outline-danger waves-effect waves-themed">Remover Ação
+    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-edit'></i> Alterar Ação de Extensão
+        <i class='subheader-icon fal fa-file-edit'></i> Alterar Ação de Extensão
         <small>
             Alteração da Ação de Extensão
         </small>
@@ -29,10 +32,7 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <div class="panel-tag">
-                        Espaço para informar os erros na validação do formulário.
-                    </div>
-                    <form action="{{route('acao_extensao.update', ['acao_extensao' => $acao_extensao->id])}}" method="POST">
+                    <form action="{{route('acao_extensao.update', ['acao_extensao' => $acao_extensao->id])}}" id="form_acao_extensao" method="POST">
                         @csrf
                         @method('put')
                         @include('acoes-extensao._form')

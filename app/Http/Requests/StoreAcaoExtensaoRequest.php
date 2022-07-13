@@ -28,7 +28,7 @@ class StoreAcaoExtensaoRequest extends FormRequest
             'linha_extensao_id' => 'required',
             'areas_tematicas' => 'required',
             'titulo' => 'required',
-            'descricao' => 'required',
+            'descricao' => 'required|max:2500',
             'publico_alvo' => 'required',
             'data_inicio' => 'required',
             'estado' => 'required',
@@ -37,8 +37,8 @@ class StoreAcaoExtensaoRequest extends FormRequest
             'unidade_id' => 'required',
             'nome_coordenador' => 'required',
             'tipo_coordenador' => 'required',
-            'impactos_universidade' => 'required',
-            'impactos_sociedade' => 'required',
+            'impactos_universidade' => 'required|max:2500',
+            'impactos_sociedade' => 'required|max:2500',
             'grau_envolvimento_equipe_id' => 'required',
             'investimento' => 'required'
         ];

@@ -14,7 +14,6 @@ class AcaoExtensao extends Model
     protected $fillable = [
         'tipo',
         'linha_extensao_id',
-        'areas_tematicas',
         'titulo',
         'descricao',
         'palavras_chaves',
@@ -46,9 +45,34 @@ class AcaoExtensao extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class);
+    }
+
+    public function linha_extensao()
+    {
+        return $this->belongsTo(LinhaExtensao::class);
+    }
+
+    public function areas_tematicas()
+    {
+        return $this->belongsToMany(AreaTematica::class, 'acoes_extensao_areas_tematicas', 'acao_extensao_id', 'area_tematica_id' );
+    }
+
     public function municipio()
     {
         return $this->belongsTo(Municipio::class);
+    }
+
+    public function tipo_parceiro()
+    {
+        return $this->belongsTo(TipoParceiro::class);
+    }
+
+    public function grau_envolvimento_equipe()
+    {
+        return $this->belongsTo(GrauEnvolvimentoEquipe::class);
     }
 
     public function aprovado()

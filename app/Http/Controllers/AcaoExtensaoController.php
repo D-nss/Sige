@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
@@ -25,6 +26,7 @@ class AcaoExtensaoController extends Controller
     public function index()
     {
         $acoes_extensao = AcaoExtensao::all();
+
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao
         ]);
@@ -65,13 +67,29 @@ class AcaoExtensaoController extends Controller
     {
         //$user = User::where('email', Auth::user()->id)->first();
         $dados = array('user_id' => 1);
-        $dados['areas_tematicas'] = implode(",", $request->areas_tematicas);
+        //$dados['areas_tematicas'] = implode(",", $request->areas_tematicas);
         $dados['municipio_id'] = $request->cidade;
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Pendente';
-        $acao_extensao = AcaoExtensao::create($dados);
+        $areasTematicasInsert = array();
+
+        $acao_extensao = DB::transaction(function() use( $dados, $areasTematicasInsert) {
+            // Faz a inserção da ação
+            $acaoCriada = AcaoExtensao::create($dados);
+            // Prepara os dados para inserção das areas temáticas
+            foreach($dados['areas_tematicas'] as $area) {
+                array_push($areasTematicasInsert,[
+                    'area_tematica_id' => $area,
+                    'acao_extensao_id' => $acaoCriada->id
+                ]);
+            }
+            // faz a inserção das áreas temáticas
+            DB::table('acoes_extensao_areas_tematicas')->insert($areasTematicasInsert);
+            return $acaoCriada;
+        });
+
         if($acao_extensao){
             session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
             session()->flash('alert', 'success');
@@ -80,7 +98,7 @@ class AcaoExtensaoController extends Controller
             session()->flash('alert', 'danger');
             return back();
         }
-        //$acao_extensao->save();
+
         return redirect()->route('acao_extensao.index');
     }
 
@@ -106,9 +124,23 @@ class AcaoExtensaoController extends Controller
     public function edit(AcaoExtensao $acaoExtensao)
     {
         $acaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $acaoExtensao->municipio_id)->get();
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
+        $unidades = Unidade::all();
+        //$user = User::where('email', Auth::user()->id)->first();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $tipos_parceiro = TipoParceiro::all();
+        $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
 
         return view('acoes-extensao.edit', [
-            'acao_extensao' => $acaoExtensao
+            'acao_extensao' => $acaoExtensao,
+            'acaoLocal' => $acaoLocal,
+            'linhas_extensao' => $linhas_extensao,
+            'areas_tematicas' => $areas_tematicas,
+            'estados' => $estados,
+            'unidades' => $unidades,
+            'tipos_parceiro' => $tipos_parceiro,
+            'graus_envolvimento_equipe' => $graus_envolvimento_equipe
         ]);
     }
 
@@ -121,9 +153,74 @@ class AcaoExtensaoController extends Controller
      */
     public function update(UpdateAcaoExtensaoRequest $request, AcaoExtensao $acaoExtensao)
     {
-        //$acaoExtensao->nome = $request->nome;
-        $acaoExtensao->save();
-        return redirect()->route('acao_extensao.index');
+        //$user = User::where('email', Auth::user()->id)->first();
+        $dados = array('user_id' => 1);
+        //$dados['areas_tematicas'] = implode(",", $request->areas_tematicas);
+        $dados['municipio_id'] = $request->cidade;
+        $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
+        $dados_form = $request->all();
+        $dados = array_merge($dados_form, $dados);
+        $dados['status'] = 'Pendente';
+        $areasTematicasInsert = array();
+
+        $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao) {
+
+            $acaoExtensao->user_id = $dados['user_id'];
+            $acaoExtensao->tipo = $dados['tipo'];
+            $acaoExtensao->linha_extensao_id = $dados['linha_extensao_id'];
+            $acaoExtensao->titulo = $dados['titulo'];
+            $acaoExtensao->descricao = $dados['descricao'];
+            $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+            $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
+            $acaoExtensao->url = $dados['url'];
+            $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+            $acaoExtensao->data_inicio = $dados['data_inicio'];
+            $acaoExtensao->data_fim = $dados['data_fim'];
+            $acaoExtensao->municipio_id = $dados['municipio_id'];
+            $acaoExtensao->situacao = $dados['situacao'];
+            $acaoExtensao->georreferenciacao = $dados['georreferenciacao'];
+            $acaoExtensao->unidade_id = $dados['unidade_id'];
+            $acaoExtensao->nome_coordenador = $dados['nome_coordenador'];
+            $acaoExtensao->tipo_coordenador = $dados['tipo_coordenador'];
+            $acaoExtensao->equipe = $dados['equipe'];
+            $acaoExtensao->qtd_graduacao = $dados['qtd_graduacao'];
+            $acaoExtensao->qtd_pos_graduacao = $dados['qtd_pos_graduacao'];
+            $acaoExtensao->parceiro = $dados['parceiro'];
+            $acaoExtensao->tipo_parceiro_id = $dados['tipo'];
+            $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
+            $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
+            $acaoExtensao->grau_envolvimento_equipe_id = $dados['grau_envolvimento_equipe_id'];
+            $acaoExtensao->investimento = $dados['investimento'];
+            $acaoExtensao->status = $dados['status'];
+            $acaoAtualizada = $acaoExtensao->save();
+
+            //remove areas temáticas anteriores
+            DB::table('acoes_extensao_areas_tematicas')->where('acao_extensao_id', $acaoExtensao->id)->delete();
+
+            // Prepara os dados para inserção das areas temáticas
+            foreach($dados['areas_tematicas'] as $area) {
+                array_push($areasTematicasInsert,[
+                    'area_tematica_id' => $area,
+                    'acao_extensao_id' => $acaoExtensao->id
+                ]);
+            }
+            // faz a inserção das áreas temáticas
+            DB::table('acoes_extensao_areas_tematicas')->insert($areasTematicasInsert);
+            return $acaoAtualizada;
+        });
+
+        if(is_null($transacao) || empty($transacao)) {
+            session()->flash('status', 'Desculpe! Houve erro na atualização da Ação de Extensão');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Ação de Extensão atualizada com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->route('acao_extensao.index');
+        }
     }
 
     /**

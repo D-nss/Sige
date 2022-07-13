@@ -25,7 +25,6 @@ return new class extends Migration
             //caracterização
             $table->integer('tipo');
             $table->foreignIdFor(LinhaExtensao::class);
-            $table->string('areas_tematicas', 255);
             //gerais
             $table->string('titulo', 255);
             $table->string('descricao', 2500);
@@ -49,8 +48,8 @@ return new class extends Migration
             //parceiros e comunidade
             $table->string('parceiro')->nullable();
             $table->foreignIdFor(TipoParceiro::class)->nullable();
-            $table->string('impactos_universidade')->nullable();
-            $table->string('impactos_sociedade')->nullable();
+            $table->string('impactos_universidade', 2500)->nullable();
+            $table->string('impactos_sociedade', 2500)->nullable();
             $table->foreignIdFor(GrauEnvolvimentoEquipe::class)->nullable();
             $table->float('investimento', 10, 2)->nullable();
             //moderação e status

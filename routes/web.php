@@ -45,7 +45,15 @@ Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
 
 Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
 
-Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao']);
+// Ações de Extensão - Nao utilizado via resource por problemas envio dos parametros
+//Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao'])->only(['create']);
+Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
+Route::get('/acoes-extensao/novo', [AcaoExtensaoController::class, 'create'])->name('acao_extensao.create');
+Route::post('/acoes-extensao', [AcaoExtensaoController::class, 'store'])->name('acao_extensao.store');
+Route::get('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'show'])->name('acao_extensao.show');
+Route::get('/acoes-extensao/{acao_extensao}/editar', [AcaoExtensaoController::class, 'edit'])->name('acao_extensao.edit');
+Route::put('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'update'])->name('acao_extensao.update');
+Route::delete('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'destroy'])->name('acao_extensao.destroy');
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
