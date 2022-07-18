@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         @foreach($inscricoes as $inscricao)
-            @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) )
+            @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || $user->hasAnyRole('super','admin') )
             <tr>
                 <td>{{ $inscricao->edital->titulo }}</td>
                 <td>{{ $inscricao->titulo }}</td>
