@@ -200,6 +200,7 @@
 
                                         <label for="palavras_chave" class="font-weight-bold">Palavras Chaves</label>
                                         <input type="text" name="palavras_chaves" data-role="tagsinput" value="@if(isset($inscricao->palavras_chaves)){{ $inscricao->palavras_chaves }}@else{{ old('palavras_chaves') }}@endif" required />
+                                        <p style="color: #D0D3D4;">Separar as palavras chaves usando vírgula<span class="caracteres-resumo"></span></p>
                                     </div>
 
                                     <div class="preview-zone hidden">
