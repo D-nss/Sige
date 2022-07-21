@@ -117,16 +117,16 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
+        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves', 'pdf_projeto', 'comprovante_parceria']);
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:2500';
             }
-            elseif($key == 'pdf_projeto') {
-                $validar[$key] = 'required';
-            }
+            // elseif($key == 'pdf_projeto') {
+            //     $validar[$key] = 'required|mimes:pdf';
+            // }
             // elseif($key == 'comprovante_parceria') {
             //     $validar[$key] = 'mimes:pdf';
             // }
