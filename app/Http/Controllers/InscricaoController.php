@@ -117,20 +117,19 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves', 'pdf_projeto', 'comprovante_parceria']);
+        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
         foreach($inputsParaValidar as $key => $inputs) {
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:2500';
             }
-            // elseif($key == 'pdf_projeto') {
-            //     $validar[$key] = 'required|mimes:pdf';
-            // }
-            // elseif($key == 'comprovante_parceria') {
-            //     $validar[$key] = 'mimes:pdf';
-            // }
-
+            elseif($key == 'pdf_projeto') {
+                $validar[$key] = 'required|mimes:pdf';
+            }
+            elseif($key == 'comprovante_parceria') {
+                $validar[$key] = 'mimes:pdf';
+            }
             elseif(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:10000';
             }
@@ -149,7 +148,7 @@ class InscricaoController extends Controller
         }
 
         $validar['areas_tematicas'] = 'required';
-        //$validar['pdf_projeto'] = 'required';
+        $validar['pdf_projeto'] = 'required|mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
 
