@@ -134,7 +134,7 @@
                                 <div class="col-md-12">
                                     @foreach($respostasQuestoes as $respostaQuestao)
                                         <p class="font-size-14"><span class="font-weight-bold">{{ $respostaQuestao->enunciado }}</span></p>
-                                        <p class="font-color-light">{{ nl2br($respostaQuestao->resposta) }}</p>
+                                        <p class="font-color-light">{!! nl2br(e($respostaQuestao->resposta)) !!}</p>
                                     @endforeach
                                 </div>
                             </div>
