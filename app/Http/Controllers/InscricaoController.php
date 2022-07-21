@@ -117,40 +117,40 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-        $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves', 'pdf_projeto', 'comprovante_parceria']);
-        $validar = array();
+        // $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
+        // $validar = array();
 
-        foreach($inputsParaValidar as $key => $inputs) {
-            if($key == 'resumo') {
-                $validar[$key] = 'required|max:2500';
-            }
-            // elseif($key == 'pdf_projeto') {
-            //     $validar[$key] = 'required|mimes:pdf';
-            // }
-            // elseif($key == 'comprovante_parceria') {
-            //     $validar[$key] = 'mimes:pdf';
-            // }
-            elseif(substr($key, 0, 8) == 'questao-'){
-                $validar[$key] = 'required|max:10000';
-            }
-            else {
-                $validar[$key] = 'required';
-            }
-        }
+        // foreach($inputsParaValidar as $key => $inputs) {
+        //     if($key == 'resumo') {
+        //         $validar[$key] = 'required|max:2500';
+        //     }
+        //     elseif($key == 'pdf_projeto') {
+        //         $validar[$key] = 'required|mimes:pdf';
+        //     }
+        //     elseif($key == 'comprovante_parceria') {
+        //         $validar[$key] = 'mimes:pdf';
+        //     }
+        //     elseif(substr($key, 0, 8) == 'questao-'){
+        //         $validar[$key] = 'required|max:10000';
+        //     }
+        //     else {
+        //         $validar[$key] = 'required';
+        //     }
+        // }
 
-        $mensagens = array();
+        // $mensagens = array();
 
-        foreach($inputsParaValidar as $key => $inputs) {
-            if(substr($key, 0, 8) == 'questao-') {
-                $mensagens[$key.'.required'] = 'Uma questão complementar não foi preenchida';
-                $mensagens[$key.'.max'] = 'Uma questão complementar ultrapassou o máximo permitido de caracteres';
-            }
-        }
+        // foreach($inputsParaValidar as $key => $inputs) {
+        //     if(substr($key, 0, 8) == 'questao-') {
+        //         $mensagens[$key.'.required'] = 'Uma questão complementar não foi preenchida';
+        //         $mensagens[$key.'.max'] = 'Uma questão complementar ultrapassou o máximo permitido de caracteres';
+        //     }
+        // }
 
-        $validar['areas_tematicas'] = 'required';
-        //$validar['pdf_projeto'] = 'required|mimes:pdf';
+        // $validar['areas_tematicas'] = 'required';
+        // $validar['pdf_projeto'] = 'required|mimes:pdf';
 
-        $validated = $request->validate($validar,$mensagens);
+        // $validated = $request->validate($validar,$mensagens);
 
         $user = User::where('email', Auth::user()->id)->first();
         /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
