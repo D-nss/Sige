@@ -149,7 +149,7 @@ class InscricaoController extends Controller
         }
 
         $validar['areas_tematicas'] = 'required';
-        $validar['pdf_projeto'] = 'required|mimes:pdf';
+        $validar['pdf_projeto'] = 'required';
 
         $validated = $request->validate($validar,$mensagens);
 
