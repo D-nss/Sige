@@ -125,11 +125,11 @@ class InscricaoController extends Controller
                 $validar[$key] = 'required|max:2500';
             }
             elseif($key == 'pdf_projeto') {
-                $validar[$key] = 'required|mimes:pdf';
+                $validar[$key] = 'required';
             }
-            elseif($key == 'comprovante_parceria') {
-                $validar[$key] = 'mimes:pdf';
-            }
+            // elseif($key == 'comprovante_parceria') {
+            //     $validar[$key] = 'mimes:pdf';
+            // }
 
             elseif(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:10000';
