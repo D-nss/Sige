@@ -10,7 +10,7 @@ class AvaliadorPorInscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-administrador|super');
+        $this->middleware('role:edital-analista|edital-administrador|super');
     }
     
     /**
