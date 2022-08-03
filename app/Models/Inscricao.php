@@ -9,6 +9,8 @@ use App\Models\Orcamento;
 use App\Models\User;
 use App\Models\Municipio;
 use App\Models\AreaTematica;
+use App\Models\Recurso;
+use App\Models\RespostasAvaliacoes;
 
 class Inscricao extends Model
 {
@@ -66,9 +68,29 @@ class Inscricao extends Model
         return $this->belongsToMany(User::class, 'avaliadores_por_inscricao', 'inscricao_id', 'user_id' );
     }
 
+    public function respostas_avaliacoes()
+    {
+        return $this->belongsToMany(User::class, 'respostas_avaliacoes', 'inscricao_id', 'user_id');
+    }
+
     public function analista()
     {
         return $this->belongsTo(User::class, 'analista_user_id');
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class);
+    }
+
+    public function linha_extensao()
+    {
+        return $this->belongsTo(LinhaExtensao::class);
+    }
+
+    public function recurso()
+    {
+        return $this->hasOne(Recurso::class);
     }
 
 }

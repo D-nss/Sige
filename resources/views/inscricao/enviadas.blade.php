@@ -48,10 +48,10 @@
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->updated_at)) }}</td>
                             <td>
                                 <div class="">
-                                    <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger btn-xs"><i class="far fa-eye"></i> Ver</a>
+                                    <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-danger btn-xs  m-1"><i class="far fa-eye"></i> Ver</a>
                                     @if( strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_inscricao', $inscricao->edital_id)) && $inscricao->status == 'Salvo' )
-                                        <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info btn-xs"><i class="far fa-edit"></i> Editar</a>
-                                        <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary btn-xs">
+                                        <a href='{{ url("inscricao/$inscricao->id/editar") }}' class="btn btn-info btn-xs m-1"><i class="far fa-edit"></i> Editar</a>
+                                        <a href='{{ url("inscricao/$inscricao->id/orcamento") }}' class="btn btn-primary btn-xs m-1">
                                             <i class="far fa-list"></i> 
                                             Orçamento
                                             @if( empty($inscricao->orcamento->toArray()) )
@@ -60,11 +60,15 @@
                                         </a>
                                         <form action='{{ url("inscricao/$inscricao->id/submeter") }}' method="post" id="form-submeter">
                                             @csrf
-                                            <button type="button" id="btn-submeter" class="btn btn-success btn-xs">
+                                            <button type="button" id="btn-submeter" class="btn btn-success btn-xs m-1">
                                                 <i class="far fa-arrow-right"></i> Submeter
                                             </button>
                                         </form>
+                                        
                                     @endif
+                                    
+                                    <a href='{{ url("recurso/$inscricao->id") }}' class="btn btn-warning btn-xs m-1"><i class="far fa-list"></i> Recurso</a>
+                                    
                                 </div>
                             </td>
                         </tr>

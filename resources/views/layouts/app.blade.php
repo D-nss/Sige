@@ -503,12 +503,12 @@ Versão: 4.5.1
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         toolbarExtraButtons: [
-                        $('<button></button>').text( @if( (isset($analise) && $analise == true ) || (isset($avaliacao) && $avaliacao == true) ) 'Finalizar' @else 'Voltar' @endif )
+                            $('<button></button>').text( @if( (isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true ) || (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) ) 'Finalizar' @else 'Voltar' @endif )
                                     .addClass('btn btn-primary btn-block')
                                     .on('click', function(){
-                                        @if(isset($analise) && $analise == true)
+                                        @if(isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true)
                                             $('#analiseModal').modal('show');
-                                        @elseif(isset($avaliacao) && $avaliacao == true)
+                                        @elseif((isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true))
                                             $(this).text('');
                                             $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
                                             $(this).append('<span> Loading...</span>');

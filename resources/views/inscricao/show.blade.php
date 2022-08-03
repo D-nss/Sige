@@ -40,38 +40,38 @@
                 <div id="swpropostashow">
                     <ul class="nav d-flex justify-content-between">
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16 " href="#step-1">
+                            <a class="nav-link fw-700 font-size-16 " href="#step-1">
                                 Dados Iniciais
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16" href="#step-2">
+                            <a class="nav-link fw-700 font-size-16" href="#step-2">
                                 Áreas
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16" href="#step-3">
+                            <a class="nav-link fw-700 font-size-16" href="#step-3">
                                 Linhas de Extensão
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16" href="#step-4">
+                            <a class="nav-link fw-700 font-size-16" href="#step-4">
                                 Detalhamento
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16" href="#step-5">
+                            <a class="nav-link fw-700 font-size-16" href="#step-5">
                                 Projeto em PDF
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16" href="#step-6">
+                            <a class="nav-link fw-700 font-size-16" href="#step-6">
                                 Orçamento
                             </a>
                         </li>
-                        @if( isset($avaliacao) && $avaliacao == true )
+                        @if( (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) )
                         <li>
-                            <a class="nav-link font-weight-bold font-size-16" href="#step-7">
+                            <a class="nav-link fw-700 font-size-16" href="#step-7">
                                 Avaliação
                             </a>
                         </li>
@@ -79,70 +79,85 @@
                     </ul>
         
                     <div class="tab-content mt-3 px-3 pt-3">
-                        <div id="step-1" class="tab-pane" role="tabpanel">
-                            <h2 class="text-secondary">{{ $inscricao->titulo }}</h2>
-                            <div class="row pt-3 border-bottom">
+                        <div id="step-1" class="tab-pane pb-3" role="tabpanel">
+                            <h2 class="text-primary fw-700">{{ $inscricao->titulo }}</h2>
+                            <div class="row pt-3">
+                                
                                 <div class="col-md-6">
-                                    <p class="font-size-14"><span class="font-weight-bold">Coordenador: </span> {{ $inscricao->user->name }}</p>
-                                    <p class="font-size-14"><span class="font-weight-bold">Tipo de Extensão: </span> {{ $inscricao->tipo }}</p>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <p class="font-size-14"><span class="font-weight-bold">Cidade: </span> {{ $inscricao->municipio->nome_municipio }}</p>
-                                    <p class="font-size-14"><span class="font-weight-bold">Estado: </span> {{ $inscricao->municipio->uf }}</p>
-                                </div>
-                            </div>
-
-                            <div class="row py-3 mb-3 border-bottom">
-                                <div class="col-md-6">
-                                    <p class="font-size-14"><span class="font-weight-bold">Resumo: </span> {{ $inscricao->resumo }}</p>
-                                    <p class="font-size-14"><span class="font-weight-bold">Palavras Chaves: </span> {{ $inscricao->palavras_chaves }}</p>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <p class="font-size-14"><span class="font-weight-bold">Há parcerias com outras instituições (públicas ou privadas) para o desenvolvimento do projeto?: </span> {{ $inscricao->parceria }}</p>
-                                    @if($inscricao->anexo_parceria)
-                                        <a href='{{ url("storage/$inscricao->anexo_parceria") }}' target="_blank" class="btn btn-sm btn-danger mb-3">Comprovante</a>
-                                    @endif
-                                    <p class="font-size-14"><span class="font-weight-bold">Link Projeto: </span> {{ $inscricao->url_projeto }}</p>
-                                    <p class="font-size-14"><span class="font-weight-bold">Link Lattes: </span> {{ $inscricao->url_lattes }}</p>
+                                    <div class="card bg-white">
+                                        <div class="card-body font-color-light">
+                                            <p class="font-size-14"><span class="fw-700">Coordenador: </span> {{ $inscricao->user->name }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Tipo de Extensão: </span> {{ $inscricao->tipo }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Resumo: </span> {{ $inscricao->resumo }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Palavras Chaves: </span>
+                                                @foreach( explode(",", $inscricao->palavras_chaves) as $palavras)
+                                                    <span class="badge badge-danger badge-pill">{{ $palavras }}</span>
+                                                @endforeach
+                                            </p>
+                                            <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                                        </div>
+                                    </div>
                                     
                                 </div>
+                                <div class="col-md-6 ">
+                                    <div class="card bg-white">
+                                        <div class="card-body font-color-light">
+                                            <p class="font-size-14"><span class="fw-700">Cidade: </span> {{ $inscricao->municipio->nome_municipio }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Estado: </span> {{ $inscricao->municipio->uf }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Há parcerias com outras instituições (públicas ou privadas) para o desenvolvimento do projeto?: </span> {{ $inscricao->parceria }}</p>
+                                            @if($inscricao->anexo_parceria)
+                                                <a href='{{ url("storage/$inscricao->anexo_parceria") }}' target="_blank" class="btn btn-sm btn-danger mb-3">Comprovante</a>
+                                            @endif
+                                            <p class="font-size-14"><span class="fw-700">Link Projeto: </span> {{ $inscricao->url_projeto }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Link Lattes: </span> {{ $inscricao->url_lattes }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Status: </span> <span  class="badge badge-{{ $status[$inscricao->status] }} badge-pill">{{ $inscricao->status }}</span></p>
+                                            @if(!empty($inscricao->justificativa))
+                                                <p class="font-size-14"><span class="fw-700">Justificativa: </span><span>{{ $inscricao->justificativa }}</span></p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
+
                         </div>
-                        <div id="step-2" class="tab-pane" role="tabpanel">
-                            <h2 class="text-secondary">Areas Temáticas</h2>
-                            <div class="row pt-3 mb-3 border-bottom">
+                        <div id="step-2" class="tab-pane pb-3" role="tabpanel">
+                            <h2 class="text-primary fw-700">Areas Temáticas</h2>
+                            <div class="row pt-3 mb-3">
                                 <div class="col-md-6">
                                     @foreach($inscricoesAreaTematica as $areasTematicas)
-                                        <p class="font-size-14"><span class="font-weight-bold">{{ $areasTematicas->nome }}</span></p>
+                                        <p class="font-size-16 font-color-light"><span class="fw-500">{{ $areasTematicas->nome }}</span></p>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                        <div id="step-3" class="tab-pane" role="tabpanel">
-                            <h2 class="text-secondary">Linhas de Extensão</h2>
-                            <div class="row pt-3 mb-3 border-bottom">
+                        <div id="step-3" class="tab-pane pb-3" role="tabpanel">
+                            <h2 class="text-primary fw-700">Linhas de Extensão</h2>
+                            <div class="row pt-3 mb-3">
                                 <div class="col-md-6">
-                                    <p class="font-size-14"><span class="font-weight-bold">{{ $linhaextensao->nome }}</span></p>
+                                    <p class="font-size-16 font-color-light"><span class="fw-500">{{ $linhaextensao->nome }}</span></p>
                                     <p class="font-color-light"><span>{{ $linhaextensao->descricao }}</span></p>
                                 </div>
                             </div>
                         </div>
-                        <div id="step-4" class="tab-pane" role="tabpanel">
-                            <h2 class="text-secondary">Detalhamento</h2>
-                            <div class="row pt-3 mb-3 border-bottom">
+                        <div id="step-4" class="tab-pane pb-3" role="tabpanel">
+                            <h2 class="text-primary fw-700">Detalhamento</h2>
+                            <div class="row pt-3 mb-3">
                                 <div class="col-md-12">
                                     @foreach($respostasQuestoes as $respostaQuestao)
-                                        <p class="font-size-14"><span class="font-weight-bold">{{ $respostaQuestao->enunciado }}</span></p>
+                                    <div class="rounded bg-f0 mb-2 p-2">
+                                        <p class="font-size-14 font-color-light"><span class="fw-500">{{ $respostaQuestao->enunciado }}</span></p>
                                         <p class="font-color-light">{{ $respostaQuestao->resposta }}</p>
+                                    </div> 
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                        <div id="step-5" class="tab-pane" role="tabpanel">
+                        <div id="step-5" class="tab-pane pb-3" role="tabpanel">
                             <iframe src='{{ url("storage/$inscricao->anexo_projeto") }}' title="Titulo do Projeto / Programa" style="width: 100%; height: 100vh;" class="mb-3"></iframe>
                         </div>
                         <div id="step-6" class="tab-pane" role="tabpanel">
+                            <h2 class="text-primary fw-700">Orçamento</h2>
                             <table class="table table-bordered table-hover table-striped w-100 mb-2" id="dt-orcamento">
 
                                 <thead>
@@ -168,20 +183,28 @@
                                 </tbody>
                             </table>
                             <div class="mt-3">
-                                <span class="alert alert-success font-size-14 font-weight-bold">Total R$ {{ number_format($totalItens, 2, ',', '.') }}</span>
-                                <span class="alert alert-info font-size-14 font-weight-bold">Total Disponível R$ {{ number_format($valorMaxPorInscricao - $totalItens, 2, ',', '.') }}</span>
+                                <span class="alert alert-success font-size-14 fw-700">Total R$ {{ number_format($totalItens, 2, ',', '.') }}</span>
+                                <span class="alert alert-info font-size-14 fw-700">Total Disponível R$ {{ number_format($valorMaxPorInscricao - $totalItens, 2, ',', '.') }}</span>
                             </div>
                         </div>
-                        @if( isset($avaliacao) && $avaliacao == true )
-                        <div id="step-7" class="tab-pane" role="tabpanel">
+                        @if( (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) ||  (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) )
+                        <div id="step-7" class="tab-pane pb-3" role="tabpanel">
+                            <h2 class="text-primary fw-700">Avaliação</h2>
                             @if($inscricao->status == 'Avaliado')
-                                <h3 class="text-secondary">Já Avaliado</h3>
+                                <h3 class="font-color-light">Já Avaliado</h3>
                             @elseif($inscricao->status == 'Deferido')
                             <form action='{{ url("/inscricao/$inscricao->id/avaliacao") }}' method="post" id="avaliacao-form">
                                 @csrf
-                                
+
+                                @if(isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true)
+                                    <input type="hidden" name="tipo_avaliacao" value="parecerista">
+                                @elseif( isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true)
+                                    <input type="hidden" name="tipo_avaliacao" value="comissao1">
+                                @endif
+
                                 @foreach($questoesAvaliacao as $questaoAvaliacao)
-                                    <label for="" class="text-secondary font-size-14">{{ $questaoAvaliacao->enunciado }}</label>
+                                <div class="bg-f0 rounded mb-2 p-2 w-100">
+                                    <label for="" class="text-secondary font-size-14 fw-500">{{ $questaoAvaliacao->enunciado }}</label>
                                     <div class="form-group">
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
                                             <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="1">
@@ -224,6 +247,7 @@
                                             <label class="form-check-label" for="inlineRadio3">10</label>
                                         </div>
                                     </div>
+                                </div>
                                 @endforeach
                             </form>
                             @else
@@ -233,7 +257,7 @@
                         @endif
                     </div>
                 </div>
-                @if( isset($analise) && $analise == true )
+                @if( isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true )
                 <!-- analise modal -->
                 <div class="modal" tabindex="-1" id="analiseModal">
                     <div class="modal-dialog modal-lg">
@@ -254,9 +278,10 @@
                                     <span class="text">Voltar</span>
                                 </a>
                             @else
-                            <form action='{{ url("inscricao/$inscricao->id/analise") }}' method="post" id="form-analise">
+                            <form action='{{ url("inscricao/$inscricao->id/avaliacao") }}' method="post" id="form-analise">
                                 @csrf
-                                <label for="" class="font-weight-bold">Opção</label>
+                                <input type="hidden" name="tipo_avaliacao" value="subcomissao">
+                                <label for="" class="fw-700">Opção</label>
                                 <select class="form-control mb-2" name="status" id="status">
                                     <option value="">Selecione ...</option>
                                     <option value="Deferido">Deferido</option>
@@ -265,7 +290,7 @@
 
                                 <div id="justificativa" class="d-none">
                                     <div class="border p-3 mb-2 rounded">
-                                        <label for="" class="font-weight-bold">Escolha os critérios de indeferimento:</label>
+                                        <label for="" class="fw-700">Escolha os critérios de indeferimento:</label>
                                         <p>Pressione a tecla Ctrl para poder selecionar mais de uma opção</p>
                                         <select name="criterios[]" class="form-control" multiple>
                                         @if( isset($criterios) && !empty($criterios) )
@@ -275,7 +300,7 @@
                                         @endif
                                         </select>     
                                     </div>
-                                    <label for="analise_prev_just" class="font-weight-bold">Justificativa</label>
+                                    <label for="analise_prev_just" class="fw-700">Justificativa</label>
                                     <textarea name="justificativa" id="justificativa" rows="5" class="form-control mb-2"></textarea>
 
                                 </div>

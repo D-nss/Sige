@@ -11,16 +11,24 @@
     </thead>
     <tbody>
         @foreach($inscricoes as $inscricao)
-            @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || $user->hasAnyRole('super','admin') )
+            
             <tr>
-                <td>{{ $inscricao->edital->titulo }}</td>
-                <td>{{ $inscricao->titulo }}</td>
-                <td>{{ $inscricao->user->name}}</td>
-                <td>{{ $inscricao->status }}</td>
+                <td><h5 class="fw-400 text-secondary">{{ $inscricao->edital->titulo }}</h5></td>
+                <td><h3 class="fw-700 text-primary">{{ $inscricao->titulo }}</h3><small class="font-italic font-color-light">Linhas de Extensão: {{ $inscricao->linha_extensao->nome}}</small></td>
+                <td><h6 class="text-secondary">{{ $inscricao->user->name}}</h6><small class="font-italic font-color-light">Unidade: {{ $inscricao->unidade->sigla}}</small></td>
+                <td><span class="badge badge-{{ $status[$inscricao->status] }} badge-pill">{{ $inscricao->status }}</span></td>
                 <td>
+
                     @if($inscricao->edital->tipo === 'PEX')
                         @include('inscricao._botoes_pex')
-                    @endif         
+                    @endif
+                    @if($inscricao->edital->tipo === 'PRP')
+                        @include('inscricao._botoes_prp')
+                    @endif
+                    @if($inscricao->recurso)
+                        <a href='{{ url("recurso/$inscricao->id") }}' class="btn btn-warning btn-xs mt-1"><i class="far fa-list"></i> Recurso</a>
+                    @endif
+                           
                 </td>
                 <td>
                     <!-- <div class="">
@@ -30,7 +38,7 @@
                     </div> -->
                 </td>
             </tr>
-            @endif
+            
         @endforeach
     </tbody>
 </table>

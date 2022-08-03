@@ -18,6 +18,13 @@ use App\Models\LinhaExtensao;
 use App\Models\User;
 use App\Models\Municipio;
 use App\Models\Cronograma;
+use App\Models\ComissaoUser;
+
+use App\Services\Avaliacao\Comissao1;
+use App\Services\Avaliacao\Parecerista;
+use App\Services\Avaliacao\Subcomissao;
+
+use App\Services\Avaliacao;
 
 class InscricaoController extends Controller
 {
@@ -33,6 +40,18 @@ class InscricaoController extends Controller
     public function index()
     {
         $user = User::where('email', Auth::user()->id)->first();
+
+        $cronograma = new Cronograma();
+
+        $status = [
+            'Submetido' => 'warning',
+            'Salvo' => 'warning',
+            'Deferido' => 'success',
+            'Classificado' => 'success',
+            'Avaliado' => 'primary',
+            'Indeferido' => 'danger',
+            'Desclassificado' => 'danger'
+        ];
 
         if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
             /* lista todas as inscrições se o user for administrador */
@@ -53,9 +72,19 @@ class InscricaoController extends Controller
                                         ->where('ai.user_id', $user->id)
                                         ->get(['inscricoes.*']);
             }
-            /* Objeto do  cronograma enviado à view para validação das datas conforme cronograma */
-            $cronograma = new Cronograma();
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma'));
+            
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+        }
+        else {
+            $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
+                                ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
+                                ->where('cu.user_id', $user->id)
+                                ->distinct()
+                                ->get(['inscricoes.*']);
+
+            //echo json_encode([$inscricoes, 'else']);
+
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');
@@ -240,57 +269,23 @@ class InscricaoController extends Controller
         //$inscricao = Inscricao::find($id);
         $edital = Edital::findOrFail($inscricao->edital_id);
         $cronograma = new Cronograma();
+        $avaliacaoResposta = false;
         $user = User::where('email', Auth::user()->id)->first();
 
-        if(isset($request->analise)) {
-            if(!$user->hasAnyRole('edital-analista','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
-                session()->flash('status', 'Acesso não autorizado para análise.');
-                session()->flash('alert', 'warning');
-
-                return redirect()->back();
-            }
-
-            //analisa se esta fora do periodo de analise
-            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
-                session()->flash('status', 'Período de analise ainda não foi aberto.');
-                session()->flash('alert', 'warning');
-
-                return redirect()->back();
-            }
-
-            $analise = $request->analise;
-            $criterios = $edital->criterios;
+        if(isset($request->tipo_avaliacao)) {
+            $tipo_avaliacao = [
+                'subcomissao' => new Subcomissao(),
+                'parecerista' => new Parecerista(),
+                'comissao1' => new Comissao1(),
+            ];
+    
+            $avaliacao = new Avaliacao($tipo_avaliacao[$request->tipo_avaliacao]);
+    
+            $avaliacaoResposta = $avaliacao->getAvaliacao($request, $inscricao, $user);
+            
+            unset($tipo_avaliacao);
         }
-        else {
-            $analise = '';
-        }
-
-        if(isset($request->avaliacao)) {
-            if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
-                session()->flash('status', 'Acesso não autorizado para avaliação.');
-                session()->flash('alert', 'warning');
-
-                return redirect()->back();
-            }
-            //analisa se esta fora do periodo de avaliação
-            if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
-                session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
-                session()->flash('alert', 'warning');
-
-                return redirect()->back();
-            }
-
-
-            $avaliacao = $request->avaliacao;
-            $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
-                return data_get($value, 'tipo') == 'Avaliativa';
-            });
-        }
-        else {
-            $avaliacao = '';
-            $questoesAvaliacao = '';
-        }
-
+        
         $linhaextensao = LinhaExtensao::findOrFail($inscricao->linha_extensao_id);
 
         $inscricoesAreaTematica = InscricaoAreaTematica::join(
@@ -308,6 +303,10 @@ class InscricaoController extends Controller
 
         $criterios = $edital->criterios;
 
+        $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
+            return data_get($value, 'tipo') == 'Avaliativa';
+        });
+
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
 
         $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
@@ -315,6 +314,16 @@ class InscricaoController extends Controller
                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
                                    ->where('inscricao_id', $inscricao->id)
                                    ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
+                                
+        $status = [
+            'Deferido' => 'success',
+            'Classificado' => 'success',
+            'Salvo' => 'warning',
+            'Submetido' => 'warning',
+            'Avaliado' => 'success',
+            'Indeferido' => 'danger',
+            'Desclassificado' => 'danger'
+        ];
 
         return view('inscricao.show', compact(
                 'inscricao',
@@ -324,10 +333,10 @@ class InscricaoController extends Controller
                 'itensOrcamento',
                 'totalItens',
                 'valorMaxPorInscricao',
-                'analise',
-                'avaliacao',
+                'avaliacaoResposta',
                 'questoesAvaliacao',
-                'criterios'
+                'criterios',
+                'status'
             )
         );
     }
@@ -612,89 +621,24 @@ class InscricaoController extends Controller
     * @return \Illuminate\Http\Response
     *
     */
-    public function analise(Request $request, Inscricao $inscricao)
-    {
-        //$inscricao = Inscricao::findOrFail($id);
-        $user = User::where('email', Auth::user()->id)->first();
-
-        if($inscricao->user_id == $user->id) {
-            session()->flash('status', 'Desculpe! Não é permitido a análise da própria inscrição');
-            session()->flash('alert', 'danger');
-
-            return redirect()->back();
-        }
-
-        $inscricao->status = $request->status;
-        $inscricao->analista_user_id = $user->id;
-
-        if( !is_null($request->criterios) ) {
-            $justificativa = "Critérios não atendidos: \n";
-
-            foreach($request->criterios as $criterio) {
-                $justificativa .= $criterio . "\n";
-            }
-
-            $justificativa .= "\n. Justificativa: \n" . !is_null($request->justificativa) ? $request->justificativa  : '';
-
-            $inscricao->justificativa = $justificativa;
-        }
-
-        if($inscricao->update()) {
-            session()->flash('status', 'Analise enviada com sucesso.');
-            session()->flash('alert', 'success');
-
-            return redirect()->to("inscricao/$inscricao->id");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
-            session()->flash('alert', 'danger');
-
-            return redirect()->back();
-        }
-
-    }
-
-    /**     
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \App\Models\Inscricao $inscricao
-    * @return \Illuminate\Http\Response
-    *
-    */
     public function avaliacao(Request $request, Inscricao $inscricao)
     {
         $user = User::where('email', Auth::user()->id)->first();
-        $dados = array();
+        
+        if(isset($request->tipo_avaliacao)) {
+            $tipo_avaliacao = [
+                'subcomissao' => new Subcomissao(),
+                'parecerista' => new Parecerista(),
+                'comissao1' => new Comissao1(),
+            ];
+    
+            $avaliacao = new Avaliacao($tipo_avaliacao[$request->tipo_avaliacao]);
+    
+            $resposta = $avaliacao->execute($request, $inscricao, $user);
 
-        foreach( $request->except('_token') as $key => $value) {
-            $questao_id = substr($key, 8, strlen($key));
-            array_push($dados, array(
-                'user_id'      => $user->id,
-                'inscricao_id' => $inscricao->id,
-                'questao_id'   => $questao_id,
-                'valor'        => $value
-            ));
-        }
-
-        $transacao = DB::transaction(function () use ($dados, $inscricao, $user) {
-            DB::table('respostas_avaliacoes')->insert($dados);
-
-            //$inscricao = Inscricao::findOrFail($id);
-            $inscricao->status = 'Avaliado';
-            $inscricao->avaliador_user_id = $user->id;
-            $inscricao->update();
-        });
-
-        if( is_null($transacao) )
-        {
-            session()->flash('status', 'Avaliação cadastrada com sucesso!');
-            session()->flash('alert', 'success');
-            return redirect()->to('inscricao');
-        }
-        else
-        {
-            session()->flash('status', 'Desculpe! Houve um problema ao enviar avaliação');
-            session()->flash('alert', 'danger');
-            return redirect()->back();
+            unset($tipo_avaliacao);
+            
+            return redirect()->to($resposta['redirect']);
         }
     }
 
@@ -709,7 +653,7 @@ class InscricaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|super|admin') ) {
+        if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|edital-administrador|super|admin') ) {
 
             $inscricoes = Inscricao::all();
             $inscricoes = $inscricoes->filter(function($value, $key) use ($user) {

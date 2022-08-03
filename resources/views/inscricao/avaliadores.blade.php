@@ -47,7 +47,7 @@
                       <ul class="list-group w-50">
                         @foreach($inscricao->avaliadores as $avaliador)
                           <li class="list-group-item">
-                            {{ $avaliador->name }}
+                            <span class="fw-100 text-info font-size-18">{{ $avaliador->name }}</span>
                             <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{ $avaliador->id }}">
                             <i class="far fa-trash-alt"></i>
                             </button>

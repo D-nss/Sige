@@ -12,5 +12,10 @@ class LinhaExtensao extends Model
     use HasFactory;
 
     protected $table = 'linhas_extensao';
+
+    public function inscricao()
+    {
+        return $this->hasOne(Inscricao::class);
+    }
   
 }

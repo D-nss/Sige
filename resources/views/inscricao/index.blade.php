@@ -11,7 +11,7 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success">Inscrições</span>
+        <span class="text-success"><i class='subheader-icon fal fa-list'></i>Inscrições</span>
         <small>
         Inscrições para serem analisadas, avaliadas ou finalizadas
         </small>
@@ -25,7 +25,7 @@
 
 <div class="container-fluid">
 
-    <div class="row panel p-4">
+    <div class="row card p-4">
         <div class="col-xl-12">
 
             <div class="card-body">
