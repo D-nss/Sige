@@ -10,6 +10,7 @@ class AcaoExtensao extends Model
     use HasFactory;
 
     protected $table = 'acoes_extensao';
+    protected $dates = ['data_inicio', 'data_fim'];
 
     protected $fillable = [
         'tipo',

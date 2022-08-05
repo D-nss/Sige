@@ -243,6 +243,9 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/tagsinput.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/jquery.mask.js')}}"></script>
         <script src="{{asset('smartadmin-4.5.1/js/notifications/toastr/toastr.js')}}"></script>
+        <script src="{{asset('smartadmin-4.5.1/js/statistics/sparkline/sparkline.bundle.js')}}"></script>
+		<script src="{{asset('smartadmin-4.5.1/js/statistics/easypiechart/easypiechart.bundle.js')}}"></script>
+		<script src="{{asset('smartadmin-4.5.1/js/statistics/flot/flot.bundle.js')}}"></script>
 
         <script>
             $(document).ready(function()
@@ -996,6 +999,84 @@ Versão: 4.5.1
                 var caracteresRestantes = limite - caracteresDigitados;
                 document.querySelector(`.caracteres-${id}`).innerHTML = caracteresRestantes + ' Caracteres restantes';
             }
+
+            $('#georreferenciacao').click(function(){
+                $('#modal-inserir-local').modal('show') ;
+            });
+
+            $('#btn-limpar-geo').click(function(){
+                $('#georreferenciacao').text('');
+                $('#modal-inserir-local').modal('hide') ;
+            });
+
+            $('#btn-inserir-local').click(function(){
+                var campo1 = $('#info_local').val();
+                var campo2 = $('#lat_local').val();
+                var campo3 = $('#long_local').val();
+                var geo = $('#georreferenciacao').text();
+                if (campo1 != '' && campo2 != '' && campo3 != ''){
+                    $('#georreferenciacao').text(geo + campo1 + ', ' + campo2 + ', ' +  campo3 + '; ');
+                    $('#info_local').val('');
+                    $('#lat_local').val('');
+                    $('#long_local').val('');
+                    $('#modal-inserir-local').modal('hide') ;
+                }
+            });
+
+            var dataSetPie = [
+                {
+                    label: "Asia",
+                    data: 4119630000,
+                    color: color.primary._500
+                },
+                {
+                    label: "Latin America",
+                    data: 590950000,
+                    color: color.info._500
+                },
+                {
+                    label: "Africa",
+                    data: 1012960000,
+                    color: color.warning._500
+                },
+                {
+                    label: "Oceania",
+                    data: 95100000,
+                    color: color.danger._500
+                },
+                {
+                    label: "Europe",
+                    data: 727080000,
+                    color: color.success._500
+                },
+                {
+                    label: "North America",
+                    data: 344120000,
+                    color: color.fusion._400
+                }];
+
+            $.plot($("#flotPie"), dataSetPie,
+                {
+                    series:
+                    {
+                        pie:
+                        {
+                            innerRadius: 0.5,
+                            show: true,
+                            radius: 1,
+                            label:
+                            {
+                                show: true,
+                                radius: 2 / 3,
+                                threshold: 0.1
+                            }
+                        }
+                    },
+                    legend:
+                    {
+                        show: true
+                    }
+                });
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->

@@ -54,6 +54,21 @@ Route::get('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 's
 Route::get('/acoes-extensao/{acao_extensao}/editar', [AcaoExtensaoController::class, 'edit'])->name('acao_extensao.edit');
 Route::put('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'update'])->name('acao_extensao.update');
 Route::delete('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'destroy'])->name('acao_extensao.destroy');
+Route::put('/acoes-extensao/{acao_extensao}/aprovar', [AcaoExtensaoController::class, 'aprovar'])->name('acao_extensao.aprovar');
+
+Route::get('/acoes-extensao/unidades/{unidade}', [AcaoExtensaoController::class, 'acoesPorUnidade'])->name('acao_extensao.unidades.index');
+Route::get('/acoes-extensao/areas/{area_tematica}', [AcaoExtensaoController::class, 'acoesPorArea'])->name('acao_extensao.area_tematica.index');
+Route::get('/acoes-extensao/linhas/{linha_extensao}', [AcaoExtensaoController::class, 'acoesPorLinha'])->name('acao_extensao.linha.index');
+Route::get('/acoes-extensao/cidades/{municipio}', [AcaoExtensaoController::class, 'acoesPorCidade'])->name('acao_extensao.cidade.index');
+Route::get('/acoes-extensao/tipos/{id}', [AcaoExtensaoController::class, 'acoesPorTipo'])->name('acao_extensao.tipo.index');
+Route::get('/acoes-extensao/situacao/{id}', [AcaoExtensaoController::class, 'acoesPorSituacao'])->name('acao_extensao.situacao.index');
+Route::get('/acoes-extensao/parceiro/{tipo_parceiro}', [AcaoExtensaoController::class, 'acoesPorTipoParceiro'])->name('acao_extensao.tipo_parceiro.index');
+Route::get('/acoes-extensao/grau-equipe/{grau_envolvimento_equipe}', [AcaoExtensaoController::class, 'acoesPorGrauEnvolvimentoEquipe'])->name('acao_extensao.grau_envolvimento_equipe.index');
+Route::get('/acoes-extensao/palavra-chave/{palavra_chave}', [AcaoExtensaoController::class, 'acoesPorPalavraChave'])->name('acao_extensao.palavra_chave.index');
+Route::get('/acoes-extensao/mapa/extensao', [AcaoExtensaoController::class, 'mapaExtensao'])->name('acao_extensao.mapa');
+Route::post('/acoes-extensao/filtrar', [AcaoExtensaoController::class, 'filtrar'])->name('acao_extensao.filtrar');
+Route::post('/acoes-extensao/filtrarMapa', [AcaoExtensaoController::class, 'filtrarMapa'])->name('acao_extensao.filtrar.mapa');
+Route::get('/painel', [AcaoExtensaoController::class, 'dashboard'])->name('acao_extensao.painel');
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {

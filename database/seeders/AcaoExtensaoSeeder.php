@@ -14,6 +14,7 @@ class AcaoExtensaoSeeder extends Seeder
      */
     public function run()
     {
-        //
+         \App\Models\AcaoExtensao::factory(200)->create();
+         \App\Models\AcaoExtensaoAreaTematica::factory(200)->create();
     }
 }

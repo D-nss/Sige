@@ -122,7 +122,7 @@
         <div id="step-3" class="">
             <div class="form-group">
                 <label class="form-label" for="data_inicio">Data de Início <span class="text-danger">*</span></label>
-                <input class="form-control col-md-3 @error('data_inicio') is-invalid @enderror" type="date" id="data_inicio" name="data_inicio" placeholder="dd/mm/aaaa" value="{{isset($acao_extensao->data_inicio) ? $acao_extensao->data_inicio : old('data_inicio')}}">
+                <input class="form-control col-md-3 @error('data_inicio') is-invalid @enderror" type="date" id="data_inicio" name="data_inicio" placeholder="dd/mm/aaaa" value="{{isset($acao_extensao->data_inicio) ? $acao_extensao->data_inicio->toDateString() : old('data_inicio')}}">
                 @error('data_inicio')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -131,7 +131,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="data_fim">Data Fim </label>
-                <input class="form-control col-md-3" type="date" id="data_fim" name="data_fim" placeholder="dd/mm/aaaa" value="{{isset($acao_extensao->data_fim) ? $acao_extensao->data_fim : old('data_fim')}}">
+                <input class="form-control col-md-3" type="date" id="data_fim" name="data_fim"  value="{{isset($acao_extensao->data_fim) ? $acao_extensao->data_fim->toDateString() : old('data_fim')}}">
             </div>
             <div class="form-group">
                 <label class="form-label" for="estado">Estado <span class="text-danger">*</span></label>
@@ -215,8 +215,97 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label class="form-label" for="georreferenciacao">Georreferenciação <i>(*para o Mapa da Extensão)</i></label>
-                <textarea id="georreferenciacao" name="georreferenciacao" class="form-control" rows="5" placeholder="Insira os locais com suas respectivas coordenadas onde a Ação é executada">{{isset($acao_extensao->georreferenciacao) ? $acao_extensao->georreferenciacao : old('georreferenciacao')}}</textarea>
+                <label class="form-label" for="georreferenciacao">Georreferenciação</label>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-xs btn-info waves-effect waves-themed" data-toggle="modal" data-target="#modal-ajuda-geo">
+                    <span class="fal fa-info-circle mr-1"></span>
+                    Ajuda
+                </button>
+                <!-- Modal center -->
+                <div class="modal fade" id="modal-ajuda-geo" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                   Ajuda - Georreferenciação
+                                    <small class="m-0 text-muted">
+                                        Veja como é simples adicionar um local
+                                    </small>
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Siga os seguintes passos:</h4>
+                                <p>&nbsp&nbsp1. Acesse este site, ou outro de sua preferência, para obter a <b>latitude e longitude</b> do local que deseja inserir: </p>
+                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="https://www.mapsdirections.info/pt/coordenadas-gps.html" target="blank"> https://www.mapsdirections.info/pt/coordenadas-gps.html</a> </p>
+                                <p>&nbsp&nbsp2. Após obter as coordenadas, agora volte a este sistema e no campo de Georreferenciamento: </p>
+                                <p>&nbsp&nbsp3. Coloque o nome do Local/Espaço. Este nome é o que será visualizado pelos demais usuários.</p>
+                                <p>&nbsp&nbsp4. Depois, o valor da <b>latitude e longitude</b> Em graus decimais!<br> Exemplo: -22.818177</p>
+                                <p>&nbsp&nbsp5. Para colocar mais locais, repita os passos. Caso queira limpar os locais adicionados, clique em <b>'Limpar Georreferenciação'</b> </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal center -->
+                <div class="modal fade" id="modal-inserir-local" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    Adicionar um local onde a Ação é executada
+                                    <small class="m-0 text-muted">
+                                        Insira as informações nos campos correspondentes
+                                    </small>
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row mb-3">
+                                        <label for="info_local" class="col-sm-4 col-form-label">Nome do Local</label>
+                                        <div class="col-sm-6">
+                                          <input type="text" class="form-control" id="info_local">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="lat_local" class="col-sm-4 col-form-label">Latitude <br><span class="text-danger">Em graus decimais</span></label>
+                                        <div class="col-sm-4">
+                                          <input type="number" class="form-control" id="lat_local">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="long_local" class="col-sm-4 col-form-label">Longitude <br><span class="text-danger">Em graus decimais</span></label>
+                                        <div class="col-sm-4">
+                                          <input type="number" class="form-control" id="long_local">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="btn-limpar-geo" type="button" class="btn btn-danger" >
+                                    <span class="fal fa-trash-alt mr-1"></span>
+                                    Limpar Georreferenciação
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <span class="fal fa-times mr-1"></span>
+                                    Fechar
+                                </button>
+                                <button id="btn-inserir-local" type="button" class="btn btn-primary">
+                                    <span class="fal fa-map-marker-plus mr-1"></span>
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <textarea id="georreferenciacao" readonly="readonly" name="georreferenciacao" class="form-control" rows="5" placeholder="Clique aqui para inserir os locais onde a Ação é executada">{{isset($acao_extensao->georreferenciacao) ? $acao_extensao->georreferenciacao : old('georreferenciacao')}}</textarea>
             </div>
         </div>
         <div id="step-4" class="">

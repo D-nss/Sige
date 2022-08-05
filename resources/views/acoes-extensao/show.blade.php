@@ -10,6 +10,26 @@
     </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
+@if($acao_extensao->status == 'Pendente')
+<div class="alert alert-warning alert-dismissible fade show">
+    <div class="d-flex align-items-center">
+        <div class="alert-icon">
+            <i class="fal fa-info-circle"></i>
+        </div>
+        <div class="flex-1">
+            <span class="h5">Ação de Extensão pendende de aprovação pela Unidade</span>
+        </div>
+        @hasanyrole('super|admin', 'web_user')
+        <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+            @csrf
+            @method('put')
+            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Aprovar</button>
+        </form>
+        @endhasanyrole
+        <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
+    </div>
+</div>
+@endif
 <div class="subheader">
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-file'></i> {{$acao_extensao->titulo}}
@@ -297,7 +317,7 @@
                     <div>
                     @if($acao_extensao->palavras_chaves != "")
                         @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
-                            <a href="#"><span class="badge badge-info">{{$palavra_chave}}</span></a>
+                            <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-info">{{$palavra_chave}}</span></a>
                         @endforeach
                     @endif
                     </div>
@@ -374,12 +394,16 @@
                 </div>
                 <div class="col-12">
                     <div class="p-0">
-                        <h5>
-                            <i class="fal fa-map-marker-alt"></i> {{$acao_extensao->municipio->nome_municipio}} - {{$acao_extensao->municipio->estado}}
-                            <small>
-                                Cidade - Estado
-                            </small>
-                        </h5>
+
+                            <h5>
+                                <a href="/acoes-extensao/cidades/{{$acao_extensao->municipio->id}}">
+                                    <i class="fal fa-map-marker-alt"></i> {{$acao_extensao->municipio->nome_municipio}} - {{$acao_extensao->municipio->estado}}
+                                </a>
+                                <small>
+                                    Cidade - Estado
+                                </small>
+                            </h5>
+
                     </div>
                 </div>
                 <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
@@ -400,7 +424,7 @@
             @switch($area_tematica->id)
                 @case(1) <!-- Comunicação -->
                     <div class="card bg-danger-900 text-white text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center text-white">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
                                 <i class="fal fa-megaphone icon-stack-1x opacity-100 white"></i>
@@ -418,7 +442,7 @@
                     @break
                 @case(2) <!-- Cultura -->
                     <div class="card bg-danger-50 text-white text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center color-fusion-900">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center color-fusion-900">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-fusion-900"></i>
                                 <i class="fal fa-theater-masks icon-stack-1x opacity-100 color-fusion-900"></i>
@@ -436,7 +460,7 @@
                     @break
                 @case(3) <!-- Direitos Humanos... -->
                     <div class="card bg-warning-50 color-fusion-900 text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center color-fusion-900">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center color-fusion-900">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-fusion-900"></i>
                                 <i class="fal fa-balance-scale icon-stack-1x opacity-100 color-fusion-900"></i>
@@ -455,7 +479,7 @@
 
                 @case(4)  <!-- Educação -->
                     <div class="card bg-warning-900 text-white text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center text-white">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
                                 <i class="fal fa-graduation-cap icon-stack-1x opacity-100 white"></i>
@@ -472,7 +496,7 @@
                     @break
                 @case(5)  <!-- Meio Ambiente -->
                     <div class="card bg-success text-white text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center text-white">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
                                 <i class="fal fa-leaf icon-stack-1x opacity-100 white"></i>
@@ -489,7 +513,7 @@
                     @break
                 @case(6)  <!-- Saúde -->
                     <div class="card bg-light color-fusion-900 text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center color-fusion-900">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center color-fusion-900">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-fusion-900"></i>
                                 <i class="fal fa-heartbeat icon-stack-1x opacity-100 color-fusion-900"></i>
@@ -506,7 +530,7 @@
                     @break
                 @case(7)  <!-- Tecnologia... -->
                     <div class="card bg-primary text-white text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center text-white">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100"></i>
                                 <i class="fal fa-cubes icon-stack-1x opacity-100"></i>
@@ -523,7 +547,7 @@
                     @break
                 @case(8)  <!-- Trabalho -->
                     <div class="card bg-fusion-900 text-white text-center p-3">
-                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center text-white">
+                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
                             <div class='icon-stack display-3 flex-shrink-0'>
                                 <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
                                 <i class="fal fa-briefcase icon-stack-1x opacity-100 white"></i>
@@ -541,7 +565,7 @@
 
                 @default
                 <div class="card bg-warning-900 text-white text-center p-3">
-                    <a href="javascript:void(0);" class="d-flex flex-row align-items-center text-white">
+                    <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
                             <i class="fal fa-book-reader icon-stack-1x opacity-100 white"></i>
@@ -572,12 +596,14 @@
                         <strong>
                             Data inicio:
                         </strong>
-                        {{$acao_extensao->data_inicio}}
+                        {{$acao_extensao->data_inicio->format('d/m/Y')}}
+                        @if(isset($acao_extensao->data_fim))
                         <br>
                         <strong>
                             Data fim:
                         </strong>
-                        {{$acao_extensao->data_fim}}
+                        {{$acao_extensao->data_fim->format('d/m/Y')}}
+                        @endif
                     </div>
                 </a>
             </div>
