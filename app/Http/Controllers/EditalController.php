@@ -166,7 +166,7 @@ class EditalController extends Controller
                             'resumo' => $request->resumo,
                             'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
                             'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
-                            'valor_max_programa' => str_replace(',', '.', str_replace('.', '',$request->valor_max_programa)),
+                            'valor_max_programa' => $request->valor_max_programa == '' || $request->valor_max_programa == null ? NULL : str_replace(',', '.', str_replace('.', '',$request->valor_max_programa)),
                             'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $edital->anexo_edital,
                             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $edital->anexo_imagem,
                         ]);
