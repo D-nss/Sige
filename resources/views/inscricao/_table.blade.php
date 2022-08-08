@@ -26,7 +26,7 @@
                         @include('inscricao._botoes_prp')
                     @endif
                     @if($inscricao->recurso)
-                        <a href='{{ url("recurso/$inscricao->id") }}' class="btn btn-warning btn-xs mt-1"><i class="far fa-list"></i> Recurso</a>
+                        <!-- <a href='{{ url("recurso/$inscricao->id") }}' class="btn btn-warning btn-xs mt-1"><i class="far fa-list"></i> Recurso</a> -->
                     @endif
                            
                 </td>
