@@ -25,6 +25,7 @@ class ProcessoEditalController extends Controller
         $edital = Edital::find($id);
 
         $cronogramas = Cronograma::join('modelo_cronograma', 'modelo_cronograma.dt_input', 'cronogramas.dt_input')
+                                            ->distinct()
                                             ->where('edital_id', $id)
                                             ->get(['modelo_cronograma.dt_label', 'cronogramas.data'])
                                             ->toArray();
