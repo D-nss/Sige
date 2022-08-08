@@ -137,7 +137,7 @@ class EditalController extends Controller
      */
     public function update(Request $request, Edital $edital)
     {
-        echo empty($request->valor_max_programa) ? 0.00 : str_replace(',', '.', str_replace('.', '',$request->valor_max_programa));
+        echo $request->valor_max_programa;
         // $inputsParaValidar = $request->except(['valor_max_programa']);
         // $validar = array();
 
