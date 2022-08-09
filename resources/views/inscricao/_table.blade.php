@@ -22,8 +22,8 @@
                     @if($inscricao->edital->tipo === 'PEX')
                         @include('inscricao._botoes_pex')
                     @endif
-                    @if($inscricao->edital->tipo === 'PRP')
-                        @include('inscricao._botoes_prp')
+                    @if($inscricao->edital->tipo === 'Acoes Afirmativas')
+                        @include('inscricao._botoes_af')
                     @endif
                     @if($inscricao->recurso)
                         <!-- <a href='{{ url("recurso/$inscricao->id") }}' class="btn btn-warning btn-xs mt-1"><i class="far fa-list"></i> Recurso</a> -->
