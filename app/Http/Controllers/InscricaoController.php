@@ -660,8 +660,18 @@ class InscricaoController extends Controller
                 return data_get($value, 'user_id') == $user->id;
             });
 
+            $status = [
+                'Deferido' => 'success',
+                'Classificado' => 'success',
+                'Salvo' => 'warning',
+                'Submetido' => 'warning',
+                'Avaliado' => 'success',
+                'Indeferido' => 'danger',
+                'Desclassificado' => 'danger'
+            ];
+
             $cronograma = new Cronograma();
-            return view('inscricao.enviadas', compact('inscricoes', 'user', 'cronograma'));
+            return view('inscricao.enviadas', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');
