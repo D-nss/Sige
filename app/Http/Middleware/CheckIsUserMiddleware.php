@@ -9,6 +9,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Vizir\KeycloakWebGuard\Facades\KeycloakWeb;
 
 class CheckIsUserMiddleware
 {

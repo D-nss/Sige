@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Vizir\KeycloakWebGuard\Facades\KeycloakWeb;
 
 use App\Models\Edital;
 use App\Models\Inscricao;
@@ -147,9 +146,6 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = KeycloakWeb::retrieveToken();
-        Auth::validate($credentials);
-        
         $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
