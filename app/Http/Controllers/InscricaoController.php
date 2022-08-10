@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Vizir\KeycloakWebGuard\Services\KeycloakService;
 
 use App\Models\Edital;
 use App\Models\Inscricao;
@@ -31,6 +32,8 @@ class InscricaoController extends Controller
     public function __construct()
     {
         $this->middleware('role:edital-coordenador|edital-administrador|super|admin');
+        $credentials = KeycloakWeb::retrieveToken();
+        $resposta = KeycloakWeb::refreshAccessToken($credentials);
     }
     /**
      * Display a listing of the resource.
