@@ -22,7 +22,7 @@ class RefreshTokenMiddleware
         $credentials = KeycloakWeb::retrieveToken();
         $user = KeycloakWeb::getUserProfile($credentials);
 
-        Auth::guard('web_user')->login($user);
+        //Auth::guard('web_user')->login($user);
 
         return $next($request);
     }
