@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Vizir\KeycloakWebGuard\Services\KeycloakService;
+use Vizir\KeycloakWebGuard\Facades\KeycloakWeb;
 
 use App\Models\Edital;
 use App\Models\Inscricao;
