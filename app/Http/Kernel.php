@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \App\Http\Middleware\RoleOrPermissionMiddleware::class,
         'check_is_user' => \App\Http\Middleware\CheckIsUserMiddleware::class,
+        'refresh_token' => \App\Http\Middleware\RefreshTokenMiddleware::class,
     ];
 }

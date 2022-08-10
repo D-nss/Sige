@@ -71,7 +71,7 @@ Route::post('/acoes-extensao/filtrarMapa', [AcaoExtensaoController::class, 'filt
 Route::get('/painel', [AcaoExtensaoController::class, 'dashboard'])->name('acao_extensao.painel');
 
 // Adicionar as rotas que necessitam de Autenticação
-Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
+Route::group(['middleware' => ['keycloak-web','check_is_user', 'refresh_token']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
     Route::get('home', function () {
         return view('home');
