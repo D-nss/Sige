@@ -9,8 +9,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Vizir\KeycloakWebGuard\Facades\KeycloakWeb;
-use Vizir\KeycloakWebGuard\Services\KeycloakService;
 
 class CheckIsUserMiddleware
 {
@@ -61,11 +59,6 @@ class CheckIsUserMiddleware
 
         $user->updated_at = now();
         $user->save();
-
-        $credentials = KeycloakWeb::retrieveToken();
-        $resposta = KeycloakWeb::refreshAccessToken($credentials);
-
-        dd([$credentials, $resposta]);
         
         Auth::guard('web_user')->login($user);
         //Auth::setUser($user);
