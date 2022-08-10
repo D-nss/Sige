@@ -20,7 +20,7 @@ class RefreshTokenMiddleware
     {
 
         $credentials = KeycloakWeb::retrieveToken();
-        dd(KeycloakWeb::refreshTokenIfNeeded($credentials));
+        dd(KeycloakWeb::getUserProfile($credentials));
 
         return $next($request);
     }
