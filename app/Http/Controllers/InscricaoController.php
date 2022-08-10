@@ -32,8 +32,6 @@ class InscricaoController extends Controller
     public function __construct()
     {
         $this->middleware('role:edital-coordenador|edital-administrador|super|admin');
-        $credentials = KeycloakWeb::retrieveToken();
-        $resposta = KeycloakWeb::refreshAccessToken($credentials);
     }
     /**
      * Display a listing of the resource.
@@ -149,6 +147,9 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
+        $credentials = KeycloakWeb::retrieveToken();
+        Auth::validate($credentials);
+        
         $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
