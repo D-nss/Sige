@@ -18,9 +18,10 @@ class RefreshTokenMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-
-        $credentials = KeycloakWeb::retrieveToken();
-        $user = KeycloakWeb::getUserProfile($credentials);
+        KeycloakWeb::saveState();
+        KeycloakWeb::validateState();
+        // $credentials = KeycloakWeb::retrieveToken();
+        // $user = KeycloakWeb::getUserProfile($credentials);
 
         //Auth::guard('web_user')->login($user);
 
