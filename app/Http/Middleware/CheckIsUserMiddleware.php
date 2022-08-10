@@ -62,8 +62,10 @@ class CheckIsUserMiddleware
         $user->updated_at = now();
         $user->save();
 
-        $credentials = KeycloakService::retrieveToken();
-        KeycloakService::refreshAccessToken($credentials);
+        $ks = new KeycloakService();
+
+        $credentials = $ks->retrieveToken();
+        $ks->refreshAccessToken($credentials);
         
         Auth::guard('web_user')->login($user);
         //Auth::setUser($user);
