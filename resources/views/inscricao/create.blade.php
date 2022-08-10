@@ -330,10 +330,4 @@
                 </div>
             </div>
         </div>
-<script>
-    $(document).ready(function()
-    {
-        $('#aviso-modal').modal('show');
-    });
-</script>
 @endsection

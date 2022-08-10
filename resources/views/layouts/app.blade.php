@@ -782,6 +782,8 @@ Versão: 4.5.1
                     transitionSpeed: '400'
                 });
 
+                $('#aviso-modal').modal('show');
+
             });
 
             $('#estado').change(function(){
