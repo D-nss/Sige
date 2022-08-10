@@ -63,8 +63,7 @@ class CheckIsUserMiddleware
         
         Auth::guard('web_user')->login($user);
         //Auth::setUser($user);
-        $credentials = KeycloakWeb::retrieveToken();
-        Auth::validate($credentials);
+        dd(Auth::authenticate());
 
         return $next($request);
     }
