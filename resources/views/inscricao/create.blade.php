@@ -296,5 +296,44 @@
           </div>
         </div>
         <!-- /.container-fluid -->
+        <!-- Modal center -->
+        <div class="modal fade" id="aviso-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            Aviso
+                            <small class="m-0 text-muted">
+                                Importante
+                            </small>
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Olá, Gostaríamos de te passar algumas dicas importantes para o preenchimento do formulário.</p>
+                        <ul>
+                            <li>Antes de iniciar o preenchimento prepare um arquivo com os textos que são muito longos, 
+                                dessa forma durante o preenchimento você somente copia e cola esses textos, 
+                                caso venha ocorrer algum erro você não terá que redigir novamente.</li> 
+                            <li>Se você deseja iniciar o preenchimento do formulário e terminar posteriormente, no detalhamento insira um texto simples para cada pergunta e clique em <strong>Salvar</strong>.</li>
+                            <li>Após o primeiro formulário você será redirecionado para a sessão do orçamento, caso não deseje preencher no momento clique em <strong>Salvar</strong>.</li>
+                            <li>Você será redirecionado para um página exibindo sua inscrição salva, nessa página você encontrará os botões que lhe permitirá editar, alterar o orçamento e submeter.</li>
+                            <li>A sua inscrição só será válida após a submissão</li>
+                        </ul>                        
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+    $(document).ready(function()
+    {
+        $('#aviso-modal').modal('show');
+    });
+</script>
 @endsection

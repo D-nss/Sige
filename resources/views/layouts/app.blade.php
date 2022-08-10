@@ -452,7 +452,7 @@ Versão: 4.5.1
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         toolbarExtraButtons: [
-                        $('<button></button>').text('Finalizar')
+                        $('<button></button>').text('Salvar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
                                     .on('click', function(){
                                         $(this).text('');

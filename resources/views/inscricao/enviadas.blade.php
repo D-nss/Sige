@@ -43,7 +43,7 @@
                         <tr class="alert @if($inscricao->status == 'Pendente') alert-warning @elseif($inscricao->status == 'Deferida') alert-secondary @elseif($inscricao->status == 'Aprovada') alert-success @endif">
                         <td><h5 class="fw-400 text-secondary">{{ $inscricao->edital->titulo }}</h5></td>
                             <td><h3 class="fw-700 text-primary">{{ $inscricao->titulo }}</h3><small class="font-italic font-color-light">Linhas de Extensão: {{ $inscricao->linha_extensao->nome}}</small></td>
-                            <td><span class="fw-700 text-info">{{ $inscricao->tipo }}</span></td>
+                            <td><span class="fw-700 text-secondary">{{ $inscricao->tipo }}</span></td>
                             <td><span class="badge badge-{{ $status[$inscricao->status] }} badge-pill">{{ $inscricao->status }}</span></td>
                             <td>{{ date('d/m/Y H:i', strtotime($inscricao->updated_at)) }}</td>
                             <td>
