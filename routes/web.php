@@ -22,6 +22,7 @@ use App\Http\Controllers\IndicadoresParametrosController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
+use App\Http\Controllers\ComissaoController;
 
 /*
 |--------------------------------------------------------------------------
