@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Avaliador;
 use App\Models\Criterio;
+use App\Models\Comissao;
 use App\Models\Cronograma;
 use App\Models\Inscricao;
 use App\Models\Questao;
@@ -51,5 +52,10 @@ class Edital extends Model
     public function inscricoes()
     {
         return $this->hasMany(Inscricao::class);
+    }
+
+    public function comissoes()
+    {
+        return $this->hasMany(Comissao::class);
     }
 }

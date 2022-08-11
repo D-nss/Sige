@@ -85,7 +85,9 @@
                                     <label for="tipo_extensao" class="font-weight-bold">Tipo de Extensão: </label>
                                     <select name="tipo_extensao" class="form-control w-25" required="true" required>
                                         <option value="">Selecione ... </option>
-                                        <option value="Programa" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Programa') || old('tipo_extensao') == 'Programa') selected @endif>Programa</option>
+                                        @if($edital->tipo === 'PEX')
+                                            <option value="Programa" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Programa') || old('tipo_extensao') == 'Programa') selected @endif>Programa</option>
+                                        @endif
                                         <option value="Projeto" @if((isset($inscricao->tipo) && $inscricao->tipo == 'Projeto') || old('tipo_extensao') == 'Projeto') selected @endif>Projeto</option>
                                     </select>
 

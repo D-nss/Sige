@@ -123,6 +123,14 @@ Route::group(['middleware' => ['keycloak-web','check_is_user', 'refresh_token']]
     Route::get('/editais/{edital}/avaliadores', [EditalController::class, 'editarAvaliadores']);
     Route::get('get-avaliador-by-subcomissao', [AvaliadorController::class, 'getAvaliadorBySubcomissao']);
 
+    Route::get('/comissoes/edital/{id}', [ComissaoController::class, 'index']);
+    Route::delete('comissoes/{comissao}', [ComissaoController::class, 'destroy']);
+    Route::delete('comissoes/participante/delete', [ComissaoController::class, 'participanteDelete'])->name('participantes.delete');
+    Route::get('comissoes/novo/edital/{id}', [ComissaoController::class, 'create']);
+    Route::get('comissoes/{id}/novo/participante', [ComissaoController::class, 'createParticipante']);
+    Route::post('comissoes', [ComissaoController::class, 'store'])->name('comissoes.store');
+    Route::post('comissoes/participante/store', [ComissaoController::class, 'participanteStore'])->name('participantes.store');
+
     Route::resource('/inscricao', InscricaoController::class)->parameters(['inscricoes' => 'inscricao']);
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
     //Route::post('/inscricao/{inscricao}/analise', [InscricaoController::class, 'analise']);

@@ -94,24 +94,29 @@
         </div>
         <hr class="border-top border-bottom">
         <div class="conselheiros">
-            <h2>Avaliadores</h2>
+            <h2>Comissão</h2>
             
-            @if( isset($avaliadores) && !empty($avaliadores->toArray()) )
+            @if( isset($edital->comissoes) && !empty($edital->comissoes->toArray()) )
                 <div class="pl-2">
                     <ul style="color: #999;">
-                        @foreach($avaliadores as $avaliador)
-                            <li>{{ $avaliador->name }}</li>
+                        @foreach($edital->comissoes as $comissao)
+                            <li>
+                                <div class="d-flex flex-column">
+                                    <span class="font-size-14 fw-500 ">{{ $comissao->nome }}</span>
+                                    <spanv class="font-italic font-color-light">{{ $comissao->atribuicao }}</span>
+                                </div>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
-                <a href='{{ url("editais/$edital->id/avaliadores") }}' class="btn btn-info btn-lg btn-icon rounded-circle">
+                <a href='{{ url("/comissoes/edital/$edital->id") }}' class="btn btn-info btn-lg btn-icon rounded-circle">
                     <i class="far fa-edit"></i>
                 </a>
             @else
-                <a href='{{ url("editais/$edital->id/avaliadores") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
+                <a href='{{ url("/comissoes/edital/$edital->id") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
                     <i class="far fa-plus"></i>
                 </a>
-                Adicionar Avaliadores
+                Adicionar Comissão
             @endif
         </div>
 
