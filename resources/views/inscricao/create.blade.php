@@ -314,17 +314,15 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Olá, Gostaríamos de te passar algumas dicas importantes para o preenchimento do formulário.</p>
+                        <p>Olá, gostaríamos de te passar algumas dicas importantes para o preenchimento do formulário.</p>
                         <ul>
-                            <li>Antes de iniciar o preenchimento prepare um arquivo com os textos que são muito longos, 
-                                dessa forma durante o preenchimento você somente copia e cola esses textos, 
-                                caso venha ocorrer algum erro você não terá que redigir novamente.</li> 
-                            <li>Se você deseja iniciar o preenchimento do formulário e terminar posteriormente, no detalhamento insira um texto simples para cada pergunta e clique em <strong>Salvar</strong>.</li>
+                            <li>Antes de iniciar o preenchimento recomendamos que prepare um arquivo com as respostas que são muito longas, dessa forma durante o preenchimento você somente copia e cola esses textos e, caso venha ocorrer algum erro você não terá que redigir novamente.</li> 
+                            <li>Se você deseja iniciar o preenchimento do formulário e terminar posteriormente, na guia detalhamento insira um respostas simples para cada pergunta e clique em <strong>Salvar</strong>.</li>
                             <li>Após o primeiro formulário você será redirecionado para a sessão do orçamento, caso não deseje preencher no momento clique em <strong>Salvar</strong>.</li>
-                            <li>Você será redirecionado para um página exibindo sua inscrição salva, nessa página você encontrará os botões que lhe permitirá editar, alterar o orçamento e submeter.</li>
-                            <li>A sua inscrição só será válida após a submissão</li>
+                            <li>Após inserir as informações, você será redirecionado para uma página exibindo que sua inscrição foi salva. Nessa página você encontrará os botões que lhe permitirão editar, alterar o orçamento e submeter projeto.</li>
+                            <li>Importante: Ao Submeter o projeto, o mesmo não poderá mais ser alterado e sua inscrição só será válida após a submissão.</li>
                         </ul>                        
-
+                        <p>Muito Obrigado</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
