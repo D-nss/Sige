@@ -84,13 +84,13 @@ class InscricaoController extends Controller
 
             //echo json_encode([$inscricoes, 'else']);
 
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+            // return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
+        echo json_encode($inscricoes);
+        // session()->flash('status', 'Desculpe! Acesso não autorizado');
+        // session()->flash('alert', 'warning');
 
-        session()->flash('status', 'Desculpe! Acesso não autorizado');
-        session()->flash('alert', 'warning');
-
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     /**
