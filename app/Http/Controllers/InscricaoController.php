@@ -57,7 +57,7 @@ class InscricaoController extends Controller
         //     /* lista todas as inscrições se o user for administrador */
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
-                
+
                 return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
             }
         //     /* lista todas as inscrições da unidade do user que é analista ou inscricoes que ele esta indicado como analista */
@@ -83,7 +83,7 @@ class InscricaoController extends Controller
                                 ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
                                 ->where('cu.user_id', $user->id)
                                 ->distinct()
-                                ->get(['inscricoes.*']);
+                                ->get(['inscricoes.*', 'comissoes.atribuicao']);
 
             // echo json_encode([$inscricoes, 'else']);
 
