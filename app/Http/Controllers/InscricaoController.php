@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Edital;
 use App\Models\Inscricao;
+use App\Models\AvaliadorPorInscricao;
 use App\Models\InscricaoAreaTematica;
 use App\Models\AreaTematica;
 use App\Models\UploadFile;
