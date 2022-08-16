@@ -66,6 +66,8 @@ class InscricaoController extends Controller
             $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
                                 ->where('ai.user_id', $user->id)
                                 ->get(['inscricoes.*']);
+
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
         else {
             /* Lista as incrições se o user estiver em uma comissão */
