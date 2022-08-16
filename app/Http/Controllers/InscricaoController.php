@@ -57,7 +57,7 @@ class InscricaoController extends Controller
         //     /* lista todas as inscrições se o user for administrador */
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
-                echo json_encode([$inscricoes, 'else']);
+                echo json_encode([$inscricoes, 'if']);
             }
         //     /* lista todas as inscrições da unidade do user que é analista ou inscricoes que ele esta indicado como analista */
         //     elseif($user->hasRole('edital-analista')) {
