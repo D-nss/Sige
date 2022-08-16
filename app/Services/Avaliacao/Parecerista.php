@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\AvaliacaoInterface;
 
 use App\Models\Cronograma;
+use App\Models\ComissaoUser;
 use App\Models\Inscricao;
 use App\Models\User;
 use App\Models\AvaliadorPorInscricao;
