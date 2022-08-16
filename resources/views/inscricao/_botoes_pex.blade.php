@@ -11,7 +11,7 @@
         @endif
     @endif
     @if($user->hasAnyRole('super','edital-administrador') || ( $inscricao->status == 'Deferido' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id))))
-        @if($inscricao->respostas_avaliacoes->where('id', '==', $user->id)->count() == 0)
+        @if($inscricao->respostas_avaliacoes->where('id', '==', $user->id)->count() == 0 && $inscricao->status == 'Deferido')
             <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Avaliar</a>
         @endif
     @endif
