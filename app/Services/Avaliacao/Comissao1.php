@@ -21,7 +21,7 @@ class Comissao1 implements AvaliacaoInterface
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
         
-        if( !$userNaComissao || !$user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id ) {
+        if( !$userNaComissao || $user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id ) {
             session()->flash('status', 'Acesso não autorizado para avaliação.');
             session()->flash('alert', 'warning');
 
