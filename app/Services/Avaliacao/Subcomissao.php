@@ -20,23 +20,23 @@ class Subcomissao implements AvaliacaoInterface
                                 ->where('comissoes.edital_id', $inscricao->edital_id)
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
-        echo json_encode(!$userNaComissao);
-        // if(!$userNaComissao || !$user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id) {
-        //     session()->flash('status', 'Acesso não autorizado para análise.');
-        //     session()->flash('alert', 'warning');
 
-        //     return ['analise' => false];
-        // }
+        if(!$userNaComissao || $inscricao->user_id == $user->id) {
+            session()->flash('status', 'Acesso não autorizado para análise.');
+            session()->flash('alert', 'warning');
 
-        // //analisa se esta fora do periodo de analise
-        // if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
-        //     session()->flash('status', 'Período de analise ainda não foi aberto.');
-        //     session()->flash('alert', 'warning');
+            return ['analise' => false];
+        }
 
-        //     return ['analise' => false];
-        // }
+        //analisa se esta fora do periodo de analise
+        if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
+            session()->flash('status', 'Período de analise ainda não foi aberto.');
+            session()->flash('alert', 'warning');
 
-        // return ['analise' => true];
+            return ['analise' => false];
+        }
+
+        return ['analise' => true];
     }
 
     public function execute(Request $request, Inscricao $inscricao, User $user) 
