@@ -57,7 +57,8 @@ class InscricaoController extends Controller
         //     /* lista todas as inscrições se o user for administrador */
             if($user->hasRole('edital-administrador')) {
                 $inscricoes = Inscricao::all();
-                echo json_encode([$inscricoes, 'if']);
+                
+                return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
             }
         //     /* lista todas as inscrições da unidade do user que é analista ou inscricoes que ele esta indicado como analista */
         //     elseif($user->hasRole('edital-analista')) {
@@ -84,9 +85,9 @@ class InscricaoController extends Controller
                                 ->distinct()
                                 ->get(['inscricoes.*']);
 
-            echo json_encode([$inscricoes, 'else']);
+            // echo json_encode([$inscricoes, 'else']);
 
-            // return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
         
         // session()->flash('status', 'Desculpe! Acesso não autorizado');
