@@ -10,7 +10,7 @@
             <a href='{{ url("inscricao/$inscricao->id/avaliadores") }}' class="btn btn-info btn-xs m-1">Avaliadores</a>
         @endif
     @endif
-    @if($user->hasAnyRole('admin','super','edital-administrador') || ( $inscricao->atribuicao == 'Avaliação' && $inscricao->status == 'Deferido' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id))))
+    @if($user->hasAnyRole('admin','super','edital-administrador') || ( $inscricao->status == 'Deferido' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id))))
         @if($inscricao->respostas_avaliacoes->where('id', '==', $user->id)->count() == 0)
             <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Avaliar</a>
 

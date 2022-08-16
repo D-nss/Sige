@@ -53,32 +53,21 @@ class InscricaoController extends Controller
             'Desclassificado' => 'danger'
         ];
 
-        // if( $user->hasAnyRole('edital-analista','edital-avaliador', 'edital-administrador') ) {
-        //     /* lista todas as inscrições se o user for administrador */
-            if($user->hasRole('edital-administrador')) {
-                $inscricoes = Inscricao::all();
+        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
 
-                return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
-            }
-        //     /* lista todas as inscrições da unidade do user que é analista ou inscricoes que ele esta indicado como analista */
-        //     elseif($user->hasRole('edital-analista')) {
-        //         $inscricoes = Inscricao::join('unidades as u', 'u.id', 'inscricoes.unidade_id')
-        //                                 ->join('subcomissao_tematica as st', 'st.id', 'u.subcomissao_tematica_id')
-        //                                 ->where('u.subcomissao_tematica_id', $user->unidade->subcomissao_tematica_id)
-        //                                 ->orWhere('inscricoes.analista_user_id', $user->id)
-        //                                 ->get(['inscricoes.*']);
-        //     }
-        //     /* lista as inscrições em que o user é avaliador */
-        //     elseif($user->hasRole('edital-avaliador')) {
-        //         $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
-        //                                 ->where('ai.user_id', $user->id)
-        //                                 ->get(['inscricoes.*']);
-        //     }
-            
-        //     return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
-        
-        // }
+        /* lista todas as inscrições se o user for administrador */
+        if($user->hasRole('edital-administrador')) {
+            $inscricoes = Inscricao::all();
+            // echo json_encode([$inscricoes, 'else']);
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+        }
+        if($avaliadorPorInscricao) {
+            $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
+                                ->where('ai.user_id', $user->id)
+                                ->get(['inscricoes.*']);
+        }
         else {
+            /* Lista as incrições se o user estiver em uma comissão */
             $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
                                 ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
                                 ->where('cu.user_id', $user->id)
@@ -86,14 +75,13 @@ class InscricaoController extends Controller
                                 ->get(['inscricoes.*', 'comissoes.atribuicao']);
 
             // echo json_encode([$inscricoes, 'else']);
-
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
         
-        // session()->flash('status', 'Desculpe! Acesso não autorizado');
-        // session()->flash('alert', 'warning');
+        session()->flash('status', 'Desculpe! Acesso não autorizado');
+        session()->flash('alert', 'warning');
 
-        // return redirect()->back();
+        return redirect()->back();
     }
 
     /**
