@@ -16,9 +16,12 @@ class Comissao1 implements AvaliacaoInterface
     {
         $cronograma = new Cronograma();
 
-        $comissao_user = ComissaoUser::where('user_id', $user->id)->get()->toArray();
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.edital_id', $inscricao->edital_id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
         
-        if(empty($comissao_user) || $inscricao->user_id == $user->id) {
+        if( !$userNaComissao || !$user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id ) {
             session()->flash('status', 'Acesso não autorizado para avaliação.');
             session()->flash('alert', 'warning');
 

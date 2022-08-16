@@ -18,7 +18,12 @@ class Parecerista implements AvaliacaoInterface
     {
         $cronograma = new Cronograma();
 
-        if(!$user->hasAnyRole('edital-avaliador','edital-administrador','admin','super') || $inscricao->user_id == $user->id) {
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.edital_id', $inscricao->edital_id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+
+        if(!$userNaComissao || !$user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id) {
             session()->flash('status', 'Acesso não autorizado para avaliação.');
             session()->flash('alert', 'warning');
 
