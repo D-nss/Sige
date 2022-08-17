@@ -20,23 +20,23 @@ class Subcomissao implements AvaliacaoInterface
                                 ->where('comissoes.edital_id', $inscricao->edital_id)
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
-        echo json_encode(!$user->hasAnyRole('edital-administrador|admin|super'));
-        // if(!$userNaComissao || !$user->hasAnyRole('edital-administrador|admin|super') || $inscricao->user_id == $user->id) {
-        //     session()->flash('status', 'Acesso não autorizado para análise prévia.');
-        //     session()->flash('alert', 'warning');
+        
+        if(!$userNaComissao || !$user->hasAnyRole('edital-administrador|admin|super') || $inscricao->user_id == $user->id) {
+            session()->flash('status', 'Acesso não autorizado para análise prévia.');
+            session()->flash('alert', 'warning');
 
-        //     return ['analise' => false];
-        // }
+            return ['analise' => false];
+        }
 
-        // //analisa se esta fora do periodo de analise
-        // if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
-        //     session()->flash('status', 'Período de analise ainda não foi aberto.');
-        //     session()->flash('alert', 'warning');
+        //analisa se esta fora do periodo de analise
+        if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
+            session()->flash('status', 'Período de analise ainda não foi aberto.');
+            session()->flash('alert', 'warning');
 
-        //     return ['analise' => false];
-        // }
+            return ['analise' => false];
+        }
 
-        // return ['analise' => true];
+        return ['analise' => true];
     }
 
     public function execute(Request $request, Inscricao $inscricao, User $user) 
