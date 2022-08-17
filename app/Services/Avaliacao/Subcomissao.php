@@ -20,8 +20,12 @@ class Subcomissao implements AvaliacaoInterface
                                 ->where('comissoes.edital_id', $inscricao->edital_id)
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
+
+        if($user->hasAnyRole('edital-administrador|admin|super')) {
+            return ['analise' => true];
+        }
         
-        if(!$userNaComissao || !$user->hasAnyRole('edital-administrador|admin|super') || $inscricao->user_id == $user->id) {
+        if(!$userNaComissao || $inscricao->user_id == $user->id) {
             session()->flash('status', 'Acesso não autorizado para análise prévia.');
             session()->flash('alert', 'warning');
 
