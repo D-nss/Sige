@@ -454,6 +454,7 @@ Versão: 4.5.1
                         toolbarExtraButtons: [
                         $('<button></button>').text('Salvar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
+                                    .prop('disabled', true)
                                     .on('click', function(){
                                         $(this).text('');
                                         $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
@@ -783,6 +784,33 @@ Versão: 4.5.1
                 });
 
                 $('#aviso-modal').modal('show');
+
+                $('.step').click(function(){
+                    if($('.step').hasClass('active') && $('.step').hasClass('last')) {
+                        $('.sw-btn-group-extra').prop('disabled', false);
+                    }
+                    else{
+                        $('.sw-btn-group-extra').prop('disabled', true);
+                    }
+                });
+                
+                $('.sw-btn-next').click(function(){
+                    if($('.step').hasClass('active') && $('.step').hasClass('last')) {
+                        $('.sw-btn-group-extra').prop('disabled', false);
+                    }
+                    else{
+                        $('.sw-btn-group-extra').prop('disabled', true);
+                    }
+                });
+
+                $('.sw-btn-prev').click(function(){
+                    if($('.step').hasClass('active') && $('.step').hasClass('last')) {
+                        $('.sw-btn-group-extra').prop('disabled', false);
+                    }
+                    else{
+                        $('.sw-btn-group-extra').prop('disabled', true);
+                    }
+                });
 
             });
 

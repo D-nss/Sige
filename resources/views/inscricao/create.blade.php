@@ -41,23 +41,23 @@
                     @csrf
                     <div id="swproposta">
                         <ul class="nav d-flex justify-content-between">
-                            <li>
+                            <li class="step">
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-1">
                                     Dados Iniciais
                                 </a>
                             </li>
-                            <li>
+                            <li class="step">
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-2">
                                     Detalhamento
 
                                 </a>
                             </li>
-                            <li>
+                            <li class="step">
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-3">
                                     Áreas
                                 </a>
                             </li>
-                            <li>
+                            <li class="step last">
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-4">
                                     Linhas Extensão
                                 </a>
