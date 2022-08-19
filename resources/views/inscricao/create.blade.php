@@ -318,7 +318,7 @@
                         <ul>
                             <li>Antes de iniciar o preenchimento recomendamos que prepare um arquivo com as respostas que são muito longas, dessa forma durante o preenchimento você somente copia e cola esses textos e, caso venha ocorrer algum erro você não terá que redigir novamente.</li> 
                             <li>Se você deseja iniciar o preenchimento do formulário e terminar posteriormente, na guia detalhamento insira um respostas simples para cada pergunta.</li>
-                            <li>Navegue entre as abas dos formulário através dos botões Anterior e Próximo, na aba final Linhas de extensão será ha bilitado o botão <strong>Salvar</strong>.</li>
+                            <li>Navegue entre as abas dos formulário através dos botões Anterior e Próximo, na aba final Linhas de extensão será habilitado o botão <strong>Salvar</strong>.</li>
                             <li>Após o primeiro formulário você será redirecionado para a sessão do orçamento, caso não deseje preencher no momento clique em <strong>Salvar</strong>.</li>
                             <li>Após inserir as informações, você será redirecionado para uma página exibindo que sua inscrição foi salva. Nessa página você encontrará os botões que lhe permitirão editar, alterar o orçamento e submeter projeto.</li>
                             <li>Importante: Ao Submeter o projeto, o mesmo não poderá mais ser alterado e sua inscrição só será válida após a submissão.</li>
