@@ -785,30 +785,29 @@ Versão: 4.5.1
 
                 $('#aviso-modal').modal('show');
 
+                $('.step-4').click(function(){
+                    $('.btn-salvar').prop('disabled', false);
+                });
+
                 $('.step').click(function(){
-                    if($('.step').hasClass('active') && $('.step').hasClass('last')) {
-                        $('.sw-btn-group-extra').prop('disabled', false);
-                    }
-                    else{
-                        $('.sw-btn-group-extra').prop('disabled', true);
-                    }
+                    $('.btn-salvar').prop('disabled', true);
                 });
                 
                 $('.sw-btn-next').click(function(){
-                    if($('.step').hasClass('active') && $('.step').hasClass('last')) {
-                        $('.sw-btn-group-extra').prop('disabled', false);
+                    if($('.step-4').hasClass('active')) {
+                        $('.btn-salvar').prop('disabled', false);
                     }
-                    else{
-                        $('.sw-btn-group-extra').prop('disabled', true);
+                    else {
+                        $('.btn-salvar').prop('disabled', true);
                     }
                 });
 
                 $('.sw-btn-prev').click(function(){
-                    if($('.step').hasClass('active') && $('.step').hasClass('last')) {
-                        $('.sw-btn-group-extra').prop('disabled', false);
+                    if($('.step-4').hasClass('active')) {
+                        $('.btn-salvar').prop('disabled', false);
                     }
-                    else{
-                        $('.sw-btn-group-extra').prop('disabled', true);
+                    else {
+                        $('.btn-salvar').prop('disabled', true);
                     }
                 });
 

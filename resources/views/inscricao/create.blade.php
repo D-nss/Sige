@@ -57,7 +57,7 @@
                                     Áreas
                                 </a>
                             </li>
-                            <li class="step last">
+                            <li class="step-4">
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-4">
                                     Linhas Extensão
                                 </a>
