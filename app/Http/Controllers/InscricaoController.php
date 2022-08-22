@@ -346,17 +346,19 @@ class InscricaoController extends Controller
      */
     public function edit(Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $cronograma = new Cronograma();
 
-        //$inscricao = Inscricao::findOrFail($id);
-        $edital = Edital::findOrFail($inscricao->edital_id);
-        $respostasQuestoes = DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->get();
-        $inscricaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $inscricao->municipio_id)->get();
+        if( $inscricao->user_id == $user->id || $user->hasRole('edital-administrador') ) {
+            //$inscricao = Inscricao::findOrFail($id);
+            $edital = Edital::findOrFail($inscricao->edital_id);
+            $respostasQuestoes = DB::table('questoes_respondidas')->where('inscricao_id', $inscricao->id)->get();
+            $inscricaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $inscricao->municipio_id)->get();
 
-        return view(
+            return view(
                     'inscricao.create',
                     compact(
                             'edital',
@@ -368,6 +370,15 @@ class InscricaoController extends Controller
                             'areas_tematicas',
                         )
                     );
+        }
+        else {
+            session()->flash('status', 'Desculpe! Não é permitido editar outra inscrião a não ser a sua.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
+        
     }
 
     /**
