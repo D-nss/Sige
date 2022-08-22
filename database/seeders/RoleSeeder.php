@@ -25,6 +25,8 @@ class RoleSeeder extends Seeder
             'edital-coordenador',
             'indicadores-admin',
             'indicadores-user',
+            'acoes-extensao-user',
+            'acoes-extensao-admin'
         ];
 
         foreach ($roles as $role) {

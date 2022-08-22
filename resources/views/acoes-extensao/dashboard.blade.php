@@ -4,7 +4,7 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item">Ações de Extensão</li>
+    <li class="breadcrumb-item">BAEC</li>
     <li class="breadcrumb-item active">Dashboard</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
@@ -12,7 +12,7 @@
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-chart-area'></i> Banco de Ações de Extensão <span class='fw-300'>Dashboard</span>
         <small>
-            Painel de informações das Ações de Extensão da Unidade
+            Painel de informações das Ações de Extensão da Unidade <span class='color-danger-500'>{{$unidade->sigla}}</span>
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
@@ -21,7 +21,7 @@
                 <small>TOTAIS UNICAMP</small>
             </span>
             <span class="fw-500 fs-xl d-block color-primary-500">
-                2200
+                {{$total}}
             </span>
         </div>
     </div>
@@ -31,12 +31,24 @@
                 <small>TOTAIS UNIDADE</small>
             </span>
             <span class="fw-500 fs-xl d-block color-danger-500">
-                500
+                {{$total_unidade}}
             </span>
         </div>
     </div>
 </div>
-<div class="demo demo-v-spacing-lg">
+@if(count($pendentes) > 0)
+<div class="alert alert-warning alert-dismissible fade show">
+    <div class="d-flex align-items-center">
+        <div class="alert-icon">
+            <i class="fal fa-info-circle"></i>
+        </div>
+        <div class="flex-3">
+            <span class="h5">Existem Ações de Extensão pendentes de aprovação pela Unidade</span>
+        </div>
+    </div>
+</div>
+@endif
+<div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
     <div class="btn-group btn-group-lg">
         <button type="button" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</button>
         <button type="button" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</button>
@@ -46,21 +58,21 @@
 </div>
 <div class="row">
     <div class="col-sm-6 col-xl-3">
-        <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+        <div class="p-3 bg-fusion-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    500
+                    {{$total_unidade}}
                     <small class="m-0 l-h-n">Ações Cadastradas</small>
                 </h3>
             </div>
-            <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+            <i class="fal fa-leaf position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
-        <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
+        <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    400
+                    {{$total_concluidos}}
                     <small class="m-0 l-h-n">Concluídos</small>
                 </h3>
             </div>
@@ -68,10 +80,10 @@
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
-        <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+        <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    80
+                    {{$total_andamento}}
                     <small class="m-0 l-h-n">Em Andamento</small>
                 </h3>
             </div>
@@ -79,15 +91,121 @@
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
-        <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
+        <div class="p-3 bg-danger-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    20
+                    {{$total_desativados}}
                     <small class="m-0 l-h-n">Desativados</small>
                 </h3>
             </div>
             <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-xl-12">
+                                <!--Table head-->
+                                <div id="panel" class="panel">
+                                    <div class="panel-hdr">
+                                        <h2>
+                                            Últimas Ações de Extensão da sua Unidade
+                                        </h2>
+                                    </div>
+                                    <div class="panel-container show">
+                                        <div class="panel-content">
+                                            <div class="frame-wrap">
+                                                <table class="table m-0">
+                                                    <thead class="thead-themed">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Ação de Extensão</th>
+                                                            <th>Tipo / Área Temática</th>
+                                                            <th>Coordenador</th>
+                                                            <th>Situação</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($acoes_extensao as $acao_extensao)
+                                                        <tr>
+                                                            <th scope="row">{{$acao_extensao->id}}</th>
+                                                            <td>
+                                                                <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500 ">
+                                                                    {{$acao_extensao->titulo}}
+                                                                </a>
+                                                                @if($acao_extensao->status == 'Pendente')
+
+                                                                <span class="fw-300 color-danger-500"><i class="fal fa-exclamation-circle"></i><i> Ação pendente!</i></span>
+
+                                                                @endif
+                                                                <div class="d-block text-muted fs-sm">
+                                                                    Linha: <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
+                                                                    <br>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
+                                                                    @switch($acao_extensao->tipo)
+                                                                        @case(1)
+                                                                            Programa
+                                                                            @break
+                                                                        @case(2)
+                                                                            Projeto
+                                                                            @break
+                                                                        @case(3)
+                                                                            Curso
+                                                                            @break
+                                                                        @case(4)
+                                                                            Evento
+                                                                            @break
+                                                                        @case(5)
+                                                                            Prestação de serviços
+                                                                            @break
+                                                                        @default
+                                                                            Indefinido
+                                                                    @endswitch
+                                                                </a>
+                                                                @foreach ($acao_extensao->areas_tematicas as $area_tematica)
+                                                                <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="text-muted small text-truncate">
+                                                                <br>{{$area_tematica->nome}}
+                                                                </a>
+                                                                @endforeach
+                                                            </td>
+                                                            <td>
+                                                                {{$acao_extensao->nome_coordenador}}
+                                                                <div class="text-muted small text-truncate">
+                                                                    Unidade: <a href="/acoes-extensao/unidades/{{$acao_extensao->unidade->id}}" >{{$acao_extensao->unidade->sigla}}</a>
+                                                                    <br>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
+                                                                @switch($acao_extensao->situacao)
+                                                                    @case(1)
+                                                                    <span class="badge badge-danger">Desativado</span>
+                                                                        @break
+                                                                    @case(2)
+                                                                        <span class="badge badge-info">Em Andamento</span>
+                                                                        @break
+                                                                    @case(3)
+                                                                        <span class="badge badge-success">Concluído</span>
+                                                                        @break
+                                                                    @default
+                                                                    <span class="badge badge-warning">Indefinido</span>
+                                                                @endswitch
+                                                                </a>
+                                                                <div class="text-muted small text-truncate">
+                                                                    Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
     </div>
 </div>
 
