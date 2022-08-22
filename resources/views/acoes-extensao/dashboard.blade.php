@@ -50,9 +50,9 @@
 @endif
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
     <div class="btn-group btn-group-lg">
-        <button type="button" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</button>
-        <button type="button" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</button>
-        <button type="button" class="btn btn-primary"><span class="fal fa-map-marker-check mr-1"></span>Mapa Extensão</button>
+        <a href="/acoes-extensao/novo"><button type="button" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</button>
+        <a href="/acoes-extensao"><button type="button" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</button>
+        <a href="/acoes-extensao/mapa/extensao"><button type="button" class="btn btn-primary"><span class="fal fa-map-marker-check mr-1"></span>Mapa Extensão</button>
         <button type="button" class="btn btn-primary"><span class="fal fa-file-alt mr-1"></span>Gerais Unicamp</button>
     </div>
 </div>
@@ -76,7 +76,7 @@
                     <small class="m-0 l-h-n">Concluídos</small>
                 </h3>
             </div>
-            <i class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
+            <i class="fal fa-check-double position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
