@@ -130,7 +130,7 @@ class KeycloakWebGuard implements Guard
         }
 
         $user = KeycloakWeb::getUserProfile($credentials);
-        
+        var_dump($user);
         if (empty($user)) {
             dd([$user, $credentials]);
 
