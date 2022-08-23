@@ -111,7 +111,7 @@ class KeycloakWebGuard implements Guard
          */
         $credentials['refresh_token'] = $credentials['refresh_token'] ?? '';
         KeycloakWeb::saveToken($credentials);
-
+        dd($credentials);
         return $this->authenticate();
     }
 
