@@ -130,9 +130,10 @@ class KeycloakWebGuard implements Guard
         }
 
         $user = KeycloakWeb::getUserProfile($credentials);
-        $credentials = KeycloakWeb::refreshToken($credentials);
         
         if (empty($user)) {
+            dd([$user, $credentials]);
+
             KeycloakWeb::forgetToken();
 
             if (Config::get('app.debug', false)) {
