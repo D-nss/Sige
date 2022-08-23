@@ -130,18 +130,20 @@ class KeycloakWebGuard implements Guard
         }
 
         $user = KeycloakWeb::getUserProfile($credentials);
+        $credentials = KeycloakWeb::refreshToken($credentials);
         
         if (empty($user)) {
             KeycloakWeb::forgetToken();
 
-            // if (Config::get('app.debug', false)) {
-            //     throw new KeycloakCallbackException('User cannot be authenticated.');
-            // }
+            if (Config::get('app.debug', false)) {
+                throw new KeycloakCallbackException('User cannot be authenticated.');
+            }
 
             return false;
         }
 
         // Provide User
+        
         $user = $this->provider->retrieveByCredentials($user);
         $this->setUser($user);
 
