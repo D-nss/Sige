@@ -22,7 +22,15 @@ class AcaoExtensaoController extends Controller
 {
     public function dashboard(){
 
-            $acoes_extensao = AcaoExtensao::all();
+        //pegar id unidade do usuario
+        $unidade = Unidade::where('id', 1)->first();
+        $acoes_extensao = AcaoExtensao::where('unidade_id', 1)->limit(3)->get();
+        $pendentes = AcaoExtensao::where('unidade_id', 1)->where('status', 'Pendente')->get();
+        $total = AcaoExtensao::all()->count();
+        $total_unidade = AcaoExtensao::where('unidade_id', 1)->count();
+        $total_concluidos = AcaoExtensao::where('unidade_id', 1)->where('situacao', 3)->count();
+        $total_andamento = AcaoExtensao::where('unidade_id', 1)->where('situacao', 2)->count();
+        $total_desativados = AcaoExtensao::where('unidade_id', 1)->where('situacao', 1)->count();
 
         $unidades = Unidade::all();
         $linhas_extensao = LinhaExtensao::all();
@@ -30,7 +38,14 @@ class AcaoExtensaoController extends Controller
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
         return view('acoes-extensao.dashboard', [
+            'unidade' => $unidade,
             'acoes_extensao' => $acoes_extensao,
+            'pendentes' => $pendentes,
+            'total' => $total,
+            'total_unidade' => $total_unidade,
+            'total_concluidos' => $total_concluidos,
+            'total_andamento' => $total_andamento,
+            'total_desativados' => $total_desativados,
             'unidades' => $unidades,
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,

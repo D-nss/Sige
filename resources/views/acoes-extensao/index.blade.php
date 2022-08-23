@@ -4,7 +4,7 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item">Ações de Extensão</li>
+    <li class="breadcrumb-item">BAEC</li>
     <li class="breadcrumb-item active">Listagem</li>
     <li class="breadcrumb-item"><a href="/acoes-extensao/novo"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Cadastrar
     </button></a></li>

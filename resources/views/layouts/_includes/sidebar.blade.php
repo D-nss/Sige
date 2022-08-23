@@ -56,15 +56,21 @@
             @hasanyrole('super|admin', 'web_user')
                 <li>
                     <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
-                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
+                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">BAEC</span>
                     </a>
                     <ul>
                         <li class="">
+                            <a href="{{ url('painel') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
+                            </a>
                             <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
                             </a>
                             <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                            </a>
+                            <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
                             </a>
                         </li>
                     </ul>
