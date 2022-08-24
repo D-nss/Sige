@@ -282,14 +282,6 @@ class InscricaoController extends Controller
             
             unset($tipo_avaliacao);
         }
-        
-        $linhaextensao = LinhaExtensao::findOrFail($inscricao->linha_extensao_id);
-
-        $inscricoesAreaTematica = InscricaoAreaTematica::join(
-            'areas_tematicas', 'areas_tematicas.id',
-            'inscricoes_areas_tematicas.area_tematica_id'
-            )->where('inscricao_id',$inscricao->id)
-            ->get();
 
         $respostasQuestoes = QuestaoRespondida::join(
             'questoes', 'questoes_respondidas.questao_id',
@@ -303,6 +295,17 @@ class InscricaoController extends Controller
         $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
             return data_get($value, 'tipo') == 'Avaliativa';
         });
+
+        $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
+                                                ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
+                                                ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
+                                                ->get();
+
+        $parecerAvaliacao = Parecer::select('users.name', 'pareceres.parecer')
+                                   ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
+                                   ->join('users', 'users.id', 'inscricoes.user_id')
+                                   ->where('inscricoes.id', $inscricao->id)
+                                   ->get();
 
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
 
@@ -324,14 +327,14 @@ class InscricaoController extends Controller
 
         return view('inscricao.show', compact(
                 'inscricao',
-                'inscricoesAreaTematica',
-                'linhaextensao',
                 'respostasQuestoes',
                 'itensOrcamento',
                 'totalItens',
                 'valorMaxPorInscricao',
                 'avaliacaoResposta',
+                'notasAvaliacao',
                 'questoesAvaliacao',
+                'parecerAvaliacao',
                 'criterios',
                 'status',
                 'cronograma'
