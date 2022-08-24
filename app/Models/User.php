@@ -64,9 +64,4 @@ class User extends Authenticatable
         return $this->hasMany(Inscricao::class);
     }
 
-    public function comissao()
-    {
-        return $this->belongsToMany(Comissao::class, 'comissoes_users', 'user_id', 'comissao_id' );
-    }
-
 }
