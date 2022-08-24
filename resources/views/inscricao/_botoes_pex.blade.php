@@ -20,4 +20,6 @@
             <a href='{{ url("inscricao/$inscricao->id/indicar-analista") }}' class="btn btn-secondary btn-xs m-1">Indicar Analista</a>
         @endif
     @endif
+
+    {{ $inscricao->avaliadores }}
 </div>
