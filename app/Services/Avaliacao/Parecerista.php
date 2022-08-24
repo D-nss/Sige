@@ -54,6 +54,21 @@ class Parecerista implements AvaliacaoInterface
 
         $dados = array();
 
+        // Validação dos Indicadores
+        $validar = array();
+
+        foreach($request->except('_token', 'tipo_avaliacao') as $key => $r){
+            if($key == 'parecer'){
+                $validar[$key] = 'required|max:1000';
+            }
+            else {
+                $validar[$key] = 'required';
+            }
+        }
+
+        $validated = $request->validate($request, $validar);
+        // Fim da Validação
+
         foreach( $request->except('_token', 'tipo_avaliacao', 'parecer') as $key => $value) {
             $questao_id = substr($key, 8, strlen($key));
             array_push($dados, array(
