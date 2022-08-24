@@ -48,6 +48,10 @@ class Subcomissao implements AvaliacaoInterface
             return ['redirect' => 'inscricao', 'status' => false];
         }
 
+        $validated = $request->validate([
+            'status' => 'required'
+        ]);
+
         $inscricao->status = $request->status;
         $inscricao->analista_user_id = $user->id;
 
