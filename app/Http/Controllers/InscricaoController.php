@@ -20,6 +20,8 @@ use App\Models\User;
 use App\Models\Municipio;
 use App\Models\Cronograma;
 use App\Models\ComissaoUser;
+use App\Models\RespostasAvaliacoes;
+use App\Models\Parecer;
 
 use App\Services\Avaliacao\Comissao1;
 use App\Services\Avaliacao\Parecerista;
