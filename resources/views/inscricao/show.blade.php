@@ -214,43 +214,43 @@
                                     <label for="" class="text-secondary font-size-14 fw-500">{{ $questaoAvaliacao->enunciado }}</label>
                                     <div class="form-group">
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="1">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="1" required>
                                             <label class="form-check-label" for="inlineRadio1">1</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="2">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="2" required>
                                             <label class="form-check-label" for="inlineRadio2">2</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="3">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="3" required>
                                             <label class="form-check-label" for="inlineRadio3">3</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="4">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="4" required>
                                             <label class="form-check-label" for="inlineRadio1">4</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="5">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="5" required>
                                             <label class="form-check-label" for="inlineRadio2">5</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="6">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="6" required>
                                             <label class="form-check-label" for="inlineRadio3">6</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="7">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="7" required>
                                             <label class="form-check-label" for="inlineRadio1">7</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="7">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="8" required>
                                             <label class="form-check-label" for="inlineRadio2">8</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="9">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="9" required>
                                             <label class="form-check-label" for="inlineRadio3">9</label>
                                         </div>
                                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="10">
+                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="10" required>
                                             <label class="form-check-label" for="inlineRadio3">10</label>
                                         </div>
                                     </div>
