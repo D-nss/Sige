@@ -132,7 +132,7 @@
                             <h2 class="text-primary fw-700">Areas Temáticas</h2>
                             <div class="row pt-3 mb-3">
                                 <div class="col-md-6">
-                                    @foreach($inscricoesAreaTematica as $areasTematicas)
+                                    @foreach($inscricao->areas as $areasTematicas)
                                         <p class="font-size-16 font-color-light"><span class="fw-500">{{ $areasTematicas->nome }}</span></p>
                                     @endforeach
                                 </div>
@@ -142,8 +142,8 @@
                             <h2 class="text-primary fw-700">Linhas de Extensão</h2>
                             <div class="row pt-3 mb-3">
                                 <div class="col-md-6">
-                                    <p class="font-size-16 font-color-light"><span class="fw-500">{{ $linhaextensao->nome }}</span></p>
-                                    <p class="font-color-light"><span>{{ $linhaextensao->descricao }}</span></p>
+                                    <p class="font-size-16 font-color-light"><span class="fw-500">{{ $inscricao->linha_extensao->nome }}</span></p>
+                                    <p class="font-color-light"><span>{{ $inscricao->linha_extensao->descricao }}</span></p>
                                 </div>
                             </div>
                         </div>
