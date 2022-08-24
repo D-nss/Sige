@@ -256,6 +256,8 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                <label for="" class="text-secondary font-size-14 fw-500">Parecer da avaliação</label>
+                                <textarea class="form-control" name="parecer" id="parecer" rows="10"></textarea>
                             </form>
                             @else
                                 <h3 class="text-secondary">Não disponível para avaliação</h3>
