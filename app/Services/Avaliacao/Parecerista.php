@@ -65,8 +65,8 @@ class Parecerista implements AvaliacaoInterface
                 $validar[$key] = 'required';
             }
         }
-
-        $validated = $request->validate($request, $validar);
+        dd($validar);
+        $validated = $request->validate($validar);
         // Fim da Validação
 
         foreach( $request->except('_token', 'tipo_avaliacao', 'parecer') as $key => $value) {
