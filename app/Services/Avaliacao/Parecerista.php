@@ -65,7 +65,7 @@ class Parecerista implements AvaliacaoInterface
                 $validar[$key] = 'required';
             }
         }
-        dd($validar);
+
         $validated = $request->validate($validar);
         // Fim da Validação
 
