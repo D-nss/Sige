@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\Avaliador;
 use App\Models\Inscricao;
+use App\Models\Comissao;
 
 class User extends Authenticatable
 {
@@ -61,6 +62,11 @@ class User extends Authenticatable
     public function inscricoes()
     {
         return $this->hasMany(Inscricao::class);
+    }
+
+    public function comissao()
+    {
+        return $this->belongsToMany(Comissao::class, 'comissoes_users', 'user_id', 'comissao_id' );
     }
 
 }
