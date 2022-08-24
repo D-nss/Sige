@@ -21,5 +21,5 @@
         @endif
     @endif
 
-    {{ $inscricao->avaliadores }}
+    {{ dd($inscricao->avaliadores) }}
 </div>
