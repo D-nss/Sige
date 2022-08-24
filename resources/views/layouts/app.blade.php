@@ -675,12 +675,14 @@ Versão: 4.5.1
 
                 $('#status').change(function() {
                     if( $('#status').val() == 'Indeferido' ) {
-                        $("#justificativa").removeClass("d-none");
-                        $("#justificativa").addClass("d-block");
+                        $("#criterios").removeClass("d-none");
+                        $("#criterios").addClass("d-block");
+                        $("#alerta-justificativa").addClass("d-none");
                     }
                     else {
-                        $("#justificativa").removeClass("d-block");
-                        $("#justificativa").addClass("d-none");
+                        $("#criterios").removeClass("d-block");
+                        $("#criterios").addClass("d-none");
+                        $("#alerta-justificativa").removeClass("d-none");
                     }
                 });
 

@@ -31,6 +31,7 @@ class AvaliadorPorInscricaoController extends Controller
         ]);
 
         if($avaliadorPorInscricao) {
+            $avaliadorPorInscricao->user->notify(new \App\Notifications\AdicionarAvaliador($avaliadorPorInscricao));
             session()->flash('status', 'Avaliador cadastrado com sucesso');
             session()->flash('alert', 'success');
 

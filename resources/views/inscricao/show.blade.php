@@ -76,6 +76,13 @@
                             </a>
                         </li>
                         @endif
+                        @if( $inscricao->status == 'Avaliado' && $cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id) )
+                        <li>
+                            <a class="nav-link fw-700 font-size-16" href="#step-7">
+                                Resultado Prévio
+                            </a>
+                        </li>
+                        @endif
                     </ul>
         
                     <div class="tab-content mt-3 px-3 pt-3">
@@ -255,6 +262,33 @@
                             @endif
                         </div>
                         @endif
+
+                        @if( $inscricao->status == 'Avaliado' && $cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id) )
+                        <div id="step-7" class="tab-pane pb-3" role="tabpanel">
+                            <h2 class="text-primary fw-700">Resultado Prévio</h2>
+                            <h1><i class="far fa-clipboard-list-check"></i> Nota Geral: {{ $inscricao->nota == null ? 00.00 : $inscricao->nota }}</h1>
+                            <div class="mt-3">
+                                <h4>Notas</h4>
+                                @foreach($notasAvaliacao as $notas)
+                                    <div class="d-flex"><span class="text-secondary fs-md ">{{ $notas->enunciado }}</span> <span class="fs-md fw-500 badge badge-primary ml-2">{{ $notas->valor }}</span></div>
+                                @endforeach
+                            </div>
+                            <div class="mt-3">
+                                <h4>Parecer</h4>
+                                @foreach($parecerAvaliacao as $parecer)
+                                    <div class="d-flex flex-column">
+                                        <span class="fs-md fw-500 d-flex align-items-start text-primary">
+                                            {{ $parecer->parecer }}
+                                        </span>
+                                        <div class="d-block text-muted fs-sm font-italic">
+                                            Perecerista {{ $parecer->name }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            
+                        </div>
+                        @endif
                     </div>
                 </div>
                 @if( isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true )
@@ -288,8 +322,8 @@
                                     <option value="Indeferido">Indeferido</option>
                                 </select>
 
-                                <div id="justificativa" class="d-none">
-                                    <div class="border p-3 mb-2 rounded">
+                                <div>
+                                    <div class="border p-3 mb-2 rounded d-none" id="criterios">
                                         <label for="" class="fw-700">Escolha os critérios de indeferimento:</label>
                                         <p>Pressione a tecla Ctrl para poder selecionar mais de uma opção</p>
                                         <select name="criterios[]" class="form-control" multiple>
@@ -300,9 +334,9 @@
                                         @endif
                                         </select>     
                                     </div>
-                                    <label for="analise_prev_just" class="fw-700">Justificativa</label>
+                                    <label for="analise_prev_just" class="fw-700" id="label-justificativa">Observação</label>
                                     <textarea name="justificativa" id="justificativa" rows="5" class="form-control mb-2"></textarea>
-
+                                    <p style="color: #D0D3D4;" id="alerta-justificativa">Campo não obrigatório</p>
                                 </div>
                                 
                                 <button class="btn btn-success loading">

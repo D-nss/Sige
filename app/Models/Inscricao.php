@@ -72,6 +72,11 @@ class Inscricao extends Model
         return $this->belongsToMany(User::class, 'respostas_avaliacoes', 'inscricao_id', 'user_id');
     }
 
+    public function pareceres()
+    {
+        return $this->hasMany(Parecer::class);
+    }
+
     public function analista()
     {
         return $this->belongsTo(User::class, 'analista_user_id');

@@ -12,6 +12,7 @@ use App\Models\Inscricao;
 use App\Models\User;
 use App\Models\AvaliadorPorInscricao;
 use App\Models\RespostasAvaliacoes;
+use App\Models\Parecer;
 
 class Parecerista implements AvaliacaoInterface
 {
@@ -23,11 +24,7 @@ class Parecerista implements AvaliacaoInterface
                                                         ->where('user_id', $user->id)
                                                         ->first();
 
-        if($user->hasAnyRole('edital-administrador|admin|super')) {
-            return ['parecerista' => true];
-        }
-
-        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+        if(!$avaliadorPorInscricao || $user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id) {
             session()->flash('status', 'Acesso não autorizado para avaliação.');
             session()->flash('alert', 'warning');
 
@@ -57,7 +54,7 @@ class Parecerista implements AvaliacaoInterface
 
         $dados = array();
 
-        foreach( $request->except('_token', 'tipo_avaliacao') as $key => $value) {
+        foreach( $request->except('_token', 'tipo_avaliacao', 'parecer') as $key => $value) {
             $questao_id = substr($key, 8, strlen($key));
             array_push($dados, array(
                 'user_id'      => $user->id,
@@ -67,10 +64,15 @@ class Parecerista implements AvaliacaoInterface
             ));
         }
 
-        $transacao = DB::transaction(function () use ($dados, $inscricao, $user) {
+        $transacao = DB::transaction(function () use ($dados, $inscricao, $user, $request) {
             DB::table('respostas_avaliacoes')->insert($dados);
-
-            //$inscricao->status = 'Avaliado';
+            
+            $parecer = Parecer::create([
+                'inscricao_id' => $inscricao->id,
+                'user_id'         => $user->id,
+                'parecer'      => $request->parecer
+            ]);
+            
             $inscricao->avaliador_user_id = $user->id;
             $inscricao->update();
 

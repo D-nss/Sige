@@ -333,7 +333,8 @@ class InscricaoController extends Controller
                 'avaliacaoResposta',
                 'questoesAvaliacao',
                 'criterios',
-                'status'
+                'status',
+                'cronograma'
             )
         );
     }
