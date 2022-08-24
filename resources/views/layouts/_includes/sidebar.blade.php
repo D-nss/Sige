@@ -137,7 +137,7 @@
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Suas Inscrições</span>
                                 </a>
                             </li>
-                            @if(Auth::user()->comissao)
+                            @if(Auth::user()->comissao->count())
                             <li class="">
                                 <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>

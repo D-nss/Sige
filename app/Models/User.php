@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     public function comissao()
     {
-        return $this->hasMany(Comissao::class, 'comissoes_users', 'user_id', 'comissao_id' );
+        return $this->belongsToMany(Comissao::class, 'comissoes_users', 'user_id', 'comissao_id' );
     }
 
 }
