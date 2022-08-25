@@ -1,5 +1,4 @@
 <div class="">
-{{ $inscricao->avaliadores->user }}
     <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-info btn-xs m-1"><i class="far fa-eye"></i> Ver</a>
     <a href='{{ url("storage/$inscricao->anexo_projeto") }}' target="_blank" class="btn btn-danger btn-xs m-1"><i class="far fa-pdf"></i> Ver PDF</a>
     
