@@ -72,7 +72,7 @@ class Subcomissao implements AvaliacaoInterface
         }
 
         if($inscricao->update()) {
-            session()->flash('status', 'Analise enviada com sucesso.');
+            session()->flash('status', 'Analise enviada com sucesso. Prossiga indicando os pareceristas no botão Pareceristas');
             session()->flash('alert', 'success');
 
             return ["redirect" => "inscricao", 'status' => true];
