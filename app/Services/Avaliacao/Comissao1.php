@@ -51,4 +51,6 @@ class Comissao1 implements AvaliacaoInterface
         //Aplica as especificidades da avaliação da comissão 1
         return ['message' => 'Avaliação da comissão 1'];
     }
+
+    public function update(Request $request, Inscricao $inscricao, User $user) {}
 }
