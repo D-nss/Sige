@@ -88,7 +88,7 @@
                                         <div class="card-body font-color-light">
                                             <p class="font-size-14"><span class="fw-700">Coordenador: </span> {{ $inscricao->user->name }}</p>
                                             <p class="font-size-14"><span class="fw-700">Tipo de Extensão: </span> {{ $inscricao->tipo }}</p>
-                                            <p class="font-size-14"><span class="fw-700">Resumo: </span> {{ $inscricao->resumo }}</p>
+                                            <p class="font-size-14"><span class="fw-700">Resumo: </span> {!! nl2br( e( $inscricao->resumo ) ) !!}</p>
                                             <p class="font-size-14"><span class="fw-700">Palavras Chaves: </span>
                                                 @foreach( explode(",", $inscricao->palavras_chaves) as $palavras)
                                                     <span class="badge badge-danger badge-pill">{{ $palavras }}</span>
@@ -147,7 +147,7 @@
                                     @foreach($respostasQuestoes as $respostaQuestao)
                                     <div class="rounded bg-f0 mb-2 p-2">
                                         <p class="font-size-14 font-color-light"><span class="fw-500">{{ $respostaQuestao->enunciado }}</span></p>
-                                        <p class="font-color-light">{{ $respostaQuestao->resposta }}</p>
+                                        <p class="font-color-light">{!! nl2br( e($respostaQuestao->resposta) ) !!}</p>
                                     </div> 
                                     @endforeach
                                 </div>
