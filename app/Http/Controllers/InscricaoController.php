@@ -279,13 +279,13 @@ class InscricaoController extends Controller
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
                                 ->where('user_id', $user->id)
                                 ->first();
+        echo json_encode([$userNaComissao, $avaliadorPorInscricao]);
+        // if(!$userNaComissao || !$avaliadorPorInscricao ||) {
+        //     session()->flash('status', 'Acesso não autorizado para visualização.');
+        //     session()->flash('alert', 'warning');
 
-        if(!$userNaComissao || !$avaliadorPorInscricao) {
-            session()->flash('status', 'Acesso não autorizado para visualização.');
-            session()->flash('alert', 'warning');
-
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
 
         if(isset($request->tipo_avaliacao)) {
             $tipo_avaliacao = [
@@ -343,21 +343,21 @@ class InscricaoController extends Controller
             'Desclassificado' => 'danger'
         ];
 
-        return view('inscricao.show', compact(
-                'inscricao',
-                'respostasQuestoes',
-                'itensOrcamento',
-                'totalItens',
-                'valorMaxPorInscricao',
-                'avaliacaoResposta',
-                'notasAvaliacao',
-                'questoesAvaliacao',
-                'parecerAvaliacao',
-                'criterios',
-                'status',
-                'cronograma'
-            )
-        );
+        //return view('inscricao.show', compact(
+        //         'inscricao',
+        //         'respostasQuestoes',
+        //         'itensOrcamento',
+        //         'totalItens',
+        //         'valorMaxPorInscricao',
+        //         'avaliacaoResposta',
+        //         'notasAvaliacao',
+        //         'questoesAvaliacao',
+        //         'parecerAvaliacao',
+        //         'criterios',
+        //         'status',
+        //         'cronograma'
+        //     )
+        // );
     }
 
     /**
