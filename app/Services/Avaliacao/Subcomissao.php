@@ -84,4 +84,6 @@ class Subcomissao implements AvaliacaoInterface
             return ["redirect" => "inscricao", 'status' => false];
         }
     }
+
+    public function update(Request $request, Inscricao $inscricao, User $user) {}
 }
