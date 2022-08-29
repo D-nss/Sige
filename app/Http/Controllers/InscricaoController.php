@@ -271,6 +271,22 @@ class InscricaoController extends Controller
         $avaliacaoResposta = false;
         $user = User::where('email', Auth::user()->id)->first();
 
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.edital_id', $inscricao->edital_id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+
+        $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
+                                ->where('user_id', $user->id)
+                                ->first();
+
+        if(!$userNaComissao || !$avaliadorPorInscricao) {
+            session()->flash('status', 'Acesso não autorizado para visualização.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         if(isset($request->tipo_avaliacao)) {
             $tipo_avaliacao = [
                 'subcomissao' => new Subcomissao(),
