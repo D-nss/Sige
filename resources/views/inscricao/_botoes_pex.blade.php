@@ -10,10 +10,10 @@
             <a href='{{ url("inscricao/$inscricao->id/avaliadores") }}' class="btn btn-info btn-xs m-1">Pareceristas</a>
         @endif
     @endif
-    @if($user->hasAnyRole('super','edital-administrador') || ( $inscricao->status == 'Deferido' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id))))
-        @if($inscricao->respostas_avaliacoes->where('id', '==', $user->id)->count() == 0 && $inscricao->avaliadores->where('id', '==', $user->id)->count() > 0)
-            <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Parecer</a>
-        @endif
+    @if($user->hasAnyRole('super','edital-administrador') || ( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id))))
+        
+        <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Parecer</a>
+       
     @endif
     @if($user->hasAnyRole('edital-administrador') && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)))
         @if($inscricao->status == 'Submetido')    

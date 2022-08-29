@@ -27,4 +27,8 @@ class Avaliacao
     function execute(Request $request, Inscricao $inscricao, User $user) {
         return $this->avaliacao->execute($request, $inscricao, $user);
     }
+
+    function update(Request $request, Inscricao $inscricao, User $user) {
+        return $this->avaliacao->update($request, $inscricao, $user);
+    }
 }

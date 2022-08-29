@@ -9,4 +9,5 @@ use App\Models\User;
 interface AvaliacaoInterface {
     public function getAvaliacao(Request $request, Inscricao $inscricao, User $user);
     public function execute(Request $request, Inscricao $inscricao, User $user);
+    public function update(Request $request, Inscricao $inscricao, User $user);
 }

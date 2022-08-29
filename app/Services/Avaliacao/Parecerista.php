@@ -115,4 +115,48 @@ class Parecerista implements AvaliacaoInterface
             return ['redirect' => 'inscricao', 'status' => false];
         }
     }
+
+    public function update(Request $request, Inscricao $inscricao, User $user) 
+    {
+        if($inscricao->user_id == $user->id) {
+            session()->flash('status', 'Desculpe! Não é permitido avaliar a própria inscrição');
+            session()->flash('alert', 'danger');
+
+            return ['redirect' => 'inscricao', 'status' => false];
+        }
+
+        $dados = array();
+
+        $transacao = DB::transaction(function () use ($dados, $inscricao, $user, $request) {
+            foreach( $request->except('_token', 'tipo_avaliacao', 'parecer') as $key => $value) {
+                $questao_id = substr($key, 8, strlen($key));
+                DB::table('respostas_avaliacoes')
+                    ->where('user_id', $user->id)
+                    ->where('inscricao_id', $inscricao->id)
+                    ->where('questao_id', $questao_id)
+                    ->update(['valor' => $value]);
+            }
+
+            DB::table('pareceres')
+                    ->where('user_id', $user->id)
+                    ->where('inscricao_id', $inscricao->id)
+                    ->update(['parecer' => $request->parecer]);
+
+        });
+
+        if( is_null($transacao) )
+        {
+            session()->flash('status', 'Avaliação atualizada com sucesso!');
+            session()->flash('alert', 'success');
+
+            return ['redirect' => 'inscricao', 'status' => true];
+        }
+        else
+        {
+            session()->flash('status', 'Desculpe! Houve um problema ao enviar atualizar');
+            session()->flash('alert', 'danger');
+
+            return ['redirect' => 'inscricao', 'status' => false];
+        }
+    }
 }

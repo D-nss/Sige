@@ -69,14 +69,7 @@
                                 Orçamento
                             </a>
                         </li>
-                        @if( (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) )
-                        <li>
-                            <a class="nav-link fw-700 font-size-16" href="#step-7">
-                                Avaliação
-                            </a>
-                        </li>
-                        @endif
-                        @if( $inscricao->status == 'Avaliado' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) )
+                        @if( !(strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
                         <li>
                             <a class="nav-link fw-700 font-size-16" href="#step-7">
                                 Resultado Prévio
@@ -194,85 +187,15 @@
                                 <span class="alert alert-info font-size-14 fw-700">Total Disponível R$ {{ number_format($valorMaxPorInscricao - $totalItens, 2, ',', '.') }}</span>
                             </div>
                         </div>
-                        @if( (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) ||  (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) )
-                        <div id="step-7" class="tab-pane pb-3" role="tabpanel">
-                            <h2 class="text-primary fw-700">Avaliação</h2>
-                            @if($inscricao->status == 'Avaliado')
-                                <h3 class="font-color-light">Já Avaliado</h3>
-                            @elseif($inscricao->status == 'Deferido')
-                            <form action='{{ url("/inscricao/$inscricao->id/avaliacao") }}' method="post" id="avaliacao-form">
-                                @csrf
 
-                                @if(isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true)
-                                    <input type="hidden" name="tipo_avaliacao" value="parecerista">
-                                @elseif( isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true)
-                                    <input type="hidden" name="tipo_avaliacao" value="comissao1">
-                                @endif
-
-                                @foreach($questoesAvaliacao as $questaoAvaliacao)
-                                <div class="bg-f0 rounded mb-2 p-2 w-100">
-                                    <label for="" class="text-secondary font-size-14 fw-500">{{ $questaoAvaliacao->enunciado }}</label>
-                                    <div class="form-group">
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="1" required>
-                                            <label class="form-check-label" for="inlineRadio1">1</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="2" required>
-                                            <label class="form-check-label" for="inlineRadio2">2</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="3" required>
-                                            <label class="form-check-label" for="inlineRadio3">3</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="4" required>
-                                            <label class="form-check-label" for="inlineRadio1">4</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="5" required>
-                                            <label class="form-check-label" for="inlineRadio2">5</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="6" required>
-                                            <label class="form-check-label" for="inlineRadio3">6</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="7" required>
-                                            <label class="form-check-label" for="inlineRadio1">7</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio2" value="8" required>
-                                            <label class="form-check-label" for="inlineRadio2">8</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="9" required>
-                                            <label class="form-check-label" for="inlineRadio3">9</label>
-                                        </div>
-                                        <div class="form-check form-check-inline border p-2 mr-2 rounded">
-                                            <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio3" value="10" required>
-                                            <label class="form-check-label" for="inlineRadio3">10</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                                <label for="" class="text-secondary font-size-14 fw-500">Parecer da avaliação</label>
-                                <textarea class="form-control" name="parecer" id="parecer" rows="10" required></textarea>
-                            </form>
-                            @else
-                                <h3 class="text-secondary">Não disponível para avaliação</h3>
-                            @endif
-                        </div>
-                        @endif
-
-                        @if( $inscricao->status == 'Avaliado' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) )
+                        @if( !(strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
                         <div id="step-7" class="tab-pane pb-3" role="tabpanel">
                             <h2 class="text-primary fw-700">Resultado Prévio</h2>
                             <h1><i class="far fa-clipboard-list-check"></i> Nota Geral: {{ $inscricao->nota == null ? 00.00 : $inscricao->nota }}</h1>
                             <div class="mt-3">
                                 <h4>Notas</h4>
                                 @foreach($notasAvaliacao as $notas)
-                                    <div class="d-flex"><span class="text-secondary fs-md ">{{ $notas->enunciado }}</span> <span class="fs-md fw-500 badge badge-primary ml-2">{{ $notas->valor }}</span></div>
+                                    <div class="mb-3"><span class="text-secondary fs-md ">{{ $notas->enunciado }}</span></br><span class="fs-md fw-500">{{ $notas->valor }}</span></div>
                                 @endforeach
                             </div>
                             <div class="mt-3">

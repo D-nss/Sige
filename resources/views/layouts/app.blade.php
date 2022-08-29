@@ -507,7 +507,7 @@ Versão: 4.5.1
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         toolbarExtraButtons: [
-                            $('<button></button>').text( @if( (isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true ) || (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) ) 'Finalizar' @else 'Voltar' @endif )
+                            $('<button></button>').text( @if( (isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true )  ) 'Finalizar' @elseif( (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) ) 'Avaliar' @else 'Voltar' @endif )
                                     .addClass('btn btn-primary btn-block')
                                     .on('click', function(){
                                         @if(isset($avaliacaoResposta['analise']) && $avaliacaoResposta['analise'] == true)
@@ -517,7 +517,7 @@ Versão: 4.5.1
                                             $(this).append('<div class="spinner-border spinner-border-sm spin" role="status"><span class="sr-only">Loading...</span></div>');
                                             $(this).append('<span> Loading...</span>');
                                             $(this).prop('disabled', true);
-                                            $('#avaliacao-form').submit();
+                                            window.location.replace('{{ url("/inscricao/$inscricao->id/avaliacao") }}');
                                         @else
                                             history.back();
                                         @endif
