@@ -69,7 +69,7 @@
                                 Orçamento
                             </a>
                         </li>
-                        @if( !(strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
+                        @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
                         <li>
                             <a class="nav-link fw-700 font-size-16" href="#step-7">
                                 Resultado Prévio
@@ -188,7 +188,7 @@
                             </div>
                         </div>
 
-                        @if( !(strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
+                        @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
                         <div id="step-7" class="tab-pane pb-3" role="tabpanel">
                             <h2 class="text-primary fw-700">Resultado Prévio</h2>
                             <h1><i class="far fa-clipboard-list-check"></i> Nota Geral: {{ $inscricao->nota == null ? 00.00 : $inscricao->nota }}</h1>
