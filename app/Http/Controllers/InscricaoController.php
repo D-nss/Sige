@@ -279,85 +279,88 @@ class InscricaoController extends Controller
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
                                 ->where('user_id', $user->id)
                                 ->first();
-        echo json_encode([$userNaComissao, $avaliadorPorInscricao]);
-        // if(!$userNaComissao || !$avaliadorPorInscricao ||) {
-        //     session()->flash('status', 'Acesso não autorizado para visualização.');
-        //     session()->flash('alert', 'warning');
-
-        //     return redirect()->back();
-        // }
-
-        if(isset($request->tipo_avaliacao)) {
-            $tipo_avaliacao = [
-                'subcomissao' => new Subcomissao(),
-                'parecerista' => new Parecerista(),
-                'comissao1' => new Comissao1(),
+       
+        if($userNaComissao || $avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+            if(isset($request->tipo_avaliacao)) {
+                $tipo_avaliacao = [
+                    'subcomissao' => new Subcomissao(),
+                    'parecerista' => new Parecerista(),
+                    'comissao1' => new Comissao1(),
+                ];
+        
+                $avaliacao = new Avaliacao($tipo_avaliacao[$request->tipo_avaliacao]);
+        
+                $avaliacaoResposta = $avaliacao->getAvaliacao($request, $inscricao, $user);
+                
+                unset($tipo_avaliacao);
+            }
+    
+            $respostasQuestoes = QuestaoRespondida::join(
+                'questoes', 'questoes_respondidas.questao_id',
+                'questoes.id'
+                )->where('questoes_respondidas.inscricao_id', $inscricao->id)
+                ->get();
+    
+    
+            $criterios = $edital->criterios;
+    
+            $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
+                return data_get($value, 'tipo') == 'Avaliativa';
+            });
+    
+            $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
+                                                    ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
+                                                    ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
+                                                    ->get();
+    
+            $parecerAvaliacao = Parecer::select('users.name', 'pareceres.parecer')
+                                       ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
+                                       ->join('users', 'users.id', 'inscricoes.user_id')
+                                       ->where('inscricoes.id', $inscricao->id)
+                                       ->get();
+    
+            $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
+    
+            $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
+            $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
+                                       ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
+                                       ->where('inscricao_id', $inscricao->id)
+                                       ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
+                                    
+            $status = [
+                'Deferido' => 'success',
+                'Classificado' => 'success',
+                'Salvo' => 'warning',
+                'Submetido' => 'warning',
+                'Avaliado' => 'success',
+                'Indeferido' => 'danger',
+                'Desclassificado' => 'danger'
             ];
     
-            $avaliacao = new Avaliacao($tipo_avaliacao[$request->tipo_avaliacao]);
-    
-            $avaliacaoResposta = $avaliacao->getAvaliacao($request, $inscricao, $user);
-            
-            unset($tipo_avaliacao);
+            return view('inscricao.show', compact(
+                    'inscricao',
+                    'respostasQuestoes',
+                    'itensOrcamento',
+                    'totalItens',
+                    'valorMaxPorInscricao',
+                    'avaliacaoResposta',
+                    'notasAvaliacao',
+                    'questoesAvaliacao',
+                    'parecerAvaliacao',
+                    'criterios',
+                    'status',
+                    'cronograma'
+                )
+            );
+        }
+        else {
+            session()->flash('status', 'Acesso não autorizado para visualização.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
         }
 
-        $respostasQuestoes = QuestaoRespondida::join(
-            'questoes', 'questoes_respondidas.questao_id',
-            'questoes.id'
-            )->where('questoes_respondidas.inscricao_id', $inscricao->id)
-            ->get();
-
-
-        $criterios = $edital->criterios;
-
-        $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
-            return data_get($value, 'tipo') == 'Avaliativa';
-        });
-
-        $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
-                                                ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
-                                                ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
-                                                ->get();
-
-        $parecerAvaliacao = Parecer::select('users.name', 'pareceres.parecer')
-                                   ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
-                                   ->join('users', 'users.id', 'inscricoes.user_id')
-                                   ->where('inscricoes.id', $inscricao->id)
-                                   ->get();
-
-        $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
-
-        $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
-        $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
-                                   ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
-                                   ->where('inscricao_id', $inscricao->id)
-                                   ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
-                                
-        $status = [
-            'Deferido' => 'success',
-            'Classificado' => 'success',
-            'Salvo' => 'warning',
-            'Submetido' => 'warning',
-            'Avaliado' => 'success',
-            'Indeferido' => 'danger',
-            'Desclassificado' => 'danger'
-        ];
-
-        //return view('inscricao.show', compact(
-        //         'inscricao',
-        //         'respostasQuestoes',
-        //         'itensOrcamento',
-        //         'totalItens',
-        //         'valorMaxPorInscricao',
-        //         'avaliacaoResposta',
-        //         'notasAvaliacao',
-        //         'questoesAvaliacao',
-        //         'parecerAvaliacao',
-        //         'criterios',
-        //         'status',
-        //         'cronograma'
-        //     )
-        // );
+        
     }
 
     /**
