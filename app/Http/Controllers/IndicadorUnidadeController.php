@@ -91,7 +91,7 @@ class IndicadorUnidadeController extends Controller
                 continue;
             }
 
-            $validate[$key] = 'max:50000|integer|min:0';
+            $validate[$key] = 'max:50000|min:0';
 
             if($key == '_token') {
                 unset($validate[$key]);
@@ -109,7 +109,8 @@ class IndicadorUnidadeController extends Controller
         /* Prepara os dados para serem inseridos no bando de dados */
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
-                array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $r, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base));
+                $valor = str_replace(',', '.', str_replace('.', '',$r));
+                array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $valor, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base));
             }
         }
 
@@ -215,7 +216,8 @@ class IndicadorUnidadeController extends Controller
         
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
-                $linha = DB::table('indicadores_unidades')->where('id', substr($key, 9, strlen($key)))->update([ 'valor' => $r ]);
+                $valor = str_replace(',', '.', str_replace('.', '',$r));
+                $linha = DB::table('indicadores_unidades')->where('id', substr($key, 9, strlen($key)))->update([ 'valor' => $valor ]);
                 array_push($linhasAfetadas, $linha);
             }
         }

@@ -10,7 +10,7 @@
         @foreach($indicardoresPorUnidade as $indicardorPorUnidade)
             <tr>
                 <th>{{ $indicardorPorUnidade->indicador }}</th>
-                <th>{{ $indicardorPorUnidade->valor }}</th>
+                <th>{{ str_replace('.', ',', $indicardorPorUnidade->valor) }}</th>
             </tr>
         @endforeach
     </tbody>
