@@ -69,8 +69,7 @@ class AuthController extends Controller
         if (empty($state) || ! KeycloakWeb::validateState($state)) {
             KeycloakWeb::forgetState();
 
-            //throw new KeycloakCallbackException('Invalid state');
-            return redirect()->to('/login');
+            throw new KeycloakCallbackException('Invalid state');
         }
 
         // Change code for token
