@@ -21,35 +21,33 @@ use Illuminate\Http\Request;
 class AcaoExtensaoController extends Controller
 {
     public function dashboard(){
-
-        //pegar id unidade do usuario
+        //pegar id unidade do usuario (alterar)
         $unidade = Unidade::where('id', 1)->first();
-        $acoes_extensao = AcaoExtensao::where('unidade_id', 1)->limit(3)->get();
-        $pendentes = AcaoExtensao::where('unidade_id', 1)->where('status', 'Pendente')->get();
-        $total = AcaoExtensao::all()->count();
-        $total_unidade = AcaoExtensao::where('unidade_id', 1)->count();
-        $total_concluidos = AcaoExtensao::where('unidade_id', 1)->where('situacao', 3)->count();
-        $total_andamento = AcaoExtensao::where('unidade_id', 1)->where('situacao', 2)->count();
-        $total_desativados = AcaoExtensao::where('unidade_id', 1)->where('situacao', 1)->count();
 
-        $unidades = Unidade::all();
-        $linhas_extensao = LinhaExtensao::all();
-        $areas_tematicas = AreaTematica::all();
-        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->limit(3)->get();
+        $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
+
+        //pegar id do usuario (alterar)
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', 1)->get();
+
+        $total = AcaoExtensao::all()->count();
+        $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->count();
+        $porcentagem_unidade = $total_unidade*100/$total;
+        $total_concluidos = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 3)->count();
+        $total_andamento = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 2)->count();
+        $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 1)->count();
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
+            'acoes_extensao_usuario' => $acoes_extensao_usuario,
             'acoes_extensao' => $acoes_extensao,
             'pendentes' => $pendentes,
             'total' => $total,
             'total_unidade' => $total_unidade,
+            'porcentagem_unidade' => $porcentagem_unidade,
             'total_concluidos' => $total_concluidos,
             'total_andamento' => $total_andamento,
-            'total_desativados' => $total_desativados,
-            'unidades' => $unidades,
-            'linhas_extensao' => $linhas_extensao,
-            'areas_tematicas' => $areas_tematicas,
-            'estados' => $estados
+            'total_desativados' => $total_desativados
         ]);
 
     }
@@ -112,8 +110,9 @@ class AcaoExtensaoController extends Controller
     public function store(StoreAcaoExtensaoRequest $request)
     {
         //$user = User::where('email', Auth::user()->id)->first();
-        $dados = array('user_id' => 1);
-        //$dados['areas_tematicas'] = implode(",", $request->areas_tematicas);
+        $user = User::where('id', 1)->first();
+
+        $dados = array('user_id' => $user->id);
         $dados['municipio_id'] = $request->cidade;
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
@@ -173,7 +172,6 @@ class AcaoExtensaoController extends Controller
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $unidades = Unidade::all();
-        //$user = User::where('email', Auth::user()->id)->first();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $tipos_parceiro = TipoParceiro::all();
         $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
@@ -200,8 +198,9 @@ class AcaoExtensaoController extends Controller
     public function update(UpdateAcaoExtensaoRequest $request, AcaoExtensao $acaoExtensao)
     {
         //$user = User::where('email', Auth::user()->id)->first();
-        $dados = array('user_id' => 1);
-        //$dados['areas_tematicas'] = implode(",", $request->areas_tematicas);
+        $user = User::where('id', 1)->first();
+
+        $dados = array('user_id' => $user->id);
         $dados['municipio_id'] = $request->cidade;
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
@@ -291,6 +290,16 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.index');
     }
 
+    public function enviarMensagem(AcaoExtensao $acaoExtensao){
+        $acaoExtensao->aprovado_user_id = 1;
+        $acaoExtensao->status = 'Aprovado';
+        $acaoExtensao->save();
+        session()->flash('status', 'Ação de Extensão aprovada!');
+        session()->flash('alert', 'success');
+
+        return redirect()->route('acao_extensao.index');
+    }
+
     public function acoesPorUnidade(Unidade $unidade){
         $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->get();
         return $this->index($acoes_extensao);
@@ -337,6 +346,11 @@ class AcaoExtensaoController extends Controller
 
     public function acoesPorPalavraChave($palavraChave){
         $acoes_extensao = AcaoExtensao::where('palavras_chaves', 'like', "%{$palavraChave}%")->get();
+        return $this->index($acoes_extensao);
+    }
+
+    public function acoesPorUsuario(User $usuario){
+        $acoes_extensao = AcaoExtensao::where('user_id', $usuario->id)->get();
         return $this->index($acoes_extensao);
     }
 

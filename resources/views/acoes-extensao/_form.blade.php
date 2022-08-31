@@ -10,6 +10,47 @@
         <div id="step-1" class="">
             <div class="form-group">
                 <label class="form-label" for="tipo">Tipo da Ação <span class="text-danger">*</span></label>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-xs btn-info waves-effect waves-themed" data-toggle="modal" data-target="#modal-ajuda-tipo-acao">
+                    <span class="fal fa-info-circle mr-1"></span>Informação
+                </button>
+                <!-- Modal center -->
+                <div class="modal fade" id="modal-ajuda-tipo-acao" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <small class="m-0 text-muted">
+                                        Definições segundo a FORPROEX:
+                                    </small>
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>I – PROGRAMA</h4>
+                                <p>“Conjunto articulado de projetos e outras ações de extensão (cursos, eventos,
+                                    prestação de serviços), preferencialmente integrando as ações de extensão, pesquisa e ensino. Tem caráter orgânico-institucional, clareza de diretrizes e orientação para um objetivo comum, sendo executado a médio e longo prazo”.</p>
+                                <h4>II - PROJETO</h4>
+                                <p>“Ação processual e contínua de caráter educativo, social, cultural, científico ou tecnológico, com objetivo específico e prazo determinado”.</p>
+                                <h4>III – CURSO</h4>
+                                <p>“Ação pedagógica, de caráter teórico e/ou prático, presencial ou a distância, planejada e organizada de modo sistemático, com carga horária mínima de 8 horas e critérios de avaliação definidos”.</p>
+                                <h4>IV - EVENTO</h4>
+                                <p>“Ação que implica na apresentação e/ou exibição pública, livre ou com clientela
+                                    específica, do conhecimento ou produto cultural, artístico, esportivo, científico
+                                    e tecnológico desenvolvido, conservado ou reconhecido pela Universidade”.</p>
+                                <h5>V – PRESTAÇÃO DE SERVIÇO</h5>
+                                <p>“Realização de trabalho oferecido pela Instituição de Educação Superior ou contratado por terceiros (comunidade, empresa, órgão público, etc.); a prestação de
+                                    serviços se caracteriza por intangibilidade, inseparabilidade processo/produto e não
+                                    resulta na posse de um bem”.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <select class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo">
                     @if(isset($acao_extensao))
                             @switch($acao_extensao->tipo)
@@ -26,7 +67,7 @@
                                 <option value="4">Evento</option>
                                     @break
                                 @case(5)
-                                <option value="5">Prestação de Serviços</option>
+                                <option value="5">Prestação de Serviço</option>
                                     @break
                                 @default
 
@@ -38,7 +79,7 @@
                     <option value="2">Projeto</option>
                     <option value="3">Curso</option>
                     <option value="4">Evento</option>
-                    <option value="5">Prestação de Serviços</option>
+                    <option value="5">Prestação de Serviço</option>
                 </select>
                 @error('tipo')
                     <div class="invalid-feedback">
@@ -48,6 +89,35 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="linha_extensao_id">Linha de Extensão <span class="text-danger">*</span></label>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-xs btn-info waves-effect waves-themed" data-toggle="modal" data-target="#modal-ajuda-linhas">
+                    <span class="fal fa-info-circle mr-1"></span>Informação
+                </button>
+                <!-- Modal center -->
+                <div class="modal fade" id="modal-ajuda-linhas" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>O que são Linhas de Extensão:</h4>
+                                <p>Classificação e definição pelo FORPROEX.
+                                    As linhas de extensão não são, necessariamente, ligadas a
+                                    uma área temática, em especial. Por exemplo, ações relativas à
+                                    linha de extensão “Inovação Tecnológica” podem ser
+                                    registradas na área temática Saúde, ou Educação, ou Trabalho,
+                                    ou mesmo Tecnologia, dependendo do tema em questão.</p>
+                                <p>Para informação das descrições das 53 linhas, consulte o portal RENEX.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <select class="form-control @error('linha_extensao_id') is-invalid @enderror" id="linha_extensao_id" name="linha_extensao_id">
                     @if(isset($acao_extensao))
                         <option value="{{$acao_extensao->linha_extensao->id}}">{{$acao_extensao->linha_extensao->nome}}</option>
@@ -67,7 +137,35 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label class="form-label" for="areas_tematicas">Áreas Temáticas <span class="text-danger">*</span> <i>(Escolha pelo menos um)</i></label>
+                <label class="form-label" for="areas_tematicas">Áreas Temáticas <span class="text-danger">*</span></label>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-xs btn-info waves-effect waves-themed" data-toggle="modal" data-target="#modal-ajuda-areas">
+                    <span class="fal fa-info-circle mr-1"></span>Informação
+                </button>
+                <!-- Modal center -->
+                <div class="modal fade" id="modal-ajuda-areas" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>FORPROEX:</h4>
+                                <p>"A <b>classificação por área</b> deve observar o objeto ou assunto que é enfocado na
+                                    ação. Mesmo que não se encontre no conjunto das áreas uma correspondência
+                                    absoluta com o objeto da ação, a mais aproximada, tematicamente, deverá ser
+                                    a escolhida."</p>
+                                <br>
+                                <p>Pode escolher mais de uma Área Temática. Para isso, é só manter o CTRL pressionado e selecionar outras áreas.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <select name="areas_tematicas[]" id="areas_tematicas" multiple="" class="form-control @error('areas_tematicas') is-invalid @enderror" style="height: 150px;">
                     @if (!empty($areas_tematicas))
                         @foreach ($areas_tematicas as $area_tematica)

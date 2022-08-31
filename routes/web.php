@@ -66,6 +66,7 @@ Route::get('/acoes-extensao/situacao/{id}', [AcaoExtensaoController::class, 'aco
 Route::get('/acoes-extensao/parceiro/{tipo_parceiro}', [AcaoExtensaoController::class, 'acoesPorTipoParceiro'])->name('acao_extensao.tipo_parceiro.index');
 Route::get('/acoes-extensao/grau-equipe/{grau_envolvimento_equipe}', [AcaoExtensaoController::class, 'acoesPorGrauEnvolvimentoEquipe'])->name('acao_extensao.grau_envolvimento_equipe.index');
 Route::get('/acoes-extensao/palavra-chave/{palavra_chave}', [AcaoExtensaoController::class, 'acoesPorPalavraChave'])->name('acao_extensao.palavra_chave.index');
+Route::get('/acoes-extensao/usuario/{usuario}', [AcaoExtensaoController::class, 'acoesPorUsuario'])->name('acao_extensao.usuario.index');
 Route::get('/acoes-extensao/mapa/extensao', [AcaoExtensaoController::class, 'mapaExtensao'])->name('acao_extensao.mapa');
 Route::post('/acoes-extensao/filtrar', [AcaoExtensaoController::class, 'filtrar'])->name('acao_extensao.filtrar');
 Route::post('/acoes-extensao/filtrarMapa', [AcaoExtensaoController::class, 'filtrarMapa'])->name('acao_extensao.filtrar.mapa');

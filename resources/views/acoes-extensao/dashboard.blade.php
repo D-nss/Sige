@@ -31,7 +31,7 @@
                 <small>TOTAIS UNIDADE</small>
             </span>
             <span class="fw-500 fs-xl d-block color-danger-500">
-                {{$total_unidade}}
+                {{$total_unidade.' ('.$porcentagem_unidade.'%)'}}
             </span>
         </div>
     </div>
@@ -50,10 +50,10 @@
 @endif
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
     <div class="btn-group btn-group-lg">
-        <a href="/acoes-extensao/novo"><button type="button" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</button>
-        <a href="/acoes-extensao"><button type="button" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</button>
-        <a href="/acoes-extensao/mapa/extensao"><button type="button" class="btn btn-primary"><span class="fal fa-map-marker-check mr-1"></span>Mapa Extensão</button>
-        <button type="button" class="btn btn-primary"><span class="fal fa-file-alt mr-1"></span>Gerais Unicamp</button>
+        <a href="/acoes-extensao/novo" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</a>
+        <a href="/acoes-extensao" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</a>
+        <a href="/acoes-extensao/mapa/extensao" class="btn btn-primary"><span class="fal fa-map-marker-check mr-1"></span>Mapa Extensão</a>
+        <a href="/acoes-extensao/novo" class="btn btn-primary"><span class="fal fa-file-alt mr-1"></span>Gerais Unicamp</a>
     </div>
 </div>
 <div class="row">
@@ -87,7 +87,7 @@
                     <small class="m-0 l-h-n">Em Andamento</small>
                 </h3>
             </div>
-            <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
+            <i class="fal fa-clock position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
         </div>
     </div>
     <div class="col-sm-6 col-xl-3">
@@ -98,8 +98,133 @@
                     <small class="m-0 l-h-n">Desativados</small>
                 </h3>
             </div>
-            <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
+            <i class="fal fa-ban position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-xl-12">
+                                <!--Table head-->
+                                <div id="panel" class="panel">
+                                    <div class="panel-hdr bg-primary-600">
+                                        <h2>
+                                            Minhas Ações de Extensão Cadastradas <span class="fw-300 color-fusion-500"></span>
+                                        </h2>
+                                        <div class="panel-toolbar">
+                                            <h5 class="m-0">
+                                                <span class="badge badge-pill badge-secondary fw-400 l-h-n">
+                                                    {{count($acoes_extensao_usuario)}}
+                                                </span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="panel-container show">
+                                        <div class="panel-content">
+                                            <div class="frame-wrap">
+                                                <table class="table m-0">
+                                                    <thead class="thead-themed">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Ação de Extensão</th>
+                                                            <th>Tipo / Área Temática</th>
+                                                            <th>Coordenador</th>
+                                                            <th>Situação</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if(count($acoes_extensao_usuario) < 1)
+                                                        <tr>
+                                                            Não há Ações de Extensão suas cadastradas
+                                                        </tr>
+                                                        @else
+                                                        @foreach($acoes_extensao_usuario as $acao_extensao)
+                                                        <tr>
+                                                            <th scope="row">{{$acao_extensao->id}}</th>
+                                                            <td>
+                                                                <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500 ">
+                                                                    {{$acao_extensao->titulo}}
+                                                                </a>
+                                                                @if($acao_extensao->status == 'Pendente')
+
+                                                                <span class="fw-300 color-danger-500"><i class="fal fa-exclamation-circle"></i><i> Ação pendente!</i></span>
+
+                                                                @endif
+                                                                <div class="d-block text-muted fs-sm">
+                                                                    Linha: <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
+                                                                    <br>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
+                                                                    @switch($acao_extensao->tipo)
+                                                                        @case(1)
+                                                                            Programa
+                                                                            @break
+                                                                        @case(2)
+                                                                            Projeto
+                                                                            @break
+                                                                        @case(3)
+                                                                            Curso
+                                                                            @break
+                                                                        @case(4)
+                                                                            Evento
+                                                                            @break
+                                                                        @case(5)
+                                                                            Prestação de serviços
+                                                                            @break
+                                                                        @default
+                                                                            Indefinido
+                                                                    @endswitch
+                                                                </a>
+                                                                @foreach ($acao_extensao->areas_tematicas as $area_tematica)
+                                                                <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="text-muted small text-truncate">
+                                                                <br>{{$area_tematica->nome}}
+                                                                </a>
+                                                                @endforeach
+                                                            </td>
+                                                            <td>
+                                                                {{$acao_extensao->nome_coordenador}}
+                                                                <div class="text-muted small text-truncate">
+                                                                    Unidade: <a href="/acoes-extensao/unidades/{{$acao_extensao->unidade->id}}" >{{$acao_extensao->unidade->sigla}}</a>
+                                                                    <br>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                @if($acao_extensao->status == 'Pendente')
+                                                                <span class="badge badge-warning">Pendente</span>
+                                                                @else
+                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
+                                                                    @switch($acao_extensao->situacao)
+                                                                        @case(1)
+                                                                        <span class="badge badge-danger">Desativado</span>
+                                                                            @break
+                                                                        @case(2)
+                                                                            <span class="badge badge-info">Em Andamento</span>
+                                                                            @break
+                                                                        @case(3)
+                                                                            <span class="badge badge-success">Concluído</span>
+                                                                            @break
+                                                                        @default
+                                                                        <span class="badge badge-warning">Indefinido</span>
+                                                                    @endswitch
+                                                                </a>
+
+                                                                @endif
+
+                                                                <div class="text-muted small text-truncate">
+                                                                    Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
     </div>
 </div>
 <div class="row">
@@ -108,7 +233,7 @@
                                 <div id="panel" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                            Últimas Ações de Extensão da sua Unidade
+                                            Últimas Ações de Extensão da sua Unidade <span class="fw-300 color-fusion-500"><i> 3 últimas</i></span>
                                         </h2>
                                     </div>
                                     <div class="panel-container show">
@@ -178,21 +303,27 @@
                                                                 </div>
                                                             </td>
                                                             <td>
+                                                                @if($acao_extensao->status == 'Pendente')
+                                                                <span class="badge badge-warning">Pendente</span>
+                                                                @else
                                                                 <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
-                                                                @switch($acao_extensao->situacao)
-                                                                    @case(1)
-                                                                    <span class="badge badge-danger">Desativado</span>
-                                                                        @break
-                                                                    @case(2)
-                                                                        <span class="badge badge-info">Em Andamento</span>
-                                                                        @break
-                                                                    @case(3)
-                                                                        <span class="badge badge-success">Concluído</span>
-                                                                        @break
-                                                                    @default
-                                                                    <span class="badge badge-warning">Indefinido</span>
-                                                                @endswitch
+                                                                    @switch($acao_extensao->situacao)
+                                                                        @case(1)
+                                                                        <span class="badge badge-danger">Desativado</span>
+                                                                            @break
+                                                                        @case(2)
+                                                                            <span class="badge badge-info">Em Andamento</span>
+                                                                            @break
+                                                                        @case(3)
+                                                                            <span class="badge badge-success">Concluído</span>
+                                                                            @break
+                                                                        @default
+                                                                        <span class="badge badge-warning">Indefinido</span>
+                                                                    @endswitch
                                                                 </a>
+
+                                                                @endif
+
                                                                 <div class="text-muted small text-truncate">
                                                                     Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                                                 </div>
@@ -208,6 +339,118 @@
 
     </div>
 </div>
+
+@if(count($pendentes) > 0)
+<div class="row">
+    <div class="col-lg-12 col-xl-12">
+                                <!--Table head-->
+                                <div id="panel" class="panel">
+                                    <div class="panel-hdr bg-warning-600">
+                                        <h2>
+                                            Ações de Extensão Pendentes que necessitam de sua aprovação
+                                        </h2>
+                                        <div class="panel-toolbar">
+                                            <h5 class="m-0">
+                                                <span class="badge badge-pill badge-secondary fw-400 l-h-n">
+                                                    {{count($pendentes)}}
+                                                </span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="panel-container show">
+                                        <div class="panel-content">
+                                            <div class="frame-wrap">
+                                                <table class="table m-0">
+                                                    <thead class="thead-themed">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Ação de Extensão</th>
+                                                            <th>Tipo / Área Temática</th>
+                                                            <th>Coordenador</th>
+                                                            <th>Situação</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($pendentes as $acao_extensao)
+                                                        <tr>
+                                                            <th scope="row">{{$acao_extensao->id}}</th>
+                                                            <td>
+                                                                <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500 ">
+                                                                    {{$acao_extensao->titulo}}
+                                                                </a>
+                                                                <div class="d-block text-muted fs-sm">
+                                                                    Linha: <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
+                                                                    <br>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
+                                                                    @switch($acao_extensao->tipo)
+                                                                        @case(1)
+                                                                            Programa
+                                                                            @break
+                                                                        @case(2)
+                                                                            Projeto
+                                                                            @break
+                                                                        @case(3)
+                                                                            Curso
+                                                                            @break
+                                                                        @case(4)
+                                                                            Evento
+                                                                            @break
+                                                                        @case(5)
+                                                                            Prestação de serviços
+                                                                            @break
+                                                                        @default
+                                                                            Indefinido
+                                                                    @endswitch
+                                                                </a>
+                                                                @foreach ($acao_extensao->areas_tematicas as $area_tematica)
+                                                                <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="text-muted small text-truncate">
+                                                                <br>{{$area_tematica->nome}}
+                                                                </a>
+                                                                @endforeach
+                                                            </td>
+                                                            <td>
+                                                                {{$acao_extensao->nome_coordenador}}
+                                                                <div class="text-muted small text-truncate">
+                                                                    Unidade: <a href="/acoes-extensao/unidades/{{$acao_extensao->unidade->id}}" >{{$acao_extensao->unidade->sigla}}</a>
+                                                                    <br>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
+                                                                    @switch($acao_extensao->situacao)
+                                                                        @case(1)
+                                                                        <span class="badge badge-danger">Desativado</span>
+                                                                            @break
+                                                                        @case(2)
+                                                                            <span class="badge badge-info">Em Andamento</span>
+                                                                            @break
+                                                                        @case(3)
+                                                                            <span class="badge badge-success">Concluído</span>
+                                                                            @break
+                                                                        @default
+                                                                        <span class="badge badge-warning">Indefinido</span>
+                                                                    @endswitch
+                                                                </a>
+
+                                                                <div class="text-muted small text-truncate">
+                                                                    Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+    </div>
+</div>
+@endif
 
 <div class="container-fluid">
   <div class="row">
