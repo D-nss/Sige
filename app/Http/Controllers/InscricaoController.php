@@ -736,10 +736,14 @@ class InscricaoController extends Controller
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|edital-administrador|super|admin') ) {
 
-            $inscricoes = Inscricao::all();
-            $inscricoes = $inscricoes->filter(function($value, $key) use ($user) {
-                return data_get($value, 'user_id') == $user->id;
-            });
+            if($user->hasRole('edital-administrador')) {
+                $inscricoes = Inscricao::all();
+            }
+            else {
+                $inscricoes = $inscricoes->filter(function($value, $key) use ($user) {
+                    return data_get($value, 'user_id') == $user->id;
+                });
+            }
 
             $status = [
                 'Deferido' => 'success',
