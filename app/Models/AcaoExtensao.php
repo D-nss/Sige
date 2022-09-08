@@ -80,4 +80,9 @@ class AcaoExtensao extends Model
     {
         return $this->belongsTo(User::class, 'aprovado_user_id');
     }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }

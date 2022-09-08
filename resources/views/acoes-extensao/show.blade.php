@@ -641,4 +641,74 @@
 
     </div>
 </div>
+
+<div class="row">
+    <div class="col-xl-12">
+@foreach ($acao_extensao->comentarios as $comentario)
+        <div class="card mb-g border shadow-0">
+            <div class="card-header p-0">
+                <div class="p-3 d-flex flex-row">
+                    <div class="d-block flex-shrink-0">
+                        <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="img-fluid img-thumbnail" alt="{{$acao_extensao->nome_coordenador}}">
+                    </div>
+                    <div class="d-block ml-2">
+                        <span class="h6 font-weight-bold text-uppercase d-block m-0">COMENTÁRIO</span>
+                        <a href="javascript:void(0);" class="fs-sm text-info h6 fw-500 mb-0 d-block">{{ $comentario->user->name }}</a>
+                        <div class="d-flex mt-1 text-warning align-items-center">
+                            <i class="fal fa-landmark mr-1"></i>
+                            <span class="text-muted fs-xs font-italic">
+                                {{$comentario->user->unidade->nome}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body ">
+                <p>
+                    {{ $comentario->comentario }}
+                </p>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex align-items-center">
+                    <span class="text-sm text-muted font-italic"><i class="fal fa-clock mr-1"></i> Comentário feito em: {{$comentario->created_at->format('d/m/Y')}}</span>
+                </div>
+            </div>
+        </div>
+@endforeach
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-12">
+          <div id="panel-1" class="panel">
+              <div class="panel-hdr">
+                  <h2>
+                      Adicionar Comentário
+                  </h2>
+              </div>
+              <div class="panel-container show">
+                  <div class="panel-content">
+                      <form action="{{route('acao_extensao.comentar', ['acao_extensao' => $acao_extensao->id]) }}" id="form_acao_extensao_comentario" method="POST">
+                          @csrf
+                          <div class="form-group">
+                            <label class="form-label" for="comentario">Comentário <span class="text-danger">*</span></label>
+                            <textarea id="comentario" name="comentario" class="form-control @error('comentario') is-invalid @enderror" rows="5"></textarea>
+                            @error('comentario')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-w-m fw-500 btn-sm">Enviar Comentario</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
 @endsection

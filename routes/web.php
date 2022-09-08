@@ -51,6 +51,7 @@ Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosBy
 Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
 Route::get('/acoes-extensao/novo', [AcaoExtensaoController::class, 'create'])->name('acao_extensao.create');
 Route::post('/acoes-extensao', [AcaoExtensaoController::class, 'store'])->name('acao_extensao.store');
+Route::post('/acoes-extensao/{acao_extensao}/comentar', [AcaoExtensaoController::class, 'enviarComentario'])->name('acao_extensao.comentar');
 Route::get('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'show'])->name('acao_extensao.show');
 Route::get('/acoes-extensao/{acao_extensao}/editar', [AcaoExtensaoController::class, 'edit'])->name('acao_extensao.edit');
 Route::put('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'update'])->name('acao_extensao.update');

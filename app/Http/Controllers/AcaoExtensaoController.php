@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
 use App\Models\LinhaExtensao;
 use App\Models\AreaTematica;
+use App\Models\Comentario;
 use App\Models\GrauEnvolvimentoEquipe;
 use App\Models\Unidade;
 use App\Models\User;
@@ -290,14 +291,20 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.index');
     }
 
-    public function enviarMensagem(AcaoExtensao $acaoExtensao){
-        $acaoExtensao->aprovado_user_id = 1;
-        $acaoExtensao->status = 'Aprovado';
-        $acaoExtensao->save();
-        session()->flash('status', 'Ação de Extensão aprovada!');
+    public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request){
+        //$user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('id', 1)->first();
+
+        $comentario = new Comentario();
+        $comentario->acao_extensao_id = $acaoExtensao->id;
+        $comentario->user_id = $user->id;
+        $comentario->comentario = $request->comentario;
+        $comentario->save();
+
+        session()->flash('status', 'Comentario feito! Coordenador da Ação será notificado');
         session()->flash('alert', 'success');
 
-        return redirect()->route('acao_extensao.index');
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id]);
     }
 
     public function acoesPorUnidade(Unidade $unidade){
