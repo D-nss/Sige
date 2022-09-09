@@ -22,11 +22,11 @@
                 Exibição dos dados da inscrição
             </small>
         @endif
-        
+
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -36,7 +36,7 @@
      <div class="col-md-12">
 
         <div class="card row">
-            <div class="card-body">                   
+            <div class="card-body">
                 <div id="swpropostashow">
                     <ul class="nav d-flex justify-content-between">
                         <li>
@@ -77,12 +77,12 @@
                         </li>
                         @endif
                     </ul>
-        
+
                     <div class="tab-content mt-3 px-3 pt-3">
                         <div id="step-1" class="tab-pane pb-3" role="tabpanel">
                             <h2 class="text-primary fw-700">{{ $inscricao->titulo }}</h2>
                             <div class="row pt-3">
-                                
+
                                 <div class="col-md-6">
                                     <div class="card bg-white">
                                         <div class="card-body font-color-light">
@@ -97,7 +97,7 @@
                                             <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="card bg-white">
@@ -148,7 +148,7 @@
                                     <div class="rounded bg-f0 mb-2 p-2">
                                         <p class="font-size-14 font-color-light"><span class="fw-500">{{ $respostaQuestao->enunciado }}</span></p>
                                         <p class="font-color-light">{!! nl2br( e($respostaQuestao->resposta) ) !!}</p>
-                                    </div> 
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -170,8 +170,8 @@
                                     </tr>
                                 </thead>
 
-                                <tbody> 
-                                @foreach($itensOrcamento as $item)  
+                                <tbody>
+                                @foreach($itensOrcamento as $item)
                                     <tr>
                                         <td>{{ $item->item }}</td>
                                         <td>{{ $item->tipoitem }}</td>
@@ -199,11 +199,19 @@
                                 @endforeach
                             </div>
                             <div class="mt-3">
-                                <h4>Parecer</h4>
+                                <h4>Justificativa das Notas e Parecer</h4>
                                 @foreach($parecerAvaliacao as $parecer)
                                     <div class="d-flex flex-column">
                                         <span class="fs-md fw-500 d-flex align-items-start text-primary">
-                                            {{ $parecer->parecer }}
+                                            Justificativa das notas: {{ $parecer->justificativa }}
+                                        </span>
+                                        <div class="d-block text-muted fs-sm font-italic">
+                                            Perecerista {{ $parecer->name }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fs-md fw-500 d-flex align-items-start text-primary">
+                                            Parecer da avaliação: {{ $parecer->parecer }}
                                         </span>
                                         <div class="d-block text-muted fs-sm font-italic">
                                             Perecerista {{ $parecer->name }}
@@ -211,7 +219,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            
+
                         </div>
                         @endif
                     </div>
@@ -257,13 +265,13 @@
                                                 <option value="{{ $criterio->descricao }}">{{ $criterio->descricao }}</option>
                                             @endforeach
                                         @endif
-                                        </select>     
+                                        </select>
                                     </div>
                                     <label for="analise_prev_just" class="fw-700" id="label-justificativa">Observação</label>
                                     <textarea name="justificativa" id="justificativa" rows="5" class="form-control mb-2"></textarea>
                                     <p style="color: #D0D3D4;" id="alerta-justificativa">Campo não obrigatório</p>
                                 </div>
-                                
+
                                 <button class="btn btn-success loading">
                                     <div class="spinner-border spinner-border-sm d-none spin" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -285,7 +293,7 @@
                 <!-- fim analise modal -->
                 @endif
             </div>
-            
+
         </div>
     </div>
 </div>
