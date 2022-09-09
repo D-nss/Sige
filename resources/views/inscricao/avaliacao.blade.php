@@ -19,7 +19,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -27,7 +27,7 @@
     <div class="col-md-12">
 
         <div class="card row">
-            <div class="card-body"> 
+            <div class="card-body">
             @if( empty($notasAvaliacao->toArray()) )
                 <form action='{{ url("/inscricao/$inscricao->id/avaliacao") }}' method="post" id="avaliacao-form">
             @else
@@ -35,11 +35,11 @@
                 @method('PUT')
             @endif
                 @csrf
-                
+
                 <input type="hidden" name="tipo_avaliacao" value="parecerista">
 
                 @foreach($questoesAvaliacao as $questaoAvaliacao)
-                
+
                 <div class="rounded mb-2 p-2 w-100">
                     <label for="" class="text-secondary font-size-14 fw-500">{{ $questaoAvaliacao->enunciado }}</label>
                     <div class="form-group">
@@ -104,9 +104,11 @@
                             <label class="form-check-label" for="inlineRadio3">10</label>
                         </div>
                     </div>
-                    
+
                 </div>
                 @endforeach
+                <label for="" class="text-secondary font-size-14 fw-500">Justificativa das Notas</label>
+                <textarea class="form-control" name="justificativa" id="justificativa" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('justificativa')[0] }}@endif</textarea>
                 <label for="" class="text-secondary font-size-14 fw-500">Parecer da avaliação</label>
                 <textarea class="form-control" name="parecer" id="parecer" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('parecer')[0] }}@endif</textarea>
                 <div class="mt-3">
@@ -119,7 +121,7 @@
                           <span class="text">Voltar</span>
                       </a>
                 </div>
-            </form>  
+            </form>
             </div>
         </div>
     </div>

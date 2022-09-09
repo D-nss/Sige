@@ -14,6 +14,7 @@ class Parecer extends Model
     protected $fillable = [
         'inscricao_id',
         'user_id',
+        'justificativa',
         'parecer'
     ];
 }

@@ -16,7 +16,7 @@ use App\Models\Parecer;
 
 class Parecerista implements AvaliacaoInterface
 {
-    public function getAvaliacao(Request $request, Inscricao $inscricao, User $user) 
+    public function getAvaliacao(Request $request, Inscricao $inscricao, User $user)
     {
         $cronograma = new Cronograma();
 
@@ -43,7 +43,7 @@ class Parecerista implements AvaliacaoInterface
         return ['parecerista' => true];
     }
 
-    public function execute(Request $request, Inscricao $inscricao, User $user) 
+    public function execute(Request $request, Inscricao $inscricao, User $user)
     {
         if($inscricao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Não é permitido avaliar a própria inscrição');
@@ -61,6 +61,9 @@ class Parecerista implements AvaliacaoInterface
             if($key == 'parecer'){
                 $validar[$key] = 'required|max:1000';
             }
+            elseif($key == 'justificativa'){
+                $validar[$key] = 'required|max:1000';
+            }
             else {
                 $validar[$key] = 'required';
             }
@@ -69,7 +72,7 @@ class Parecerista implements AvaliacaoInterface
         $validated = $request->validate($validar);
         // Fim da Validação
 
-        foreach( $request->except('_token', 'tipo_avaliacao', 'parecer') as $key => $value) {
+        foreach( $request->except('_token', 'tipo_avaliacao', 'justificativa', 'parecer') as $key => $value) {
             $questao_id = substr($key, 8, strlen($key));
             array_push($dados, array(
                 'user_id'      => $user->id,
@@ -81,13 +84,14 @@ class Parecerista implements AvaliacaoInterface
 
         $transacao = DB::transaction(function () use ($dados, $inscricao, $user, $request) {
             DB::table('respostas_avaliacoes')->insert($dados);
-            
+
             $parecer = Parecer::create([
                 'inscricao_id' => $inscricao->id,
                 'user_id'         => $user->id,
+                'justificativa' => $request->justificativa,
                 'parecer'      => $request->parecer
             ]);
-            
+
             $inscricao->avaliador_user_id = $user->id;
             $inscricao->update();
 
@@ -116,7 +120,7 @@ class Parecerista implements AvaliacaoInterface
         }
     }
 
-    public function update(Request $request, Inscricao $inscricao, User $user) 
+    public function update(Request $request, Inscricao $inscricao, User $user)
     {
         if($inscricao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Não é permitido avaliar a própria inscrição');
@@ -128,7 +132,7 @@ class Parecerista implements AvaliacaoInterface
         $dados = array();
 
         $transacao = DB::transaction(function () use ($dados, $inscricao, $user, $request) {
-            foreach( $request->except('_token', 'tipo_avaliacao', 'parecer') as $key => $value) {
+            foreach( $request->except('_token', 'tipo_avaliacao', 'justificativa', 'parecer') as $key => $value) {
                 $questao_id = substr($key, 8, strlen($key));
                 DB::table('respostas_avaliacoes')
                     ->where('user_id', $user->id)
@@ -140,7 +144,7 @@ class Parecerista implements AvaliacaoInterface
             DB::table('pareceres')
                     ->where('user_id', $user->id)
                     ->where('inscricao_id', $inscricao->id)
-                    ->update(['parecer' => $request->parecer]);
+                    ->update(['justificativa' => $request->justificativa, 'parecer' => $request->parecer]);
 
         });
 

@@ -82,7 +82,7 @@ class InscricaoController extends Controller
             // echo json_encode([$inscricoes, 'else']);
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
-        
+
         session()->flash('status', 'Desculpe! Acesso não autorizado');
         session()->flash('alert', 'warning');
 
@@ -279,7 +279,7 @@ class InscricaoController extends Controller
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
                                 ->where('user_id', $user->id)
                                 ->first();
-       
+
         if($userNaComissao || $avaliadorPorInscricao || $inscricao->user_id == $user->id) {
             if(isset($request->tipo_avaliacao)) {
                 $tipo_avaliacao = [
@@ -287,46 +287,46 @@ class InscricaoController extends Controller
                     'parecerista' => new Parecerista(),
                     'comissao1' => new Comissao1(),
                 ];
-        
+
                 $avaliacao = new Avaliacao($tipo_avaliacao[$request->tipo_avaliacao]);
-        
+
                 $avaliacaoResposta = $avaliacao->getAvaliacao($request, $inscricao, $user);
-                
+
                 unset($tipo_avaliacao);
             }
-    
+
             $respostasQuestoes = QuestaoRespondida::join(
                 'questoes', 'questoes_respondidas.questao_id',
                 'questoes.id'
                 )->where('questoes_respondidas.inscricao_id', $inscricao->id)
                 ->get();
-    
-    
+
+
             $criterios = $edital->criterios;
-    
+
             $questoesAvaliacao = $edital->questoes->filter(function($value, $key) {
                 return data_get($value, 'tipo') == 'Avaliativa';
             });
-    
+
             $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
                                                     ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
                                                     ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
                                                     ->get();
-    
-            $parecerAvaliacao = Parecer::select('users.name', 'pareceres.parecer')
+
+            $parecerAvaliacao = Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer')
                                        ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
                                        ->join('users', 'users.id', 'inscricoes.user_id')
                                        ->where('inscricoes.id', $inscricao->id)
                                        ->get();
-    
+
             $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital->valor_max_programa : $edital->valor_max_inscricao;
-    
+
             $totalItens = Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
             $itensOrcamento = Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                        ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
                                        ->where('inscricao_id', $inscricao->id)
                                        ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
-                                    
+
             $status = [
                 'Deferido' => 'success',
                 'Classificado' => 'success',
@@ -336,7 +336,7 @@ class InscricaoController extends Controller
                 'Indeferido' => 'danger',
                 'Desclassificado' => 'danger'
             ];
-    
+
             return view('inscricao.show', compact(
                     'inscricao',
                     'respostasQuestoes',
@@ -360,7 +360,7 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
 
-        
+
     }
 
     /**
@@ -403,7 +403,7 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
 
-        
+
     }
 
     /**
@@ -528,7 +528,7 @@ class InscricaoController extends Controller
     public function submeter(Inscricao $inscricao, Request $request)
     {
         //$inscricao = Inscricao::findOrFail($id);
-       
+
         if($inscricao->status === 'Submetido') {
             session()->flash('status', 'Inscrição já submetida.');
             session()->flash('alert', 'success');
@@ -604,7 +604,7 @@ class InscricaoController extends Controller
         return view('inscricao.indicar-analista', compact('inscricao', 'users'));
     }
 
-    /**     
+    /**
     * @param  \Illuminate\Http\Request  $request
     * @param  \App\Models\Inscricao $inscricao
     * @return \Illuminate\Http\Response
@@ -628,7 +628,7 @@ class InscricaoController extends Controller
 
     }
 
-    /**     
+    /**
     * @param  \Illuminate\Http\Request  $request
     * @param  \App\Models\Inscricao $inscricao
     * @return \Illuminate\Http\Response
@@ -638,7 +638,7 @@ class InscricaoController extends Controller
     {
         //$inscricao = Inscricao::findOrFail($id);
         $inscricao->analista_user_id = NULL;
-        
+
         if($inscricao->update()) {
             session()->flash('status', 'Analista removido com sucesso.');
             session()->flash('alert', 'success');
@@ -667,7 +667,7 @@ class InscricaoController extends Controller
                                                 ->where('respostas_avaliacoes.user_id', $user->id)
                                                 ->get();
 
-        $parecerAvaliacao = Parecer::select('users.name', 'pareceres.parecer', 'pareceres.user_id')
+        $parecerAvaliacao = Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer', 'pareceres.user_id')
                                    ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
                                    ->join('users', 'users.id', 'pareceres.user_id')
                                    ->where('inscricoes.id', $inscricao->id)
@@ -678,7 +678,7 @@ class InscricaoController extends Controller
         return view('inscricao.avaliacao', compact('inscricao', 'questoesAvaliacao', 'notasAvaliacao', 'parecerAvaliacao'));
     }
 
-    /**     
+    /**
     * @param  \Illuminate\Http\Request  $request
     * @param  \App\Models\Inscricao $inscricao
     * @return \Illuminate\Http\Response
@@ -687,25 +687,25 @@ class InscricaoController extends Controller
     public function avaliacao(Request $request, Inscricao $inscricao)
     {
         $user = User::where('email', Auth::user()->id)->first();
-        
+
         if(isset($request->tipo_avaliacao)) {
             $tipo_avaliacao = [
                 'subcomissao' => new Subcomissao(),
                 'parecerista' => new Parecerista(),
                 'comissao1' => new Comissao1(),
             ];
-    
+
             $avaliacao = new Avaliacao($tipo_avaliacao[$request->tipo_avaliacao]);
-    
+
             $resposta = $avaliacao->execute($request, $inscricao, $user);
 
             unset($tipo_avaliacao);
-            
+
             return redirect()->to($resposta['redirect']);
         }
     }
 
-    /**     
+    /**
     * @param  \Illuminate\Http\Request  $request
     * @param  \App\Models\Inscricao $inscricao
     * @return \Illuminate\Http\Response
@@ -714,15 +714,15 @@ class InscricaoController extends Controller
     public function avaliacaoUpdate(Request $request, Inscricao $inscricao)
     {
         $user = User::where('email', Auth::user()->id)->first();
-        
+
         $parecerista = new Parecerista();
 
         $avaliacao = new Avaliacao($parecerista);
 
         $resposta = $avaliacao->update($request, $inscricao, $user);
-        
+
         return redirect()->to($resposta['redirect']);
-        
+
     }
 
     /**
