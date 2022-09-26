@@ -27,13 +27,23 @@ class EditalController extends Controller
     public function index()
     {
 
+        $user = User::where('email', Auth::user()->id)->first();
+
         $editais = Edital::all();
+
+        $inscricoes = Inscricao::where('user_id', $user->id)->get();
+
+        $comissoes = Comissao::join('comissoes_users', 'comissoes_users.comissao_id', 'comissoes.id')
+                            ->where('comissoes_users.user_id', $user->id)
+                            ->get();
+
+        $cronograma = new Cronograma();
 
         $editais = $editais->filter(function($value, $key) {
             return data_get($value, 'status') != null;
         });
 
-        return view('edital.index2', compact('editais'));
+        return view('edital.index2', compact('editais', 'cronograma', 'inscricoes', 'comissoes'));
     }
 
     /**
