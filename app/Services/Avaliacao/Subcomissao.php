@@ -45,7 +45,7 @@ class Subcomissao implements AvaliacaoInterface
             session()->flash('status', 'Desculpe! Não é permitido a análise da própria inscrição');
             session()->flash('alert', 'danger');
 
-            return ['redirect' => 'inscricao', 'status' => false];
+            return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => false];
         }
 
         $validated = $request->validate([
@@ -75,13 +75,13 @@ class Subcomissao implements AvaliacaoInterface
             session()->flash('status', 'Analise enviada com sucesso. Prossiga indicando os pareceristas no botão Pareceristas');
             session()->flash('alert', 'success');
 
-            return ["redirect" => "inscricao", 'status' => true];
+            return ["redirect" => "edital/$inscricao->edital_id/inscricoes", 'status' => true];
         }
         else {
             session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
             session()->flash('alert', 'danger');
 
-            return ["redirect" => "inscricao", 'status' => false];
+            return ["redirect" => "edital/$inscricao->edital_id/inscricoes", 'status' => false];
         }
     }
 
