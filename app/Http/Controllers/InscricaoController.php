@@ -686,10 +686,10 @@ class InscricaoController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @param  \App\Models\Edital $edital
      * @return \Illuminate\Http\Response
      */
-    public function inscricoesPorUsuario()
+    public function inscricoesPorUsuario(Edital $edital)
     {
         $user = User::where('email', Auth::user()->id)->first();
 
