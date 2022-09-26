@@ -44,7 +44,10 @@
                     @elseif( (isset($avaliacaoResposta['parecerista']) && $avaliacaoResposta['parecerista'] == true) || (isset($avaliacaoResposta['comissao1']) && $avaliacaoResposta['comissao1'] == true) ) 
                         <a href='{{ url("/inscricao/$inscricao->id/avaliacao") }}' class="btn btn-success">Parecer</a>
                     @else 
-                        <a href='javascript:history.back()' class="btn btn-primary"> Voltar</a>
+                        <a href='javascript:history.back()' class="btn btn-primary">
+                            <span class="icon text-white-50">
+                                 <i class="fal fa-long-arrow-left"></i>
+                             </span> Voltar</a>
                     @endif
                 </div>
                 <h2 class="text-muted fw-300">Status <span class="badge badge-success">Submetido</span></h2>
