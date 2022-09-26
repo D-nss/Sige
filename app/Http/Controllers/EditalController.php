@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Avaliador;
 use App\Models\AreaTematica;
+use App\Models\Cronograma;
+use App\Models\Comissao;
 use App\Models\Edital;
 use App\Models\UploadFile;
 use App\Models\User;
 use App\Models\SubcomissaoTematica;
+use App\Models\Inscricao;
+use App\Models\RespostasAvaliacoes;
 
 class EditalController extends Controller
 {
