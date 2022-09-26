@@ -296,7 +296,7 @@ class InscricaoController extends Controller
                 'Desclassificado' => 'danger'
             ];
 
-            return view('inscricao.show', compact(
+            return view('inscricao.show-novo', compact(
                     'inscricao',
                     'respostasQuestoes',
                     'itensOrcamento',
