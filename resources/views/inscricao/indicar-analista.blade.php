@@ -83,7 +83,7 @@
                           </li>
                       </ul>
                       @endif
-                      <a href="{{ url('inscricao') }}" class="btn btn-secondary btn-user float-left mt-2">
+                      <a href="" onclick="history.back()" class="btn btn-secondary btn-user float-left mt-2">
                           <span class="icon text-white-50">
                               <i class="fal fa-long-arrow-left"></i>
                           </span>
