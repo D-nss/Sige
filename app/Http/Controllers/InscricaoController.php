@@ -464,7 +464,7 @@ class InscricaoController extends Controller
             session()->flash('status', 'Inscrição atualizada com sucesso.');
             session()->flash('alert', 'success');
 
-            return redirect()->to("inscricoes-enviadas");
+            return redirect()->to("edital/$inscricao->edital_id/suas-inscricoes");
         }
     }
 
