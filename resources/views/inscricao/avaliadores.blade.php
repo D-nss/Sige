@@ -83,7 +83,7 @@
                           </li>
                         @endforeach
                       </ul>
-                      <a href="" onclick="history.back()" class="btn btn-primary btn-user float-right">
+                      <a href="javascript:history.back()" class="btn btn-primary btn-user float-right">
                           <span class="icon text-white-50">
                               <i class="fal fa-long-arrow-left"></i>
                           </span>

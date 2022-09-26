@@ -114,7 +114,7 @@
                 <div class="mt-3">
                     <button class="btn btn-success">Enviar</button>
 
-                    <a href="" onclick="history.back()" class="btn btn-secondary btn-user float-right mt-2">
+                    <a href="javascript:history.back()" class="btn btn-secondary btn-user float-right mt-2">
                           <span class="icon text-white-50">
                               <i class="fal fa-long-arrow-left"></i>
                           </span>
