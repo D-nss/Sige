@@ -61,7 +61,9 @@ class IndicadorUnidadeController extends Controller
         //unidade do usuario logado
         $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
 
-        $anos_base = IndicadoresParametros::distinct()->get(['ano_base']);
+        $anos_cadastrados = IndicadorUnidade::distinct()->where('unidade_id', $unidade->id)->get(['ano_base'])->toArray();
+        $anos_cadastrados = array_values($anos_cadastrados);
+        $anos_base = IndicadoresParametros::distinct()->whereNotIn('ano_base', $anos_cadastrados)->get(['ano_base']);
 
         return view('indicadores.create', [
             'indicadoresSerializado' => $indicadoresSerializado,

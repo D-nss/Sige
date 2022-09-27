@@ -233,7 +233,7 @@ class EditalController extends Controller
 
     public function editarAvaliadores(Edital $edital)
     {
-        $users = User::all();
+        $users = User::orderBy('name', 'asc')->get();
         $subcomissoes = SubcomissaoTematica::all();
         $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
                                 ->join('unidades', 'users.unidade_id', 'unidades.id')
