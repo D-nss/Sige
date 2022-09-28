@@ -42,7 +42,7 @@
                         <a href='{{ asset( "storage/$edital->anexo_edital" ) }}' target="_blank" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-file-pdf"></i> Edital em PDF</a>
                         
                         @if($edital->status == 'Divulgação')
-                        <a href="{{ url( 'inscricao/' . $edital->id . '/novo' ) }}" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"> <i class="far fa-arrow-alt-to-top"></i> Enviar Propostas</a>
+                            <a href="{{ url( 'inscricao/' . $edital->id . '/novo' ) }}" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"> <i class="far fa-arrow-alt-to-top"></i> Enviar Propostas</a>
                         @endif  
                         <!-- <a href="#" class="btn btn-primary waves-effect waves-themed my-1 font-weight-bold"><i class="far fa-list-alt"></i> Classificação</a> -->
                         @if(
@@ -50,7 +50,7 @@
                                 return data_get($value, 'edital_id') == $edital->id;
                             })->count()   
                         )
-                        <a href="{{ url( 'edital/' . $edital->id . '/suas-inscricoes' ) }}" class="btn btn-info waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-address-card"></i> Sua Inscrição</a>
+                            <a href="{{ url( 'edital/' . $edital->id . '/suas-inscricoes' ) }}" class="btn btn-info waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-address-card"></i> Sua Inscrição</a>
                         @endif
                         @if( 
                             strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $edital->id)) 
@@ -58,10 +58,12 @@
                             $comissoes->filter(function($value, $key) use ($edital){
                                 return data_get($value, 'edital_id') == $edital->id;
                             })->count()
+                            ||
+                            $user->hasRole('edital-administrador')
                         )
-                        <a href="{{ url( 'edital/' . $edital->id . '/inscricoes' ) }}" class="btn btn-warning waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-list"></i> Inscrições em Andamento</a>
+                            <a href="{{ url( 'edital/' . $edital->id . '/inscricoes' ) }}" class="btn btn-warning waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-list"></i> Inscrições em Andamento</a>
                         @endif
-                        {{ var_dump($user->hasRole('edital-administrador')) }} 
+                        
                     </div>
                 </div>
             </div>
