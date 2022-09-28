@@ -44,7 +44,7 @@ class InscricaoController extends Controller
     {
         session()->flash('status', 'Desculpe! O acesso as inscrições agora é feito através do menu Editais.');
         session()->flash('alert', 'warning');
-
+	
         return redirect()->back();
     }
 
