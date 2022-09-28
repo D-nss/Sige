@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\IndicadorUnidade;
 use App\Models\Unidade;
+use App\Models\User;
 
 class IndicadoresDashboardController extends Controller
 {
