@@ -61,7 +61,7 @@
                         )
                         <a href="{{ url( 'edital/' . $edital->id . '/inscricoes' ) }}" class="btn btn-warning waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-list"></i> Inscrições em Andamento</a>
                         @endif
-                        {{ Auth::user()->hasRole('edital-administrador')}}
+                        {{ var_dump(Auth::user()->hasRole('edital-administrador')) }} 
                     </div>
                 </div>
             </div>
