@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Avaliador;
 use App\Models\AreaTematica;
+use App\Models\Cronograma;
+use App\Models\Comissao;
 use App\Models\Edital;
 use App\Models\UploadFile;
 use App\Models\User;
 use App\Models\SubcomissaoTematica;
+use App\Models\Inscricao;
+use App\Models\RespostasAvaliacoes;
 
 class EditalController extends Controller
 {
@@ -27,13 +31,23 @@ class EditalController extends Controller
     public function index()
     {
 
+        $user = User::where('email', Auth::user()->id)->first();
+
         $editais = Edital::all();
+
+        $inscricoes = Inscricao::where('user_id', $user->id)->get();
+
+        $comissoes = Comissao::join('comissoes_users', 'comissoes_users.comissao_id', 'comissoes.id')
+                            ->where('comissoes_users.user_id', $user->id)
+                            ->get();
+
+        $cronograma = new Cronograma();
 
         $editais = $editais->filter(function($value, $key) {
             return data_get($value, 'status') != null;
         });
 
-        return view('edital.index2', compact('editais'));
+        return view('edital.index2', compact('user', 'editais', 'cronograma', 'inscricoes', 'comissoes'));
     }
 
     /**
@@ -219,7 +233,7 @@ class EditalController extends Controller
 
     public function editarAvaliadores(Edital $edital)
     {
-        $users = User::all();
+        $users = User::orderBy('name', 'asc')->get();
         $subcomissoes = SubcomissaoTematica::all();
         $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
                                 ->join('unidades', 'users.unidade_id', 'unidades.id')

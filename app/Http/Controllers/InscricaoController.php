@@ -42,48 +42,7 @@ class InscricaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', Auth::user()->id)->first();
-
-        $cronograma = new Cronograma();
-
-        $status = [
-            'Submetido' => 'warning',
-            'Salvo' => 'warning',
-            'Deferido' => 'success',
-            'Classificado' => 'success',
-            'Avaliado' => 'primary',
-            'Indeferido' => 'danger',
-            'Desclassificado' => 'danger'
-        ];
-
-        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
-
-        /* lista todas as inscrições se o user for administrador */
-        if($user->hasRole('edital-administrador')) {
-            $inscricoes = Inscricao::all();
-            // echo json_encode([$inscricoes, 'else']);
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
-        }
-        if($avaliadorPorInscricao) {
-            $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
-                                ->where('ai.user_id', $user->id)
-                                ->get(['inscricoes.*']);
-
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
-        }
-        else {
-            /* Lista as incrições se o user estiver em uma comissão */
-            $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
-                                ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
-                                ->where('cu.user_id', $user->id)
-                                ->distinct()
-                                ->get(['inscricoes.*', 'comissoes.atribuicao']);
-
-            // echo json_encode([$inscricoes, 'else']);
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
-        }
-
-        session()->flash('status', 'Desculpe! Acesso não autorizado');
+        session()->flash('status', 'Desculpe! O acesso as inscrições agora é feito através do menu Editais.');
         session()->flash('alert', 'warning');
 
         return redirect()->back();
@@ -280,7 +239,7 @@ class InscricaoController extends Controller
                                 ->where('user_id', $user->id)
                                 ->first();
 
-        if($userNaComissao || $avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+        if($userNaComissao || $avaliadorPorInscricao || $inscricao->user_id == $user->id || $user->hasRole('edital-administrador')) {
             if(isset($request->tipo_avaliacao)) {
                 $tipo_avaliacao = [
                     'subcomissao' => new Subcomissao(),
@@ -337,7 +296,7 @@ class InscricaoController extends Controller
                 'Desclassificado' => 'danger'
             ];
 
-            return view('inscricao.show', compact(
+            return view('inscricao.show-novo', compact(
                     'inscricao',
                     'respostasQuestoes',
                     'itensOrcamento',
@@ -505,7 +464,7 @@ class InscricaoController extends Controller
             session()->flash('status', 'Inscrição atualizada com sucesso.');
             session()->flash('alert', 'success');
 
-            return redirect()->to("inscricoes-enviadas");
+            return redirect()->to("edital/$inscricao->edital_id/suas-inscricoes");
         }
     }
 
@@ -569,7 +528,7 @@ class InscricaoController extends Controller
     public function indicarAvaliador(Inscricao $inscricao)
     {
         //$inscricao = Inscricao::findOrFail($id);
-        $users = User::all();
+        $users = User::orderBy('name', 'asc')->get();
 
         $user = User::where('email', Auth::user()->id)->first();
 
@@ -590,7 +549,7 @@ class InscricaoController extends Controller
     public function indicarAnalista(Inscricao $inscricao)
     {
         //$inscricao = Inscricao::findOrFail($id);
-        $users = User::all();
+        $users = User::orderBy('name', 'asc')->get();
 
         $user = User::where('email', Auth::user()->id)->first();
 
@@ -727,19 +686,16 @@ class InscricaoController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @param  \App\Models\Edital $edital
      * @return \Illuminate\Http\Response
      */
-    public function inscricoesPorUsuario()
+    public function inscricoesPorUsuario(Edital $edital)
     {
         $user = User::where('email', Auth::user()->id)->first();
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|edital-administrador|super|admin') ) {
 
-            $inscricoes = Inscricao::all();
-            $inscricoes = $inscricoes->filter(function($value, $key) use ($user) {
-                return data_get($value, 'user_id') == $user->id;
-            });
+            $inscricoes = Inscricao::where('user_id', $user->id)->where('edital_id', $edital->id)->get();
 
             $status = [
                 'Deferido' => 'success',
@@ -753,6 +709,76 @@ class InscricaoController extends Controller
 
             $cronograma = new Cronograma();
             return view('inscricao.enviadas', compact('inscricoes', 'user', 'cronograma', 'status'));
+        }
+
+        session()->flash('status', 'Desculpe! Acesso não autorizado');
+        session()->flash('alert', 'warning');
+
+        return redirect()->back();
+    }
+
+    /**
+    * 
+    * @param  \App\Models\Edital $edital
+    * @return \Illuminate\Http\Response
+    *
+    */
+    public function inscricoesPorEdital(Edital $edital) 
+    {
+        $user = User::where('email', Auth::user()->id)->first();
+
+        $cronograma = new Cronograma();
+
+        $status = [
+            'Submetido' => 'warning',
+            'Salvo' => 'warning',
+            'Deferido' => 'success',
+            'Classificado' => 'success',
+            'Avaliado' => 'primary',
+            'Indeferido' => 'danger',
+            'Desclassificado' => 'danger'
+        ];
+
+        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
+
+        /* lista todas as inscrições se o user for administrador */
+        if($user->hasRole('edital-administrador')) {
+            $inscricoes = Inscricao::orderBy('titulo', 'asc')->where('edital_id', $edital->id)->get();
+
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+        }
+        if($avaliadorPorInscricao) {
+            $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
+                                ->where('ai.user_id', $user->id)
+                                ->where('inscricoes.edital_id', $edital->id)
+                                ->get(['inscricoes.*']);
+
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+        }
+        else {
+            /* Lista as incrições se o user estiver em uma comissão */
+            if($edital->tipo === 'PEX') {
+                $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
+                    ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
+                    ->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
+                    ->join('subcomissao_tematica', 'unidades.subcomissao_tematica_id', 'subcomissao_tematica.id')
+                    ->where('subcomissao_tematica.id', $user->unidade->subcomissao_tematica_id)
+                    ->where('cu.user_id', $user->id)
+                    ->where('inscricoes.edital_id', $edital->id)
+                    ->distinct()
+                    ->get(['inscricoes.*', 'comissoes.atribuicao']);
+            }
+            else {
+                $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
+                    ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
+                    ->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
+                    ->where('cu.user_id', $user->id)
+                    ->where('inscricoes.edital_id', $edital->id)
+                    ->distinct()
+                    ->get(['inscricoes.*', 'comissoes.atribuicao']);
+            }         
+            
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');

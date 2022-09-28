@@ -87,9 +87,9 @@
                     </a>
                     <ul>
                         <li class="">
-                            <a href="{{ url('indicadores/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                            <!-- <a href="{{ url('indicadores/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
-                            </a>
+                            </a> -->
                             <a href="{{ url('indicadores') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
                             </a>
@@ -124,10 +124,8 @@
                         </a>
                     </li>
                     @if(Auth::hasUser())
-                    <li class="">
-                        <!-- <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
-                        </a> -->
+                    <!-- <li class="">
+                        
                         <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
                         </a>
@@ -145,7 +143,7 @@
                             </li>
                           
                         </ul>
-                    </li>
+                    </li> -->
                     @endif
 
                 </ul>

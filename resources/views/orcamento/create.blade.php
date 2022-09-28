@@ -126,7 +126,7 @@
                                 <span class="alert alert-success font-size-14 font-weight-bold">Total R$ {{ number_format($totalItens, 2, ',', '.') }}</span>
                                 <span class="alert alert-info font-size-14 font-weight-bold">Total Disponível R$ {{ number_format($valorMaxPorInscricao - $totalItens, 2, ',', '.') }}</span>
                             </div>
-                            <a href="{{ url('inscricoes-enviadas') }}" class="btn btn-primary float-right">Salvar</a>
+                            <a href="{{ url('edital/' . $inscricao->edital_id . '/suas-inscricoes') }}" class="btn btn-primary float-right">Salvar</a>
                         </div>
                     </div>
                 

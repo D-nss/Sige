@@ -97,7 +97,7 @@ class ComissaoController extends Controller
     {
         $comissao = Comissao::find($id);
         $edital_id = $comissao->edital_id;
-        $users = User::all();
+        $users = User::orderBy('name', 'asc')->get();
 
         return view('comissoes.participantes', compact('comissao', 'edital_id', 'users'));
     }

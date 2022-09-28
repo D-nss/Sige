@@ -49,7 +49,7 @@ class Parecerista implements AvaliacaoInterface
             session()->flash('status', 'Desculpe! Não é permitido avaliar a própria inscrição');
             session()->flash('alert', 'danger');
 
-            return ['redirect' => 'inscricao', 'status' => false];
+            return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => false];
         }
 
         $dados = array();
@@ -109,14 +109,14 @@ class Parecerista implements AvaliacaoInterface
             session()->flash('status', 'Avaliação cadastrada com sucesso!');
             session()->flash('alert', 'success');
 
-            return ['redirect' => 'inscricao', 'status' => true];
+            return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => true];
         }
         else
         {
             session()->flash('status', 'Desculpe! Houve um problema ao enviar avaliação');
             session()->flash('alert', 'danger');
 
-            return ['redirect' => 'inscricao', 'status' => false];
+            return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => false];
         }
     }
 

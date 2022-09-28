@@ -58,7 +58,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('name', 'asc')->get();
         //$dados['usuarios'] = User::all();
         return view('usuarios.index', [
             'usuarios' => $users
