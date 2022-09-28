@@ -58,6 +58,8 @@
                             $comissoes->filter(function($value, $key) use ($edital){
                                 return data_get($value, 'edital_id') == $edital->id;
                             })->count()
+                            ||
+                            Auth::user()->hasRole('edital-administrador')
                         )
                         <a href="{{ url( 'edital/' . $edital->id . '/inscricoes' ) }}" class="btn btn-warning waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-list"></i> Inscrições em Andamento</a>
                         @endif
