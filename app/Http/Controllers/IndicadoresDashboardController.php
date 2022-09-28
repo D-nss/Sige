@@ -16,7 +16,7 @@ class IndicadoresDashboardController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if($user->hasAnyRole('indicadores-administrador|admin|super' )) {
+        if($user->hasAnyRole('indicadores-admin|admin|super' )) {
             $indicadoresUnidades = DB::table('indicadores_unidades')
                                     ->selectRaw('DISTINCT ano_base, COUNT(distinct unidade_id) as qtd_unidades')
                                     ->groupBy('ano_base')
