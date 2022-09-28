@@ -47,7 +47,7 @@ class EditalController extends Controller
             return data_get($value, 'status') != null;
         });
 
-        return view('edital.index2', compact('editais', 'cronograma', 'inscricoes', 'comissoes'));
+        return view('edital.index2', compact('user', 'editais', 'cronograma', 'inscricoes', 'comissoes'));
     }
 
     /**
