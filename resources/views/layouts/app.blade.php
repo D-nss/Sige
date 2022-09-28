@@ -1109,6 +1109,29 @@ Versão: 4.5.1
                     }
                 });
 
+                function buscarUnidadesNaoCadastradasPorAno(ano){
+
+                    $.ajax({
+                        url: "{{ url('buscar-unidades-nao-cadastradas') }}",
+                        method: "GET",
+                        dataType: 'json',
+                        data: { _token : $('meta[name="csrf-token"]').attr('content'), ano: ano },
+                        success: function(data) {
+                            var content = ``;
+                            data.map(dado => {
+                                content += `<tr class="text-muted">
+                                                <td>${dado.nome}</td>
+                                                <td>${dado.sigla}</td>
+                                                <td></td>
+                                            </tr>`;
+                            });
+
+                            $('#unidades-nao-cadastradas-table').html(content);
+                            $('#ano-selecionado').html(ano);
+                        }
+                    });
+                }
+
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
     </body>

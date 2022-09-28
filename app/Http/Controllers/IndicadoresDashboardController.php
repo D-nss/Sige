@@ -32,4 +32,11 @@ class IndicadoresDashboardController extends Controller
             return redirect()->back();
         }
     }
+
+    public function buscarUnidadesNaoCadastradasPorAno(Request $request)
+    {
+        $unidades = Unidade::whereNotIn('id', array_values(IndicadorUnidade::distinct('unidade_id')->where('ano_base', 2021)->get('unidade_id')->toArray()))->get();
+
+        echo json_encode($unidades);
+    } 
 }
