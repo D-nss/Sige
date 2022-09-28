@@ -43,7 +43,7 @@
                                
                                 <div class="row row-grid no-gutters">
                                     @forelse($indicadoresUnidades as $iu)
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 cursor-pointer" onclick="buscarUnidadesNaoCadastradasPorAno({{ $iu->ano_base}})">
                                         <div class="px-3 py-2 d-flex align-items-center">
                                             <div class="js-easy-pie-chart color-danger-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="{{ floor( ($iu->qtd_unidades * 100) / $unidades ) }}" data-piesize="100" data-linewidth="20" data-linecap="butt" data-scalelength="0">
                                                 <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-lg">
