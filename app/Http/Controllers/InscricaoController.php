@@ -239,7 +239,7 @@ class InscricaoController extends Controller
                                 ->where('user_id', $user->id)
                                 ->first();
 
-        if($userNaComissao || $avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+        if($userNaComissao || $avaliadorPorInscricao || $inscricao->user_id == $user->id || $user->hasRole('edital-administrador')) {
             if(isset($request->tipo_avaliacao)) {
                 $tipo_avaliacao = [
                     'subcomissao' => new Subcomissao(),
@@ -743,13 +743,14 @@ class InscricaoController extends Controller
 
         /* lista todas as inscrições se o user for administrador */
         if($user->hasRole('edital-administrador')) {
-            $inscricoes = Inscricao::all();
+            $inscricoes = Inscricao::orderBy('titulo', 'asc')->where('edital_id', $edital->id)->get();
 
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
         if($avaliadorPorInscricao) {
             $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
                                 ->where('ai.user_id', $user->id)
+                                ->where('inscricoes.edital_id', $edital->id)
                                 ->get(['inscricoes.*']);
 
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
@@ -763,6 +764,7 @@ class InscricaoController extends Controller
                     ->join('subcomissao_tematica', 'unidades.subcomissao_tematica_id', 'subcomissao_tematica.id')
                     ->where('subcomissao_tematica.id', $user->unidade->subcomissao_tematica_id)
                     ->where('cu.user_id', $user->id)
+                    ->where('inscricoes.edital_id', $edital->id)
                     ->distinct()
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
             }
@@ -771,6 +773,7 @@ class InscricaoController extends Controller
                     ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
                     ->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
                     ->where('cu.user_id', $user->id)
+                    ->where('inscricoes.edital_id', $edital->id)
                     ->distinct()
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
             }         
