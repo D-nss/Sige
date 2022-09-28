@@ -71,6 +71,41 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <div id="panel-4" class="panel">
+                        <div class="panel-hdr">
+                            <h2>
+                                Unidades com indicadores não enviados 
+                            </h2>
+                            <div class="panel-toolbar">
+                                <span class="text-muted fw-300 fs-xl">Ano <span class="badge badge-info" id="ano-selecionado"></span></span>
+                            </div>
+                        </div>
+                        <div class="panel-container show">
+                            <div class="panel-content">
+                                <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                    <thead class="bg-warning-200">
+                                        <tr>
+                                            <th>Unidade</th>
+                                            <th>Sigla</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="unidades-nao-cadastradas-table">
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Unidade</th>
+                                            <th>Sigla</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <!-- datatable end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
