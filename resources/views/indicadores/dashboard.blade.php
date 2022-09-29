@@ -125,7 +125,7 @@
                                     Unidades com indicadores não enviados 
                                 </h2>
                                 <div class="panel-toolbar">
-                                    <span class="text-muted fw-300 fs-xl">Ano <span class="badge badge-info" id="ano-selecionado"></span></span>
+                                    <span class="text-muted fw-300 fs-xl"><span class="badge badge-info" id="ano-selecionado"></span></span>
                                 </div>
                             </div>
                             <div class="panel-container show">
