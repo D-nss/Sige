@@ -1110,11 +1110,6 @@ Versão: 4.5.1
                 });
 
                 function buscarUnidadesNaoCadastradasPorAno(ano){
-                    $('#unidades-nao-cadastradas-table').html('');
-                    $('#ano-selecionado').html('');
-                    $('#unidades-nao-enviadas').html('');
-                    $('#unidades-enviadas').html('');
-
                     $.ajax({
                         url: "{{ url('buscar-unidades-nao-cadastradas') }}",
                         method: "GET",
@@ -1134,6 +1129,11 @@ Versão: 4.5.1
                             $('#ano-selecionado').html(ano);
                             $('#unidades-nao-enviadas').html(data.length);
                             $('#unidades-enviadas').html($("#total-unidades").text() - data.length);
+
+                            console.log(content);
+                            console.log(ano);
+                            console.log(data.length);
+                            console.log($("#total-unidades").text() - data.length);
                         }
                     });
                 }
