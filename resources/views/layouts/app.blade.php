@@ -1128,6 +1128,8 @@ Versão: 4.5.1
 
                             $('#unidades-nao-cadastradas-table').html(content);
                             $('#ano-selecionado').html(ano);
+                            $('#unidades-nao-enviadas').html(data.length);
+                            $('#unidades-enviadas').html($("#total-unidades").text() - data.length);
                         }
                     });
                 }
