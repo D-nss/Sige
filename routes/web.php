@@ -47,6 +47,8 @@ Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
 
 Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
 
+Route::get('/buscar-unidades-nao-cadastradas', [IndicadoresDashboardController::class, 'buscarUnidadesNaoCadastradasPorAno']);
+
 // Ações de Extensão - Nao utilizado via resource por problemas envio dos parametros
 //Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao'])->only(['create']);
 Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
@@ -108,7 +110,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::resource('/indicadores', IndicadorUnidadeController::class);
     Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
     Route::get('/indicadores-dashboard', [IndicadoresDashboardController::class, 'index']);
-    Route::get('/buscar-unidades-nao-cadastradas', [IndicadoresDashboardController::class, 'buscarUnidadesNaoCadastradasPorAno']);
+
     
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class)->parameters(['editais' => 'edital']);
