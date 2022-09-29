@@ -1115,7 +1115,7 @@ Versão: 4.5.1
                         url: "{{ url('buscar-unidades-nao-cadastradas') }}",
                         method: "GET",
                         dataType: 'json',
-                        data: { ano: ano },
+                        data: { _token : $('meta[name="csrf-token"]').attr('content'), ano: ano },
                         success: function(data) {
                             var content = ``;
                             data.map(dado => {
