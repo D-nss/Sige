@@ -12,6 +12,11 @@ use App\Models\User;
 
 class IndicadoresDashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:indicadores-admin|admin|super');
+    }
+
     public function index()
     {
         $user = User::where('email', Auth::user()->id)->first();
