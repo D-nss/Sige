@@ -14,7 +14,7 @@ class IndicadoresDashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:indicadores-admin|admin|super');
+        $this->middleware('role:indicadores-admin|admin|super')->except('buscarUnidadesNaoCadastradasPorAno');
     }
 
     public function index()
