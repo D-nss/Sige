@@ -42,6 +42,6 @@ class IndicadoresDashboardController extends Controller
     {
         $unidades = Unidade::whereNotIn('id', array_values(IndicadorUnidade::distinct('unidade_id')->where('ano_base', $request->ano)->get('unidade_id')->toArray()))->get();
 
-        echo json_encode([$unidades, $unidades->count()]);
+        echo json_encode($unidades);
     } 
 }
