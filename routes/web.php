@@ -152,6 +152,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
 
+    Route::post('/edital/{edital}/classificar', [EditalController::class, 'classificar']);
+    Route::get('/edital/{edital}/listar-classificados', [EditalController::class, 'listarClassificados']);
     Route::get('/edital/{edital}/inscricoes', [InscricaoController::class, 'inscricoesPorEdital']);
 
     Route::get('/inscricao/{inscricao}/orcamento', [OrcamentoController::class, 'create']);

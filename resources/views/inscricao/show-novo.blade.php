@@ -56,6 +56,63 @@
                                             
             <div class="frame-wrap w-100">
                 <div class="accordion" id="accordionExample">
+                @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
+                    <div class="card">
+                        <div class="card-header bg-success bg-primary-gradient" id="headingFour">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <div class='icon-stack display-3 flex-shrink-0'>       
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 " style="color: #f0f0f5"></i>
+                                    <i class="fal fa-credit-card icon-stack-1x opacity-100 " style="color: #f0f0f5"></i>
+                                </div>
+                                <h4 class="ml-2 mb-0 flex-1 text-light fw-500">
+                                    Resultado Prévio
+                                </h4>
+                                <span class="ml-auto">
+                                    <span class="collapsed-reveal">
+                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    </span>
+                                    <span class="collapsed-hidden">
+                                        <i class="fal fa-plus-circle text-success"></i>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                            <div class="card-body">
+                            <h1><i class="far fa-clipboard-list-check"></i> Nota Geral: {{ $inscricao->nota == null ? 00.00 : $inscricao->nota }}</h1>
+                            <div class="mt-3">
+                                <h4>Questões Avaliativas</h4>
+                                    @foreach($notasAvaliacao as $notas)
+                                        <div class="mb-3"><span class="text-secondary fs-md fw-300">{{ $notas->enunciado }}</span></br><span class="">Nota: </span><span class="fs-md fw-500">{{ $notas->valor }}</span></div>
+                                    @endforeach
+                                </div>
+                                <div class="mt-3">
+                                    <h4>Justificativa das Notas e Parecer</h4>
+                                    @foreach($parecerAvaliacao as $parecer)
+                                        <div class="mb-2">
+                                            <div class="d-flex flex-column">
+                                                Justificativa das notas:
+                                                <span class="fs-md fw-500 d-flex align-items-start text-primary">
+                                                    {{ $parecer->justificativa }}
+                                                </span>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                Parecer da avaliação:
+                                                <span class="fs-md fw-500 d-flex align-items-start text-primary">
+                                                    {{ $parecer->parecer }}
+                                                </span>
+                                                
+                                            </div>
+                                            <div class="d-block text-muted fs-sm font-italic">
+                                                Perecerista {{ $parecer->name }}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
