@@ -46,13 +46,14 @@ class ComissaoUserAdicionado extends Notification
     public function toMail($notifiable)
     {
         $cronograma = new Cronograma();
+        $dataInicioAnalise = $cronograma->getDate('dt_org_tematica', $this->comissao_user->comissao->edital->id);
         $dataFinalAnalise = $cronograma->getDate('dt_termino_org_tematica', $this->comissao_user->comissao->edital->id);
         
         return (new MailMessage)
                         ->subject('Participação em comissão do edital "'. $this->comissao_user->comissao->edital->titulo .'".')
                         ->greeting('Olá! ' . $this->comissao_user->user->name )
                         ->line('Você foi adicionado a comissão para análise prévia das proposta do edital ' . $this->comissao_user->comissao->edital->titulo . '.')
-                        ->line('Por favor analise antes de ' . date('d/m/Y', strtotime($dataFinalAnalise)))
+                        ->line('Por favor analise entre os dias ' . date('d/m/Y', strtotime($dataInicioAnalise)) . ' e ' . date('d/m/Y', strtotime($dataFinalAnalise)))
                         ->action('Clique aqui para prosseguir com a análise', url('/inscricao'))
                         ->line('Caso tenha problemas entre em contato conosco')
                         ->line('pex@unicamp.br ou suporte@proec.unicamp.br')
