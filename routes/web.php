@@ -23,6 +23,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
 use App\Http\Controllers\ComissaoController;
+use App\Http\Controllers\IndicadoresDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
 });
 
 Route::get('get-municipios-by-uf', [MunicipioController::class, 'getMunicipiosByUf']);
+
+Route::get('/buscar-unidades-nao-cadastradas', [IndicadoresDashboardController::class, 'buscarUnidadesNaoCadastradasPorAno']);
 
 // Ações de Extensão - Nao utilizado via resource por problemas envio dos parametros
 //Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao'])->only(['create']);
@@ -106,7 +109,9 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
     Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
+    Route::get('/indicadores-dashboard', [IndicadoresDashboardController::class, 'index']);
 
+    
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class)->parameters(['editais' => 'edital']);
     Route::get('editais', [EditalController::class, 'index']);
@@ -147,6 +152,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
 
+    Route::post('/edital/{edital}/classificar', [EditalController::class, 'classificar']);
+    Route::get('/edital/{edital}/listar-classificados', [EditalController::class, 'listarClassificados']);
     Route::get('/edital/{edital}/inscricoes', [InscricaoController::class, 'inscricoesPorEdital']);
 
     Route::get('/inscricao/{inscricao}/orcamento', [OrcamentoController::class, 'create']);

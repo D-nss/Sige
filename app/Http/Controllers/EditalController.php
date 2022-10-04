@@ -268,4 +268,48 @@ class EditalController extends Controller
             return redirect()->back();
         }
     }
+
+        /**
+     * Update the specified resource in storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Models\Edital $edital
+     * @return \Illuminate\Http\Response
+     */
+    public function classificar(Request $request, Edital $edital)
+    {
+        $inscricoes = Inscricao::where('edital_id', $edital->id)->get();
+
+        foreach($inscricoes as $inscricao) {
+            $countAvaliadores = $inscricao->avaliadores->count();
+
+            $somaNota = RespostasAvaliacoes::where('inscricao_id', $inscricao->id)->sum('valor');
+            
+            $notaFinal = $somaNota / $countAvaliadores;
+
+            $inscricao->nota = $request->forma_avaliacao == 'media' ? $notaFinal : $somaNota;
+
+            $inscricao->save();
+
+
+        }
+
+        $inscricoes = Inscricao::where('edital_id', $edital->id)->orderby('nota', 'desc')->get();
+
+        return view('inscricao.classificacao', compact('edital', 'inscricoes'));
+    }
+
+    
+    /**
+     * Update the specified resource in storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Models\Edital $edital
+     * @return \Illuminate\Http\Response
+     */
+    public function listarClassificados(Request $request, Edital $edital)
+    {
+
+        $inscricoes = Inscricao::where('edital_id', $edital->id)->orderby('nota', 'desc')->get();
+
+        return view('inscricao.classificacao', compact('edital', 'inscricoes'));
+    }
 }

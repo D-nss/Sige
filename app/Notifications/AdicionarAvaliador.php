@@ -49,13 +49,14 @@ class AdicionarAvaliador extends Notification
     public function toMail($notifiable)
     {
         $cronograma = new Cronograma();
+        $dataInicioPareceristas = $cronograma->getDate('dt_pareceristas', $this->inscricao->edital_id);
         $dataFinalPareceristas = $cronograma->getDate('dt_termino_pareceristas', $this->inscricao->edital_id);
         $url = url('/inscricao/'. $this->inscricao->id . '?tipo_avaliacao=parecerista');
         return (new MailMessage)
                     ->subject('Proposta "'. $this->inscricao->titulo .'" está aguardando sua avaliação.')
                     ->greeting('Olá! ' . $this->avaliador->user->name )
                     ->line('A proposta ' . $this->inscricao->titulo .' do edital ' . $this->inscricao->edital->titulo . ' está aguardando sua avaliação')
-                    ->line('Por favor avalie antes de ' . date('d/m/Y', strtotime($dataFinalPareceristas)))
+                    ->line('Por favor avalie entre os dias '. date('d/m/Y', strtotime($dataInicioPareceristas)) . ' até ' . date('d/m/Y', strtotime($dataFinalPareceristas)))
                     ->action('Clique aqui para prosseguir com a avaliação', $url)
                     ->line('Caso tenha problemas entre em contato conosco')
                     ->line('pex@unicamp.br ou suporte@proec.unicamp.br</br>')

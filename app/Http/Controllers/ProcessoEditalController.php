@@ -18,7 +18,9 @@ class ProcessoEditalController extends Controller
     public function index() {
         $editais = Edital::all();
 
-        return view('processo-edital.index', compact('editais'));
+        $cronograma = new Cronograma();
+
+        return view('processo-edital.index', compact('editais', 'cronograma'));
     }
 
     public function edit($id){

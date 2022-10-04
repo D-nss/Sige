@@ -369,6 +369,50 @@ Versão: 4.5.1
                     ]
                 });
 
+                
+                $('#dt-classificados').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true,
+                    dom:
+                        /*	--- Layout Structure
+                        	--- Options
+                        	l	-	length changing input control
+                        	f	-	filtering input
+                        	t	-	The table!
+                        	i	-	Table information summary
+                        	p	-	pagination control
+                        	r	-	processing display element
+                        	B	-	buttons
+                        	R	-	ColReorder
+                        	S	-	Select
+
+                        	--- Markup
+                        	< and >				- div element
+                        	<"class" and >		- div with a class
+                        	<"#id" and >		- div with an ID
+                        	<"#id.class" and >	- div with an ID and a class
+
+                        	--- Further reading
+                        	https://datatables.net/reference/option/dom
+                        	--------------------------------------
+                         */
+                        "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'l>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-4'i><'col-sm-12 col-md-6'p><'col-sm-12 col-md-2 d-flex align-items-center justify-content-end'B>>",
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Exportar para Excel',
+                            titleAttr: 'Generate Excel',
+                            className: 'btn-outline-success btn-sm mr-1'
+                        },
+                    ]
+                });
+
+
                 $('#dt-indicadores_filter').addClass('form-inline');
                 $('#dt-indicadores_length').addClass('form-inline');
 
@@ -1108,6 +1152,30 @@ Versão: 4.5.1
                         show: true
                     }
                 });
+
+                function buscarUnidadesNaoCadastradasPorAno(ano){
+                    $.ajax({
+                        url: "{{ url('buscar-unidades-nao-cadastradas') }}",
+                        method: "GET",
+                        dataType: 'json',
+                        data: { _token : $('meta[name="csrf-token"]').attr('content'), ano: ano },
+                        success: function(data) {
+                            var content = ``;
+                            data.map(dado => {
+                                content += `<tr class="text-muted">
+                                                <td>${dado.nome}</td>
+                                                <td>${dado.sigla}</td>
+                                                <td></td>
+                                            </tr>`;
+                            });
+
+                            $('#unidades-nao-cadastradas-table').html(content);
+                            $('#ano-selecionado').html(ano);
+                            $('#unidades-nao-enviadas').text(data.length);
+                            $('#unidades-enviadas').text($("#total-unidades").text() - data.length);
+                        }
+                    });
+                }
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->
