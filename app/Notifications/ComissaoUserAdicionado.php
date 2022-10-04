@@ -53,7 +53,7 @@ class ComissaoUserAdicionado extends Notification
                         ->subject('Participação em comissão do edital "'. $this->comissao_user->comissao->edital->titulo .'".')
                         ->greeting('Olá! ' . $this->comissao_user->user->name )
                         ->line('Você foi adicionado a comissão para análise prévia das proposta do edital ' . $this->comissao_user->comissao->edital->titulo . '.')
-                        ->line('Por favor analise entre os dias ' . date('d/m/Y', strtotime($dataInicioAnalise)) . ' e ' . date('d/m/Y', strtotime($dataFinalAnalise)))
+                        ->line('Por favor analíse entre os dias ' . date('d/m/Y', strtotime($dataInicioAnalise)) . ' e ' . date('d/m/Y', strtotime($dataFinalAnalise)))
                         ->action('Clique aqui para prosseguir com a análise', url('/inscricao'))
                         ->line('Caso tenha problemas entre em contato conosco')
                         ->line('pex@unicamp.br ou suporte@proec.unicamp.br')
