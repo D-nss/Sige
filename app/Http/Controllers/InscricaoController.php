@@ -528,7 +528,9 @@ class InscricaoController extends Controller
     public function indicarAvaliador(Inscricao $inscricao)
     {
         //$inscricao = Inscricao::findOrFail($id);
-        $users = User::orderBy('name', 'asc')->get();
+        $users = User::join('unidades', 'users.unidade_id', 'unidades.id')
+                        ->orderBy('name', 'asc')
+                        ->get(['users.*', 'unidades.sigla']);
 
         $user = User::where('email', Auth::user()->id)->first();
 
