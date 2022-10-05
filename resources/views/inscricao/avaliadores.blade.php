@@ -38,7 +38,7 @@
                         <select class="form-control w-50" name="avaliador_id" id="avaliador_id" required>
                           <option value="">Selecione</option>
                           @foreach($users as $user)
-                          <option value="{{ $user->id }}">{{ $user->name - $user->sigla }}</option>
+                          <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->sigla }}</option>
                           @endforeach
                         </select>
                         <button type="submit" class="btn btn-primary my-3">Salvar</button>
