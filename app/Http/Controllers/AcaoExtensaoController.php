@@ -33,7 +33,11 @@ class AcaoExtensaoController extends Controller
 
         $total = AcaoExtensao::all()->count();
         $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->count();
-        $porcentagem_unidade = $total_unidade*100/$total;
+        if(!$total == 0){
+            $porcentagem_unidade = (int) ($total_unidade*100/$total);
+        } else{
+            $porcentagem_unidade = 0;
+        }
         $total_concluidos = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 3)->count();
         $total_andamento = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 2)->count();
         $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 1)->count();

@@ -24,6 +24,7 @@ use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
 use App\Http\Controllers\ComissaoController;
 use App\Http\Controllers\IndicadoresDashboardController;
+use App\Http\Controllers\AcaoCulturalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,24 @@ Route::post('/acoes-extensao/filtrar', [AcaoExtensaoController::class, 'filtrar'
 Route::post('/acoes-extensao/filtrarMapa', [AcaoExtensaoController::class, 'filtrarMapa'])->name('acao_extensao.filtrar.mapa');
 Route::get('/painel', [AcaoExtensaoController::class, 'dashboard'])->name('acao_extensao.painel');
 
+//Ações Culturais
+Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');
+Route::get('/acoes-culturais/novo', [AcaoCulturalController::class, 'create'])->name('acao_cultural.create');
+Route::post('/acoes-culturais', [AcaoCulturalController::class, 'store'])->name('acao_cultural.store');
+Route::post('/acoes-culturais/{acao_cultural}/comentar', [AcaoCulturalController::class, 'enviarComentario'])->name('acao_cultural.comentar');
+Route::get('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'show'])->name('acao_cultural.show');
+Route::get('/acoes-culturais/{acao_cultural}/editar', [AcaoCulturalController::class, 'edit'])->name('acao_cultural.edit');
+Route::put('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'update'])->name('acao_cultural.update');
+Route::delete('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'destroy'])->name('acao_cultural.destroy');
+Route::put('/acoes-culturais/{acao_cultural}/aprovar', [AcaoCulturalController::class, 'aprovar'])->name('acao_cultural.aprovar');
+Route::get('/painel-cultura', [AcaoCulturalController::class, 'dashboard'])->name('acao_cultural.painel');
+Route::get('/acoes-culturais/{acao_cultural}/datas', [AcaoCulturalController::class, 'datas'])->name('acao_cultural.datas');
+Route::post('/acoes-culturais/datas', [AcaoCulturalController::class, 'insereData'])->name('acao_cultural.datas.inserir');
+Route::get('/acoes-culturais/{acao_cultural}/coordenador', [AcaoCulturalController::class, 'coordenador']);
+Route::post('/acoes-culturais/unidades', [AcaoCulturalController::class, 'insereUnidade'])->name('acao_cultural.unidades.inserir');
+Route::post('/acoes-culturais/coordenador', [AcaoCulturalController::class, 'insereCoordenador'])->name('acao_cultural.coordenador.inserir');
+Route::post('/acoes-culturais/filtrar', [AcaoCulturalController::class, 'filtrar'])->name('acao_cultural.filtrar');
+
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
@@ -111,7 +130,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
     Route::get('/indicadores-dashboard', [IndicadoresDashboardController::class, 'index']);
 
-    
+
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class)->parameters(['editais' => 'edital']);
     Route::get('editais', [EditalController::class, 'index']);
