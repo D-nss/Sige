@@ -55,25 +55,66 @@
 
             @hasanyrole('super|admin', 'web_user')
                 <li>
-                    <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
-                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">BAEC</span>
+                    <a href="#" title="BAEC" data-filter-tags="baec">
+                        <i class="fal fa-database"></i>
+                        <span class="nav-link-text" data-i18n="nav.baec">BAEC</span>
                     </a>
                     <ul>
-                        <li class="">
-                            <a href="{{ url('painel') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
+                        <li>
+                            <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="extensao">
+                                <i class="fal fa-leaf"></i>
+                                <span class="nav-link-text" data-i18n="nav.baec_extensao_menu">Ações de Extensão</span>
                             </a>
-                            <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
-                            </a>
-                            <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
-                            </a>
-                            <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
-                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ url('painel') }}" title="Ações de Extensão Dashboard" data-filter-tags="extensao dashboard">
+                                        <span class="nav-link-text" data-i18n="nav.baec_extensao_menu_dashboard">Dashboard</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('acoes-extensao') }}" title="Ações de Extensão Listagem" data-filter-tags="extensao listagem">
+                                        <span class="nav-link-text" data-i18n="nav.baec_extensao_menu_listagem">Listagem</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('acoes-extensao/novo') }}" title="Ações de Extensão Cadastrar" data-filter-tags="extensao cadastrar">
+                                        <span class="nav-link-text" data-i18n="nav.baec_extensao_menu_cadastrar">Cadastrar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Ações de Extensão Mapa" data-filter-tags="extensao mapa">
+                                        <span class="nav-link-text" data-i18n="nav.baec_extensao_menu_mapa">Mapa</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
+                        <li>
+                            <a href="javascript:void(0);" title="Ações Culturais" data-filter-tags="cultura">
+                                <i class="fal fa-theater-masks"></i>
+                                <span class="nav-link-text" data-i18n="nav.baec_cultura_menu">Ações Culturais</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ url('painel-cultura') }}" title="Ações Culturais Dashboard" data-filter-tags="cultura dashboard">
+                                        <span class="nav-link-text" data-i18n="nav.baec_cultura_menu_dashboard">Dashboard</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('acoes-culturais') }}" title="Ações Culturais Listagem" data-filter-tags="cultura listagem">
+                                        <span class="nav-link-text" data-i18n="nav.baec_cultura_menu_listagem">Listagem</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('acoes-culturais/novo') }}" title="Ações Culturais Cadastrar" data-filter-tags="cultura cadastrar">
+                                        <span class="nav-link-text" data-i18n="nav.baec_cultura_menu_cadastrar">Cadastrar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" title="Ações Culturais Mapa" data-filter-tags="cultura mapa">
+                                        <span class="nav-link-text" data-i18n="nav.baec_cultura_menu_mapa">Mapa</span>
+                                    </a>
+                                </li>
+                            </ul>
                 </li>
             @endhasanyrole
             @endif
@@ -125,7 +166,7 @@
                     </li>
                     @if(Auth::hasUser())
                     <!-- <li class="">
-                        
+
                         <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições</span>
                         </a>
@@ -135,13 +176,13 @@
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Suas Inscrições</span>
                                 </a>
                             </li>
-                            
+
                             <li class="">
                                 <a href="{{ url('inscricao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Em Andamento</span>
                                 </a>
                             </li>
-                          
+
                         </ul>
                     </li> -->
                     @endif

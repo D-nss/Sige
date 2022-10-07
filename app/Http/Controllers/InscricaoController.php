@@ -759,26 +759,26 @@ class InscricaoController extends Controller
         }
         else {
             /* Lista as incrições se o user estiver em uma comissão */
-            if($edital->tipo === 'PEX') {
+            // if($edital->tipo === 'PEX') {
+            //     $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
+            //         ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
+            //         ->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
+            //         ->join('subcomissao_tematica', 'unidades.subcomissao_tematica_id', 'subcomissao_tematica.id')
+            //         ->where('subcomissao_tematica.id', $user->unidade->subcomissao_tematica_id)
+            //         ->where('cu.user_id', $user->id)
+            //         ->where('inscricoes.edital_id', $edital->id)
+            //         ->distinct()
+            //         ->get(['inscricoes.*', 'comissoes.atribuicao']);
+            // }
+            // else {
                 $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
                     ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
-                    ->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
-                    ->join('subcomissao_tematica', 'unidades.subcomissao_tematica_id', 'subcomissao_tematica.id')
-                    ->where('subcomissao_tematica.id', $user->unidade->subcomissao_tematica_id)
+                    //->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
                     ->where('cu.user_id', $user->id)
                     ->where('inscricoes.edital_id', $edital->id)
                     ->distinct()
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
-            }
-            else {
-                $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
-                    ->join('comissoes_users as cu', 'cu.comissao_id', 'comissoes.id')
-                    ->join('unidades', 'unidades.id', 'inscricoes.unidade_id')
-                    ->where('cu.user_id', $user->id)
-                    ->where('inscricoes.edital_id', $edital->id)
-                    ->distinct()
-                    ->get(['inscricoes.*', 'comissoes.atribuicao']);
-            }         
+            // }         
             
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
