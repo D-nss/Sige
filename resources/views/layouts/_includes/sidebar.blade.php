@@ -75,6 +75,27 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
+                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">(Temp) Cultura</span>
+                    </a>
+                    <ul>
+                        <li class="">
+                            <a href="{{ url('painel-cultura') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
+                            </a>
+                            <a href="{{ url('acoes-culturais/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
+                            </a>
+                            <a href="{{ url('acoes-culturais') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                            </a>
+                            <a href="#" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             @endhasanyrole
             @endif
 
