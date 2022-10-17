@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\Municipio;
 use App\Models\AreaTematica;
 use App\Models\RespostasAvaliacoes;
+use App\Models\Recurso;
+use App\Models\Comentario;
 
 class Inscricao extends Model
 {
@@ -90,6 +92,17 @@ class Inscricao extends Model
     public function linha_extensao()
     {
         return $this->belongsTo(LinhaExtensao::class);
+    }
+
+    
+    public function recurso()
+    {
+        return $this->hasOne(Recurso::class);
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
     }
 
 }

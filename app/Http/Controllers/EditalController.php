@@ -212,37 +212,6 @@ class EditalController extends Controller
         //
     }
 
-    public function editarCriterios(Edital $edital)
-    {
-        $criterios = $edital->criterios;
-
-        return view('criterios.create', compact('edital', 'criterios'));
-    }
-
-    public function editarCronograma(Edital $edital)
-    {
-        $modelo_cronograma = DB::table('modelo_cronograma')->where('tipo_edital', $edital->tipo)->get();
-
-        return view('cronograma.create', compact('edital', 'modelo_cronograma'));
-    }
-
-    public function editarQuestoes(Edital $edital)
-    {
-        return view('questoes.create', compact('edital'));
-    }
-
-    public function editarAvaliadores(Edital $edital)
-    {
-        $users = User::orderBy('name', 'asc')->get();
-        $subcomissoes = SubcomissaoTematica::all();
-        $avaliadores = Avaliador::join('users', 'users.id', 'avaliadores.user_id')
-                                ->join('unidades', 'users.unidade_id', 'unidades.id')
-                                ->where('avaliadores.edital_id', $edital->id)
-                                ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id', 'unidades.nome as unidade']);
-
-        return view('avaliadores.create', compact('edital', 'users', 'avaliadores', 'subcomissoes'));
-    }
-
     /**
      * Update the specified resource in storage.
      *
