@@ -39,7 +39,6 @@
                         <a href="" class="btn btn-danger btn-sm m-1">Relatório em PDF</a>
                     </div> -->
                 </td>
-            </tr>
             
         @endforeach
     </tbody>

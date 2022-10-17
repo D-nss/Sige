@@ -85,9 +85,11 @@ class CriterioController extends Controller
      * @param  \App\Models\Criterio $criterio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Criterio $criterio)
+    public function edit(Edital $edital)
     {
-        //
+        $criterios = $edital->criterios;
+
+        return view('criterios.create', compact('edital', 'criterios'));
     }
 
     /**

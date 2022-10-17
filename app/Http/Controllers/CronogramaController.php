@@ -94,9 +94,11 @@ class CronogramaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cronograma $cronograma)
+    public function edit(Edital $edital)
     {
-        //
+        $modelo_cronograma = DB::table('modelo_cronograma')->where('tipo_edital', $edital->tipo)->get();
+
+        return view('cronograma.create', compact('edital', 'modelo_cronograma'));
     }
 
     /**

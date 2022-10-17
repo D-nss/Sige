@@ -5,12 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\AvaliadorPorInscricao;
+use App\Models\User;
+use App\Models\Inscricao;
 
 class AvaliadorPorInscricaoController extends Controller
 {
     public function __construct()
     {
         $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
+    }
+
+    public function create(Inscricao $inscricao)
+    {
+        $users = User::join('unidades', 'users.unidade_id', 'unidades.id')
+                        ->orderBy('name', 'asc')
+                        ->get(['users.*', 'unidades.sigla']);
+
+        $user = User::where('id', 1)->first();
+
+        if($inscricao->user_id == $user->id) {
+            session()->flash('status', 'Desculpe! Não é permitido adicionar avaliadores à própria inscrição');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
+        return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
     
     /**
