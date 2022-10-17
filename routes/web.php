@@ -7,8 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\IndicadorUnidadeController;
 use App\Http\Controllers\AvaliadorController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\AnalistaController;
 use App\Http\Controllers\CriterioController;
 use App\Http\Controllers\CronogramaController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\EditalController;
 use App\Http\Controllers\QuestaoController;
 use App\Http\Controllers\InscricaoController;
@@ -23,8 +26,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
 use App\Http\Controllers\ComissaoController;
+use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
-use App\Http\Controllers\AcaoCulturalController;
+use App\Http\Controllers\RecursoInscricaoController;
 
 /*
 |--------------------------------------------------------------------------
