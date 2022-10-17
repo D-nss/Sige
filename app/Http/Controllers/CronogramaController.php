@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Cronograma;
+use App\Models\Edital;
 
 class CronogramaController extends Controller
 {
