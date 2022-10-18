@@ -166,9 +166,9 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
     //Route::post('/inscricao/{inscricao}/analise', [InscricaoController::class, 'analise']);
     Route::get('/inscricao/{inscricao}/avaliacao/', [AvaliacaoController::class, 'create']);
-    Route::put('/inscricao/{inscricao}/avaliacaoUpdate', [AvalicaoController::class, 'update']);
+    Route::put('/inscricao/{inscricao}/avaliacaoUpdate', [AvaliacaoController::class, 'update']);
     Route::post('/inscricao/{inscricao}/avaliacao', [AvaliacaoController::class, 'store']);
-    Route::get('/inscricao/{inscricao}/avaliadores', [AvaliadorPorINscricaoController::class, 'create']);
+    Route::get('/inscricao/{inscricao}/avaliadores', [AvaliadorPorInscricaoController::class, 'create']);
     Route::get('/inscricao/{inscricao}/indicar-analista', [AnalistaController::class, 'create']);
     Route::post('/inscricao/{inscricao}/indicar-analista/store', [AnalistaController::class, 'store']);
     Route::post('/inscricao/{inscricao}/indicar-analista/delete', [AnalistaController::class, 'destroy']);
