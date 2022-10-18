@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <div class="form-check form-check-inline border p-2 mr-2 rounded">
                             <input class="form-check-input" type="radio" name="questao-{{ $questaoAvaliacao->id }}" id="inlineRadio1" value="1"
-                                @if( !empty($notasAvaliacao->toArray()) && $notasAvaliacao->where('questao_id', $questaoAvaliacao->id)->pluck('valor')[0] == 1 ) checked  @endif
+                                @if( !empty($notasAvaliacao->toArray()) && $notasAvaliacao->where('questao_id', $questaoAvaliacao->id)->pluck('valor')[0] == 1 ) checked @endif
                             >
                             <label class="form-check-label" for="inlineRadio1">1</label>
                         </div>
@@ -108,9 +108,11 @@
                 </div>
                 @endforeach
                 <label for="" class="text-secondary font-size-14 fw-500">Justificativa das Notas</label>
-                <textarea class="form-control" name="justificativa" id="justificativa" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('justificativa')[0] }}@endif</textarea>
+                <textarea class="form-control" name="justificativa" id="justificativa" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('justificativa')[0] }}@else{{ old('justificativa') }}@endif</textarea>
+                <span style="color: #D0D3D4;">(máx. 1000 caracteres)</span>
                 <label for="" class="text-secondary font-size-14 fw-500">Parecer da avaliação</label>
-                <textarea class="form-control" name="parecer" id="parecer" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('parecer')[0] }}@endif</textarea>
+                <textarea class="form-control" name="parecer" id="parecer" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('parecer')[0] }}@else{{ old('parecer') }}@endif</textarea>
+                <span style="color: #D0D3D4;">(máx. 1000 caracteres)</span>
                 <div class="mt-3">
                     <button class="btn btn-success">Enviar</button>
 
