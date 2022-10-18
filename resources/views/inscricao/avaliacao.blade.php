@@ -108,10 +108,12 @@
                 </div>
                 @endforeach
                 <label for="" class="text-secondary font-size-14 fw-500">Justificativa das Notas</label>
-                <textarea class="form-control" name="justificativa" id="justificativa" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('justificativa')[0] }}@endif</textarea>
+                <textarea class="form-control" name="justificativa" id="justificativa" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('justificativa')[0] }}@else{{ old('justificativa') }}@endif</textarea>
+		<span style="color: #D0D3D4;">(máx 1000 caractere)</span>
                 <label for="" class="text-secondary font-size-14 fw-500">Parecer da avaliação</label>
-                <textarea class="form-control" name="parecer" id="parecer" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('parecer')[0] }}@endif</textarea>
-                <div class="mt-3">
+                <textarea class="form-control" name="parecer" id="parecer" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('parecer')[0] }}@else{{ old('parecer') }}@endif</textarea>
+               	<span style="color: #D0D3D4;">(máx. 1000 caracteres</span>
+		 <div class="mt-3">
                     <button class="btn btn-success">Enviar</button>
 
                     <a href="javascript:history.back()" class="btn btn-secondary btn-user float-right mt-2">
