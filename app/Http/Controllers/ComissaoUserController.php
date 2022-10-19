@@ -24,7 +24,9 @@ class ComissaoUserController extends Controller
     {
         $comissao = Comissao::find($id);
         $edital_id = $comissao->edital_id;
-        $users = User::orderBy('name', 'asc')->get();
+        $users = User::join('unidades', 'users.unidade_id', 'unidades.id')
+                        ->orderBy('name', 'asc')
+                        ->get(['users.*', 'unidades.sigla']);
 
         return view('comissoes.participantes', compact('comissao', 'edital_id', 'users'));
     }
