@@ -308,7 +308,8 @@ class InscricaoController extends Controller
                     'parecerAvaliacao',
                     'criterios',
                     'status',
-                    'cronograma'
+                    'cronograma',
+                    'user'
                 )
             );
         }
