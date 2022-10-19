@@ -32,14 +32,14 @@ class Parecerista implements AvaliacaoInterface
             return false;
         }
 
-        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+        if($user->hasRole('edital-administrador')) {
+            return ['parecerista' => true];
+        }
+        elseif(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
             session()->flash('status', 'Acesso não autorizado para avaliação.');
             session()->flash('alert', 'warning');
 
             return false;
-        }
-        elseif($user->hasRole('edital-administrador')) {
-            return ['parecerista' => true];
         }
         else {
             return ['parecerista' => true];
