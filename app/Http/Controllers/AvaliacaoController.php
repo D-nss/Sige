@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Inscricao;
@@ -24,7 +25,7 @@ class AvaliacaoController extends Controller
      */
     public function create(Inscricao $inscricao)
     {
-        $user = User::where('id', 3)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $questoesAvaliacao = $inscricao->edital->questoes->filter(function($value, $key) {
             return data_get($value, 'tipo') == 'Avaliativa';
@@ -55,7 +56,7 @@ class AvaliacaoController extends Controller
     */
     public function store(Request $request, Inscricao $inscricao)
     {
-        $user = User::where('id', 3)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if(isset($request->tipo_avaliacao)) {
             $tipo_avaliacao = [
@@ -82,7 +83,7 @@ class AvaliacaoController extends Controller
     */
     public function update(Request $request, Inscricao $inscricao)
     {
-        $user = User::where('id', 3)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $parecerista = new Parecerista();
 
