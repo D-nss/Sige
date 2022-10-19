@@ -107,10 +107,10 @@
 
                 </div>
                 @endforeach
-                <label for="" class="text-secondary font-size-14 fw-500">Justificativa das Notas</label>
+                <label for="" class="form-label text-secondary font-size-14 fw-500">Justificativa das Notas</label>
                 <textarea class="form-control" name="justificativa" id="justificativa" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('justificativa')[0] }}@else{{ old('justificativa') }}@endif</textarea>
                 <span style="color: #D0D3D4;">(máx. 1000 caracteres)</span>
-                <label for="" class="text-secondary font-size-14 fw-500">Parecer da avaliação</label>
+                <label for="" class="form-label text-secondary font-size-14 fw-500">Parecer da avaliação</label>
                 <textarea class="form-control" name="parecer" id="parecer" rows="10">@if( !empty($parecerAvaliacao->toArray()) ){{ $parecerAvaliacao->pluck('parecer')[0] }}@else{{ old('parecer') }}@endif</textarea>
                 <span style="color: #D0D3D4;">(máx. 1000 caracteres)</span>
                 <div class="mt-3">
