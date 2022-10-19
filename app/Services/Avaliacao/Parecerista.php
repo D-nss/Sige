@@ -24,7 +24,7 @@ class Parecerista implements AvaliacaoInterface
                                                         ->where('user_id', $user->id)
                                                         ->first();
 
-        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id || !$user->hasRole('edital-administrador')) {
             session()->flash('status', 'Acesso não autorizado para avaliação.');
             session()->flash('alert', 'warning');
 
