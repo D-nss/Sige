@@ -21,7 +21,7 @@ class AvaliadorPorInscricaoController extends Controller
                         ->orderBy('name', 'asc')
                         ->get(['users.*', 'unidades.sigla']);
 
-        $user = User::where('id', 1)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if($inscricao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Não é permitido adicionar avaliadores à própria inscrição');

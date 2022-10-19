@@ -14,7 +14,7 @@ class RecursoInscricaoController extends Controller
 {
     public function create(Inscricao $inscricao) 
     {
-        $user = User::where('id', 3)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
                                                         ->where('user_id', $user->id)

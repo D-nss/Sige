@@ -15,8 +15,8 @@ class ComentarioController extends Controller
         $validated = $request->validate([
             'comentario' => 'required|max:1000'
         ]);
-        //$user = User::where('email', Auth::user()->id)->first();
-        $user = User::where('id', 3)->first();
+
+        $user = User::where('email', Auth::user()->id)->first();
 
         $comentario = new Comentario();
         $comentario->inscricao_id = $inscricao->id;
