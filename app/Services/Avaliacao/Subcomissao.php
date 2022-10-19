@@ -20,13 +20,6 @@ class Subcomissao implements AvaliacaoInterface
                                 ->where('comissoes.edital_id', $inscricao->edital_id)
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
-        
-        if(!$userNaComissao || $inscricao->user_id == $user->id || !$user->hasRole('edital-administrador')) {
-            session()->flash('status', 'Acesso não autorizado para análise.');
-            session()->flash('alert', 'warning');
-
-            return ['analise' => false];
-        }
 
         //analisa se esta fora do periodo de analise
         if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
@@ -35,8 +28,20 @@ class Subcomissao implements AvaliacaoInterface
 
             return ['analise' => false];
         }
+        
+        if(!$userNaComissao || $inscricao->user_id == $user->id ) {
+            session()->flash('status', 'Acesso não autorizado para análise.');
+            session()->flash('alert', 'warning');
 
-        return ['analise' => true];
+            return ['analise' => false];
+        }
+        elseif($user->hasRole('edital-administrador')) {
+            return ['analise' => true];
+        }
+        else {
+            return ['analise' => true];
+        }
+        
     }
 
     public function execute(Request $request, Inscricao $inscricao, User $user) 

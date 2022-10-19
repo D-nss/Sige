@@ -24,13 +24,6 @@ class Parecerista implements AvaliacaoInterface
                                                         ->where('user_id', $user->id)
                                                         ->first();
 
-        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id || !$user->hasRole('edital-administrador')) {
-            session()->flash('status', 'Acesso não autorizado para avaliação.');
-            session()->flash('alert', 'warning');
-
-            return false;
-        }
-
         //analisa se esta fora do periodo de avaliação
         if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
             session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
@@ -39,8 +32,19 @@ class Parecerista implements AvaliacaoInterface
             return false;
         }
 
+        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+            session()->flash('status', 'Acesso não autorizado para avaliação.');
+            session()->flash('alert', 'warning');
 
-        return ['parecerista' => true];
+            return false;
+        }
+        elseif($user->hasRole('edital-administrador')) {
+            return ['parecerista' => true];
+        }
+        else {
+            return ['parecerista' => true];
+        }
+
     }
 
     public function execute(Request $request, Inscricao $inscricao, User $user)
