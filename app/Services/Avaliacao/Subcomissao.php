@@ -29,14 +29,14 @@ class Subcomissao implements AvaliacaoInterface
             return ['analise' => false];
         }
         
-        if(!$userNaComissao || $inscricao->user_id == $user->id ) {
+        if($user->hasRole('edital-administrador')) {
+            return ['analise' => true];
+        }
+        elseif(!$userNaComissao || $inscricao->user_id == $user->id ) {
             session()->flash('status', 'Acesso não autorizado para análise.');
             session()->flash('alert', 'warning');
 
             return ['analise' => false];
-        }
-        elseif($user->hasRole('edital-administrador')) {
-            return ['analise' => true];
         }
         else {
             return ['analise' => true];
