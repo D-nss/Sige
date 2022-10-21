@@ -25,6 +25,10 @@ class Cronograma extends Model
     public function getDate($dt_input, $edital_id)
     {
         $cronograma = Cronograma::where('dt_input', $dt_input)->where('edital_id', $edital_id)->get(['data']);
-        return $cronograma[0]->data;
+        if( $cronograma->isNotEmpty() ) {
+            return $cronograma[0]->data;
+        }
+        
+        return null;
     }
 }
