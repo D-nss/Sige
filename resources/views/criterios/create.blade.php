@@ -35,7 +35,14 @@
 
                 @include('criterios._table')
 
-                <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary float-right">Finalizar</a>
+                <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary float-right">
+                    <div class="spinner-border spinner-border-sm d-none spin" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <span class="spin-text">
+                        Finalizar
+                    </span>    
+                </a>
             </div>
             
             </div>

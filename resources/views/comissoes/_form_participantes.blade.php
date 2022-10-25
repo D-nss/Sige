@@ -9,7 +9,7 @@
         <select name="user_id" class="form-control w-50">
             <option value="">Selecione ...</option>
             @foreach($users as $user)
-                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->sigla }}</option>
             @endforeach
         </select>
     </div>

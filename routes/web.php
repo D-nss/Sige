@@ -7,8 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\IndicadorUnidadeController;
 use App\Http\Controllers\AvaliadorController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\AnalistaController;
 use App\Http\Controllers\CriterioController;
 use App\Http\Controllers\CronogramaController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\EditalController;
 use App\Http\Controllers\QuestaoController;
 use App\Http\Controllers\InscricaoController;
@@ -23,7 +26,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
 use App\Http\Controllers\ComissaoController;
+use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
+use App\Http\Controllers\RecursoInscricaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +81,24 @@ Route::post('/acoes-extensao/filtrar', [AcaoExtensaoController::class, 'filtrar'
 Route::post('/acoes-extensao/filtrarMapa', [AcaoExtensaoController::class, 'filtrarMapa'])->name('acao_extensao.filtrar.mapa');
 Route::get('/painel', [AcaoExtensaoController::class, 'dashboard'])->name('acao_extensao.painel');
 
+//Ações Culturais
+Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');
+Route::get('/acoes-culturais/novo', [AcaoCulturalController::class, 'create'])->name('acao_cultural.create');
+Route::post('/acoes-culturais', [AcaoCulturalController::class, 'store'])->name('acao_cultural.store');
+Route::post('/acoes-culturais/{acao_cultural}/comentar', [AcaoCulturalController::class, 'enviarComentario'])->name('acao_cultural.comentar');
+Route::get('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'show'])->name('acao_cultural.show');
+Route::get('/acoes-culturais/{acao_cultural}/editar', [AcaoCulturalController::class, 'edit'])->name('acao_cultural.edit');
+Route::put('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'update'])->name('acao_cultural.update');
+Route::delete('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'destroy'])->name('acao_cultural.destroy');
+Route::put('/acoes-culturais/{acao_cultural}/aprovar', [AcaoCulturalController::class, 'aprovar'])->name('acao_cultural.aprovar');
+Route::get('/painel-cultura', [AcaoCulturalController::class, 'dashboard'])->name('acao_cultural.painel');
+Route::get('/acoes-culturais/{acao_cultural}/datas', [AcaoCulturalController::class, 'datas'])->name('acao_cultural.datas');
+Route::post('/acoes-culturais/datas', [AcaoCulturalController::class, 'insereData'])->name('acao_cultural.datas.inserir');
+Route::get('/acoes-culturais/{acao_cultural}/coordenador', [AcaoCulturalController::class, 'coordenador']);
+Route::post('/acoes-culturais/unidades', [AcaoCulturalController::class, 'insereUnidade'])->name('acao_cultural.unidades.inserir');
+Route::post('/acoes-culturais/coordenador', [AcaoCulturalController::class, 'insereCoordenador'])->name('acao_cultural.coordenador.inserir');
+Route::post('/acoes-culturais/filtrar', [AcaoCulturalController::class, 'filtrar'])->name('acao_cultural.filtrar');
+
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
@@ -111,21 +134,21 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
     Route::get('/indicadores-dashboard', [IndicadoresDashboardController::class, 'index']);
 
-    
+
     /* -------------- rotas editais ---------------- */
     Route::resource('/editais', EditalController::class)->parameters(['editais' => 'edital']);
     Route::get('editais', [EditalController::class, 'index']);
     Route::post('edital/{edital}/divulgar', [EditalController::class, 'divulgar']);
 
-    Route::get('/editais/{edital}/criterios', [EditalController::class, 'editarCriterios']);
+    Route::get('/editais/{edital}/criterios', [CriterioController::class, 'edit']);
     Route::resource('/criterios', CriterioController::class)->parameters(['criterios' => 'criterio']);
 
     Route::resource('/cronogramas', CronogramaController::class);
-    Route::get('/editais/{edital}/cronograma', [EditalController::class, 'editarCronograma']);
+    Route::get('/editais/{edital}/cronograma', [CronogramaController::class, 'edit']);
     Route::post('/cronograma/prorrogar', [CronogramaController::class, 'prorrogar']);
 
     Route::resource('/questoes', QuestaoController::class)->parameters(['questoes' => 'questao']);
-    Route::get('/editais/{edital}/questoes', [EditalController::class, 'editarQuestoes']);
+    Route::get('/editais/{edital}/questoes', [QuestaoController::class, 'edit']);
 
     Route::resource('/avaliadores', AvaliadorController::class)->parameters(['avaliadores' => 'avaliador']);
     Route::get('/editais/{edital}/avaliadores', [EditalController::class, 'editarAvaliadores']);
@@ -133,22 +156,24 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     Route::get('/comissoes/edital/{id}', [ComissaoController::class, 'index']);
     Route::delete('comissoes/{comissao}', [ComissaoController::class, 'destroy']);
-    Route::delete('comissoes/participante/delete', [ComissaoController::class, 'participanteDelete'])->name('participantes.delete');
+    Route::delete('comissoes/participante/delete', [ComissaoUserController::class, 'destroy'])->name('participantes.delete');
     Route::get('comissoes/novo/edital/{id}', [ComissaoController::class, 'create']);
-    Route::get('comissoes/{id}/novo/participante', [ComissaoController::class, 'createParticipante']);
+    Route::get('comissoes/{id}/novo/participante', [ComissaoUserController::class, 'create']);
     Route::post('comissoes', [ComissaoController::class, 'store'])->name('comissoes.store');
-    Route::post('comissoes/participante/store', [ComissaoController::class, 'participanteStore'])->name('participantes.store');
+    Route::post('comissoes/participante/store', [ComissaoUserController::class, 'store'])->name('participantes.store');
 
     Route::resource('/inscricao', InscricaoController::class)->parameters(['inscricoes' => 'inscricao']);
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
+    Route::get('/inscricao/{inscricao}/recurso', [RecursoInscricaoController::class, 'create']);
+    Route::post('/inscricao/{inscricao}/recurso', [RecursoInscricaoController::class, 'store']);
     //Route::post('/inscricao/{inscricao}/analise', [InscricaoController::class, 'analise']);
-    Route::get('/inscricao/{inscricao}/avaliacao/', [InscricaoController::class, 'avaliacaoCreate']);
-    Route::put('/inscricao/{inscricao}/avaliacaoUpdate', [InscricaoController::class, 'avaliacaoUpdate']);
-    Route::post('/inscricao/{inscricao}/avaliacao', [InscricaoController::class, 'avaliacao']);
-    Route::get('/inscricao/{inscricao}/avaliadores', [InscricaoController::class, 'indicarAvaliador']);
-    Route::get('/inscricao/{inscricao}/indicar-analista', [InscricaoController::class, 'indicarAnalista']);
-    Route::post('/inscricao/{inscricao}/indicar-analista/store', [InscricaoController::class, 'indicarAnalistaStore']);
-    Route::post('/inscricao/{inscricao}/indicar-analista/delete', [InscricaoController::class, 'indicarAnalistaDelete']);
+    Route::get('/inscricao/{inscricao}/avaliacao/', [AvaliacaoController::class, 'create']);
+    Route::put('/inscricao/{inscricao}/avaliacaoUpdate', [AvaliacaoController::class, 'update']);
+    Route::post('/inscricao/{inscricao}/avaliacao', [AvaliacaoController::class, 'store']);
+    Route::get('/inscricao/{inscricao}/avaliadores', [AvaliadorPorInscricaoController::class, 'create']);
+    Route::get('/inscricao/{inscricao}/indicar-analista', [AnalistaController::class, 'create']);
+    Route::post('/inscricao/{inscricao}/indicar-analista/store', [AnalistaController::class, 'store']);
+    Route::post('/inscricao/{inscricao}/indicar-analista/delete', [AnalistaController::class, 'destroy']);
     Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
 

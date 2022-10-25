@@ -67,8 +67,9 @@
                                         
                                     @endif
                                     
-                                    <!-- <a href='{{ url("recurso/$inscricao->id") }}' class="btn btn-warning btn-xs m-1"><i class="far fa-list"></i> Recurso</a> -->
-                                    
+                                    @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && $inscricao->status == 'Avaliado' )
+                                        <a href='{{ url("inscricao/$inscricao->id/recurso") }}' class="btn btn-warning btn-xs m-1"><i class="far fa-list"></i> Recurso</a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

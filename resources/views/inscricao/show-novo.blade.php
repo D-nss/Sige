@@ -50,13 +50,13 @@
                              </span> Voltar</a>
                     @endif
                 </div>
-                <h2 class="text-muted fw-300">Status <span class="badge badge-success">Submetido</span></h2>
+                <h2 class="text-muted fw-300">Status <span class="badge badge-{{ $status[$inscricao->status] }}">{{ $inscricao->status }}</span></h2>
             </div>
             
                                             
             <div class="frame-wrap w-100">
                 <div class="accordion" id="accordionExample">
-                @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)))  && $inscricao->nota != null)
+                @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) && $inscricao->nota != null)
                     <div class="card">
                         <div class="card-header bg-success bg-primary-gradient" id="headingFour">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -90,21 +90,21 @@
                                     <h4>Justificativa das Notas e Parecer</h4>
                                     @foreach($parecerAvaliacao as $parecer)
                                         <div class="mb-2">
-                                            <div class="d-flex flex-column">
+                                            <div class="p-0">
+                                                <h5>
                                                 Justificativa das notas:
-                                                <span class="fs-md fw-500 d-flex align-items-start text-primary">
-                                                    {{ $parecer->justificativa }}
-                                                </span>
+                                                    <small class="mt-0 mb-3 text-primary">
+                                                        {{ $parecer->justificativa }}
+                                                    </small>
+                                                </h5>
                                             </div>
-                                            <div class="d-flex flex-column">
+                                            <div class="p-0">
+                                                <h5>
                                                 Parecer da avaliação:
-                                                <span class="fs-md fw-500 d-flex align-items-start text-primary">
-                                                    {{ $parecer->parecer }}
-                                                </span>
-                                                
-                                            </div>
-                                            <div class="d-block text-muted fs-sm font-italic">
-                                                Perecerista {{ $parecer->name }}
+                                                    <small class="mt-0 mb-3 text-primary">
+                                                        {{ $parecer->parecer }}
+                                                    </small>
+                                                </h5>
                                             </div>
                                         </div>
                                     @endforeach

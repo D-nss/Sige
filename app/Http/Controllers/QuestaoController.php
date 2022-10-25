@@ -84,9 +84,9 @@ class QuestaoController extends Controller
      * @param  \App\Models\Questao $questao
      * @return \Illuminate\Http\Response
      */
-    public function edit(Questao $questao)
+    public function edit(Edital $edital)
     {
-        //
+        return view('questoes.create', compact('edital'));
     }
 
     /**

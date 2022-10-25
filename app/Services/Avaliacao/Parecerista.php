@@ -24,13 +24,6 @@ class Parecerista implements AvaliacaoInterface
                                                         ->where('user_id', $user->id)
                                                         ->first();
 
-        if(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
-            session()->flash('status', 'Acesso não autorizado para avaliação.');
-            session()->flash('alert', 'warning');
-
-            return false;
-        }
-
         //analisa se esta fora do periodo de avaliação
         if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
             session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
@@ -39,8 +32,19 @@ class Parecerista implements AvaliacaoInterface
             return false;
         }
 
+        if($user->hasRole('edital-administrador')) {
+            return ['parecerista' => true];
+        }
+        elseif(!$avaliadorPorInscricao || $inscricao->user_id == $user->id) {
+            session()->flash('status', 'Acesso não autorizado para avaliação.');
+            session()->flash('alert', 'warning');
 
-        return ['parecerista' => true];
+            return false;
+        }
+        else {
+            return ['parecerista' => true];
+        }
+
     }
 
     public function execute(Request $request, Inscricao $inscricao, User $user)
@@ -54,7 +58,6 @@ class Parecerista implements AvaliacaoInterface
 
         $dados = array();
 
-        // Validação dos Indicadores
         $validar = array();
 
         foreach($request->except('_token', 'tipo_avaliacao') as $key => $r){
@@ -130,6 +133,21 @@ class Parecerista implements AvaliacaoInterface
         }
 
         $dados = array();
+
+        foreach($request->except('_token', 'tipo_avaliacao') as $key => $r){
+            if($key == 'parecer'){
+                $validar[$key] = 'required|max:1000';
+            }
+            elseif($key == 'justificativa'){
+                $validar[$key] = 'required|max:1000';
+            }
+            else {
+                $validar[$key] = 'required';
+            }
+        }
+
+        $validated = $request->validate($validar);
+        // Fim da Validação
 
         $transacao = DB::transaction(function () use ($dados, $inscricao, $user, $request) {
             foreach( $request->except('_token', 'tipo_avaliacao', 'justificativa', 'parecer') as $key => $value) {

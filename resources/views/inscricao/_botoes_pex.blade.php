@@ -17,7 +17,12 @@
     @endif
     @if($user->hasAnyRole('edital-administrador') && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)))
         @if($inscricao->status == 'Submetido')    
-            <a href='{{ url("inscricao/$inscricao->id/indicar-analista") }}' class="btn btn-secondary btn-xs m-1">Indicar Analista</a>
+            <!-- <a href='{{ url("inscricao/$inscricao->id/indicar-analista") }}' class="btn btn-secondary btn-xs m-1">Indicar Analista</a> -->
         @endif
+    @endif
+    @if($inscricao->recurso)
+        <a href='{{ url("inscricao/$inscricao->id/recurso") }}' class="btn btn-secondary btn-xs m-1">
+            Recurso
+        </a>
     @endif
 </div>

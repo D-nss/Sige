@@ -369,7 +369,7 @@ Versão: 4.5.1
                     ]
                 });
 
-                
+
                 $('#dt-classificados').dataTable(
                 {
                     language: {
@@ -446,7 +446,7 @@ Versão: 4.5.1
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         toolbarExtraButtons: [
-                        $('<button></button>').text('Finalizar')
+                        $('<button></button>').text('Salvar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
                                     .on('click', function(){
                                     //alert('Finsih button click');
@@ -797,7 +797,7 @@ Versão: 4.5.1
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         toolbarExtraButtons: [
-                        $('<button></button>').text('Finalizar')
+                        $('<button></button>').text('Salvar')
                                     .addClass('btn btn-primary btn-user btn-block btn-verde')
                                     .on('click', function(){
                                         $(this).text('');
@@ -838,7 +838,7 @@ Versão: 4.5.1
                 $('.step').click(function(){
                     $('.btn-salvar').prop('disabled', true);
                 });
-                
+
                 $('.sw-btn-next').click(function(){
                     if($('.step-4').hasClass('active')) {
                         $('.btn-salvar').prop('disabled', false);
@@ -1095,6 +1095,69 @@ Versão: 4.5.1
                     $('#lat_local').val('');
                     $('#long_local').val('');
                     $('#modal-inserir-local').modal('hide') ;
+                }
+            });
+
+            $('#unidades_envolvidas').click(function(){
+                $('#modal-inserir-unidade').modal('show') ;
+            });
+
+            $('#btn-limpar-unidade').click(function(){
+                $('#unidades_envolvidas').text('');
+                $('#modal-inserir-unidade').modal('hide') ;
+            });
+
+            $('#btn-inserir-unidade').click(function(){
+                var campo1 = $('#unidade_selecao').val();
+                var unidades = $('#unidades_envolvidas').text();
+                if (campo1 != ''){
+                    $('#unidades_envolvidas').text(unidades + campo1 + '; ');
+                    $('#unidade_selecao').val('');
+                    $('#modal-inserir-unidade').modal('hide') ;
+                }
+            });
+
+            $('#selecao_segmento').change(function(){
+                var valorSelecao = $(this).val();
+                if(valorSelecao != ""){
+                    $('#segmento_cultural').val(valorSelecao);
+                    $('#segmento_cultural').prop( "readonly", true );
+                } else {
+                    $('#segmento_cultural').val('');
+                    $('#segmento_cultural').prop( "readonly", false );
+                }
+            });
+
+            $("#ckensino").change(function() {
+                if($(this).prop('checked')) {
+                    $('#vinculo_ensino').prop( "disabled", false );
+                    $('#lbl_vinculo_ensino').removeClass( "text-muted" );
+                } else {
+                    $('#vinculo_ensino').val('');
+                    $('#vinculo_ensino').prop( "disabled", true );
+                    $('#lbl_vinculo_ensino').addClass( "text-muted" );
+                }
+            });
+
+            $("#ckpesquisa").change(function() {
+                if($(this).prop('checked')) {
+                    $('#vinculo_pesquisa').prop( "disabled", false );
+                    $('#lbl_vinculo_pesquisa').removeClass( "text-muted" );
+                } else {
+                    $('#vinculo_pesquisa').val('');
+                    $('#vinculo_pesquisa').prop( "disabled", true );
+                    $('#lbl_vinculo_pesquisa').addClass( "text-muted" );
+                }
+            });
+
+            $("#ckextensao").change(function() {
+                if($(this).prop('checked')) {
+                    $('#vinculo_extensao').prop( "disabled", false );
+                    $('#lbl_vinculo_extensao').removeClass( "text-muted" );
+                } else {
+                    $('#vinculo_extensao').val('');
+                    $('#vinculo_extensao').prop( "disabled", true );
+                    $('#lbl_vinculo_extensao').addClass( "text-muted" );
                 }
             });
 
