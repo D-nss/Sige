@@ -60,7 +60,7 @@
                             @if($inscricao->recurso)
                                 <p class="mt-0 mb-3">{{ $inscricao->recurso->argumentacao }}</p>
                             @else
-                                <textarea name="argumentacao" cols="30" rows="10" class="form-control"></textarea>
+                                <textarea name="argumentacao" cols="30" rows="10" class="form-control">{{ old('argumentacao') }}</textarea>
                                 <span style="color: #D0D3D4;">(máx. 5000 caracteres)</span>
                             @endif
                         </div>
