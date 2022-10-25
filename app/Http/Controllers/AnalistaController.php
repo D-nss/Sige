@@ -16,7 +16,7 @@ class AnalistaController extends Controller
         $user = User::where('id', 1)->first();
 
         if($inscricao->user_id == $user->id) {
-            session()->flash('status', 'Desculpe! Não é permitido adicionar avaliadores à própria inscrição');
+            session()->flash('status', 'Desculpe! Não é permitido adicionar analista à própria inscrição');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
