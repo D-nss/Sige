@@ -50,7 +50,7 @@
                              </span> Voltar</a>
                     @endif
                 </div>
-                <h2 class="text-muted fw-300">Status <span class="badge badge-success">Submetido</span></h2>
+                <h2 class="text-muted fw-300">Status <span class="badge badge-{{ $status[$inscricao->status] }}">{{ $inscricao->status }}</span></h2>
             </div>
             
                                             
