@@ -24,14 +24,14 @@ class RecursoInscricaoController extends Controller
         return view('inscricao.recurso', compact('inscricao', 'user', 'avaliadorPorInscricao'));
     }
 
-    public function store(Request $request) 
+    public function store(Request $request, Inscricao $inscricao) 
     {
         $validated = $request->validate([
             'argumentacao' => 'required|max:5000'
         ]);
 
         $recurso = Recurso::create([
-            'inscricao_id' => $request->inscricao_id,
+            'inscricao_id' => $inscricao->id,
             'argumentacao' => $request->argumentacao,
             'status' => 'Aberto',
         ]);
