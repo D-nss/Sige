@@ -46,6 +46,17 @@ class AvaliadorPorInscricaoController extends Controller
             'avaliador_id' => 'required'
         ]);
 
+        $avaliadorSeExiste = AvaliadorPorInscricao::where('user_id', $request->avaliador_id,)
+                                                  ->where('inscricao_id', $request->inscricao_id)
+                                                  ->first();
+
+        if($avaliadorSeExiste) {
+            session()->flash('status', 'Avaliador já cadastrado.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $avaliadorPorInscricao = AvaliadorPorInscricao::create([
             'user_id' => $request->avaliador_id,
             'inscricao_id' => $request->inscricao_id
