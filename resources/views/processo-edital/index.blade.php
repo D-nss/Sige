@@ -45,7 +45,7 @@
                 <p><strong>Data de cadastro: </strong>{{ date('d/m/Y', strtotime($edital->created_at)) }}</p>
                 <p class="">{{ substr($edital->resumo, 0, 120) . ' ... ' }}</p>
                 <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-info my-1 font-weight-bold"><i class="far fa-edit"></i> Editar</a>
-                @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) )
+                @if( strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) !== false && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) )
                     @if( !isset($edital->inscricoes->first()->nota) )
                     <button type="button" class="btn btn-warning my-1 font-weight-bold" data-toggle="modal" data-target="#default-example-modal-sm-center"><i class="far fa-list-ol"></i> Classificar</button>
                     <!-- Modal center Small -->

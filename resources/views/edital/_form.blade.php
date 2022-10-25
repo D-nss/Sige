@@ -77,7 +77,7 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label class="control-label font-weight-bold text-success">Upload da Imgem do Edital</label>
+                    <label class="control-label font-weight-bold text-success">Upload da Imagem do Edital</label>
                     <div class="preview-zone hidden">
                     <div class="box box-solid">
                         <div class="box-header with-border">
