@@ -17,11 +17,22 @@ class RecursoInscricaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
-                                                        ->where('user_id', $user->id)
-                                                        ->first();
+        // $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
+        //                                                 ->where('user_id', $user->id)
+        //                                                 ->first();
 
-        return view('inscricao.recurso', compact('inscricao', 'user', 'avaliadorPorInscricao'));
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.edital_id', $inscricao->edital_id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+
+        $status = [
+            'Aberto' => 'info',
+            'Aceito' => 'success',
+            'Recusado' => 'danger',
+        ];
+
+        return view('inscricao.recurso', compact('inscricao', 'user', 'userNaComissao', 'status'));
     }
 
     public function store(Request $request, Inscricao $inscricao) 
@@ -49,6 +60,26 @@ class RecursoInscricaoController extends Controller
             return redirect()->back();
         }
 
+
+    }
+
+    public function avaliar(Request $request) 
+    {
+        $recurso = Recurso::find($request->recurso_id);
+        $recurso->status = $request->status;
+
+        if( $recurso->save() ) {
+            session()->flash('status', 'Recurso avaliado com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao avaliar recurso.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
 
     }
 }
