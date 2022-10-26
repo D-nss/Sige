@@ -54,6 +54,7 @@
                             <a href='{{ url("/inscricao/$inscricao->id") }}' class="btn btn-danger" target="_blank">Ver inscrição completa</a>
                         </div>
                     </div>
+                    
                     <div class="col-12 mt-3">
                         <div class="p-0">
                             <label for="argumentacao" class="form-label">Argumentação</label>
@@ -65,6 +66,22 @@
                             @endif
                         </div>
                     </div>
+                    @if($inscricao->recurso)
+                        <div class="col-12 mt-3">
+                            <div class="p-0">
+                                <h5>
+                                    Status 
+                                    <span class="badge badge-{{ $status[$inscricao->recurso->status] }}">{{ $inscricao->recurso->status }}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    @endif
+                    @if($userNaComissao && $inscricao->recurso->status == 'Aberto')
+                        <!-- aprova trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aprovaModal">
+                            Aprovar
+                        </button>
+                    @endif
                     <div class="mt-3">
                         @if(!$inscricao->recurso)
                             <button class="btn btn-success">Enviar</button>
@@ -77,6 +94,43 @@
                         </a>
                     </div>
                 </form>
+                <!-- aprova modal -->
+                <div class="modal" tabindex="-1" id="aprovaModal">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Aprovação de Recurso</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action='{{ url("recurso/avaliar") }}' method="post" id="form-aprova-recurso">
+                                @csrf
+                                <input type="hidden" name="recurso_id" value="{{ $inscricao->recurso->id }}">
+                                <label for="" class="fw-700">Opção</label>
+                                <select class="form-control mb-2" name="status" id="status">
+                                    <option value="">Selecione ...</option>
+                                    <option value="Aceito">Aceito</option>
+                                    <option value="Recusado">Recusado</option>
+                                </select>
+
+                                <button class="btn btn-success">
+                                    
+                                    <span class="spin-text">
+                                        Enviar
+                                    </span>
+                                </button>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fim aprova modal -->
             </div>
         </div>
     </div>
