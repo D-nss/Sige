@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 use App\Models\Inscricao;
 use App\Models\Recurso;
@@ -11,6 +12,8 @@ use App\Models\User;
 use App\Models\AvaliadorPorInscricao;
 use App\Models\Comentario;
 use App\Models\ComissaoUser;
+
+use App\Notifications\RecursoAdicionado;
 
 class RecursoInscricaoController extends Controller
 {
@@ -41,6 +44,13 @@ class RecursoInscricaoController extends Controller
         $validated = $request->validate([
             'argumentacao' => 'required|max:5000'
         ]);
+
+        $users  = ComissaoUser::join('users', 'comissoes_users.user_id', 'users.id')
+                              ->join('comissoes', 'comissoes_users.comissao_id', 'comissoes.id')
+                              ->where('comissoes.edital_id', $inscricao->edital_id)
+                              ->get(['users.email']);
+
+        Notification::send($users, new RecursoAdicionado($inscricao));
 
         $recurso = Recurso::create([
             'inscricao_id' => $inscricao->id,
