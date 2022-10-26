@@ -10,6 +10,7 @@ use App\Models\Recurso;
 use App\Models\User;
 use App\Models\AvaliadorPorInscricao;
 use App\Models\Comentario;
+use App\Models\ComissaoUser;
 
 class RecursoInscricaoController extends Controller
 {
