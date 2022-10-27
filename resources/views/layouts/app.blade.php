@@ -1128,6 +1128,12 @@ Versão: 4.5.1
                 }
             });
 
+            $('#btn_limpar').click(function(){
+                $('#selecao_segmento').val('');
+                $('#segmento_cultural').val('');
+                $('#segmento_cultural').prop( "readonly", false );
+            });
+
             $("#ckensino").change(function() {
                 if($(this).prop('checked')) {
                     $('#vinculo_ensino').prop( "disabled", false );

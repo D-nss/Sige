@@ -91,7 +91,7 @@
                                 <td>
                                     {{$acao_cultural->nome_coordenador}}
                                     <div class="text-muted small text-truncate">
-                                        Unidade: <a href="/acoes-culturais/unidades/{{$acao_cultural->unidade->id}}" >{{$acao_cultural->unidade->sigla}}</a>
+                                        Unidade Principal: <a href="/acoes-culturais/unidades/{{$acao_cultural->unidade->id}}" >{{$acao_cultural->unidade->sigla}}</a>
                                         <br>
                                     </div>
                                 </td>
