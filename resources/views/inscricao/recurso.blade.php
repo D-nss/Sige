@@ -94,6 +94,7 @@
                         </a>
                     </div>
                 </form>
+                @if($inscricao->recurso)
                 <!-- aprova modal -->
                 <div class="modal" tabindex="-1" id="aprovaModal">
                     <div class="modal-dialog modal-sm">
@@ -131,6 +132,7 @@
                     </div>
                 </div>
                 <!-- fim aprova modal -->
+                @endif
             </div>
         </div>
     </div>
