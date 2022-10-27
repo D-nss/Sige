@@ -56,7 +56,7 @@ class RecursoAdicionado extends Notification
                 ->line('Por favor avalie entre os dias '. date('d/m/Y', strtotime($dataInicioRecurso)) . ' até ' . date('d/m/Y', strtotime($dataFinalRecurso)))
                 ->action('Clique aqui para prosseguir com a avaliação', $url)
                 ->line('Caso tenha problemas entre em contato conosco')
-                ->line('pex@unicamp.br ou suporte@proec.unicamp.br</br>')
+                ->line('pex@unicamp.br ou suporte@proec.unicamp.br')
                 ->line('Obrigado por usar nosso sistema!');
     }
 
