@@ -168,9 +168,13 @@
                                     @enderror
                                 </div>
                               <div class="form-group col-md-4">
-                                  <label class="form-label" for="data">Vinculo do Coordenador</label>
+                                  <label class="form-label" for="vinculo_coordenador">Vinculo do Coordenador</label>
                                   <select class="form-control @error('unidade_id') is-invalid @enderror" id="vinculo_coordenador" name="vinculo_coordenador">
-                                      <option value="">Selecione o Vinculo</option>
+                                    @if(isset($acao_cultural->vinculo_coordenador))
+                                        <option value="{{$acao_cultural->vinculo_coordenador}}">{{$acao_cultural->vinculo_coordenador}}</option>
+                                    @else
+                                        <option value="">Selecione o Vinculo</option>
+                                    @endif
                                       @if (!empty($lista_vinculo_coordenador))
                                           @foreach ($lista_vinculo_coordenador as $vinculo_coordenador)
                                             <option value="{{$vinculo_coordenador}}">{{$vinculo_coordenador}}</option>
@@ -186,13 +190,23 @@
                             </div>
                             <div class="row">
                               <div class="form-group mt-3 ml-3">
-                                  <a href="/acoes-culturais" class="btn btn-secondary btn-user ">
+                                <a href="/acoes-culturais/{{$acao_cultural->id}}/editar" class="btn btn-secondary btn-user ">
+                                    <span class="icon text-white-50">
+                                    <i class="fal fa-arrow-left"></i>
+                                    </span>
+                                    <span class="text">1. Editar dados iniciais</span>
+                                </a>
+                                  <a href="/acoes-culturais/{{$acao_cultural->id}}/datas" class="btn btn-secondary btn-user ">
                                       <span class="icon text-white-50">
                                       <i class="fal fa-arrow-left"></i>
                                       </span>
-                                      <span class="text">Voltar</span>
+                                      <span class="text">2. Datas e Locais</span>
                                   </a>
-                                  <button class="btn btn-primary" type="submit"><span class="fal fa-save mr-1"></span>Concluir Cadastro</button>
+
+                                  <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
+                                    <i class="fal fa-save"></i>
+                                    </span>
+                                    <span class="text">Salvar e <i class="fal fa-plus"></i> Colaboradores (4. Equipe)</span></button>
                               </div>
                             </div>
                         </form>

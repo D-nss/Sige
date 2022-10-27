@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\AcaoCultural;
+use App\Models\AcaoCulturalColaborador;
 use App\Models\AcaoCulturalDataLocal;
-use App\Models\DataAcaoCultural;
+use App\Models\AcaoCulturalParceiro;
 use App\Models\Municipio;
+use App\Models\TipoParceiro;
 use App\Models\Unidade;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -144,7 +146,20 @@ class AcaoCulturalController extends Controller
      */
     public function edit(AcaoCultural $acaoCultural)
     {
-        //
+        $acaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $acaoCultural->municipio_id)->get();
+        $unidades = Unidade::all();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $lista_segmento_cultural = array("Arte, ciência e tecnologia","Artes da cena","Artes plásticas e visuais","Atividades socioculturais","Cinema","Jogos e desportos","Materiais impressos e literatura","Música","Natureza e meio-ambiente","Patrimônio","Rádio e televisão");
+        $lista_publico_alvo = array('Alunos', 'Servidores técnico-administrativos', 'Docentes', 'Pesquisadores', 'Público externo à universidade');
+
+        return view('acoes-culturais.edit', [
+            'acao_cultural' => $acaoCultural,
+            'acaoLocal' => $acaoLocal,
+            'estados' => $estados,
+            'unidades' => $unidades,
+            'lista_segmento_cultural' => $lista_segmento_cultural,
+            'lista_publico_alvo' => $lista_publico_alvo
+        ]);
     }
 
     /**
@@ -177,11 +192,13 @@ class AcaoCulturalController extends Controller
                                                     ->join('acoes_culturais_unidades', 'acoes_culturais_unidades.unidade_id', '=', 'unidades.id')
                                                     ->where('acoes_culturais_unidades.acao_cultural_id', $acaoCultural->id)
                                                     ->get();
+        $lista_vinculo_coordenador = array('Aluno Graduação (Unicamp)', 'Aluno Pós-Graduação (Unicamp)', 'Docente (Unicamp)', 'Pesquisador (Unicamp)', 'Técnico-Administrativo (Unicamp)','Externo à universidade');
 
         return view('acoes-culturais.coordenador', [
             'acao_cultural' => $acaoCultural,
             'unidades_envolvidas_acao_cultural'=> $unidades_envolvidas_acao_cultural,
-            'unidades' => $unidades
+            'unidades' => $unidades,
+            'lista_vinculo_coordenador' => $lista_vinculo_coordenador
         ]);
     }
 
@@ -223,7 +240,74 @@ class AcaoCulturalController extends Controller
             return back();
         }
 
-        return $this->show($acao_cultural);
+        return $this->equipe($acao_cultural);
     }
+
+    public function equipe(AcaoCultural $acaoCultural)
+    {
+        $colaboradores_acao_cultural = AcaoCulturalColaborador::where('acao_cultural_id', $acaoCultural->id)->orderBy('nome')->get();
+        $lista_vinculo = array('Aluno Graduação (Unicamp)', 'Aluno Pós-Graduação (Unicamp)', 'Docente (Unicamp)', 'Pesquisador (Unicamp)', 'Técnico-Administrativo (Unicamp)','Externo à universidade');
+
+        return view('acoes-culturais.equipe', [
+            'acao_cultural' => $acaoCultural,
+            'colaboradores_acao_cultural'=> $colaboradores_acao_cultural,
+            'lista_vinculo' => $lista_vinculo
+        ]);
+    }
+
+    public function insereColaborador(Request $request)
+    {
+        $colaboradorCriado = AcaoCulturalColaborador::create($request->all());
+
+        if($colaboradorCriado){
+            session()->flash('status', 'Colaborador(a) adicionado(a) com sucesso!');
+            session()->flash('alert', 'success');
+        } else {
+            session()->flash('status', 'Erro ao adicionar colaborador(a) ao banco de dados.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
+        $acaoCultural = AcaoCultural::where('id', $request->acao_cultural_id)->first();
+
+        return $this->equipe($acaoCultural);
+    }
+
+    public function parceiros(AcaoCultural $acaoCultural)
+    {
+        $parceiros_acao_cultural = AcaoCulturalParceiro::where('acao_cultural_id', $acaoCultural->id)->orderBy('nome')->get();
+        $lista_tipos = TipoParceiro::all();
+
+        return view('acoes-culturais.parceiros', [
+            'acao_cultural' => $acaoCultural,
+            'parceiros_acao_cultural'=> $parceiros_acao_cultural,
+            'lista_tipos' => $lista_tipos
+        ]);
+    }
+
+    public function insereParceiro(Request $request)
+    {
+        $parceiroCriado = AcaoCulturalParceiro::create($request->all());
+
+        if($parceiroCriado){
+            session()->flash('status', 'Parceiro(a) adicionado(a) com sucesso!');
+            session()->flash('alert', 'success');
+        } else {
+            session()->flash('status', 'Erro ao adicionar parceiro(a) ao banco de dados.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
+        $acaoCultural = AcaoCultural::where('id', $request->acao_cultural_id)->first();
+
+        return $this->parceiros($acaoCultural);
+    }
+
+    public function acoesPorUnidade(Unidade $unidade){
+        $acoes_culturais = AcaoCultural::where('unidade_id', $unidade->id)->get();
+        return $this->index($acoes_culturais);
+    }
+
+
 
 }

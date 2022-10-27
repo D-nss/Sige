@@ -98,7 +98,6 @@
                                             </div>
                                             @endif
                                         </div>
-
             </div>
     </div>
     <div class="row">
@@ -147,17 +146,17 @@
                           </div>
                           <div class="row">
                             <div class="form-group mt-3 ml-3">
-                                <a href="/acoes-culturais" class="btn btn-secondary btn-user ">
+                                <a href="/acoes-culturais/{{$acao_cultural->id}}/editar" class="btn btn-secondary btn-user ">
                                     <span class="icon text-white-50">
                                     <i class="fal fa-arrow-left"></i>
                                     </span>
-                                    <span class="text">Voltar</span>
+                                    <span class="text">1. Editar dados iniciais</span>
                                 </a>
                                 <a href="/acoes-culturais/{{$acao_cultural->id}}/coordenador" class="btn btn-primary">
                                     <span class="icon text-white-50">
                                     <i class="fal fa-arrow-alt-right"></i>
                                     </span>
-                                    <span class="text">Prosseguir</span>
+                                    <span class="text">3. Unidades e Coordenador</span>
                                 </a>
                             </div>
                           </div>

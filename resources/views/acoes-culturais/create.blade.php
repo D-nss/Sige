@@ -41,10 +41,13 @@
                                     </span>
                                     <span class="text">Cancelar</span>
                                 </a>
-                                <button type="submit" class="btn btn-primary">Salvar e Prosseguir</button>
                                 {{--<button type="submit" class="btn btn-primary btn-user btn-verde">
                                     <i class="fal fa-check"></i> <b>Criar e Adicionar Datas</b>
                                 </button>--}}
+                                <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
+                                    <i class="fal fa-save"></i>
+                                    </span>
+                                    <span class="text">Salvar e <i class="fal fa-plus"></i> datas (2. Datas e Locais)</span></button>
                             </div>
                           </div>
                       </form>

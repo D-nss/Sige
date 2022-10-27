@@ -51,12 +51,13 @@
                     <select  multiple="" class="form-control col-md-6 @error('segmento_cultural') is-invalid @enderror" id="selecao_segmento" name="selecao_segmento[]" style="height: 200px;">
                         @if (!empty($lista_segmento_cultural))
                             @foreach ($lista_segmento_cultural as $segmento_cultural)
-                                <option value="{{$segmento_cultural}}" @if( (collect(old('segmento_cultural'))->contains($segmento_cultural)) || (isset($acao_cultural->segmento_cultural) && $acao_cultural->segmento_cultural->contains($segmento_cultural)) ) selected @endif>{{$segmento_cultural}}</option>
+                            <option value="{{$segmento_cultural}}" @if( (collect(old('segmento_cultural'))->contains($segmento_cultural)) || (isset($acao_cultural->segmento_cultural) && $acao_cultural->segmento_cultural->contains($segmento_cultural)) ) selected @endif>{{$segmento_cultural}}</option>
                             @endforeach
                         @endif
                     </select>
+                    <button class="btn btn-secondary" type="button" id="btn_limpar"><i class="fal fa-trash-alt"></i></button>
                     <div class="input-group-append col-md-6">
-                        <input type="text" id="segmento_cultural" name="segmento_cultural" class="form-control" placeholder="*Ou Especifique outro"  value="{{isset($acao_cultural->segmento_cultural) ? $acao_cultural->seguimento_cultural : old('especifique')}}">
+                        <input type="text" id="segmento_cultural" name="segmento_cultural" class="form-control" placeholder="*Ou Especifique outro"  value="{{isset($acao_cultural->segmento_cultural) ? $acao_cultural->seguimento_cultural : old('especifique')}}" >
                     </div>
                 </div>
                 @error('segmento_cultural')
@@ -65,6 +66,7 @@
                     </div>
                 @enderror
             </div>
+
             <div class="form-group col-md-3">
                 <label class="form-label" for="palavras_chaves">Palavras chaves </label>
                 <input type="text" id="palavras_chaves" name="palavras_chaves" class="form-control" data-role="tagsinput" placeholder="Digite entre virgulas" value="{{isset($acao_cultural->palavras_chaves) ? $acao_cultural->palavras_chaves : old('palavras_chaves')}}">
@@ -130,7 +132,7 @@
                 <select name="publico_alvo[]" id="publico_alvo" multiple="" class="form-control @error('publico_alvo') is-invalid @enderror" style="height: 100px;">
                     @if (!empty($lista_publico_alvo))
                         @foreach ($lista_publico_alvo as $publico_alvo)
-                            <option value="{{$publico_alvo}}" @if( (collect(old('publico_alvo'))->contains($publico_alvo)) || (isset($acao_cultural->publico_alvo) && $acao_cultural->publico_alvo->contains($publico_alvo)) ) selected @endif>{{$publico_alvo}}</option>
+                        <option value="{{$publico_alvo}}" @if( (collect(old('publico_alvo'))->contains($publico_alvo)) || (isset($acao_cultural->publico_alvo) && $acao_cultural->publico_alvo->contains($publico_alvo)) ) selected @endif>{{$publico_alvo}}</option>
                         @endforeach
                     @endif
                 </select>

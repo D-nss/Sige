@@ -98,6 +98,11 @@ Route::get('/acoes-culturais/{acao_cultural}/coordenador', [AcaoCulturalControll
 Route::post('/acoes-culturais/unidades', [AcaoCulturalController::class, 'insereUnidade'])->name('acao_cultural.unidades.inserir');
 Route::post('/acoes-culturais/coordenador', [AcaoCulturalController::class, 'insereCoordenador'])->name('acao_cultural.coordenador.inserir');
 Route::post('/acoes-culturais/filtrar', [AcaoCulturalController::class, 'filtrar'])->name('acao_cultural.filtrar');
+Route::get('/acoes-culturais/{acao_cultural}/equipe', [AcaoCulturalController::class, 'equipe']);
+Route::post('/acoes-culturais/colaborador', [AcaoCulturalController::class, 'insereColaborador'])->name('acao_cultural.colaborador.inserir');
+Route::get('/acoes-culturais/{acao_cultural}/parceiros', [AcaoCulturalController::class, 'parceiros']);
+Route::post('/acoes-culturais/parceiro', [AcaoCulturalController::class, 'insereParceiro'])->name('acao_cultural.parceiro.inserir');
+Route::get('/acoes-culturais/unidades/{unidade}', [AcaoCulturalController::class, 'acoesPorUnidade'])->name('acao_cultural.unidades.index');
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
