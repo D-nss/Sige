@@ -49,27 +49,27 @@ class RecursoInscricaoController extends Controller
                     ->join('comissoes', 'comissoes_users.comissao_id', 'comissoes.id')
                     ->where('comissoes.edital_id', $inscricao->edital_id)
                     ->get(['users.email']);
-        echo json_encode($users);
-        // Notification::send($users, new RecursoAdicionado($inscricao));
+        
+        Notification::send($users, new RecursoAdicionado($inscricao));
 
-        // $recurso = Recurso::create([
-        //     'inscricao_id' => $inscricao->id,
-        //     'argumentacao' => $request->argumentacao,
-        //     'status' => 'Aberto',
-        // ]);
+        $recurso = Recurso::create([
+            'inscricao_id' => $inscricao->id,
+            'argumentacao' => $request->argumentacao,
+            'status' => 'Aberto',
+        ]);
 
-        // if($recurso) {
-        //     session()->flash('status', 'Recurso cadastrado com sucesso!');
-        //     session()->flash('alert', 'success');
+        if($recurso) {
+            session()->flash('status', 'Recurso cadastrado com sucesso!');
+            session()->flash('alert', 'success');
 
-        //     return redirect()->back();
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve um erro ao cadastrar recurso.');
-        //     session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao cadastrar recurso.');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
 
     }
