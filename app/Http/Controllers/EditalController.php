@@ -246,7 +246,7 @@ class EditalController extends Controller
      */
     public function classificar(Request $request, Edital $edital)
     {
-        $inscricoes = Inscricao::where('edital_id', $edital->id)->get();
+        $inscricoes = Inscricao::where('edital_id', $edital->id)->where('status', 'Avaliado')->get();
 
         foreach($inscricoes as $inscricao) {
             $countAvaliadores = $inscricao->avaliadores->count();
@@ -262,7 +262,7 @@ class EditalController extends Controller
 
         }
 
-        $inscricoes = Inscricao::where('edital_id', $edital->id)->orderby('nota', 'desc')->get();
+        $inscricoes = Inscricao::where('edital_id', $edital->id)->where('nota', '<>', null)->orderby('nota', 'desc')->get();
 
         return view('inscricao.classificacao', compact('edital', 'inscricoes'));
     }
@@ -277,7 +277,7 @@ class EditalController extends Controller
     public function listarClassificados(Request $request, Edital $edital)
     {
 
-        $inscricoes = Inscricao::where('edital_id', $edital->id)->orderby('nota', 'desc')->get();
+        $inscricoes = Inscricao::where('edital_id', $edital->id)->where('nota', '<>', null)->orderby('nota', 'desc')->get();
 
         return view('inscricao.classificacao', compact('edital', 'inscricoes'));
     }
