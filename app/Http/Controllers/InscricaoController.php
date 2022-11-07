@@ -624,4 +624,24 @@ class InscricaoController extends Controller
 
         return redirect()->back();
     }
+
+    
+    public function contemplar(Request $request, Inscricao $inscricao)
+    {
+        $inscricao->qtde_contemplacao = $request->contemplacao;
+        $inscricao->status = 'Contemplado';
+
+        if($inscricao->update()) {
+            session()->flash('status', 'Contemplado com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao contemplar!');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+    }
 }

@@ -79,6 +79,18 @@
                         </div>
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                             <div class="card-body">
+                            @if($inscricao->qtde_contemplacao)
+                                <div class="mb-2">
+                                    <div class="p-0">
+                                        <h1>
+                                        <i class="far fa-percent"></i> Porcentagem de Contemplação:
+                                            <small class="mt-0 mb-3 alert alert-success w-25 fw-700 font-size-16" >
+                                                {{ $inscricao->qtde_contemplacao }}
+                                            </small>
+                                        </h1>
+                                    </div>
+                                </div>
+                            @endif
                             <h1><i class="far fa-clipboard-list-check"></i> Nota Geral: {{ $inscricao->nota == null ? 00.00 : $inscricao->nota }}</h1>
                             <div class="mt-3">
                                 <h4>Questões Avaliativas</h4>

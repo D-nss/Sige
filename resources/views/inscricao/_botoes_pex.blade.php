@@ -30,4 +30,40 @@
             Recurso
         </a>
     @endif
+    @if( $inscricao->status == 'Avaliado' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_resultado', $inscricao->edital_id)) )
+    <button type="button" class="btn btn-success my-1 font-weight-bold" data-toggle="modal" data-target="#default-example-modal-sm-center"><i class="far fa-list-ol"></i> Contemplar</button>
+    <!-- Modal center Small -->
+    <div class="modal fade" id="default-example-modal-sm-center" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Contemplação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                    </button>
+                </div>
+                <form action='{{ url("inscricao/$inscricao->id/contemplar") }}' method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="panel-tag">
+                            <span class="font-weight-bold">Inscrição: {{ $inscricao->titulo }}</span>
+                            <br>
+                            <small>Coordenador: {{ $inscricao->user->name }}</small>
+                        </div>
+                        <label class="form-label" for="contemplacao">Porcentagem da contenplação</label>
+                        @if($inscricao->qtde_contemplacao)
+                            {{ $inscricao->qtde_contemplacao }}
+                        @else
+                            <input type="text" class="form-control" name="contemplacao" id="contemplacao" required>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success my-1 font-weight-bold">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
