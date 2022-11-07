@@ -15,7 +15,7 @@
         <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Parecer</a>
        
     @endif
-    @if( $inscricao->recurso->status == 'Aceito' && ( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id))) )
+    @if( isset($inscricao->recurso->status) && $inscricao->recurso->status == 'Aceito' && ( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id))) )
         
         <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Parecer</a>
        
