@@ -31,7 +31,7 @@
         </a>
     @endif
     @if( $user->hasAnyRole('edital-administrador') && $inscricao->status == 'Avaliado' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_resultado', $inscricao->edital_id)) )
-    <button type="button" class="btn btn-success my-1 font-weight-bold" data-toggle="modal" data-target="#default-example-modal-sm-center"><i class="far fa-list-ol"></i> Contemplar</button>
+    <button type="button" class="btn btn-success  btn-xs my-1 my-1" data-toggle="modal" data-target="#default-example-modal-sm-center"><i class="far fa-dollar-sign"></i> Contemplar</button>
     <!-- Modal center Small -->
     <div class="modal fade" id="default-example-modal-sm-center" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
