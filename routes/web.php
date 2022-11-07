@@ -182,6 +182,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/{inscricao}/indicar-analista/store', [AnalistaController::class, 'store']);
     Route::post('/inscricao/{inscricao}/indicar-analista/delete', [AnalistaController::class, 'destroy']);
     Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
+    Route::post('/inscricao/{inscricao}/contemplar', [InscricaoController::class, 'contemplar']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
 
     Route::post('/edital/{edital}/classificar', [EditalController::class, 'classificar']);

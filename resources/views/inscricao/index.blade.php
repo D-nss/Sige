@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cadastrar novo Processo Edital')
+@section('title', 'Gestão de Inscrições')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">

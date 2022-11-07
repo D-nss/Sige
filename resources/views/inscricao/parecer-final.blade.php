@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cadastrar novo Processo Edital')
+@section('title', 'Cadastrar Parecer Final')
 
 @section('content')
 <h1>Parecer Final de Proposta</h1>

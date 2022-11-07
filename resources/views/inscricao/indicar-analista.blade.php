@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Indicação de avaliador')
+@section('title', 'Indicação de Analista')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
