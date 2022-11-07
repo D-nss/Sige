@@ -293,7 +293,8 @@ class InscricaoController extends Controller
                 'Submetido' => 'warning',
                 'Avaliado' => 'success',
                 'Indeferido' => 'danger',
-                'Desclassificado' => 'danger'
+                'Desclassificado' => 'danger',
+                'Contemplado' => 'success'
             ];
 
             return view('inscricao.show-novo', compact(
@@ -542,7 +543,8 @@ class InscricaoController extends Controller
                 'Submetido' => 'warning',
                 'Avaliado' => 'success',
                 'Indeferido' => 'danger',
-                'Desclassificado' => 'danger'
+                'Desclassificado' => 'danger',
+                'Contemplado' => 'success'
             ];
 
             $cronograma = new Cronograma();
@@ -574,7 +576,8 @@ class InscricaoController extends Controller
             'Classificado' => 'success',
             'Avaliado' => 'primary',
             'Indeferido' => 'danger',
-            'Desclassificado' => 'danger'
+            'Desclassificado' => 'danger',
+            'Contemplado' => 'success'
         ];
 
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
