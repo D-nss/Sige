@@ -25,8 +25,11 @@
           <div id="panel-1" class="panel">
               <div class="panel-hdr">
                   <h2>
-                      1. Dados Iniciais <span class="fw-300"><i>Caracterização do Evento Cultural</i></span>
+                      1. Dados Iniciais <span class="fw-300"><i>Insira as informações nos campos correspondentes</i></span>
                   </h2>
+                  <div class="panel-toolbar">
+                    <h2><span class="badge badge-info">NOVA AÇÃO</span></h2>
+                </div>
               </div>
               <div class="panel-container show">
                   <div class="panel-content">
