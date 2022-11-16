@@ -131,10 +131,22 @@ class AcaoCulturalController extends Controller
         //$acaoCultural = AcaoCultural::where('id', 1)->first();
         $segmentos_culturais =  explode(',', $acaoCultural->segmento_cultural);
         $selecao_publico_alvo = explode(',', $acaoCultural->publico_alvo);
+        $datas_acao_cultural = AcaoCulturalDataLocal::where('acao_cultural_id', $acaoCultural->id)->orderBy('data')->get();
+        $unidades_envolvidas_acao_cultural = Unidade::select('unidades.*')
+                                                    ->join('acoes_culturais_unidades', 'acoes_culturais_unidades.unidade_id', '=', 'unidades.id')
+                                                    ->where('acoes_culturais_unidades.acao_cultural_id', $acaoCultural->id)
+                                                    ->get();
+        $colaboradores_acao_cultural = AcaoCulturalColaborador::where('acao_cultural_id', $acaoCultural->id)->orderBy('nome')->get();
+        $parceiros_acao_cultural = AcaoCulturalParceiro::where('acao_cultural_id', $acaoCultural->id)->orderBy('nome')->get();
+
         return view('acoes-culturais.show', [
             'acao_cultural' => $acaoCultural,
             'segmentos_culturais' => $segmentos_culturais,
-            'selecao_publico_alvo' => $selecao_publico_alvo
+            'selecao_publico_alvo' => $selecao_publico_alvo,
+            'datas_acao_cultural' => $datas_acao_cultural,
+            'unidades_envolvidas_acao_cultural' => $unidades_envolvidas_acao_cultural,
+            'colaboradores_acao_cultural' => $colaboradores_acao_cultural,
+            'parceiros_acao_cultural' => $parceiros_acao_cultural
         ]);
     }
 
