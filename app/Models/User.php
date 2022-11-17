@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Avaliador;
 use App\Models\Inscricao;
 use App\Models\Comissao;
+use App\Models\AvaliadorPorInscricao;
 
 class User extends Authenticatable
 {
@@ -64,9 +65,22 @@ class User extends Authenticatable
         return $this->hasMany(Inscricao::class);
     }
 
-    public function checaAvaliadorExistenteEmEdital()
+    public function checaAvaliadorExistenteEmEdital($edital_id, $user_id)
     {
-        return true;
+        $avaliadorExiste = AvaliadorPorInscricao::select('avaliadores_por_inscricao.*')
+                                                ->join('inscricoes', 'inscricoes.id', 'avaliadores_por_inscricao.inscricao_id')
+                                                ->join('editais', 'inscricoes.id', 'editais.id')
+                                                ->where('avaliadores_por_inscricao.user_id', $user_id)
+                                                ->where('editais.id', $edital_id)
+                                                ->first();
+
+        if($avaliadorExiste) {
+            return $avaliadorExiste;
+        }
+        else {
+            return false;
+        }
+        
     }
 
 }
