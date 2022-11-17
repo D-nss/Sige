@@ -75,7 +75,7 @@ class User extends Authenticatable
                                                 ->first();
 
         if($avaliadorExiste) {
-            return $avaliadorExiste;
+            return true;
         }
         else {
             return false;
