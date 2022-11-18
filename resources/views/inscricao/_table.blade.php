@@ -17,7 +17,7 @@
                 <td><h5 class="fw-400 text-secondary">{{ $inscricao->edital->titulo }}</h5></td>
                 <td><h3 class="fw-700 text-primary">{{ $inscricao->titulo }}</h3><small class="font-italic font-color-light">Linhas de Extensão: {{ isset($inscricao->linha_extensao->nome) ? $inscricao->linha_extensao->nome : '' }}</small></td>
                 <td><h6 class="text-secondary">{{ $inscricao->tipo}}</h6></td>
-                <td><h6 class="text-secondary">{{ isset($inscricao->user->name) ? $inscricao->user->name : '' }}</h6><small class="font-italic font-color-light">Unidade: {{ $inscricao->unidade->sigla}}</small></td>
+                <td><h6 class="text-secondary">{{ isset($inscricao->user->name) ? $inscricao->user->name : '' }}</h6><small class="font-italic font-color-light">Unidade: {{ isset($inscricao->unidade->sigla) ? $inscricao->unidade->sigla : ''}}</small></td>
                 <td><span class="badge badge-{{ $status[$inscricao->status] }} badge-pill">{{ $inscricao->status }}</span></td>
                 <td>
 
