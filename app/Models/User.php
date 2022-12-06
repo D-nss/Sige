@@ -69,7 +69,7 @@ class User extends Authenticatable
     {
         $avaliadorExiste = AvaliadorPorInscricao::select('avaliadores_por_inscricao.*')
                                                 ->join('inscricoes', 'inscricoes.id', 'avaliadores_por_inscricao.inscricao_id')
-                                                ->join('editais', 'inscricoes.id', 'editais.id')
+                                                ->join('editais', 'inscricoes.edital_id', 'editais.id')
                                                 ->where('avaliadores_por_inscricao.user_id', $user_id)
                                                 ->where('editais.id', $edital_id)
                                                 ->first();
