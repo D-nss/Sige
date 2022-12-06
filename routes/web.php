@@ -30,6 +30,8 @@ use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
 use App\Http\Controllers\RecursoInscricaoController;
 use App\Http\Controllers\AcaoCulturalController;
+use App\Http\Controllers\EventoInscritosController;
+use App\Http\Controllers\EventoController;
 
 /*
 |--------------------------------------------------------------------------
