@@ -250,6 +250,81 @@ Versão: 4.5.1
         <script>
             $(document).ready(function()
             {
+                $("#online").change(function(){
+                    if ( $('#online').is(':checked') ) {
+                        $("#hibrido").prop('disabled', true);
+                        $("#hibrido").prop('checked', false);
+                    }
+                    else {
+                        $("#hibrido").removeAttr('disabled')
+                    }
+                });
+
+                $("#hibrido").change(function(){
+                    if ( $('#hibrido').is(':checked') ) {
+                        $("#online").prop('disabled', true);
+                        $("#online").prop('checked');
+                    }
+                    else {
+                        $("#online").removeAttr('disabled', false);
+                    }
+                });
+
+                $("#inscricao").change(function(){
+                    if ( $('#inscricao').is(':checked') ) {
+                        $("#evento_inscricao").removeClass('d-none')
+                    }
+                    else {
+                        $("#evento_inscricao").addClass('d-none');
+                        $("#inscricao_inicio").val('');
+                        $("#inscricao_fim").val('');
+                        $("#vagas").val('');
+                        $("#ck_documento").prop('checked', false);
+                        $("#ck_sexo").prop('checked', false);
+                        $("#ck_identidade_genero").prop('checked', false);
+                        $("#ck_nascimento").prop('checked', false);
+                        $("#ck_instituicao").prop('checked', false);
+                        $("#ck_vinculo").prop('checked', false);
+                        $("#ck_area").prop('checked', false);
+                        $("#ck_funcao").prop('checked', false);
+                        $("#ck_pais").prop('checked', false);
+                        $("#ck_cidade_estado").prop('checked', false);
+
+                    }
+                });
+
+                $("#certificado").change(function(){
+                    if ( $('#certificado').is(':checked') ) {
+                        $("#evento_certificado").removeClass('d-none')
+                    }
+                    else {
+                        $("#evento_certificado").addClass('d-none');
+                        $("#doc_certificado").prop('checked', false);
+                        $("#enviar_modelo").prop('checked', false);
+                        $("#carregar_modelo").addClass('d-none');
+                        $(".box-body").empty();
+                        $(".preview-zone").addClass('hidden');
+                        $("#carga_horaria").val('');
+                    }
+                });
+
+                $("#enviar_modelo").change(function(){
+                    if ( $('#enviar_modelo').is(':checked') ) {
+                        $("#carregar_modelo").removeClass('d-none')
+                    }
+                    else {
+                        $("#carregar_modelo").addClass('d-none')
+                    }
+                });
+
+                if ( $( "#checked-modal" ).length ) { 
+                    $('#checked-modal').modal('show');
+
+                    setInterval(() => {
+                        $('#checked-modal').modal('hide');
+                    }, 2500);
+                }
+
                 $('#dt-usuarios').dataTable(
                 {
                     language: {

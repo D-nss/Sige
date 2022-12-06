@@ -36,6 +36,14 @@ function readFile(input, id) {
     e.wrap('<form>').closest('form').get(0).reset();
     e.unwrap();
   }
+
+  $("#arquivo").change(function() {
+    readFile(this, 'box-body');
+  });
+
+  $("#modelo").change(function() {
+    readFile(this, 'box-body');
+  });
    
   $("#comprovante_arquivo").change(function() {
     readFile(this, 'comprovante-box-body');
