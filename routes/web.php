@@ -107,9 +107,9 @@ Route::get('/acoes-culturais/{acao_cultural}/parceiros', [AcaoCulturalController
 Route::post('/acoes-culturais/parceiro', [AcaoCulturalController::class, 'insereParceiro'])->name('acao_cultural.parceiro.inserir');
 Route::get('/acoes-culturais/unidades/{unidade}', [AcaoCulturalController::class, 'acoesPorUnidade'])->name('acao_cultural.unidades.index');
 
-Route::get('evento/{evento}/inscrito/novo', [EventoInscritosController::class, 'create']);
-Route::post('evento/{evento}/inscrito', [EventoInscritosController::class, 'store']);
-Route::get('inscritos/confirmacao/{codigo}', [EventoInscritosController::class, 'confirmar']);
+// Route::get('evento/{evento}/inscrito/novo', [EventoInscritosController::class, 'create']);
+// Route::post('evento/{evento}/inscrito', [EventoInscritosController::class, 'store']);
+// Route::get('inscritos/confirmacao/{codigo}', [EventoInscritosController::class, 'confirmar']);
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
