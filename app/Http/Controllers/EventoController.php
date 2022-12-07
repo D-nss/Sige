@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Evento;
 use App\Models\Certificado;
@@ -14,7 +16,7 @@ class EventoController extends Controller
 {
     public function index()
     {
-        $user = User::where('email', config('app.user'))->first();
+        $user = User::where('email', Auth::user()->id)->first();
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
                 $grupo = $role;
