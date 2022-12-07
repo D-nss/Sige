@@ -249,6 +249,9 @@ Versão: 4.5.1
         <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
         <script>
+
+            CKEDITOR.replace( 'detalhes' );
+
             $(document).ready(function()
             {
                 $("#online").change(function(){
