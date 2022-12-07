@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover" id="dt-eventos-abertos" style="width: 100%">
+<table class="table table-bordered table-hover" id="dt-eventos-cancelados" style="width: 100%">
     <thead>
         <tr>
             <th>Período</th>

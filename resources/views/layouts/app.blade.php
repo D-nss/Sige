@@ -246,6 +246,7 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/statistics/sparkline/sparkline.bundle.js')}}"></script>
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/easypiechart/easypiechart.bundle.js')}}"></script>
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/flot/flot.bundle.js')}}"></script>
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
         <script>
             $(document).ready(function()
@@ -346,6 +347,30 @@ Versão: 4.5.1
                     var theadColor = $(this).attr("data-bg");
                     console.log(theadColor);
                     $('#dt-usuarios').removeClassPrefix('bg-').addClass(theadColor);
+                });
+
+                $('#dt-eventos-abertos').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-eventos-encerrados').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-eventos-cancelados').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
                 });
 
                 $('#dt-unidades').dataTable(
