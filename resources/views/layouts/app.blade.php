@@ -246,11 +246,11 @@ Versão: 4.5.1
         <script src="{{asset('smartadmin-4.5.1/js/statistics/sparkline/sparkline.bundle.js')}}"></script>
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/easypiechart/easypiechart.bundle.js')}}"></script>
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/flot/flot.bundle.js')}}"></script>
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <!-- <script src="{{asset('smartadmin-4.5.1/ckeditor/ckeditor.js')}}"></script> -->
 
         <script>
 
-            CKEDITOR.replace( 'detalhes' );
+            // CKEDITOR.replace( 'detalhes' );
 
             $(document).ready(function()
             {
