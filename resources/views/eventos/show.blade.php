@@ -173,7 +173,7 @@
                                                 <small class="mt-0 mb-3 d-flex flex-column">
                                                     <div class="d-flex flex-column">
                                                         <span class="fw-400">Modelo: </span>
-                                                        <img src="{{ asset('storage/'.$evento->certificado->arquivo) }}" alt="{{ $evento->certificado->titulo }}" class="img-fluid img-thumbnail" style="max-width: 200px;">
+                                                        <img src="{{ asset('storage/'.$evento->modelo_certificado->arquivo) }}" alt="{{ $evento->modelo_certificado->titulo }}" class="img-fluid img-thumbnail" style="max-width: 200px;">
                                                     </div>
                                                     <div>
                                                         <span class="fw-400">Carga Horária: </span>
