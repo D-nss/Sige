@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Certificado;
+use App\Models\ModeloCertificado;
 use App\Models\User;
 
 class Evento extends Model
@@ -50,6 +50,6 @@ class Evento extends Model
 
     public function modelo_certificado()
     {
-        return $this->belongsTo(Certificado::class);
+        return $this->belongsTo(ModeloCertificado::class);
     }
 }
