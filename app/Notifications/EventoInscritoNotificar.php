@@ -55,9 +55,8 @@ class EventoInscritoNotificar extends Notification
                     ->line('Caso não consiga clicar no link "Confirmar Inscrição", copie e cole no seu navegador o link abaixo: ')
                     ->line($linkSim)
                     ->line('Caso queira cancelar a sua inscrição clique neste link:')
-                    ->action('Cancelar Inscrição', $linkNao)
-                    ->line('Caso não consiga clicar no link "Cancelar Inscrição", copie e cole no seu navegador o link abaixo:')
-                    ->line($linkNao);
+                    ->line($linkNao)
+                    ->line('Caso não consiga clicar no link, copie e cole no seu navegador.');
     }
 
     /**
