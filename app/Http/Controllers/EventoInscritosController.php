@@ -76,7 +76,7 @@ class EventoInscritosController extends Controller
     public function confirmar($codigo)
     {
         $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
-        $data = explode('/', $codigo);
+        $data = explode('/', $decrypt);
         echo json_encode($data);
         // $inscrito = EventoInscrito::find($data[1]);
         // if($inscrito && $data[0] == 'sim')
