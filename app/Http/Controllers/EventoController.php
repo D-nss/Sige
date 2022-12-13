@@ -17,6 +17,7 @@ class EventoController extends Controller
     public function index()
     {
         $grupo = '';
+        
         $user = User::where('email', Auth::user()->id)->first();
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
