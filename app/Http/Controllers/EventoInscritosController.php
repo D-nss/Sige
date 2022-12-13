@@ -73,7 +73,7 @@ class EventoInscritosController extends Controller
         }
     }
 
-    public function confirmar($codigo, $id)
+    public function confirmar($codigo)
     {
         $data = explode('/', $codigo);
 
