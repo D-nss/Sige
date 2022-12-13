@@ -92,14 +92,7 @@ class EventoInscritosController extends Controller
                 return redirect()->back();
             }
         }
-        else {
-            session()->flash('status', 'Desculpe! Não foi possível confirmação inscrição.');
-            session()->flash('alert', 'danger');
-
-            return redirect()->back();
-        }
-
-        if($inscrito && $data[0] == 'nao')
+        elseif($inscrito && $data[0] == 'nao')
         {
             $inscrito->confirmacao = 2;
             if($inscrito->update()) {
