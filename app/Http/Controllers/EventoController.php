@@ -17,7 +17,7 @@ class EventoController extends Controller
     public function index()
     {
         $grupo = '';
-        
+
         $user = User::where('email', Auth::user()->id)->first();
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
@@ -49,7 +49,7 @@ class EventoController extends Controller
 
         $dadosEvento = $request->except(['_token']);
 
-        $user = User::where('email', config('app.user'))->first();
+        $user = User::where('email', Auth::user()->id)->first();
         //$certificado_id = 1;
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
