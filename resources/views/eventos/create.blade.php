@@ -40,7 +40,7 @@
                                     <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                         Novo Evento
                                     </h4>
-                                    <span class="ml-auto">
+                                    <span class="ml-auto disable">
                                         <span class="collapsed-reveal">
                                             <i class="fal fa-minus-circle text-danger"></i>
                                         </span>

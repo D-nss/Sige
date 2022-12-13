@@ -48,7 +48,7 @@
                                             Novo Evento
                                         @endif
                                     </h4>
-                                    <span class="ml-auto">
+                                    <span class="ml-auto disable">
                                         <span class="collapsed-reveal">
                                             <i class="fal fa-minus-circle text-danger"></i>
                                         </span>
