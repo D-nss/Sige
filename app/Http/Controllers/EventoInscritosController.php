@@ -77,27 +77,27 @@ class EventoInscritosController extends Controller
     {
         $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
         $data = explode('/', $decrypt);
-        echo json_encode($data);
-        // $inscrito = EventoInscrito::find($data[1]);
-        // if($inscrito && $data[0] == 'sim')
-        // {
-        //     $inscrito->confirmacao = 1;
-        //     if($inscrito->update()) {
-        //         return view('eventos.inscritos.confirmacao', compact('inscrito'));
-        //     }
-        //     else {
-        //         session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
-        //         session()->flash('alert', 'danger');
+        
+        $inscrito = EventoInscrito::find($data[1]);
+        if($inscrito && $data[0] == 'sim')
+        {
+            $inscrito->confirmacao = 1;
+            if($inscrito->update()) {
+                return view('eventos.inscritos.confirmacao', compact('inscrito'));
+            }
+            else {
+                session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
+                session()->flash('alert', 'danger');
 
-        //         return redirect()->back();
-        //     }
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Não foi possível confirmação inscrição.');
-        //     session()->flash('alert', 'danger');
+                return redirect()->back();
+            }
+        }
+        else {
+            session()->flash('status', 'Desculpe! Não foi possível confirmação inscrição.');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
     }
 
     public function cancelar($codigo)
