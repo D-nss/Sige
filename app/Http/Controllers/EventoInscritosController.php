@@ -79,7 +79,7 @@ class EventoInscritosController extends Controller
         $data = explode('/', $decrypt);
         
         $inscrito = EventoInscrito::find($data[1]);
-        if($inscrito && $data[0] == 'sim')
+        if($inscrito && $data[0] == 'sim' && $inscrito->confirmacao == 0)
         {
             $inscrito->confirmacao = 1;
             if($inscrito->update()) {

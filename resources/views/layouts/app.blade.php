@@ -324,7 +324,7 @@ Versão: 4.5.1
 
                     setInterval(() => {
                         $('#checked-modal').modal('hide');
-                    }, 2500);
+                    }, @if(isset($inscrito) && $inscrito->confirmacao == 2) 3000 @else 2500 @endif);
                 }
 
                 $('#dt-eventos-abertos').dataTable(
