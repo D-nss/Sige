@@ -102,7 +102,8 @@ class EventoInscritosController extends Controller
 
     public function cancelar($codigo)
     {
-        $data = explode('/', $codigo);
+        $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
+        $data = explode('/', $decrypt);
 
         $inscrito = EventoInscrito::find($data[1]);
         if($inscrito && $data[0] == 'nao')
