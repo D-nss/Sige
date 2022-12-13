@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('certificados', function (Blueprint $table) {
+        Schema::create('modelos_certificados', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
             $table->string('arquivo');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificados');
+        Schema::dropIfExists('modelos_certificados');
     }
 };

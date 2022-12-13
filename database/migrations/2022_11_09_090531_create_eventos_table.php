@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use App\Models\Certificado;
+use App\Models\ModeloCertificado;
 use App\Models\User;
 
 return new class extends Migration
@@ -43,7 +43,7 @@ return new class extends Migration
             $table->boolean('ck_arquivo')->nullable();
             $table->float('carga_horaria', 10, 2)->nullable();
             $table->boolean('doc_certificado')->nullable();
-            $table->foreignIdFor(Certificado::class);
+            $table->foreignIdFor(ModeloCertificado::class);
             $table->foreignIdFor(User::class);
             $table->string('grupo_usuario');
             $table->string('status');

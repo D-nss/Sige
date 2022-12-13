@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Evento;
-use App\Models\Certificado;
+use App\Models\ModeloCertificado;
 use App\Models\User;
 use App\Models\UploadFile;
 
@@ -41,7 +41,7 @@ class EventoController extends Controller
     {
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
-            $certificado = new Certificado();
+            $certificado = new ModeloCertificado();
             $certificado->titulo = 'Certificado-'.uniqid();
             $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
             $certificado->save();
@@ -58,13 +58,23 @@ class EventoController extends Controller
         }
         $dadosEvento['user_id'] = $user->id;
         if(!isset($certificado->id)) {
-            $certificadoPadrao = Certificado::select('id')->where('padrao', 1)->first();
-            $dadosEvento['certificado_id'] = $certificadoPadrao->id;
+            $certificadoPadrao = ModeloCertificado::select('id')->where('padrao', 1)->first();
+            $dadosEvento['modelo_certificado_id'] = $certificadoPadrao->id;
         }
         else {
-            $dadosEvento['certificado_id'] = $certificado->id;
+            $dadosEvento['modelo_certificado_id'] = $certificado->id;
         }
-        $dadosEvento['grupo_usuario'] = $grupo;
+
+        if(isset($grupo)) {
+            $dadosEvento['grupo_usuario'] = $grupo;
+        }
+        else {
+            session()->flash('status', 'Desculpe! Você não está em um grupo que permita criar um novo evento. Solicite a inclusão ao suporte.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
+        }
+        
         $dadosEvento['status'] = 'Aberto';
 
         $evento = Evento::create($dadosEvento);
@@ -97,7 +107,7 @@ class EventoController extends Controller
     {
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
-            $certificado = Certificado::find($evento->certificado_id);
+            $certificado = ModeloCertificado::find($evento->certificado_id);
             $certificadoAntigo = $certificado->arquivo;
             Storage::delete($certificadoAntigo);
             $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);

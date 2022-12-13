@@ -39,7 +39,7 @@ class Evento extends Model
         'doc_certificado',
         'grupo_usuario',
         'user_id',
-        'certificado_id',
+        'modelo_certificado_id',
         'status'
     ];
 
@@ -48,7 +48,7 @@ class Evento extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function certificado()
+    public function modelo_certificado()
     {
         return $this->belongsTo(Certificado::class);
     }
