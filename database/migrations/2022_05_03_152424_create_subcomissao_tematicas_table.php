@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subcomissao_tematicas');
+        Schema::dropIfExists('subcomissao_tematica');
     }
 };

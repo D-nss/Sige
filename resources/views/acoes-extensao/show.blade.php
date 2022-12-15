@@ -33,7 +33,7 @@
 <div class="subheader">
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-file'></i> {{$acao_extensao->titulo}}
-        @switch($acao_extensao->situacao)
+        @switch($acao_extensao->status)
                                         @case(1)
                                         <span class="badge badge-danger">Desativado</span>
                                             @break
@@ -53,594 +53,520 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-6 col-xl-3 order-lg-1 order-xl-1">
-        <!-- profile summary -->
-        <div class="card mb-g rounded-top">
-            <div class="row no-gutters row-grid">
-                <div class="col-12">
-                    <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                        <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="rounded-circle shadow-2 img-thumbnail" alt="{{$acao_extensao->nome_coordenador}}">
-                        <h5 class="mb-0 fw-700 text-center mt-3">
-                            {{$acao_extensao->nome_coordenador}}
-                            <small class="text-muted mb-0">Coordenador(a)</small>
-                        </h5>
-                        <!--div class="mt-4 text-center demo">
-                            <a href="javascript:void(0);" class="fs-xl" style="color:#3b5998">
-                                <img src="{{asset('smartadmin-4.5.1/img/lattes_logo.png')}}" alt="">
-                            </a>
-                        </div-->
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-3 text-center">
-                        @switch($acao_extensao->tipo_coordenador)
-                                @case(1)
-                                    Docente
-                                    @break
-                                @case(2)
-                                    Discente
-                                    @break
-                                @case(3)
-                                    Técnico Administrativo
-                                    @break
-                                @case(4)
-                                    Outro
-                                    @break
-                                @default
-                            @endswitch
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-g rounded-top">
-            <div class="row no-gutters row-grid">
-                <div class="col-12">
-                    <div class="d-flex flex-column align-items-center justify-content-center p-4">
+    <div class="col-xl-12">
+      <div id="panel-3" class="panel">
+          <div class="panel-container show">
+              <div class="panel-content">
+
+                    <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
                         <div class='icon-stack display-3 flex-shrink-0'>
-                            <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                            <i class="fal fa-landmark icon-stack-1x opacity-100 color-warning-500"></i>
-                        </div>
-                        <h5 class="mb-0 fw-700 text-center mt-3">
-                            {{$acao_extensao->unidade->nome}}
-                            <small class="text-muted mb-0">Unidade Responsável</small>
-                        </h5>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-3 text-center">
-                        {{$acao_extensao->unidade->sigla}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- photos
-        <div class="card mb-g">
-            <div class="row row-grid no-gutters">
-                <div class="col-12">
-                    <div class="p-3">
-                        <h2 class="mb-0 fs-xl">
-                            Photos
-                        </h2>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/1.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/2.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/3.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/4.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/5.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/6.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/7.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/8.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <a href="javascript:void(0);" class="text-center px-3 py-4 d-flex position-relative height-10 border">
-                        <span class="position-absolute pos-top pos-left pos-right pos-bottom" style="background-image: url('img/demo/gallery/thumb/9.jpg');background-size: cover;"></span>
-                    </a>
-                </div>
-                <div class="col-12">
-                    <div class="p-3 text-center">
-                        <a href="javascript:void(0);" class="btn-link font-weight-bold">View all</a>
-                    </div>
-                </div>
-            </div>
-        </div -->
-
-        <div class="card mb-g">
-            <div class="row row-grid no-gutters">
-                <div class="col-12">
-                    <div class="card-header p-3 text-white bg-trans-gradient py-2 pr-2 d-flex align-items-center flex-wrap col-12">
-                        <h2 class="mb-0 fs-xl">
-                            <i class="fal fa-users"></i>&nbsp
-                            Equipe
-                        </h2>
-                    </div>
-                </div>
-                @if($acao_extensao->equipe != "")
-                    @foreach (explode(',',$acao_extensao->equipe) as $colaborador)
-                        <div class="col-4">
-                            <a href="javascript:void(0);" class="text-center p-3 d-flex flex-column hover-highlight" data-toggle="tooltip" data-placement="auto" title="" data-original-title="{{$colaborador}}">
-                                <span class="profile-image rounded-circle d-block m-auto" style="background-image:url('{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}'); background-size: cover;"></span>
-                                <span class="d-block text-truncate text-muted fs-xs mt-1">{{$colaborador}}</span>
-                            </a>
-                        </div>
-                    @endforeach
-                @endif
-                <div class="col-12">
-                </div>
-                @if(isset($acao_extensao->qtd_graduacao))
-                <div class="col-6">
-                    <div class="text-center py-3">
-                        <h5 class="mb-0 fw-700">
-                            {{$acao_extensao->qtd_graduacao}}
-                            <small class="text-muted mb-0">Graduação</small>
-                        </h5>
-                    </div>
-                </div>
-                @endif
-                @if(isset($acao_extensao->qtd_pos_graduacao))
-                <div class="col-6">
-                    <div class="text-center py-3">
-                        <h5 class="mb-0 fw-700">
-                            {{$acao_extensao->qtd_pos_graduacao}}
-                            <small class="text-muted mb-0">Pós-Graduação</small>
-                        </h5>
-                    </div>
-                </div>
-                @endif
-
-                <div class="col-12">
-                    <div class="text-center p-2">
-                        <h5 class="mb-0 fw-700">
-                            Envolvimento com a Comunidade:
-                            <small class="text-muted mb-0">{{$acao_extensao->grau_envolvimento_equipe->descricao}}</small>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12 col-xl-6 order-lg-3 order-xl-2">
-        <!-- div class="card border mb-g">
-            <div class="card-body pl-4 pt-4 pr-4 pb-0">
-                <div class="d-flex flex-column">
-                    <div class="border-0 flex-1 position-relative shadow-top">
-                        <div class="pt-2 pb-1 pr-0 pl-0 rounded-0 position-relative" tabindex="-1">
-                            <span class="profile-image rounded-circle d-block position-absolute" style="background-image:url('img/demo/avatars/avatar-admin.png'); background-size: cover;"></span>
-                            <div class="pl-5 ml-5">
-                                <textarea class="form-control border-0 p-0 fs-xl bg-transparent" rows="4" placeholder="What's on your mind Codex?..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="height-8 d-flex flex-row align-items-center flex-wrap flex-shrink-0">
-                        <a href="javascript:void(0);" class="btn btn-icon fs-xl width-1 mr-1" data-toggle="tooltip" data-original-title="More options" data-placement="top">
-                            <i class="fal fa-ellipsis-v-alt color-fusion-300"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="btn btn-icon fs-xl mr-1" data-toggle="tooltip" data-original-title="Attach files" data-placement="top">
-                            <i class="fal fa-paperclip color-fusion-300"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="btn btn-icon fs-xl mr-1" data-toggle="tooltip" data-original-title="Insert photo" data-placement="top">
-                            <i class="fal fa-camera color-fusion-300"></i>
-                        </a>
-                        <button class="btn btn-info shadow-0 ml-auto">Post</button>
-                    </div>
-                </div>
-            </div>
-        </div -->
-        <!-- post comment -->
-        <!--div class="card mb-2">
-            <div class="card-body">
-                <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                    <div class='icon-stack display-3 flex-shrink-0'-->
-
-        <div class="card mb-g">
-            <div class="card-body pb-0 px-4">
-                <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
-                    <div class='icon-stack display-3 flex-shrink-0'>
-                        @switch($acao_extensao->tipo)
-                                @case(1)
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                        <i class="fal fa-inbox icon-stack-1x opacity-100 color-primary-500"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                    <h5 class="mb-0 flex-1 text-dark fw-500">
-                                        Programa
-                                    @break
-                                @case(2)
-                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                            <i class="fal fa-inbox icon-stack-1x opacity-100 color-primary-500"></i>
+                            @switch($acao_extensao->modalidade)
+                                    @case(1)
+                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
+                                            <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
                                         </div>
                                         <div class="ml-3">
                                         <h5 class="mb-0 flex-1 text-dark fw-500">
-                                    Projeto
-                                    @break
-                                @case(3)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                        <i class="fal fa-inbox icon-stack-1x opacity-100 color-primary-500"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                    <h5 class="mb-0 flex-1 text-dark fw-500">
-                                    Curso
-                                    @break
-                                @case(4)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                        <i class="fal fa-newspaper icon-stack-1x opacity-100 color-primary-500"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                    <h5 class="mb-0 flex-1 text-dark fw-500">
-                                    Evento
-                                    @break
-                                @case(5)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                        <i class="fal fa-inbox icon-stack-1x opacity-100 color-primary-500"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                    <h5 class="mb-0 flex-1 text-dark fw-500">
-                                    Prestação de Serviços
-                                    @break
-                                @default
-                        @endswitch
-                        <small class="m-0 l-h-n">
-                            {{$acao_extensao->linha_extensao->nome}}
-                        </small>
-                    </h5>
-                    <div>
-                    @if($acao_extensao->palavras_chaves != "")
-                        @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
-                            <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-info">{{$palavra_chave}}</span></a>
-                        @endforeach
-                    @endif
-                    </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-0">
-                        <h5>
-                            Descrição da Ação
-                            <small class="mt-0 mb-3 text-muted">
-                                {{$acao_extensao->descricao}}
+                                            Programa
+                                        @break
+                                    @case(2)
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
+                                                <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                            <h5 class="mb-0 flex-1 text-dark fw-500">
+                                        Projeto
+                                        @break
+                                    @case(3)
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
+                                            <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                        <h5 class="mb-0 flex-1 text-dark fw-500">
+                                        Curso
+                                        @break
+                                    @case(4)
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
+                                            <i class="fal fa-newspaper icon-stack-1x opacity-100 color-success-500"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                        <h5 class="mb-0 flex-1 text-dark fw-500">
+                                        Evento
+                                        @break
+                                    @case(5)
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
+                                            <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                        <h5 class="mb-0 flex-1 text-dark fw-500">
+                                        Prestação de Serviços
+                                        @break
+                                    @default
+                            @endswitch
+                            <small class="m-0 l-h-n">
+                                <b>Linha:</b> {{$acao_extensao->linha_extensao->nome}}
                             </small>
                         </h5>
+                        <div>
+                            @foreach ($acao_extensao->areas_tematicas as $area_tematica)
+                                <a href="/acoes-extensao/areas/{{$area_tematica->id}}"><span class="badge badge-success">{{$area_tematica->nome}}</span></a>
+                            @endforeach
+                        </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-0">
-                        <h5>
-                            Público Alvo
-                            <small class="mt-0 mb-3 text-muted">
-                                {{$acao_extensao->publico_alvo}}
-                            </small>
-                        </h5>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-0">
-                        <h5>
-                            Link Externo
-                            <small class="mt-0 mb-3 text-muted">
-                                <a href="{{$acao_extensao->url}}" target="_blank" >{{$acao_extensao->url}}</a>
-                            </small>
-                        </h5>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-0">
-                        <h5>
-                            Impactos para a Universidade
-                            <small class="mt-0 mb-3 text-muted">
-                                {{$acao_extensao->impactos_universidade}}
-                            </small>
-                        </h5>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-0">
-                        <h5>
-                            Impactos para a Sociedade
-                            <small class="mt-0 mb-3 text-muted">
-                                {{$acao_extensao->impactos_sociedade}}
-                            </small>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-g">
-            <div class="card-body pb-0 px-4">
-                <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
-                    <div class='icon-stack display-3 flex-shrink-0'>
-                        <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                        <i class="fal fa-map-marked-alt icon-stack-1x opacity-100 color-primary-500"></i>
-                    </div>
-                    <div class="ml-3">
-                    <h5 class="mb-0 flex-1 text-dark fw-500">
-                        Cidade e Georreferenciação
-                        <small class="m-0 l-h-n">
-                            Localização dos pontos onde esta ação está sendo executada
-                        </small>
-                    </h5>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="p-0">
-
+                    <div class="col-12">
+                        <div class="p-0">
                             <h5>
-                                <a href="/acoes-extensao/cidades/{{$acao_extensao->municipio->id}}">
-                                    <i class="fal fa-map-marker-alt"></i> {{$acao_extensao->municipio->nome_municipio}} - {{$acao_extensao->municipio->estado}}
-                                </a>
-                                <small>
-                                    Cidade - Estado
+                                Objetivos de Desenvolvimento Sustentável:
+                                <small class="mt-0 mb-3 text-muted">
+                                    @foreach ($acao_extensao->objetivos_desenvolvimento_sustentavel as $ods)
+                                        <a href="#"><span class="badge badge-danger">{{$ods->nome}}</span></a>
+                                    @endforeach
                                 </small>
                             </h5>
-
-                    </div>
-                </div>
-                <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
-                    <x-maps-leaflet
-                        :centerPoint="['lat' => -22.195240, 'long' => -48.433408]"
-                        :zoomLevel="7"
-                        :markers="[['lat' => $acao_extensao->municipio->latitude, 'long' => $acao_extensao->municipio->longitude, 'info' => 'teste', 'icon' => 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=home|1ABB9C|000000'], ['lat' => '-22.818177', 'long' => '-47.064098', 'info' => 'UNICAMP'] ]">
-                    </x-maps-leaflet>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
-        <!-- add : -->
-        @foreach ($acao_extensao->areas_tematicas as $area_tematica)
-        <div class="card mb-2">
-            @switch($area_tematica->id)
-                @case(1) <!-- Comunicação -->
-                    <div class="card bg-danger-900 text-white text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
-                                <i class="fal fa-megaphone icon-stack-1x opacity-100 white"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-
-                    @break
-                @case(2) <!-- Cultura -->
-                    <div class="card bg-danger-50 text-white text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center color-fusion-900">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-fusion-900"></i>
-                                <i class="fal fa-theater-masks icon-stack-1x opacity-100 color-fusion-900"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-
-                    @break
-                @case(3) <!-- Direitos Humanos... -->
-                    <div class="card bg-warning-50 color-fusion-900 text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center color-fusion-900">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-fusion-900"></i>
-                                <i class="fal fa-balance-scale icon-stack-1x opacity-100 color-fusion-900"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-
-                    @break
-
-                @case(4)  <!-- Educação -->
-                    <div class="card bg-warning-900 text-white text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
-                                <i class="fal fa-graduation-cap icon-stack-1x opacity-100 white"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-                    @break
-                @case(5)  <!-- Meio Ambiente -->
-                    <div class="card bg-success text-white text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
-                                <i class="fal fa-leaf icon-stack-1x opacity-100 white"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-                    @break
-                @case(6)  <!-- Saúde -->
-                    <div class="card bg-light color-fusion-900 text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center color-fusion-900">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-fusion-900"></i>
-                                <i class="fal fa-heartbeat icon-stack-1x opacity-100 color-fusion-900"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-                    @break
-                @case(7)  <!-- Tecnologia... -->
-                    <div class="card bg-primary text-white text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100"></i>
-                                <i class="fal fa-cubes icon-stack-1x opacity-100"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-                    @break
-                @case(8)  <!-- Trabalho -->
-                    <div class="card bg-fusion-900 text-white text-center p-3">
-                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
-                            <div class='icon-stack display-3 flex-shrink-0'>
-                                <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
-                                <i class="fal fa-briefcase icon-stack-1x opacity-100 white"></i>
-                            </div>
-                            <div class="ml-3">
-                                <strong>
-                                    {{$area_tematica->nome}}
-                                </strong>
-                                <br>
-                                Área Temática
-                            </div>
-                        </a>
-                    </div>
-                    @break
-
-                @default
-                <div class="card bg-warning-900 text-white text-center p-3">
-                    <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="d-flex flex-row align-items-center text-white">
-                        <div class='icon-stack display-3 flex-shrink-0'>
-                            <i class="fal fa-circle icon-stack-3x opacity-100 white"></i>
-                            <i class="fal fa-book-reader icon-stack-1x opacity-100 white"></i>
                         </div>
-                        <div class="ml-3">
-                            <strong>
-                                {{$area_tematica->nome}}
-                            </strong>
-                            <br>
-                            Área Temática
-                        </div>
-                    </a>
-                </div>
-
-
-            @endswitch
-        </div>
-        @endforeach
-
-        <div class="card mb-2">
-            <div class="card-body">
-                <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                    <div class='icon-stack display-3 flex-shrink-0'>
-                        <i class="fal fa-circle icon-stack-3x opacity-100 "></i>
-                        <i class="fal fa-calendar-alt icon-stack-1x opacity-100 "></i>
                     </div>
-                    <div class="ml-3">
-                        <strong>
-                            Data inicio:
-                        </strong>
-                        {{$acao_extensao->data_inicio->format('d/m/Y')}}
-                        @if(isset($acao_extensao->data_fim))
-                        <br>
-                        <strong>
-                            Data fim:
-                        </strong>
-                        {{$acao_extensao->data_fim->format('d/m/Y')}}
-                        @endif
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        @if(isset($acao_extensao->parceiro))
-        <div class="card mb-g">
-            <div class="card-header bg-trans-gradient py-2 pr-2 d-flex align-items-center flex-wrap col-12">
-                <div class="p-1 text-white">
-                    <h2 class="mb-0 fs-xl">
-                        <i class="fal fa-user-friends"></i>&nbsp
-                        Parceiro(s)
-                    </h2>
-                </div>
-            </div>
-            <div class="row row-grid no-gutters">
-                @foreach (explode(',',$acao_extensao->parceiro) as $parceiro)
                     <div class="col-12">
-                        <a href="javascript:void(0);" class="text-center p-2 d-flex flex-column">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">{{$parceiro}}</span>
-                        </a>
+                        <div class="p-0">
+                            <h5>
+                              Descrição:
+                              <small class="mt-0 mb-3 text-muted">
+                                  {{$acao_extensao->descricao}}
+                              </small>
+                            </h5>
+                        </div>
                     </div>
-                @endforeach
-                <div class="col-12">
-                    <div class="text-center py-3">
-                        <h5 class="mb-0 fw-700">
-                            Tipo do principal Parceiro:
-                            <small class="text-muted mb-0">{{$acao_extensao->tipo_parceiro->descricao}}</small>
+                    @if($acao_extensao->palavras_chaves != "")
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                Palavras-chaves:
+                                <small class="mt-0 mb-3 text-muted">
+                                    @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
+                                        <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-secondary">{{$palavra_chave}}</span></a>
+                                    @endforeach
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                              Público Alvo:
+                              <small class="mt-0 mb-3 text-muted">
+                                  {{$acao_extensao->publico_alvo}}
+                              </small>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="p-0">
+                          <h5>
+                              Impactos para a Universidade:
+                              <small class="mt-0 mb-3 text-muted">
+                                  {{$acao_extensao->impactos_universidade}}
+                              </small>
+                          </h5>
+                      </div>
+                  </div>
+                  <div class="col-12">
+                      <div class="p-0">
+                          <h5>
+                              Impactos para a Sociedade:
+                              <small class="mt-0 mb-3 text-muted">
+                                  {{$acao_extensao->impactos_sociedade}}
+                              </small>
+                          </h5>
+                      </div>
+                  </div>
+                  @if(isset($acao_extensao->grau_envolvimento_equipe))
+                  <div class="col-12">
+                    <div class="p-0">
+                        <h5>
+                            Envolvimento da Equipe com a Comunidade:
+                            <small class="mt-0 mb-3 text-muted">
+                                {{$acao_extensao->grau_envolvimento_equipe->descricao}}
+                            </small>
+                        </h5>
+                    </div>
+                  </div>
+                  @endif
+                  <div class="col-12">
+                    <div class="p-0">
+                        <h5>
+                            Investimento:
+                            <small class="mt-0 mb-3 text-muted">
+                                R$ {{$acao_extensao->investimento}}
+                            </small>
                         </h5>
                     </div>
                 </div>
-            </div>
-        </div>
-        @endif
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                              Link Externo:
+                              <small class="mt-0 mb-3 text-muted">
+                                  <a href="{{$acao_extensao->url}}" target="_blank" >{{$acao_extensao->url}}</a>
+                              </small>
+                            </h5>
+                        </div>
+                    </div>
+                      <div class="accordion" id="accordionExample">
+                          <div class="card">
+                              <div class="card-header" id="headingOne">
+                                  <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
+                                        <i class="fal fa-calendar-alt icon-stack-1x opacity-100 color-secondary-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Datas e Locais de Realização
+                                    </div>
+                                      <span class="ml-auto">
+                                          <span class="collapsed-reveal">
+                                              <i class="fal fa-minus-circle text-danger"></i>
+                                          </span>
+                                          <span class="collapsed-hidden">
+                                              <i class="fal fa-plus-circle text-success"></i>
+                                          </span>
+                                      </span>
+                                  </a>
+                              </div>
+                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                  <div class="card-body">
+                                    <div class="frame-wrap">
+                                        <div class="col-12">
+                                            <div class="p-0">
+                                                <h5>
+                                                    Data inicial:
+                                                    <small class="mt-0 mb-3 text-muted">
+                                                        {{$acao_extensao->data_inicio->format('d/m/Y')}}
+                                                    </small>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-0">
+                                                <h5>
+                                                    Data final:
+                                                    <small class="mt-0 mb-3 text-muted">
+                                                        @if(isset($acao_extensao->data_fim))
+                                                          {{$acao_extensao->data_fim->format('d/m/Y')}}
+                                                        @else
+                                                            Sem informações
+                                                        @endif
+                                                    </small>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <table class="table m-0">
+                                            <thead class="thead-themed">
+                                                <tr>
+                                                    <th>Local Realização</th>
+                                                    <th>Complemento</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                      Informação Local
+                                                    </td>
+                                                    <td>
+                                                      Informação Complemento
+                                                    </td>
+                                                  </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header" id="headingTwo">
+                                  <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                                        <i class="fal fa-landmark icon-stack-1x opacity-100 color-warning-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Coordenador e Unidades
+                                    </div>
+                                      <span class="ml-auto">
+                                          <span class="collapsed-reveal">
+                                              <i class="fal fa-minus-circle text-danger"></i>
+                                          </span>
+                                          <span class="collapsed-hidden">
+                                              <i class="fal fa-plus-circle text-success"></i>
+                                          </span>
+                                      </span>
+                                  </a>
+                              </div>
+                              <div id="collapseTwo" class="collapse d-print-block" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                  <div class="card-body">
+                                    <div class="col-12">
+                                        <div class="p-0">
+                                            <h5>
+                                                Coordenador:
+                                                <small class="mt-0 mb-3 text-muted">
+                                                    {{$acao_extensao->nome_coordenador}}
+                                                </small>
 
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-0">
+                                            <h5>
+                                                Email:
+                                                <small class="mt-0 mb-3 text-muted">
+                                                    emaildocoordenador
+                                                </small>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-0">
+                                            <h5>
+                                                Vínculo com a Universidade:
+                                                <small class="mt-0 mb-3 text-muted">
+                                                      {{$acao_extensao->vinculo_coordenador}}
+                                                </small>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="frame-wrap">
+                                        <table class="table m-0">
+                                            <thead class="thead-themed">
+                                                <tr>
+                                                    <th>Tipo</th>
+                                                    <th>SIGLA</th>
+                                                    <th>Nome Completo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Principal
+                                                    </td>
+                                                    <td>
+                                                        {{$acao_extensao->unidade->sigla}}
+                                                    </td>
+                                                    <td>
+                                                        {{$acao_extensao->unidade->nome}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                          @if($acao_extensao->equipe != "")
+                          <div class="card">
+                              <div class="card-header" id="headingThree">
+                                  <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                                        <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Colaboradores (Equipe)
+                                    </div>
+                                      <span class="ml-auto">
+                                          <span class="collapsed-reveal">
+                                              <i class="fal fa-minus-circle text-danger"></i>
+                                          </span>
+                                          <span class="collapsed-hidden">
+                                              <i class="fal fa-plus-circle text-success"></i>
+                                          </span>
+                                      </span>
+                                  </a>
+                              </div>
+                              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                  <div class="card-body">
+                                    <div class="frame-wrap">
+                                        @if(isset($acao_extensao->qtd_graduacao))
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                    Quantidade Graduação:
+                                                    <small class="mt-0 mb-3 text-muted">
+                                                        {{$acao_extensao->qtd_graduacao}}
+                                                    </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if(isset($acao_extensao->qtd_pos_graduacao))
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                    Quantidade Pós-Graduação:
+                                                    <small class="mt-0 mb-3 text-muted">
+                                                        {{$acao_extensao->qtd_pos_graduacao}}
+                                                    </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if(isset($acao_extensao->grau_envolvimento_equipe))
+                                        <div class="col-12">
+                                            <div class="p-0">
+                                                <h5>
+                                                Envolvimento com a Comunidade:
+                                                <small class="mt-0 mb-3 text-muted">
+                                                    {{$acao_extensao->grau_envolvimento_equipe->descricao}}
+                                                </small>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        @endif
+                                      <table class="table m-0">
+                                          <thead class="thead-themed">
+                                              <tr>
+                                                  <th>Nome Completo</th>
+                                                  <th>Email</th>
+                                                  <th>CPF</th>
+                                                  <th>Vinculo</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              @foreach (explode(',',$acao_extensao->equipe) as $colaborador)
+                                              <tr>
+                                                  <td>
+                                                      {{$colaborador}}
+                                                  </td>
+                                                  <td>
+                                                      email
+                                                  </td>
+                                                  <td>
+                                                      cpf
+                                                  </td>
+                                                  <td>
+                                                      vinculo
+                                                  </td>
+                                              </tr>
+                                              @endforeach
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  </div>
+                              </div>
+                          </div>
+                          @endif
+                          @if(isset($acao_extensao->parceiro))
+                          <div class="card">
+                              <div class="card-header" id="headingFour">
+                                  <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                        <i class="fal fa-building icon-stack-1x opacity-100 color-info-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Parceiros
+                                    </div>
+                                      <span class="ml-auto">
+                                          <span class="collapsed-reveal">
+                                              <i class="fal fa-minus-circle text-danger"></i>
+                                          </span>
+                                          <span class="collapsed-hidden">
+                                              <i class="fal fa-plus-circle text-success"></i>
+                                          </span>
+                                      </span>
+                                  </a>
+                              </div>
+                              <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                  <div class="card-body">
+                                    <div class="frame-wrap">
+                                        <div class="col-12">
+                                            <div class="p-0">
+                                                <h5>
+                                                    Tipo do principal Parceiro:
+                                                <small class="mt-0 mb-3 text-muted">
+                                                    {{$acao_extensao->tipo_parceiro->descricao}}
+                                                </small>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                          <table class="table m-0">
+                                              <thead class="thead-themed">
+                                                  <tr>
+                                                      <th>Nome</th>
+                                                      <th>Tipo</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  @foreach (explode(',',$acao_extensao->parceiro) as $parceiro)
+                                                  <tr>
+                                                      <td>
+                                                          {{$parceiro}}
+                                                      </td>
+                                                      <td>
+                                                          tipo
+                                                      </td>
+                                                  </tr>
+                                                  @endforeach
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          @endif
+                          <div class="card">
+                              <div class="card-header" id="headingFive">
+                                  <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
+                                        <i class="fal fa-map-marked-alt icon-stack-1x opacity-100 color-success-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Cidade e Georreferenciação
+                                    </div>
+                                      <span class="ml-auto">
+                                          <span class="collapsed-reveal">
+                                              <i class="fal fa-minus-circle text-danger"></i>
+                                          </span>
+                                          <span class="collapsed-hidden">
+                                              <i class="fal fa-plus-circle text-success"></i>
+                                          </span>
+                                      </span>
+                                  </a>
+                              </div>
+                              <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                  <div class="card-body">
+                                    <div class="frame-wrap">
+                                        <div class="col-12">
+                                            <div class="p-0">
+                                                    <h5>
+                                                        <a href="/acoes-extensao/cidades/{{$acao_extensao->municipio->id}}">
+                                                            <i class="fal fa-map-marker-alt"></i> {{$acao_extensao->municipio->nome_municipio}} - {{$acao_extensao->municipio->estado}}
+                                                        </a>
+                                                        <small>
+                                                            Cidade - Estado
+                                                        </small>
+                                                    </h5>
+                                            </div>
+                                        </div>
+                                        <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
+                                            <x-maps-leaflet
+                                                :centerPoint="['lat' => -22.195240, 'long' => -48.433408]"
+                                                :zoomLevel="7"
+                                                :markers="[['lat' => $acao_extensao->municipio->latitude, 'long' => $acao_extensao->municipio->longitude, 'info' => 'teste', 'icon' => 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=home|1ABB9C|000000'], ['lat' => '-22.818177', 'long' => '-47.064098', 'info' => 'UNICAMP'] ]">
+                                            </x-maps-leaflet>
+                                        </div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+              </div>
+          </div>
+      </div>
     </div>
-</div>
+  </div>
 
 <div class="row">
     <div class="col-xl-12">

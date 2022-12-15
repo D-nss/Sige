@@ -45,169 +45,151 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="frame-wrap w-100">
+                        <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
+                            <div class='icon-stack display-3 flex-shrink-0'>
+                                <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
+                                <i class="fal fa-theater-masks icon-stack-1x opacity-100 color-danger-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h5 class="mb-0 flex-1 text-dark fw-500">
+                                    Evento Cultural
+                                <small class="m-0 l-h-n">
+                                    <b>Seguimento:</b>
+                                </small>
+                            </h5>
+                            <div>
+                                @foreach ($segmentos_culturais as $segmento_cultural)
+                                    <a href="/acoes-culturais/segmento/{{$segmento_cultural}}"><span class="badge badge-danger">{{$segmento_cultural}}</span></a>
+                                @endforeach
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Descrição da Ação:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_cultural->resumo}}
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @if($acao_cultural->palavras_chaves != "")
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Palavras-chaves:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        @foreach (explode(',', $acao_cultural->palavras_chaves) as $palavra_chave)
+                                            <a href="/acoes-culturais/palavra-chave/{{$palavra_chave}}"><span class="badge badge-info">{{$palavra_chave}}</span></a>
+                                        @endforeach
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @endif
+                        @if($acao_cultural->vinculo_ensino != "")
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Evento possui vinculo com ensino
+                                    <small class="mt-0 mb-3 text-muted">
+                                        <b>Título do Projeto: </b>{{$acao_cultural->vinculo_ensino}}
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @endif
+                        @if($acao_cultural->vinculo_pesquisa != "")
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Evento possui vinculo com pesquisa
+                                    <small class="mt-0 mb-3 text-muted">
+                                        <b>Título do Projeto: </b>{{$acao_cultural->vinculo_pesquisa}}
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @endif
+                        @if($acao_cultural->vinculo_extensao != "")
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Evento possui vinculo com extensão
+                                    <small class="mt-0 mb-3 text-muted">
+                                        <b>Título do Projeto: </b>{{$acao_cultural->vinculo_extensao}}
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Formato:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_cultural->tipo_evento}}
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Gratuito:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        @if ($acao_cultural->gratuito)
+                                            Sim
+                                        @else
+                                            Não
+                                        @endif
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Público Alvo:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_cultural->publico_alvo}}
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @if ($acao_cultural->estimativa_publico)
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Estimativa Publico:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_cultural->estimativa_publico}} pessoas
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-12">
+                            <div class="p-0">
+                                <h5>
+                                    Link Externo:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        <a href="{{$acao_cultural->url}}" target="_blank" >{{$acao_cultural->url}}</a>
+                                    </small>
+                                </h5>
+                            </div>
+                        </div>
                         <div class="accordion" id="accordionExample">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
-                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
-                                                <i class="fal fa-theater-masks icon-stack-1x opacity-100 color-danger-500"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                Caracterização do Evento Cultural
-                                            </div>
-                                        <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
-                                            </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Seguimento Cultural:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        @foreach ($segmentos_culturais as $segmento_cultural)
-                                                            <a href="/acoes-culturais/segmento/{{$segmento_cultural}}"><span class="badge badge-danger">{{$segmento_cultural}}</span></a>
-                                                        @endforeach
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Descrição da Ação:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_cultural->resumo}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @if($acao_cultural->palavras_chaves != "")
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Palavras-chaves:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        @foreach (explode(',', $acao_cultural->palavras_chaves) as $palavra_chave)
-                                                            <a href="/acoes-culturais/palavra-chave/{{$palavra_chave}}"><span class="badge badge-info">{{$palavra_chave}}</span></a>
-                                                        @endforeach
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        @if($acao_cultural->vinculo_ensino != "")
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Evento possui vinculo com ensino
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        <b>Título do Projeto: </b>{{$acao_cultural->vinculo_ensino}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        @if($acao_cultural->vinculo_pesquisa != "")
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Evento possui vinculo com pesquisa
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        <b>Título do Projeto: </b>{{$acao_cultural->vinculo_pesquisa}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        @if($acao_cultural->vinculo_extensao != "")
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Evento possui vinculo com extensão
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        <b>Título do Projeto: </b>{{$acao_cultural->vinculo_extensao}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Formato:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_cultural->tipo_evento}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Gratuito:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        @if ($acao_cultural->gratuito)
-                                                            Sim
-                                                        @else
-                                                            Não
-                                                        @endif
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Público Alvo:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_cultural->publico_alvo}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @if ($acao_cultural->estimativa_publico)
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Estimativa Publico:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_cultural->estimativa_publico}} pessoas
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Link Externo:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        <a href="{{$acao_cultural->url}}" target="_blank" >{{$acao_cultural->url}}</a>
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
                                             <i class="fal fa-calendar-alt icon-stack-1x opacity-100 color-secondary-500"></i>
                                         </div>
                                         <div class="ml-3">
-                                            Horários e Locais
+                                            Datas e Locais de Realização
                                         </div>
                                         <span class="ml-auto">
                                             <span class="collapsed-reveal">
@@ -219,7 +201,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="frame-wrap">
                                             <table class="table m-0">
@@ -257,8 +239,8 @@
                                 </div>
                             </div>
                             <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <div class="card-header" id="headingTwo">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
                                             <i class="fal fa-landmark icon-stack-1x opacity-100 color-warning-500"></i>
@@ -276,7 +258,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="col-12">
                                             <div class="p-0">
@@ -351,8 +333,8 @@
                             </div>
                             @if(count($colaboradores_acao_cultural) > 0)
                             <div class="card">
-                                <div class="card-header" id="headingFour">
-                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <div class="card-header" id="headingThree">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                                             <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
@@ -370,7 +352,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="frame-wrap">
                                             <table class="table m-0">
@@ -408,8 +390,8 @@
                             @endif
                             @if(count($parceiros_acao_cultural) > 0)
                             <div class="card">
-                                <div class="card-header" id="headingFive">
-                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                <div class="card-header" id="headingFour">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
                                             <i class="fal fa-building icon-stack-1x opacity-100 color-info-500"></i>
@@ -427,7 +409,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="frame-wrap">
                                             <table class="table m-0">
@@ -457,8 +439,8 @@
                             </div>
                             @endif
                             <div class="card">
-                                <div class="card-header" id="headingSix">
-                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                <div class="card-header" id="headingFive">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                             <i class="fal fa-map-marked-alt icon-stack-1x opacity-100 color-success-500"></i>
@@ -476,7 +458,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="frame-wrap">
                                             <div class="col-12">
@@ -502,7 +484,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

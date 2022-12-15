@@ -25,14 +25,31 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Formulário <span class="fw-300"><i>Insira as informações nos campos correspondentes</i></span>
+                    Dados gerais<span class="fw-300"><i>Insira as informações nos campos correspondentes</i></span>
                 </h2>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
                     <form action="{{route('acao_extensao.store')}}" id="form_acao_extensao" method="POST">
                         @csrf
-                        @include('acoes-extensao._form')
+                        @include('acoes-extensao._form2')
+                        <div class="row">
+                            <div class="form-group mt-3 ml-3">
+                                <a href="/acoes-extensao" class="btn btn-secondary btn-user ">
+                                    <span class="icon text-white-50">
+                                    <i class="fal fa-arrow-left"></i>
+                                    </span>
+                                    <span class="text">Cancelar</span>
+                                </a>
+                                {{--<button type="submit" class="btn btn-primary btn-user btn-verde">
+                                    <i class="fal fa-check"></i> <b>Criar e Adicionar Datas</b>
+                                </button>--}}
+                                <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
+                                    <i class="fal fa-save"></i>
+                                    </span>
+                                    <span class="text">Salvar e <i class="fal fa-plus"></i> Prosseguir</span></button>
+                            </div>
+                          </div>
                     </form>
                 </div>
             </div>

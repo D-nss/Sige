@@ -1,11 +1,9 @@
 <?php
 
+use App\Models\AcaoExtensao;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-use App\Models\AcaoCultural;
-use App\Models\TipoParceiro;
 
 return new class extends Migration
 {
@@ -16,12 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('acoes_culturais_parceiros', function (Blueprint $table) {
+        Schema::create('acoes_extensao_locais', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(AcaoCultural::class);
-            $table->string('nome', 250);
-            $table->foreignIdFor(TipoParceiro::class)->nullable();
-            $table->string('colaboracao', 2500)->nullable();
+            $table->foreignIdFor(AcaoExtensao::class);
+            $table->string('local', 255);
+            $table->string('complemento', 255)->nullable();
+            $table->string('latitude', 255)->nullable();
+            $table->string('longitude', 255)->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acoes_culturais_parceiros');
+        Schema::dropIfExists('acoes_extensao_locais');
     }
 };

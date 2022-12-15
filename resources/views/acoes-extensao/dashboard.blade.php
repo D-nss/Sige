@@ -126,7 +126,7 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Ação de Extensão</th>
-                                                            <th>Tipo / Área Temática</th>
+                                                            <th>Modalidade / Área Temática</th>
                                                             <th>Coordenador</th>
                                                             <th>Situação</th>
                                                         </tr>
@@ -155,8 +155,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
-                                                                    @switch($acao_extensao->tipo)
+                                                                <a href="/acoes-extensao/modalidades/{{$acao_extensao->modalidade}}" class="text-success">
+                                                                    @switch($acao_extensao->modalidade)
                                                                         @case(1)
                                                                             Programa
                                                                             @break
@@ -193,8 +193,8 @@
                                                                 @if($acao_extensao->status == 'Pendente')
                                                                 <span class="badge badge-warning">Pendente</span>
                                                                 @else
-                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
-                                                                    @switch($acao_extensao->situacao)
+                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
+                                                                    @switch($acao_extensao->status)
                                                                         @case(1)
                                                                         <span class="badge badge-danger">Desativado</span>
                                                                             @break
@@ -244,7 +244,7 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Ação de Extensão</th>
-                                                            <th>Tipo / Área Temática</th>
+                                                            <th>Modalidade / Área Temática</th>
                                                             <th>Coordenador</th>
                                                             <th>Situação</th>
                                                         </tr>
@@ -268,8 +268,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
-                                                                    @switch($acao_extensao->tipo)
+                                                                <a href="/acoes-extensao/modalidades/{{$acao_extensao->modalidade}}" class="text-success">
+                                                                    @switch($acao_extensao->modalidade)
                                                                         @case(1)
                                                                             Programa
                                                                             @break
@@ -306,8 +306,8 @@
                                                                 @if($acao_extensao->status == 'Pendente')
                                                                 <span class="badge badge-warning">Pendente</span>
                                                                 @else
-                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
-                                                                    @switch($acao_extensao->situacao)
+                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
+                                                                    @switch($acao_extensao->status)
                                                                         @case(1)
                                                                         <span class="badge badge-danger">Desativado</span>
                                                                             @break
@@ -365,7 +365,7 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Ação de Extensão</th>
-                                                            <th>Tipo / Área Temática</th>
+                                                            <th>Modalidade / Área Temática</th>
                                                             <th>Coordenador</th>
                                                             <th>Situação</th>
                                                         </tr>
@@ -384,8 +384,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
-                                                                    @switch($acao_extensao->tipo)
+                                                                <a href="/acoes-extensao/modalidades/{{$acao_extensao->modalidade}}" class="text-success">
+                                                                    @switch($acao_extensao->modalidade)
                                                                         @case(1)
                                                                             Programa
                                                                             @break
@@ -419,8 +419,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
-                                                                    @switch($acao_extensao->situacao)
+                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
+                                                                    @switch($acao_extensao->status)
                                                                         @case(1)
                                                                         <span class="badge badge-danger">Desativado</span>
                                                                             @break

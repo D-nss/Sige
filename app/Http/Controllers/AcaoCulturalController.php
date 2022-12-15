@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\AcaoCultural;
 use App\Models\AcaoCulturalColaborador;
@@ -14,6 +15,8 @@ use App\Models\Unidade;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\App;
+
 
 class AcaoCulturalController extends Controller
 {
@@ -71,9 +74,19 @@ class AcaoCulturalController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::where('id', 1)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+            $vinculo_coordenador = 'Teste Vinculo Coordenador';
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+            $vinculo_coordenador = Auth::user()->employeetype;
+        }
 
         $dados = array('user_id' => $user->id);
+        $dados['nome_coordenador'] = $user->name;
+        $dados['email_coordenador'] = $user->email;
+        $dados['vinculo_coordenador'] = $vinculo_coordenador;
+
         $dados['municipio_id'] = $request->cidade;
         $dados_form = $request->all();
         $dados_form['publico_alvo'] = implode(',', $dados_form['publico_alvo']);
@@ -118,6 +131,23 @@ class AcaoCulturalController extends Controller
         $acaoCultural = AcaoCultural::where('id', $request->acao_cultural_id)->first();
 
         return $this->datas($acaoCultural);
+    }
+
+    public function removeData($id){
+        $acaoCulturalDataLocal = AcaoCulturalDataLocal::where('id', $id)->first();
+        $acaoCultural = AcaoCultural::where('id', $acaoCulturalDataLocal->acao_cultural_id)->first();
+        if($acaoCulturalDataLocal->delete()) {
+            session()->flash('status', 'Data/local removido!');
+            session()->flash('alert', 'success');
+
+            return $this->datas($acaoCultural);
+        }
+        else {
+            session()->flash('status', 'Data/local  não removido!');
+            session()->flash('alert', 'danger');
+
+            return $this->datas($acaoCultural);
+        }
     }
 
     /**
@@ -233,6 +263,25 @@ class AcaoCulturalController extends Controller
         $acaoCultural = AcaoCultural::where('id', $request->acao_cultural_id)->first();
 
         return $this->coordenador($acaoCultural);
+    }
+
+    public function removeUnidade($id)
+    {
+        $unidadeRelacionada = DB::table('acoes_culturais_unidades')->where('id', $id)->first();
+        $acaoCultural = AcaoCultural::where('id', $unidadeRelacionada->acao_cultural_id)->first();
+
+        if($unidadeRelacionada->delete()) {
+            session()->flash('status', 'Unidade relacionada removida!');
+            session()->flash('alert', 'success');
+
+            return $this->datas($acaoCultural);
+        }
+        else {
+            session()->flash('status', 'Unidade relacionada não removida!');
+            session()->flash('alert', 'danger');
+
+            return $this->datas($acaoCultural);
+        }
     }
 
     public function insereCoordenador(Request $request)
