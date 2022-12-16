@@ -23,7 +23,7 @@ return new class extends Migration
         Schema::create('acoes_extensao', function (Blueprint $table) {
             $table->id();
             //caracterização
-            $table->integer('tipo');
+            $table->integer('modalidade');
             $table->foreignIdFor(LinhaExtensao::class);
             //gerais
             $table->string('titulo', 255);
@@ -31,26 +31,24 @@ return new class extends Migration
             $table->string('palavras_chaves', 250)->nullable();
             $table->string('url', 250)->nullable();
             $table->string('publico_alvo', 250)->nullable();
+            $table->integer('estimativa_publico')->nullable();
             //datas e locais
             $table->date('data_inicio');
             $table->date('data_fim')->nullable();
-            $table->integer('situacao'); // 1=Desativado, 2=Em Andamento, 3=Concluido
             $table->foreignIdFor(Municipio::class);
-            $table->string('georreferenciacao', 255)->nullable(); //lista latitude longitude
             //coordenador e equipe
             $table->foreignIdFor(User::class); //usuario que cadastrou a acao
             $table->foreignIdFor(Unidade::class);
-            $table->string('nome_coordenador', 250);
-            $table->integer('tipo_coordenador');
-            $table->string('equipe', 250)->nullable();
+            $table->string('nome_coordenador', 250)->nullable();
+            $table->string('vinculo_coordenador', 250)->nullable();
+            $table->string('email_coordenador', 250)->nullable();
+            $table->integer('vagas_curricularizacao')->nullable();
             $table->integer('qtd_graduacao')->nullable();
             $table->integer('qtd_pos_graduacao')->nullable();
+            $table->foreignIdFor(GrauEnvolvimentoEquipe::class)->nullable();
             //parceiros e comunidade
-            $table->string('parceiro')->nullable();
-            $table->foreignIdFor(TipoParceiro::class)->nullable();
             $table->string('impactos_universidade', 2500)->nullable();
             $table->string('impactos_sociedade', 2500)->nullable();
-            $table->foreignIdFor(GrauEnvolvimentoEquipe::class)->nullable();
             $table->float('investimento', 10, 2)->nullable();
             //moderação e status
             $table->bigInteger('aprovado_user_id')->nullable();

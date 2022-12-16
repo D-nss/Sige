@@ -57,5 +57,8 @@ class DatabaseSeeder extends Seeder
 
         //Graus de Envolvimento Equipe
         $this->call(GrauEnvolvimentoEquipeSeeder::class);
+
+        //Objetivos Desenvolvimento Sustentavel
+        $this->call(ObjetivoDesenvolvimentoSustentavelSeeder::class);
     }
 }

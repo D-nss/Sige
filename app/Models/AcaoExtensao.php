@@ -13,23 +13,24 @@ class AcaoExtensao extends Model
     protected $dates = ['data_inicio', 'data_fim'];
 
     protected $fillable = [
-        'tipo',
+        'modalidade',
         'linha_extensao_id',
         'titulo',
         'descricao',
         'palavras_chaves',
         'url',
         'publico_alvo',
+        'estimativa_publico',
         'data_inicio',
         'data_fim',
         'situacao',
         'municipio_id',
-        'georreferenciacao',
         'user_id',
         'unidade_id',
         'nome_coordenador',
-        'tipo_coordenador',
-        'equipe',
+        'email_coordenador',
+        'vinculo_coordenador',
+        'vagas_curricularizacao',
         'qtd_graduacao',
         'qtd_pos_graduacao',
         'parceiro',
@@ -59,6 +60,11 @@ class AcaoExtensao extends Model
     public function areas_tematicas()
     {
         return $this->belongsToMany(AreaTematica::class, 'acoes_extensao_areas_tematicas', 'acao_extensao_id', 'area_tematica_id' );
+    }
+
+    public function objetivos_desenvolvimento_sustentavel()
+    {
+        return $this->belongsToMany(ObjetivoDesenvolvimentoSustentavel::class, 'acoes_extensao_ods', 'acao_extensao_id', 'objetivo_desenvolvimento_sustentavel_id' );
     }
 
     public function municipio()

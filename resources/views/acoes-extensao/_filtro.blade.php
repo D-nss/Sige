@@ -16,9 +16,9 @@
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="form-label" for="tipo">Tipo da Ação </label>
-                            <select class="form-control " id="tipo" name="tipo">
-                                <option value="">Selecione o Tipo da Ação</option>
+                            <label class="form-label" for="modalidade">Modalidade </label>
+                            <select class="form-control " id="modalidade" name="modalidade">
+                                <option value="">Selecione Modalidade</option>
                                 <option value="1">Programa</option>
                                 <option value="2">Projeto</option>
                                 <option value="3">Curso</option>

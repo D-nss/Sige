@@ -63,7 +63,7 @@
                             <tr>
                                  <th class="text-uppercase text-muted py-2 px-3">#</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Tipo / Área Temática</th>
+                                 <th class="text-uppercase text-muted py-2 px-3">Modalidade / Área Temática</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
                                 <th class="text-uppercase text-muted py-2 px-3">Situação</th>
                             </tr>
@@ -82,8 +82,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="/acoes-extensao/tipos/{{$acao_extensao->tipo}}" class="text-success">
-                                        @switch($acao_extensao->tipo)
+                                    <a href="/acoes-extensao/modalidades/{{$acao_extensao->modalidade}}" class="text-success">
+                                        @switch($acao_extensao->modalidade)
                                             @case(1)
                                                 Programa
                                                 @break
@@ -117,8 +117,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="/acoes-extensao/situacao/{{$acao_extensao->situacao}}">
-                                    @switch($acao_extensao->situacao)
+                                    <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
+                                    @switch($acao_extensao->status)
                                         @case(1)
                                         <span class="badge badge-danger">Desativado</span>
                                             @break
