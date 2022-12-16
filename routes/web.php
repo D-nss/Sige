@@ -120,6 +120,7 @@ Route::get('/acoes-culturais/unidades/{unidade}', [AcaoCulturalController::class
 Route::get('evento/{evento}/inscrito/novo', [EventoInscritosController::class, 'create']);
 Route::post('evento/{evento}/inscrito', [EventoInscritosController::class, 'store']);
 Route::get('inscritos/confirmacao/{codigo}', [EventoInscritosController::class, 'confirmar']);
+Route::get('inscritos/baixar_qrcode/{codigo}', [EventoInscritosController::class, 'baixarQrcode']);
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
@@ -130,7 +131,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     Route::resource('eventos', EventoController::class);
     Route::get('evento/{evento}/inscritos', [EventoInscritosController::class, 'index']);
-
+    Route::get('inscritos/presenca/{codigo}', [EventoInscritosController::class, 'marcarPresenca']);
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
     Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');

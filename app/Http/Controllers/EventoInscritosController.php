@@ -46,6 +46,20 @@ class EventoInscritosController extends Controller
         $inputs = $request->except('_token');
         $inputs['evento_id'] = $evento->id;
         
+        $checkInscrito = EventoInscrito::where('email', $request->email)->first();
+        //Checa se o e-mail já está cadastrado
+        if($checkInscrito) {
+            session()->flash('status', 'Desculpe! Este e-mail já está cadastrado.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+        //Adiciona a lista de espera se exceder as vagas
+        if(!is_null($evento->vagas) && $evento->inscritos->count() >= $evento->vagas) {
+            $inputs['lista_espera'] = 1;
+            $inputs['posicao_espera'] = $evento->inscritos->last()->posicao_espera + 1;
+        }
+
         if( isset($request->arquivo) || !$request->arquivo == '') {
             $upload = new UploadFile();
             $inputs['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 3000000);
@@ -60,10 +74,17 @@ class EventoInscritosController extends Controller
                 'id' => $inscrito->id
             ]));
 
-            session()->flash('status', 'Inscrição realizada com sucesso.');
-            session()->flash('alert', 'success');
+            if($inscrito->lista_espera == 1) {
+                session()->flash('status', 'Inscrição realizada, mas devido exceder as vagas para o evento sua inscrição entrou em nossa fila de espera.');
+                session()->flash('alert', 'warning');
+            }
+            else {
+                session()->flash('status', 'Inscrição realizada com sucesso.');
+                session()->flash('alert', 'success');
+            }
             //trocar o redirecionamento para a pagina de listagem de eventos para usuarios não autenticados
-            return redirect()->back();
+            //return redirect()->back();
+            return view('eventos.inscritos.aviso', compact('inscrito'));
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao realizar inscrição.');
@@ -82,8 +103,13 @@ class EventoInscritosController extends Controller
         if($inscrito && $data[0] == 'sim' && $inscrito->confirmacao == 0)
         {
             $inscrito->confirmacao = 1;
+            $inscrito->data_confirmacao = date('Y-m-d H:i:s');
             if($inscrito->update()) {
-                return view('eventos.inscritos.confirmacao', compact('inscrito'));
+                $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
+                $url = url("inscritos/presenca/$crypt");
+                //Gerando QRCode
+                $qrcode = QrCode::size(200)->generate( url($url));
+                return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
             }
             else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
@@ -113,4 +139,74 @@ class EventoInscritosController extends Controller
         }
     }
 
+    public function marcarPresenca($codigo)
+    {
+        $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
+        $data = explode('/', $decrypt);
+
+        $inscrito = EventoInscrito::find($data[1]);
+        if($inscricao && $inscricao->presenca == 0 && $data[0] == 'sim') {
+            $inscrito->presenca = 1;
+            if($inscrito->update()) {
+                session()->flash('status', 'Presença cadastrada com sucesso.');
+                session()->flash('alert', 'success');
+
+                return redirect()->back();
+            }
+            else {
+                session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
+                session()->flash('alert', 'danger');
+
+                return redirect()->back();
+            }
+        }
+        else {
+            session()->flash('status', 'Desculpe! Não foi possível cadsatrar a presença.');
+            session()->flash('alert', 'danger');
+    
+            return redirect()->back();
+        }
+
+    }
+    
+    public function baixarQrcode($codigo)
+    {    
+        $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
+        $data = explode('/', $decrypt);
+
+        $inscrito = EventoInscrito::find($data[1]);
+
+        //Gerando QRCode
+        $url = url("inscritos/presenca/$codigo");
+        $qrcode = QrCode::size(200)->generate( url($url));
+
+        $html = "
+            <div style='display:flex; flex-direction: column; border: 2px solid #000; border-radius: 8px; max-width:350px; padding: 24px;'>
+                <div>
+                    <p style='font-weight: bold; font-size:32px;'>
+                    Evento: ". $inscrito->evento->titulo ."
+                    </p>
+                </div>
+                <div>
+                    <p style='font-weight: bold; font-size:16px;'>
+                    De ". date('d/m/Y H:i:s', strtotime($inscrito->evento->data_inicio)) ." à ". date('d/m/Y H:i:s', strtotime($inscrito->evento->data_fim)) ."
+                    </p>
+                </div>
+                <div>
+                    <p style='font-weight: bold; font-size:28px;'>
+                    Nome: ". $inscrito->nome ."
+                    </p>
+                </div>
+                <div>
+                    <img src='data:image/png;base64, " . base64_encode($qrcode) ."'>
+                </div>
+                <div style='margin-top: 8px;'>
+                    Pro-reitoria de Extensão e Cultura - UNICAMP
+                </div>
+            </div>";
+
+        $pdf = Pdf::loadHtml($html);
+        $pdf->setPaper('a4');
+        return $pdf->download();
+    }
 }

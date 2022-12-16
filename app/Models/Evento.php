@@ -52,4 +52,10 @@ class Evento extends Model
     {
         return $this->belongsTo(ModeloCertificado::class);
     }
+
+    public function inscritos()
+    {
+        return $this->hasMany(EventoInscrito::class);
+    }
+
 }
