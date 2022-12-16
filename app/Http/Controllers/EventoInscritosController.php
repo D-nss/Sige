@@ -147,7 +147,7 @@ class EventoInscritosController extends Controller
         $data = explode('/', $decrypt);
 
         $inscrito = EventoInscrito::find($data[1]);
-        if($inscricao && $inscricao->presenca == 0 && $data[0] == 'sim') {
+        if($inscrito && $inscrito->presenca == 0 && $data[0] == 'sim') {
             $inscrito->presenca = 1;
             if($inscrito->update()) {
                 session()->flash('status', 'Presença cadastrada com sucesso.');
