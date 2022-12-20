@@ -26,12 +26,25 @@ class EventoInscritosController extends Controller
 
     public function create(Evento $evento)
     {
+        if(Auth::check()) {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         if(
-            !is_null($evento->inscricao_inicio) 
-            && 
-            strtotime(date('Y-m-d')) >= strtotime($evento->inscricao_inicio) 
-            && 
-            strtotime(date('Y-m-d')) <= strtotime($evento->inscricao_fim)
+            (
+                !is_null($evento->inscricao_inicio) 
+                && 
+                strtotime(date('Y-m-d')) >= strtotime($evento->inscricao_inicio) 
+                && 
+                strtotime(date('Y-m-d')) <= strtotime($evento->inscricao_fim)
+            )
+            ||
+            (
+                isset($user)
+                &&
+                $user->hasRole($evento->grupo_usuario)
+            )
+
         ) {
             return view('eventos.inscritos.create', compact('evento'));
         }
@@ -90,6 +103,34 @@ class EventoInscritosController extends Controller
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao realizar inscrição.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
+    public function show($id)
+    {
+        $inscrito = EventoInscrito::find($id);
+
+        return view('eventos.inscritos.show', compact('inscrito'));
+    }
+
+    public function adm_confirmar($id)
+    {
+        $inscrito = EventoInscrito::find($id);
+       
+        $inscrito->confirmacao = 1;
+        $inscrito->data_confirmacao = date('Y-m-d H:i:s');
+        if($inscrito->update()) {
+            $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
+            $url = url("inscritos/presenca/$crypt");
+            //Gerando QRCode
+            $qrcode = QrCode::size(200)->generate( url($url));
+            return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();

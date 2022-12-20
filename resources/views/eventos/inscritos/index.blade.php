@@ -68,7 +68,7 @@
                                                 <td>{{ $confirmado->nome }}</td>
                                                 <td>{{ $confirmado->email }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info">
+                                                    <a href="{{ url('evento/inscrito/' . $confirmado->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                 </td>
@@ -114,14 +114,11 @@
                                                 <td>{{ $lista->nome }}</td>
                                                 <td>{{ $lista->email }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . $lista->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                     <a href="" class="btn btn-warning btn-xs">
                                                         Enviar E-Mail
-                                                    </a>
-                                                    <a href="" class="btn btn-success btn-xs">
-                                                        Confirmar
                                                     </a>
                                                 </td>
                                             </tr>
@@ -166,13 +163,13 @@
                                                 <td>{{ $naoConfirmado->nome }}</td>
                                                 <td>{{ $naoConfirmado->email }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . $naoConfirmado->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                     <a href="" class="btn btn-warning btn-xs">
                                                         Enviar E-Mail
                                                     </a>
-                                                    <a href="" class="btn btn-success btn-xs">
+                                                    <a href="{{ url('inscritos/adm/confirmacao/' . $naoConfirmado->id) }}" class="btn btn-success btn-xs">
                                                         Confirmar
                                                     </a>
                                                 </td>
@@ -218,14 +215,8 @@
                                                 <td>{{ $cancelado->nome }}</td>
                                                 <td>{{ $cancelado->email }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . $cancelado->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
-                                                    </a>
-                                                    <a href="" class="btn btn-warning btn-xs">
-                                                        Enviar E-Mail
-                                                    </a>
-                                                    <a href="" class="btn btn-success btn-xs">
-                                                        Confirmar
                                                     </a>
                                                 </td>
                                             </tr>
