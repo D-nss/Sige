@@ -11,6 +11,7 @@ use App\Mail\InscritoMail;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
+use App\Models\User;
 use App\Models\UploadFile;
 
 class EventoInscritosController extends Controller
