@@ -21,13 +21,19 @@ class ComissaoController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $comissoes = Comissao::where('edital_id', $id)->get();
-        $edital_titulo = Edital::where('id', $id)->get(['titulo']);
-        $edital_id = $id;
+        $user = User::where('email', config('app.user'))->first();
 
-        return view('comissoes.index', compact('comissoes', 'edital_titulo', 'edital_id'));
+        if($user->hasRole('edital-administrador')) {
+            $comissoes = Comissao::where('edital_id', '<>' , null)->get();
+        }
+        
+        if($user->hasRole('extensao-coordenador')){
+            $comissoes = Comissao::where('unidade_id', $user->unidade->id)->get();
+        }
+
+        return view('comissoes.index', compact('comissoes', 'user'));
     }
 
     /**
@@ -37,10 +43,11 @@ class ComissaoController extends Controller
      */
     public function create($id)
     {
-        $edital_titulo = Edital::where('id', $id)->get(['titulo']);
-        $edital_id = $id;
+        $user = User::where('email', config('app.user'))->first();
+        //echo json_encode($edital_id);
+        $editais = Edital::all();
 
-        return view('comissoes.create', compact('edital_titulo', 'edital_id'));
+        return view('comissoes.create', compact('editais', 'user'));
     }
 
     /**
@@ -51,17 +58,33 @@ class ComissaoController extends Controller
      */
     public function store(Request $request)
     {
-        $comissao = Comissao::create([
-            'nome' => $request->nome,
-            'atribuicao' => $request->atribuicao,
-            'edital_id' => $request->edital_id,
-        ]);
+        //echo json_encode($request->all());
+        $validated = $request->validate(
+            [
+                'nome' => 'required|max:190',
+                'atribuicao' => 'required|max:190',
+                'edital_id' => $request->unidade_id == null ? 'required' : '',
+            ],
+            [
+                'edital_id.required' => 'O campo edital é obrigatório.',
+                'atribuicao.required' => 'O campo atribuição é obrigatório.',
+            ]
+        );
+
+        $comissao = Comissao::create(
+            [
+                'nome' => $request->nome,
+                'atribuicao' => $request->atribuicao,
+                'edital_id' => $request->edital_id,
+                'unidade_id' => $request->unidade_id,
+            ]
+        );
 
         if($comissao) {
             session()->flash('status', 'Comissão cadastrada com sucesso!!!');
             session()->flash('alert', 'success');
 
-            return redirect()->to('/comissoes/edital/' . $request->edital_id);
+            return redirect()->to('/comissoes');
         }
         else {
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar comissão');

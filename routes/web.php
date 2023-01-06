@@ -183,10 +183,11 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/editais/{edital}/avaliadores', [EditalController::class, 'editarAvaliadores']);
     Route::get('get-avaliador-by-subcomissao', [AvaliadorController::class, 'getAvaliadorBySubcomissao']);
 
-    Route::get('/comissoes/edital/{id}', [ComissaoController::class, 'index']);
+    Route::get('/comissoes', [ComissaoController::class, 'index']);
     Route::delete('comissoes/{comissao}', [ComissaoController::class, 'destroy']);
     Route::delete('comissoes/participante/delete', [ComissaoUserController::class, 'destroy'])->name('participantes.delete');
-    Route::get('comissoes/novo/edital/{id}', [ComissaoController::class, 'create']);
+   // Route::get('comissoes/novo/edital/{id}', [ComissaoController::class, 'create']);
+    Route::get('comissoes/novo/', [ComissaoController::class, 'create']);
     Route::get('comissoes/{id}/novo/participante', [ComissaoUserController::class, 'create']);
     Route::post('comissoes', [ComissaoController::class, 'store'])->name('comissoes.store');
     Route::post('comissoes/participante/store', [ComissaoUserController::class, 'store'])->name('participantes.store');

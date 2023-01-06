@@ -21,4 +21,8 @@ class Unidade extends Model
     public function inscricao(){
         return $this->hasOne(Inscricao::class);
     }
+
+    public function comissao(){
+        return $this->hasMany(Comissao::class);
+    }
 }

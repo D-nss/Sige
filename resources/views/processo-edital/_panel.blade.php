@@ -109,11 +109,11 @@
                         @endforeach
                     </ul>
                 </div>
-                <a href='{{ url("/comissoes/edital/$edital->id") }}' class="btn btn-info btn-lg btn-icon rounded-circle">
+                <a href='{{ url("/comissoes") }}' class="btn btn-info btn-lg btn-icon rounded-circle">
                     <i class="far fa-edit"></i>
                 </a>
             @else
-                <a href='{{ url("/comissoes/edital/$edital->id") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
+                <a href='{{ url("/comissoes") }}' class="btn btn-success btn-lg btn-icon rounded-circle">
                     <i class="far fa-plus"></i>
                 </a>
                 Adicionar Comissão

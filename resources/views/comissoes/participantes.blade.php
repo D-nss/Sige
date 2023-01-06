@@ -14,7 +14,7 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Comissões</span>
         <small>
-        Adicionar Participantes a Comissão <strong>{{ $comissao->nome }}</strong> do Edital <strong>{{ $comissao->edital->titulo }}</strong>
+        Adicionar Participantes a Comissão <strong>{{ $comissao->nome }}</strong> <strong>{{ $comissao->edital == null ? ' da Unidade ' . $comissao->unidade->sigla : 'do Edital ' . $comissao->edital->titulo }}</strong>
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
@@ -28,7 +28,7 @@
     <div id="panel-1" class="panel">
         <div class="panel-hdr">
             <h2>
-                Participantes de Comissão de edital
+            <span class="fw-300"><i>Preencha o formulário para adicionar participantes a comissão</i></span>
             </h2>
             <!-- <div class="panel-toolbar">
                 <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>

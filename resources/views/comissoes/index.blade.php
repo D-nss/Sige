@@ -14,7 +14,7 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-edit'></i>Comissões</span>
         <small>
-        Listagem das Comissões do Edital <strong>{{ $edital_titulo[0]->titulo }}</strong>
+        Listagem das Comissões cadastradas
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
@@ -25,7 +25,7 @@
 </div>
 <div class="container-fluid">
     <div class="mb-3">
-        <a href="{{ url('comissoes/novo/edital/' . $edital_id) }}" class="btn btn-success btn-lg btn-icon rounded-circle">
+        <a href="{{ url('comissoes/novo') }}" class="btn btn-success btn-lg btn-icon rounded-circle">
             <i class="far fa-plus"></i>
         </a>
         Adicionar Comissão
@@ -34,7 +34,7 @@
     <div id="panel-1" class="panel">
         <div class="panel-hdr">
             <h2>
-                Comissão de edital
+            <span class="fw-300"><i>Preencha todos os campos do formulário de cadastro de comissão</i></span>
             </h2>
             <!-- <div class="panel-toolbar">
                 <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -48,20 +48,27 @@
                 
                 <ul class="list-group ">                        
                     @forelse($comissoes as $comissao)
-                        <li class="list-group-item bg-primary-50 mb-1">
+                        <li class="list-group-item bg-info-50 mb-1">
                         <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
                             <i class="far fa-trash-alt"></i>
                             </button>
                             <div class="mb-3">
+                                @if($comissao->edital_id != null)
+                                    <h3><span data-filter-tags="reports file"><strong>Edital: </strong>{{ $comissao->edital->titulo }}</span></h3>
+                                @endif
+                                @if($comissao->unidade_id != null)
+                                    <h3><span data-filter-tags="reports file"><strong>Unidade: </strong>{{ $comissao->unidade->sigla }}</span></h3>
+                                @endif
                                 <p><span data-filter-tags="reports file"><strong>Nome: </strong>{{ $comissao->nome }}</span></p>
                                 <p><span data-filter-tags="reports file"><strong>Atribuição: </strong>{{ $comissao->atribuicao}}</span></p>
+
                                 <p><span data-filter-tags="reports file"><strong>Participantes: </strong> 
                                     <a href="{{ url('comissoes/'.$comissao->id.'/novo/participante') }}" class="btn btn-primary btn-sm btn-icon rounded-circle">
                                         <i class="far fa-plus"></i>
                                     </a>
                                 </p>
                                 @foreach($comissao->users as $user)
-                                    <span class="badge badge-pill badge-primary d-inline-flex justify-content-center align-items-center pl-3">
+                                    <span class="badge badge-pill badge-secondary d-inline-flex justify-content-center align-items-center pl-3">
                                         <div>{{ $user->name }}</div>
                                         <form action="{{ route('participantes.delete') }}" method="post">
                                             @csrf

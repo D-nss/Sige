@@ -12,6 +12,7 @@ use App\Models\AreaTematica;
 use App\Models\RespostasAvaliacoes;
 use App\Models\Recurso;
 use App\Models\Comentario;
+use App\Models\SucomissaoTematica;
 
 class Inscricao extends Model
 {
@@ -72,6 +73,11 @@ class Inscricao extends Model
     public function respostas_avaliacoes()
     {
         return $this->belongsToMany(User::class, 'respostas_avaliacoes', 'inscricao_id', 'user_id');
+    }
+
+    public function subcomissao()
+    {
+        return $this->belongsToMany(SubcomissaoTematica::class, 'unidades', 'subcomissao_tematica_id', 'id');
     }
 
     public function pareceres()

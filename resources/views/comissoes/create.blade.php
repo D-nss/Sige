@@ -14,7 +14,7 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Comissões</span>
         <small>
-        Adicionar Comissão ao Edital <strong>{{ $edital_titulo[0]->titulo }}</strong>
+        Adicionar Comissão
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
@@ -28,7 +28,7 @@
     <div id="panel-1" class="panel">
         <div class="panel-hdr">
             <h2>
-                Comissão de edital
+                <span class="fw-300"><i>Preencha todos os campos do formulário de cadastro de comissão</i></span>
             </h2>
             <!-- <div class="panel-toolbar">
                 <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>

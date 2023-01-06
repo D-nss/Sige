@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Comissao;
+use App\Models\Unidade;
 
 class Comissao extends Model
 {
@@ -18,6 +19,7 @@ class Comissao extends Model
         'nome',
         'atribuicao',
         'edital_id',
+        'unidade_id',
     ];
 
     public function users()
@@ -28,5 +30,10 @@ class Comissao extends Model
     public function edital()
     {
         return $this->belongsTo(Edital::class);
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class);
     }
 }
