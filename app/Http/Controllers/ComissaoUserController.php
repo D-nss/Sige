@@ -61,7 +61,7 @@ class ComissaoUserController extends Controller
             session()->flash('status', 'Participante de comissão cadastrado com sucesso!!!');
             session()->flash('alert', 'success');
 
-            return redirect()->to('/comissoes/edital/' . $request->edital_id);
+            return redirect()->to('/comissoes');
         }
         else {
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar participante na comissão');
