@@ -42,7 +42,7 @@ class ComissaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         $user = User::where('email', Auth::user()->id)->first();
         //echo json_encode($edital_id);
