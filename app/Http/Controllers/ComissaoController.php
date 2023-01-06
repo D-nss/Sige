@@ -23,7 +23,7 @@ class ComissaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', config('app.user'))->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         if($user->hasRole('edital-administrador')) {
             $comissoes = Comissao::where('edital_id', '<>' , null)->get();
@@ -43,7 +43,7 @@ class ComissaoController extends Controller
      */
     public function create($id)
     {
-        $user = User::where('email', config('app.user'))->first();
+        $user = User::where('email', Auth::user()->id)->first();
         //echo json_encode($edital_id);
         $editais = Edital::all();
 
