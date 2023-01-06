@@ -268,14 +268,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($locais_acao_extensao as $local)
+
+
                                                 <tr>
                                                     <td>
-                                                      Informação Local
+                                                      {{$local->local}}
                                                     </td>
                                                     <td>
-                                                      Informação Complemento
+                                                        {{$local->complemento}}
                                                     </td>
                                                   </tr>
+                                                  @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -290,7 +294,7 @@
                                         <i class="fal fa-landmark icon-stack-1x opacity-100 color-warning-500"></i>
                                     </div>
                                     <div class="ml-3">
-                                        Coordenador e Unidades
+                                        Coordenador e Unidade
                                     </div>
                                       <span class="ml-auto">
                                           <span class="collapsed-reveal">
@@ -320,7 +324,7 @@
                                             <h5>
                                                 Email:
                                                 <small class="mt-0 mb-3 text-muted">
-                                                    emaildocoordenador
+                                                    {{$acao_extensao->email_coordenador}}
                                                 </small>
                                             </h5>
                                         </div>
@@ -362,7 +366,6 @@
                                   </div>
                               </div>
                           </div>
-                          @if($acao_extensao->equipe != "")
                           <div class="card">
                               <div class="card-header" id="headingThree">
                                   <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -371,7 +374,7 @@
                                         <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
                                     </div>
                                     <div class="ml-3">
-                                        Colaboradores (Equipe)
+                                        Equipe e Curricularização
                                     </div>
                                       <span class="ml-auto">
                                           <span class="collapsed-reveal">
@@ -386,6 +389,18 @@
                               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                   <div class="card-body">
                                     <div class="frame-wrap">
+                                        @if(isset($acao_extensao->vagas_curricularizacao))
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                    Vagas Curricularização:
+                                                    <small class="mt-0 mb-3 text-muted">
+                                                        {{$acao_extensao->vagas_curricularizacao}}
+                                                    </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        @endif
                                         @if(isset($acao_extensao->qtd_graduacao))
                                             <div class="col-12">
                                                 <div class="p-0">
@@ -427,24 +442,32 @@
                                               <tr>
                                                   <th>Nome Completo</th>
                                                   <th>Email</th>
-                                                  <th>CPF</th>
+                                                  <th>Documento</th>
+                                                  <th>Nº Documento</th>
                                                   <th>Vinculo</th>
+                                                  <th>Carga Horaria</th>
                                               </tr>
                                           </thead>
                                           <tbody>
-                                              @foreach (explode(',',$acao_extensao->equipe) as $colaborador)
+                                              @foreach ($colaboradores_acao_extensao as $colaborador)
                                               <tr>
                                                   <td>
-                                                      {{$colaborador}}
+                                                      {{$colaborador->nome}}
                                                   </td>
                                                   <td>
-                                                      email
+                                                    {{$colaborador->email}}
                                                   </td>
                                                   <td>
-                                                      cpf
+                                                    {{$colaborador->documento}}
                                                   </td>
                                                   <td>
-                                                      vinculo
+                                                    {{$colaborador->numero_doc}}
+                                                  </td>
+                                                  <td>
+                                                    {{$colaborador->vinculo}}
+                                                  </td>
+                                                  <td>
+                                                    {{$colaborador->carga_horaria}}
                                                   </td>
                                               </tr>
                                               @endforeach
@@ -454,8 +477,7 @@
                                   </div>
                               </div>
                           </div>
-                          @endif
-                          @if(isset($acao_extensao->parceiro))
+                          @if(count($parceiros_acao_extensao) > 0)
                           <div class="card">
                               <div class="card-header" id="headingFour">
                                   <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -479,31 +501,25 @@
                               <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                   <div class="card-body">
                                     <div class="frame-wrap">
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Tipo do principal Parceiro:
-                                                <small class="mt-0 mb-3 text-muted">
-                                                    {{$acao_extensao->tipo_parceiro->descricao}}
-                                                </small>
-                                                </h5>
-                                            </div>
-                                        </div>
                                           <table class="table m-0">
                                               <thead class="thead-themed">
                                                   <tr>
                                                       <th>Nome</th>
                                                       <th>Tipo</th>
+                                                      <th>Colaboração</th>
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                  @foreach (explode(',',$acao_extensao->parceiro) as $parceiro)
+                                                  @foreach ($parceiros_acao_extensao as $parceiro)
                                                   <tr>
                                                       <td>
-                                                          {{$parceiro}}
+                                                          {{$parceiro->nome}}
                                                       </td>
                                                       <td>
-                                                          tipo
+                                                        {{$parceiro->tipo_parceiro->descricao}}
+                                                      </td>
+                                                      <td>
+                                                        {{$parceiro->colaboracao}}
                                                       </td>
                                                   </tr>
                                                   @endforeach

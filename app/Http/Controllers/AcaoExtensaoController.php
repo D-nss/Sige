@@ -483,8 +483,14 @@ class AcaoExtensaoController extends Controller
      */
     public function show(AcaoExtensao $acaoExtensao)
     {
+        $colaboradores_acao_extensao = AcaoExtensaoColaborador::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
+        $locais_acao_extensao = AcaoExtensaoLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
+        $parceiros_acao_extensao = AcaoExtensaoParceiro::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
         return view('acoes-extensao.show', [
-            'acao_extensao' => $acaoExtensao
+            'acao_extensao' => $acaoExtensao,
+            'colaboradores_acao_extensao' => $colaboradores_acao_extensao,
+            'locais_acao_extensao' => $locais_acao_extensao,
+            'parceiros_acao_extensao' => $parceiros_acao_extensao
         ]);
     }
 
