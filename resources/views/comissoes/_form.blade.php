@@ -24,7 +24,8 @@
                 </select>
             </div>
             <input type="hidden" id="unidade_id" name="unidade_id" value="{{ null }}">
-        @elseif($user->hasRole('extensao-coordenador'))
+        @endif
+        @if($user->hasRole('extensao-coordenador'))
             <input type="hidden" id="edital_id" name="edital_id" value="{{ null }}">
             <input type="hidden" id="unidade_id" name="unidade_id" value="{{ isset($user)? $user->unidade_id : null }}">
         @endif
