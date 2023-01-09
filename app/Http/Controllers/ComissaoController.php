@@ -26,16 +26,16 @@ class ComissaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if($user->hasRole('super')) {
-            $comissoes = Comissao::all();
-        }
-
         if($user->hasRole('edital-administrador')) {
             $comissoes = Comissao::where('edital_id', '<>' , null)->get();
         }
         
         if($user->hasRole('extensao-coordenador')){
             $comissoes = Comissao::where('unidade_id', $user->unidade->id)->get();
+        }
+
+        if($user->hasAnyRole('super|admin')) {
+            $comissoes = Comissao::all();
         }
 
         return view('comissoes.index', compact('comissoes', 'user'));
@@ -68,7 +68,7 @@ class ComissaoController extends Controller
             [
                 'nome' => 'required|max:190',
                 'atribuicao' => 'required|max:190',
-                'edital_id' => $request->edital_id != null ? 'required' : '',
+                'edital_id' => isset($request->edital_id) != true ? 'required' : '',
             ],
             [
                 'edital_id.required' => 'O campo edital é obrigatório.',

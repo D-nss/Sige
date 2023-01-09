@@ -102,6 +102,9 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <p>{{ $comissao->nome }}</p>
+                                                @if($comissao->users->count() > 0)
+                                                    <p>Essa comissão possui membros cadastrados.</p>
+                                                @endif
                                                 <p>Deseja realmente remover?</p>
                                             
                                         </div>
