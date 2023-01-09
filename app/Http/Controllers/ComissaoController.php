@@ -26,6 +26,10 @@ class ComissaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
+        if($user->hasAnyRole('super|admin')) {
+            $comissoes = Comissao::all();
+        }
+
         if($user->hasRole('edital-administrador')) {
             $comissoes = Comissao::where('edital_id', '<>' , null)->get();
         }
