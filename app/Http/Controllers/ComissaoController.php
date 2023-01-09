@@ -64,7 +64,7 @@ class ComissaoController extends Controller
             [
                 'nome' => 'required|max:190',
                 'atribuicao' => 'required|max:190',
-                'edital_id' => $request->unidade_id == null ? 'required' : '',
+                'edital_id' => $request->edital_id != null ? 'required' : '',
             ],
             [
                 'edital_id.required' => 'O campo edital é obrigatório.',
@@ -103,6 +103,8 @@ class ComissaoController extends Controller
      */
     public function destroy(Comissao $comissao)
     {
+        $comissao_user_deleted = ComissaoUser::where('comissao_id', $comissao->id)->delete();
+
         if($comissao->delete()) {
             session()->flash('status', 'Comissão removida com sucesso!!!');
             session()->flash('alert', 'success');
