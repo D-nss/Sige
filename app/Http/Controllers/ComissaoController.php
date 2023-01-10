@@ -68,14 +68,14 @@ class ComissaoController extends Controller
             [
                 'nome' => 'required|max:190',
                 'atribuicao' => 'required|max:190',
-                'edital_id' => isset($request->edital_id) != true ? 'required' : '',
+                'edital_id' => is_null($request->unidade_id) ? 'required' : '',
             ],
             [
                 'edital_id.required' => 'O campo edital é obrigatório.',
                 'atribuicao.required' => 'O campo atribuição é obrigatório.',
             ]
         );
-        
+
         $comissao_unidade_created = Comissao::where('unidade_id', $request->unidade_id)->first();
         if($comissao_unidade_created) {
             session()->flash('status', 'A unidade já possui uma comissão cadastrada!!!');
