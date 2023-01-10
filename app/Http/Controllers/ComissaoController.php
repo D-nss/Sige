@@ -75,6 +75,14 @@ class ComissaoController extends Controller
                 'atribuicao.required' => 'O campo atribuição é obrigatório.',
             ]
         );
+        
+        $comissao_unidade_created = Comissao::where('unidade_id', $request->unidade_id)->first();
+        if($comissao_unidade_created) {
+            session()->flash('status', 'A unidade já possui uma comissão cadastrada!!!');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/comissoes');
+        }
 
         $comissao = Comissao::create(
             [
