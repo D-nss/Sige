@@ -10,6 +10,7 @@
             <select name="atribuicao" class="form-control">
                 <option value="">Selecione ...</option>
                 <option value="Avaliação">Avaliação</option>
+                <option value="Extensão">Extensão</option>
                 <option value="Sub Comissão">Sub Comissão</option>
             </select>
         </div>
