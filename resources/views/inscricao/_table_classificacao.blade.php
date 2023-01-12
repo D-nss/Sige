@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         @foreach($inscricoes as $inscricao)
-            
+            {{ dd($inscricao->subcomissao) }}
             <tr>
                 <td><h5 class="fw-400 text-secondary">{{ $inscricao->edital->titulo }}</h5></td>
                 <td><h3 class="fw-700 text-primary">{{ $inscricao->titulo }}</h3><small class="font-italic font-color-light">Linhas de Extensão: {{ $inscricao->linha_extensao->nome}}</small></td>
