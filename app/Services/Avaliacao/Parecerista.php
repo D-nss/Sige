@@ -77,7 +77,14 @@ class Parecerista implements AvaliacaoInterface
             }
         }
 
-        $validated = $request->validate($validar);
+        $questoesAvaliativasIds = Questao::where('edital_id', $inscricao->edital_id)->where('tipo', 'Avaliativa')->get('id');
+        $mensagens = [];
+        foreach($questoesAvaliativasIds as $questaoAvaliativaId) {
+            $validar['questao-' . $questaoAvaliativaId['id']] = 'required';
+            $mensagens['questao-' . $questaoAvaliativaId['id'] . '.required'] = 'Uma questão avaliativa não foi preenchida';
+        }
+
+        $validated = $request->validate($validar, $mensagens);
         // Fim da Validação
 
         foreach( $request->except('_token', 'tipo_avaliacao', 'justificativa', 'parecer') as $key => $value) {
