@@ -193,6 +193,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('comissoes/participante/store', [ComissaoUserController::class, 'store'])->name('participantes.store');
 
     Route::resource('/inscricao', InscricaoController::class)->parameters(['inscricoes' => 'inscricao']);
+    Route::get('inscricao/show-completo/{id}', [InscricaoController::class, 'showCompleto']);
     Route::get('/inscricao/{id}/novo', [InscricaoController::class, 'create']);
     Route::get('/inscricao/{inscricao}/recurso', [RecursoInscricaoController::class, 'create']);
     Route::post('/inscricao/{inscricao}/recurso', [RecursoInscricaoController::class, 'store']);

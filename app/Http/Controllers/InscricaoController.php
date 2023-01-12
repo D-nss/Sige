@@ -325,6 +325,69 @@ class InscricaoController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Inscricao $inscricao
+     */
+    public function showCompleto($id){
+        $inscricao = \App\Models\Inscricao::find($id);
+    
+        $respostasQuestoes = \App\Models\QuestaoRespondida::join(
+            'questoes', 'questoes_respondidas.questao_id',
+            'questoes.id'
+            )->where('questoes_respondidas.inscricao_id', $inscricao->id)
+            ->get();
+    
+        $questoesAvaliacao = $inscricao->edital->questoes->filter(function($value, $key) {
+            return data_get($value, 'tipo') == 'Avaliativa';
+        });
+    
+        $notasAvaliacao = \App\Models\RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
+                                                ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
+                                                ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
+                                                ->get();
+    
+        $parecerAvaliacao = \App\Models\Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer')
+                                   ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
+                                   ->join('users', 'users.id', 'inscricoes.user_id')
+                                   ->where('inscricoes.id', $inscricao->id)
+                                   ->get();
+    
+        $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $inscricao->edital->valor_max_programa : $inscricao->edital->valor_max_inscricao;
+    
+        $totalItens = \App\Models\Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
+        $itensOrcamento = \App\Models\Orcamento::join('item', 'item.id', 'orcamento_itens.item')
+                                    ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
+                                    ->where('inscricao_id', $inscricao->id)
+                                    ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
+
+        $status = [
+            'Deferido' => 'success',
+            'Classificado' => 'success',
+            'Salvo' => 'warning',
+            'Submetido' => 'warning',
+            'Avaliado' => 'success',
+            'Indeferido' => 'danger',
+            'Desclassificado' => 'danger',
+            'Contemplado' => 'success'
+        ];
+        
+        return view('inscricao.show-completo', 
+            compact(
+                    'inscricao', 
+                    'totalItens', 
+                    'itensOrcamento', 
+                    'questoesAvaliacao', 
+                    'notasAvaliacao',
+                    'parecerAvaliacao',
+                    'valorMaxPorInscricao',
+                    'respostasQuestoes',
+                    'status'
+                )
+            );
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Inscricao $inscricao

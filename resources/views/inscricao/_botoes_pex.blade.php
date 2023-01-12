@@ -1,5 +1,9 @@
 <div class="">
-    <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-info btn-xs m-1"><i class="far fa-eye"></i> Ver</a>
+@if($user->hasAnyRole('super','edital-administrador'))
+        <a href='{{ url("inscricao/show-completo/$inscricao->id") }}' class="btn btn-info btn-xs m-1"><i class="far fa-eye"></i> Visualização completa</a>
+    @else
+        <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-info btn-xs m-1"><i class="far fa-eye"></i> Ver</a>
+    @endif
     <a href='{{ url("storage/$inscricao->anexo_projeto") }}' target="_blank" class="btn btn-danger btn-xs m-1"><i class="far fa-pdf"></i> Ver PDF</a>
     
     @if($user->hasAnyRole('super','edital-administrador') || ( $inscricao->atribuicao == 'Sub Comissão' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id))))

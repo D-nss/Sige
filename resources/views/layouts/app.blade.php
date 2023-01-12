@@ -387,7 +387,41 @@ Versão: 4.5.1
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
                     },
-                    responsive: true
+                    responsive: true,
+                    dom:
+                        /*	--- Layout Structure
+                        	--- Options
+                        	l	-	length changing input control
+                        	f	-	filtering input
+                        	t	-	The table!
+                        	i	-	Table information summary
+                        	p	-	pagination control
+                        	r	-	processing display element
+                        	B	-	buttons
+                        	R	-	ColReorder
+                        	S	-	Select
+
+                        	--- Markup
+                        	< and >				- div element
+                        	<"class" and >		- div with a class
+                        	<"#id" and >		- div with an ID
+                        	<"#id.class" and >	- div with an ID and a class
+
+                        	--- Further reading
+                        	https://datatables.net/reference/option/dom
+                        	--------------------------------------
+                         */
+                        "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'l>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-4'i><'col-sm-12 col-md-6'p><'col-sm-12 col-md-2 d-flex align-items-center justify-content-end'B>>",
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Exportar para Excel',
+                            titleAttr: 'Generate Excel',
+                            className: 'btn-outline-success btn-sm mr-1'
+                        },
+                    ]
                 });
 
                 $('#dt-propostas').dataTable(
