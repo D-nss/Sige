@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\AvaliadorPorInscricao;
 use App\Models\RespostasAvaliacoes;
 use App\Models\Parecer;
+use App\Models\Questao;
 
 class Parecerista implements AvaliacaoInterface
 {
