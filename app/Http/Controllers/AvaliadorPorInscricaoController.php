@@ -103,4 +103,16 @@ class AvaliadorPorInscricaoController extends Controller
             return redirect()->back();
         }
     }
+
+    public function notificar(Inscricao $inscricao)
+    {
+        foreach($inscricao->avaliadores as $avaliador) {
+            $avaliador->notify(new \App\Notifications\PareceristasNotificar($inscricao));
+        }
+        
+        session()->flash('status', 'Notificações enviadas com sucesso');
+        session()->flash('alert', 'success');
+
+        return redirect()->back();
+    }
 }

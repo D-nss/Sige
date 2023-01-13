@@ -222,6 +222,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     Route::post('avaliador-por-inscricao/store', [AvaliadorPorInscricaoController::class, 'store']);
     Route::post('avaliador-por-inscricao/delete', [AvaliadorPorInscricaoController::class, 'delete']);
+    Route::post('avaliador-por-inscricao/{inscricao}/notificar', [AvaliadorPorInscricaoController::class, 'notificar']);
 
     Route::resource('subcomissao-tematica', SubcomissaoTematicaController::class);
 

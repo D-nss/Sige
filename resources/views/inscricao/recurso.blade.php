@@ -82,6 +82,12 @@
                             Aprovar
                         </button>
                     @endif
+                    @if($userNaComissao && $inscricao->recurso->status == 'Aceito')
+                        <!-- notificar trigger modal -->
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#notificaModal">
+                            Notificar Pareceristas
+                        </button>
+                    @endif
                     <div class="mt-3">
                         @if(!$inscricao->recurso)
                             <button class="btn btn-success">Enviar</button>
@@ -132,6 +138,38 @@
                     </div>
                 </div>
                 <!-- fim aprova modal -->
+
+                <!-- notifica modal -->
+                <div class="modal" tabindex="-1" id="notificaModal">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Notificação de Pareceristas</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action='{{ url("avaliador-por-inscricao/$inscricao->id/notificar") }}' method="post" id="form-aprova-recurso">
+                                @csrf
+                                
+                                <p>Deseja notificar os pareceristas desta inscrição?</p>
+                                
+                                <button class="btn btn-success">
+                                    
+                                    <span class="spin-text">
+                                        Notificar
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fim notifica modal -->
                 @endif
             </div>
         </div>
