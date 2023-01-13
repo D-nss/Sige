@@ -10,6 +10,26 @@
     </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
+@if($acao_extensao->status == 'Rascunho')
+<div class="alert alert-warning alert-dismissible fade show">
+    <div class="d-flex align-items-center">
+        <div class="alert-icon">
+            <i class="fal fa-info-circle"></i>
+        </div>
+        <div class="flex-1">
+            <span class="h5">Ação de Extensão cadastrada, porém não submetida para aprovação</span>
+        </div>
+        @if($userCoordenadorAcao)
+        <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+            @csrf
+            @method('put')
+            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
+        </form>
+        @endif
+        <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
+    </div>
+</div>
+@endif
 @if($acao_extensao->status == 'Pendente')
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
@@ -17,15 +37,15 @@
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-1">
-            <span class="h5">Ação de Extensão pendende de aprovação pela Unidade</span>
+            <span class="h5">Ação de Extensão foi Submetida, e pendende de aprovação pela Unidade</span>
         </div>
-        @hasanyrole('super|admin', 'web_user')
+        @if($userNaComissao)
         <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
             @csrf
             @method('put')
             <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Aprovar</button>
         </form>
-        @endhasanyrole
+        @endif
         <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
     </div>
 </div>
@@ -34,14 +54,14 @@
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-file'></i> {{$acao_extensao->titulo}}
         @switch($acao_extensao->status)
-                                        @case(1)
+                                        @case('Desativado')
                                         <span class="badge badge-danger">Desativado</span>
                                             @break
-                                        @case(2)
-                                            <span class="badge badge-info">Em Andamento</span>
+                                        @case('Pendente')
+                                            <span class="badge badge-warning">Pendente</span>
                                             @break
-                                        @case(3)
-                                            <span class="badge badge-success">Concluído</span>
+                                        @case('Aprovado')
+                                            <span class="badge badge-success">Aprovado</span>
                                             @break
                                         @default
                                         <span class="badge badge-warning">Indefinido</span>
@@ -396,30 +416,6 @@
                                                     Vagas Curricularização:
                                                     <small class="mt-0 mb-3 text-muted">
                                                         {{$acao_extensao->vagas_curricularizacao}}
-                                                    </small>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        @if(isset($acao_extensao->qtd_graduacao))
-                                            <div class="col-12">
-                                                <div class="p-0">
-                                                    <h5>
-                                                    Quantidade Graduação:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_extensao->qtd_graduacao}}
-                                                    </small>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        @if(isset($acao_extensao->qtd_pos_graduacao))
-                                            <div class="col-12">
-                                                <div class="p-0">
-                                                    <h5>
-                                                    Quantidade Pós-Graduação:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_extensao->qtd_pos_graduacao}}
                                                     </small>
                                                     </h5>
                                                 </div>

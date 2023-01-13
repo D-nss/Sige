@@ -210,18 +210,10 @@
                     <div class="panel-content">
                         <form action="{{route('acao_extensao.curricularizacao', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao" method="POST">
                             @csrf
-                            <div class="row g-4">
+                            <div class="row g-2">
                                 <div class="form-group col-md-2">
                                     <label class="form-label" for="vagas_curricularizacao">Vagas para Curricularização</label>
                                     <input class="form-control" id="vagas_curricularizacao" type="number" name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="qtd_graduacao">Quantidade Graduação</label>
-                                    <input class="form-control" id="qtd_graduacao" type="number" name="qtd_graduacao" value="{{isset($acao_extensao->qtd_graduacao) ? $acao_extensao->qtd_graduacao : old('qtd_graduacao')}}">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="qtd_pos_graduacao">Quantidade Pós-graduação</label>
-                                    <input class="form-control" id="qtd_pos_graduacao" type="number" name="qtd_pos_graduacao" value="{{isset($acao_extensao->qtd_pos_graduacao) ? $acao_extensao->qtd_pos_graduacao : old('qtd_pos_graduacao')}}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-label" for="grau_envolvimento_equipe_id">Tipo de envolvimento da equipe com a Comunidade <span class="text-danger">*</span></label>

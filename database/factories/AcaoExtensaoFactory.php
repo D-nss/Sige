@@ -34,8 +34,6 @@ class AcaoExtensaoFactory extends Factory
             'unidade_id' => rand(1, 40),
             'nome_coordenador' => $this->faker->name(),
             'vinculo_coordenador' => rand(1,4),
-            'qtd_graduacao' => rand(1,10),
-            'qtd_pos_graduacao' => rand(1,10),
             /*
             'parceiro' => $this->faker->company(),
             'tipo_parceiro_id' => rand(1,13),*/

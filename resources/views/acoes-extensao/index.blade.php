@@ -119,14 +119,14 @@
                                 <td>
                                     <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
                                     @switch($acao_extensao->status)
-                                        @case(1)
+                                        @case('Desativado')
                                         <span class="badge badge-danger">Desativado</span>
                                             @break
-                                        @case(2)
-                                            <span class="badge badge-info">Em Andamento</span>
+                                        @case('Pendente')
+                                            <span class="badge badge-warning">Pendente</span>
                                             @break
-                                        @case(3)
-                                            <span class="badge badge-success">Concluído</span>
+                                        @case('Aprovado')
+                                            <span class="badge badge-success">Aprovado</span>
                                             @break
                                         @default
                                         <span class="badge badge-warning">Indefinido</span>

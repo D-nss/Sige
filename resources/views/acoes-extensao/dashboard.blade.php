@@ -43,7 +43,7 @@
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-3">
-            <span class="h5">Existem Ações de Extensão pendentes de aprovação pela Unidade</span>
+            <span class="h5">Existem Ações de Extensão Pendentes para Submissão</span>
         </div>
     </div>
 </div>

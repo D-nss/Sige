@@ -31,8 +31,6 @@ class AcaoExtensao extends Model
         'email_coordenador',
         'vinculo_coordenador',
         'vagas_curricularizacao',
-        'qtd_graduacao',
-        'qtd_pos_graduacao',
         'parceiro',
         'tipo_parceiro_id',
         'impactos_universidade',

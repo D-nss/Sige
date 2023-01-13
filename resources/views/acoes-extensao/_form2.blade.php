@@ -282,12 +282,7 @@
                                 @if(isset($acao_extensao))
                                     <option value="{{$acao_extensao->unidade->id}}">{{$acao_extensao->unidade->nome}}</option>
                                 @else
-                                    <option value="">Selecione a Unidade Responsável</option>
-                                @endif
-                                @if (!empty($unidades))
-                                    @foreach ($unidades as $unidade)
-                                      <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
-                                    @endforeach
+                                    <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
                                 @endif
                             </select>
                             @error('unidade_id')

@@ -43,8 +43,6 @@ return new class extends Migration
             $table->string('vinculo_coordenador', 250)->nullable();
             $table->string('email_coordenador', 250)->nullable();
             $table->integer('vagas_curricularizacao')->nullable();
-            $table->integer('qtd_graduacao')->nullable();
-            $table->integer('qtd_pos_graduacao')->nullable();
             $table->foreignIdFor(GrauEnvolvimentoEquipe::class)->nullable();
             //parceiros e comunidade
             $table->string('impactos_universidade', 2500)->nullable();

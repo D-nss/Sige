@@ -15,6 +15,7 @@ use App\Models\AcaoExtensaoParceiro;
 use App\Models\LinhaExtensao;
 use App\Models\AreaTematica;
 use App\Models\Comentario;
+use App\Models\ComissaoUser;
 use App\Models\GrauEnvolvimentoEquipe;
 use App\Models\Unidade;
 use App\Models\User;
@@ -28,42 +29,40 @@ use Illuminate\Support\Facades\App;
 class AcaoExtensaoController extends Controller
 {
     public function dashboard(){
-        //pegar id unidade do usuario (alterar)
 
         if(App::environment('local')){
-            $unidade = Unidade::where('id', 1)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
-            $vinculo_coordenador = Auth::user()->employeetype;
         }
 
+        $unidade = Unidade::where('id', $user->unidade_id)->first();
         $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->limit(3)->get();
         $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
+        $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
-        //pegar id do usuario (alterar)
-        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', 1)->get();
+        //pegar id do usuario
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->get();
 
         $total = AcaoExtensao::all()->count();
-        $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->count();
+        $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
         if(!$total == 0){
             $porcentagem_unidade = (int) ($total_unidade*100/$total);
         } else{
             $porcentagem_unidade = 0;
         }
-        /*
-        $total_concluidos = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 3)->count();
-        $total_andamento = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 2)->count();
-        $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('situacao', 1)->count();
-        */
-        $total_concluidos = 0;
-        $total_andamento = 0;
-        $total_desativados = 0;
+
+        $total_concluidos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Concluido')->count();
+        $total_andamento = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
+        $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Desativado')->count();
+
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
             'acoes_extensao' => $acoes_extensao,
             'pendentes' => $pendentes,
+            'rascunhos' => $rascunhos,
             'total' => $total,
             'total_unidade' => $total_unidade,
             'porcentagem_unidade' => $porcentagem_unidade,
@@ -107,7 +106,12 @@ class AcaoExtensaoController extends Controller
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $ods = ObjetivoDesenvolvimentoSustentavel::all();
-        $unidades = Unidade::all();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+        $unidade = Unidade::where('id', $user->unidade_id)->first();
         //$user = User::where('email', Auth::user()->id)->first();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $tipos_parceiro = TipoParceiro::all();
@@ -118,7 +122,7 @@ class AcaoExtensaoController extends Controller
             'areas_tematicas' => $areas_tematicas,
             'ods' => $ods,
             'estados' => $estados,
-            'unidades' => $unidades,
+            'unidade' => $unidade,
             'tipos_parceiro' => $tipos_parceiro,
             'graus_envolvimento_equipe' => $graus_envolvimento_equipe
         ]);
@@ -177,7 +181,7 @@ class AcaoExtensaoController extends Controller
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
         $dados = array_merge($dados_form, $dados);
-        $dados['status'] = 'Pendente';
+        $dados['status'] = 'Rascunho';
         $areasTematicasInsert = array();
         $odsInsert = array();
 
@@ -243,7 +247,7 @@ class AcaoExtensaoController extends Controller
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
         $dados = array_merge($dados_form, $dados);
-        $dados['status'] = 'Pendente';
+        $dados['status'] = 'Rascunho';
         $areasTematicasInsert = array();
         $odsInsert = array();
 
@@ -368,8 +372,6 @@ class AcaoExtensaoController extends Controller
     {
         $this->validate($request, [
             'vagas_curricularizacao' => ['required'],
-            'qtd_graduacao' => ['required'],
-            'qtd_pos_graduacao' => ['required'],
             'grau_envolvimento_equipe_id' => ['required']
         ]);
         $dados = $request->all();
@@ -486,11 +488,31 @@ class AcaoExtensaoController extends Controller
         $colaboradores_acao_extensao = AcaoExtensaoColaborador::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
         $locais_acao_extensao = AcaoExtensaoLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
         $parceiros_acao_extensao = AcaoExtensaoParceiro::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
+
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                        ->where('comissoes.unidade_id', $acaoExtensao->unidade_id)
+                                        ->where('comissoes_users.user_id', $user->id)
+                                        ->first();
+
+        //restringindo usuario aprovar sua ação
+        if($acaoExtensao->user_id == $user->id){
+            $userNaComissao = false;
+            $userCoordenadorAcao = $user;
+        }
+
         return view('acoes-extensao.show', [
             'acao_extensao' => $acaoExtensao,
             'colaboradores_acao_extensao' => $colaboradores_acao_extensao,
             'locais_acao_extensao' => $locais_acao_extensao,
-            'parceiros_acao_extensao' => $parceiros_acao_extensao
+            'parceiros_acao_extensao' => $parceiros_acao_extensao,
+            'userNaComissao' => $userNaComissao,
+            '$userCoordenadorAcao' => $userCoordenadorAcao
         ]);
     }
 
@@ -506,8 +528,32 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.index');
     }
 
+    public function submeter(AcaoExtensao $acaoExtensao){
+
+        if(App::environment('local')){
+            $acaoExtensao->aprovado_user_id = 1;
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+            $acaoExtensao->aprovado_user_id = $user->id;
+        }
+
+        $acaoExtensao->status = 'Pendente';
+        $acaoExtensao->save();
+        session()->flash('status', 'Ação de Extensão Submetida para aprovação!');
+        session()->flash('alert', 'success');
+
+        return redirect()->route('acao_extensao.index');
+    }
+
     public function aprovar(AcaoExtensao $acaoExtensao){
-        $acaoExtensao->aprovado_user_id = 1;
+
+        if(App::environment('local')){
+            $acaoExtensao->aprovado_user_id = 1;
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+            $acaoExtensao->aprovado_user_id = $user->id;
+        }
+
         $acaoExtensao->status = 'Aprovado';
         $acaoExtensao->save();
         session()->flash('status', 'Ação de Extensão aprovada!');
