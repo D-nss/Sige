@@ -361,6 +361,8 @@ class InscricaoController extends Controller
                                     ->where('inscricao_id', $inscricao->id)
                                     ->get(['orcamento_itens.*', 'item.nome as item', 'tipo_item.nome as tipoitem']);
 
+        $arquivos = Arquivo::where('modulo', 'editais')->where('referencia_id', $inscricao->id)->get(['nome_arquivo', 'url_arquivo']);
+
         $status = [
             'Deferido' => 'success',
             'Classificado' => 'success',
@@ -382,7 +384,8 @@ class InscricaoController extends Controller
                     'parecerAvaliacao',
                     'valorMaxPorInscricao',
                     'respostasQuestoes',
-                    'status'
+                    'status',
+                    'arquivos'
                 )
             );
     }
