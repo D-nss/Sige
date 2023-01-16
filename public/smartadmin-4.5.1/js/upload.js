@@ -37,6 +37,10 @@ function readFile(input, id) {
     e.unwrap();
   }
 
+  $("#arquivo-anexo").change(function() {
+    readFile(this, 'arquivo-box-body');
+  });
+
   $("#arquivo").change(function() {
     readFile(this, 'box-body');
   });

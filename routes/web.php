@@ -32,6 +32,7 @@ use App\Http\Controllers\RecursoInscricaoController;
 use App\Http\Controllers\AcaoCulturalController;
 use App\Http\Controllers\EventoInscritosController;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\UploadArquivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -209,6 +210,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
     Route::post('/inscricao/{inscricao}/contemplar', [InscricaoController::class, 'contemplar']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
+
+    Route::post('/upload-arquivo', [UploadArquivoController::class, 'store']);
 
     Route::post('/edital/{edital}/classificar', [EditalController::class, 'classificar']);
     Route::get('/edital/{edital}/listar-classificados', [EditalController::class, 'listarClassificados']);
