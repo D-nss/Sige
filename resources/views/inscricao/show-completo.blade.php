@@ -46,8 +46,8 @@
             <div class="frame-wrap w-100">
                 <div class="accordion" id="accordionExample">
                     <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="card-header" id="headingDados">
+                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseDados" aria-expanded="true" aria-controls="collapseDados">
                                 <div class='icon-stack display-3 flex-shrink-0'>
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
                                     <i class="fal fa-inbox icon-stack-1x opacity-100 color-info-500"></i>
@@ -65,7 +65,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id="collapseDados" class="collapse show" aria-labelledby="headingDados" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="col-12">
                                     <div class="p-0">
@@ -215,8 +215,8 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <div class="card-header" id="headingDetalhamento">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseDetalhamento" aria-expanded="false" aria-controls="collapseDetalhamento">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                                     <i class="fal fa-newspaper icon-stack-1x opacity-100 color-primary-500"></i>
@@ -234,7 +234,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div id="collapseDetalhamento" class="collapse" aria-labelledby="headingDetalhamento" data-parent="#accordionExample">
                             <div class="card-body">
                                 @foreach( $respostasQuestoes as $respostaQuestao)
                                     <div class="col-12 @if($respostasQuestoes->last()->id != $respostaQuestao->id) border-bottom mb-2 @endif">
@@ -252,8 +252,8 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <div class="card-header" id="headingOrcamento">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseOrcamento" aria-expanded="false" aria-controls="collapseOrcamento">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
                                     <i class="fal fa-file-invoice-dollar icon-stack-1x opacity-100 color-warning-500"></i>
@@ -271,7 +271,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div id="collapseOrcamento" class="collapse" aria-labelledby="headingOrcamento" data-parent="#accordionExample">
                             <div class="card-body">
                                 <table class="table table-bordered table-hover table-striped w-100 mb-2" id="dt-orcamento">
                                     <thead>
@@ -304,8 +304,87 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingFive">
-                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <div class="card-header" id="headingArquivo">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseArquivo" aria-expanded="false" aria-controls="collapseArquivo">
+                                <div class='icon-stack display-3 flex-shrink-0'>       
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
+                                    <i class="far fa-file icon-stack-1x opacity-100 color-danger-500"></i>
+                                </div>
+                                <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
+                                    Arquivos
+                                </h4>
+                                <span class="ml-auto">
+                                    <span class="collapsed-reveal">
+                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    </span>
+                                    <span class="collapsed-hidden">
+                                        <i class="fal fa-plus-circle text-success"></i>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div id="collapseArquivo" class="collapse" aria-labelledby="headingArquivo" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="col-6">
+                                    <form action="{{ url('/upload-arquivo')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <h4>Uploads de Arquivos</h4>
+                                        <label for="nome_arquivo" class="form-label">Nome Arquivo</label>
+                                        <input type="text" class="form-control mb-2" name="nome_arquivo" id="nome_arquivo" placeholder="Nome do arquivo">
+                                        
+                                        <div class="preview-zone hidden">
+                                            <div class="box box-solid">
+                                                <div class="box-header with-border">
+                                                <div></div>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                    Limpar
+                                                    </button>
+                                                </div>
+                                                </div>
+                                                <div class="box-body" id="arquivo-box-body">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropzone-wrapper">
+                                            <div class="dropzone-desc">
+                                                <i class="glyphicon glyphicon-download-alt"></i>
+                                                <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
+
+                                            </div>
+                                            <input type="file" name="arquivo-anexo" class="dropzone" id="arquivo-anexo" value="" required>
+
+                                        </div>
+                                        <input type="hidden" name="modulo" value="editais">
+                                        <input type="hidden" name="inscricao_id" value="{{ $inscricao->id }}">
+                                        <button class="btn btn-success mt-3">Enviar</button>
+                                    </form>
+                                   
+                                    <div class="row border-bottom mb-2 mt-4">
+                                        @foreach($arquivos as $arquivo)
+                                        <div class="p-0 col-md-6">
+                                            <h5>
+                                                Nome Arquivo
+                                                <small class="mt-0 mb-3">
+                                                    {{ $arquivo->nome_arquivo }}
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        <div class="p-0 col-md-6">
+                                            <h5>
+                                                <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-danger" href="#" target="_blank">Abrir Arquivo</a>
+                                            </h5>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingComissao">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseComissao" aria-expanded="false" aria-controls="collapseComissao">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
                                     <i class="far fa-user icon-stack-1x opacity-100 color-secondary-500"></i>
@@ -323,7 +402,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                        <div id="collapseComissao" class="collapse" aria-labelledby="headingComissao" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="col-12">
                                     <div class="p-0">
@@ -338,7 +417,7 @@
                                         <h5>
                                             Unidade
                                             <small class="mt-0 mb-3">
-                                            {{ is_null($inscricao->analista) ? '' :  $inscricao->analista->unidade->sigla }}
+                                            {{ is_null($inscricao->analista->unidade->sigla) ? '' :  $inscricao->analista->unidade->sigla }}
                                             </small>
                                         </h5>
                                     </div>
@@ -347,8 +426,8 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingFour">
-                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <div class="card-header" id="headingNotas">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseNotas" aria-expanded="false" aria-controls="collapseNotas">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                     <i class="fal fa-credit-card icon-stack-1x opacity-100 color-success-400"></i>
@@ -366,7 +445,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                        <div id="collapseNotas" class="collapse" aria-labelledby="headingNotas" data-parent="#accordionExample">
                             <div class="card-body">
                                 @if($inscricao->qtde_contemplacao)
                                     <div class="mb-2">
@@ -415,11 +494,11 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header" id="headingSix">
-                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        <div class="card-header" id="headingAvaliadores">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseAvaliadores" aria-expanded="false" aria-controls="collapseAvaliadores">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
-                                    <i class="far fa-user icon-stack-1x opacity-100 color-danger-500"></i>
+                                    <i class="far fa-users icon-stack-1x opacity-100 color-danger-500"></i>
                                 </div>
                                 <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                     Avaliadores(Pareceristas)
@@ -434,7 +513,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                        <div id="collapseAvaliadores" class="collapse" aria-labelledby="headingAvaliadores" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="col-6">
                                     @foreach($inscricao->avaliadores as $avaliadores)
