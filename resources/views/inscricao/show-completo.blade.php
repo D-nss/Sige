@@ -342,7 +342,7 @@
                                                     </button>
                                                 </div>
                                                 </div>
-                                                <div class="box-body" id="arquivo-box-body">
+                                                <div class="box-body" id="box-body">
 
                                                 </div>
                                             </div>
@@ -353,7 +353,7 @@
                                                 <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
 
                                             </div>
-                                            <input type="file" name="arquivo-anexo" class="dropzone" id="arquivo-anexo" value="" required>
+                                            <input type="file" name="arquivo-anexo" class="dropzone" id="arquivo" value="" required>
 
                                         </div>
                                         <input type="hidden" name="modulo" value="editais">
