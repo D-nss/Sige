@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Arquivo;
 use App\Models\Edital;
 use App\Models\Inscricao;
 use App\Models\AvaliadorPorInscricao;
