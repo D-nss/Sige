@@ -330,7 +330,7 @@
                                         @csrf
                                         <h4>Uploads de Arquivos</h4>
                                         <label for="nome_arquivo" class="form-label">Nome Arquivo</label>
-                                        <input type="text" class="form-control mb-2" name="nome_arquivo" id="nome_arquivo" placeholder="Nome do arquivo">
+                                        <input type="text" class="form-control mb-2" name="nome_arquivo" id="nome_arquivo" placeholder="Nome do arquivo" value="{{ old('nome_arquivo') }}">
                                         
                                         <div class="preview-zone hidden">
                                             <div class="box box-solid">
