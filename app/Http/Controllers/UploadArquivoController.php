@@ -17,10 +17,10 @@ class UploadArquivoController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'arquivo-anexo',
-            'nome_arquivo'
+            'arquivo-anexo' => 'required|mimes:pdf',
+            'nome_arquivo' => 'required|max:190'
         ]);
-        
+
         $upload = new UploadFile();
         $arquivo = $upload->execute($request, 'arquivo-anexo', 'pdf', 3000000);
 
