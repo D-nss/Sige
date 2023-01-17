@@ -21,9 +21,6 @@ class UploadArquivoController extends Controller
             'arquivo-anexo' => 'required|mimes:pdf',
             'nome_arquivo' => 'required|max:190'
             ],
-            [
-                'arquivo-anexo.mimes:pdf' => 'O arquivo deve ser do tipo PDF',
-            ]
         );
 
         $upload = new UploadFile();

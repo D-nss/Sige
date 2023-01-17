@@ -186,6 +186,8 @@ return [
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
         'current_password' => 'senha atual',
+        'arquivo-anexo' => 'arquivo anexo',
+        'nome_arquivo' => 'nome arquivo'
     ],
 
 ];
