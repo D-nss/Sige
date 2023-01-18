@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
-use App\Mail\InscritoMail;
+use App\Mail\EnviarMail;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
@@ -253,5 +254,39 @@ class EventoInscritosController extends Controller
         $pdf = Pdf::loadHtml($html);
         $pdf->setPaper('a4');
         return $pdf->download();
+    }
+
+    public function enviarEmailCreate($id)
+    {
+        return view('eventos.inscritos.enviar_email', compact('id'));
+    }
+
+    public function enviarEmail(Request $request, $id)
+    {
+        $inscrito = EventoInscrito::find($id);
+
+        if($request->tipo_mensagem == 'confirmar'){
+
+            $inscrito->notify( new \App\Notifications\EventoInscritoNotificar([
+                'titulo_evento' => $inscrito->evento,
+                'nome' => $inscrito->nome,
+                'id' => $inscrito->id
+            ]));
+
+            session()->flash('status', 'E-mail de confirmação reenviado.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+
+        if($request->tipo_mensagem == 'mensagem') {
+            $detalhes = [
+                'nome' => $inscrito->nome,
+                'mensagem' => $request->mensagem
+            ];
+
+            Mail::to($inscrito->email)->send(new EnviarEmail($detalhes));
+        }
+        
     }
 }

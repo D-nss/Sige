@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Eventos')
+@section('title', 'Aviso do Sistema de Eventos')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">

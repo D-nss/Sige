@@ -25,7 +25,7 @@ class Parecerista implements AvaliacaoInterface
                                                         ->where('user_id', $user->id)
                                                         ->first();
 
-        //analisa se esta no periodo de recurso
+        //analisa se esta no periodo de recurso e se tem recurso aberto
         if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && $inscricao->recurso ) {
             return ['parecerista' => true];
         }
