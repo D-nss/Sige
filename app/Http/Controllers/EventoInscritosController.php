@@ -8,7 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Mail;
 
-use App\Mail\EnviarMail;
+use App\Mail\EnviarEmail;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
