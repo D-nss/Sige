@@ -13,14 +13,16 @@ class EnviarEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $detalhes;
+    
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($detalhes)
     {
-        //
+        $this->detalhes = $detalhes;
     }
 
     /**
