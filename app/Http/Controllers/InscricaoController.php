@@ -343,7 +343,7 @@ class InscricaoController extends Controller
             return data_get($value, 'tipo') == 'Avaliativa';
         });
     
-        $notasAvaliacao = \App\Models\RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
+        $notasAvaliacao = \App\Models\RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.updated_at')
                                                 ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
                                                 ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
                                                 ->get();
