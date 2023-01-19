@@ -468,7 +468,7 @@
                                                 </br>
                                                 <span class="">Nota: </span><span class="fs-md fw-500">{{ $notas->valor }}</span>
                                                 </br>
-                                                <span class="d-inline-block text-sm text-muted fw-200">{{ date('d/m/Y H:i', strtotime($notas->updated_at)) }}</span>
+                                                <span class="fs-sm text-muted fw-100 font-italic">Atualizado em: {{ date('d/m/Y H:i', strtotime($notas->updated_at)) }}</span>
                                             </div>
                                         @endforeach
                                     </div>
