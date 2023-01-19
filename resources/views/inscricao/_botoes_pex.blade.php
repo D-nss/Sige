@@ -1,5 +1,5 @@
 <div class="">
-@if($user->hasAnyRole('super','edital-administrador'))
+    @if($user->hasAnyRole('super','edital-administrador'))
         <a href='{{ url("inscricao/show-completo/$inscricao->id") }}' class="btn btn-info btn-xs m-1"><i class="far fa-eye"></i> Visualização completa</a>
     @else
         <a href='{{ url("inscricao/$inscricao->id") }}' class="btn btn-info btn-xs m-1"><i class="far fa-eye"></i> Ver</a>

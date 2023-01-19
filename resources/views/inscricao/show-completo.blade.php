@@ -462,9 +462,10 @@
                                 <div class="mt-3">
                                     <div class="mt-3">
                                         <h4>Questões Avaliativas</h4>
-                                            @foreach($notasAvaliacao as $notas)
-                                                <div class="mb-3"><span class="text-secondary fs-md fw-300">{{ $notas->enunciado }}</span></br><span class="">Nota: </span><span class="fs-md fw-500">{{ $notas->valor }}</span></div>
-                                            @endforeach
+                                        @foreach($notasAvaliacao as $notas)
+                                            <div class="mb-3"><span class="text-secondary fs-md fw-300">{{ $notas->enunciado }}</span></br><span class="">Nota: </span><span class="fs-md fw-500">{{ $notas->valor }}</span></div>
+                                            <span class="d-inline-block text-truncate text-truncate-sm">{{ $notas->updated_at }}</span>
+                                        @endforeach
                                     </div>
                                     <div class="mt-3">
                                         <h4>Justificativa das Notas e Parecer</h4>

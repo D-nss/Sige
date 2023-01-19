@@ -94,7 +94,8 @@ class Parecerista implements AvaliacaoInterface
                 'user_id'      => $user->id,
                 'inscricao_id' => $inscricao->id,
                 'questao_id'   => $questao_id,
-                'valor'        => $value
+                'valor'        => $value,
+                'updated_at'   => date('Y-m-d H:i:s')
             ));
         }
 
@@ -169,7 +170,7 @@ class Parecerista implements AvaliacaoInterface
                     ->where('user_id', $user->id)
                     ->where('inscricao_id', $inscricao->id)
                     ->where('questao_id', $questao_id)
-                    ->update(['valor' => $value]);
+                    ->update(['valor' => $value, 'updated_at' => date('Y-m-d H:i:s')]);
             }
 
             DB::table('pareceres')

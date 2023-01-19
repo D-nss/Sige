@@ -50,7 +50,22 @@
                              </span> Voltar</a>
                     @endif
                 </div>
-                <h2 class="text-muted fw-300">Status <span class="badge badge-{{ $status[$inscricao->status] }}">{{ $inscricao->status }}</span></h2>
+
+                @if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) && ($inscricao->status == 'Indeferido' || $inscricao->status == 'Deferido') )
+                <h2 class="text-muted fw-300">
+                    Status 
+                    <span class="badge badge-warning">
+                        Em Análise
+                    </span>
+                </h2>
+                @else
+                <h2 class="text-muted fw-300">
+                    Status 
+                    <span class="badge badge-{{ $status[$inscricao->status] }}">
+                        {{ $inscricao->status }}
+                    </span>
+                </h2>
+                @endif
             </div>
             
                                             

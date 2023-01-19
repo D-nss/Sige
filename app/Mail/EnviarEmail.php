@@ -45,7 +45,7 @@ class EnviarEmail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mail.inscrito_mensagem',
+            view: 'eventos.inscritos.mail.inscrito_mensagem',
             with: [
                 'detalhes' => $this->detalhes,
             ]
