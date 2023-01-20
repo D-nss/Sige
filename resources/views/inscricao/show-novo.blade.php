@@ -71,8 +71,7 @@
                                             
             <div class="frame-wrap w-100">
                 <div class="accordion" id="accordionExample">
-                    {{ dd($notasAvaliacao) }}
-                    @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
+                    @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) && !empty($notasAvaliacao) )
                     <div class="card">
                         <div class="card-header bg-success bg-primary-gradient" id="headingFour">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
