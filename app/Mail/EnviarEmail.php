@@ -33,7 +33,7 @@ class EnviarEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Enviar Email',
+            subject: 'Nova mensagem sobre o evento ' . $this->detalhes['titulo_evento'],
         );
     }
 

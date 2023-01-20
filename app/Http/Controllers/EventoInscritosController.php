@@ -282,12 +282,16 @@ class EventoInscritosController extends Controller
         if($request->tipo_mensagem == 'mensagem') {
             $detalhes = [
                 'nome' => $inscrito->nome,
+                'titulo_evento' => $inscrito->evento->titulo,
                 'mensagem' => $request->mensagem
             ];
 
-            Mail::to($inscrito->email)
-            ->subject('Nova mensagem sobre o evento ' . $inscrito->evento->titulo)
-            ->send(new EnviarEmail($detalhes));
+            Mail::to($inscrito->email)->send(new EnviarEmail($detalhes));
+
+            session()->flash('status', 'Mensagem de E-mail enviada com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
         }
         
     }
