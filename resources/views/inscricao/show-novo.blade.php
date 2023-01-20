@@ -92,10 +92,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseFour" class="collapse 
-                        @if( (strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
-                            show
-                        @endif" aria-labelledby="headingFour" data-parent="#accordionExample">
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                             <div class="card-body">
                             @if($inscricao->qtde_contemplacao)
                                 <div class="mb-2">
@@ -163,7 +160,10 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id="collapseOne" class="collapse
+                        @if( (strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) )
+                            show
+                        @endif" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="col-12">
                                     <div class="p-0">
