@@ -160,7 +160,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseOne" class="collapse @if($inscricao->nota == null)show@endif" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="col-12">
                                     <div class="p-0">
