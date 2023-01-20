@@ -92,7 +92,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                        <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
                             <div class="card-body">
                             @if($inscricao->qtde_contemplacao)
                                 <div class="mb-2">
