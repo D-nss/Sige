@@ -268,7 +268,7 @@ class EventoInscritosController extends Controller
         if($request->tipo_mensagem == 'confirmar'){
 
             $inscrito->notify( new \App\Notifications\EventoInscritoNotificar([
-                'titulo_evento' => $inscrito->evento,
+                'titulo_evento' => $inscrito->evento->titulo,
                 'nome' => $inscrito->nome,
                 'id' => $inscrito->id
             ]));
