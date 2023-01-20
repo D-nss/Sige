@@ -285,7 +285,9 @@ class EventoInscritosController extends Controller
                 'mensagem' => $request->mensagem
             ];
 
-            Mail::to($inscrito->email)->send(new EnviarEmail($detalhes));
+            Mail::to($inscrito->email)
+            ->subject('Nova mensagem sobre o evento ' . $inscrito->evento->titulo)
+            ->send(new EnviarEmail($detalhes));
         }
         
     }
