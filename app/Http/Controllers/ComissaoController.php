@@ -76,7 +76,7 @@ class ComissaoController extends Controller
             ]
         );
 
-        $comissao_unidade_created = Comissao::where('unidade_id', $request->unidade_id)->first();
+        $comissao_unidade_created = Comissao::where('unidade_id', is_null($request->unidade_id) ? '' : $request->unidade_id)->first();
         echo json_encode($comissao_unidade_created);
         // if($comissao_unidade_created && !is_null($request->unidade_id)) {
         //     session()->flash('status', 'A unidade já possui uma comissão cadastrada!!!');
