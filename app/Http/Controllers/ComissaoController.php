@@ -77,35 +77,35 @@ class ComissaoController extends Controller
         );
 
         $comissao_unidade_created = Comissao::where('unidade_id', is_null($request->unidade_id) ? '' : $request->unidade_id)->first();
-        echo json_encode($comissao_unidade_created);
-        // if($comissao_unidade_created && !is_null($request->unidade_id)) {
-        //     session()->flash('status', 'A unidade já possui uma comissão cadastrada!!!');
-        //     session()->flash('alert', 'warning');
+        
+        if($comissao_unidade_created && !is_null($request->unidade_id)) {
+            session()->flash('status', 'A unidade já possui uma comissão cadastrada!!!');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->to('/comissoes');
-        // }
+            return redirect()->to('/comissoes');
+        }
 
-        // $comissao = Comissao::create(
-        //     [
-        //         'nome' => $request->nome,
-        //         'atribuicao' => $request->atribuicao,
-        //         'edital_id' => $request->edital_id,
-        //         'unidade_id' => $request->unidade_id,
-        //     ]
-        // );
+        $comissao = Comissao::create(
+            [
+                'nome' => $request->nome,
+                'atribuicao' => $request->atribuicao,
+                'edital_id' => $request->edital_id,
+                'unidade_id' => $request->unidade_id,
+            ]
+        );
 
-        // if($comissao) {
-        //     session()->flash('status', 'Comissão cadastrada com sucesso!!!');
-        //     session()->flash('alert', 'success');
+        if($comissao) {
+            session()->flash('status', 'Comissão cadastrada com sucesso!!!');
+            session()->flash('alert', 'success');
 
-        //     return redirect()->to('/comissoes');
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve erro ao cadastrar comissão');
-        //     session()->flash('alert', 'danger');
+            return redirect()->to('/comissoes');
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao cadastrar comissão');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
     }
 
      /**
