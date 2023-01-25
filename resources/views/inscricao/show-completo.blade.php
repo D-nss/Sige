@@ -417,7 +417,7 @@
                                         <h5>
                                             Unidade
                                             <small class="mt-0 mb-3">
-                                            {{ is_null($inscricao->analista->unidade->sigla) ? '' :  $inscricao->analista->unidade->sigla }}
+                                            {{ is_null($inscricao->analista) ? '' :  $inscricao->analista->unidade->sigla }}
                                             </small>
                                         </h5>
                                     </div>
