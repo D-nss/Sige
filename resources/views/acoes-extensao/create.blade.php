@@ -32,7 +32,7 @@
                 <div class="panel-content">
                     <form action="{{route('acao_extensao.store')}}" id="form_acao_extensao" method="POST">
                         @csrf
-                        @include('acoes-extensao._form2')
+                        @include('acoes-extensao._form')
                         <div class="row">
                             <div class="form-group mt-3 ml-3">
                                 <a href="/acoes-extensao" class="btn btn-secondary btn-user ">
@@ -47,7 +47,7 @@
                                 <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
                                     <i class="fal fa-save"></i>
                                     </span>
-                                    <span class="text">Salvar e <i class="fal fa-plus"></i> Prosseguir</span></button>
+                                    <span class="text">Salvar</span></button>
                             </div>
                           </div>
                     </form>

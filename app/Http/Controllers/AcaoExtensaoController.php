@@ -9,7 +9,7 @@ use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
 use App\Models\AcaoExtensaoColaborador;
-use App\Models\AcaoExtensaoLocal;
+use App\Models\AcaoExtensaoDataLocal;
 use App\Models\AcaoExtensaoODS;
 use App\Models\AcaoExtensaoParceiro;
 use App\Models\LinhaExtensao;
@@ -106,25 +106,13 @@ class AcaoExtensaoController extends Controller
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $ods = ObjetivoDesenvolvimentoSustentavel::all();
-        if(App::environment('local')){
-            $user = User::where('id', 1)->first();
-        } else {
-            $user = User::where('email', Auth::user()->id)->first();
-        }
-        $unidade = Unidade::where('id', $user->unidade_id)->first();
-        //$user = User::where('email', Auth::user()->id)->first();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
-        $tipos_parceiro = TipoParceiro::all();
-        $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
 
         return view('acoes-extensao.create', [
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'ods' => $ods,
-            'estados' => $estados,
-            'unidade' => $unidade,
-            'tipos_parceiro' => $tipos_parceiro,
-            'graus_envolvimento_equipe' => $graus_envolvimento_equipe
+            'estados' => $estados
         ]);
     }
 
@@ -140,10 +128,7 @@ class AcaoExtensaoController extends Controller
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $ods = ObjetivoDesenvolvimentoSustentavel::all();
-        $unidades = Unidade::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
-        $tipos_parceiro = TipoParceiro::all();
-        $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
 
         return view('acoes-extensao.edit', [
             'acao_extensao' => $acaoExtensao,
@@ -151,10 +136,7 @@ class AcaoExtensaoController extends Controller
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'ods' => $ods,
-            'estados' => $estados,
-            'unidades' => $unidades,
-            'tipos_parceiro' => $tipos_parceiro,
-            'graus_envolvimento_equipe' => $graus_envolvimento_equipe
+            'estados' => $estados
         ]);
     }
 
@@ -174,11 +156,12 @@ class AcaoExtensaoController extends Controller
             $vinculo_coordenador = Auth::user()->employeetype;
         }
         $dados = array('user_id' => $user->id);
+        $dados['unidade_id'] = $user->unidade_id;
         $dados['nome_coordenador'] = $user->name;
         $dados['email_coordenador'] = $user->email;
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
         $dados['municipio_id'] = $request->cidade;
-        $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
+        //$dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Rascunho';
@@ -219,7 +202,7 @@ class AcaoExtensaoController extends Controller
             return back();
         }
 
-        return redirect()->route('acao_extensao.equipe', ['acao_extensao' => $acao_extensao->id] );
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id] );
     }
 
     /**
@@ -240,6 +223,7 @@ class AcaoExtensaoController extends Controller
         }
 
         $dados = array('user_id' => $user->id);
+        $dados['unidade_id'] = $user->unidade_id;
         $dados['nome_coordenador'] = $user->name;
         $dados['email_coordenador'] = $user->email;
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
@@ -261,13 +245,12 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
             $acaoExtensao->url = $dados['url'];
             $acaoExtensao->publico_alvo = $dados['publico_alvo'];
-            $acaoExtensao->data_inicio = $dados['data_inicio'];
-            $acaoExtensao->data_fim = $dados['data_fim'];
+            $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
+            $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
             $acaoExtensao->municipio_id = $dados['municipio_id'];
             $acaoExtensao->unidade_id = $dados['unidade_id'];
             $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
             $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
-            $acaoExtensao->investimento = $dados['investimento'];
             $acaoExtensao->status = $dados['status'];
             $acaoAtualizada = $acaoExtensao->save();
 
@@ -308,8 +291,90 @@ class AcaoExtensaoController extends Controller
         else {
             session()->flash('status', 'Ação de Extensão atualizada com sucesso!');
             session()->flash('alert', 'success');
-            return redirect()->route('acao_extensao.equipe', ['acao_extensao' => $acaoExtensao->id] );
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
         }
+    }
+
+    public function insereUnidade(Request $request)
+    {
+        $this->validate($request, [
+            'unidade_id' => ['required']
+        ]);
+
+        $unidadeRelacionada =  DB::table('acoes_extensao_unidades')->insert([
+            'acao_extensao_id' => $request->acao_extensao_id,
+            'unidade_id' => $request->unidade_id
+        ]);
+
+        if($unidadeRelacionada){
+            session()->flash('status', 'Unidade adicionada com sucesso!');
+            session()->flash('alert', 'success');
+        } else {
+            session()->flash('status', 'Erro ao adicionar unidade ao banco de dados.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
+        $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
+
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
+    }
+
+    public function removeUnidade($id)
+    {
+        $unidadeRelacionada = DB::table('acoes_culturais_unidades')->where('id', $id)->first();
+        $acaoExtensao = AcaoExtensao::where('id', $unidadeRelacionada->acao_extensao_id)->first();
+
+        if($unidadeRelacionada->delete()) {
+            session()->flash('status', 'Unidade relacionada removida!');
+            session()->flash('alert', 'success');
+
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
+        }
+        else {
+            session()->flash('status', 'Unidade relacionada não removida!');
+            session()->flash('alert', 'danger');
+
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
+        }
+    }
+
+    public function insereDataLocal(Request $request)
+    {
+        $this->validate($request, [
+            'data_hora_inicio' => ['required'],
+            'local' => ['required']
+        ]);
+
+        $dataLocalCriado = AcaoExtensaoDataLocal::create($request->all());
+
+        if($dataLocalCriado){
+            session()->flash('status', 'Data e Local adicionado com sucesso!');
+            session()->flash('alert', 'success');
+        } else {
+            session()->flash('status', 'Erro ao adicionar data e local ao banco de dados.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+        $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
+
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
+    }
+
+    public function removeLocal($id)
+    {
+        $acaoExtensaoDataLocal = AcaoExtensaoDataLocal::where('id', $id)->first();
+        $acaoExtensao = AcaoExtensao::where('id', $acaoExtensaoDataLocal->acao_extensao_id)->first();
+        if($acaoExtensaoDataLocal->delete()) {
+            session()->flash('status', 'Local removido!');
+            session()->flash('alert', 'success');
+        }
+        else {
+            session()->flash('status', 'Local não removido!');
+            session()->flash('alert', 'danger');
+        }
+
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
 
     public function equipe(AcaoExtensao $acaoExtensao)
@@ -338,7 +403,9 @@ class AcaoExtensaoController extends Controller
             'carga_horaria' => ['required'],
             'vinculo' => ['required']
         ]);
+
         $colaboradorCriado = AcaoExtensaoColaborador::create($request->all());
+
         if($colaboradorCriado){
             session()->flash('status', 'Colaborador(a) adicionado(a) com sucesso!');
             session()->flash('alert', 'success');
@@ -349,7 +416,7 @@ class AcaoExtensaoController extends Controller
         }
         $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
 
-        return redirect()->route('acao_extensao.equipe', ['acao_extensao' => $acaoExtensao->id] );
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
 
     public function removeColaborador($id)
@@ -365,13 +432,12 @@ class AcaoExtensaoController extends Controller
             session()->flash('alert', 'danger');
         }
 
-        return redirect()->route('acao_extensao.equipe', ['acao_extensao' => $acaoExtensao->id] );
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
 
-    public function curricularizacao(Request $request)
+    public function grau_equipe(Request $request)
     {
         $this->validate($request, [
-            'vagas_curricularizacao' => ['required'],
             'grau_envolvimento_equipe_id' => ['required']
         ]);
         $dados = $request->all();
@@ -385,12 +451,12 @@ class AcaoExtensaoController extends Controller
             session()->flash('alert', 'danger');
         }
 
-        return redirect()->route('acao_extensao.equipe', ['acao_extensao' => $acaoAtualizada->id] );
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoAtualizada->id] );
     }
 
     public function locais(AcaoExtensao $acaoExtensao)
     {
-        $locais_acao_extensao = AcaoExtensaoLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
+        $locais_acao_extensao = AcaoExtensaoDataLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
 
         return view('acoes-extensao.locais', [
             'acao_extensao' => $acaoExtensao,
@@ -398,38 +464,7 @@ class AcaoExtensaoController extends Controller
         ]);
     }
 
-    public function insereLocal(Request $request)
-    {
-        $localCriado = AcaoExtensaoLocal::create($request->all());
-        if($localCriado){
-            session()->flash('status', 'Local adicionado com sucesso!');
-            session()->flash('alert', 'success');
-        } else {
-            session()->flash('status', 'Erro ao adicionar local ao banco de dados.');
-            session()->flash('alert', 'danger');
-            return back();
-        }
-        $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
 
-        return redirect()->route('acao_extensao.locais', ['acao_extensao' => $acaoExtensao->id] );
-        //return $this->locais($acaoExtensao);
-    }
-
-    public function removeLocal($id)
-    {
-        $acaoExtensaoLocal = AcaoExtensaoLocal::where('id', $id)->first();
-        $acaoExtensao = AcaoExtensao::where('id', $acaoExtensaoLocal->acao_extensao_id)->first();
-        if($acaoExtensaoLocal->delete()) {
-            session()->flash('status', 'Local removido!');
-            session()->flash('alert', 'success');
-        }
-        else {
-            session()->flash('status', 'Local não removido!');
-            session()->flash('alert', 'danger');
-        }
-
-        return redirect()->route('acao_extensao.locais', ['acao_extensao' => $acaoExtensao->id] );
-    }
 
     public function parceiros(AcaoExtensao $acaoExtensao)
     {
@@ -457,8 +492,7 @@ class AcaoExtensaoController extends Controller
         }
         $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
 
-        return redirect()->route('acao_extensao.parceiros', ['acao_extensao' => $acaoExtensao->id] );
-        //return $this->parceiros($acaoExtensao);
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
 
     public function removeParceiro($id)
@@ -474,7 +508,7 @@ class AcaoExtensaoController extends Controller
             session()->flash('alert', 'danger');
         }
 
-        return redirect()->route('acao_extensao.parceiros', ['acao_extensao' => $acaoExtensao->id] );
+        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
 
     /**
@@ -485,9 +519,18 @@ class AcaoExtensaoController extends Controller
      */
     public function show(AcaoExtensao $acaoExtensao)
     {
+        $unidades = Unidade::where('id', '!=', $acaoExtensao->unidade->id)->orderBy('sigla')->get();
+        $unidades_envolvidas_acao_extensao = Unidade::select('unidades.*')
+                                                    ->join('acoes_extensao_unidades', 'acoes_extensao_unidades.unidade_id', '=', 'unidades.id')
+                                                    ->where('acoes_extensao_unidades.acao_extensao_id', $acaoExtensao->id)
+                                                    ->get();
+        $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
         $colaboradores_acao_extensao = AcaoExtensaoColaborador::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
-        $locais_acao_extensao = AcaoExtensaoLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
+        $lista_documento = array('CPF', 'Estrangeiro (RNE)');
+        $lista_vinculo = array('Aluno Graduação (Unicamp)', 'Aluno Pós-Graduação (Unicamp)', 'Docente (Unicamp)', 'Pesquisador (Unicamp)', 'Técnico-Administrativo (Unicamp)','Externo à universidade');
+        $datas_locais_acao_extensao = AcaoExtensaoDataLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
         $parceiros_acao_extensao = AcaoExtensaoParceiro::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
+        $lista_tipos = TipoParceiro::all();
 
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
@@ -504,15 +547,23 @@ class AcaoExtensaoController extends Controller
         if($acaoExtensao->user_id == $user->id){
             $userNaComissao = false;
             $userCoordenadorAcao = $user;
+        } else {
+            $userCoordenadorAcao = false;
         }
 
         return view('acoes-extensao.show', [
             'acao_extensao' => $acaoExtensao,
+            'unidades' => $unidades,
+            'unidades_envolvidas_acao_extensao' => $unidades_envolvidas_acao_extensao,
+            'graus_envolvimento_equipe' => $graus_envolvimento_equipe,
             'colaboradores_acao_extensao' => $colaboradores_acao_extensao,
-            'locais_acao_extensao' => $locais_acao_extensao,
+            'lista_documento' => $lista_documento,
+            'lista_vinculo' => $lista_vinculo,
+            'datas_locais_acao_extensao' => $datas_locais_acao_extensao,
             'parceiros_acao_extensao' => $parceiros_acao_extensao,
+            'lista_tipos' => $lista_tipos,
             'userNaComissao' => $userNaComissao,
-            '$userCoordenadorAcao' => $userCoordenadorAcao
+            'userCoordenadorAcao' => $userCoordenadorAcao
         ]);
     }
 
@@ -528,15 +579,8 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.index');
     }
 
-    public function submeter(AcaoExtensao $acaoExtensao){
-
-        if(App::environment('local')){
-            $acaoExtensao->aprovado_user_id = 1;
-        } else {
-            $user = User::where('email', Auth::user()->id)->first();
-            $acaoExtensao->aprovado_user_id = $user->id;
-        }
-
+    public function submeter(AcaoExtensao $acaoExtensao)
+    {
         $acaoExtensao->status = 'Pendente';
         $acaoExtensao->save();
         session()->flash('status', 'Ação de Extensão Submetida para aprovação!');

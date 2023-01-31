@@ -10,7 +10,6 @@ class AcaoExtensao extends Model
     use HasFactory;
 
     protected $table = 'acoes_extensao';
-    protected $dates = ['data_inicio', 'data_fim'];
 
     protected $fillable = [
         'modalidade',
@@ -21,8 +20,6 @@ class AcaoExtensao extends Model
         'url',
         'publico_alvo',
         'estimativa_publico',
-        'data_inicio',
-        'data_fim',
         'situacao',
         'municipio_id',
         'user_id',
@@ -36,7 +33,6 @@ class AcaoExtensao extends Model
         'impactos_universidade',
         'impactos_sociedade',
         'grau_envolvimento_equipe_id',
-        'investimento',
         'status'
     ];
 
@@ -48,6 +44,11 @@ class AcaoExtensao extends Model
     public function unidade()
     {
         return $this->belongsTo(Unidade::class);
+    }
+
+    public function unidades_envolvidas()
+    {
+        return $this->belongsToMany(Unidade::class, 'acoes_extensao_unidades', 'acao_extensao_id', 'unidade_id' );
     }
 
     public function linha_extensao()

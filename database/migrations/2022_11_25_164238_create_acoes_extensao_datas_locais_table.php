@@ -14,10 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('acoes_extensao_locais', function (Blueprint $table) {
+        Schema::create('acoes_extensao_datas_locais', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(AcaoExtensao::class);
             $table->string('local', 255);
+            $table->dateTime('data_hora_inicio');
+            $table->dateTime('data_hora_fim')->nullable();
             $table->string('complemento', 255)->nullable();
             $table->string('latitude', 255)->nullable();
             $table->string('longitude', 255)->nullable();
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acoes_extensao_locais');
+        Schema::dropIfExists('acoes_extensao_datas_locais');
     }
 };

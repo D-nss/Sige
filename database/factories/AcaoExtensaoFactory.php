@@ -27,8 +27,8 @@ class AcaoExtensaoFactory extends Factory
             'palavras_chaves' => $this->faker->word(),
             'url' => $this->faker->url(),
             'publico_alvo' => $this->faker->sentence(),
-            'data_inicio' => $this->faker->date(),
-            'data_fim' => $this->faker->date(),
+            //'data_inicio' => $this->faker->date(),
+            //'data_fim' => $this->faker->date(),
             'municipio_id' => rand(3268, 3912),
             //'situacao' => rand(1,3),
             'unidade_id' => rand(1, 40),
@@ -40,7 +40,7 @@ class AcaoExtensaoFactory extends Factory
             'impactos_universidade' => $this->faker->text(),
             'impactos_sociedade' => $this->faker->text(),
             'grau_envolvimento_equipe_id' => rand(1,7),
-            'investimento' => rand(10000,200000),
+            //'investimento' => rand(10000,200000),
             'status' => 'Pendente',
         ];
     }

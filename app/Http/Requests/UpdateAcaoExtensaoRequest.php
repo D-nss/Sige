@@ -31,10 +31,9 @@ class UpdateAcaoExtensaoRequest extends FormRequest
             'titulo' => 'required',
             'descricao' => 'required|max:2500',
             'publico_alvo' => 'required',
-            'data_inicio' => 'required',
+            'vagas_curricularizacao' => 'required',
             'estado' => 'required',
             'cidade' => 'required',
-            'unidade_id' => 'required',
             'impactos_universidade' => 'required|max:2500',
             'impactos_sociedade' => 'required|max:2500'
         ];

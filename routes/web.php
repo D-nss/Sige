@@ -69,6 +69,7 @@ Route::get('/acoes-extensao/{acao_extensao}/editar', [AcaoExtensaoController::cl
 Route::put('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'update'])->name('acao_extensao.update');
 Route::delete('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'destroy'])->name('acao_extensao.destroy');
 Route::put('/acoes-extensao/{acao_extensao}/aprovar', [AcaoExtensaoController::class, 'aprovar'])->name('acao_extensao.aprovar');
+Route::put('/acoes-extensao/{acao_extensao}/submeter', [AcaoExtensaoController::class, 'submeter'])->name('acao_extensao.submeter');
 
 Route::get('/acoes-extensao/unidades/{unidade}', [AcaoExtensaoController::class, 'acoesPorUnidade'])->name('acao_extensao.unidades.index');
 Route::get('/acoes-extensao/areas/{area_tematica}', [AcaoExtensaoController::class, 'acoesPorArea'])->name('acao_extensao.area_tematica.index');
@@ -86,14 +87,15 @@ Route::get('/painel', [AcaoExtensaoController::class, 'dashboard'])->name('acao_
 Route::get('/acoes-extensao/{acao_extensao}/equipe', [AcaoExtensaoController::class, 'equipe'])->name('acao_extensao.equipe');
 Route::post('/acoes-extensao/colaborador', [AcaoExtensaoController::class, 'insereColaborador'])->name('acao_extensao.colaborador.inserir');
 Route::post('/acoes-extensao/colaborador/{acao_extensao_colaborador}', [AcaoExtensaoController::class, 'removeColaborador'])->name('acao_extensao.colaborador.destroy');
-Route::post('/acoes-extensao/curricularizacao', [AcaoExtensaoController::class, 'curricularizacao'])->name('acao_extensao.curricularizacao');
+Route::post('/acoes-extensao/grau_equipe', [AcaoExtensaoController::class, 'grau_equipe'])->name('acao_extensao.grau_equipe');
 Route::get('/acoes-extensao/{acao_extensao}/parceiros', [AcaoExtensaoController::class, 'parceiros'])->name('acao_extensao.parceiros');
 Route::get('/acoes-extensao/{acao_extensao}/locais', [AcaoExtensaoController::class, 'locais'])->name('acao_extensao.locais');
-Route::post('/acoes-extensao/local', [AcaoExtensaoController::class, 'insereLocal'])->name('acao_extensao.local.inserir');
+Route::post('/acoes-extensao/data_local', [AcaoExtensaoController::class, 'insereDataLocal'])->name('acao_extensao.data_local.inserir');
 //Route::delete('/acoes-extensao/{acao_extensao}/locais', [AcaoExtensaoController::class, 'removeLocal'])->name('acao_extensao.local.destroy');
 Route::post('/acoes-extensao/local/{acao_extensao_local}', [AcaoExtensaoController::class, 'removeLocal'])->name('acao_extensao.local.destroy');
 Route::post('/acoes-extensao/parceiro', [AcaoExtensaoController::class, 'insereParceiro'])->name('acao_extensao.parceiro.inserir');
 Route::post('/acoes-extensao/parceiro/{acao_extensao_parceiro}', [AcaoExtensaoController::class, 'removeParceiro'])->name('acao_extensao.parceiro.destroy');
+Route::post('/acoes-extensao/unidades', [AcaoExtensaoController::class, 'insereUnidade'])->name('acao_extensao.unidades.inserir');
 
 //Ações Culturais
 Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');

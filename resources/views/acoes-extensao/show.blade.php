@@ -19,13 +19,14 @@
         <div class="flex-1">
             <span class="h5">Ação de Extensão cadastrada, porém não submetida para aprovação</span>
         </div>
-        @if(!empty($userCoordenadorAcao))
+        @if($userCoordenadorAcao)
         <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
             @csrf
             @method('put')
             <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
         </form>
         @endif
+
         <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
     </div>
 </div>
@@ -59,6 +60,9 @@
                                             @break
                                         @case('Pendente')
                                             <span class="badge badge-warning">Pendente</span>
+                                            @break
+                                        @case('Rascunho')
+                                            <span class="badge badge-warning">Rascunho</span>
                                             @break
                                         @case('Aprovado')
                                             <span class="badge badge-success">Aprovado</span>
@@ -180,6 +184,18 @@
                             </h5>
                         </div>
                     </div>
+                    @if(isset($acao_extensao->vagas_curricularizacao))
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                            Vagas Curricularização:
+                            <small class="mt-0 mb-3 text-muted">
+                                {{$acao_extensao->vagas_curricularizacao}}
+                            </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-12">
                       <div class="p-0">
                           <h5>
@@ -212,16 +228,6 @@
                     </div>
                   </div>
                   @endif
-                  <div class="col-12">
-                    <div class="p-0">
-                        <h5>
-                            Investimento:
-                            <small class="mt-0 mb-3 text-muted">
-                                R$ {{$acao_extensao->investimento}}
-                            </small>
-                        </h5>
-                    </div>
-                </div>
                     <div class="col-12">
                         <div class="p-0">
                             <h5>
@@ -234,79 +240,6 @@
                     </div>
                       <div class="accordion" id="accordionExample">
                           <div class="card">
-                              <div class="card-header" id="headingOne">
-                                  <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                    <div class='icon-stack display-3 flex-shrink-0'>
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
-                                        <i class="fal fa-calendar-alt icon-stack-1x opacity-100 color-secondary-500"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                        Datas e Locais de Realização
-                                    </div>
-                                      <span class="ml-auto">
-                                          <span class="collapsed-reveal">
-                                              <i class="fal fa-minus-circle text-danger"></i>
-                                          </span>
-                                          <span class="collapsed-hidden">
-                                              <i class="fal fa-plus-circle text-success"></i>
-                                          </span>
-                                      </span>
-                                  </a>
-                              </div>
-                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                  <div class="card-body">
-                                    <div class="frame-wrap">
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Data inicial:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_extensao->data_inicio->format('d/m/Y')}}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    Data final:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        @if(isset($acao_extensao->data_fim))
-                                                          {{$acao_extensao->data_fim->format('d/m/Y')}}
-                                                        @else
-                                                            Sem informações
-                                                        @endif
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <table class="table m-0">
-                                            <thead class="thead-themed">
-                                                <tr>
-                                                    <th>Local Realização</th>
-                                                    <th>Complemento</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($locais_acao_extensao as $local)
-
-
-                                                <tr>
-                                                    <td>
-                                                      {{$local->local}}
-                                                    </td>
-                                                    <td>
-                                                        {{$local->complemento}}
-                                                    </td>
-                                                  </tr>
-                                                  @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="card">
                               <div class="card-header" id="headingTwo">
                                   <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     <div class='icon-stack display-3 flex-shrink-0'>
@@ -314,7 +247,7 @@
                                         <i class="fal fa-landmark icon-stack-1x opacity-100 color-warning-500"></i>
                                     </div>
                                     <div class="ml-3">
-                                        Coordenador e Unidade
+                                        Unidade
                                     </div>
                                       <span class="ml-auto">
                                           <span class="collapsed-reveal">
@@ -328,37 +261,18 @@
                               </div>
                               <div id="collapseTwo" class="collapse d-print-block" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                   <div class="card-body">
-                                    <div class="col-12">
-                                        <div class="p-0">
-                                            <h5>
-                                                Coordenador:
-                                                <small class="mt-0 mb-3 text-muted">
-                                                    {{$acao_extensao->nome_coordenador}}
-                                                </small>
-
-                                            </h5>
-                                        </div>
+                                    @if($userCoordenadorAcao && $acao_extensao->status != 'Aprovado')
+                                    <div class="panel-tag">
+                                        Para inserir/remover unidades envolvidas na ação, é necessário que esta seja <code>aprovada pela comissão</code>.
+                                        @if($acao_extensao->status != 'Pendente')
+                                            <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
+                                            </form>
+                                            @endif
                                     </div>
-                                    <div class="col-12">
-                                        <div class="p-0">
-                                            <h5>
-                                                Email:
-                                                <small class="mt-0 mb-3 text-muted">
-                                                    {{$acao_extensao->email_coordenador}}
-                                                </small>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="p-0">
-                                            <h5>
-                                                Vínculo com a Universidade:
-                                                <small class="mt-0 mb-3 text-muted">
-                                                      {{$acao_extensao->vinculo_coordenador}}
-                                                </small>
-                                            </h5>
-                                        </div>
-                                    </div>
+                                    @endif
                                     <div class="frame-wrap">
                                         <table class="table m-0">
                                             <thead class="thead-themed">
@@ -370,22 +284,261 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>
+                                                    <th>
                                                         Principal
-                                                    </td>
-                                                    <td>
+                                                    </th>
+                                                    <th>
                                                         {{$acao_extensao->unidade->sigla}}
-                                                    </td>
-                                                    <td>
+                                                    </th>
+                                                    <th>
                                                         {{$acao_extensao->unidade->nome}}
-                                                    </td>
+                                                    </th>
                                                 </tr>
+                                                @foreach($unidades_envolvidas_acao_extensao as $unidade)
+                                                    <tr>
+                                                        <td>
+                                                            Envolvida
+                                                        </td>
+                                                        <td>
+                                                            {{$unidade->sigla}}
+                                                        </td>
+                                                        <td>
+                                                            {{$unidade->nome}}
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
                                             </tbody>
                                         </table>
+                                        @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
+                                        <div class="accordion" id="accordionUnidade">
+                                            <div class="card">
+                                                <div class="card-header" id="headingTwo">
+                                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseUnidade" aria-expanded="true" aria-controls="collapseUnidade">
+                                                        Adicionar Unidade Envolvida com a Ação Extensão
+                                                        <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus-circle text-danger"></i>
+                                                            </span>
+                                                            <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus-circle text-success"></i>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div id="collapseUnidade" class="show" aria-labelledby="headingTwo" data-parent="#accordionUnidade">
+                                                    <div class="card-body">
+                                                        <form action="{{route('acao_extensao.unidades.inserir', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao_unidades" method="POST">
+                                                            @csrf
+                                                            <div class="row g-2">
+                                                              <div class="form-group col-md-2">
+
+                                                                  <select class="form-control @error('unidade_id') is-invalid @enderror" id="unidade_id" name="unidade_id">
+                                                                      <option value="">Selecione a Unidade Envolvida</option>
+                                                                      @if (!empty($unidades))
+                                                                          @foreach ($unidades as $unidade)
+                                                                            <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+                                                                          @endforeach
+                                                                      @endif
+                                                                  </select>
+                                                                  @error('unidade_id')
+                                                                      <div class="invalid-feedback">
+                                                                          {{ $message }}
+                                                                      </div>
+                                                                  @enderror
+                                                              </div>
+                                                              <div class="form-group col-md-2">
+                                                                  <label class="form-label" hidden></label>
+                                                                  <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
+                                                              </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
                                   </div>
                               </div>
                           </div>
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                  <div class='icon-stack display-3 flex-shrink-0'>
+                                      <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
+                                      <i class="fal fa-calendar-alt icon-stack-1x opacity-100 color-secondary-500"></i>
+                                  </div>
+                                  <div class="ml-3">
+                                      Datas e Locais de Realização
+                                  </div>
+                                    <span class="ml-auto">
+                                        <span class="collapsed-reveal">
+                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        </span>
+                                        <span class="collapsed-hidden">
+                                            <i class="fal fa-plus-circle text-success"></i>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    @if($userCoordenadorAcao && $acao_extensao->status != 'Aprovado')
+                                    <div class="panel-tag">
+                                        Para inserir/remover datas/locais realizadas na ação, é necessário que esta seja <code>aprovada pela comissão</code>.
+                                        @if($acao_extensao->status != 'Pendente')
+                                            <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
+                                            </form>
+                                            @endif
+                                    </div>
+                                    @endif
+                                  <div class="frame-wrap">
+                                      <table class="table m-0">
+                                          <thead class="thead-themed">
+                                              <tr>
+                                                  <th>Local Realização</th>
+                                                  <th>Data/Hora Inicio</th>
+                                                  <th>Data/Hora Fim</th>
+                                                  <th>Complemento</th>
+                                                  <th>Latitude</th>
+                                                  <th>Longitude</th>
+                                                  <th>Adicionado em:</th>
+                                                  <th>Remoção</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              @foreach ($datas_locais_acao_extensao as $data_local)
+
+
+                                              <tr>
+                                                  <td>
+                                                    {{$data_local->local}}
+                                                  </td>
+                                                  <td>
+                                                    {{$data_local->data_hora_inicio}}
+                                                  </td>
+                                                  <td>
+                                                    {{$data_local->data_hora_fim}}
+                                                  </td>
+                                                  <td>
+                                                      {{$data_local->complemento}}
+                                                  </td>
+                                                  <td>
+                                                    {{$data_local->latitude}}
+                                                </td>
+                                                <td>
+                                                    {{$data_local->longitude}}
+                                                </td>
+                                                <td>
+                                                    {{$data_local->created_at->format('d/m/Y')}}
+                                                </td>
+                                                <td>
+                                                    <form method="POST" action="{{ route('acao_extensao.local.destroy', $data_local->id) }}" onsubmit="return confirm('Voce tem certeza?');">
+                                                        @csrf
+                                                        <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
+                                                     </form>
+                                                </td>
+                                                </tr>
+                                                @endforeach
+                                          </tbody>
+                                      </table>
+                                      @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
+                                      <div class="accordion" id="accordionLocal">
+                                        <div class="card">
+                                            <div class="card-header" id="headingTwo">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseLocal" aria-expanded="true" aria-controls="collapseLocal">
+                                                    Adicionar Data e Local de Realização da Ação de Extensão
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus-circle text-danger"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus-circle text-success"></i>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="collapseLocal" class="show" aria-labelledby="headingTwo" data-parent="#accordionLocal">
+                                                <div class="card-body">
+                                                    <form action="{{route('acao_extensao.data_local.inserir', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao_data_local" method="POST">
+                                                        @csrf
+                                                        <div class="row g-5">
+                                                            <div class="form-group col-md-2">
+                                                                <label class="form-label" for="data_hora_inicio">Data Hora Inicio<span class="text-danger">*</span></label>
+                                                                <input class="form-control @error('data_hora_inicio') is-invalid @enderror" type="datetime-local" id="data_hora_inicio" name="data_hora_inicio" placeholder="dd/mm/aaaa" value="">
+                                                                @error('data_hora_inicio')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label class="form-label" for="data_hora_fim">Data Hora Fim</label>
+                                                                <input class="form-control @error('data_hora_fim') is-invalid @enderror" type="datetime-local" id="data_hora_fim" name="data_hora_fim" placeholder="dd/mm/aaaa" value="">
+                                                                @error('data_hora_fim')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label class="form-label" for="local">Local<span class="text-danger">*</span></label>
+                                                                <input type="text" id="local" name="local" class="form-control @error('local') is-invalid @enderror">
+                                                                @error('local')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label class="form-label" for="latitude">Latitude </label>
+                                                                <input type="number" id="latitude" name="latitude" class="form-control @error('latitude') is-invalid @enderror">
+                                                                @error('latitude')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label class="form-label" for="longitude">Longitude </label>
+                                                                <input type="number" id="longitude" name="longitude" class="form-control @error('longitude') is-invalid @enderror">
+                                                                @error('longitude')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                            <div class="form-group col-md-10">
+                                                                <label class="form-label" for="complemento">Complemento</label>
+                                                                <textarea id="complemento" name="complemento" class="form-control @error('complemento') is-invalid @enderror" rows="2"></textarea>
+                                                                @error('complemento')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+
+                                                                <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
+                                                            </div>
+                                                          </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
                           <div class="card">
                               <div class="card-header" id="headingThree">
                                   <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -394,7 +547,7 @@
                                         <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
                                     </div>
                                     <div class="ml-3">
-                                        Equipe e Curricularização
+                                        Coordenador e Equipe
                                     </div>
                                       <span class="ml-auto">
                                           <span class="collapsed-reveal">
@@ -408,30 +561,54 @@
                               </div>
                               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                   <div class="card-body">
+                                    @if($userCoordenadorAcao && $acao_extensao->status != 'Aprovado')
+                                    <div class="panel-tag">
+                                        Para inserir colaboradores na ação, é necessário que esta seja <code>aprovada pela comissão</code>.
+                                        @if($acao_extensao->status != 'Pendente')
+                                            <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
+                                            </form>
+                                            @endif
+                                    </div>
+                                    @endif
                                     <div class="frame-wrap">
-                                        @if(isset($acao_extensao->vagas_curricularizacao))
-                                            <div class="col-12">
-                                                <div class="p-0">
-                                                    <h5>
-                                                    Vagas Curricularização:
-                                                    <small class="mt-0 mb-3 text-muted">
-                                                        {{$acao_extensao->vagas_curricularizacao}}
-                                                    </small>
-                                                    </h5>
+                                        @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
+                                        <form action="{{route('acao_extensao.grau_equipe', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_grau_equipe" method="POST">
+                                            @csrf
+                                            <div class="row g-2">
+                                                <div class="form-group col-md-6">
+                                                    <label class="form-label" for="grau_envolvimento_equipe_id">Tipo de envolvimento da equipe com a Comunidade <span class="text-danger">*</span></label>
+                                                    <select class="form-control @error('grau_envolvimento_equipe_id') is-invalid @enderror" id="grau_envolvimento_equipe_id" name="grau_envolvimento_equipe_id">
+                                                        @if(isset($acao_extensao->grau_envolvimento_equipe))
+                                                            <option value="{{$acao_extensao->grau_envolvimento_equipe->id}}">{{$acao_extensao->grau_envolvimento_equipe->descricao}}</option>
+                                                        @else
+                                                            <option value="">Selecione o Tipo</option>
+                                                        @endif
+                                                        <option value="">Selecione o tipo do envolvimento</option>
+                                                        @if (!empty($graus_envolvimento_equipe))
+                                                            @foreach ($graus_envolvimento_equipe as $grau_envolvimento_equipe)
+                                                              <option value="{{$grau_envolvimento_equipe->id}}">{{$grau_envolvimento_equipe->descricao}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                    @error('grau_envolvimento_equipe_id')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
+                                                <div class="row">
+                                                    <div class="form-group mt-3 ml-3">
+                                                        <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
+                                                            <i class="fal fa-save"></i>
+                                                            </span>
+                                                            <span class="text">Salvar</span></button>
+                                                    </div>
+                                                  </div>
                                             </div>
-                                        @endif
-                                        @if(isset($acao_extensao->grau_envolvimento_equipe))
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                Envolvimento com a Comunidade:
-                                                <small class="mt-0 mb-3 text-muted">
-                                                    {{$acao_extensao->grau_envolvimento_equipe->descricao}}
-                                                </small>
-                                                </h5>
-                                            </div>
-                                        </div>
+                                        </form>
                                         @endif
                                       <table class="table m-0">
                                           <thead class="thead-themed">
@@ -445,6 +622,15 @@
                                               </tr>
                                           </thead>
                                           <tbody>
+                                            <tr>
+                                                <th>{{$acao_extensao->nome_coordenador}}</th>
+                                                <th>{{$acao_extensao->email_coordenador}}</th>
+                                                <th>(Coordenador Ação)</th>
+                                                <th>N/A</th>
+                                                <th>{{$acao_extensao->vinculo_coordenador}}</th>
+                                                <th>N/A</th>
+                                                <th>-</th>
+                                            </tr>
                                               @foreach ($colaboradores_acao_extensao as $colaborador)
                                               <tr>
                                                   <td>
@@ -469,11 +655,111 @@
                                               @endforeach
                                           </tbody>
                                       </table>
+                                      @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
+                                      <div class="accordion" id="accordionColaborador">
+                                        <div class="card">
+                                            <div class="card-header" id="headingTwo">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseColaborador" aria-expanded="true" aria-controls="collapseColaborador">
+                                                    Adicionar Colaborador com a Ação Extensão
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus-circle text-danger"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus-circle text-success"></i>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="collapseColaborador" class="show" aria-labelledby="headingTwo" data-parent="#accordionColaborador">
+                                                <div class="card-body">
+                                                    <form action="{{route('acao_extensao.colaborador.inserir', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao_equipe" method="POST">
+                                                        @csrf
+                                                        <div class="row g-4">
+                                                            <div class="form-group col-md-3">
+                                                                <label class="form-label" for="nome">Nome do Colaborador(a) <span class="text-danger">*</span></label>
+                                                                <input type="text" id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror">
+                                                                @error('nome')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                                                                <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror">
+                                                                @error('email')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label class="form-label" for="documento">Documento <span class="text-danger">*</span></label>
+                                                                <select class="form-control @error('documento') is-invalid @enderror" id="documento" name="documento">
+                                                                    <option value="">Selecione o Documento</option>
+                                                                    @if (!empty($lista_documento))
+                                                                        @foreach ($lista_documento as $documento_colaborador)
+                                                                          <option value="{{$documento_colaborador}}">{{$documento_colaborador}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                                @error('documento')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label class="form-label" for="numero_doc">Número Documento<span class="text-danger">*</span></label>
+                                                                <input type="number" id="numero_doc" name="numero_doc" class="form-control @error('numero_doc') is-invalid @enderror">
+                                                                @error('numero_doc')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label class="form-label" for="carga_horaria">Carga Horária<span class="text-danger">*</span></label>
+                                                                <input type="number" id="carga_horaria" name="carga_horaria" class="form-control @error('carga_horaria') is-invalid @enderror">
+                                                                @error('carga_horaria')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                          <div class="form-group col-md-3">
+                                                              <label class="form-label" for="vinculo">Vinculo <span class="text-danger">*</span></label>
+                                                              <select class="form-control @error('vinculo') is-invalid @enderror" id="vinculo" name="vinculo">
+                                                                  <option value="">Selecione o Vinculo</option>
+                                                                  @if (!empty($lista_vinculo))
+                                                                      @foreach ($lista_vinculo as $vinculo_colaborador)
+                                                                        <option value="{{$vinculo_colaborador}}">{{$vinculo_colaborador}}</option>
+                                                                      @endforeach
+                                                                  @endif
+                                                              </select>
+                                                              @error('vinculo')
+                                                                  <div class="invalid-feedback">
+                                                                      {{ $message }}
+                                                                  </div>
+                                                              @enderror
+                                                          </div>
+                                                          <div class="form-group col-md-2">
+                                                              <label class="form-label" hidden></label>
+                                                              <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
+                                                          </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                   </div>
                                   </div>
                               </div>
                           </div>
-                          @if(count($parceiros_acao_extensao) > 0)
                           <div class="card">
                               <div class="card-header" id="headingFour">
                                   <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -496,36 +782,130 @@
                               </div>
                               <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                   <div class="card-body">
+                                    @if($userCoordenadorAcao && $acao_extensao->status != 'Aprovado')
+                                    <div class="panel-tag">
+                                        Para inserir/remover parcerias envolvidas na ação, é necessário que esta seja <code>aprovada pela comissão</code>.
+                                        @if($acao_extensao->status != 'Pendente')
+                                            <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
+                                            </form>
+                                            @endif
+                                    </div>
+                                    @endif
                                     <div class="frame-wrap">
-                                          <table class="table m-0">
-                                              <thead class="thead-themed">
-                                                  <tr>
-                                                      <th>Nome</th>
-                                                      <th>Tipo</th>
-                                                      <th>Colaboração</th>
-                                                  </tr>
-                                              </thead>
-                                              <tbody>
-                                                  @foreach ($parceiros_acao_extensao as $parceiro)
-                                                  <tr>
-                                                      <td>
-                                                          {{$parceiro->nome}}
-                                                      </td>
-                                                      <td>
+                                        <table class="table m-0">
+                                            <thead class="thead-themed">
+                                                <tr>
+                                                    <th>Parceiro</th>
+                                                    <th>Tipo</th>
+                                                    <th>Colaboracao</th>
+                                                    <th>Data/hora Adicionado em:</th>
+                                                    <th>Ação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach($parceiros_acao_extensao as $parceiro)
+                                                <tr>
+                                                    <td>
+                                                        {{$parceiro->nome}}
+                                                    </td>
+                                                    <td>
                                                         {{$parceiro->tipo_parceiro->descricao}}
-                                                      </td>
-                                                      <td>
+                                                    </td>
+                                                    <td>
                                                         {{$parceiro->colaboracao}}
-                                                      </td>
-                                                  </tr>
-                                                  @endforeach
-                                              </tbody>
-                                          </table>
+                                                    </td>
+                                                    <td>
+                                                        {{$parceiro->created_at->format('d/m/Y')}}
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="{{ route('acao_extensao.parceiro.destroy', $parceiro->id) }}" onsubmit="return confirm('Voce tem certeza?');">
+                                                            @csrf
+                                                            <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
+                                                         </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                        @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
+                                        <div class="accordion" id="accordionParceiro">
+                                            <div class="card">
+                                                <div class="card-header" id="headingTwo">
+                                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseParceiro" aria-expanded="true" aria-controls="collapseParceiro">
+                                                        Adicionar Parceiro na Ação de Extensão
+                                                        <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus-circle text-danger"></i>
+                                                            </span>
+                                                            <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus-circle text-success"></i>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div id="collapseParceiro" class="show" aria-labelledby="headingTwo" data-parent="#accordionParceiro">
+                                                    <div class="card-body">
+                                                        <form action="{{route('acao_extensao.parceiro.inserir', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao_local" method="POST">
+                                                            @csrf
+                                                            <div class="row g-3">
+                                                                <div class="form-group col-md-4">
+                                                                    <label class="form-label" for="nome">Nome<span class="text-danger">*</span></label>
+                                                                    <input type="text" id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror">
+                                                                    @error('nome')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <label class="form-label" for="tipo_parceiro_id">Tipo <span class="text-danger">*</span></label>
+                                                                    <select class="form-control @error('tipo_parceiro_id') is-invalid @enderror" id="tipo_parceiro_id" name="tipo_parceiro_id">
+                                                                        <option value="">Selecione o Tipo</option>
+                                                                        @if (!empty($lista_tipos))
+                                                                            @foreach ($lista_tipos as $tipo)
+                                                                              <option value="{{$tipo->id}}">{{$tipo->descricao}}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                    @error('tipo_parceiro_id')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+
+                                                              </div>
+                                                              <div class="row">
+                                                                <div class="form-group col-md-8">
+                                                                    <label class="form-label" for="colaboracao">Colaboracao <span class="text-danger">*</span></label>
+                                                                    <textarea id="colaboracao" name="colaboracao" class="form-control @error('colaboracao') is-invalid @enderror" rows="2"></textarea>
+                                                                    @error('colaboracao')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+
+                                                                    <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
+                                                                </div>
+                                                              </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
                                       </div>
                                   </div>
                               </div>
                           </div>
-                          @endif
                           <div class="card">
                               <div class="card-header" id="headingFive">
                                   <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
