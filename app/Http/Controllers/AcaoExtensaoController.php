@@ -126,6 +126,19 @@ class AcaoExtensaoController extends Controller
      */
     public function edit(AcaoExtensao $acaoExtensao)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        //restringindo usuario aprovar sua ação
+        if($acaoExtensao->user_id != $user->id){
+            session()->flash('status', 'Apenas o Coordenador pode editar a Ação.');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
         $acaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $acaoExtensao->municipio_id)->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
