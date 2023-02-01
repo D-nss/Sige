@@ -80,8 +80,10 @@ class AcaoExtensaoController extends Controller
     public function index(Collection $acoes_extensao = null)
     {
         if(is_null($acoes_extensao)){
-            $acoes_extensao = AcaoExtensao::all();
+            $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')->get();
         }
+
+        //populando formulário (filtro)
         $unidades = Unidade::all();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
@@ -652,12 +654,6 @@ class AcaoExtensaoController extends Controller
         return $this->index($acoes_extensao);
     }
 
-    /*
-    public function acoesPorSituacao($id){
-        $acoes_extensao = AcaoExtensao::where('situacao', $id)->get();
-        return $this->index($acoes_extensao);
-    }*/
-
     public function acoesPorGrauEnvolvimentoEquipe(GrauEnvolvimentoEquipe $grauEnvolvimentoEquipe){
         $acoes_extensao = AcaoExtensao::where('grau_envolvimento_equipe_id', $grauEnvolvimentoEquipe->id)->get();
         return $this->index($acoes_extensao);
@@ -688,14 +684,15 @@ class AcaoExtensaoController extends Controller
             array_push($filtro, ['at.area_tematica_id', $request->area_tematica_id]);
         }
         if($request->linha_extensao_id){
-            array_push($filtro, ['linha_extensao', $request->linha_extensao_id]);
+            array_push($filtro, ['linha_extensao_id', $request->linha_extensao_id]);
         }
         if($request->palavra_chave){
-            array_push($filtro, ['palavra_chave', $request->palavra_chave]);
+            array_push($filtro, ['palavras_chaves', $request->palavra_chave]);
         }
         if($request->cidade){
             array_push($filtro, ['municipio_id', $request->cidade]);
         }
+        array_push($filtro, ['status', 'Aprovado']);
         $acoes_extensao = AcaoExtensao::join('acoes_extensao_areas_tematicas as at', 'at.acao_extensao_id', 'acoes_extensao.id')
                                         ->where($filtro)
                                         ->get(['acoes_extensao.*']);
@@ -727,6 +724,7 @@ class AcaoExtensaoController extends Controller
             array_push($filtro, ['municipio_id', $request->cidade]);
         }
         array_push($filtro, ['georreferenciacao', '<>', '']);
+        array_push($filtro, ['status', 'Aprovado']);
         $acoes_extensao = AcaoExtensao::join('acoes_extensao_areas_tematicas as at', 'at.acao_extensao_id', 'acoes_extensao.id')
                                         ->where($filtro)
                                         ->get(['acoes_extensao.*']);

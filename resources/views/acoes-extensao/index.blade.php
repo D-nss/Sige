@@ -63,9 +63,10 @@
                             <tr>
                                  <th class="text-uppercase text-muted py-2 px-3">#</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Modalidade / Área Temática</th>
+                                 <th class="text-uppercase text-muted py-2 px-3">Modalidade / Linha / Área</th>
+                                 <th class="text-uppercase text-muted py-2 px-3">Objetivos Desenvolvimento Sustentável</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
-                                <th class="text-uppercase text-muted py-2 px-3">Situação</th>
+                                 <th class="text-uppercase text-muted py-2 px-3">Atualização</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,8 +78,11 @@
                                         {{$acao_extensao->titulo}}
                                     </a>
                                     <div class="d-block text-muted fs-sm">
-                                        Linha: <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
-                                        <br>
+                                        <small class="mt-0 mb-3 text-muted">
+                                            @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
+                                                <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-secondary">{{$palavra_chave}}</span></a>
+                                            @endforeach
+                                        </small>
                                     </div>
                                 </td>
                                 <td>
@@ -103,9 +107,19 @@
                                                 Indefinido
                                         @endswitch
                                     </a>
+                                    <div class="d-block text-muted fs-sm">
+                                        <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
+                                    </div>
                                     @foreach ($acao_extensao->areas_tematicas as $area_tematica)
                                     <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="text-muted small text-truncate">
-                                    <br>{{$area_tematica->nome}}
+                                    {{$area_tematica->nome}}
+                                    </a>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($acao_extensao->objetivos_desenvolvimento_sustentavel as $ods)
+                                    <a href="/acoes-extensao/ods/{{$ods->id}}" class="d-block text-dark fs-sm">
+                                    {{$ods->nome}}
                                     </a>
                                     @endforeach
                                 </td>
@@ -117,27 +131,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
-                                    @switch($acao_extensao->status)
-                                        @case('Desativado')
-                                        <span class="badge badge-danger">Desativado</span>
-                                            @break
-                                        @case('Pendente')
-                                            <span class="badge badge-warning">Pendente</span>
-                                            @break
-                                        @case('Rascunho')
-                                            <span class="badge badge-warning">Rascunho</span>
-                                            @break
-                                        @case('Aprovado')
-                                            <span class="badge badge-success">Aprovado</span>
-                                            @break
-                                        @default
-                                        <span class="badge badge-warning">Indefinido</span>
-                                    @endswitch
-                                    </a>
-                                    <div class="text-muted small text-truncate">
-                                        Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
-                                    </div>
+                                    {{$acao_extensao->updated_at->format('d/m/Y')}}
                                 </td>
                             </tr>
                             @endforeach
