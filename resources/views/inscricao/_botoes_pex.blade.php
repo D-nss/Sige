@@ -14,7 +14,7 @@
             <a href='{{ url("inscricao/$inscricao->id/avaliadores") }}' class="btn btn-info btn-xs m-1">Pareceristas</a>
         @endif
     @endif
-    @if($user->hasAnyRole('super','edital-administrador') || ( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id))))
+    @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)))
         
         <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Parecer</a>
        
