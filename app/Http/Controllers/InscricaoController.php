@@ -90,8 +90,9 @@ class InscricaoController extends Controller
 
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
+        $ods = ObjetivoDesenvolvimentoSustentavel::all();
 
-        return view('inscricao.create', compact('edital', 'linhas_extensao', 'estados', 'areas_tematicas'));
+        return view('inscricao.create', compact('edital', 'linhas_extensao', 'estados', 'areas_tematicas', 'ods'));
     }
 
     /**
