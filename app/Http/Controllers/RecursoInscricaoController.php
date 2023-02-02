@@ -76,9 +76,11 @@ class RecursoInscricaoController extends Controller
 
     public function avaliar(Request $request) 
     {
+        $user = User::where('email', Auth::user()->id)->first();
+
         $recurso = Recurso::find($request->recurso_id);
         $recurso->status = $request->status;
-        $recurso->user_id = Auth::user()->id;
+        $recurso->user_id = $user()->id;
 
         if( $recurso->save() ) {
             session()->flash('status', 'Recurso avaliado com sucesso!');
