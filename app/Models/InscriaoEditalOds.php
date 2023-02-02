@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Recurso extends Model
+class InscriaoEditalOds extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'inscricao_id',
-        'argumentacao',
-        'status'
+        'objetivo_desenvolvimento_sustentavel_id'
     ];
-
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
 }

@@ -136,6 +136,7 @@ class InscricaoController extends Controller
         }
 
         $validar['areas_tematicas'] = 'required';
+        $validar['obj_desenvolvimento_sustentavel'] = 'required';
         $validar['pdf_projeto'] = 'required|mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
@@ -153,10 +154,11 @@ class InscricaoController extends Controller
         }
 
         $areasTematicasInsert = array();
+        $odsInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
         /* Inserção no banco de dados usando transação, caso alguma inserção de erro ele retorna o banco ao estado anterior */
-        $inscricao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user) {
+        $inscricao = DB::transaction(function() use( $request, $areasTematicasInsert, $odsInsert, $respostasQuestoesInsert, $upload, $user) {
             /* Faz a inserção da inscrição */
             $inscricaoCriada = Inscricao::create([
                 'titulo' => $request->titulo,
@@ -173,7 +175,9 @@ class InscricaoController extends Controller
                 'linha_extensao_id' => $request->linha_extensao,
                 'user_id' => $user->id,
                 'unidade_id' => $user->unidade->id,
-                'edital_id' => $request->edital_id
+                'edital_id' => $request->edital_id,
+                'qtde_alunos' => $request->qtde_alunos,
+                'qtde_alunos_pg' => $request->qtde_alunos_pg
             ]);
             /* Prepara os dados para inserção das areas temáticas */
             foreach($request->areas_tematicas as $areas) {
@@ -184,7 +188,18 @@ class InscricaoController extends Controller
             }
             /* faz a inserção das áreas temáticas */
             DB::table('inscricoes_areas_tematicas')->insert($areasTematicasInsert);
-            /* preopara os dados para inserção das respostas das questões complementares */
+            
+            /* Prepara os dados para inserção das ODS */
+            foreach($request->obj_desenvolvimento_sustentavel as $ods) {
+                array_push($odsInsert,[
+                    'objetivo_desenvolvimento_sustentavel_id' => $ods,
+                    'inscricao_id' => $inscricaoCriada->id
+                ]);
+            }
+            /* faz a inserção das ODS's */
+            DB::table('inscricoes_editais_ods')->insert($odsInsert);
+
+            /* prepara os dados para inserção das respostas das questões complementares */
             foreach($request->all() as $key => $resposta) {
                 if(substr($key, 0, 8) == 'questao-') {
                     array_push($respostasQuestoesInsert, [
@@ -403,6 +418,7 @@ class InscricaoController extends Controller
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
+        $ods = ObjetivoDesenvolvimentoSustentavel::all();
         $cronograma = new Cronograma();
 
         if( $inscricao->user_id == $user->id || $user->hasRole('edital-administrador') ) {
@@ -421,6 +437,7 @@ class InscricaoController extends Controller
                             'respostasQuestoes',
                             'inscricaoLocal',
                             'areas_tematicas',
+                            'ods'
                         )
                     );
         }
@@ -474,6 +491,7 @@ class InscricaoController extends Controller
         }
 
         $validar['areas_tematicas'] = 'required';
+        $validar['obj_desenvolvimento_sustentavel'] = 'required';
         $validar['pdf_projeto'] = 'mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
@@ -482,10 +500,11 @@ class InscricaoController extends Controller
 
         //$inscricao = Inscricao::findOrFail($id);
         $areasTematicasInsert = array();
+        $odsInsert = array();
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
         /* Atualização no banco de dados usando transação, caso alguma atualização de erro ele retorna o banco ao estado anterior */
-        $transacao = DB::transaction(function() use( $request, $areasTematicasInsert, $respostasQuestoesInsert, $upload, $user, $inscricao) {
+        $transacao = DB::transaction(function() use( $request, $areasTematicasInsert,  $odsInsert, $respostasQuestoesInsert, $upload, $user, $inscricao) {
 
             $inscricao->titulo = $request->titulo;
             $inscricao->tipo = $request->tipo_extensao;
@@ -502,12 +521,22 @@ class InscricaoController extends Controller
             $inscricao->url_projeto = $request->link_projeto;
             $inscricao->url_lattes = $request->link_lattes;
             $inscricao->linha_extensao_id = $request->linha_extensao;
+            $inscricao->qtde_alunos = $request->qtde_alunos;
+            $inscricao->qtde_alunos_pg = $request->qtde_alunos_pg;
             $inscricaoAtualizada = $inscricao->save();
 
             DB::table('inscricoes_areas_tematicas')->where('inscricao_id', $inscricao->id)->delete();
             foreach($request->areas_tematicas as $area) {
                 DB::table('inscricoes_areas_tematicas')->insert([
                     'area_tematica_id' => $area,
+                    'inscricao_id' => $inscricao->id
+                ]);
+            }
+
+            DB::table('inscricoes_editais_ods')->where('inscricao_id', $inscricao->id)->delete();
+            foreach($request->obj_desenvolvimento_sustentavel as $ods) {
+                DB::table('inscricoes_editais_ods')->insert([
+                    'objetivo_desenvolvimento_sustentavel_id' => $ods,
                     'inscricao_id' => $inscricao->id
                 ]);
             }
@@ -647,23 +676,18 @@ class InscricaoController extends Controller
             'Contemplado' => 'success'
         ];
 
-        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
-
         /* lista todas as inscrições se o user for administrador */
         if($user->hasRole('edital-administrador')) {
             $inscricoes = Inscricao::orderBy('titulo', 'asc')->where('edital_id', $edital->id)->get();
 
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
-        if($avaliadorPorInscricao) {
-            $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
-                                ->where('ai.user_id', $user->id)
-                                ->where('inscricoes.edital_id', $edital->id)
-                                ->get(['inscricoes.*']);
 
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
-        }
-        else {
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.edital_id', $edital->id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+        if($userNaComissao) {
             /* Lista as incrições se o user estiver em uma comissão */
             // if($edital->tipo === 'PEX') {
             //     $inscricoes = Inscricao::join('comissoes', 'comissoes.edital_id', 'inscricoes.edital_id')
@@ -686,6 +710,17 @@ class InscricaoController extends Controller
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
             // }         
             
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+        }
+
+        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
+    
+        if($avaliadorPorInscricao) {
+            $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
+                                ->where('ai.user_id', $user->id)
+                                ->where('inscricoes.edital_id', $edital->id)
+                                ->get(['inscricoes.*']);
+
             return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
         }
 

@@ -45,7 +45,7 @@
                             <td><h3 class="fw-700 text-primary">{{ $inscricao->titulo }}</h3><small class="font-italic font-color-light">Linhas de Extensão: {{ $inscricao->linha_extensao->nome}}</small></td>
                             <td><span class="fw-700 text-secondary">{{ $inscricao->tipo }}</span></td>
                             <td>
-                                @if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) && ($inscricao->status == 'Indeferido' || $inscricao->status == 'Deferido') )
+                                @if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) && ($inscricao->status == 'Indeferido' || $inscricao->status == 'Deferido' || $inscricao->status == 'Avaliado') )
                                     <span class="badge badge-warning badge-pill">
                                         Em Análise
                                     </span>

@@ -54,7 +54,7 @@
                             </li>
                             <li class="step">
                                 <a class="nav-link font-weight-bold font-size-16" href="#step-3">
-                                    Áreas
+                                    Áreas/ODS
                                 </a>
                             </li>
                             <li class="step-4">
@@ -183,6 +183,14 @@
 
                                     <div class="mb-3">
                                         <div class="mb-4">
+                                            <label for="qtde_alunos" class="font-weight-bold">Quantidade Alunos Graduação</label>
+                                            <input type="number" name="qtde_alunos" class="form-control w-75" placeholder="0" value="@if(isset($inscricao->qtde_alunos)){{ $inscricao->qtde_alunos }}@else{{ old('qtde_alunos') }}@endif" required>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="qtde_alunos_pg" class="font-weight-bold">Quantidade Alunos Pós Graduação</label>
+                                            <input type="number" name="qtde_alunos_pg" class="form-control w-75" placeholder="0" value="@if(isset($inscricao->qtde_alunos_pg)){{ $inscricao->qtde_alunos_pg }}@else{{ old('qtde_alunos_pg') }}@endif" required>
+                                        </div>
+                                        <div class="mb-4">
                                             <label for="link_lattes" class="font-weight-bold">Link Lattes</label>
                                             <input type="text" name="link_lattes" class="form-control w-75" placeholder="https://seulattes.com" value="@if(isset($inscricao->url_lattes)){{ $inscricao->url_lattes }}@else{{ old('link_lattes') }}@endif" required>
                                             <p style="color: #D0D3D4;">(máx. 255 caracteres)</p>
@@ -265,7 +273,13 @@
                                             <option value="{{ $area_tematica->id }}" @if( (collect(old('areas_tematicas'))->contains($area_tematica->id)) || (isset($inscricao->areas) && $inscricao->areas->contains($area_tematica->id)) ) selected @endif>{{ $area_tematica->nome }}</option>
                                         @endforeach
                                     </select>
-
+                                    
+                                    <label for="obj_desenvolvimento_sustentavel" class="form-label">Objetivo Desenvolvimento Sustentável</label>
+                                    <select name="obj_desenvolvimento_sustentavel[]" id="obj_desenvolvimento_sustentavel" class="form-control mb-3" style="height: 150px;" multiple required>  
+                                        @foreach($ods as $key => $value)
+                                            <option value="{{ $value->id }}" @if( (collect(old('obj_desenvolvimento_sustentavel'))->contains($value->id)) || (isset($inscricao->ods) && $inscricao->ods->contains($value->id)) ) selected @endif>{{ $value->nome }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div id="step-4" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Linhas de Extensão</h3>

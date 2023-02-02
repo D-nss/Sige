@@ -112,6 +112,18 @@
                                 <div class="col-12">
                                     <div class="p-0">
                                         <h5>
+                                        Objetivo Desenvolvimento Sustentável
+                                            <small class="mt-0 mb-3 text-muted">
+                                                @foreach( $inscricao->ods as $value)
+                                                    <span class="badge badge-secondary px-2">{{ $value->nome }}</span>
+                                                @endforeach
+                                            </small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
                                             Linha de Extensão
                                             <small class="mt-0 mb-3 text-muted" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ $inscricao->linha_extensao->descricao }}">
                                                 {{ $inscricao->linha_extensao->nome }}
@@ -542,6 +554,57 @@
                                         </div>
                                     </div>
                                     @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingRecurso">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseRecurso" aria-expanded="false" aria-controls="collapseRecurso">
+                                <div class='icon-stack display-3 flex-shrink-0'>       
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                    <i class="far fa-edit icon-stack-1x opacity-100 color-info-500"></i>
+                                </div>
+                                <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
+                                    Recurso
+                                </h4>
+                                <span class="ml-auto">
+                                    <span class="collapsed-reveal">
+                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    </span>
+                                    <span class="collapsed-hidden">
+                                        <i class="fal fa-plus-circle text-success"></i>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div id="collapseRecurso" class="collapse" aria-labelledby="headingRecurso" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
+                                            Argumentação
+                                            <small class="mt-0 mb-3">
+                                                {{ is_null($inscricao->recurso) ? '' : $inscricao->recurso->argumentacao }}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="p-0">
+                                        <h5>
+                                            Status
+                                            <small class="mt-0 mb-3">
+                                            {{ is_null($inscricao->recurso) ? '' :  $inscricao->recurso->status }}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="p-0">
+                                        <h5>
+                                            SCT
+                                            <small class="mt-0 mb-3">
+                                            {{ is_null($inscricao->recurso->user) ? '' : $inscricao->recurso->user->name}}
+                                            </small>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>

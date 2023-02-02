@@ -15,9 +15,11 @@
 
         <label for="tipo" class="font-weight-bold">Tipo:</label>
         <select name="tipo" id="tipo" class="form-control mb-3" required>
-            <option value="">Selecione ... </option>
-            <option value="PEX" {{ (isset($edital->tipo) && $edital->tipo == 'PEX') || old('tipo') == 'PEX' ? 'selected' : '' }}>PEX</option>
+        <option value="">Selecione ... </option>
             <option value="Acoes Afirmativas" {{ (isset($edital->tipo) && $edital->tipo == 'Acoes Afirmativas') || old('tipo') == 'Acoes Afirmativas' ? 'selected' : '' }}>Ações Afirmativas</option>
+            <option value="Colégios" {{ (isset($edital->tipo) && $edital->tipo == 'Colégios') || old('tipo') == 'Colégios' ? 'selected' : '' }}>Colégios</option>
+            <option value="PEX" {{ (isset($edital->tipo) && $edital->tipo == 'PEX') || old('tipo') == 'PEX' ? 'selected' : '' }}>PEX</option>
+            <option value="Saberes Indígenas" {{ (isset($edital->tipo) && $edital->tipo == 'Saberes Indígenas') || old('tipo') == 'Saberes Indígenas' ? 'selected' : '' }}>Saberes Indígenas</option>
         </select>
 
         <label for="resumo" class="font-weight-bold">Resumo:</label>

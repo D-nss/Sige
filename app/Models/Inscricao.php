@@ -37,7 +37,9 @@ class Inscricao extends Model
         'user_id',
         'unidade_id',
         'avaliador_user_id',
-        'edital_id'
+        'edital_id',
+        'qtde_alunos',
+        'qtde_alunos_pg'
     ];
 
     public function user()
@@ -63,6 +65,11 @@ class Inscricao extends Model
     public function areas()
     {
         return $this->belongsToMany(AreaTematica::class, 'inscricoes_areas_tematicas', 'inscricao_id', 'area_tematica_id' );
+    }
+
+    public function ods()
+    {
+        return $this->belongsToMany(ObjetivoDesenvolvimentoSustentavel::class, 'inscricoes_editais_ods', 'inscricao_id', 'objetivo_desenvolvimento_sustentavel_id' );
     }
 
     public function avaliadores()

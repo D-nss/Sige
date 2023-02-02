@@ -211,6 +211,18 @@
                                 <div class="col-12">
                                     <div class="p-0">
                                         <h5>
+                                        Objetivo Desenvolvimento Sustentável
+                                            <small class="mt-0 mb-3 text-muted">
+                                            @foreach( $inscricao->ods as $value)
+                                                <span class="badge badge-secondary px-2">{{ $value->nome }}</span>
+                                            @endforeach
+                                            </small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
                                             Linha de Extensão
                                             <small class="mt-0 mb-3 text-muted" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ $inscricao->linha_extensao->descricao }}">
                                             {{ $inscricao->linha_extensao->nome }}

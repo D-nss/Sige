@@ -32,7 +32,7 @@
                     <div class="accordion" id="accordionExample">
                         <div class="card">
                             <div class="card-header" id="headingOne">
-                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosAbertos" aria-expanded="true" aria-controls="collapseEventosAbertos">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                         <i class="far fa-clipboard-list-check icon-stack-1x opacity-100 color-success-500"></i>
@@ -51,13 +51,13 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div id="collapseEventosAbertos" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     @include('eventos._table_abertos') 
                                 </div>
                             </div>
                             <div class="card-header" id="headingOne">
-                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosFechados" aria-expanded="true" aria-controls="collapseEventosFechados">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
                                         <i class="far fa-clipboard-list icon-stack-1x opacity-100 color-warning-500"></i>
@@ -76,13 +76,13 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div id="collapseEventosFechados" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     @include('eventos._table_encerrados')  
                                 </div>
                             </div>
                             <div class="card-header" id="headingOne">
-                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosCancelados" aria-expanded="true" aria-controls="collapseEventosCancelados">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
                                         <i class="far fa-times icon-stack-1x opacity-100 color-danger-500"></i>
@@ -101,7 +101,7 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div id="collapseEventosCancelados" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     @include('eventos._table_cancelados')  
                                 </div>

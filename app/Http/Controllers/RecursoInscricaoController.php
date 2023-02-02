@@ -78,6 +78,7 @@ class RecursoInscricaoController extends Controller
     {
         $recurso = Recurso::find($request->recurso_id);
         $recurso->status = $request->status;
+        $recurso->user_id = Auth::user()->id;
 
         if( $recurso->save() ) {
             session()->flash('status', 'Recurso avaliado com sucesso!');
