@@ -15,6 +15,7 @@ use App\Models\InscricaoAreaTematica;
 use App\Models\AreaTematica;
 use App\Models\UploadFile;
 use App\Models\Orcamento;
+use App\Models\ObjetivoDesenvolvimentoSustentavel;
 use App\Models\QuestaoRespondida;
 use App\Models\LinhaExtensao;
 use App\Models\User;
