@@ -259,7 +259,7 @@
             @if(Auth::check())
             <li>
                 <a href="https://runrun.it/share/form/UdKA3gCmPmCrxEc0" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-user-headset""></i>
+                    <i class="fal fa-user-headset"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Solicitação de Suporte</span>
                 </a>
             </li>
