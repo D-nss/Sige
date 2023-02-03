@@ -255,13 +255,15 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-            <li>
-                <a href="/unidades" title="Blank Project" data-filter-tags="blank page">
-                    <i class="fal fa-globe"></i>
-                    <span class="nav-link-text" data-i18n="nav.blankpage">Unidades</span>
-                </a>
             </li>-->
+            @if(Auth::check())
+            <li>
+                <a href="https://runrun.it/share/form/UdKA3gCmPmCrxEc0" title="Blank Project" data-filter-tags="blank page">
+                    <i class="fal fa-globe"></i>
+                    <span class="nav-link-text" data-i18n="nav.blankpage">Solicitação de Suporte</span>
+                </a>
+            </li>
+            @endif
             <!-- <li class="disabled">
                 <a href="#" title="Blank Project" data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
