@@ -258,7 +258,7 @@
             </li>-->
             @if(Auth::check())
             <li class="mt-3">
-                <a href="https://runrun.it/share/form/UdKA3gCmPmCrxEc0" title="Blank Project" data-filter-tags="blank page">
+                <a href="https://runrun.it/share/form/UdKA3gCmPmCrxEc0" title="Blank Project" target="_blank" data-filter-tags="blank page">
                     <i class="fal fa-user-headset"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Solicitação de Suporte</span>
                 </a>
