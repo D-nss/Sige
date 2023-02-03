@@ -54,10 +54,8 @@ class ComissaoUserController extends Controller
         ]);
 
         if($comissao) {
-            if($comissao->edital_id != null) {
-                $comissao->user->notify(new \App\Notifications\ComissaoUserAdicionado($comissao));
-            }
-            
+            $comissao->user->notify(new \App\Notifications\ComissaoUserAdicionado($comissao));
+
             session()->flash('status', 'Participante de comissão cadastrado com sucesso!!!');
             session()->flash('alert', 'success');
 
