@@ -601,7 +601,7 @@
                                         <h5>
                                             SCT
                                             <small class="mt-0 mb-3">
-                                            {{ is_null($inscricao->recurso) && is_null($inscricao->recurso->user->name) ? '' : $inscricao->recurso->user->name}}
+                                            {{ !is_null($inscricao->recurso) && !is_null($inscricao->recurso->user->name) ? $inscricao->recurso->user->name : ''}}
                                             </small>
                                         </h5>
                                     </div>
