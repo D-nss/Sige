@@ -47,9 +47,9 @@
                 <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-info my-1 font-weight-bold"><i class="far fa-edit"></i> Editar</a>
                 @if( strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) !== false && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) )
                 @if( !isset($edital->inscricoes->firstWhere('nota', '<>', NULL)->nota) || (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_recurso', $edital->id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_resultado', $edital->id))) )
-                    <button type="button" class="btn btn-warning my-1 font-weight-bold" data-toggle="modal" data-target="#default-example-modal-sm-center"><i class="far fa-list-ol"></i> Classificar</button>
+                    <button type="button" class="btn btn-warning my-1 font-weight-bold" data-toggle="modal" data-target="#modal{{ $edital->id }}"><i class="far fa-list-ol"></i> Classificar</button>
                     <!-- Modal center Small -->
-                    <div class="modal fade" id="default-example-modal-sm-center" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="modal{{ $edital->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
