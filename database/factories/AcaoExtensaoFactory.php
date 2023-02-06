@@ -19,29 +19,26 @@ class AcaoExtensaoFactory extends Factory
         $this->faker->locale('pt_BR');
 
         return [
-            'user_id' => 1,
-            'tipo' => rand(1,5),
+            'user_id' => rand(1,3),
+            'modalidade' => rand(1,5),
             'linha_extensao_id' => rand(1,53),
             'titulo' => $this->faker->sentence(),
             'descricao' => $this->faker->text(),
-            'palavras_chaves' => $this->faker->word(),
+            'palavras_chaves' => $this->faker->word() .','. $this->faker->word() .','. $this->faker->word(),
             'url' => $this->faker->url(),
             'publico_alvo' => $this->faker->sentence(),
-            //'data_inicio' => $this->faker->date(),
-            //'data_fim' => $this->faker->date(),
+            'estimativa_publico' => rand(20,1000),
             'municipio_id' => rand(3268, 3912),
-            //'situacao' => rand(1,3),
             'unidade_id' => rand(1, 40),
             'nome_coordenador' => $this->faker->name(),
-            'vinculo_coordenador' => rand(1,4),
-            /*
-            'parceiro' => $this->faker->company(),
-            'tipo_parceiro_id' => rand(1,13),*/
+            'vinculo_coordenador' => $this->faker->jobTitle(),
+            'email_coordenador' => $this->faker->companyEmail(),
+            'vagas_curricularizacao' => rand(5,20),
+            'grau_envolvimento_equipe_id' => rand(1,7),
             'impactos_universidade' => $this->faker->text(),
             'impactos_sociedade' => $this->faker->text(),
-            'grau_envolvimento_equipe_id' => rand(1,7),
-            //'investimento' => rand(10000,200000),
-            'status' => 'Pendente',
+            'aprovado_user_id' => rand(1,3),
+            'status' => $this->faker->randomElement($array = array ('Rascunho','Submetido','Aprovado')),
         ];
     }
 }

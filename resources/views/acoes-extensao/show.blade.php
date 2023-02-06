@@ -396,6 +396,11 @@
                                             @endif
                                     </div>
                                     @endif
+                                    @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
+                                    <div class="panel-tag">
+                                        Neste local só é possível inserir datas/locais que já foram realizadas, para datas futuras e não concluídas, <code>utilize o módudo de eventos!</code>
+                                    </div>
+                                    @endif
                                   <div class="frame-wrap">
                                       <table class="table m-0">
                                           <thead class="thead-themed">
@@ -477,7 +482,7 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="form-group col-md-2">
-                                                                <label class="form-label" for="data_hora_fim">Data Hora Fim</label>
+                                                                <label class="form-label" for="data_hora_fim">Data Hora Fim<span class="text-danger">*</span></label>
                                                                 <input class="form-control @error('data_hora_fim') is-invalid @enderror" type="datetime-local" id="data_hora_fim" name="data_hora_fim" placeholder="dd/mm/aaaa" value="">
                                                                 @error('data_hora_fim')
                                                                     <div class="invalid-feedback">

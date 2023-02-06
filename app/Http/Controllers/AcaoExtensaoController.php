@@ -80,7 +80,7 @@ class AcaoExtensaoController extends Controller
     public function index(Collection $acoes_extensao = null)
     {
         if(is_null($acoes_extensao)){
-            $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')->get();
+            $acoes_extensao = AcaoExtensao::all();
         }
 
         //populando formulário (filtro)
@@ -88,6 +88,8 @@ class AcaoExtensaoController extends Controller
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+
+        $acoes_extensao = $acoes_extensao->where('status', 'Aprovado');
 
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao,
@@ -357,7 +359,8 @@ class AcaoExtensaoController extends Controller
     public function insereDataLocal(Request $request)
     {
         $this->validate($request, [
-            'data_hora_inicio' => ['required'],
+            'data_hora_inicio' => ['required','date','before:' . today()],
+            'data_hora_fim' => ['required','date','after:data_hora_inicio'],
             'local' => ['required']
         ]);
 
