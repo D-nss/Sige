@@ -187,7 +187,10 @@ return [
         'password_confirmation' => 'confirmação da senha',
         'current_password' => 'senha atual',
         'arquivo-anexo' => 'arquivo anexo',
-        'nome_arquivo' => 'nome arquivo'
+        'nome_arquivo' => 'nome arquivo',
+        'qtde_alunos' => 'quantidade alunos graduação',
+        'qtde_alunos_pg' => 'quantidade alunos pós graduação',
+        'obj_desenvolvimento_sustentavel' => 'objetivo de desenvolvimento sustentável'
     ],
 
 ];
