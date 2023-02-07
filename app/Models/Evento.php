@@ -35,6 +35,7 @@ class Evento extends Model
         'ck_funcao',
         'ck_pais',
         'ck_cidade_estado',
+        'ck_arquivo',
         'carga_horaria',
         'doc_certificado',
         'grupo_usuario',

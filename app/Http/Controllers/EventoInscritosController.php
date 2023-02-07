@@ -80,7 +80,7 @@ class EventoInscritosController extends Controller
 
         if( isset($request->arquivo) || !$request->arquivo == '') {
             $upload = new UploadFile();
-            $inputs['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 3000000);
+            $inputs['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 30000);
         }
 
         $inscrito = EventoInscrito::create($inputs);

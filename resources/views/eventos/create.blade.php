@@ -199,6 +199,12 @@
                                                                 Exigir Cidade/Estado
                                                             </label>
                                                         </div>
+                                                        <div class="custom-control custom-switch">
+                                                            <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" >
+                                                            <label class="custom-control-label mb-2" for="ck_arquivo">
+                                                                Exigir Arquivo de Projeto
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     
                                                 </div>

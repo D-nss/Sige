@@ -147,37 +147,37 @@
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
-                    
+
+                    @if($evento->ck_arquivo)
                     <div class="form-group">
-                        
-                        <div class="form-group">
-                            <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
-                            <div class="preview-zone hidden">
-                            <div class="box box-solid">
-                                <div class="box-header with-border">
-                                <div></div>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-secondary btn-xs remove-preview">
-                                    Limpar
-                                    </button>
-                                </div>
-                                </div>
-                                <div class="box-body" id="box-body">
-                                
-                                </div>
+                        <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
+                        <div class="preview-zone hidden">
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                            <div></div>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                Limpar
+                                </button>
                             </div>
                             </div>
-                            <div class="dropzone-wrapper">
-                                <div class="dropzone-desc">
-                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                    <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
-                                </div>
-                                <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('modelo') }}">
-                                
+                            <div class="box-body" id="box-body">
+                            
                             </div>
-                            <div id="alert-pdf-format"></div>
-                        </div> 
-                    </div>
+                        </div>
+                        </div>
+                        <div class="dropzone-wrapper">
+                            <div class="dropzone-desc">
+                                <i class="glyphicon glyphicon-download-alt"></i>
+                                <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
+                            </div>
+                            <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('modelo') }}">
+                            
+                        </div>
+                        <div id="alert-pdf-format"></div>
+                        <div class="help-block muted">O envio do arquivo não é obrigatório, somente se você for apresentar algum projeto no evento.</div>
+                    </div> 
+                    @endif
 
                     <button type="submit" class="btn btn-primary">
                         Cadastrar
