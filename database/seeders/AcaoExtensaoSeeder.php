@@ -16,5 +16,7 @@ class AcaoExtensaoSeeder extends Seeder
     {
          \App\Models\AcaoExtensao::factory(200)->create();
          \App\Models\AcaoExtensaoAreaTematica::factory(200)->create();
+         \App\Models\AcaoExtensaoODS::factory(200)->create();
+         \App\Models\AcaoExtensaoParceiro::factory(200)->create();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\AcaoExtensaoParceiro;
+use App\Models\TipoParceiro;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AcaoExtensaoParceiroFactory extends Factory
 {
+
+    private static $acao_extensao = 1;
+
     /**
      * Define the model's default state.
      *
@@ -16,7 +21,13 @@ class AcaoExtensaoParceiroFactory extends Factory
      */
     public function definition()
     {
+        $this->faker->locale('pt_BR');
+
         return [
+            'acao_extensao_id' => self::$acao_extensao++,
+            'tipo_parceiro_id' => TipoParceiro::inRandomOrder()->first()->id,
+            'nome' => $this->faker->company(),
+            'colaboracao' => $this->faker->sentence()
             //
         ];
     }
