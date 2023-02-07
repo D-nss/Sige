@@ -36,6 +36,39 @@
                         <a href="" class="btn btn-warning btn-xs">
                             Enviar E-Mail
                         </a>
+                        <button type="button" class="btn btn-secondary my-1 font-weight-bold" data-toggle="modal" data-target="#modal{{ $evento->id }}"><i class="far fa-list-ol"></i> Comissão</button>
+                        <!-- Modal center Small -->
+                        <div class="modal fade" id="modal{{ $evento->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Comissão de Análise do Evento</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                        </button>
+                                    </div>
+                                    <form action="" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
+                                            <div class="form-group">    
+                                                <label class="form-label" for="atribuicao">Atribuição</label>
+                                                <select name="atribuicao" class="form-control">
+                                                    <option value="">Selecione ...</option>
+                                                    <option value="Avaliação">Avaliação</option>
+                                                    <option value="Extensão">Extensão</option>
+                                                    <option value="Sub Comissão">Sub Comissão</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-success my-1 font-weight-bold">Enviar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </td>
             </tr>
