@@ -216,7 +216,7 @@
                                             <h5>
                                                 Arquivo
                                                 <small class="mt-0 mb-3">
-                                                <img src="{{ asset('storage/'.$inscrito->arquivo) }}" alt=""> 
+                                                <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a> 
                                                 </small>
                                             </h5>
                                         </div>
