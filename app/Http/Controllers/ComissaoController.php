@@ -63,12 +63,13 @@ class ComissaoController extends Controller
      */
     public function store(Request $request)
     {
+        $evento = isset($request->evento_id) ? $request->evento_id : null;
         //echo json_encode($request->all());
         $validated = $request->validate(
             [
                 'nome' => 'required|max:190',
                 'atribuicao' => 'required|max:190',
-                'edital_id' => is_null($request->unidade_id) ? 'required' : '',
+                'edital_id' => is_null($request->unidade_id) && is_null($evento) ? 'required' : '',
             ],
             [
                 'edital_id.required' => 'O campo edital é obrigatório.',
@@ -84,8 +85,6 @@ class ComissaoController extends Controller
 
             return redirect()->to('/comissoes');
         }
-
-        $evento = isset($request->evento_id) ? $request->evento_id : null;
 
         $comissao = Comissao::create(
             [
