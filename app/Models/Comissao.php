@@ -21,6 +21,7 @@ class Comissao extends Model
         'atribuicao',
         'edital_id',
         'unidade_id',
+        'evento_id'
     ];
 
     public function users()
