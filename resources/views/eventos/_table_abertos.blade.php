@@ -49,7 +49,7 @@
                                     </div>
                                     <ul class="list-group ">                        
                                     @forelse($evento->comissoes as $comissao)
-                                        <li class="list-group-item bg-info-50 m-1">
+                                        <li class="list-group-item bg-info-50 m-3">
                                             <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
