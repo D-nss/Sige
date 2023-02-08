@@ -14,7 +14,7 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Comissões</span>
         <small>
-        Adicionar Participantes a Comissão <strong>{{ $comissao->nome }}</strong> <strong>{{ $comissao->edital == null ? ' da Unidade ' . $comissao->unidade->sigla : 'do Edital ' . $comissao->edital->titulo }}</strong>
+        Adicionar Participantes a Comissão <strong>{{ $comissao->nome }}</strong> 
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
