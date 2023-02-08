@@ -127,7 +127,7 @@
                                                 <!-- inputs hidden -->
                                                 <input type="hidden" name="edital_id" id="edital_id" value="{{ null }}">
                                                 <input type="hidden" name="unidade_id" id="unidade_id" value="{{ null }}">
-                                                <input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
+                                                <input type="text" name="evento_id" id="evento_id" value="{{ $evento->id }}">
                                                 <input type="hidden"  name="atribuicao" value="Sub Comissão">
                                                 <!-- fim inputs hidden -->
                                                 <div class="form-group">    
