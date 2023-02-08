@@ -47,12 +47,11 @@
                                             <span aria-hidden="true"><i class="fal fa-times"></i></span>
                                         </button>
                                     </div>
-                                    @if($evento->comissoes)
                                     <ul class="list-group ">                        
                                     @forelse($evento->comissoes as $comissao)
                                         <li class="list-group-item bg-info-50 mb-1">
-                                        <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
-                                            <i class="far fa-trash-alt"></i>
+                                            <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
+                                                <i class="far fa-trash-alt"></i>
                                             </button>
                                             <div class="mb-3">
                                                 @if($comissao->edital_id != null)
@@ -90,7 +89,6 @@
                                                 @endforeach
                                             </div>
                                             
-
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal{{ $comissao->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $comissao->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -120,16 +118,9 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                </div>
+                                            </div>
                                         </li>
-                                        
                                     @empty
-                                        <li class="list-group-item">
-                                            <span data-filter-tags="reports file">Sem comissões cadastrada</span>
-                                        </li>
-                                    @endforelse
-                                    </ul>
-                                    @else
                                         <form action="" method="post">
                                             @csrf
                                             <div class="modal-body">
@@ -146,8 +137,9 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                 <button type="submit" class="btn btn-success my-1 font-weight-bold">Enviar</button>
                                             </div>
-                                    </form>
-                                    @endif
+                                        </form>
+                                    @endforelse
+                                    </ul>
                                 </div>
                             </div>
                         </div>
