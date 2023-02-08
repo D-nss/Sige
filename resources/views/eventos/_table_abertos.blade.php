@@ -49,7 +49,7 @@
                                     </div>
                                     <ul class="list-group ">                        
                                     @forelse($evento->comissoes as $comissao)
-                                        <li class="list-group-item bg-info-50 mb-1">
+                                        <li class="list-group-item bg-info-50 m-1">
                                             <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -61,7 +61,7 @@
                                                     <h3><span data-filter-tags="reports file"><strong>Unidade: </strong>{{ $comissao->unidade->sigla }}</span></h3>
                                                 @endif
                                                 @if($comissao->evento_id != null)
-                                                    <h3><span data-filter-tags="reports file"><strong>Unidade: </strong>{{ $comissao->evento->nome }}</span></h3>
+                                                    <h3><span data-filter-tags="reports file"><strong>Evento: </strong>{{ $comissao->evento->titulo }}</span></h3>
                                                 @endif
                                                 <p><span data-filter-tags="reports file"><strong>Nome: </strong>{{ $comissao->nome }}</span></p>
                                                 <p><span data-filter-tags="reports file"><strong>Atribuição: </strong>{{ $comissao->atribuicao}}</span></p>
