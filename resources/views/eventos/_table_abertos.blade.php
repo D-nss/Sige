@@ -121,7 +121,7 @@
                                             </div>
                                         </li>
                                     @empty
-                                        <form action="{{ route('participantes.store')}}" method="post">
+                                        <form action="{{ route('comissoes.store')}}" method="post">
                                             @csrf
                                             <div class="modal-body">
                                                 <!-- inputs hidden -->
