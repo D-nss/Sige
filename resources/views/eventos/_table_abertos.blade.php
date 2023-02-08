@@ -121,10 +121,12 @@
                                             </div>
                                         </li>
                                     @empty
-                                        <form action="" method="post">
+                                        <form action="{{ route('participantes.store')}}" method="post">
                                             @csrf
                                             <div class="modal-body">
                                                 <!-- inputs hidden -->
+                                                <input type="hidden" name="edital_id" id="edital_id" value="{{ null }}">
+                                                <input type="hidden" name="unidade_id" id="unidade_id" value="{{ null }}">
                                                 <input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
                                                 <input type="hidden"  name="atribuicao" value="Sub Comissão">
                                                 <!-- fim inputs hidden -->
