@@ -47,7 +47,6 @@
                                             <span aria-hidden="true"><i class="fal fa-times"></i></span>
                                         </button>
                                     </div>
-                                    {{ dd($evento->comissao) }}
                                     @if($evento->comissao)
                                     <form action="" method="post">
                                         @csrf
