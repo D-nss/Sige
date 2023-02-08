@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Comissao;
+use App\Models\Evento;
 use App\Models\Unidade;
 
 class Comissao extends Model
@@ -35,5 +36,10 @@ class Comissao extends Model
     public function unidade()
     {
         return $this->belongsTo(Unidade::class);
+    }
+
+    public function evento()
+    {
+        return $this->belongsTo(Evento::class);
     }
 }

@@ -43,9 +43,7 @@
             </div> -->
         </div>
         <div class="panel-container show">
-            <div class="panel-content">
-                
-                
+            <div class="panel-content"> 
                 <ul class="list-group ">                        
                     @forelse($comissoes as $comissao)
                         <li class="list-group-item bg-info-50 mb-1">
