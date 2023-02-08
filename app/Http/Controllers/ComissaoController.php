@@ -85,12 +85,15 @@ class ComissaoController extends Controller
             return redirect()->to('/comissoes');
         }
 
+        $evento = isset($request->evento_id) ? $request->evento_id : null;
+
         $comissao = Comissao::create(
             [
                 'nome' => $request->nome,
-                'atribuicao' => $request->atribuicao,
-                'edital_id' => $request->edital_id,
-                'unidade_id' => $request->unidade_id,
+                'atribuicao'    => $request->atribuicao,
+                'edital_id'     => $request->edital_id,
+                'unidade_id'    => $request->unidade_id,
+                'evento_id'     => $request->evento_id,
             ]
         );
 
@@ -98,6 +101,10 @@ class ComissaoController extends Controller
             session()->flash('status', 'Comissão cadastrada com sucesso!!!');
             session()->flash('alert', 'success');
 
+            if(isset($request->evento_id)) {
+                return redirect()->back();
+            }
+            
             return redirect()->to('/comissoes');
         }
         else {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\ModeloCertificado;
 use App\Models\User;
+use App\Models\Comissao;
 
 class Evento extends Model
 {
@@ -57,6 +58,11 @@ class Evento extends Model
     public function inscritos()
     {
         return $this->hasMany(EventoInscrito::class);
+    }
+
+    public function comissoes()
+    {
+        return $this->hasMany(Comissao::class, 'evento_id');
     }
 
 }
