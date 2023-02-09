@@ -116,7 +116,7 @@ class EventoInscritosController extends Controller
         return view('eventos.inscritos.show', compact('inscrito'));
     }
 
-    public function uploadArquivo(Request $request, EventoInscrito $inscrito)
+    public function uploadArquivo(Request $request, $id)
     {
         if( isset($request->arquivo) || !$request->arquivo == '') {
 

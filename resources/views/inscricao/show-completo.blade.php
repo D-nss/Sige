@@ -369,7 +369,7 @@
 
                                         </div>
                                         <input type="hidden" name="modulo" value="editais">
-                                        <input type="hidden" name="inscricao_id" value="{{ $inscricao->id }}">
+                                        <input type="hidden" name="referencia_id" value="{{ $inscricao->id }}">
                                         <button class="btn btn-success mt-3">Enviar</button>
                                     </form>
                                    

@@ -310,7 +310,9 @@
                                         <h5>
                                         Ressalvas
                                             <small class="mt-0 mb-3 text-muted">
-                                            {{ $inscricao->justificativa }}
+                                            @if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) && $inscricao->status == 'Indeferido')
+                                                {{ $inscricao->justificativa }}
+                                            @endif
                                             </small>
                                         </h5>
                                     </div>

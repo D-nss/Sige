@@ -245,7 +245,7 @@
                                         @if( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
                                             <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data"> 
                                                 @csrf
-                                                <div class="form-group">
+                                                <div class="form-group mt-3">
                                                     <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
                                                     <div class="preview-zone hidden">
                                                     <div class="box box-solid">
