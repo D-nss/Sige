@@ -119,22 +119,24 @@ class EventoInscritosController extends Controller
     public function uploadArquivo(Request $request, EventoInscrito $inscrito)
     {
         if( isset($request->arquivo) || !$request->arquivo == '') {
+
             $upload = new UploadFile();
             $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
-            echo json_encode($inscrito);
-            // $inscrito->arquivo = $arquivo;
-            // if($inscrito->update()) {
-            //     session()->flash('status', 'Arquivo enviado com sucesso.');
-            //     session()->flash('alert', 'success');
+            
+            $inscrito = EventoInscrito::find($id);
+            $inscrito->arquivo = $arquivo;
+            if($inscrito->update()) {
+                session()->flash('status', 'Arquivo enviado com sucesso.');
+                session()->flash('alert', 'success');
 
-            //     return redirect()->back();
-            // }
-            // else {
-            //     session()->flash('status', 'Erro ao enviar arquivo.');
-            //     session()->flash('alert', 'danger');
+                return redirect()->back();
+            }
+            else {
+                session()->flash('status', 'Erro ao enviar arquivo.');
+                session()->flash('alert', 'danger');
 
-            //     return redirect()->back();
-            // }
+                return redirect()->back();
+            }
 
         }
     }
