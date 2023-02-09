@@ -205,6 +205,12 @@
                                                                 Exigir Arquivo de Projeto
                                                             </label>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label fw-400" for="prazo_envio_arquivo">
+                                                                Prazo para envio de arquivo:
+                                                            </label>
+                                                            <input class="form-control w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" >
+                                                        </div>
                                                     </div>
                                                     
                                                 </div>
