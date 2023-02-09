@@ -266,7 +266,7 @@
                                                     <i class="glyphicon glyphicon-download-alt"></i>
                                                     <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
                                                 </div>
-                                                <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('modelo') }}">
+                                                <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('arquivo') }}">
                                                 
                                             </div>  
                                             <div id="alert-pdf-format"></div>

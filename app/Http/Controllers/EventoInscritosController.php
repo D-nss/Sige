@@ -129,6 +129,12 @@ class EventoInscritosController extends Controller
 
                 return redirect()->back();
             }
+            else {
+                session()->flash('status', 'Erro ao enviar arquivo.');
+                session()->flash('alert', 'danger');
+
+                return redirect()->back();
+            }
 
         }
     }
