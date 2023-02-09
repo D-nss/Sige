@@ -241,7 +241,7 @@
                                         </div>
                                     </div>
                                     @else
-                                    {{ dd([strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo, $inscrito->evento->ck_arquivo]) }}
+                                    {{ dd([strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo, $inscrito->evento->ck_arquivo])) }}
                                         @if( $inscrito->evento->ck_arquivo && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
                                         <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data"> 
                                         @csrf
