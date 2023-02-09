@@ -64,7 +64,7 @@
                                  <th class="text-uppercase text-muted py-2 px-3">#</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Modalidade / Linha / Área</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Objetivos Desenvolvimento Sustentável</th>
+                                 <th class="text-uppercase text-muted py-2 px-3">ODS</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Atualização</th>
                             </tr>

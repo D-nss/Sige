@@ -36,14 +36,14 @@
         </div>
     </div>
 </div>
-@if(count($pendentes) > 0)
+@if(count($pendentes) > 0 && $userNaComissao)
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
         <div class="alert-icon">
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-3">
-            <span class="h5">Existem Ações de Extensão Pendentes para Submissão</span>
+            <span class="h5">Existem Ações de Extensão Pendentes para Aprovação</span>
         </div>
     </div>
 </div>
@@ -61,7 +61,7 @@
         <div class="p-3 bg-fusion-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    {{$total_unidade}}
+                    {{$total_cadastrados}}
                     <small class="m-0 l-h-n">Ações Cadastradas</small>
                 </h3>
             </div>
@@ -72,8 +72,8 @@
         <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    {{$total_concluidos}}
-                    <small class="m-0 l-h-n">Concluídos</small>
+                    {{$total_aprovados}}
+                    <small class="m-0 l-h-n">Aprovados</small>
                 </h3>
             </div>
             <i class="fal fa-check-double position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
@@ -83,8 +83,8 @@
         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
             <div class="">
                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                    {{$total_andamento}}
-                    <small class="m-0 l-h-n">Em Andamento</small>
+                    {{$total_pendentes}}
+                    <small class="m-0 l-h-n">Pendentes</small>
                 </h3>
             </div>
             <i class="fal fa-clock position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
@@ -127,7 +127,6 @@
                                                             <th>#</th>
                                                             <th>Ação de Extensão</th>
                                                             <th>Modalidade / Área Temática</th>
-                                                            <th>Coordenador</th>
                                                             <th>Situação</th>
                                                         </tr>
                                                     </thead>
@@ -183,33 +182,24 @@
                                                                 @endforeach
                                                             </td>
                                                             <td>
-                                                                {{$acao_extensao->nome_coordenador}}
-                                                                <div class="text-muted small text-truncate">
-                                                                    Unidade: <a href="/acoes-extensao/unidades/{{$acao_extensao->unidade->id}}" >{{$acao_extensao->unidade->sigla}}</a>
-                                                                    <br>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                @if($acao_extensao->status == 'Pendente')
-                                                                <span class="badge badge-warning">Pendente</span>
-                                                                @else
                                                                 <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
                                                                     @switch($acao_extensao->status)
-                                                                        @case(1)
-                                                                        <span class="badge badge-danger">Desativado</span>
-                                                                            @break
-                                                                        @case(2)
-                                                                            <span class="badge badge-info">Em Andamento</span>
-                                                                            @break
-                                                                        @case(3)
-                                                                            <span class="badge badge-success">Concluído</span>
-                                                                            @break
-                                                                        @default
-                                                                        <span class="badge badge-warning">Indefinido</span>
+                                                                            @case('Desativado')
+                                                                            <span class="badge badge-danger">Desativado</span>
+                                                                                @break
+                                                                            @case('Pendente')
+                                                                                <span class="badge badge-warning">Pendente</span>
+                                                                                @break
+                                                                            @case('Rascunho')
+                                                                                <span class="badge badge-secondary">Rascunho</span>
+                                                                                @break
+                                                                            @case('Aprovado')
+                                                                                <span class="badge badge-success">Aprovado</span>
+                                                                                @break
+                                                                            @default
+                                                                            <span class="badge badge-warning">Indefinido</span>
                                                                     @endswitch
                                                                 </a>
-
-                                                                @endif
 
                                                                 <div class="text-muted small text-truncate">
                                                                     Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
@@ -233,7 +223,7 @@
                                 <div id="panel" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                            Últimas Ações de Extensão da sua Unidade <span class="fw-300 color-fusion-500"><i> 3 últimas</i></span>
+                                            Últimas Ações de Extensão da sua Unidade <span class="fw-300 color-fusion-500"><i> 3 últimas aprovadas</i></span>
                                         </h2>
                                     </div>
                                     <div class="panel-container show">
@@ -246,7 +236,7 @@
                                                             <th>Ação de Extensão</th>
                                                             <th>Modalidade / Área Temática</th>
                                                             <th>Coordenador</th>
-                                                            <th>Situação</th>
+                                                            <th>Atualizado</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -303,27 +293,6 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                @if($acao_extensao->status == 'Pendente')
-                                                                <span class="badge badge-warning">Pendente</span>
-                                                                @else
-                                                                <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
-                                                                    @switch($acao_extensao->status)
-                                                                        @case(1)
-                                                                        <span class="badge badge-danger">Desativado</span>
-                                                                            @break
-                                                                        @case(2)
-                                                                            <span class="badge badge-info">Em Andamento</span>
-                                                                            @break
-                                                                        @case(3)
-                                                                            <span class="badge badge-success">Concluído</span>
-                                                                            @break
-                                                                        @default
-                                                                        <span class="badge badge-warning">Indefinido</span>
-                                                                    @endswitch
-                                                                </a>
-
-                                                                @endif
-
                                                                 <div class="text-muted small text-truncate">
                                                                     Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                                                 </div>
@@ -340,7 +309,7 @@
     </div>
 </div>
 
-@if(count($pendentes) > 0)
+@if(count($pendentes) > 0 && $userNaComissao)
 <div class="row">
     <div class="col-lg-12 col-xl-12">
                                 <!--Table head-->
@@ -452,20 +421,4 @@
 </div>
 @endif
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-6 col-xl-3">
-        <div id="panel-6" class="panel">
-            <div class="panel-hdr">
-                <h2>Ações Área Temática</h2>
-            </div>
-            <div class="panel-container show">
-                <div class="panel-content">
-                    <div id="flotPie" class="w-100" style="height:250px"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
 @endsection

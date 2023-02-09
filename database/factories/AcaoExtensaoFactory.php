@@ -29,7 +29,7 @@ class AcaoExtensaoFactory extends Factory
             'publico_alvo' => $this->faker->sentence(),
             'estimativa_publico' => rand(20,1000),
             'municipio_id' => rand(3268, 3912),
-            'unidade_id' => rand(1, 40),
+            'unidade_id' => rand(1, 43),
             'nome_coordenador' => $this->faker->name(),
             'vinculo_coordenador' => $this->faker->jobTitle(),
             'email_coordenador' => $this->faker->companyEmail(),
@@ -38,7 +38,7 @@ class AcaoExtensaoFactory extends Factory
             'impactos_universidade' => $this->faker->text(),
             'impactos_sociedade' => $this->faker->text(),
             'aprovado_user_id' => rand(1,3),
-            'status' => $this->faker->randomElement($array = array ('Rascunho','Submetido','Aprovado')),
+            'status' => $this->faker->randomElement($array = array ('Rascunho','Pendente','Aprovado')),
         ];
     }
 }

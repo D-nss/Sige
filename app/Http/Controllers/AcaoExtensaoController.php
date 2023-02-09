@@ -14,6 +14,7 @@ use App\Models\AcaoExtensaoODS;
 use App\Models\AcaoExtensaoParceiro;
 use App\Models\LinhaExtensao;
 use App\Models\AreaTematica;
+use App\Models\Arquivo;
 use App\Models\Comentario;
 use App\Models\ComissaoUser;
 use App\Models\GrauEnvolvimentoEquipe;
@@ -37,14 +38,19 @@ class AcaoExtensaoController extends Controller
         }
 
         $unidade = Unidade::where('id', $user->unidade_id)->first();
-        $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->limit(3)->get();
+        $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
         $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
         $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
-        //pegar id do usuario
-        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->get();
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                        ->where('comissoes.unidade_id', $unidade->id)
+                                        ->where('comissoes_users.user_id', $user->id)
+                                        ->first();
 
-        $total = AcaoExtensao::all()->count();
+        //pegar id do usuario
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->where('unidade_id', $unidade->id)->get();
+
+        $total = AcaoExtensao::where('status', 'Aprovado')->count();
         $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
         if(!$total == 0){
             $porcentagem_unidade = (int) ($total_unidade*100/$total);
@@ -52,22 +58,25 @@ class AcaoExtensaoController extends Controller
             $porcentagem_unidade = 0;
         }
 
-        $total_concluidos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Concluido')->count();
-        $total_andamento = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
+        $total_cadastrados = AcaoExtensao::where('unidade_id', $unidade->id)->count();
+        $total_aprovados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
+        $total_pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->count();
         $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Desativado')->count();
 
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
+            'userNaComissao' => $userNaComissao,
             'acoes_extensao' => $acoes_extensao,
             'pendentes' => $pendentes,
             'rascunhos' => $rascunhos,
             'total' => $total,
             'total_unidade' => $total_unidade,
             'porcentagem_unidade' => $porcentagem_unidade,
-            'total_concluidos' => $total_concluidos,
-            'total_andamento' => $total_andamento,
+            'total_cadastrados' => $total_cadastrados,
+            'total_aprovados' => $total_aprovados,
+            'total_pendentes' => $total_pendentes,
             'total_desativados' => $total_desativados
         ]);
 
@@ -550,6 +559,8 @@ class AcaoExtensaoController extends Controller
         $parceiros_acao_extensao = AcaoExtensaoParceiro::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
         $lista_tipos = TipoParceiro::all();
 
+        $arquivos = Arquivo::where('modulo', 'acoes-extensao')->where('referencia_id', $acaoExtensao->id)->get(['nome_arquivo', 'url_arquivo']);
+
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
@@ -581,7 +592,8 @@ class AcaoExtensaoController extends Controller
             'parceiros_acao_extensao' => $parceiros_acao_extensao,
             'lista_tipos' => $lista_tipos,
             'userNaComissao' => $userNaComissao,
-            'userCoordenadorAcao' => $userCoordenadorAcao
+            'userCoordenadorAcao' => $userCoordenadorAcao,
+            'arquivos' => $arquivos
         ]);
     }
 
@@ -626,7 +638,12 @@ class AcaoExtensaoController extends Controller
 
     public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request){
         //$user = User::where('email', Auth::user()->id)->first();
-        $user = User::where('id', 1)->first();
+
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
 
         $comentario = new Comentario();
         $comentario->acao_extensao_id = $acaoExtensao->id;
@@ -650,6 +667,14 @@ class AcaoExtensaoController extends Controller
        // return dd($areaTematica->id);
         $acoes_extensao = AcaoExtensao::join('acoes_extensao_areas_tematicas as at', 'at.acao_extensao_id', 'acoes_extensao.id')
                                         ->where('at.area_tematica_id', $areaTematica->id)
+                                        ->get(['acoes_extensao.*']);
+
+        return $this->index($acoes_extensao);
+    }
+
+    public function acoesPorODS(ObjetivoDesenvolvimentoSustentavel $ods){
+        $acoes_extensao = AcaoExtensao::join('acoes_extensao_ods as ao', 'ao.acao_extensao_id', 'acoes_extensao.id')
+                                        ->where('ao.objetivo_desenvolvimento_sustentavel_id', $ods->id)
                                         ->get(['acoes_extensao.*']);
 
         return $this->index($acoes_extensao);
@@ -752,7 +777,7 @@ class AcaoExtensaoController extends Controller
         $marcadores = array();
 
         if(is_null($acoes_extensao)){
-            $acoes_extensao = AcaoExtensao::where('georreferenciacao', '<>', '')->get();
+            $acoes_extensao = AcaoExtensao::all();
         }
 
         /*foreach ($acoes_extensao as $acao){
