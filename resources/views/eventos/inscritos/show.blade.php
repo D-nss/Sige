@@ -223,7 +223,8 @@
                                     </div>
                                     @else
                                         @if( $inscrito->evento->ck_arquivo || strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
-                                        <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data"> 
+                                        <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data"> 
+                                        @csrf
                                         <div class="form-group">
                                             <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
                                             <div class="preview-zone hidden">
@@ -248,7 +249,7 @@
                                                 </div>
                                                 <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('modelo') }}">
                                                 
-                                            </div>
+                                            </div>  
                                             <div id="alert-pdf-format"></div>
                                             <div class="help-block muted">O envio do arquivo não é obrigatório, somente se você for apresentar algum projeto no evento.</div>
                                         </div>
