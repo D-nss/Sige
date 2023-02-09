@@ -63,8 +63,10 @@ class EventoInscritosController extends Controller
     {
         $inputs = $request->except('_token');
         $inputs['evento_id'] = $evento->id;
+
+        //falta validar os inputs
         
-        $checkInscrito = EventoInscrito::where('email', $request->email)->first();
+        $checkInscrito = EventoInscrito::where('email', $request->email)->where('evento_id', $evento->id)->first();
         //Checa se o e-mail já está cadastrado
         if($checkInscrito) {
             session()->flash('status', 'Desculpe! Este e-mail já está cadastrado.');
@@ -76,11 +78,6 @@ class EventoInscritosController extends Controller
         if(!is_null($evento->vagas) && $evento->inscritos->count() >= $evento->vagas) {
             $inputs['lista_espera'] = 1;
             $inputs['posicao_espera'] = $evento->inscritos->last()->posicao_espera + 1;
-        }
-
-        if( isset($request->arquivo) || !$request->arquivo == '') {
-            $upload = new UploadFile();
-            $inputs['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 30000);
         }
 
         $inscrito = EventoInscrito::create($inputs);
@@ -117,6 +114,23 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::find($id);
 
         return view('eventos.inscritos.show', compact('inscrito'));
+    }
+
+    public function uploadArquivo(Request $request, EventoInscrito $inscrito)
+    {
+        if( isset($request->arquivo) || !$request->arquivo == '') {
+            $upload = new UploadFile();
+            $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
+
+            $inscrito->arquivo = $arquivo;
+            if($inscrito->update()) {
+                session()->flash('status', 'Arquivo enviado com sucesso.');
+                session()->flash('alert', 'success');
+
+                return redirect()->back();
+            }
+
+        }
     }
 
     public function adm_confirmar($id)

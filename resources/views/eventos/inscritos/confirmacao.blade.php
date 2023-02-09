@@ -79,6 +79,9 @@
                         </div>
                     </div>
                 @endif
+
+                <p>Para acompanhamento de inscrição e envio de arquivo acesse sua área clicando no botão abaixo.</p>
+                <a href="{{ url('evento/inscrito/' . $inscrito->id) }}" class="btn btn-success">Área do Inscrito</a>
             </div>
         </div>
     </div>
