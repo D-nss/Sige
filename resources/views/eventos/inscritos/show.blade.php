@@ -241,7 +241,7 @@
                                         </div>
                                     </div>
                                     @else
-                                        @if( $inscrito->evento->ck_arquivo || strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
+                                        @if( $inscrito->evento->ck_arquivo && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
                                         <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data"> 
                                         @csrf
                                         <div class="form-group">
