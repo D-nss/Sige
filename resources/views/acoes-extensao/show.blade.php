@@ -957,6 +957,85 @@
                                   </div>
                               </div>
                           </div>
+                          <div class="card">
+                            <div class="card-header" id="headingArquivo">
+                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseArquivo" aria-expanded="false" aria-controls="collapseArquivo">
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
+                                        <i class="far fa-file icon-stack-1x opacity-100 color-danger-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Arquivos
+                                    </div>
+                                    <span class="ml-auto">
+                                        <span class="collapsed-reveal">
+                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        </span>
+                                        <span class="collapsed-hidden">
+                                            <i class="fal fa-plus-circle text-success"></i>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div id="collapseArquivo" class="collapse" aria-labelledby="headingArquivo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="col-6">
+                                        <form action="{{ url('/upload-arquivo')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <h4>Uploads de Arquivos</h4>
+                                            <label for="nome_arquivo" class="form-label">Nome Arquivo</label>
+                                            <input type="text" class="form-control mb-2" name="nome_arquivo" id="nome_arquivo" placeholder="Nome do arquivo" value="{{ old('nome_arquivo') }}">
+
+                                            <div class="preview-zone hidden">
+                                                <div class="box box-solid">
+                                                    <div class="box-header with-border">
+                                                    <div></div>
+                                                    <div class="box-tools pull-right">
+                                                        <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                        Limpar
+                                                        </button>
+                                                    </div>
+                                                    </div>
+                                                    <div class="box-body" id="box-body">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="dropzone-wrapper">
+                                                <div class="dropzone-desc">
+                                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                                    <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
+
+                                                </div>
+                                                <input type="file" name="arquivo-anexo" class="dropzone" id="arquivo" value="" required>
+
+                                            </div>
+                                            <input type="hidden" name="modulo" value="acoes-extensao">
+                                            <input type="hidden" name="referencia_id" value="{{ $acao_extensao->id }}">
+                                            <button class="btn btn-success mt-3">Enviar</button>
+                                        </form>
+
+                                        <div class="row border-bottom mb-2 mt-4">
+                                            @foreach($arquivos as $arquivo)
+                                            <div class="p-0 col-md-6">
+                                                <h5>
+                                                    Nome Arquivo
+                                                    <small class="mt-0 mb-3">
+                                                        {{ $arquivo->nome_arquivo }}
+                                                    </small>
+                                                </h5>
+                                            </div>
+                                            <div class="p-0 col-md-6">
+                                                <h5>
+                                                    <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-danger" href="#" target="_blank">Abrir Arquivo</a>
+                                                </h5>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                       </div>
 
               </div>

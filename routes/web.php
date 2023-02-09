@@ -74,6 +74,7 @@ Route::put('/acoes-extensao/{acao_extensao}/submeter', [AcaoExtensaoController::
 Route::get('/acoes-extensao/unidades/{unidade}', [AcaoExtensaoController::class, 'acoesPorUnidade'])->name('acao_extensao.unidades.index');
 Route::get('/acoes-extensao/areas/{area_tematica}', [AcaoExtensaoController::class, 'acoesPorArea'])->name('acao_extensao.area_tematica.index');
 Route::get('/acoes-extensao/linhas/{linha_extensao}', [AcaoExtensaoController::class, 'acoesPorLinha'])->name('acao_extensao.linha.index');
+Route::get('/acoes-extensao/ods/{ods}', [AcaoExtensaoController::class, 'acoesPorODS'])->name('acao_extensao.ods.index');
 Route::get('/acoes-extensao/cidades/{municipio}', [AcaoExtensaoController::class, 'acoesPorCidade'])->name('acao_extensao.cidade.index');
 Route::get('/acoes-extensao/modalidades/{id}', [AcaoExtensaoController::class, 'acoesPorModalidade'])->name('acao_extensao.modalidade.index');
 Route::get('/acoes-extensao/situacao/{id}', [AcaoExtensaoController::class, 'acoesPorSituacao'])->name('acao_extensao.situacao.index');

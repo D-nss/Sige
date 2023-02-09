@@ -30,7 +30,7 @@ class UploadArquivoController extends Controller
             'nome_arquivo'  => $request->nome_arquivo,
             'url_arquivo'   => $arquivo,
             'modulo'        => $request->modulo,
-            'referencia_id' => $request->inscricao_id
+            'referencia_id' => $request->referencia_id
         ]);
 
         if($arquivo_uploaded) {
