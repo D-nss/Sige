@@ -14,6 +14,7 @@ use App\Models\AvaliadorPorInscricao;
 use App\Models\RespostasAvaliacoes;
 use App\Models\Parecer;
 use App\Models\Questao;
+use App\Models\EventoInscrito;
 
 class Parecerista implements AvaliacaoInterface
 {
