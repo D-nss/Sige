@@ -283,7 +283,6 @@
                                     <div class="col-12">
                                         <div class="p-0">
                                             <h5>
-                                                Arquivo
                                                 <small class="mt-0 mb-3">
                                                     <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#exampleModal{{$inscrito->id}}">
                                                         Analisar
