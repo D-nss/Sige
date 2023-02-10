@@ -53,7 +53,6 @@
         <a href="/acoes-extensao/novo" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</a>
         <a href="/acoes-extensao" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</a>
         <a href="/acoes-extensao/mapa/extensao" class="btn btn-primary"><span class="fal fa-map-marker-check mr-1"></span>Mapa Extensão</a>
-        <a href="/acoes-extensao/novo" class="btn btn-primary"><span class="fal fa-file-alt mr-1"></span>Gerais Unicamp</a>
     </div>
 </div>
 <div class="row">
@@ -390,17 +389,20 @@
                                                             <td>
                                                                 <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
                                                                     @switch($acao_extensao->status)
-                                                                        @case(1)
-                                                                        <span class="badge badge-danger">Desativado</span>
-                                                                            @break
-                                                                        @case(2)
-                                                                            <span class="badge badge-info">Em Andamento</span>
-                                                                            @break
-                                                                        @case(3)
-                                                                            <span class="badge badge-success">Concluído</span>
-                                                                            @break
-                                                                        @default
-                                                                        <span class="badge badge-warning">Indefinido</span>
+                                                                            @case('Desativado')
+                                                                            <span class="badge badge-danger">Desativado</span>
+                                                                                @break
+                                                                            @case('Pendente')
+                                                                                <span class="badge badge-warning">Pendente</span>
+                                                                                @break
+                                                                            @case('Rascunho')
+                                                                                <span class="badge badge-secondary">Rascunho</span>
+                                                                                @break
+                                                                            @case('Aprovado')
+                                                                                <span class="badge badge-success">Aprovado</span>
+                                                                                @break
+                                                                            @default
+                                                                            <span class="badge badge-warning">Indefinido</span>
                                                                     @endswitch
                                                                 </a>
 

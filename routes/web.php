@@ -84,7 +84,7 @@ Route::get('/acoes-extensao/usuario/{usuario}', [AcaoExtensaoController::class, 
 Route::get('/acoes-extensao/mapa/extensao', [AcaoExtensaoController::class, 'mapaExtensao'])->name('acao_extensao.mapa');
 Route::post('/acoes-extensao/filtrar', [AcaoExtensaoController::class, 'filtrar'])->name('acao_extensao.filtrar');
 Route::post('/acoes-extensao/filtrarMapa', [AcaoExtensaoController::class, 'filtrarMapa'])->name('acao_extensao.filtrar.mapa');
-Route::get('/painel', [AcaoExtensaoController::class, 'dashboard'])->name('acao_extensao.painel');
+Route::get('/acoes-extensao/painel/extensao', [AcaoExtensaoController::class, 'dashboard'])->name('acao_extensao.painel');
 Route::get('/acoes-extensao/{acao_extensao}/equipe', [AcaoExtensaoController::class, 'equipe'])->name('acao_extensao.equipe');
 Route::post('/acoes-extensao/colaborador', [AcaoExtensaoController::class, 'insereColaborador'])->name('acao_extensao.colaborador.inserir');
 Route::post('/acoes-extensao/colaborador/{acao_extensao_colaborador}', [AcaoExtensaoController::class, 'removeColaborador'])->name('acao_extensao.colaborador.destroy');
