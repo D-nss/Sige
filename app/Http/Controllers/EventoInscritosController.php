@@ -154,11 +154,11 @@ class EventoInscritosController extends Controller
 
     public function analiseArquivo(Request $request, $id)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        $inscrito = EventoInscrito::find($id);
         $subcomissao = new Subcomissao();
-
         $avaliacao = new Avaliacao($subcomissao);
-
-        $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscricao, $user);
+        $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
         
         if($resposta) {
             session()->flash('status', 'Análise enviado com sucesso.');
