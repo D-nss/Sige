@@ -230,28 +230,22 @@
                                     </div>
                                     @endif
                                     @if( !is_null($inscrito->arquivo) )
+                                   
                                     <div class="col-12">
                                         <div class="p-0">
-                                            <h5>
-                                                Arquivo
-                                                @if($inscrito->status_arquivo == 'Aceito')
+                                            @if($inscrito->status_arquivo == 'Aceito')
                                                 <span class="badge badge-success badge-pill mt-0 mb-3">
                                                     {{ $inscrito->status_arquivo }}
                                                 </span>
-                                                @elseif( $inscrito->status_arquivo == 'Recusado')
-                                                    <span class="badge badge-danger badge-pill mt-0 mb-3">
-                                                    {{ $inscrito->status_arquivo }}
-                                                    </span>
-                                                @else
-                                                    <span class="badge badge-warning badge-pill mt-0 mb-3">
-                                                        Em Análise
-                                                    </span>
-                                                @endif
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="p-0">
+                                            @elseif( $inscrito->status_arquivo == 'Recusado')
+                                                <span class="badge badge-danger badge-pill mt-0 mb-3">
+                                                {{ $inscrito->status_arquivo }}
+                                                </span>
+                                            @else
+                                                <span class="badge badge-warning badge-pill mt-0 mb-3">
+                                                    Em Análise
+                                                </span>
+                                            @endif
                                             <h5>
                                                 Arquivo
                                                 <small class="mt-0 mb-3">
