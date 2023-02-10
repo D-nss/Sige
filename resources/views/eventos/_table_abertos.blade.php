@@ -33,9 +33,9 @@
                         <a href="{{ url('evento/'. $evento->id .'/inscritos')}}" class="btn btn-success btn-xs mb-1">
                             Inscrições
                         </a>
-                        <a href="" class="btn btn-warning btn-xs">
+                        <!-- <a href="" class="btn btn-warning btn-xs">
                             Enviar E-Mail
-                        </a>
+                        </a> -->
                         <button type="button" class="btn btn-secondary my-1 btn-xs mb-1" data-toggle="modal" data-target="#modal{{ $evento->id }}">Comissão</button>
                         <!-- Modal center Small -->
                         <div class="modal fade" id="modal{{ $evento->id }}" tabindex="-1" role="dialog" aria-hidden="true">

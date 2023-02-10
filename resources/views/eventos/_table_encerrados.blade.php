@@ -27,8 +27,8 @@
                         <a href="" class="btn btn-primary btn-xs mb-1">
                             Ver Detalhes
                         </a>
-                        <a href="" class="btn btn-info btn-xs mb-1">
-                            Editar
+                        <a href="{{ url('evento/'. $evento->id .'/inscritos')}}" class="btn btn-success btn-xs mb-1">
+                            Inscrições
                         </a>
                     </div>
                 </td>
