@@ -100,7 +100,7 @@ class Subcomissao implements AvaliacaoInterface
         $inscrito->status_arquivo = $request->status_arquivo;
         $inscrito->analista_user_id = $user->id;
 
-        if($inscricao->update()) {
+        if($inscrito->update()) {
             session()->flash('status', 'Análise enviada com sucesso.');
             session()->flash('alert', 'success');
 
