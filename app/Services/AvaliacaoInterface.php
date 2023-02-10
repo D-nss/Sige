@@ -5,9 +5,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Inscricao;
 use App\Models\User;
+use App\Models\EventoInscrito;
 
 interface AvaliacaoInterface {
     public function getAvaliacao(Request $request, Inscricao $inscricao, User $user);
     public function execute(Request $request, Inscricao $inscricao, User $user);
+    public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user);
     public function update(Request $request, Inscricao $inscricao, User $user);
 }

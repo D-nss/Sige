@@ -195,4 +195,6 @@ class Parecerista implements AvaliacaoInterface
             return ['redirect' => 'inscricao', 'status' => false];
         }
     }
+
+    public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) {}
 }

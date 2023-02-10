@@ -90,5 +90,29 @@ class Subcomissao implements AvaliacaoInterface
         }
     }
 
+    public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) 
+    {
+        $validated = $request->validate([
+            'status_arquivo' => 'required'
+        ]);
+
+        $inscrito->status_arquivo = $request->status_arquivo;
+        $inscrito->analista_user_id = $user->id;
+
+        if($inscricao->update()) {
+            session()->flash('status', 'Análise enviada com sucesso.');
+            session()->flash('alert', 'success');
+
+            return ["redirect" => "evento/inscrito/$inscrito->id", 'status' => true];
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar a análise');
+            session()->flash('alert', 'danger');
+
+            return ["redirect" => "evento/inscrito/$inscrito->id", 'status' => false];
+        }
+    }
+
     public function update(Request $request, Inscricao $inscricao, User $user) {}
+    
 }

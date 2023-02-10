@@ -53,4 +53,5 @@ class Comissao1 implements AvaliacaoInterface
     }
 
     public function update(Request $request, Inscricao $inscricao, User $user) {}
+    public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) {}
 }

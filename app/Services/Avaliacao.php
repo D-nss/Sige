@@ -7,6 +7,7 @@ use App\Services\AvaliacaoInterface;
 
 use App\Models\Inscricao;
 use App\Models\User;
+use App\Models\EventoInscrito;
 
 class Avaliacao
 {
@@ -26,6 +27,10 @@ class Avaliacao
 
     function execute(Request $request, Inscricao $inscricao, User $user) {
         return $this->avaliacao->execute($request, $inscricao, $user);
+    }
+
+    public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user){
+        return $this->avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
     }
 
     function update(Request $request, Inscricao $inscricao, User $user) {

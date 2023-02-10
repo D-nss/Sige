@@ -15,6 +15,10 @@ use App\Models\EventoInscrito;
 use App\Models\User;
 use App\Models\UploadFile;
 
+use App\Services\Avaliacao\Subcomissao;
+
+use App\Services\Avaliacao;
+
 class EventoInscritosController extends Controller
 {
     public function index(Evento $evento)
@@ -113,7 +117,13 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
-        return view('eventos.inscritos.show', compact('inscrito'));
+        $user = User::where('email', Auth::user()->id)->first();
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.evento_id', $inscrito->evento->id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+
+        return view('eventos.inscritos.show', compact('inscrito', 'userNaComissao'));
     }
 
     public function uploadArquivo(Request $request, $id)
@@ -138,6 +148,28 @@ class EventoInscritosController extends Controller
                 return redirect()->back();
             }
 
+        }
+    }
+
+    public function analiseArquivo(Request $request, $id)
+    {
+        $subcomissao = new Subcomissao();
+
+        $avaliacao = new Avaliacao($subcomissao);
+
+        $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscricao, $user);
+        
+        if($resposta) {
+            session()->flash('status', 'Análise enviado com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->to($resposta['redirect']);
+        }
+        else {
+            session()->flash('status', 'Erro ao enviar análise.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->to($resposta['redirect']);
         }
     }
 

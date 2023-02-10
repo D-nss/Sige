@@ -141,6 +141,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('inscritos/adm/confirmacao/{id}', [EventoInscritosController::class, 'adm_confirmar']);
     Route::post('inscrito/enviar-email/{id}', [EventoInscritosController::class, 'enviarEmail']);
     Route::get('inscrito/enviar-email/{id}/novo', [EventoInscritosController::class, 'enviarEmailCreate']);
+    Route::get('inscrito/arquivo-analise/{id}', [EventoInscritosController::class, 'analiseArquivo']);
 
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);

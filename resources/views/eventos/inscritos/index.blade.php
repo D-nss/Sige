@@ -71,7 +71,7 @@
                                                     <a href="{{ url('evento/inscrito/' . $confirmado->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
-                                                </td>
+                                                    
                                             </tr>
                                             @endforeach
                                         </tbody>
