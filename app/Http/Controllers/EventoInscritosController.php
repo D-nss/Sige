@@ -12,6 +12,7 @@ use App\Mail\EnviarEmail;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
+use App\Models\ComissaoUser;
 use App\Models\User;
 use App\Models\UploadFile;
 
