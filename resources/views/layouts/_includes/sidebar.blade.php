@@ -60,7 +60,7 @@
                     </a>
                     <ul>
                         <li class="">
-                            <a href="{{ url('painel') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                            <a href="{{ url('acoes-extensao/painel/extensao') }}" title="Dashboard" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
                             </a>
                             <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
