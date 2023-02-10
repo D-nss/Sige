@@ -291,7 +291,7 @@
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="exampleModal{{ $inscrito->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $inscrito->id }}" aria-hidden="true">
                                                         <div class="modal-dialog">
-                                                            <form action="" method="POST">
+                                                            <form action="{{ url('inscrito/arquivo-analise/' . $inscrito->id) }}" method="POST">
                                                                 <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel{{ $inscrito->id }}">Analisar Arquivo</h5>
