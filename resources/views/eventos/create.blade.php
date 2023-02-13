@@ -109,6 +109,10 @@
                                                 
                                             </textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="local" class="fw-700">Link Meet</label>
+                                            <input type="text" class="form-control" name="link_meet" placeholder="Digite o link do meet caso exista." value="">
+                                        </div>
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao" class="fw-700"><i class="far fa-edit mr-2"></i>Inscrições</label>
                                             <div class="custom-control custom-switch mb-3">
