@@ -980,6 +980,7 @@
                             <div id="collapseArquivo" class="collapse" aria-labelledby="headingArquivo" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="col-6">
+                                        @if($userCoordenadorAcao)
                                         <form action="{{ url('/upload-arquivo')}}" method="post" enctype="multipart/form-data">
                                             @csrf
                                             <h4>Uploads de Arquivos</h4>
@@ -1014,6 +1015,7 @@
                                             <input type="hidden" name="referencia_id" value="{{ $acao_extensao->id }}">
                                             <button class="btn btn-success mt-3">Enviar</button>
                                         </form>
+                                        @endif
 
                                         <div class="row border-bottom mb-2 mt-4">
                                             @foreach($arquivos as $arquivo)
