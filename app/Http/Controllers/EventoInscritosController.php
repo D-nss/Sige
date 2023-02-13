@@ -118,10 +118,17 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
-        $user = User::where('email', Auth::user()->id)->first();
+        if(Auth::check()) {
+            $user = User::where('email', Auth::user()->id)->first();
+            $user_id = $user->id;
+        }
+        else {
+            $user_id = '';
+        }
+        
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
                                 ->where('comissoes.evento_id', $inscrito->evento->id)
-                                ->where('comissoes_users.user_id', $user->id)
+                                ->where('comissoes_users.user_id', $user_id)
                                 ->first();
 
         return view('eventos.inscritos.show', compact('inscrito', 'userNaComissao'));
