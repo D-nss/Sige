@@ -14,14 +14,14 @@
             <tr>
                 <td>
                     <div class="flex-1">
-                        <span class="fw-200 text-muted">Data Início</span>
+                        <span class="f-sm text-muted">Data Início</span>
                         <br>
-                        <span class="h4 text-secondary">{{ date('D. M, j Y - H:i', strtotime($evento->data_inicio)) }}</span>
+                        <span class="fs-lg text-primary">{{ date('D. M, j Y - H:i', strtotime($evento->data_inicio)) }}</span>
                     </div>
                     <div class="flex-1">
-                        <span class="fw-200 text-muted">Data Fim</span>
+                        <span class="fs-sm text-muted">Data Fim</span>
                         <br>
-                        <span class="h4 text-secondary">{{ date('D. M, j Y - H:i', strtotime($evento->data_fim)) }}</span>
+                        <span class="fs-lg text-primary">{{ date('D. M, j Y - H:i', strtotime($evento->data_fim)) }}</span>
                     </div>
                 </td>
                 <td>
