@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Período</th>
+            <th>Local</th>
             <th>Título</th>
             <th>Autor</th>
             <th>Ações</th>
@@ -12,13 +13,20 @@
             
             <tr>
                 <td>
-                    <h4 class="fw-400 text-secondary">
-                        {{ date('d/m/Y H:i:s', strtotime($evento->data_inicio)) }}
-                         
-                        à 
-                        {{ date('d/m/Y H:i:s', strtotime($evento->data_fim)) }}
-                        <small class="font-italic font-color-light">Local:{{ $evento->local }}</span>
-                    </h4>
+                    <div class="flex-1">
+                        <small class="fw-500 text-muted">Data Início</small>
+                        <br>
+                        <span class="h4">{{ date('D. M, j H:i:s', strtotime($evento->data_inicio)) }}</span>
+                    </div>
+                    <div class="flex-1">
+                        <small class="fw-500 text-muted">Data Fim</small>
+                        <br>
+                        <span class="h4">{{ date('D. M, j H:i:s', strtotime($evento->data_fim)) }}</span>
+                    </div>
+                    <small class="font-italic font-color-light">{{ $evento->local }}</span>
+                </td>
+                <td>
+                    <small class="font-italic h4">{{ $evento->local }}</span>
                 </td>
                 <td><h3 class="fw-700 text-primary">{{ $evento->titulo }}</h3></td>
                 <td><h6 class="text-secondary">{{ $evento->user->name}}</h6></td>
