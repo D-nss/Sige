@@ -27,7 +27,7 @@
                 <td>
                 <small class="font-italic fs-lg text-success fw-300">{{ $evento->local }}</span>
                 </td>
-                <td><span class="fs-lg fw-400 text-primary">{{ $evento->titulo }}</span></td>
+                <td><span class="fs-lg fw-700 text-primary">{{ $evento->titulo }}</span></td>
                 <td><h6 class="text-secondary">{{ $evento->user->name}}</h6></td>
                 <td>
                 <div class="d-flex flex-column">
