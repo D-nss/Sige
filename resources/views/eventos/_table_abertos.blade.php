@@ -49,31 +49,28 @@
                             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Comissão de Análise do Evento</h5>
+                                        <h5 class="modal-title">Comissão de Análise do Evento {{ $comissao->evento->titulo }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true"><i class="fal fa-times"></i></span>
                                         </button>
                                     </div>
                                     <ul class="list-group ">                        
                                     @forelse($evento->comissoes as $comissao)
-                                        <li class="list-group-item bg-info-50 m-3">
+                                        <li class="list-group-item m-3">
                                             <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                             <div class="mb-3">
-                                                @if($comissao->edital_id != null)
-                                                    <h3><span data-filter-tags="reports file"><strong>Edital: </strong>{{ $comissao->edital->titulo }}</span></h3>
-                                                @endif
-                                                @if($comissao->unidade_id != null)
-                                                    <h3><span data-filter-tags="reports file"><strong>Unidade: </strong>{{ $comissao->unidade->sigla }}</span></h3>
-                                                @endif
-                                                @if($comissao->evento_id != null)
-                                                    <h3><span data-filter-tags="reports file"><strong>Evento: </strong>{{ $comissao->evento->titulo }}</span></h3>
-                                                @endif
-                                                <p><span data-filter-tags="reports file"><strong>Nome: </strong>{{ $comissao->nome }}</span></p>
-                                                <p><span data-filter-tags="reports file"><strong>Atribuição: </strong>{{ $comissao->atribuicao}}</span></p>
-
-                                                <p><span data-filter-tags="reports file"><strong>Participantes: </strong> 
+                                                <div class="flex-1">
+                                                    <span class="text-muted">Nome</span>
+                                                    <span>{{ $comissao->nome }}</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <span class="text-muted">Atribuição</span>
+                                                    <span>{{ $comissao->atribuicao}}</span>
+                                                </div>
+                                                
+                                                <p><strong>Participantes </strong> 
                                                     <a href="{{ url('comissoes/'.$comissao->id.'/novo/participante') }}" class="btn btn-primary btn-sm btn-icon rounded-circle">
                                                         <i class="far fa-plus"></i>
                                                     </a>
