@@ -16,16 +16,16 @@
                     <div class="flex-1">
                         <span class="fw-200 text-muted">Data Início</span>
                         <br>
-                        <span class="h4 text-secondary">{{ date('D. M, j, y H:i', strtotime($evento->data_inicio)) }}</span>
+                        <span class="h4 text-secondary">{{ date('D. M, j de Y às H:i', strtotime($evento->data_inicio)) }}</span>
                     </div>
                     <div class="flex-1">
                         <span class="fw-200 text-muted">Data Fim</span>
                         <br>
-                        <span class="h4 text-secondary">{{ date('D. M, j, y H:i', strtotime($evento->data_fim)) }}</span>
+                        <span class="h4 text-secondary">{{ date('D. M, j de Y às H:i', strtotime($evento->data_fim)) }}</span>
                     </div>
                 </td>
                 <td>
-                    <small class="font-italic h4">{{ $evento->local }}</span>
+                    <small class="font-italic h4 text-success fw-300">{{ $evento->local }}</span>
                 </td>
                 <td><h4 class="fw-500 text-primary">{{ $evento->titulo }}</h4></td>
                 <td><h6 class="text-secondary">{{ $evento->user->name}}</h6></td>
