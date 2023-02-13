@@ -64,15 +64,15 @@
                                                 <div class="flex-1">
                                                     <span class="text-muted">Nome</span>
                                                     <br>
-                                                    <span class="fw-400 font-size-16">{{ $comissao->nome }}</span>
+                                                    <span class="fw-500 font-size-16">{{ $comissao->nome }}</span>
                                                 </div>
                                                 <div class="flex-1">
                                                     <span class="text-muted">Atribuição</span>
                                                     <br>
-                                                    <span class="fw-400 font-size-16">{{ $comissao->atribuicao}}</span>
+                                                    <span class="fw-500 font-size-16">{{ $comissao->atribuicao}}</span>
                                                 </div>
                                                 
-                                                <p><span class="text-muted">Participantes </span> 
+                                                <p class="mt-2"><span class="text-muted">Participantes </span> 
                                                     <a href="{{ url('comissoes/'.$comissao->id.'/novo/participante') }}" class="btn btn-primary btn-sm btn-icon rounded-circle">
                                                         <i class="far fa-plus"></i>
                                                     </a>
