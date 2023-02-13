@@ -23,7 +23,6 @@
                         <br>
                         <span class="h4">{{ date('D. M, j H:i:s', strtotime($evento->data_fim)) }}</span>
                     </div>
-                    <small class="font-italic font-color-light">{{ $evento->local }}</span>
                 </td>
                 <td>
                     <small class="font-italic h4">{{ $evento->local }}</span>
