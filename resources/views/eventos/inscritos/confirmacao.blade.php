@@ -47,7 +47,7 @@
                             <span class="fs-sm text-secundary h6 fw-500 mb-0 d-block">O acesso ao evento se dará através deste QRCode, por isso é importante apresenta-lo na portaria do evento</span>
                         </div>
                         <p>Para acompanhamento de inscrição e envio de arquivo acesse sua área clicando no botão abaixo.</p>
-                        <a href="{{ url('evento/inscrito/' . $inscrito->id) }}" class="btn btn-success">Área do Inscrito</a>
+                        <a href="{{ url('evento/inscrito/' . $inscrito->id) }}" class="btn btn-success d-flex flex-row">Área do Inscrito <i class="far fa-arrow-right"></i></a>
                     </div>
                 </di>
                     

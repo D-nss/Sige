@@ -27,8 +27,11 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="panel mt-3 p-3">
-                <h1>Título Evento: <span class="font-italic fw-400 text-success">{{ $evento->titulo }}</span></h1>
-                <h3 class="fw-400 text-info">Dados da Inscrição</h3>
+                <<div class="flex-1">
+                    <span class="f-lg font-color-light">Título do Evento</span>
+                    <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
+                </div>
+                <span class="f-lg fw-500 font-color-light">Dados da Inscrição</span>
                 <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data"> 
                     @csrf
                     <div class="form-group">
