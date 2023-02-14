@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-xl-12">
             <h1><i class="far fa-calendar-alt fa-1x"></i> {{ $evento->titulo }}</h1>
-            <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscrito/novo') }}">{{ url('evento/'. $evento->id .'/inscritos/novo') }}</a></h2>
+            <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscrito/novo') }}">{{ url('evento/'. $evento->id .'/inscrito/novo') }}</a></h2>
             <div class="mt-3">
                 <div class="frame-wrap w-100">
                     <div class="accordion" id="accordionExample">
