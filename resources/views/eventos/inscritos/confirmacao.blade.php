@@ -27,7 +27,11 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="panel mt-3 p-3">
-                <h1>Título Evento: <span class="font-italic fw-400 text-info">{{ $inscrito->evento->titulo }}</span></h1>
+                <div class="flex-1">
+                    <span class="f-lg font-color-light">Título do Evento</span>
+                    <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
+                </div>
+
                 @if($inscrito->confirmacao == 1)
                 <div class="p-3 d-flex flex-row">
                     <div class="d-block flex-shrink-0">
@@ -38,7 +42,7 @@
                     </div>
                     <div class="flex-1 ml-4">
                         <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">{{ $inscrito->nome }} sua inscrição está confirmada no evento!</span>
-                        <span class="fs-sm text-secundary h6 fw-500 m-0 mb-3 d-block">Salve um print do QRCode abaixo ou clique no botão baixar</span>
+                        <span class="fs-sm text-secundary h6 fw-500 mb-0 d-block">Salve um print do QRCode abaixo ou clique no botão baixar</span>
                         <span class="fs-sm text-secundary h6 fw-500 m-0 mb-3 d-block">O acesso ao evento se dará através deste QRCode, por isso é importante apresenta-lo na portaria do evento</span>
                         <p>Para acompanhamento de inscrição e envio de arquivo acesse sua área clicando no botão abaixo.</p>
                         <a href="{{ url('evento/inscrito/' . $inscrito->id) }}" class="btn btn-success">Área do Inscrito</a>
