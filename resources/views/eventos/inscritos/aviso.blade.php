@@ -13,7 +13,7 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-check-circle'></i>Inscrição em Evento</span>
         <small>
-        QRCode de inscrição em evento.
+        Confirmação de inscrição em evento.
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
@@ -27,8 +27,16 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="panel mt-3 p-3">
-                <h2 class="">Evento: <span class="text-primary">{{ $inscrito->evento->titulo }}</span></h2>
-                <h3 class="alert alert-warning">Confirme sua presença através do e-mail cadastrado na inscrição</h3>                
+                <div class="d-block flex-shrink-0">
+                    {!! $qrcode !!}
+                    <div class="mt-3">
+                        <a href="{{ url('inscritos/baixar_qrcode/' . $crypt) }}" class="btn btn-danger btn-block">Baixar QRCode</a> 
+                    </div>
+                </div>
+                <div class="alert alert-warning">
+                    <i class="far fa-exclamation-circle"></i> 
+                    Confirme sua presença através do e-mail cadastrado na inscrição.
+                </div>                
             </div>
         </div>
     </div>
