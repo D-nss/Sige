@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-xl-12">
             <h1><i class="far fa-calendar-alt fa-1x"></i> {{ $evento->titulo }}</h1>
-            <h2>Link para inscrição fora do prazo: <a href="{{ url('/inscritos/novo/' . $evento->id) }}">{{ url('/inscritos/novo/' . $evento->id) }}</a></h2>
+            <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscritos/novo') }}">{{ url('evento/'. $evento->id .'/inscritos/novo') }}</a></h2>
             <div class="mt-3">
                 <div class="frame-wrap w-100">
                     <div class="accordion" id="accordionExample">
@@ -54,7 +54,7 @@
                             </div>
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    <table class="table m-0 table-bordered table-sm table-hover table-striped" id="dt-inscritos-confirmados" style="width: 100%">
+                                    <table class="table table-bordered table-hover" id="dt-inscritos-confirmados" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
@@ -100,7 +100,7 @@
                             </div>
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    <table class="table m-0 table-bordered table-sm table-hover table-striped" id="dt-inscritos-espera" style="width: 100%">
+                                    <table class="table table-bordered table-hover" id="dt-inscritos-espera" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
@@ -149,7 +149,7 @@
                             </div>
                             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
-                                <table class="table m-0 table-bordered table-sm table-hover table-striped" id="dt-inscritos-nao-confirmados" style="width: 100%">
+                                <table class="table table-bordered table-hover" id="dt-inscritos-nao-confirmados" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
@@ -201,7 +201,7 @@
                             </div>
                             <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                 <div class="card-body">
-                                <table class="table m-0 table-bordered table-sm table-hover table-striped" id="dt-inscritos-cancelados" style="width: 100%">
+                                <table class="table table-bordered table-hover" id="dt-inscritos-cancelados" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
