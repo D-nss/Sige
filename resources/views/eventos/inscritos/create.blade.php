@@ -29,7 +29,7 @@
             <div class="panel mt-3 p-3">
                 <<div class="flex-1">
                     <span class="f-lg font-color-light">Título do Evento</span>
-                    <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
+                    <h1 class="font-italic fw-300 text-info">{{ $evento->titulo }}</h1>
                 </div>
                 <span class="f-lg fw-500 font-color-light">Dados da Inscrição</span>
                 <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data"> 
