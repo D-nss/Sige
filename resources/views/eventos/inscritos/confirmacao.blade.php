@@ -36,7 +36,7 @@
                             <a href="{{ url('inscritos/baixar_qrcode/' . $crypt) }}" class="btn btn-danger btn-block">Baixar QRCode</a> 
                         </div>
                     </div>
-                    <div class="flex-1 ml-2">
+                    <div class="flex-1 ml-4">
                         <span class="h6 font-weight-bold text-uppercase d-block m-0">{{ $inscrito->nome }} sua inscrição está confirmada no evento!</span>
                         <span class="fs-sm text-secundary h6 fw-500 mb-0 d-block">Salve um print do QRCode abaixo ou clique no botão baixar</span>
                         <span class="fs-sm text-secundary h6 fw-500 mb-0 d-block">O acesso ao evento se dará através deste QRCode, por isso é importante apresenta-lo na portaria do evento</span>
