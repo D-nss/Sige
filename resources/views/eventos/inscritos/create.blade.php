@@ -31,7 +31,7 @@
                     <span class="f-lg font-color-light">Título do Evento</span>
                     <h1 class="font-italic fw-300 text-info">{{ $evento->titulo }}</h1>
                 </div>
-                <span class="h4 fw-500 font-color-light">Dados da Inscrição</span>
+                <span class="h4 fw-300 font-color-light">Dados da Inscrição</span>
                 <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data"> 
                     @csrf
                     <div class="form-group">
