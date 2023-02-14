@@ -172,6 +172,28 @@
                                             @endif
                                         </div>
                                         <div class="col-md-3">
+                                            @if( !is_null($inscrito->confirmacao) )
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        Status
+                                                        @if($inscrito->confirmacao == 1)
+                                                            <span class="badge badge-success badge-pill mt-0 mb-3">
+                                                                Confirmada
+                                                            </span>
+                                                        @elseif( $inscrito->confirmacao == 2)
+                                                            <span class="badge badge-danger badge-pill mt-0 mb-3">
+                                                                Cancelada
+                                                            </span>
+                                                        @else
+                                                            <span class="badge badge-warning badge-pill mt-0 mb-3">
+                                                                Não Confirmada
+                                                            </span>
+                                                        @endif
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            @endif
                                             <div class="col-12">
                                                 <div class="p-0">
                                                     <h5>
@@ -322,25 +344,7 @@
                                                 </div>
                                             </div>
                                             @endif
-                                            @if( !is_null($inscrito->confirmacao) )
-                                            <div class="col-12">
-                                                <div class="p-0">
-                                                    @if($inscrito->confirmacao == 1)
-                                                        <span class="badge badge-success badge-pill mt-0 mb-3">
-                                                            Confirmada
-                                                        </span>
-                                                    @elseif( $inscrito->confirmacao == 2)
-                                                        <span class="badge badge-danger badge-pill mt-0 mb-3">
-                                                            Cancelada
-                                                        </span>
-                                                    @else
-                                                        <span class="badge badge-warning badge-pill mt-0 mb-3">
-                                                            Não Confirmada
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            @endif
+                                            
                                         </div>
                                     </div>                                    
                                 </div>
