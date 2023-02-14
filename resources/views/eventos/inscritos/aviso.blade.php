@@ -27,11 +27,9 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="panel mt-3 p-3">
-                <div class="d-block flex-shrink-0">
-                    {!! $qrcode !!}
-                    <div class="mt-3">
-                        <a href="{{ url('inscritos/baixar_qrcode/' . $crypt) }}" class="btn btn-danger btn-block">Baixar QRCode</a> 
-                    </div>
+                <div class="flex-1">
+                    <span class="f-lg font-color-light">Título do Evento</span>
+                    <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
                 </div>
                 <div class="alert alert-warning">
                     <i class="far fa-exclamation-circle"></i> 
