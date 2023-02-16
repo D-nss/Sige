@@ -214,6 +214,12 @@ class EventoInscritosController extends Controller
             $inscrito->data_confirmacao = date('Y-m-d H:i:s');
             if($inscrito->update()) {
                 $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
+                $idCrypted = \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id);
+                $inscrito->notify( new \App\Notifications\EventoInscritoLinkPainelNotificacao([
+                    'titulo_evento' => $inscrito->evento->titulo,
+                    'nome' => $inscrito->nome,
+                    'id' => $idCrypted
+                ]));
                 $url = url("inscritos/presenca/$crypt");
                 //Gerando QRCode
                 $qrcode = QrCode::size(200)->generate( url($url));
@@ -253,6 +259,14 @@ class EventoInscritosController extends Controller
         $data = explode('/', $decrypt);
 
         $inscrito = EventoInscrito::find($data[1]);
+
+        if($inscrito->lista_espera == 1) {
+            session()->flash('status', 'Desculpe! O usuário está na fila de espera.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         if($inscrito && $inscrito->presenca == 0 && $data[0] == 'sim') {
             $inscrito->presenca = 1;
             if($inscrito->update()) {
