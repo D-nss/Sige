@@ -265,6 +265,50 @@
                                                             <small class="mt-0 mb-3">
                                                             <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a> 
                                                             </small>
+                                                            @if( $userNaComissao )
+                                                                
+                                                                <div class="mt-0 mb-3">
+                                                                    <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#exampleModal{{$inscrito->id}}">
+                                                                        Analisar
+                                                                    </button>
+
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="exampleModal{{ $inscrito->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $inscrito->id }}" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <form action="{{ url('inscrito/arquivo-analise/' . $inscrito->id) }}" method="POST">
+                                                                                <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel{{ $inscrito->id }}">Analisar Arquivo</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    
+                                                                                        @csrf
+                                                                                        @method('PUT')
+                                                                                        
+                                                                                        <div class="form-group">
+                                                                                            <label for="status_arquivo">Selecione o status</label>
+                                                                                            <select class="form-control mb-2" name="status_arquivo" id="status_arquivo">
+                                                                                                <option value="">Selecione ...</option>
+                                                                                                <option value="Aceito">Aceito</option>
+                                                                                                <option value="Recusado">Recusado</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                                                                </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                @endif
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -307,50 +351,7 @@
                                                     </form>
                                                 @endif
                                             @endif
-                                            @if( $userNaComissao && strtotime(date('Y-m-d')) )
-                                            <div class="col-12">
-                                                <div class="p-0">
-                                                    <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#exampleModal{{$inscrito->id}}">
-                                                        Analisar
-                                                    </button>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="exampleModal{{ $inscrito->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $inscrito->id }}" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <form action="{{ url('inscrito/arquivo-analise/' . $inscrito->id) }}" method="POST">
-                                                                <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel{{ $inscrito->id }}">Analisar Arquivo</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        
-                                                                        <div class="form-group">
-                                                                            <label for="status_arquivo">Selecione o status</label>
-                                                                            <select class="form-control mb-2" name="status_arquivo" id="status_arquivo">
-                                                                                <option value="">Selecione ...</option>
-                                                                                <option value="Aceito">Aceito</option>
-                                                                                <option value="Recusado">Recusado</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                                    <button type="submit" class="btn btn-success">Enviar</button>
-                                                                </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endif
+                                            
                                         </div>
                                     </div>                               
                                 </div>
