@@ -57,30 +57,30 @@
                                         @csrf
                                         <h3>Preencha corretamente o formulário com as informações sobre o evento nos campos correspondentes</h3>
                                         <div class="form-group">
-                                            <label for="titulo" class="fw-700">Título do Evento</label>
-                                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." >
+                                            <label for="titulo" class="fw-700">Título do Evento <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." value="{{ old('titulo') }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="local" class="fw-700">Local do Evento</label>
-                                            <input type="text" class="form-control" name="local" placeholder="Digite o local do Evento." value="">
+                                            <label for="local" class="fw-700">Local do Evento <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="local" placeholder="Digite o local do Evento." value="{{ old('local') }}">
                                         </div>
                                         <div class="form-group border rounded p-3">
                                         
                                             <label for="local" class="fw-700"><i class="far fa-check-circle fa-1x mr-2"></i>Tipo do Evento</label>
                                             <div class="custom-control custom-switch">
-                                                <input class="custom-control-input" type="checkbox" id="gratuito" name="gratuito" value="1" >
+                                                <input class="custom-control-input" type="checkbox" id="gratuito" name="gratuito" value="1" {{ old('gratuito') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="gratuito">
                                                     Gratuito
                                                 </label>
                                             </div>
                                             <div class="custom-control custom-switch">
-                                                <input class="custom-control-input" type="checkbox" id="online" name="online" value="1" >
+                                                <input class="custom-control-input" type="checkbox" id="online" name="online" value="1" {{ old('online') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="online">
                                                     On-line
                                                 </label>
                                             </div>
                                             <div class="custom-control custom-switch">
-                                                <input class="custom-control-input" type="checkbox" id="hibrido" name="hibrido" value="1" >
+                                                <input class="custom-control-input" type="checkbox" id="hibrido" name="hibrido" value="1" {{ old('hibrido') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="hibrido">
                                                     Híbrido
                                                 </label>
@@ -90,130 +90,138 @@
                                             <label for="local" class="fw-700"><i class="far fa-calendar-alt mr-2"></i>Período do Evento</label>
                                             <div class="form-input">
                                                 <label class="form-label fw-400" for="data_inicio">
-                                                    Inicio do Evento
+                                                    Inicio do Evento 
+                                                    <span class="text-danger">*</span>
                                                 </label>
-                                                <input class="form-control w-25" type="datetime-local" id="data_inicio" name="data_inicio" >
-                                                
+                                                <input class="form-control w-25" type="datetime-local" id="data_inicio" name="data_inicio" value="{{ old('data_inicio') }}">
+                                                <span class="text-danger" id="msg_erro_data_inicio"></span>
                                             </div>
                                             <div class="form-input mt-2">
                                                 <label class="form-label fw-400" for="data_fim">
-                                                    Fim do Evento
+                                                    Fim do Evento 
+                                                    <span class="text-danger">*</span>
                                                 </label>
-                                                <input class="form-control w-25" type="datetime-local" id="data_fim" name="data_fim" >
+                                                <input class="form-control w-25" type="datetime-local" id="data_fim" name="data_fim" value="{{ old('data_fim') }}">
                                                 
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label fw-700" for="detalhes">Detalhes (Notas do Evento, Programação, Palestrantes):</label>
+                                            <label class="form-label fw-700" for="detalhes">Detalhes (Notas do Evento, Programação, Palestrantes): <span class="text-danger">*</span></label>
                                             <textarea name="detalhes" id="detalhes" rows="10" cols="80">
-                                                
+                                                {{ old('detalhes') }}
                                             </textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="local" class="fw-700">Link Meet</label>
-                                            <input type="text" class="form-control" name="link_meet" placeholder="Digite o link do meet caso exista." value="">
                                         </div>
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao" class="fw-700"><i class="far fa-edit mr-2"></i>Inscrições</label>
                                             <div class="custom-control custom-switch mb-3">
-                                                <input class="custom-control-input" type="checkbox" id="inscricao" >
+                                                <input class="custom-control-input" type="checkbox" id="inscricao" name="inscricao" {{ old('inscricao') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="inscricao">
                                                     Terá Inscrição?
                                                 </label>
                                             </div>
-                                            <div class="d-none" id="evento_inscricao">
+                                            <div class="{{ old('inscricao') ? 'd-block' : 'd-none' }}" id="evento_inscricao">
                                                 <div class="form-input">
                                                     <label class="form-label fw-400" for="inscricao_inicio">
-                                                        Inscricão Inicio
+                                                        Inscricão Inicio 
+                                                        <span class="text-danger">*</span>
                                                     </label>
-                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" >
-                                                    
+                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" value="{{ old('inscricao_inicio') }}">
+                                                    <span class="text-danger" id="msg_erro_inscricao_inicio"></span>
                                                 </div>
                                                 <div class="form-input mt-2">
                                                     <label class="form-label fw-400" for="inscricao_fim">
-                                                        Inscrição Fim
+                                                        Inscrição Fim 
+                                                        <span class="text-danger">*</span>
                                                     </label>
-                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" >
+                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" value="{{ old('inscricao_fim') }}">
                                                     
                                                 </div>
                                                 <div class="form-input mt-3">
                                                     <label class="form-label fw-400" for="vagas">
-                                                        Limite de inscritos:
+                                                        Limite de inscritos 
+                                                        <span class="text-danger">*</span>
                                                     </label>
-                                                    <input class="form-control w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado" >
+                                                    <input class="form-control w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado" value="{{ old('vagas') }}">
                                                     
                                                     <div class="mt-3">
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_documento" name="ck_documento" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_documento" name="ck_documento" value="1" {{ old('ck_documento') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_documento">
                                                                 Exigir Documento (Inscrito insere um de seus documentos: RG/CPF/Passaporte)
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_sexo" name="ck_sexo" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_sexo" name="ck_sexo" value="1" {{ old('ck_sexo') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_sexo">
                                                                 Exigir Sexo
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_identidade_genero" name="ck_identidade_genero" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_identidade_genero" name="ck_identidade_genero" value="1" {{ old('ck_identidade_genero') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_identidade_genero">
                                                                 Exigir Identidade de Gênero
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_nascimento" name="ck_nascimento" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_nascimento" name="ck_nascimento" value="1" {{ old('ck_nascimento') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_nascimento">
                                                                 Exigir Data de Nascimento
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_instituicao" name="ck_instituicao" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_instituicao" name="ck_instituicao" value="1" {{ old('ck_instituicao') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_instituicao">
                                                                 Exigir Instituição de Origem
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_vinculo" name="ck_vinculo" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_vinculo" name="ck_vinculo" value="1" {{ old('ck_vinculo') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_vinculo">
                                                                 Exigir Vinculo Unicamp
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_area" name="ck_area" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_area" name="ck_area" value="1" {{ old('ck_area') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_area">
                                                                 Exigir Área de Atuação
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_funcao" name="ck_funcao" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_funcao" name="ck_funcao" value="1" {{ old('ck_funcao') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_funcao">
                                                                 Exigir Função/Cargo
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch"> 
-                                                            <input class="custom-control-input" type="checkbox" id="ck_pais" name="ck_pais" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_pais" name="ck_pais" value="1" {{ old('ck_pais') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_pais">
                                                                 Exigir País de Origem
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_cidade_estado" name="ck_cidade_estado" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_cidade_estado" name="ck_cidade_estado" value="1" {{ old('ck_cidade_estado') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_cidade_estado">
                                                                 Exigir Cidade/Estado
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" >
+                                                            <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" {{ old('ck_arquivo') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_arquivo">
                                                                 Exigir Arquivo de Projeto
                                                             </label>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group {{ old('ck_arquivo') ? 'd-block' : 'd-none' }}" id="div_prazo_envio_arquivo">
                                                             <label class="form-label fw-400" for="prazo_envio_arquivo">
-                                                                Prazo para envio de arquivo:
+                                                                Prazo para envio de arquivo 
+                                                                <span class="text-danger">*</span>
                                                             </label>
-                                                            <input class="form-control w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" >
+                                                            <input class="form-control w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" value="{{ old('prazo_envio_arquivo') }}">
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                            <label class="form-label fw-400" for="input_personalizado">
+                                                                Campo Personalizado
+                                                            </label>
+                                                            <input class="form-control" type="text" name="input_personalizado" id="input_personalizado" value="{{ old('input_personalizado') }}" placeholder="Digite o texto do campo personalizado ...">
                                                         </div>
                                                     </div>
                                                     
@@ -224,22 +232,21 @@
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao_inicio" class="fw-700"><i class="far fa-file-certificate mr-2"></i>Certificado</label>
                                             <div class="custom-control custom-switch mb-3">
-                                                <input class="custom-control-input" type="checkbox" id="certificado" >
+                                                <input class="custom-control-input" type="checkbox" id="certificado" name="certificado" {{ old('certificado') ? 'checked' : ''}}>
                                                 <label class="custom-control-label" for="certificado">
                                                     Terá Certificado?
                                                 </label>
-
                                             </div>
                                                              
-                                            <div class="d-none" id="evento_certificado">
+                                            <div class="{{ old('certificado') ? 'd-block' : 'd-none' }}" id="evento_certificado">
                                                 <div class="custom-control custom-switch mb-3">
-                                                    <input class="custom-control-input" type="checkbox" id="enviar_modelo" >
+                                                    <input class="custom-control-input" type="checkbox" id="enviar_modelo" name="enviar_modelo" {{ old('enviar_modelo') ? 'checked' : ''}}>
                                                     <label class="custom-control-label" for="enviar_modelo">
                                                         Enviar modelo
                                                     </label>
 
                                                 </div>
-                                                <div class="form-group d-none" id="carregar_modelo">
+                                                <div class="form-group {{ old('enviar_modelo') ? 'd-block' : 'd-none' }}" id="carregar_modelo">
                                                     <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
                                                     <div class="preview-zone hidden">
                                                     <div class="box box-solid">
@@ -252,7 +259,9 @@
                                                         </div>
                                                         </div>
                                                         <div class="box-body" id="box-body">
-                                                        
+                                                        @if($errors->any())
+                                                            <span class="fw-500 text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
+                                                        @endif
                                                         </div>
                                                     </div>
                                                     </div>
@@ -269,9 +278,9 @@
                                                 <label class="form-label fw-400" for="carga_horaria">
                                                     Carga Horária:
                                                 </label>
-                                                <input class="form-control w-25" type="number" name="carga_horaria" id="carga_horaria" placeholder="Em horas" >
+                                                <input class="form-control w-25" type="number" name="carga_horaria" id="carga_horaria" placeholder="Em horas" value="{{ old('carga_horaria') }}">
                                                 <div class="custom-control custom-switch mb-3">
-                                                    <input class="custom-control-input" type="checkbox" id="doc_certificado" name="doc_certificado" value="1" >
+                                                    <input class="custom-control-input" type="checkbox" id="doc_certificado" name="doc_certificado" value="1" {{ old('doc_certificado') ? 'checked' : ''}}>
                                                     <label class="custom-control-label mt-2" for="doc_certificado">
                                                         Exibir número do Documento do Inscrito no Certificado
                                                     </label>

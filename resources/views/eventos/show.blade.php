@@ -52,21 +52,15 @@
                             </div>
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
                                 <div class="card-body">
-                                    <div class="col-12">
-                                        <div class="p-0">
-                                            <h5>
-                                            Título
-                                                <small class="mt-0 mb-3 text-primary">
-                                                {{ $evento->titulo }}
-                                                </small>
-                                            </h5>
-                                        </div>
+                                    <div class="col-12 flex-1">
+                                        <span class="f-lg font-color-light">Título do Evento</span>
+                                        <h1 class="fw-300 text-info">{{ $evento->titulo }}</h1>
                                     </div>
                                     <div class="col-12">
                                         <div class="p-0">
                                             <h5>
-                                            Local
-                                                <small class="mt-0 mb-3 text-primary">
+                                                <span class="font-color-light font-size-14">Local</span>
+                                                <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                 {{ $evento->local }}
                                                 </small>
                                             </h5>
@@ -74,11 +68,16 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="p-0">
-                                            <h5>
-                                            Data
-                                                <small class="mt-0 mb-3 text-primary">
+                                            <h5 class="d-flex flex-column">
+                                                <span class="font-color-light font-size-14">Data</span>
+                                                
+                                                <small class="mt-0 mb-3 font-size-16 fw-400">
+                                                <span class="font-color-light font-size-12">Início</span>
+                                                <br>
                                                 {{ date('d/m/Y H:i:s', strtotime($evento->data_inicio)) }}
-                                                à 
+                                                <br>
+                                                <span class="font-color-light font-size-12">Fim</span>
+                                                <br>
                                                 {{ date('d/m/Y H:i:s', strtotime($evento->data_fim)) }}
                                                 </small>
                                             </h5>
@@ -88,9 +87,24 @@
                                         <div class="p-0">
                                             <h6>
                                                 <span class="mt-0 mb-3 text-secondary d-flex flex-column">
-                                                    <span class="mb-2">Gratuito: {{ is_null($evento->gratuito) ? 'Não' : 'Sim' }}</span>
-                                                    <span class="mb-2">Online: {{ is_null($evento->online) ? 'Não' : 'Sim' }}</span>
-                                                    <span class="mb-2">Hibrido: {{ is_null($evento->hibrido) ? 'Não' : 'Sim' }}</span>
+                                                    <span class="font-color-light font-size-14">
+                                                        Gratuito
+                                                    </span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->gratuito) ? 'Não' : 'Sim' }}
+                                                    </small>
+                                                    <span class="font-color-light font-size-14">
+                                                        Online
+                                                    </span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->online) ? 'Não' : 'Sim' }}
+                                                    </small>
+                                                    <span class="font-color-light font-size-14">
+                                                        Hibrído
+                                                    </span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->hibrido) ? 'Não' : 'Sim' }}
+                                                    </small>
                                                 </span>
                                             </h6>
                                         </div>
@@ -98,7 +112,7 @@
                                     <div class="col-12">
                                         <div class="p-0">
                                             <h5>
-                                            Detalhes
+                                                <span class="font-color-light font-size-14">Detalhes</span>
                                                 <small class="mt-0 mb-3 border rounded p-3">
                                                 {!! nl2br($evento->detalhes) !!}
                                                 </small>
@@ -160,6 +174,10 @@
                                                     <span>
                                                         <span class="fw-400">Exigir Cidade/Estado: </span>
                                                         {{ is_null($evento->ck_cidade_estado) ? 'Não' : 'Sim' }}
+                                                    </span>
+                                                    <span>
+                                                        <span class="fw-400">Personalizado: </span>
+                                                        {{ is_null($evento->input_personalizado) ? '' : $evento->input_personalizado }}
                                                     </span>
                                                 </small>
                                             </h5>

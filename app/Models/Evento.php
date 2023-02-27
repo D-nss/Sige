@@ -43,7 +43,9 @@ class Evento extends Model
         'user_id',
         'modelo_certificado_id',
         'status',
-        'prazo_envio_arquivo'
+        'prazo_envio_arquivo',
+        'link_meet',
+        'input_personalizado'
     ];
 
     public function user()

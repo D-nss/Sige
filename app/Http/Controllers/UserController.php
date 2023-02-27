@@ -20,7 +20,7 @@ class UserController extends Controller
         //$this->middleware('permission:user-create', ['only' => ['create','store']]);
         //$this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         //$this->middleware('permission:user-delete', ['only' => ['destroy']]);
-        $this->middleware('role:super', ['except' => ['teste']]);
+        //$this->middleware('role:super', ['except' => ['teste']]);
     }
 
     public function teste()
@@ -277,5 +277,16 @@ class UserController extends Controller
         $user->ativo = false;
         $user->save();
         return redirect()->route('user.index');
+    }
+
+    /**
+     * Atribui ao usuário seu atributo 'ativo' como falso
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserData(User $user)
+    {
+        echo json_encode($user);
     }
 }

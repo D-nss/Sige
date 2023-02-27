@@ -190,7 +190,14 @@ return [
         'nome_arquivo' => 'nome arquivo',
         'qtde_alunos' => 'quantidade alunos graduação',
         'qtde_alunos_pg' => 'quantidade alunos pós graduação',
-        'obj_desenvolvimento_sustentavel' => 'objetivo de desenvolvimento sustentável'
+        'obj_desenvolvimento_sustentavel' => 'objetivo de desenvolvimento sustentável',
+        'data_inicio' => 'data de início',
+        'inscricao_inicio' => 'inscrição início',
+        'data_fim' => 'data de fim',
+        'inscricao_fim' => 'inscrição fim',
+        'modelo' => 'o modelo do certificado',
+        'prazo_envio_arquivo' => 'prazo envio de arquivo',
+        'input_personalizado' => 'personaizado'
     ],
 
 ];

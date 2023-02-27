@@ -121,7 +121,7 @@ Route::get('/acoes-culturais/{acao_cultural}/parceiros', [AcaoCulturalController
 Route::post('/acoes-culturais/parceiro', [AcaoCulturalController::class, 'insereParceiro'])->name('acao_cultural.parceiro.inserir');
 Route::get('/acoes-culturais/unidades/{unidade}', [AcaoCulturalController::class, 'acoesPorUnidade'])->name('acao_cultural.unidades.index');
 
-//Eventos
+//Eventos inscrito
 Route::get('evento/{evento}/inscrito/novo', [EventoInscritosController::class, 'create']);
 Route::post('evento/{evento}/inscrito', [EventoInscritosController::class, 'store']);
 Route::get('inscritos/confirmacao/{codigo}', [EventoInscritosController::class, 'confirmar']);
@@ -144,11 +144,21 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('inscrito/enviar-email/{id}', [EventoInscritosController::class, 'enviarEmail']);
     Route::get('inscrito/enviar-email/{id}/novo', [EventoInscritosController::class, 'enviarEmailCreate']);
     Route::put('inscrito/arquivo-analise/{id}', [EventoInscritosController::class, 'analiseArquivo']);
+    Route::get('evento/{evento}/equipe/novo', function(\App\Models\Evento $evento){
+        $users = \App\Models\User::all();
+        return view('eventos.equipe.create', compact('users', 'evento'));
+    });
 
+    Route::get('evento/{evento}/equipe/', function(\App\Models\Evento $evento){
+        $users = \App\Models\User::all();
+        return view('eventos.equipe.index', compact('users', 'evento'));
+    });
+    
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
     Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');
     Route::put('/usuarios/{user}/desativar', [UserController::class, 'desativar'])->name('user.desativar');
+    Route::get('/usuarios/get-data/{user}', [UserController::class, 'getUserData']);
 
     //Papeis e Permissões
     Route::resource('/roles', RoleController::class);

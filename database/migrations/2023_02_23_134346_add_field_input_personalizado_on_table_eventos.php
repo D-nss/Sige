@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use App\Models\User;
-
 return new class extends Migration
 {
     /**
@@ -15,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('evento_inscritos', function (Blueprint $table) {
-            $table->string('status_arquivo', 50)->nullable();
-            $table->foreignIdFor(User::class, 'analista_user_id')->nullable();
+        Schema::table('eventos', function (Blueprint $table) {
+            $table->string('input_personalizado', 255)->nullable();
         });
     }
 
@@ -28,9 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('evento_inscritos', function (Blueprint $table) {
-            $table->dropColumn('status_arquivo');
-            $table->dropColumn('analista_user_id');
+        Schema::table('eventos', function (Blueprint $table) {
+            $table->dropColumn('input_personalizado');
         });
     }
 };

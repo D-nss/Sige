@@ -18,7 +18,7 @@ class EventoController extends Controller
     {
         $grupo = '';
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br')->first();
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
                 $grupo = $role;
@@ -39,6 +39,22 @@ class EventoController extends Controller
 
     public function store(Request $request) 
     {
+        $dadosEvento = $request->except(['_token']);
+        $toValidate = [
+            "titulo" => 'required',
+            "local" => 'required',
+            "data_inicio" => 'required',
+            "data_fim" => 'required',
+            "detalhes" => 'required',
+            "inscricao_inicio" => isset($request->inscricao) ? 'required' : '',
+            "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
+            "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
+            "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
+            "modelo" => isset($request->enviar_modelo) ? 'required|mimes:jpg' : '',
+        ];
+
+        $request->validate($toValidate);
+
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
             $certificado = new ModeloCertificado();
@@ -47,9 +63,9 @@ class EventoController extends Controller
             $certificado->save();
         }
 
-        $dadosEvento = $request->except(['_token']);
+        $dadosEvento = $request->except(['_token', 'inscricao']);
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('email', 'aadilson@unicamp.br')->first();
         //$certificado_id = 1;
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {

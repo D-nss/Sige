@@ -310,6 +310,29 @@ Versão: 4.5.1
                     }
                 });
 
+                $("#vagas").change(function(){
+                    if($("#vagas").val() < 0) {
+                        $("#vagas").val('');
+                    }
+                });
+
+                $("#carga_horaria").change(function(){
+                    if($("#carga_horaria").val() < 0) {
+                        $("#carga_horaria").val('');
+                    }
+                });
+                
+                $("#ck_arquivo").change(function() {
+                    if($("#ck_arquivo").is(':checked')) {
+                        $("#div_prazo_envio_arquivo").removeClass("d-none");
+                        $("#div_prazo_envio_arquivo").addClass("d-block");
+                    }
+                    else {
+                        $("#div_prazo_envio_arquivo").removeClass("d-block");
+                        $("#div_prazo_envio_arquivo").addClass("d-none");
+                    }
+                });
+
                 $("#enviar_modelo").change(function(){
                     if ( $('#enviar_modelo').is(':checked') ) {
                         $("#carregar_modelo").removeClass('d-none')
@@ -317,6 +340,70 @@ Versão: 4.5.1
                     else {
                         $("#carregar_modelo").addClass('d-none')
                     }
+                });
+
+                $("#data_fim").blur(function(){
+                    var data1 = new Date($("#data_inicio").val())
+                    var data2 = new Date($("#data_fim").val())
+                    if(data1 > data2) {
+                        $("#msg_erro_data_inicio").html("A data de inicio não pode ser menor que a data fim");
+                        $("#data_inicio").val('');
+                        $("#data_fim").val('');
+                    }
+                    else {
+                        $("#msg_erro_data_inicio").html('');
+                    }
+                });
+
+                $("#funcionario_unicamp").change(() => {
+                    if ( $('#funcionario_unicamp').is(':checked') ) {
+                        $("#funcionario_unicamp_label").html('Sim');
+                        $("#user_form_group").removeClass("d-none");
+                        $("#user_form_group").addClass("d-block");
+                    }
+                    else {
+                        $("#funcionario_unicamp_label").html('Não');
+                        $("#user_form_group").removeClass("d-block");
+                        $("#user_form_group").addClass("d-none");
+                    }
+                });
+
+                $("#aluno_unicamp").change(() => {
+                    if ( $('#aluno_unicamp').is(':checked') ) {
+                        $("#aluno_unicamp_label").html('Sim');
+                        $("#user_form_group").removeClass("d-none");
+                        $("#user_form_group").addClass("d-block");
+                    }
+                    else {
+                        $("#aluno_unicamp_label").html('Não');
+                        $("#user_form_group").removeClass("d-block");
+                        $("#user_form_group").addClass("d-none");
+                    }
+                });
+
+                $("#inscricao_fim").blur(function(){
+                    var data1 = new Date($("#inscricao_inicio").val())
+                    var data2 = new Date($("#inscricao_fim").val())
+                    if(data1 > data2) {
+                        $("#msg_erro_inscricao_inicio").html("A data de inicio da inscrição não pode ser menor que a data fim da inscrição");
+                        $("#inscricao_inicio").val('');
+                        $("#inscricao_fim").val('');
+                    }else {
+                        $("#msg_erro_inscricao_inicio").html('');
+                    }
+                });
+
+                $('#user_id').change(function(){
+                    $.ajax({
+                        url: "{{ url('usuarios/get-data') }}" + "/" + $("#user_id").val(),
+                        method: "GET",
+                        dataType: 'json',
+                        data: { },
+                        success: function(data) {
+                            $("#nome").val(data.name);
+                            $("#email").val(data.email);
+                        }
+                    });
                 });
 
                 if ( $( "#checked-modal" ).length ) { 
