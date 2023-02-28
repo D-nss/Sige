@@ -19,7 +19,7 @@ class EventoController extends Controller
     {
         $grupo = '';
 
-        $user = User::where('email', 'aadilson@unicamp.br')->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {

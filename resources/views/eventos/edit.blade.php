@@ -257,34 +257,36 @@
                                                     </label>
 
                                                 </div>
-                                                <div class="form-group @if(!isset($evento->certificado) && !$evento->certificado) d-none @endif " id="carregar_modelo">
-                                                    <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
-                                                    <div class="preview-zone hidden">
-                                                    <div class="box box-solid">
-                                                        <div class="box-header with-border">
-                                                        <div></div>
-                                                        <div class="box-tools pull-right">
-                                                            <button type="button" class="btn btn-secondary btn-xs remove-preview">
-                                                            Limpar
-                                                            </button>
+                                                <div class=" @error('modelo') border border-danger rounded p-3 @enderror">
+                                                    <div class="form-group @if(!isset($evento->certificado) && !$evento->certificado) d-none @endif " id="carregar_modelo">
+                                                        <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
+                                                        <div class="preview-zone hidden">
+                                                        <div class="box box-solid">
+                                                            <div class="box-header with-border">
+                                                            <div></div>
+                                                            <div class="box-tools pull-right">
+                                                                <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                                Limpar
+                                                                </button>
+                                                            </div>
+                                                            </div>
+                                                            <div class="box-body" id="box-body">
+                                                            @if(isset($evento->certificado->arquivo) && !!$evento->certificado->arquivo)
+                                                                <img src="{{ url('storage/' . $evento->certificado->arquivo) }}" alt="{{ $evento->certificado->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />
+                                                            @endif
+                                                            </div>
                                                         </div>
                                                         </div>
-                                                        <div class="box-body" id="box-body">
-                                                        @if(isset($evento->certificado->arquivo) && !!$evento->certificado->arquivo)
-                                                            <img src="{{ url('storage/' . $evento->certificado->arquivo) }}" alt="{{ $evento->certificado->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />
-                                                        @endif
+                                                        <div class="dropzone-wrapper">
+                                                            <div class="dropzone-desc">
+                                                                <i class="glyphicon glyphicon-download-alt"></i>
+                                                                <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
+                                                            </div>
+                                                            <input type="file" name="modelo" class="dropzone" id="modelo" value="{{ old('modelo') }}">
+                                                            
                                                         </div>
-                                                    </div>
-                                                    </div>
-                                                    <div class="dropzone-wrapper">
-                                                        <div class="dropzone-desc">
-                                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                                            <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
-                                                        </div>
-                                                        <input type="file" name="modelo" class="dropzone" id="modelo" value="{{ old('modelo') }}">
-                                                        
-                                                    </div>
-                                                    <div id="alert-pdf-format"></div>
+                                                        <div id="alert-pdf-format"></div>
+                                                    </div> 
                                                 </div> 
                                                 <label class="form-label fw-400" for="carga_horaria">
                                                     Carga Horária:
