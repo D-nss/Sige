@@ -52,7 +52,7 @@
                             </div>
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
                                 <div class="card-body">
-                                        <form action="" method="post" enctype="multipart/form-data">
+                                        <form action="{{ url('evento/' . $evento->id . '/equipe') }}" method="post">
                                     
                                         @csrf
                                         <h3 class="font-color-light">Preencha corretamente o formulário com as informações sobre o membro da equipe nos campos correspondentes</h3>

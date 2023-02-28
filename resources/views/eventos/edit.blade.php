@@ -212,6 +212,25 @@
                                                                 Exigir Cidade/Estado
                                                             </label>
                                                         </div>
+                                                        <div class="custom-control custom-switch">
+                                                            <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" @if(isset($evento->ck_arquivo)) checked @endif>
+                                                            <label class="custom-control-label mb-2" for="ck_arquivo">
+                                                                Exigir Arquivo de Projeto
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group {{ isset($evento->ck_arquivo) ? 'd-block' : 'd-none' }}" id="div_prazo_envio_arquivo">
+                                                            <label class="form-label fw-400" for="prazo_envio_arquivo">
+                                                                Prazo para envio de arquivo 
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <input class="form-control w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" @if(isset($evento->prazo_envio_arquivo)) value="{{ $evento->prazo_envio_arquivo }}" @endif>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                            <label class="form-label fw-400" for="input_personalizado">
+                                                                Campo Personalizado
+                                                            </label>
+                                                            <input class="form-control" type="text" name="input_personalizado" id="input_personalizado" placeholder="Digite o texto do campo personalizado ..." @if(isset($evento->input_personalizado)) value="{{ $evento->input_personalizado }}" @endif >
+                                                        </div>
                                                     </div>
                                                     
                                                 </div>
@@ -227,7 +246,7 @@
                                                 </label>
 
                                             </div>
-                                                             
+                                                 
                                             <div class="@if(!isset($evento->carga_horaria)) d-none @endif" id="evento_certificado">
                                                 <div class="custom-control custom-switch mb-3">
                                                     <input class="custom-control-input" type="checkbox" id="enviar_modelo" @if(isset($evento->certificado)) checked @endif>
@@ -268,7 +287,7 @@
                                                 <label class="form-label fw-400" for="carga_horaria">
                                                     Carga Horária:
                                                 </label>
-                                                <input class="form-control w-25" type="number" name="carga_horaria" id="carga_horaria" placeholder="Em horas" @if(isset($evento->carga_horaria)) value="{{$evento->carga_horaria}}" @endif>
+                                                <input class="form-control w-25" type="number" name="carga_horaria" id="carga_horaria" placeholder="Em horas" pattern="[0-9]" @if(isset($evento->carga_horaria)) value="{{$evento->carga_horaria}}" @endif>
                                                 <div class="custom-control custom-switch mb-3">
                                                     <input class="custom-control-input" type="checkbox" id="doc_certificado" name="doc_certificado" value="1" @if(isset($evento->doc_certificado)) checked @endif>
                                                     <label class="custom-control-label mt-2" for="doc_certificado">

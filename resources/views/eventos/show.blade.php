@@ -123,62 +123,79 @@
                                     <div class="col-12">
                                         <div class="p-0">
                                             <h5>
-                                                Inscrição
+                                                <span class="font-color-light font-size-14">Inscrição</span>
                                                 <small class="mt-0 mb-3 d-flex flex-column">
                                                     <span>
-                                                        <span class="fw-400">Período: </span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400">
+                                                        <span class="font-color-light font-size-12">Início</span>
+                                                        <br>
                                                         {{ date('d/m/Y H:i:s', strtotime($evento->inscricao_inicio)) }}
-                                                        à 
+                                                        <br>
+                                                        <span class="font-color-light font-size-12">Fim</span>
+                                                        <br>
                                                         {{ date('d/m/Y H:i:s', strtotime($evento->inscricao_fim)) }}
+                                                        </small>
                                                     </span>
-                                                    <span>
-                                                        <span class="fw-400">Vagas: </span>
-                                                        {{ $evento->vagas }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir documento: </span>
+                                                    
+                                                    <span class="font-color-light font-size-14">Vagas</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->vagas) ? 'Não' : 'Sim' }}
+                                                    </small>
+                                                
+                                                    <span class="font-color-light font-size-14">Exigir documento</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_documento) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Gênero: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Gênero</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_sexo) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Identidade de Gênero: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Identidade de Gênero</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_identidade_genero) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Data de Nascimento: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Data de Nascimento</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_nascimento) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Instituição de Origem: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Instituição de Origem</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_instituicao) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Vinculo Unicamp: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Vinculo Unicamp</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_vinculo) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Área de Atuação: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Área de Atuação</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_area) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Função/Cargo: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Função/Cargo</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_funcao) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir País de Origem: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir País de Origem</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_pais) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Exigir Cidade/Estado: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Cidade/Estado</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->ck_cidade_estado) ? 'Não' : 'Sim' }}
-                                                    </span>
-                                                    <span>
-                                                        <span class="fw-400">Personalizado: </span>
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Personalizado</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->input_personalizado) ? '' : $evento->input_personalizado }}
-                                                    </span>
+                                                    </small>
                                                 </small>
                                             </h5>
                                         </div>
@@ -187,19 +204,23 @@
                                     <div class="col-12">
                                         <div class="p-0">
                                             <h5>
-                                            Certificado
+                                                <span class="font-color-light font-size-14">Certificado</span>
                                                 <small class="mt-0 mb-3 d-flex flex-column">
                                                     <div class="d-flex flex-column">
-                                                        <span class="fw-400">Modelo: </span>
-                                                        <img src="{{ asset('storage/'.$evento->modelo_certificado->arquivo) }}" alt="{{ $evento->modelo_certificado->titulo }}" class="img-fluid img-thumbnail" style="max-width: 200px;">
+                                                        <span class="font-color-light font-size-12">Modelo: </span>
+                                                        <img src="{{ asset('storage/'.$evento->certificado->arquivo) }}" alt="{{ $evento->certificado->titulo }}" class="img-fluid img-thumbnail" style="max-width: 200px;">
                                                     </div>
                                                     <div>
-                                                        <span class="fw-400">Carga Horária: </span>
-                                                        {{ $evento->carga_horaria }} Horas
+                                                        <span class="font-color-light font-size-12">Carga Horária: </span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                            {{ $evento->carga_horaria }} Horas
+                                                        </small>
                                                     </div>
                                                     <div>
-                                                        <span class="fw-400">Exibir número do Documento do Inscrito no Certificado: </span>
-                                                        {{ is_null($evento->doc_certificado) ? 'Não' : 'Sim' }}
+                                                        <span class="font-color-light font-size-12">Exibir número do Documento do Inscrito no Certificado: </span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                            {{ is_null($evento->doc_certificado) ? 'Não' : 'Sim' }}
+                                                        </small>
                                                     </div>
                                                 </small>
                                             </h5>

@@ -278,7 +278,7 @@
                                                 <label class="form-label fw-400" for="carga_horaria">
                                                     Carga Horária:
                                                 </label>
-                                                <input class="form-control w-25" type="number" name="carga_horaria" id="carga_horaria" placeholder="Em horas" value="{{ old('carga_horaria') }}">
+                                                <input class="form-control w-25" type="number" name="carga_horaria" id="carga_horaria" placeholder="Em horas" pattern="[0-9]" value="{{ old('carga_horaria') }}">
                                                 <div class="custom-control custom-switch mb-3">
                                                     <input class="custom-control-input" type="checkbox" id="doc_certificado" name="doc_certificado" value="1" {{ old('doc_certificado') ? 'checked' : ''}}>
                                                     <label class="custom-control-label mt-2" for="doc_certificado">

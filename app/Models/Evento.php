@@ -53,9 +53,9 @@ class Evento extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function modelo_certificado()
+    public function certificado()
     {
-        return $this->belongsTo(ModeloCertificado::class);
+        return $this->belongsTo(ModeloCertificado::class, 'modelo_certificado_id');
     }
 
     public function inscritos()

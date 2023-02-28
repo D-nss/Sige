@@ -33,6 +33,7 @@ use App\Http\Controllers\AcaoCulturalController;
 use App\Http\Controllers\EventoInscritosController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\UploadArquivoController;
+use App\Http\Controllers\EventoEquipeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,15 +145,9 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('inscrito/enviar-email/{id}', [EventoInscritosController::class, 'enviarEmail']);
     Route::get('inscrito/enviar-email/{id}/novo', [EventoInscritosController::class, 'enviarEmailCreate']);
     Route::put('inscrito/arquivo-analise/{id}', [EventoInscritosController::class, 'analiseArquivo']);
-    Route::get('evento/{evento}/equipe/novo', function(\App\Models\Evento $evento){
-        $users = \App\Models\User::all();
-        return view('eventos.equipe.create', compact('users', 'evento'));
-    });
-
-    Route::get('evento/{evento}/equipe/', function(\App\Models\Evento $evento){
-        $users = \App\Models\User::all();
-        return view('eventos.equipe.index', compact('users', 'evento'));
-    });
+    Route::get('evento/{evento}/equipe/novo', [EventoEquipeController::class, 'create']);
+    Route::get('evento/{evento}/equipe/', [EventoEquipeController::class, 'index']);
+    Route::post('evento/{evento}/equipe/', [EventoEquipeController::class, 'store']);
     
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
