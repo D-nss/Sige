@@ -71,11 +71,11 @@
                                         <h3>Preencha corretamente o formulário com as informações sobre o evento nos campos correspondentes</h3>
                                         <div class="form-group">
                                             <label for="titulo" class="fw-700">Título do Evento</label>
-                                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." @if(isset($evento))value="{{ $evento->titulo }}"@endif>
+                                            <input type="text" class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." @if(isset($evento))value="{{ $evento->titulo }}"@endif>
                                         </div>
                                         <div class="form-group">
                                             <label for="local" class="fw-700">Local do Evento</label>
-                                            <input type="text" class="form-control" name="local" placeholder="Digite o local do Evento." value="@if(isset($evento)){{ $evento->local }}@endif">
+                                            <input type="text" class="form-control @error('local') is-invalid @enderror" name="local" placeholder="Digite o local do Evento." value="@if(isset($evento)){{ $evento->local }}@endif">
                                         </div>
                                         <div class="form-group border rounded p-3">
                                         
@@ -105,22 +105,24 @@
                                                 <label class="form-label fw-400" for="data_inicio">
                                                     Inicio do Evento
                                                 </label>
-                                                <input class="form-control w-25" type="datetime-local" id="data_inicio" name="data_inicio" @if(isset($evento))value="{{ $evento->data_inicio }}"@endif>
+                                                <input class="form-control @error('data_inicio') is-invalid @enderror w-25" type="datetime-local" id="data_inicio" name="data_inicio" @if(isset($evento))value="{{ $evento->data_inicio }}"@endif>
                                                 
                                             </div>
                                             <div class="form-input mt-2">
                                                 <label class="form-label fw-400" for="data_fim">
                                                     Fim do Evento
                                                 </label>
-                                                <input class="form-control w-25" type="datetime-local" id="data_fim" name="data_fim" @if(isset($evento))value="{{ $evento->data_fim }}"@endif>
+                                                <input class="form-control @error('data_fim') is-invalid @enderror w-25" type="datetime-local" id="data_fim" name="data_fim" @if(isset($evento))value="{{ $evento->data_fim }}"@endif>
                                                 
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label fw-700" for="detalhes">Detalhes (Notas do Evento, Programação, Palestrantes):</label>
-                                            <textarea name="detalhes" id="detalhes" rows="10" cols="80">
-                                                @if(isset($evento)){{ $evento->detalhes }}@endif
-                                            </textarea>
+                                            <div class=" @error('data_fim') border border-danger rounded p-3 @enderror">
+                                                <textarea name="detalhes" id="detalhes" rows="10" cols="80">
+                                                    @if(isset($evento)){{ $evento->detalhes }}@endif
+                                                </textarea>
+                                            </div>
                                         </div>
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao" class="fw-700"><i class="far fa-edit mr-2"></i>Inscrições</label>
@@ -135,21 +137,21 @@
                                                     <label class="form-label fw-400" for="inscricao_inicio">
                                                         Inscricão Inicio
                                                     </label>
-                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" @if(isset($evento->inscricao_inicio)) value="{{ $evento->inscricao_inicio }}" @endif>
+                                                    <input class="form-control @error('inscricao_inicio') is-invalid @enderror w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" @if(isset($evento->inscricao_inicio)) value="{{ $evento->inscricao_inicio }}" @endif>
                                                     
                                                 </div>
                                                 <div class="form-input mt-2">
                                                     <label class="form-label fw-400" for="inscricao_fim">
                                                         Inscrição Fim
                                                     </label>
-                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" @if(isset($evento->inscricao_inicio)) value="{{ $evento->inscricao_fim }}" @endif>
+                                                    <input class="form-control @error('inscricao_fim') is-invalid @enderror w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" @if(isset($evento->inscricao_inicio)) value="{{ $evento->inscricao_fim }}" @endif>
                                                     
                                                 </div>
                                                 <div class="form-input mt-3">
                                                     <label class="form-label fw-400" for="vagas">
                                                         Limite de inscritos:
                                                     </label>
-                                                    <input class="form-control w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado"  @if(isset($evento->inscricao_inicio)) value="{{ $evento->vagas }}" @endif>
+                                                    <input class="form-control @error('vagas') is-invalid @enderror w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado"  @if(isset($evento->inscricao_inicio)) value="{{ $evento->vagas }}" @endif>
                                                     
                                                     <div class="mt-3">
                                                         <div class="custom-control custom-switch">
@@ -223,7 +225,7 @@
                                                                 Prazo para envio de arquivo 
                                                                 <span class="text-danger">*</span>
                                                             </label>
-                                                            <input class="form-control w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" @if(isset($evento->prazo_envio_arquivo)) value="{{ $evento->prazo_envio_arquivo }}" @endif>
+                                                            <input class="form-control @error('prazo_envio_arquivo') is-invalid @enderror w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" @if(isset($evento->prazo_envio_arquivo)) value="{{ $evento->prazo_envio_arquivo }}" @endif>
                                                         </div>
                                                         <div class="form-group mt-2">
                                                             <label class="form-label fw-400" for="input_personalizado">
@@ -255,7 +257,7 @@
                                                     </label>
 
                                                 </div>
-                                                <div class="form-group @if(!isset($evento->certificado) && !$evento->certificado) d-none @endif" id="carregar_modelo">
+                                                <div class="form-group @if(!isset($evento->certificado) && !$evento->certificado) d-none @endif " id="carregar_modelo">
                                                     <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
                                                     <div class="preview-zone hidden">
                                                     <div class="box box-solid">

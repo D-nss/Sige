@@ -58,11 +58,11 @@
                                         <h3>Preencha corretamente o formulário com as informações sobre o evento nos campos correspondentes</h3>
                                         <div class="form-group">
                                             <label for="titulo" class="fw-700">Título do Evento <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." value="{{ old('titulo') }}">
+                                            <input type="text" class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." value="{{ old('titulo') }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="local" class="fw-700">Local do Evento <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="local" placeholder="Digite o local do Evento." value="{{ old('local') }}">
+                                            <input type="text" class="form-control @error('local') is-invalid @enderror" name="local" placeholder="Digite o local do Evento." value="{{ old('local') }}">
                                         </div>
                                         <div class="form-group border rounded p-3">
                                         
@@ -93,7 +93,7 @@
                                                     Inicio do Evento 
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input class="form-control w-25" type="datetime-local" id="data_inicio" name="data_inicio" value="{{ old('data_inicio') }}">
+                                                <input class="form-control @error('data_inicio') is-invalid @enderror w-25" type="datetime-local" id="data_inicio" name="data_inicio" value="{{ old('data_inicio') }}">
                                                 <span class="text-danger" id="msg_erro_data_inicio"></span>
                                             </div>
                                             <div class="form-input mt-2">
@@ -101,15 +101,17 @@
                                                     Fim do Evento 
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input class="form-control w-25" type="datetime-local" id="data_fim" name="data_fim" value="{{ old('data_fim') }}">
+                                                <input class="form-control @error('data_fim') is-invalid @enderror w-25" type="datetime-local" id="data_fim" name="data_fim" value="{{ old('data_fim') }}">
                                                 
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label fw-700" for="detalhes">Detalhes (Notas do Evento, Programação, Palestrantes): <span class="text-danger">*</span></label>
-                                            <textarea name="detalhes" id="detalhes" rows="10" cols="80">
-                                                {{ old('detalhes') }}
-                                            </textarea>
+                                            <div class=" @error('data_fim') border border-danger rounded p-3 @enderror">
+                                                <textarea name="detalhes" id="detalhes" rows="10" cols="80">
+                                                    {{ old('detalhes') }}
+                                                </textarea>
+                                            </div>
                                         </div>
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao" class="fw-700"><i class="far fa-edit mr-2"></i>Inscrições</label>
@@ -125,7 +127,7 @@
                                                         Inscricão Inicio 
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" value="{{ old('inscricao_inicio') }}">
+                                                    <input class="form-control @error('inscricao_inicio') is-invalid @enderror w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" value="{{ old('inscricao_inicio') }}">
                                                     <span class="text-danger" id="msg_erro_inscricao_inicio"></span>
                                                 </div>
                                                 <div class="form-input mt-2">
@@ -133,7 +135,7 @@
                                                         Inscrição Fim 
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <input class="form-control w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" value="{{ old('inscricao_fim') }}">
+                                                    <input class="form-control @error('inscricao_fim') is-invalid @enderror w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" value="{{ old('inscricao_fim') }}">
                                                     
                                                 </div>
                                                 <div class="form-input mt-3">
@@ -141,7 +143,7 @@
                                                         Limite de inscritos 
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <input class="form-control w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado" value="{{ old('vagas') }}">
+                                                    <input class="form-control @error('vagas') is-invalid @enderror w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado" value="{{ old('vagas') }}">
                                                     
                                                     <div class="mt-3">
                                                         <div class="custom-control custom-switch">
@@ -215,7 +217,7 @@
                                                                 Prazo para envio de arquivo 
                                                                 <span class="text-danger">*</span>
                                                             </label>
-                                                            <input class="form-control w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" value="{{ old('prazo_envio_arquivo') }}">
+                                                            <input class="form-control @error('prazo_envio_arquivo') is-invalid @enderror w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" value="{{ old('prazo_envio_arquivo') }}">
                                                         </div>
                                                         <div class="form-group mt-2">
                                                             <label class="form-label fw-400" for="input_personalizado">
@@ -246,35 +248,37 @@
                                                     </label>
 
                                                 </div>
-                                                <div class="form-group {{ old('enviar_modelo') ? 'd-block' : 'd-none' }}" id="carregar_modelo">
-                                                    <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
-                                                    <div class="preview-zone hidden">
-                                                    <div class="box box-solid">
-                                                        <div class="box-header with-border">
-                                                        <div></div>
-                                                        <div class="box-tools pull-right">
-                                                            <button type="button" class="btn btn-secondary btn-xs remove-preview">
-                                                            Limpar
-                                                            </button>
+                                                <div class=" @error('modelo') border border-danger rounded p-3 @enderror">
+                                                    <div class="form-group {{ old('enviar_modelo') ? 'd-block' : 'd-none' }}" id="carregar_modelo">
+                                                        <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
+                                                        <div class="preview-zone hidden">
+                                                        <div class="box box-solid">
+                                                            <div class="box-header with-border">
+                                                            <div></div>
+                                                            <div class="box-tools pull-right">
+                                                                <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                                Limpar
+                                                                </button>
+                                                            </div>
+                                                            </div>
+                                                            <div class="box-body" id="box-body">
+                                                            @if($errors->any())
+                                                                <span class="fw-500 text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
+                                                            @endif
+                                                            </div>
                                                         </div>
                                                         </div>
-                                                        <div class="box-body" id="box-body">
-                                                        @if($errors->any())
-                                                            <span class="fw-500 text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
-                                                        @endif
+                                                        <div class="dropzone-wrapper">
+                                                            <div class="dropzone-desc">
+                                                                <i class="glyphicon glyphicon-download-alt"></i>
+                                                                <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
+                                                            </div>
+                                                            <input type="file" name="modelo" class="dropzone" id="modelo" value="{{ old('modelo') }}">
+                                                            
                                                         </div>
+                                                        <div id="alert-pdf-format"></div>
                                                     </div>
-                                                    </div>
-                                                    <div class="dropzone-wrapper">
-                                                        <div class="dropzone-desc">
-                                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                                            <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
-                                                        </div>
-                                                        <input type="file" name="modelo" class="dropzone" id="modelo" value="{{ old('modelo') }}">
-                                                        
-                                                    </div>
-                                                    <div id="alert-pdf-format"></div>
-                                                </div> 
+                                                </div>
                                                 <label class="form-label fw-400" for="carga_horaria">
                                                     Carga Horária:
                                                 </label>

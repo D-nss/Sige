@@ -121,14 +121,28 @@ class EventoController extends Controller
 
     public function update(Request $request, Evento $evento)
     {
+        $toValidate = [
+            "titulo" => 'required',
+            "local" => 'required',
+            "data_inicio" => 'required',
+            "data_fim" => 'required',
+            "detalhes" => 'required',
+            "inscricao_inicio" => isset($request->inscricao) ? 'required' : '',
+            "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
+            "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
+            "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
+            "modelo" => isset($request->enviar_modelo) ? 'required|mimes:jpg' : '',
+        ];
+
+        $request->validate($toValidate);
+        
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
             $certificado = ModeloCertificado::find($evento->certificado_id);
             $certificadoAntigo = $certificado->arquivo;
             Storage::delete($certificadoAntigo);
             $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
-            $certificado->save();
-            
+            $certificado->save(); 
         }
 
         $dados = [];
