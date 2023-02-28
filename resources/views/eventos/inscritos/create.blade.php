@@ -18,7 +18,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -32,120 +32,143 @@
                     <h1 class="font-italic fw-300 text-info">{{ $evento->titulo }}</h1>
                 </div>
                 <span class="h4 fw-300 font-color-light">Dados da Inscrição</span>
-                <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data"> 
+                <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label class="form-label">Nome Completo</label>
+                        <label class="form-label">Nome Completo<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Nome Completo" name="nome">
+                            <input type="text" class="form-control bg-transparent" placeholder="Nome Completo" name="nome" value="{{old('nome')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     <div class="form-group">
-                        <label class="form-label">E-Mail</label>
+                        <label class="form-label">E-Mail<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="E-Mail" name="email">
+                            <input type="text" class="form-control bg-transparent" placeholder="E-Mail" name="email" value="{{old('email')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @if($evento->ck_documento)
                     <div class="form-group">
-                        <label class="form-label">Tipo Documento</label>
+                        <label class="form-label">Tipo Documento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
                             <select class="form-control bg-transparent"  name="tipo_documento">
-                                <option value="">Selecione ...</option>
-                                <option value="cpf">CPF</option>
-                                <option value="rg">RG</option>
-                                <option value="passaporte">Passaporte</option>
+                                @if(old('tipo_documento'))
+                                <option value="{{old('tipo_documento')}}">{{old('tipo_documento')}}</option>
+                                @else
+                                 <option value="">Selecione ...</option>
+                                @endif
+                                <option value="CPF">CPF</option>
+                                <option value="RG">RG</option>
+                                <option value="Passaporte">Passaporte</option>
                             </select>
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Numero Documento</label>
+                        <label class="form-label">Numero Documento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Documento" name="documento">
+                            <input type="text" class="form-control bg-transparent" placeholder="Documento" name="documento" value="{{old('documento')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_sexo)
                     <div class="form-group">
-                        <label class="form-label">Sexo</label>
+                        <label class="form-label">Sexo<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Sexo" name="sexo">
+                            <select class="form-control bg-transparent"  name="sexo">
+                                @if(old('sexo'))
+                                <option value="{{old('sexo')}}">{{old('sexo')}}</option>
+                                @else
+                                 <option value="">Selecione ...</option>
+                                @endif
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Outro">Outro</option>
+                                <option value="Não informado">Prefiro não informar</option>
+                            </select>
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_identidade_genero)
                     <div class="form-group">
-                        <label class="form-label">Identidade de Genero</label>
+                        <label class="form-label">Identidade de Genero<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Identidade de Genero" name="genero">
+                            <input type="text" class="form-control bg-transparent" placeholder="Identidade de Genero" name="genero" value="{{old('genero')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_nascimento)
                     <div class="form-group">
-                        <label class="form-label">Nascimento</label>
+                        <label class="form-label">Nascimento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="date" class="form-control bg-transparent" placeholder="Nascimento" name="nascimento">
+                            <input type="date" class="form-control bg-transparent" placeholder="Nascimento" name="nascimento" value="{{old('nascimento')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_cidade_estado)
                     <div class="form-group">
-                        <label class="form-label">Cidade/ Estado</label>
+                        <label class="form-label">Cidade/ Estado<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Cidade/ Estado" name="municipios">
+                            <input type="text" class="form-control bg-transparent" placeholder="Cidade/ Estado" name="municipio" value="{{old('municipio')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_pais)
                     <div class="form-group">
-                        <label class="form-label">Pais</label>
+                        <label class="form-label">Pais<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Pais" name="pais">
+                            <input type="text" class="form-control bg-transparent" placeholder="Pais" name="pais" value="{{old('pais')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_area)
                     <div class="form-group">
-                        <label class="form-label">Área de Atuação</label>
+                        <label class="form-label">Área de Atuação<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Área de Atuação" name="area">
+                            <input type="text" class="form-control bg-transparent" placeholder="Área de Atuação" name="area" value="{{old('area')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_funcao)
                     <div class="form-group">
-                        <label class="form-label">Função</label>
+                        <label class="form-label">Função<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Função" name="funcao">
+                            <input type="text" class="form-control bg-transparent" placeholder="Função" name="funcao" value="{{old('funcao')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_instituicao)
                     <div class="form-group">
-                        <label class="form-label">Instituição</label>
+                        <label class="form-label">Instituição<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Instituição" name="instituicao">
+                            <input type="text" class="form-control bg-transparent" placeholder="Instituição" name="instituicao" value="{{old('instituicao')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif
                     @if($evento->ck_vinculo)
                     <div class="form-group">
-                        <label class="form-label">Vinculo com a Unicamp</label>
+                        <label class="form-label">Vinculo com a Unicamp<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Vinculo com a Unicamp" name="vinculo">
+                            <input type="text" class="form-control bg-transparent" placeholder="Vinculo com a Unicamp" name="vinculo" value="{{old('vinculo')}}">
+                        </div>
+                        <!-- <span class="help-block">Some help content goes here</span> -->
+                    </div>
+                    @endif
+                    @if(isset($evento->input_personalizado))
+                    <div class="form-group">
+                        <label class="form-label">{{$evento->input_personalizado}}<span class="text-danger">*</span></label>
+                        <div class="input-group bg-white shadow-inset-2">
+                            <input type="text" class="form-control bg-transparent" placeholder="Insira a informação" name="input_personalizado" value="{{old('input_personalizado')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
@@ -155,7 +178,7 @@
                         Cadastrar
                     </button>
                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
-                    
+
                 </form>
             </div>
         </div>

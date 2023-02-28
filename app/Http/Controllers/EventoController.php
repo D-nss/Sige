@@ -11,6 +11,7 @@ use App\Models\Evento;
 use App\Models\ModeloCertificado;
 use App\Models\User;
 use App\Models\UploadFile;
+use Illuminate\Support\Facades\App;
 
 class EventoController extends Controller
 {
@@ -18,13 +19,18 @@ class EventoController extends Controller
     {
         $grupo = '';
 
-        $user = User::where('email', 'aadilson@unicamp.br')->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
                 $grupo = $role;
             }
         }
-        
+
         $eventosAbertos = Evento::where('grupo_usuario', $grupo)->where('status', 'Aberto')->get();
         $eventosEncerrados = Evento::where('grupo_usuario', $grupo)->where('status', 'Encerrado')->get();
         $eventosCancelados = Evento::where('grupo_usuario', $grupo)->where('status', 'Cancelado')->get();
@@ -37,7 +43,7 @@ class EventoController extends Controller
         return view('eventos.create');
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $dadosEvento = $request->except(['_token']);
         $toValidate = [
@@ -65,7 +71,12 @@ class EventoController extends Controller
 
         $dadosEvento = $request->except(['_token', 'inscricao']);
 
-        $user = User::where('email', 'aadilson@unicamp.br')->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         //$certificado_id = 1;
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
@@ -90,7 +101,7 @@ class EventoController extends Controller
 
             return redirect()->to('/eventos');
         }
-        
+
         $dadosEvento['status'] = 'Aberto';
 
         $evento = Evento::create($dadosEvento);
@@ -114,7 +125,7 @@ class EventoController extends Controller
         return view('eventos.show', compact('evento'));
     }
 
-    public function edit(Evento $evento) 
+    public function edit(Evento $evento)
     {
         return view('eventos.edit', compact('evento'));
     }
@@ -128,7 +139,7 @@ class EventoController extends Controller
             Storage::delete($certificadoAntigo);
             $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
             $certificado->save();
-            
+
         }
 
         $dados = [];
