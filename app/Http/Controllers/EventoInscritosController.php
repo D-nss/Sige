@@ -15,6 +15,7 @@ use App\Models\EventoInscrito;
 use App\Models\ComissaoUser;
 use App\Models\User;
 use App\Models\UploadFile;
+use Illuminate\Support\Facades\App;
 
 use App\Services\Avaliacao\Subcomissao;
 
@@ -34,16 +35,22 @@ class EventoInscritosController extends Controller
 
     public function create(Evento $evento)
     {
-        if(Auth::check()) {
+        /*if(Auth::check()) {
+            $user = User::where('email', Auth::user()->id)->first();
+        }*/
+
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
 
         if(
             (
-                !is_null($evento->inscricao_inicio) 
-                && 
-                strtotime(date('Y-m-d')) >= strtotime($evento->inscricao_inicio) 
-                && 
+                !is_null($evento->inscricao_inicio)
+                &&
+                strtotime(date('Y-m-d')) >= strtotime($evento->inscricao_inicio)
+                &&
                 strtotime(date('Y-m-d')) <= strtotime($evento->inscricao_fim)
             )
             ||
@@ -61,7 +68,7 @@ class EventoInscritosController extends Controller
             session()->flash('alert', 'warning');
             return redirect()->back();
         }
-        
+
     }
 
     public function store(Request $request, Evento $evento)
@@ -70,7 +77,25 @@ class EventoInscritosController extends Controller
         $inputs['evento_id'] = $evento->id;
 
         //falta validar os inputs
-        
+        $toValidate = [
+            "nome" => 'required',
+            "email" => 'required|email',
+            "tipo_documento" => ($evento->ck_documento) ? 'required' : '',
+            "documento" => ($evento->ck_documento) ? 'required|integer' : '',
+            "sexo" => ($evento->ck_sexo) ? 'required' : '',
+            "genero" => ($evento->ck_identidade_genero) ? 'required' : '',
+            'instituicao' => ($evento->ck_instituicao) ? 'required' : '',
+            'pais' => ($evento->ck_pais) ? 'required' : '',
+            'area' => ($evento->ck_area) ? 'required' : '',
+            'vinculo' => ($evento->ck_vinculo) ? 'required' : '',
+            'nascimento' => ($evento->ck_nascimento) ? 'required|date|before:' . today() : '',
+            'funcao' => ($evento->ck_funcao) ? 'required' : '',
+            'municipio' => ($evento->ck_cidade_estado) ? 'required' : '',
+            'input_personalizado' => isset($evento->input_personalizado) ? 'required' : '',
+        ];
+
+        $request->validate($toValidate);
+
         $checkInscrito = EventoInscrito::where('email', $request->email)->where('evento_id', $evento->id)->first();
         //Checa se o e-mail já está cadastrado
         if($checkInscrito) {
@@ -125,7 +150,7 @@ class EventoInscritosController extends Controller
         else {
             $user_id = '';
         }
-        
+
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
                                 ->where('comissoes.evento_id', $inscrito->evento->id)
                                 ->where('comissoes_users.user_id', $user_id)
@@ -140,7 +165,7 @@ class EventoInscritosController extends Controller
 
             $upload = new UploadFile();
             $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
-            
+
             $inscrito = EventoInscrito::find($id);
             $inscrito->arquivo = $arquivo;
             if($inscrito->update()) {
@@ -161,12 +186,16 @@ class EventoInscritosController extends Controller
 
     public function analiseArquivo(Request $request, $id)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
         $inscrito = EventoInscrito::find($id);
         $subcomissao = new Subcomissao();
         $avaliacao = new Avaliacao($subcomissao);
         $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
-        
+
         if($resposta) {
             session()->flash('status', 'Análise enviado com sucesso.');
             session()->flash('alert', 'success');
@@ -184,7 +213,7 @@ class EventoInscritosController extends Controller
     public function adm_confirmar($id)
     {
         $inscrito = EventoInscrito::find($id);
-       
+
         $inscrito->confirmacao = 1;
         $inscrito->data_confirmacao = date('Y-m-d H:i:s');
         if($inscrito->update()) {
@@ -206,7 +235,7 @@ class EventoInscritosController extends Controller
     {
         $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
         $data = explode('/', $decrypt);
-        
+
         $inscrito = EventoInscrito::find($data[1]);
         if($inscrito && $data[0] == 'sim' && $inscrito->confirmacao == 0)
         {
@@ -285,14 +314,14 @@ class EventoInscritosController extends Controller
         else {
             session()->flash('status', 'Desculpe! Não foi possível cadsatrar a presença.');
             session()->flash('alert', 'danger');
-    
+
             return redirect()->back();
         }
 
     }
-    
+
     public function baixarQrcode($codigo)
-    {    
+    {
         $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
         $data = explode('/', $decrypt);
 
@@ -369,6 +398,6 @@ class EventoInscritosController extends Controller
 
             return redirect()->back();
         }
-        
+
     }
 }

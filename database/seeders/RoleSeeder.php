@@ -26,7 +26,8 @@ class RoleSeeder extends Seeder
             'indicadores-admin',
             'indicadores-user',
             'acoes-extensao-user',
-            'acoes-extensao-admin'
+            'acoes-extensao-admin',
+            'gr_dtic'
         ];
 
         foreach ($roles as $role) {
