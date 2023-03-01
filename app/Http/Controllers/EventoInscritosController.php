@@ -35,13 +35,7 @@ class EventoInscritosController extends Controller
 
     public function create(Evento $evento)
     {
-        /*if(Auth::check()) {
-            $user = User::where('email', Auth::user()->id)->first();
-        }*/
-
-        if(App::environment('local')){
-            $user = User::where('id', 1)->first();
-        } else {
+        if(Auth::check()) {
             $user = User::where('email', Auth::user()->id)->first();
         }
 

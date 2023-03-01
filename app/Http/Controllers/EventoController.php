@@ -19,7 +19,11 @@ class EventoController extends Controller
     {
         $grupo = '';
 
-        $user = User::where('email', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
 
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
@@ -142,14 +146,14 @@ class EventoController extends Controller
         ];
 
         $request->validate($toValidate);
-        
+
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
             $certificado = ModeloCertificado::find($evento->certificado_id);
             $certificadoAntigo = $certificado->arquivo;
             Storage::delete($certificadoAntigo);
             $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
-            $certificado->save(); 
+            $certificado->save();
         }
 
         $dados = [];
