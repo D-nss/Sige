@@ -55,7 +55,7 @@
 
 <div class="form-group">
     <label for="whatsapp" class="fw-500">Whatsapp</label>
-    <input type="text" class="form-control" name="whatsapp" id="whatsapp" placeholder="Digite o e-mail " value="@if( isset($membro->whatsapp) ){{ $membro->whatsapp }}@else{{ old('whatsapp') }}@endif">
+    <input type="text" class="form-control" name="whatsapp" id="whatsapp" placeholder="Digite o whatsapp" value="@if( isset($membro->whatsapp) ){{ $membro->whatsapp }}@else{{ old('whatsapp') }}@endif">
 </div>
 
 <div class="form-group">
