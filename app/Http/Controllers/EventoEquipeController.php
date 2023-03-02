@@ -9,9 +9,10 @@ use App\Models\EventoEquipe;
 
 class EventoEquipeController extends Controller
 {
-    public function index()
+    public function index(Evento $evento)
     {
-        return view('eventos.equipe.index', compact('users', 'evento'));
+        $equipe = EventoEquipe::where('evento_id', $evento->id)->get();
+        return view('eventos.equipe.index', compact('evento', 'equipe'));
     }
 
     public function create(Evento $evento)
@@ -20,8 +21,24 @@ class EventoEquipeController extends Controller
         return view('eventos.equipe.create', compact('users', 'evento'));
     }
 
+    public function edit(Evento $evento, $membro_id)
+    {
+        $membro = EventoEquipe::find($membro_id);
+        $users = \App\Models\User::all();
+        return view('eventos.equipe.edit', compact('evento', 'membro', 'users'));
+    }
+
     public function store(Request $request, Evento $evento)
     {
+        $validated = $request->validate(
+            [
+                'nome' => 'required',
+                'cpf' => 'required',
+                'email' => 'required',
+                'funcao_evento' => 'required',
+            ]
+        );
+
         $input = $request->except('_token');
 
         $input['evento_id'] = $evento->id;
@@ -32,7 +49,7 @@ class EventoEquipeController extends Controller
             session()->flash('status', 'Membro de equipe de evento já cadastrado.');
             session()->flash('alert', 'warning');
 
-            return redirect()->back();
+            return redirect()->to('evento/' . $evento->id . '/equipe');
         }
 
         $membroEquipe = EventoEquipe::create($input);
@@ -41,10 +58,72 @@ class EventoEquipeController extends Controller
             session()->flash('status', 'Membro da equipe do evento cadastrado com sucesso.');
             session()->flash('alert', 'success');
 
-            return redirect()->to('/eventos');
+            return redirect()->to('evento/' . $evento->id . '/equipe');
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao cadastrar o membro da equipe do evento.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
+    public function update(Request $request, Evento $evento, $id)
+    {
+        $dados = [];
+        
+        $validated = $request->validate(
+            [
+                'nome' => 'required',
+                'cpf' => 'required',
+                'email' => 'required',
+                'funcao_evento' => 'required',
+            ]
+        );
+        
+        $inputs = $request->except('_token', '_method');
+        $inputs['evento_id'] = $evento->id;
+        // $emailJaCadastrado = EventoEquipe::where('email', $inputs['email'])->first();
+
+        // if($emailJaCadastrado) {
+        //     session()->flash('status', 'E-mail já cadastrado.');
+        //     session()->flash('alert', 'warning');
+
+        //     return redirect()->back();
+        // }
+
+        foreach($inputs as $key => $value) {
+            $dados[$key] = $value;
+        }
+
+        $membroEquipe = EventoEquipe::where('id', $id)->update($dados);
+
+        if($membroEquipe) {
+            session()->flash('status', 'Membro da equipe do evento atualizado com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->to('evento/' . $evento->id . '/equipe');
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao atualizar o membro da equipe do evento.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
+    public function destroy(Evento $evento, $id)
+    {
+        $membroEquipe = EventoEquipe::find($id);
+        
+        if($membroEquipe->delete()) {
+            session()->flash('status', 'Membro da equipe do evento removido com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao remover o membro da equipe do evento.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();

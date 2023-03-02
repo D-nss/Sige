@@ -34,11 +34,11 @@
                                 <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
-                                        <i class="far fa-plus icon-stack-1x opacity-100 color-success-500"></i>
+                                        <i class="far fa-edit icon-stack-1x opacity-100 color-success-500"></i>
                                         
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
-                                        Novo Membro de Equipe
+                                        Edição de Membro de Equipe
                                     </h4>
                                     <span class="ml-auto disable">
                                         <span class="collapsed-reveal">
@@ -52,12 +52,12 @@
                             </div>
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
                                 <div class="card-body">
-                                        <form action="{{ url('evento/' . $evento->id . '/equipe') }}" method="post">
-                                    
+                                        <form action="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id) }}" method="post">
                                         @csrf
+                                        @method('PUT')
                                         @include('eventos.equipe._form')                                                        
                                         <button type="submit" class="btn btn-primary">
-                                            Adicionar
+                                            Atualizar
                                         </button>
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </form>

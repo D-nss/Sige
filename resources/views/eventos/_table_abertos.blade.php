@@ -37,6 +37,9 @@
                         <a href="{{ url('/eventos/' . $evento->id . '/editar') }}" class="btn btn-info btn-xs mb-1">
                             Editar
                         </a>
+                        <a href="{{ url('evento/'. $evento->id .'/equipe')}}" class="btn btn-warning btn-xs mb-1">
+                            Equipe
+                        </a>
                         <a href="{{ url('evento/'. $evento->id .'/inscritos')}}" class="btn btn-success btn-xs mb-1">
                             Inscrições
                         </a>

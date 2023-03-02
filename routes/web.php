@@ -148,6 +148,9 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('evento/{evento}/equipe/novo', [EventoEquipeController::class, 'create']);
     Route::get('evento/{evento}/equipe/', [EventoEquipeController::class, 'index']);
     Route::post('evento/{evento}/equipe/', [EventoEquipeController::class, 'store']);
+    Route::delete('evento/{evento}/equipe/{membro}', [EventoEquipeController::class, 'destroy']);
+    Route::get('evento/{evento}/equipe/{membro}/editar', [EventoEquipeController::class, 'edit']);
+    Route::put('evento/{evento}/equipe/{membro}', [EventoEquipeController::class, 'update']);
     
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);

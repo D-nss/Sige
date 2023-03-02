@@ -42,36 +42,47 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($equipe as $membro)
                                 <tr>
-                                    <td>André Moreira</td>
-                                    <td>aadilson@unicamp.br</td>
-                                    <td>19 191919 1919</td>
-                                    <td>Palestrante</td>
+                                    <td>{{ $membro->nome }}</td>
+                                    <td>{{ $membro->email }}</td>
+                                    <td>{{ $membro->whatsapp }}</td>
+                                    <td>{{ $membro->funcao_evento }}</td>
                                     <td>
-                                        <button class="btn btn-info btn-xs">Ver</button>
-                                        <button class="btn btn-danger btn-xs">Deletar</button>
+                                        <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/editar') }}" class="btn btn-info btn-xs">Editar</a>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal{{ $membro->id }}">
+                                            Remover
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal{{ $membro->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $membro->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <form action="{{ url('evento/' . $membro->evento->id .'/equipe/' . $membro->id)}}" method="post">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalLabel{{ $membro->id }}">Alerta</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <p>Deseja remover o membro <span class="fw-500">{{ $membro->nome }}</span>?</p>
+                                                        
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-danger">Confirmar remoção</button>
+                                                    </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div> 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>André Moreira</td>
-                                    <td>aadilson@unicamp.br</td>
-                                    <td>19 191919 1919</td>
-                                    <td>Palestrante</td>
-                                    <td>
-                                        <button class="btn btn-info btn-xs">Ver</button>
-                                        <button class="btn btn-danger btn-xs">Deletar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>André Moreira</td>
-                                    <td>aadilson@unicamp.br</td>
-                                    <td>19 191919 1919</td>
-                                    <td>Palestrante</td>
-                                    <td>
-                                        <button class="btn btn-info btn-xs">Ver</button>
-                                        <button class="btn btn-danger btn-xs">Deletar</button>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>        
                         </div>
