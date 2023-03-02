@@ -170,6 +170,11 @@
                 </ul>
             </li>
             @if(Auth::hasUser())
+            <li class="">
+                <a href="{{ url('eventos') }}" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Eventos</span>
+                </a>
+            </li>
             @hasanyrole('super|admin', 'web_user')
             <li class="nav-title">Administração</li>
             <li>
