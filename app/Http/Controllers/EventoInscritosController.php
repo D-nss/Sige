@@ -238,11 +238,12 @@ class EventoInscritosController extends Controller
             if($inscrito->update()) {
                 $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
                 $idCrypted = \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id);
-                $inscrito->notify( new \App\Notifications\EventoInscritoLinkPainelNotificacao([
+                // em ajuste...
+               /* $inscrito->notify( new \App\Notifications\EventoInscritoLinkPainelNotificacao([
                     'titulo_evento' => $inscrito->evento->titulo,
                     'nome' => $inscrito->nome,
                     'id' => $idCrypted
-                ]));
+                ]));*/
                 $url = url("inscritos/presenca/$crypt");
                 //Gerando QRCode
                 $qrcode = QrCode::size(200)->generate( url($url));
