@@ -25,7 +25,7 @@ class EventoInscritosController extends Controller
 {
     public function index(Evento $evento)
     {
-        $confirmados = EventoInscrito::where('confirmacao', 1)->where('evento_id', $evento->id)->get();
+        $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
         $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
         $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
         $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
