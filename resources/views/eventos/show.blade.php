@@ -226,7 +226,7 @@
                                             </h5>
                                         </div>
                                     </div>
-                                    <a href="" class="btn btn-primary">Editar</a>
+                                    <a href="{{ url('/eventos/' . $evento->id . '/editar') }}" class="btn btn-primary">Editar</a>
                                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                 </div>
                             </div>
