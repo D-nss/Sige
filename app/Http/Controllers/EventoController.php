@@ -150,10 +150,11 @@ class EventoController extends Controller
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
             $certificado = ModeloCertificado::find($evento->certificado_id);
-            $certificadoAntigo = $certificado->arquivo;
-            Storage::delete($certificadoAntigo);
-            $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
-            $certificado->save();
+            echo json_encode($certificado);
+            // $certificadoAntigo = $certificado->arquivo;
+            // Storage::delete($certificadoAntigo);
+            // $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
+            // $certificado->save();
         }
 
         $dados = [];
