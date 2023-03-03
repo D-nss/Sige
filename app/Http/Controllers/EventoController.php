@@ -145,7 +145,7 @@ class EventoController extends Controller
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
             "modelo" => isset($request->enviar_modelo) ? 'required|mimes:jpg' : '',
         ];
-        echo json_encode($toValidate);
+        echo json_encode($request->all());
         // $request->validate($toValidate);
 
         // if( isset($request->modelo) || !$request->modelo == '') {
