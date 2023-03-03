@@ -132,6 +132,7 @@ class EventoController extends Controller
 
     public function update(Request $request, Evento $evento)
     {
+        $dados = [];
         $toValidate = [
             "titulo" => 'required',
             "local" => 'required',
@@ -149,32 +150,40 @@ class EventoController extends Controller
 
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
-            $certificado = ModeloCertificado::find($evento->certificado_id);
-            echo json_encode($certificado);
-            // $certificadoAntigo = $certificado->arquivo;
-            // Storage::delete($certificadoAntigo);
-            // $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
-            // $certificado->save();
+            $certificado = ModeloCertificado::find($evento->modelo_certificado_id);
+            if($certificado->padrao == 1) {
+                unset($certificado);
+                $certificado = new ModeloCertificado();
+                $certificado->titulo = 'Certificado-'.uniqid();
+                $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
+                $certificado->save();
+                $dados['modelo_certificado_id'] = $certificado->id;
+            }
+            else {
+                $certificadoAntigo = $certificado->arquivo;
+                Storage::delete($certificadoAntigo);
+                $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
+                $certificado->save();
+            }
         }
 
-        // $dados = [];
-        // $inputs = $request->except('_token', '_method');
-        // foreach($inputs as $key => $value) {
-        //     $dados[$key] = $value;
-        // }
+        $inputs = $request->except('_token', '_method');
+        foreach($inputs as $key => $value) {
+            $dados[$key] = $value;
+        }
 
-        // if($evento->update($dados)) {
-        //     session()->flash('status', 'Evento Atualizado com sucesso.');
-        //     session()->flash('alert', 'success');
+        if($evento->update($dados)) {
+            session()->flash('status', 'Evento Atualizado com sucesso.');
+            session()->flash('alert', 'success');
 
-        //     return redirect()->to("eventos/$evento->id");
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
-        //     session()->flash('alert', 'danger');
+            return redirect()->to("eventos/$evento->id");
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
     }
 
     public function destroy(Evento $evento)
