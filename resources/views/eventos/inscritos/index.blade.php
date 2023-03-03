@@ -71,7 +71,7 @@
                                                     <a href="{{ url('evento/inscrito/' . $confirmado->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
-                                                    <a href="{{ url('inscrito/enviar-email/' $confirmado->id '/novo') }}" class="btn btn-warning btn-xs">
+                                                    <a href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
                                                         Enviar E-Mail
                                                     </a>
                                                     
@@ -120,7 +120,7 @@
                                                     <a href="{{ url('evento/inscrito/' . $lista->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
-                                                    <a href="{{ url('inscrito/enviar-email/' $lista->id '/novo') }}" class="btn btn-warning btn-xs">
+                                                    <a href="{{ url('inscrito/enviar-email/' . $lista->id . '/novo') }}" class="btn btn-warning btn-xs">
                                                         Enviar E-Mail
                                                     </a>
                                                 </td>
@@ -169,7 +169,7 @@
                                                     <a href="{{ url('evento/inscrito/' . $naoConfirmado->id) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
-                                                    <a href="{{ url('inscrito/enviar-email/' $naoConfirmado->id '/novo') }}" class="btn btn-warning btn-xs">
+                                                    <a href="{{ url('inscrito/enviar-email/' . $naoConfirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
                                                         Enviar E-Mail
                                                     </a>
                                                     <a href="{{ url('inscritos/adm/confirmacao/' . $naoConfirmado->id) }}" class="btn btn-success btn-xs">
