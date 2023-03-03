@@ -157,24 +157,24 @@ class EventoController extends Controller
             // $certificado->save();
         }
 
-        $dados = [];
-        $inputs = $request->except('_token', '_method');
-        foreach($inputs as $key => $value) {
-            $dados[$key] = $value;
-        }
+        // $dados = [];
+        // $inputs = $request->except('_token', '_method');
+        // foreach($inputs as $key => $value) {
+        //     $dados[$key] = $value;
+        // }
 
-        if($evento->update($dados)) {
-            session()->flash('status', 'Evento Atualizado com sucesso.');
-            session()->flash('alert', 'success');
+        // if($evento->update($dados)) {
+        //     session()->flash('status', 'Evento Atualizado com sucesso.');
+        //     session()->flash('alert', 'success');
 
-            return redirect()->to("eventos/$evento->id");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
-            session()->flash('alert', 'danger');
+        //     return redirect()->to("eventos/$evento->id");
+        // }
+        // else {
+        //     session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
+        //     session()->flash('alert', 'danger');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
     }
 
     public function destroy(Evento $evento)
