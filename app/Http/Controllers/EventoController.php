@@ -20,7 +20,7 @@ class EventoController extends Controller
         $grupo = '';
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -143,7 +143,7 @@ class EventoController extends Controller
             "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
             "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
-            "modelo" => isset($request->enviar_modelo) ? 'required|mimes:jpg' : '',
+            "modelo" => isset($request->enviar_modelo) ? 'mimes:jpg' : '',
         ];
        
         $request->validate($toValidate);
@@ -167,8 +167,16 @@ class EventoController extends Controller
             }
         }
 
+        $vagasPreenchidas = $evento->inscritos->where('lista_espera', 0)->count();
         $inputs = $request->except('_token', '_method');
         foreach($inputs as $key => $value) {
+            if($key == 'vagas' && ( $value < $vagasPreenchidas ) ) {
+                session()->flash('status', 'O número de vagas não poder ser menor que o número de inscritos já cadstrados.');
+                session()->flash('alert', 'danger');
+
+                return redirect()->back();
+            }
+
             $dados[$key] = $value;
         }
 

@@ -100,7 +100,7 @@ class ComissaoController extends Controller
             session()->flash('status', 'Comissão cadastrada com sucesso!!!');
             session()->flash('alert', 'success');
 
-            if(isset($request->evento_id)) {
+            if(!is_null($comissao->evento_id)) {
                 return redirect()->back();
             }
             
