@@ -127,7 +127,7 @@
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao" class="fw-700"><i class="far fa-edit mr-2"></i>Inscrições</label>
                                             <div class="custom-control custom-switch mb-3">
-                                                <input class="custom-control-input" type="checkbox" id="inscricao" value="1" @if(isset($evento->inscricao_inicio)) checked value="1" @endif>
+                                                <input class="custom-control-input" type="checkbox" id="inscricao" name="inscricao"  value="1" @if(isset($evento->inscricao_inicio)) checked @endif>
                                                 <label class="custom-control-label" for="inscricao">
                                                     Terá Inscrição?
                                                 </label>
@@ -215,7 +215,7 @@
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
-                                                            <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" @if(isset($evento->ck_arquivo)) checked value="1" @endif>
+                                                            <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" @if(isset($evento->ck_arquivo)) checked @endif>
                                                             <label class="custom-control-label mb-2" for="ck_arquivo">
                                                                 Exigir Arquivo de Projeto
                                                             </label>
@@ -251,7 +251,7 @@
                                                  
                                             <div class="@if(!isset($evento->certificado)) d-none @endif" id="evento_certificado">
                                                 <div class="custom-control custom-switch mb-3">
-                                                    <input class="custom-control-input" type="checkbox" id="enviar_modelo" value="1" @if(isset($evento->certificado)) checked value="1" @endif>
+                                                    <input class="custom-control-input" type="checkbox" id="enviar_modelo" name="enviar_modelo" value="1" @if(isset($evento->certificado)) checked @endif>
                                                     <label class="custom-control-label" for="enviar_modelo">
                                                         Enviar modelo
                                                     </label>
