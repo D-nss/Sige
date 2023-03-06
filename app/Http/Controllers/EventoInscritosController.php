@@ -43,9 +43,9 @@ class EventoInscritosController extends Controller
             (
                 !is_null($evento->inscricao_inicio)
                 &&
-                strtotime(date('Y-m-d')) >= strtotime($evento->inscricao_inicio)
+                strtotime(date('Y-m-d H:i:s')) >= strtotime($evento->inscricao_inicio)
                 &&
-                strtotime(date('Y-m-d')) <= strtotime($evento->inscricao_fim)
+                strtotime(date('Y-m-d H:i:s')) <= strtotime($evento->inscricao_fim)
             )
             ||
             (
@@ -60,6 +60,7 @@ class EventoInscritosController extends Controller
         else {
             session()->flash('status', 'Desculpe, ainda não está no prazo de inscrição.');
             session()->flash('alert', 'warning');
+            
             return redirect()->back();
         }
 
