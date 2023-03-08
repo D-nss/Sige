@@ -60,7 +60,7 @@ class EventoInscritosController extends Controller
         else {
             session()->flash('status', 'Desculpe, ainda não está no prazo de inscrição.');
             session()->flash('alert', 'warning');
-            
+
             return redirect()->back();
         }
 
@@ -139,13 +139,13 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::find($id);
 
         if(Auth::check()) {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('id', 1)->first();
             $user_id = $user->id;
         }
         else {
             $user_id = '';
         }
-
+        // o acesso a view do painel do inscrito será limitado a quem?
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
                                 ->where('comissoes.evento_id', $inscrito->evento->id)
                                 ->where('comissoes_users.user_id', $user_id)
@@ -192,6 +192,13 @@ class EventoInscritosController extends Controller
         $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
 
         if($resposta) {
+            $inscrito->notify( new \App\Notifications\EventoInscritoAnaliseArquivoNotificar([
+                'titulo_evento' => $evento->titulo,
+                'nome' => $inscrito->nome,
+                'id' => $inscrito->id,
+                'status_arquivo' => $inscrito->status_arquivo
+            ]));
+
             session()->flash('status', 'Análise enviado com sucesso.');
             session()->flash('alert', 'success');
 
