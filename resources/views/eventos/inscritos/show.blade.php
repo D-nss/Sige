@@ -256,6 +256,93 @@
                                                                     <span class="badge badge-danger badge-pill mt-0 mb-3">
                                                                     {{ $inscrito->status_arquivo }}
                                                                     </span>
+                                                                    <div class="col-12">
+                                                                        <div class="p-0">
+                                                                            <h5>
+                                                                                <span class="font-color-light font-size-14">Ressalva</span>
+                                                                                <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                                                {{ $inscrito->arquivo_ressalva }}
+                                                                                </small>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if($inscrito->recurso_arquivo == NULL)
+                                                                        <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#recursoModal">
+                                                                            Abrir Recurso
+                                                                        </button>
+                                                                        
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="recursoModal" tabindex="-1" aria-labelledby="recursoModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <form action="{{ url('inscrito/recurso-arquivo/' . $inscrito->id) }}" method="POST">
+                                                                                    <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="recursoModalLabel">Recurso Análise Arquivo</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                            @csrf
+                                                                                        
+                                                                                            <div class="form-group">
+                                                                                                <label for="arquivo_ressalva">Argumentação</label>
+                                                                                                <textarea class="form-control" type="text" name="argumentacao" rows="10"></textarea>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                        <button type="submit" class="btn btn-success">Enviar</button>
+                                                                                    </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="col-12">
+                                                                            <div class="p-0">
+                                                                                <h5>
+                                                                                    <span class="font-color-light font-size-14">Agurmentação Recurso</span>
+                                                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                                                    {{ $inscrito->recurso_arquivo }}
+                                                                                    </small>
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
+                                                                            Aprovar Recurso
+                                                                        </button>
+                                                                        
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="aprovaRecursoModal" tabindex="-1" aria-labelledby="aprovaRecursoModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <form action="{{ url('inscrito/avaliar-recurso/' . $inscrito->id) }}" method="POST">
+                                                                                    <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="aprovaRecursoModalLabel">Aprova Recurso</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        
+                                                                                            @csrf
+                                                                                            <select class="form-control" name="resposta_recurso">
+                                                                                                <option value="">Selecione ...</option>
+                                                                                                <option value="Aceito">Aceito</option>
+                                                                                                <option value="Recusado">Recusado</option>
+                                                                                            </select>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                        <button type="submit" class="btn btn-success">Enviar</button>
+                                                                                    </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
                                                                 @else
                                                                     <span class="badge badge-warning badge-pill mt-0 mb-3">
                                                                         Em Análise
@@ -265,7 +352,7 @@
                                                             <small class="mt-0 mb-3">
                                                             <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a> 
                                                             </small>
-                                                            @if( $userNaComissao )
+                                                            @if( $userNaComissao && $inscrito->status_arquivo == NULL )
                                                                 
                                                                 <div class="mt-0 mb-3">
                                                                     <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#exampleModal{{$inscrito->id}}">
@@ -296,7 +383,10 @@
                                                                                                 <option value="Recusado">Recusado</option>
                                                                                             </select>
                                                                                         </div>
-                                                                                    
+                                                                                        <div class="form-group" id="ressalva">
+                                                                                            <label for="arquivo_ressalva">Ressalva</label>
+                                                                                            <textarea class="form-control" type="text" name="arquivo_ressalva" rows="10"></textarea>
+                                                                                        </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

@@ -94,10 +94,12 @@ class Subcomissao implements AvaliacaoInterface
     public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) 
     {
         $validated = $request->validate([
-            'status_arquivo' => 'required'
+            'status_arquivo' => 'required',
+            'arquivo_ressalva' => 'max:500'
         ]);
 
         $inscrito->status_arquivo = $request->status_arquivo;
+        $inscrito->arquivo_ressalva = $request->arquivo_ressalva;
         $inscrito->analista_user_id = $user->id;
 
         if($inscrito->update()) {

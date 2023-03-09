@@ -7,8 +7,10 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use Illuminate\Support\Facades\Notification;
 
 use App\Mail\EnviarEmail;
+use App\Notifications\RecursoArquivoNotificar;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
@@ -138,13 +140,13 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
-        if(Auth::check()) {
+        // if(Auth::check()) {
             $user = User::where('id', 1)->first();
             $user_id = $user->id;
-        }
-        else {
-            $user_id = '';
-        }
+        // }
+        // else {
+        //     $user_id = '';
+        // }
         // o acesso a view do painel do inscrito será limitado a quem?
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
                                 ->where('comissoes.evento_id', $inscrito->evento->id)
@@ -179,6 +181,57 @@ class EventoInscritosController extends Controller
         }
     }
 
+    public function recursoArquivo(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'argumentacao' => 'required|max:500',
+        ]);
+
+        $inscrito = EventoInscrito::find($id);
+        $inscrito->recurso_arquivo = $request->argumentacao;
+        if($inscrito->save()) {
+            Notification::send($inscrito->analista, new RecursoArquivoNotificar($inscrito));
+            session()->flash('status', 'Recurso enviado com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Erro ao enviar recurso.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
+    }
+
+    public function avaliaRecurso(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'resposta_recurso' => 'required',
+        ]);
+
+        $inscrito = EventoInscrito::find($id);
+        $inscrito->resposta_recurso = $request->resposta_recurso;
+        if($request->resposta_recurso == 'Aceito') {
+            $inscrito->status_arquivo == 'Aceito';
+        }
+
+        if($inscrito->save()) {
+            Notification::send($inscrito->analista, new RecursoAnaliseNotificar($inscrito));
+            session()->flash('status', 'Recurso enviado com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Erro ao enviar recurso.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
     public function analiseArquivo(Request $request, $id)
     {
         if(App::environment('local')){
@@ -192,12 +245,7 @@ class EventoInscritosController extends Controller
         $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
 
         if($resposta) {
-            $inscrito->notify( new \App\Notifications\EventoInscritoAnaliseArquivoNotificar([
-                'titulo_evento' => $evento->titulo,
-                'nome' => $inscrito->nome,
-                'id' => $inscrito->id,
-                'status_arquivo' => $inscrito->status_arquivo
-            ]));
+            $inscrito->notify( new \App\Notifications\EventoInscritoAnaliseArquivoNotificar($inscrito));
 
             session()->flash('status', 'Análise enviado com sucesso.');
             session()->flash('alert', 'success');

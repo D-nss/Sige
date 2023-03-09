@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\Evento;
+use App\Models\User;
 
 class EventoInscrito extends Model
 {
@@ -43,5 +44,10 @@ class EventoInscrito extends Model
     public function evento()
     {
         return $this->belongsTo(Evento::class);
+    }
+
+    public function analista()
+    {
+        return $this->belongsTo(User::class, 'analista_user_id');
     }
 }

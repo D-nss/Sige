@@ -129,6 +129,7 @@ Route::get('inscritos/confirmacao/{codigo}', [EventoInscritosController::class, 
 Route::get('inscritos/baixar_qrcode/{codigo}', [EventoInscritosController::class, 'baixarQrcode']);
 Route::get('evento/inscrito/{id}', [EventoInscritosController::class, 'show']);
 Route::post('inscrito/upload-arquivo/{id}', [EventoInscritosController::class, 'uploadArquivo']);
+Route::post('inscrito/recurso-arquivo/{id}', [EventoInscritosController::class, 'recursoArquivo']);
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
@@ -151,7 +152,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::delete('evento/{evento}/equipe/{membro}', [EventoEquipeController::class, 'destroy']);
     Route::get('evento/{evento}/equipe/{membro}/editar', [EventoEquipeController::class, 'edit']);
     Route::put('evento/{evento}/equipe/{membro}', [EventoEquipeController::class, 'update']);
-    
+    Route::post('inscrito/avaliar-recurso/{id}', [EventoInscritosController::class, 'avaliaRecurso']);
+
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
     Route::put('/usuarios/{user}/ativar', [UserController::class, 'ativar'])->name('user.ativar');
