@@ -186,22 +186,22 @@ class EventoInscritosController extends Controller
         $validated = $request->validate([
             'argumentacao' => 'required|max:500',
         ]);
+        echo json_encode($inscrito->analista);
+        // $inscrito = EventoInscrito::find($id);
+        // $inscrito->recurso_arquivo = $request->argumentacao;
+        // if($inscrito->save()) {
+        //     Notification::send($inscrito->analista, new RecursoArquivoNotificar($inscrito));
+        //     session()->flash('status', 'Recurso enviado com sucesso.');
+        //     session()->flash('alert', 'success');
 
-        $inscrito = EventoInscrito::find($id);
-        $inscrito->recurso_arquivo = $request->argumentacao;
-        if($inscrito->save()) {
-            Notification::send($inscrito->analista, new RecursoArquivoNotificar($inscrito));
-            session()->flash('status', 'Recurso enviado com sucesso.');
-            session()->flash('alert', 'success');
+        //     return redirect()->back();
+        // }
+        // else {
+        //     session()->flash('status', 'Erro ao enviar recurso.');
+        //     session()->flash('alert', 'danger');
 
-            return redirect()->back();
-        }
-        else {
-            session()->flash('status', 'Erro ao enviar recurso.');
-            session()->flash('alert', 'danger');
-
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
 
     }
 
