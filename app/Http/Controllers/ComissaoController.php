@@ -14,7 +14,7 @@ class ComissaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
+        $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
     }
 
     /**
