@@ -310,7 +310,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                         </div>
-                                                                        @if($userNaComissao)
+                                                                        <!-- @if($userNaComissao) -->
                                                                         <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
                                                                             Aprovar Recurso
                                                                         </button>
@@ -343,7 +343,7 @@
                                                                                 </form>
                                                                             </div>
                                                                         </div>
-                                                                        @endif
+                                                                        <!-- @endif -->
                                                                     @endif
                                                                 @else
                                                                     <span class="badge badge-warning badge-pill mt-0 mb-3">
