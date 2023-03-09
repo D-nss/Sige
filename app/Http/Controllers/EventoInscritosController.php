@@ -186,8 +186,9 @@ class EventoInscritosController extends Controller
         $validated = $request->validate([
             'argumentacao' => 'required|max:500',
         ]);
+        
+        $inscrito = EventoInscrito::find($id);
         echo json_encode($inscrito->analista);
-        // $inscrito = EventoInscrito::find($id);
         // $inscrito->recurso_arquivo = $request->argumentacao;
         // if($inscrito->save()) {
         //     Notification::send($inscrito->analista, new RecursoArquivoNotificar($inscrito));
