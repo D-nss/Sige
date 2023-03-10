@@ -311,7 +311,7 @@
                                                                             </div>
                                                                         </div>
                                                                         
-                                                                        @if($userNaComissao && $inscrito->resposta_recurso != NULL)
+                                                                        @if($userNaComissao && $inscrito->resposta_recurso == NULL)
                                                                             <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
                                                                                 Aprovar Recurso
                                                                             </button>
