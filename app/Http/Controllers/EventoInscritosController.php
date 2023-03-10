@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Notification;
 
 use App\Mail\EnviarEmail;
 use App\Notifications\RecursoArquivoNotificar;
+use App\Notifications\RecursoAnaliseNotificar;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
@@ -140,13 +141,13 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
-        // if(Auth::check()) {
+        if(Auth::check()) {
             $user = User::where('id', 1)->first();
             $user_id = $user->id;
-        // }
-        // else {
-        //     $user_id = '';
-        // }
+        }
+        else {
+            $user_id = '';
+        }
         // o acesso a view do painel do inscrito será limitado a quem?
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
                                 ->where('comissoes.evento_id', $inscrito->evento->id)
