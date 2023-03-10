@@ -170,7 +170,7 @@ class EventoInscritosController extends Controller
             // $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
 
             $inscrito = EventoInscrito::find($id);
-            echo json_encode(Storage::exists($inscrito->arquivo));
+            echo json_encode(Storage::disk('public')->exists($inscrito->arquivo));
             // $inscrito->arquivo = $arquivo;
             // if($inscrito->update()) {
             //     session()->flash('status', 'Arquivo enviado com sucesso.');
