@@ -223,14 +223,14 @@ class EventoInscritosController extends Controller
         }
 
         if($inscrito->save()) {
-            Notification::send($inscrito->analista, new RecursoAnaliseNotificar($inscrito));
-            session()->flash('status', 'Recurso enviado com sucesso.');
+            $inscrito->notify( new \App\Notifications\RecursoAnaliseNotificar($inscrito));
+            session()->flash('status', 'Avaliação de recurso enviada com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
-            session()->flash('status', 'Erro ao enviar recurso.');
+            session()->flash('status', 'Erro ao enviar avaliação de recurso.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();

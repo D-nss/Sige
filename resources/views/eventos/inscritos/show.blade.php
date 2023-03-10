@@ -311,39 +311,40 @@
                                                                             </div>
                                                                         </div>
                                                                         
-                                                                        <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
-                                                                            Aprovar Recurso
-                                                                        </button>
-                                                                        
-                                                                        <!-- Modal -->
-                                                                        <div class="modal fade" id="aprovaRecursoModal" tabindex="-1" aria-labelledby="aprovaRecursoModalLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog">
-                                                                                <form action="{{ url('inscrito/avaliar-recurso/' . $inscrito->id) }}" method="POST">
-                                                                                    <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="aprovaRecursoModalLabel">Aprova Recurso</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        
-                                                                                            @csrf
-                                                                                            <select class="form-control" name="resposta_recurso">
-                                                                                                <option value="">Selecione ...</option>
-                                                                                                <option value="Aceito">Aceito</option>
-                                                                                                <option value="Recusado">Recusado</option>
-                                                                                            </select>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                                                        <button type="submit" class="btn btn-success">Enviar</button>
-                                                                                    </div>
-                                                                                    </div>
-                                                                                </form>
+                                                                        @if($userNaComissao && $inscrito->resposta_recurso != NULL)
+                                                                            <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
+                                                                                Aprovar Recurso
+                                                                            </button>
+                                                                            
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="aprovaRecursoModal" tabindex="-1" aria-labelledby="aprovaRecursoModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <form action="{{ url('inscrito/avaliar-recurso/' . $inscrito->id) }}" method="POST">
+                                                                                        <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="aprovaRecursoModalLabel">Aprova Recurso</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            
+                                                                                                @csrf
+                                                                                                <select class="form-control" name="resposta_recurso">
+                                                                                                    <option value="">Selecione ...</option>
+                                                                                                    <option value="Aceito">Aceito</option>
+                                                                                                    <option value="Recusado">Recusado</option>
+                                                                                                </select>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                            <button type="submit" class="btn btn-success">Enviar</button>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        
+                                                                        @endif
                                                                     @endif
                                                                 @else
                                                                     <span class="badge badge-warning badge-pill mt-0 mb-3">
@@ -400,7 +401,7 @@
                                                                     </div>
                                                                 </div>
                                                                 
-                                                                @endif
+                                                            @endif
                                                         </h5>
                                                     </div>
                                                 </div>
