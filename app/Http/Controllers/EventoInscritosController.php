@@ -219,7 +219,7 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::find($id);
         $inscrito->resposta_recurso = $request->resposta_recurso;
         if($request->resposta_recurso == 'Aceito') {
-            $inscrito->status_arquivo == 'Aceito';
+            $inscrito->status_arquivo = 'Aceito';
         }
 
         if($inscrito->save()) {
