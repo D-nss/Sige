@@ -168,12 +168,14 @@ class EventoInscritosController extends Controller
 
             $inscrito = EventoInscrito::find($id);
             if(!is_null($inscrito->arquivo) && Storage::disk('public')->exists($inscrito->arquivo)) {
-                Storage::disk('public')->delete($inscrito->arquivo);
+                $arquivo_antigo = $inscrito->arquivo;
+                Storage::disk('public')->delete($arquivo_antigo);
             }
 
             $upload = new UploadFile();
             $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
             $inscrito->arquivo = $arquivo;
+            $inscrito->status_arquivo = 'Em Análise';
             if($inscrito->update()) {
                 session()->flash('status', 'Arquivo enviado com sucesso.');
                 session()->flash('alert', 'success');
