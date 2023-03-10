@@ -142,7 +142,11 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::find($id);
 
         if(Auth::check()) {
-            $user = User::where('id', 1)->first();
+            if(App::environment('local')){
+                $user = User::where('id', 1)->first();
+            } else {
+                $user = User::where('email', Auth::user()->id)->first();
+            }
             $user_id = $user->id;
         }
         else {
