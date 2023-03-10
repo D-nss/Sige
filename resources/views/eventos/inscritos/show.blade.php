@@ -333,6 +333,7 @@
                                                                                                 <select class="form-control" name="resposta_recurso">
                                                                                                     <option value="">Selecione ...</option>
                                                                                                     <option value="Aceito">Aceito</option>
+                                                                                                    <option value="Pendente">Pendente</option>
                                                                                                     <option value="Recusado">Recusado</option>
                                                                                                 </select>
                                                                                         </div>
@@ -407,7 +408,10 @@
                                                 </div>
                                             @else
                                                 
-                                                @if( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
+                                                @if( ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
+                                                ||
+                                                    ($inscrito->status_arquivo == 'Pendente' && $inscrito->arquivo_ressalva != NULL)
+                                                )
                                                     <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data"> 
                                                         @csrf
                                                         <div class="form-group mt-3">
