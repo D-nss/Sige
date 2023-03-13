@@ -412,7 +412,7 @@
                                             @endif
                                             
                                             @if( 
-                                                ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
+                                                ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) && $inscrito->arquivo == NULL)
                                                     ||
                                                 ($inscrito->status_arquivo == 'Pendente' && $inscrito->arquivo_ressalva != NULL)
                                             )
