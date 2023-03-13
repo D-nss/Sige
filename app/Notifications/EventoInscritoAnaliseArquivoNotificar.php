@@ -48,13 +48,11 @@ class EventoInscritoAnaliseArquivoNotificar extends Notification
         $link = url('evento/inscrito/' . $this->inscrito->id);
         $mensagem = '';
 
-        if($this->inscrito->status_arquivo == 'Aceito') {
-            if($this->inscrito->ressalva_arquivo != NULL) {
-                $mensagem .= 'Seu projeto foi aceito pela equipe do evento, mas possui ressalvas, acesse o seu painel de inscrição para verificar a ressalva. Para acessar seu painel clique no link abaixo.';
-            }
-            else {
-                $mensagem = 'Seu projeto foi aceito pela equipe do evento. Para acessar seu painel clique no link abaixo.';
-            }
+        if($this->inscrito->status_arquivo == 'Pendente') {
+            $mensagem .= 'Seu projeto foi aceito pela equipe do evento, mas possui ressalvas, acesse o seu painel de inscrição para verificar a ressalva. Para acessar seu painel clique no link abaixo.';
+        }
+        elseif($this->inscrito->status_arquivo == 'Aceito') {
+            $mensagem = 'Seu projeto foi aceito pela equipe do evento. Para acessar seu painel clique no link abaixo.';            
         }
         else {
             $mensagem = 'Seu projeto não foi aceito pela equipe do evento, você pode abrir um recurso e solicitar uma reavaliação, acesse o seu painel clicando no link abaixo.';
