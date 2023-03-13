@@ -252,6 +252,20 @@
                                                                     <span class="badge badge-success badge-pill mt-0 mb-3">
                                                                         {{ $inscrito->status_arquivo }}
                                                                     </span>
+                                                                @elseif( $inscrito->status_arquivo == 'Pendente')
+                                                                    <span class="badge badge-warning badge-pill mt-0 mb-3">
+                                                                    {{ $inscrito->status_arquivo }}
+                                                                    </span>
+                                                                    <div class="col-12">
+                                                                        <div class="p-0">
+                                                                            <h5>
+                                                                                <span class="font-color-light font-size-14">Ressalva</span>
+                                                                                <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                                                {{ $inscrito->arquivo_ressalva }}
+                                                                                </small>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
                                                                 @elseif( $inscrito->status_arquivo == 'Recusado')
                                                                     <span class="badge badge-danger badge-pill mt-0 mb-3">
                                                                     {{ $inscrito->status_arquivo }}
