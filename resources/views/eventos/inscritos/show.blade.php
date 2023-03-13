@@ -333,7 +333,6 @@
                                                                                                 <select class="form-control" name="resposta_recurso">
                                                                                                     <option value="">Selecione ...</option>
                                                                                                     <option value="Aceito">Aceito</option>
-                                                                                                    <option value="Pendente">Pendente</option>
                                                                                                     <option value="Recusado">Recusado</option>
                                                                                                 </select>
                                                                                         </div>
@@ -356,8 +355,11 @@
                                                             <small class="mt-0 mb-3">
                                                             <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a> 
                                                             </small>
-                                                            @if( $userNaComissao && $inscrito->status_arquivo == NULL )
-                                                                
+                                                            @if( 
+                                                                ($userNaComissao && $inscrito->status_arquivo == NULL) 
+                                                                || 
+                                                                ($userNaComissao && $inscrito->status_arquivo == 'Em Análise') 
+                                                            )                                                                
                                                                 <div class="mt-0 mb-3">
                                                                     <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#exampleModal{{$inscrito->id}}">
                                                                         Analisar
@@ -384,6 +386,7 @@
                                                                                             <select class="form-control mb-2" name="status_arquivo" id="status_arquivo">
                                                                                                 <option value="">Selecione ...</option>
                                                                                                 <option value="Aceito">Aceito</option>
+                                                                                                <option value="Pendente">Pendente</option>
                                                                                                 <option value="Recusado">Recusado</option>
                                                                                             </select>
                                                                                         </div>
