@@ -327,7 +327,7 @@ class EventoInscritosController extends Controller
         {
             $inscrito->confirmacao = 2;
             if($inscrito->update()) {
-                $primeiroDaListaEspera = EventoInscrito::where('evento_id', $inscrito->edital->id)->where('lista_espera', 1)->first()->update(['lista_espera' => 0]);
+                $primeiroDaListaEspera = EventoInscrito::where('evento_id', $inscrito->evento->id)->where('lista_espera', 1)->first()->update(['lista_espera' => 0]);
                 //return view('eventos.inscritos.confirmacao', compact('inscrito'));
                 echo json_encode($primeiroDaListaEspera);
             }
