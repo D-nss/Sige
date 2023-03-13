@@ -327,9 +327,8 @@ class EventoInscritosController extends Controller
         {
             $inscrito->confirmacao = 2;
             if($inscrito->update()) {
-                $primeiroDaListaEspera = EventoInscrito::where('evento_id', $inscrito->evento->id)->where('lista_espera', 1)->first()->update(['lista_espera' => 0]);
-                //return view('eventos.inscritos.confirmacao', compact('inscrito'));
-                echo json_encode($primeiroDaListaEspera);
+                EventoInscrito::where('evento_id', $inscrito->evento->id)->where('lista_espera', 1)->first()->update(['lista_espera' => 0]);
+                return view('eventos.inscritos.confirmacao', compact('inscrito'));
             }
             else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
