@@ -62,8 +62,7 @@ class EventoInscritoAnaliseArquivoNotificar extends Notification
                     ->line( 'Olá, '. $this->inscrito->nome )
                     ->line( $mensagem )
                     ->action('Painel Inscrição', $link)
-                    ->line('Caso não consiga clicar no link, copie e cole no seu navegador.')
-                    ->line($link);
+                    ->line('Obrigado por usar nosso sistema.');
     }
 
     /**

@@ -50,8 +50,6 @@ class RecursoAnaliseNotificar extends Notification
                 ->greeting('Olá!, ' . $this->inscrito->nome)
                 ->line('Acesse o link abaixo para verificar a resposta do seu recurso.')
                 ->action('Acessar Inscrição', $link)
-                ->line('Caso não consiga clicar no link, copie e cole no seu navegador.')
-                ->line($link)
                 ->line('Obrigado por usar nosso sistema.');
     }
 

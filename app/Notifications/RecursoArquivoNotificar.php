@@ -47,11 +47,9 @@ class RecursoArquivoNotificar extends Notification
         $link = url('evento/inscrito/' . $this->inscrito->id);
         return (new MailMessage)
                 ->subject('Recurso aberto em analise feita por você.')
-                ->greeting('Olá!, ' . $this->inscrito->analista->name)
+                ->greeting('Olá!, ' . $this->inscrito->analista['name'])
                 ->line('Acesse o link abaixo para verificar o recurso que foi aberto.')
                 ->action('Acessar Inscrição', $link)
-                ->line('Caso não consiga clicar no link, copie e cole no seu navegador.')
-                ->line($link)
                 ->line('Obrigado por usar nosso sistema.');
     }
 
