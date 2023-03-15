@@ -266,6 +266,36 @@
                                 <div class="col-12">
                                     <div class="p-0">
                                         <h5>
+                                        Quantidade Alunos
+                                            <small class="mt-0 mb-3 text-muted">
+                                            {{ $inscricao->qtde_alunos }}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
+                                        Quantidade Alunos Pós-Graduação
+                                            <small class="mt-0 mb-3 text-muted">
+                                            {{ $inscricao->qtde_alunos_pg }}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
+                                        Quantidade Alunos Colégios Técnicos
+                                            <small class="mt-0 mb-3 text-muted">
+                                            {{ $inscricao->qtde_alunos_ct }}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
                                         Link Projeto
                                             <small class="mt-0 mb-3 text-muted">
                                             {{ $inscricao->url_projeto }}

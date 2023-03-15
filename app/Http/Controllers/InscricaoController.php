@@ -179,7 +179,8 @@ class InscricaoController extends Controller
                 'unidade_id' => $user->unidade->id,
                 'edital_id' => $request->edital_id,
                 'qtde_alunos' => $request->qtde_alunos,
-                'qtde_alunos_pg' => $request->qtde_alunos_pg
+                'qtde_alunos_pg' => $request->qtde_alunos_pg,
+                'qtde_alunos_ct' => $request->qtde_alunos_ct
             ]);
             /* Prepara os dados para inserção das areas temáticas */
             foreach($request->areas_tematicas as $areas) {
