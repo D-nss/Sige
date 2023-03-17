@@ -24,7 +24,7 @@
             body {
                 /* background-image: url("{{url('storage/upload/96d9c9ce_1.png')}}"); */
                 /* background-image: url("/storage/{{ $bg }}"); */
-                background-image: url(<?php echo $base64 ?>);
+                background-image: url({{ $bg_base64 }});
                 background-repeat: no-repeat;
                 background-size: cover;
                 font-family: 'Source Sans Pro', sans-serif;
@@ -65,7 +65,11 @@
             font-size: 12px;
             color: #444;
         ">
-            Código: /z4CRJhlg7dw2N/bXVAcmuWc.jelPfAGQGxbFf7aaFhPrQ1tWKsk2<br>
+            @if($participante->certificado != NULL)
+            Código: {{$participante->certificado}}<br>
+            @else
+            Código: não gerado<br>
+            @endif
             Verifique a autenticidade desse certificado em:<br>
             https://sistemas.proec.unicamp.br/admin/certificados/verifica
         </p>

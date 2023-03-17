@@ -39,15 +39,16 @@ class CertificadoController extends Controller
             '12' => 'Dezembro'
         ];
 
+        //diretório de armazenamento + caminho do certificado do evento enviado
         $bg = url('storage/' . $participante->evento->certificado->arquivo);
-
+        //pegando o conteudo da imagem
         $data = file_get_contents($bg);
         $type = 'png';
-
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        //convertendo para base64
+        $bg_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
         //Não tá exibindo a imagem de background que esta salvo no evento
-        $pdf = Pdf::loadView('certificado.pdf', compact('participante', 'meses', 'bg', 'base64'));
+        $pdf = Pdf::loadView('certificado.pdf', compact('participante', 'meses', 'bg_base64'));
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream();
         //return view('certificado.pdf', compact('participante', 'meses', 'bg'));
