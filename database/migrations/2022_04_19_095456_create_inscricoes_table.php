@@ -29,8 +29,8 @@ return new class extends Migration
             $table->char('parceria', 10);
             $table->string('anexo_parceria', 255)->nullable();
             $table->string('anexo_projeto', 255);
-            $table->string('url_projeto', 255)->nullable();
-            $table->string('url_lattes', 255)->nullable();
+            $table->string('url_projeto', 500)->nullable();
+            $table->string('url_lattes', 500)->nullable();
             $table->string('status', 190)->nullable();
             $table->string('justificativa', 10000)->nullable();
             $table->foreignIdFor(LinhaExtensao::class);

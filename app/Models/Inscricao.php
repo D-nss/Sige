@@ -39,7 +39,8 @@ class Inscricao extends Model
         'avaliador_user_id',
         'edital_id',
         'qtde_alunos',
-        'qtde_alunos_pg'
+        'qtde_alunos_pg',
+        'qtde_alunos_ct'
     ];
 
     public function user()

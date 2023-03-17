@@ -187,6 +187,10 @@
                                             <input type="number" name="qtde_alunos" class="form-control w-75" placeholder="0" value="@if(isset($inscricao->qtde_alunos)){{ $inscricao->qtde_alunos }}@else{{ old('qtde_alunos') }}@endif" required>
                                         </div>
                                         <div class="mb-4">
+                                            <label for="qtde_alunos_ct" class="font-weight-bold">Quantidade Alunos Colégios Técnicos</label>
+                                            <input type="number" name="qtde_alunos_ct" class="form-control w-75" placeholder="0" value="@if(isset($inscricao->qtde_alunos_ct)){{ $inscricao->qtde_alunos_ct }}@else{{ old('qtde_alunos_ct') }}@endif" required>
+                                        </div>
+                                        <div class="mb-4">
                                             <label for="qtde_alunos_pg" class="font-weight-bold">Quantidade Alunos Pós Graduação</label>
                                             <input type="number" name="qtde_alunos_pg" class="form-control w-75" placeholder="0" value="@if(isset($inscricao->qtde_alunos_pg)){{ $inscricao->qtde_alunos_pg }}@else{{ old('qtde_alunos_pg') }}@endif" required>
                                         </div>
