@@ -39,7 +39,7 @@ class CertificadoController extends Controller
             '12' => 'Dezembro'
         ];
 
-        $bg = url('storage/') . $participante->evento->certificado->arquivo;
+        $bg = url('storage/' . $participante->evento->certificado->arquivo);
 
         $data = file_get_contents($bg);
         $type = 'png';
