@@ -56,7 +56,7 @@ class EventoController extends Controller
             "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
             "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
-            "modelo" => isset($request->enviar_modelo) ? 'required|mimes:jpg' : '',
+            "modelo" => isset($request->enviar_modelo) ? 'required|mimes:png' : '',
         ];
 
         $request->validate($toValidate);
@@ -65,7 +65,7 @@ class EventoController extends Controller
             $upload = new UploadFile();
             $certificado = new ModeloCertificado();
             $certificado->titulo = 'Certificado-'.uniqid();
-            $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
+            $certificado->arquivo = $upload->execute($request, 'modelo', 'png', 3000000);
             $certificado->save();
         }
 
@@ -143,7 +143,7 @@ class EventoController extends Controller
             "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
             "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
-            "modelo" => isset($request->enviar_modelo) ? 'mimes:jpg' : '',
+            "modelo" => isset($request->enviar_modelo) ? 'mimes:png' : '',
         ];
        
         $request->validate($toValidate);
@@ -155,14 +155,14 @@ class EventoController extends Controller
                 unset($certificado);
                 $certificado = new ModeloCertificado();
                 $certificado->titulo = 'Certificado-'.uniqid();
-                $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
+                $certificado->arquivo = $upload->execute($request, 'modelo', 'png', 3000000);
                 $certificado->save();
                 $dados['modelo_certificado_id'] = $certificado->id;
             }
             else {
                 $certificadoAntigo = $certificado->arquivo;
                 Storage::delete($certificadoAntigo);
-                $certificado->arquivo = $upload->execute($request, 'modelo', 'jpg', 3000000);
+                $certificado->arquivo = $upload->execute($request, 'modelo', 'png', 3000000);
                 $certificado->save();
             }
         }

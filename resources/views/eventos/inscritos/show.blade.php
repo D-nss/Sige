@@ -492,6 +492,17 @@
 
                                         </div>
                                     </div>
+                                    @if( strtotime(date('Y-m-d')) > strtotime($inscrito->evento->data_fim) && $inscrito->presenca == 1 )
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <a href="{{ url('evento/'. $inscrito->evento->id .'/inscrito/'. $inscrito->id .'/certificado') }}" class="btn btn-danger">Gerar Certificado</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

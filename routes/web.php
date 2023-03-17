@@ -9,6 +9,7 @@ use App\Http\Controllers\IndicadorUnidadeController;
 use App\Http\Controllers\AvaliadorController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\AnalistaController;
+use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\CriterioController;
 use App\Http\Controllers\CronogramaController;
 use App\Http\Controllers\ComentarioController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\EventoInscritosController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\UploadArquivoController;
 use App\Http\Controllers\EventoEquipeController;
+use App\Http\Controllers\PalestranteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,6 +132,9 @@ Route::get('inscritos/baixar_qrcode/{codigo}', [EventoInscritosController::class
 Route::get('evento/inscrito/{id}', [EventoInscritosController::class, 'show']);
 Route::post('inscrito/upload-arquivo/{id}', [EventoInscritosController::class, 'uploadArquivo']);
 Route::post('inscrito/recurso-arquivo/{id}', [EventoInscritosController::class, 'recursoArquivo']);
+Route::get('evento/{evento}/equipe/{id}', [EventoEquipeController::class, 'show']);
+Route::get('evento/{evento}/equipe/{id}/certificado', [CertificadoController::class, 'make']);
+Route::get('evento/{evento}/inscrito/{id}/certificado', [CertificadoController::class, 'make']);
 
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
@@ -138,12 +143,11 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
         return view('home');
     });
 
-    //Eventos
+    //Eventos 
     Route::resource('eventos', EventoController::class);
     Route::get('evento/{evento}/inscritos', [EventoInscritosController::class, 'index']);
     Route::get('inscritos/presenca/{codigo}', [EventoInscritosController::class, 'marcarPresenca']);
     Route::get('inscritos/adm/confirmacao/{id}', [EventoInscritosController::class, 'adm_confirmar']);
-    Route::post('inscritos/adm/presenca/{id}', [EventoInscritosController::class, 'adm_presenca']);
     Route::post('inscrito/enviar-email/{id}', [EventoInscritosController::class, 'enviarEmail']);
     Route::get('inscrito/enviar-email/{id}/novo', [EventoInscritosController::class, 'enviarEmailCreate']);
     Route::put('inscrito/arquivo-analise/{id}', [EventoInscritosController::class, 'analiseArquivo']);

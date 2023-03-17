@@ -68,6 +68,13 @@ class EventoEquipeController extends Controller
         }
     }
 
+    public function show(Evento $evento, $id)
+    {
+        $membroEquipe = EventoEquipe::find($id);
+
+        return view('eventos.equipe.show', compact('evento', 'membroEquipe'));
+    }
+
     public function update(Request $request, Evento $evento, $id)
     {
         $dados = [];

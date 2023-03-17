@@ -248,7 +248,7 @@
                                                     </label>
 
                                                 </div>
-                                                <div class=" @error('modelo') border border-danger rounded p-3 @enderror">
+                                                <div class=" @error('modelo') border border-danger rounded p-3 @enderror mb-2">
                                                     <div class="form-group {{ old('enviar_modelo') ? 'd-block' : 'd-none' }}" id="carregar_modelo">
                                                         <label class="control-label font-weight-bold text-success">Upload do modelo do certificado</label>
                                                         <div class="preview-zone hidden">
@@ -272,6 +272,7 @@
                                                             <div class="dropzone-desc">
                                                                 <i class="glyphicon glyphicon-download-alt"></i>
                                                                 <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
+                                                                <p class="text-info fs-sm">O arquivo deve ser no formato PNG</p>
                                                             </div>
                                                             <input type="file" name="modelo" class="dropzone" id="modelo" value="{{ old('modelo') }}">
                                                             
