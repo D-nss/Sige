@@ -18,7 +18,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                         <i class="far fa-users icon-stack-1x opacity-100 color-success-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-success fw-500">
                                         Inscritos Confirmados
@@ -74,7 +74,12 @@
                                                     <a href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
                                                         Enviar E-Mail
                                                     </a>
-                                                    
+                                                    @if($confirmado->presenca == 0)
+                                                    <a href="{{ url('inscritos/adm/presenca/' . $confirmado->id) }}" class="btn btn-success btn-xs">
+                                                        Marcar Presença
+                                                    </a>
+                                                    @endif
+
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -86,7 +91,7 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                                         <i class="far fa-users icon-stack-1x opacity-100 color-primary-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-primary fw-500">
                                         Inscritos Lista de Espera
@@ -135,7 +140,7 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
                                         <i class="far fa-users icon-stack-1x opacity-100 color-warning-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-warning fw-500">
                                         Inscritos Aguardando Confirmação
@@ -187,7 +192,7 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
                                         <i class="far fa-users icon-stack-1x opacity-100 color-danger-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-danger fw-500">
                                         Inscritos Cancelados

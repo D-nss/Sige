@@ -18,7 +18,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -34,23 +34,29 @@
 
                 @if($inscrito->confirmacao == 1)
                 <div class="p-3 d-flex flex-row">
+                    @if($inscrito->lista_espera == 0)
                     <div class="d-block flex-shrink-0">
                         {!! $qrcode !!}
                         <div class="mt-3">
-                            <a href="{{ url('inscritos/baixar_qrcode/' . $crypt) }}" class="btn btn-danger btn-block">Baixar QRCode</a> 
+                            <a href="{{ url('inscritos/baixar_qrcode/' . $crypt) }}" class="btn btn-danger btn-block">Baixar QRCode</a>
                         </div>
                     </div>
+                    @endif
                     <div class="flex-1 ml-4">
+                        @if($inscrito->lista_espera == 0)
                         <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">{{ $inscrito->nome }} sua inscrição está confirmada no evento!</span>
                         <div class="alert alert-warning">
                             <span class="fs-sm text-secundary h6 fw-300 mb-0 d-block">Salve um print do QRCode abaixo ou clique no botão baixar</span>
                             <span class="fs-sm text-secundary h6 fw-500 mb-0 d-block">O acesso ao evento se dará através deste QRCode, por isso é importante apresenta-lo na portaria do evento</span>
                         </div>
+                        @else
+                        <span class="h6 font-weight-bold text-uppercase text-danger d-block m-0 mb-3">{{ $inscrito->nome }} sua inscrição está na lista de espera! Caso houver vaga, você será notificado por email</span>
+                        @endif
                         <p>Para acompanhamento de inscrição e envio de arquivo acesse sua área clicando no botão abaixo.</p>
                         <a href="{{ url('evento/inscrito/' . $inscrito->id) }}" class="btn btn-success btn-md d-flex justify-content-between align-items-center">Área do Inscrito <i class="far fa-arrow-right"></i></a>
                     </div>
-                </di>
-                    
+                </div>
+
                 <!-- Modal Small -->
                 <div class="modal fade" id="checked-modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -61,7 +67,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+                                @if($inscrito->lista_espera == 0)
                                 <img src="{{ asset('smartadmin-4.5.1/img/checked.gif') }}" alt="Inscrição Confirmada" class="img-fluid">
+                                @else
+                                <img src="{{ asset('smartadmin-4.5.1/img/canceled.gif') }}" alt="Inscrição Fila Espera" class="img-fluid">
+                                @endif
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -83,7 +93,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <img src="{{ asset('smartadmin-4.5.1/img/canceled.gif') }}" alt="Inscrição Confirmada" class="img-fluid" >
+                                    <img src="{{ asset('smartadmin-4.5.1/img/canceled.gif') }}" alt="Inscrição Cancelada" class="img-fluid" >
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

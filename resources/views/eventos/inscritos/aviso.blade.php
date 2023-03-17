@@ -18,7 +18,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -32,9 +32,9 @@
                     <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
                 </div>
                 <div class="alert alert-warning">
-                    <i class="far fa-exclamation-circle"></i> 
-                    Confirme sua presença através do e-mail cadastrado na inscrição.
-                </div>                
+                    <i class="far fa-exclamation-circle"></i>
+                    Atenção! Conclua sua inscrição, confirmando sua presença ao evento através do e-mail informado.
+                </div>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -35,7 +35,7 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                         <i class="far fa-list icon-stack-1x opacity-100 color-success-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                         Detalhes da Inscrição
@@ -50,14 +50,14 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="flex-1">
                                         <span class="f-lg font-color-light">Título do Evento</span>
                                         <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
                                     </div>
                                     <div class="row">
-                                       
+
                                         <div class="col-md-3">
                                             @if( !is_null($inscrito->confirmacao) )
                                             <div class="col-12">
@@ -66,9 +66,15 @@
                                                         <span class="font-color-light font-size-14">Status</span>
                                                         <br>
                                                         @if($inscrito->confirmacao == 1)
-                                                            <span class="badge badge-success badge-pill mt-0 mb-3">
-                                                                Confirmada
-                                                            </span>
+                                                            @if ($inscrito->lista_espera == 0)
+                                                                <span class="badge badge-success badge-pill mt-0 mb-3">
+                                                                    Confirmada
+                                                                </span>
+                                                            @else
+                                                                <span class="badge badge-warning badge-pill mt-0 mb-3">
+                                                                    Na lista de Espera
+                                                                </span>
+                                                            @endif
                                                         @elseif( $inscrito->confirmacao == 2)
                                                             <span class="badge badge-danger badge-pill mt-0 mb-3">
                                                                 Cancelada
@@ -76,6 +82,11 @@
                                                         @else
                                                             <span class="badge badge-warning badge-pill mt-0 mb-3">
                                                                 Não Confirmada
+                                                            </span>
+                                                        @endif
+                                                        @if ($inscrito->presenca == 1)
+                                                            <span class="badge badge-primary badge-pill mt-0 mb-3">
+                                                                Presente
                                                             </span>
                                                         @endif
                                                     </h5>
@@ -232,14 +243,27 @@
                                                 </div>
                                             </div>
                                             @endif
-                                            
+
                                         </div>
                                     </div>
+                                    <hr>
+                                    @if ($inscrito->lista_espera == 0)
+                                    <div class="row">
+                                        <div class="p-3 d-flex flex-row">
+                                            <div class="d-block flex-shrink-0">
+                                                {!! $qrcode !!}
+                                                <div class="mt-3">
+                                                    <a href="{{ url('inscritos/baixar_qrcode/' . $crypt) }}" class="btn btn-danger btn-block">Baixar QRCode</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-12">
                                             @if( !is_null($inscrito->arquivo) )
-                                    
+
                                                 <div class="col-12">
                                                     <div class="p-0">
                                                         <h5>
@@ -284,7 +308,7 @@
                                                                         <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#recursoModal">
                                                                             Abrir Recurso
                                                                         </button>
-                                                                        
+
                                                                         <!-- Modal -->
                                                                         <div class="modal fade" id="recursoModal" tabindex="-1" aria-labelledby="recursoModalLabel" aria-hidden="true">
                                                                             <div class="modal-dialog">
@@ -297,9 +321,9 @@
                                                                                         </button>
                                                                                     </div>
                                                                                     <div class="modal-body">
-                                                                                        
+
                                                                                             @csrf
-                                                                                        
+
                                                                                             <div class="form-group">
                                                                                                 <label for="arquivo_ressalva">Argumentação</label>
                                                                                                 <textarea class="form-control" type="text" name="argumentacao" rows="10"></textarea>
@@ -324,12 +348,12 @@
                                                                                 </h5>
                                                                             </div>
                                                                         </div>
-                                                                        
+
                                                                         @if($userNaComissao && $inscrito->resposta_recurso == NULL)
                                                                             <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
                                                                                 Aprovar Recurso
                                                                             </button>
-                                                                            
+
                                                                             <!-- Modal -->
                                                                             <div class="modal fade" id="aprovaRecursoModal" tabindex="-1" aria-labelledby="aprovaRecursoModalLabel" aria-hidden="true">
                                                                                 <div class="modal-dialog">
@@ -342,7 +366,7 @@
                                                                                             </button>
                                                                                         </div>
                                                                                         <div class="modal-body">
-                                                                                            
+
                                                                                                 @csrf
                                                                                                 <select class="form-control" name="resposta_recurso">
                                                                                                     <option value="">Selecione ...</option>
@@ -367,13 +391,13 @@
                                                                 @endif
                                                             </div>
                                                             <small class="mt-0 mb-3">
-                                                            <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a> 
+                                                            <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a>
                                                             </small>
-                                                            @if( 
-                                                                ($userNaComissao && $inscrito->status_arquivo == NULL) 
-                                                                || 
-                                                                ($userNaComissao && $inscrito->status_arquivo == 'Em Análise') 
-                                                            )                                                                
+                                                            @if(
+                                                                ($userNaComissao && $inscrito->status_arquivo == NULL)
+                                                                ||
+                                                                ($userNaComissao && $inscrito->status_arquivo == 'Em Análise')
+                                                            )
                                                                 <div class="mt-0 mb-3">
                                                                     <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#exampleModal{{$inscrito->id}}">
                                                                         Analisar
@@ -391,10 +415,10 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    
+
                                                                                         @csrf
                                                                                         @method('PUT')
-                                                                                        
+
                                                                                         <div class="form-group">
                                                                                             <label for="status_arquivo">Selecione o status</label>
                                                                                             <select class="form-control mb-2" name="status_arquivo" id="status_arquivo">
@@ -418,19 +442,19 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             @endif
                                                         </h5>
                                                     </div>
                                                 </div>
                                             @endif
-                                            
-                                            @if( 
+
+                                            @if(
                                                 ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) && $inscrito->arquivo == NULL)
                                                     ||
                                                 ($inscrito->status_arquivo == 'Pendente' && $inscrito->arquivo_ressalva != NULL)
                                             )
-                                                <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data"> 
+                                                <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group mt-3">
                                                         <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
@@ -445,7 +469,7 @@
                                                             </div>
                                                             </div>
                                                             <div class="box-body" id="box-body">
-                                                            
+
                                                             </div>
                                                         </div>
                                                         </div>
@@ -455,8 +479,8 @@
                                                                 <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
                                                             </div>
                                                             <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('arquivo') }}">
-                                                            
-                                                        </div>  
+
+                                                        </div>
                                                         <div id="alert-pdf-format"></div>
                                                         <div class="help-block muted">O envio do arquivo não é obrigatório, somente se você for apresentar algum projeto no evento.</div>
                                                     </div>
@@ -465,9 +489,9 @@
                                                     </div>
                                                 </form>
                                             @endif
-                                            
+
                                         </div>
-                                    </div>                               
+                                    </div>
                                 </div>
                             </div>
                         </div>

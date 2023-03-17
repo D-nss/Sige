@@ -103,11 +103,6 @@ class EventoInscritosController extends Controller
 
             return redirect()->back();
         }
-        //Adiciona a lista de espera se exceder as vagas
-        if(!is_null($evento->vagas) && $evento->inscritos->count() >= $evento->vagas) {
-            $inputs['lista_espera'] = 1;
-            $inputs['posicao_espera'] = $evento->inscritos->last()->posicao_espera + 1;
-        }
 
         $inscrito = EventoInscrito::create($inputs);
 
@@ -118,14 +113,16 @@ class EventoInscritosController extends Controller
                 'id' => $inscrito->id
             ]));
 
-            if($inscrito->lista_espera == 1) {
+            /*if($inscrito->lista_espera == 1) {
                 session()->flash('status', 'Inscrição realizada, mas devido exceder as vagas para o evento sua inscrição entrou em nossa fila de espera.');
                 session()->flash('alert', 'warning');
             }
             else {
-                session()->flash('status', 'Inscrição realizada com sucesso.');
-                session()->flash('alert', 'success');
-            }
+
+            }*/
+
+            session()->flash('status', 'Conclua inscrição através do email informado.');
+                session()->flash('alert', 'warning');
             //trocar o redirecionamento para a pagina de listagem de eventos para usuarios não autenticados
             //return redirect()->back();
             return view('eventos.inscritos.aviso', compact('inscrito'));
@@ -159,7 +156,12 @@ class EventoInscritosController extends Controller
                                 ->where('comissoes_users.user_id', $user_id)
                                 ->first();
 
-        return view('eventos.inscritos.show', compact('inscrito', 'userNaComissao'));
+        $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
+        $url = url("inscritos/presenca/$crypt");
+        //Gerando QRCode
+        $qrcode = QrCode::size(200)->generate( url($url));
+
+        return view('eventos.inscritos.show', compact('inscrito', 'userNaComissao', 'qrcode', 'crypt'));
     }
 
     public function uploadArquivo(Request $request, $id)
@@ -197,7 +199,7 @@ class EventoInscritosController extends Controller
         $validated = $request->validate([
             'argumentacao' => 'required|max:500',
         ]);
-        
+
         $inscrito = EventoInscrito::find($id);
         $inscrito->recurso_arquivo = $request->argumentacao;
         if($inscrito->save()) {
@@ -292,16 +294,64 @@ class EventoInscritosController extends Controller
         }
     }
 
+    public function adm_presenca($id)
+    {
+        $inscrito = EventoInscrito::find($id);
+
+        if($inscrito && $inscrito->presenca == 0) {
+            $inscrito->presenca = 1;
+            if($inscrito->update()) {
+                session()->flash('status', 'Presença efetuada com sucesso.');
+                session()->flash('alert', 'success');
+
+                return redirect()->back();
+            }
+            else {
+                session()->flash('status', 'Desculpe! Houve um erro ao realizar a presença do inscrito.');
+                session()->flash('alert', 'danger');
+
+                return redirect()->back();
+            }
+        }
+    }
+
     public function confirmar($codigo)
     {
         $decrypt = \Illuminate\Support\Facades\Crypt::decryptString(str_replace('90', '09', $codigo));
         $data = explode('/', $decrypt);
 
         $inscrito = EventoInscrito::find($data[1]);
-        if($inscrito && $data[0] == 'sim' && $inscrito->confirmacao == 0)
+        if($inscrito && $data[0] == 'sim' && $inscrito->lista_espera == 0)
         {
+            $evento = Evento::find($inscrito->evento_id);
+
+            //se inscrito já confirmou vai na area do inscrito
+            if($inscrito->confirmacao == 1){
+                session()->flash('status', 'Imprima ou tenha em mãos o QR Code para o credenciamento no evento!');
+                session()->flash('alert', 'warning');
+
+                return $this->show($inscrito->id);
+            }
+
+            //Adiciona a lista de espera se exceder as vagas
+            if(!is_null($evento->vagas) && $evento->inscritos->where('lista_espera', 0)->where('confirmacao', 1)->count() >= $evento->vagas) {
+                //Caso tenha já confirmado já uma vez e clicou novamente onde está na lista de espera
+                /*if($inscrito->lista_espera == 1){
+                    session()->flash('status', 'Desculpe, as vagas esgotaram, e você persiste na lista de espera. Caso tenha aberto mais vagas, você será notificado por email .');
+                    session()->flash('alert', 'danger');
+
+                    return redirect()->back();
+                } else {*/
+                    $inscrito->lista_espera = 1;
+                    $inscrito->posicao_espera = $evento->inscritos->last()->posicao_espera + 1;
+                    session()->flash('status', 'Desculpe, as vagas esgotaram, e você está lista de espera. Caso houver vaga, você será notificado por email .');
+                    session()->flash('alert', 'danger');
+                //}
+            }
+
             $inscrito->confirmacao = 1;
             $inscrito->data_confirmacao = date('Y-m-d H:i:s');
+
             if($inscrito->update()) {
                 $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
                 $idCrypted = \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id);
@@ -323,23 +373,43 @@ class EventoInscritosController extends Controller
                 return redirect()->back();
             }
         }
-        elseif($inscrito && $data[0] == 'nao')
+        elseif($inscrito && $data[0] == 'nao' && $inscrito->confirmacao == 1 && $inscrito->lista_espera == 0)
         {
             $inscrito->confirmacao = 2;
             if($inscrito->update()) {
-                EventoInscrito::where('evento_id', $inscrito->evento->id)->where('lista_espera', 1)->first()->update(['lista_espera' => 0]);
+                //Caso tenha inscrito na fila de espera, remove o primeiro que foi incluso e atualiza e é notificado por email que está confirmado
+                $inscritoFila = EventoInscrito::where('evento_id', $inscrito->evento->id)->where('lista_espera', 1)->first();
+                if($inscritoFila){
+                    $inscritoFila->lista_espera = 0;
+                    if($inscritoFila->update()){
+                        $inscritoFila->notify( new \App\Notifications\EventoInscritoConfirmado([
+                            'titulo_evento' => $inscritoFila->evento->titulo,
+                            'nome' => $inscritoFila->nome,
+                            'id' => $inscritoFila->id
+                        ]));
+                    }
+                }
+
                 return view('eventos.inscritos.confirmacao', compact('inscrito'));
             }
             else {
-                session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
+                session()->flash('status', 'Desculpe! Houve um erro ao realizar a cancelar inscrição.');
                 session()->flash('alert', 'danger');
 
-                //return redirect()->back();
+                return redirect()->back();
             }
         }
         else {
-            session()->flash('status', 'Desculpe! Não foi possível confirmação inscrição.');
-            session()->flash('alert', 'danger');
+            if ($inscrito && $data[0] == 'sim' && $inscrito->lista_espera == 1){
+                session()->flash('status', 'Desculpe, as vagas esgotaram, e você está lista de espera. Caso tenha aberto mais vagas, você será notificado por email .');
+                session()->flash('alert', 'danger');
+
+                return view('eventos.inscritos.confirmacao', compact('inscrito'));
+            }
+            else {
+                session()->flash('status', 'Desculpe! Não foi possível confirmação inscrição. Caso persista, entre em contato com a equipe do evento');
+                session()->flash('alert', 'danger');
+            }
 
             return redirect()->back();
         }
