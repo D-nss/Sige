@@ -4,9 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
-        
+
         <title>Certificado em PDF</title>
- 
+
         <style>
             *{
                 margin: 0;
@@ -18,12 +18,13 @@
                 font-family: 'Source Sans Pro';
                 font-style: normal;
                 font-weight: normal;
-                src: url({{ storage_path("fonts/SourceSansPro-Regular.ttf") }}) format('truetype');                
+                src: url({{ storage_path("fonts/SourceSansPro-Regular.ttf") }}) format('truetype');
             }
 
             body {
                 /* background-image: url("{{url('storage/upload/96d9c9ce_1.png')}}"); */
-                background-image: url("/storage/{{ $bg }}");
+                /* background-image: url("/storage/{{ $bg }}"); */
+                background-image: url(<?php echo $base64 ?>);
                 background-repeat: no-repeat;
                 background-size: cover;
                 font-family: 'Source Sans Pro', sans-serif;
@@ -37,12 +38,12 @@
                 PROEC - Pró-Reitoria de Extensão e Cultura concede a
             </h3>
         </div>
-        
+
         <h1 style="margin-top: 60px; text-align: center; color: #952727; text-transform: uppercase; font-weight: 400;">
             {{ $participante->nome }}
         </h1>
         <h3 style="text-align: center; margin-top: 12px; padding: 0 128;font-weight: 400; color: #444;">
-            portador do CPF número 33377777722 este certificado por participar do evento 
+            portador do CPF número 33377777722 este certificado por participar do evento
             @if($participante->evento->online != NULL)
                 on-line
             @endif
@@ -55,7 +56,7 @@
             .
         </h3>
         <h3 style="text-align: center; margin-top: 12px; font-weight: 400; color: #444;">
-            Campinas, {{ date('d', strtotime($participante->evento->data_inicio)) . ' de ' . $meses[strftime('%m', strtotime($participante->evento->data_fim))] .' de '. date('Y', strtotime($participante->evento->data_fim)) }}  
+            Campinas, {{ date('d', strtotime($participante->evento->data_inicio)) . ' de ' . $meses[strftime('%m', strtotime($participante->evento->data_fim))] .' de '. date('Y', strtotime($participante->evento->data_fim)) }}
         </h3>
         <p style="
             position: absolute;
