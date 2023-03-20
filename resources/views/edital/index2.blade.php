@@ -54,15 +54,18 @@
                         @endif
  
                        @if( 
-                            strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $edital->id)) 
-                            &&
-                            ( $comissoes->filter(function($value, $key) use ($edital){
-                                	return data_get($value, 'edital_id') == $edital->id;
-                            	})->count()
-                            	||
-                            	$user->hasRole('edital-administrador')
-                            	||
-                            	$user->checaAvaliadorExistenteEmEdital($edital->id, $user->id) ) 
+                            (
+                                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_org_tematica', $edital->id)) 
+                                &&
+                                ( $comissoes->filter(function($value, $key) use ($edital){
+                                        return data_get($value, 'edital_id') == $edital->id;
+                                    })->count()                                    
+                                    ||
+                                    $user->checaAvaliadorExistenteEmEdital($edital->id, $user->id) 
+                                )
+                            )
+                            ||
+                            $user->hasRole('edital-administrador')
                         )
                             <a href="{{ url( 'edital/' . $edital->id . '/inscricoes' ) }}" class="btn btn-warning waves-effect waves-themed my-1 font-weight-bold"> <i class="fal fa-list"></i> Inscrições em Andamento</a>
                         @endif
