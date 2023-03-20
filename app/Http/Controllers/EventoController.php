@@ -31,11 +31,36 @@ class EventoController extends Controller
             }
         }
 
+        $diasSemana = [
+            'Mon' => 'Seg',
+            'Tue' => 'Ter',
+            'Wed' => 'Qua',
+            'Thu' => 'Qui',
+            'Fri' => 'Sex',
+            'Sat' => 'Sáb',
+            'Sun' => 'Dom',
+        ];
+
+        $meses = [
+            '01' => 'Jan',
+            '02' => 'Fev',
+            '03' => 'Mar',
+            '04' => 'Abr',
+            '05' => 'Mai',
+            '06' => 'Jun',
+            '07' => 'Jul',
+            '08' => 'Ago',
+            '09' => 'Set',
+            '10' => 'Out',
+            '11' => 'Nov',
+            '12' => 'Dez'
+        ];
+
         $eventosAbertos = Evento::where('grupo_usuario', $grupo)->where('status', 'Aberto')->get();
         $eventosEncerrados = Evento::where('grupo_usuario', $grupo)->where('status', 'Encerrado')->get();
         $eventosCancelados = Evento::where('grupo_usuario', $grupo)->where('status', 'Cancelado')->get();
 
-        return view('eventos.index', compact('eventosAbertos', 'eventosEncerrados', 'eventosCancelados'));
+        return view('eventos.index', compact('eventosAbertos', 'eventosEncerrados', 'eventosCancelados', 'meses', 'diasSemana'));
     }
 
     public function create()
