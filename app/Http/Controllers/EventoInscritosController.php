@@ -300,6 +300,10 @@ class EventoInscritosController extends Controller
 
         if($inscrito && $inscrito->presenca == 0) {
             $inscrito->presenca = 1;
+            $options = [
+                'cost' => 10,
+                ];
+            $inscrito->certificado = str_replace('$2y$10$', '', password_hash("certificado-inscrito-".$inscrito->id, PASSWORD_BCRYPT, $options));
             if($inscrito->update()) {
                 session()->flash('status', 'Presença efetuada com sucesso.');
                 session()->flash('alert', 'success');
@@ -431,6 +435,10 @@ class EventoInscritosController extends Controller
 
         if($inscrito && $inscrito->presenca == 0 && $data[0] == 'sim') {
             $inscrito->presenca = 1;
+            $options = [
+                'cost' => 10,
+                ];
+            $inscrito->certificado = str_replace('$2y$10$', '', password_hash("certificado-inscrito-".$inscrito->id, PASSWORD_BCRYPT, $options));
             if($inscrito->update()) {
                 session()->flash('status', 'Presença cadastrada com sucesso.');
                 session()->flash('alert', 'success');
