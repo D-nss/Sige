@@ -16,12 +16,12 @@
                     <div class="flex-1">
                         <span class="f-sm text-muted">Data Início</span>
                         <br>
-                        <span class="fs-lg text-secondary">{{ date('D. M, j Y - H:i', strtotime($evento->data_inicio)) }}</span>
+                        <span class="fs-lg text-secondary">{{ $diasSemana[date('D', strtotime($evento->data_inicio))] }} , {{ date('d', strtotime($evento->data_inicio)) }} de {{ $meses[date('m', strtotime($evento->data_inicio))] }} de {{ date('Y', strtotime($evento->data_inicio)) }} às {{ date('H:i', strtotime($evento->data_inicio)) }}</span>
                     </div>
                     <div class="flex-1">
                         <span class="fs-sm text-muted">Data Fim</span>
                         <br>
-                        <span class="fs-lg text-secondary">{{ date('D. M, j Y - H:i', strtotime($evento->data_fim)) }}</span>
+                        <span class="fs-lg text-secondary">{{ $diasSemana[date('D', strtotime($evento->data_fim))] }} , {{ date('d', strtotime($evento->data_fim)) }} de {{ $meses[date('m', strtotime($evento->data_fim))] }} de {{ date('Y', strtotime($evento->data_fim)) }} às {{ date('H:i', strtotime($evento->data_fim)) }}</span>
                     </div>
                 </td>
                 <td>
