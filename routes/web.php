@@ -148,7 +148,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('evento/{evento}/inscritos', [EventoInscritosController::class, 'index']);
     Route::get('inscritos/presenca/{codigo}', [EventoInscritosController::class, 'marcarPresenca']);
     Route::get('inscritos/adm/confirmacao/{id}', [EventoInscritosController::class, 'adm_confirmar']);
-    Route::post('inscritos/adm/presenca/{id}', [EventoInscritosController::class, 'adm_presenca']);
+    Route::get('inscritos/adm/presenca/{id}', [EventoInscritosController::class, 'adm_presenca']);
     Route::post('inscrito/enviar-email/{id}', [EventoInscritosController::class, 'enviarEmail']);
     Route::get('inscrito/enviar-email/{id}/novo', [EventoInscritosController::class, 'enviarEmailCreate']);
     Route::put('inscrito/arquivo-analise/{id}', [EventoInscritosController::class, 'analiseArquivo']);
