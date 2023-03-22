@@ -48,7 +48,7 @@ class EventoCancelamentoNotificar extends Notification
     {
         return (new MailMessage)
                     ->subject('Cancelamento do evento ' . $this->evento->titulo)
-                    ->line('O evento ' . $this->evento->titulo . 'foi cancelado devido ao motivo abaixo:')
+                    ->line('O evento ' . $this->evento->titulo . ' foi cancelado devido ao motivo abaixo:')
                     ->line($this->motivo)
                     ->line('Obrigado por usar nosso sistema.');
     }
