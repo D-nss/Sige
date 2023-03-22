@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 use App\Models\Evento;
 use App\Models\ModeloCertificado;
 use App\Models\User;
 use App\Models\UploadFile;
 use Illuminate\Support\Facades\App;
+
+use App\Notifications\EventoCancelamentoNotificar;
 
 class EventoController extends Controller
 {
@@ -219,11 +222,13 @@ class EventoController extends Controller
         }
     }
 
-    public function destroy(Evento $evento)
+    public function destroy(Request $request, Evento $evento)
     {
+        $validated = $request->validate(['motivo' => 'required']);
         $evento->status = 'Cancelado';
 
         if($evento->save()) {
+            Notification::send($evento->inscritos, new EventoCancelamentoNotificar($evento, $request->motivo));
             session()->flash('status', 'Evento Cancelado com sucesso.');
             session()->flash('alert', 'success');
 

@@ -341,7 +341,8 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <p>Deseja cancelar o evento <span class="fw-500">{{ $evento->titulo }}</span>?</p>
-                                                    
+                                                        <label for="motivo" class="form-label fw-400">Motivo</label>
+                                                        <textarea name="motivo" class="form-control" cols="30" rows="10"></textarea>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
