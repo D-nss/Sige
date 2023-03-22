@@ -207,6 +207,18 @@
                                                             </label>
                                                         </div>
                                                         <div class="custom-control custom-switch">
+                                                            <input class="custom-control-input" type="checkbox" id="ck_racial" name="ck_racial" value="1" {{ old('ck_racial') ? 'checked' : '' }}>
+                                                            <label class="custom-control-label mb-2" for="ck_racial">
+                                                                Exigir Autodeclaração Étnico Racial
+                                                            </label>
+                                                        </div>
+                                                        <div class="custom-control custom-switch">
+                                                            <input class="custom-control-input" type="checkbox" id="ck_deficiencia" name="ck_deficiencia" value="1" {{ old('ck_deficiencia') ? 'checked' : '' }}>
+                                                            <label class="custom-control-label mb-2" for="ck_deficiencia">
+                                                                Exigir Declaração de Deficiência
+                                                            </label>
+                                                        </div>
+                                                        <div class="custom-control custom-switch">
                                                             <input class="custom-control-input" type="checkbox" id="ck_arquivo" name="ck_arquivo" value="1" {{ old('ck_arquivo') ? 'checked' : '' }}>
                                                             <label class="custom-control-label mb-2" for="ck_arquivo">
                                                                 Exigir Arquivo de Projeto

@@ -37,6 +37,8 @@ class Evento extends Model
         'ck_pais',
         'ck_cidade_estado',
         'ck_arquivo',
+        'ck_racial',
+        'ck_deficiencia',
         'carga_horaria',
         'doc_certificado',
         'grupo_usuario',
@@ -63,9 +65,9 @@ class Evento extends Model
         return $this->hasMany(EventoInscrito::class);
     }
 
-    public function comissoes()
+    public function comissao()
     {
-        return $this->hasMany(Comissao::class, 'evento_id');
+        return $this->hasOne(Comissao::class, 'evento_id');
     }
 
 }

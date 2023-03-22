@@ -381,6 +381,18 @@ Versão: 4.5.1
                     }
                 });
 
+                $("#deficiencia").change(() => {
+                    if ( $('#deficiencia').val() == 'Sim') {
+                        $("#div_desc_deficiencia").removeClass("d-none");
+                        $("#div_desc_deficiencia").addClass("d-block");
+                    }
+                    else {
+                        $("#desc_deficiencia").html('');
+                        $("#div_desc_deficiencia").removeClass("d-block");
+                        $("#div_desc_deficiencia").addClass("d-none");
+                    }
+                });
+
                 $("#inscricao_fim").blur(function(){
                     var data1 = new Date($("#inscricao_inicio").val())
                     var data2 = new Date($("#inscricao_fim").val())

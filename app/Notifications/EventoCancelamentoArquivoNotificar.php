@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notification;
 
 use App\Models\EventoInscrito;
 
-class EventoInscritoAnaliseArquivoNotificar extends Notification
+class EventoCancelamentoArquivoNotificar extends Notification
 {
     use Queueable;
 
-    protected $inscrito;
+    private $inscrito;
 
     /**
      * Create a new notification instance.
@@ -44,24 +44,11 @@ class EventoInscritoAnaliseArquivoNotificar extends Notification
      */
     public function toMail($notifiable)
     {
-    
         $link = url('evento/inscrito/' . $this->inscrito->id);
-        $mensagem = '';
-
-        if($this->inscrito->status_arquivo == 'Pendente') {
-            $mensagem .= 'Seu projeto foi aceito pela equipe do evento, mas possui ressalvas, acesse o seu painel de inscrição para verificar as observações. Para acessar seu painel clique no link abaixo.';
-        }
-        elseif($this->inscrito->status_arquivo == 'Aceito') {
-            $mensagem = 'Seu projeto foi aceito pela equipe do evento. Para acessar seu painel clique no link abaixo.';            
-        }
-        else {
-            $mensagem = 'Seu projeto não foi aceito pela equipe do evento, você pode abrir um recurso e solicitar uma reavaliação, acesse o seu painel clicando no link abaixo.';
-        }
         return (new MailMessage)
-                    ->subject('Resposta da análise de envio de arquivo na inscrição no evento ' . $this->inscrito->evento->titulo  . '.')
-                    ->line( 'Olá, '. $this->inscrito->nome )
-                    ->line( $mensagem )
-                    ->action('Painel Inscrição', $link)
+                    ->subject('Apresentação de projeto cancelada')
+                    ->line('Olá, a apresentação do inscrito '. $this->inscrito->nome .' foi cancelada. Acompanhe a inscrição no link abaixo')
+                    ->action('Ver Inscrição', $link)
                     ->line('Obrigado por usar nosso sistema.');
     }
 

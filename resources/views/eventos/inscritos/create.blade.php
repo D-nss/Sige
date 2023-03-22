@@ -42,6 +42,13 @@
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     <div class="form-group">
+                        <label class="form-label">Nome Social</label>
+                        <div class="input-group bg-white shadow-inset-2">
+                            <input type="text" class="form-control bg-transparent" placeholder="Nome Social" name="nome_social" value="{{old('nome_social')}}">
+                        </div>
+                        <!-- <span class="help-block">Some help content goes here</span> -->
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">E-Mail<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
                             <input type="text" class="form-control bg-transparent" placeholder="E-Mail" name="email" value="{{old('email')}}">
@@ -68,7 +75,7 @@
                     <div class="form-group">
                         <label class="form-label">Numero Documento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Documento" name="documento" value="{{old('documento')}}">
+                            <input type="text" class="form-control bg-transparent" placeholder="Documento" name="documento" value="{{old('documento')}}" pattern="[0-9]{11}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
@@ -161,6 +168,39 @@
                         <div class="input-group bg-white shadow-inset-2">
                             <input type="text" class="form-control bg-transparent" placeholder="Vinculo com a Unicamp" name="vinculo" value="{{old('vinculo')}}">
                         </div>
+                        <!-- <span class="help-block">Some help content goes here</span> -->
+                    </div>
+                    @endif
+                    @if($evento->ck_racial)
+                    <div class="form-group">
+                        <label class="form-label">Autodeclaração Étnico Racial<span class="text-danger">*</span></label>
+                        <div class="input-group bg-white shadow-inset-2">
+                            <select type="text" class="form-control bg-transparent" name="etnico_racial" >
+                                <option value="">Selecione ...</option>
+                                <option value="Amarelo" @if(old('etnico_racial') == 'Amarelo') selected @endif>Amarelo</option>
+                                <option value="Branco" @if(old('etnico_racial') == 'Branco') selected @endif>Branco</option>
+                                <option value="Indígena" @if(old('etnico_racial') == 'Indígena') selected @endif>Indígena</option>
+                                <option value="Pardo" @if(old('etnico_racial') == 'Pardo') selected @endif>Pardo</option>
+                                <option value="Preto" @if(old('etnico_racial') == 'Preto') selected @endif>Preto</option>
+                            </select>
+                        </div>
+                        <!-- <span class="help-block">Some help content goes here</span> -->
+                    </div>
+                    @endif
+                    @if($evento->ck_racial)
+                    <div class="form-group">
+                        <label class="form-label">Possui Alguma Deficiência<span class="text-danger">*</span></label>
+                        <div class="input-group bg-white shadow-inset-2">
+                            <select type="text" class="form-control bg-transparent" name="deficiencia" id="deficiencia" value="{{old('deficiencia')}}">
+                                <option value="">Selecione ...</option>
+                                <option value="Sim" @if(old('deficiencia') == 'Sim') selected @endif>Sim</option>
+                                <option value="Não" @if(old('deficiencia') == 'Não') selected @endif>Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group @if(old('deficiencia') == 'Sim') d-block @else d-none @endif" id="div_desc_deficiencia">
+                        <label class="form-label">Descrição da Deficiência<span class="text-danger">*</span></label>
+                        <textarea class="form-control bg-transparent" name="desc_deficiencia" cols="30" rows="3" placeholder="Descreva a sua deficiência">{{old('desc_deficiencia')}}</textarea>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @endif

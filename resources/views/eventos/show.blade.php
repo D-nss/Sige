@@ -192,6 +192,26 @@
                                                         {{ is_null($evento->ck_cidade_estado) ? 'Não' : 'Sim' }}
                                                     </small>
 
+                                                    <span class="font-color-light font-size-14">Exigir Autodeclaração Étnico Racial</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->ck_racial) ? 'Não' : 'Sim' }}
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Declaração de Deficiência</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->ck_deficiencia) ? 'Não' : 'Sim' }}
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Exigir Arquivo</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->ck_arquivo) ? 'Não' : 'Sim' }}
+                                                    </small>
+
+                                                    <span class="font-color-light font-size-14">Data Limite Envio Arquivo</span>
+                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ is_null($evento->prazo_envio_arquivo) ? '' : date('d/m/Y H:i:s', strtotime($evento->prazo_envio_arquivo)) }}
+                                                    </small>
+
                                                     <span class="font-color-light font-size-14">Personalizado</span>
                                                     <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                                         {{ is_null($evento->input_personalizado) ? '' : $evento->input_personalizado }}

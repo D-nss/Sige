@@ -132,6 +132,7 @@ Route::get('inscritos/baixar_qrcode/{codigo}', [EventoInscritosController::class
 Route::get('evento/inscrito/{id}', [EventoInscritosController::class, 'show']);
 Route::post('inscrito/upload-arquivo/{id}', [EventoInscritosController::class, 'uploadArquivo']);
 Route::post('inscrito/recurso-arquivo/{id}', [EventoInscritosController::class, 'recursoArquivo']);
+Route::put('inscrito/cancelar-arquivo/{id}', [EventoInscritosController::class, 'cancelarApresentacaoArquivo']);
 Route::get('evento/{evento}/equipe/{id}', [EventoEquipeController::class, 'show']);
 Route::get('evento/{evento}/equipe/{id}/certificado', [CertificadoController::class, 'make']);
 Route::get('evento/{evento}/inscrito/{id}/certificado', [CertificadoController::class, 'make']);

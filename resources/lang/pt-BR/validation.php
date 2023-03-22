@@ -197,7 +197,9 @@ return [
         'inscricao_fim' => 'inscrição fim',
         'modelo' => 'o modelo do certificado',
         'prazo_envio_arquivo' => 'prazo envio de arquivo',
-        'input_personalizado' => 'personaizado'
+        'input_personalizado' => 'personaizado',
+        'etnico_racial' => 'autodeclaração étnico racial',
+        'desc_deficiencia' => 'descrição da deficiência'
     ],
 
 ];

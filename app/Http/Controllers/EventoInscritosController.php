@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Storage;
 use App\Mail\EnviarEmail;
 use App\Notifications\RecursoArquivoNotificar;
 use App\Notifications\RecursoAnaliseNotificar;
+use App\Notifications\EventoCancelamentoArquivoNotificar;
 
 use App\Models\Evento;
 use App\Models\EventoInscrito;
+use App\Models\Comissao;
 use App\Models\ComissaoUser;
 use App\Models\User;
 use App\Models\UploadFile;
@@ -80,13 +82,16 @@ class EventoInscritosController extends Controller
             "nome" => 'required',
             "email" => 'required|email',
             "tipo_documento" => ($evento->ck_documento) ? 'required' : '',
-            "documento" => ($evento->ck_documento) ? 'required|integer' : '',
+            "documento" => ($evento->ck_documento) ? 'required' : '',
             "sexo" => ($evento->ck_sexo) ? 'required' : '',
             "genero" => ($evento->ck_identidade_genero) ? 'required' : '',
             'instituicao' => ($evento->ck_instituicao) ? 'required' : '',
             'pais' => ($evento->ck_pais) ? 'required' : '',
             'area' => ($evento->ck_area) ? 'required' : '',
             'vinculo' => ($evento->ck_vinculo) ? 'required' : '',
+            'deficiencia' => ($evento->ck_deficiencia) ? 'required' : '',
+            'desc_deficiencia' => (isset($request->deficiencia) && $request->deficiencia == 'Sim') ? 'required' : '',
+            'etnico_racial' => ($evento->ck_racial) ? 'required' : '',
             'nascimento' => ($evento->ck_nascimento) ? 'required|date|before:' . today() : '',
             'funcao' => ($evento->ck_funcao) ? 'required' : '',
             'municipio' => ($evento->ck_cidade_estado) ? 'required' : '',
@@ -540,5 +545,25 @@ class EventoInscritosController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function cancelarApresentacaoArquivo($id)
+    {
+        $inscrito = EventoInscrito::find($id);
+        $inscrito->status_arquivo = 'Cancelado';
+
+        if($inscrito->update()) {
+            Notification::send($inscrito->evento->comissao->users, new EventoCancelamentoArquivoNotificar($inscrito));
+            session()->flash('status', 'Apresentação cancelada com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao cancelar a apresentação.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
     }
 }

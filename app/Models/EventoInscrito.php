@@ -38,7 +38,11 @@ class EventoInscrito extends Model
         'lista_espera',
         'posicao_espera',
         'status_arquivo',
-        'analista_user_id'
+        'analista_user_id',
+        'nome_social',
+        'deficiencia',
+        'desc_deficiencia',
+        'etnico_racial'
     ];
 
     public function evento()

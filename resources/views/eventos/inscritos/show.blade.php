@@ -96,13 +96,25 @@
                                             <div class="col-12">
                                                 <div class="p-0">
                                                     <h5>
-                                                        <span class="font-color-light font-size-14">Nome</span>
+                                                        <span class="font-color-light font-size-14">Nome Completo</span>
                                                         <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase text-uppercase">
                                                         {{ $inscrito->nome }}
                                                         </small>
                                                     </h5>
                                                 </div>
                                             </div>
+                                            @if(!is_null($inscrito->nome_social))
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Nome Social</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase text-uppercase">
+                                                        {{ $inscrito->nome_social }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            @endif
                                             <div class="col-12">
                                                 <div class="p-0">
                                                     <h5>
@@ -245,6 +257,44 @@
                                             @endif
 
                                         </div>
+                                        <div class="col-md-3">
+                                            @if( !is_null($inscrito->etnico_racial) )
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Autodeclaração Étnico Racial</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ $inscrito->etnico_racial }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if( !is_null($inscrito->deficiencia) )
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Possui Deficiência?</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ $inscrito->deficiencia }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if( !is_null($inscrito->desc_deficiencia) )
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Descrição Deficiência</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ $inscrito->desc_deficiencia }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
                                     <hr>
                                     @if ($inscrito->lista_espera == 0)
@@ -262,7 +312,7 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            @if( !is_null($inscrito->arquivo) )
+                                            @if( !is_null($inscrito->arquivo) && $inscrito->status_arquivo != 'Cancelado' )
 
                                                 <div class="col-12">
                                                     <div class="p-0">
@@ -351,7 +401,7 @@
 
                                                                         @if($userNaComissao && $inscrito->resposta_recurso == NULL)
                                                                             <button type="button" class="btn btn-md btn-primary mb-2" data-toggle="modal" data-target="#aprovaRecursoModal">
-                                                                                Aprovar Recurso
+                                                                                Análise Recurso
                                                                             </button>
 
                                                                             <!-- Modal -->
@@ -360,7 +410,7 @@
                                                                                     <form action="{{ url('inscrito/avaliar-recurso/' . $inscrito->id) }}" method="POST">
                                                                                         <div class="modal-content">
                                                                                         <div class="modal-header">
-                                                                                            <h5 class="modal-title" id="aprovaRecursoModalLabel">Aprova Recurso</h5>
+                                                                                            <h5 class="modal-title" id="aprovaRecursoModalLabel">Análise Recurso</h5>
                                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                             <span aria-hidden="true">&times;</span>
                                                                                             </button>
@@ -391,7 +441,11 @@
                                                                 @endif
                                                             </div>
                                                             <small class="mt-0 mb-3">
-                                                            <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger">Arquivo PDF</a>
+                                                                <div class="width-9 mb-2">
+                                                                    <img src="{{ asset('smartadmin-4.5.1/img/pdf-icon.png') }}" class="img-fluid" alt="Arquivo PDF">
+                                                                </div>
+                                                                
+                                                                <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger" target="_blank">Abrir <i class="far fa-arrow-right ml-2"></i></a>
                                                             </small>
                                                             @if(
                                                                 ($userNaComissao && $inscrito->status_arquivo == NULL)
@@ -450,48 +504,104 @@
                                             @endif
 
                                             @if(
-                                                ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) && $inscrito->arquivo == NULL)
+                                                ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) )
                                                     ||
                                                 ($inscrito->status_arquivo == 'Pendente' && $inscrito->arquivo_ressalva != NULL)
                                             )
-                                                <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="form-group mt-3">
-                                                        <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
-                                                        <div class="preview-zone hidden">
-                                                        <div class="box box-solid">
-                                                            <div class="box-header with-border">
-                                                            <div></div>
-                                                            <div class="box-tools pull-right">
-                                                                <button type="button" class="btn btn-secondary btn-xs remove-preview">
-                                                                Limpar
-                                                                </button>
-                                                            </div>
-                                                            </div>
-                                                            <div class="box-body" id="box-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-12">
+                                                        <div class="p-0">
+                                                            <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div class="form-group mt-3">
+                                                                    <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
+                                                                    <div class="preview-zone hidden">
+                                                                    <div class="box box-solid">
+                                                                        <div class="box-header with-border">
+                                                                        <div></div>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                                            Limpar
+                                                                            </button>
+                                                                        </div>
+                                                                        </div>
+                                                                        <div class="box-body" id="box-body">
 
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                        <div class="dropzone-wrapper">
-                                                            <div class="dropzone-desc">
-                                                                <i class="glyphicon glyphicon-download-alt"></i>
-                                                                <p class="font-weight-bold">Arraste o arquivo aqui ou clique para selecionar.</p>
-                                                            </div>
-                                                            <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('arquivo') }}">
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="dropzone-wrapper">
+                                                                        <div class="dropzone-desc">
+                                                                            <p class="fw-700">
+                                                                                Arraste o arquivo aqui ou clique para selecionar.
+                                                                                <br>    
+                                                                                @if($inscrito->arquivo != NULL)
+                                                                                    <span class="text-info fs-xs fw-300">Caso deseje alterar o arquivo faça o upload novamente que o arquivo será substituido.</span>
+                                                                                @endif
+                                                                            </p>
+                                                                            
+                                                                        </div>
+                                                                        <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('arquivo') }}">
 
+                                                                    </div>
+                                                                    <div id="alert-pdf-format"></div>
+                                                                    <div class="help-block muted">O envio do arquivo não é obrigatório, somente se você for apresentar algum projeto no evento.</div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <div id="alert-pdf-format"></div>
-                                                        <div class="help-block muted">O envio do arquivo não é obrigatório, somente se você for apresentar algum projeto no evento.</div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <button type="submit" class="btn btn-success">Enviar</button>
-                                                    </div>
-                                                </form>
+                                                </div>
+                                            </div>
                                             @endif
 
                                         </div>
+                                    
                                     </div>
+                                    @if($inscrito->arquivo != NULL && $inscrito->status_arquivo != 'Cancelado')
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-12">
+                                                <div class="p-0 mt-3">
+                                                    <button type="button" class="btn btn-md btn-warning" data-toggle="modal" data-target="#cancelaModal{{$inscrito->id}}">
+                                                        Cancelar Apresentação de Projeto
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="cancelaModal{{ $inscrito->id }}" tabindex="-1" aria-labelledby="cancelaModalLabel{{ $inscrito->id }}" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <form action="{{ url('inscrito/cancelar-arquivo/' . $inscrito->id) }}" method="POST">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="cancelaModalLabel{{ $inscrito->id }}">Cancelar Apresentação de Projeto</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                        @csrf
+                                                                        @method('PUT')
+
+                                                                        <p>Você deseja relamente cancelar sua apresentação de projeto?</p>
+                                    
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                                                </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                     @if( strtotime(date('Y-m-d')) > strtotime($inscrito->evento->data_fim) && $inscrito->presenca == 1 )
                                     <div class="row">
                                         <div class="col-md-12">
