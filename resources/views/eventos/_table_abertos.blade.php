@@ -57,36 +57,37 @@
                                             <span aria-hidden="true"><i class="fal fa-times"></i></span>
                                         </button>
                                     </div>
-                                    <ul class="list-group ">                        
-                                    @forelse($evento->comissoes as $comissao)
+                                    <ul class="list-group "> 
+                                                              
+                                    @if(!empty($evento->comissao))
                                         <li class="list-group-item m-3">
-                                            <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
+                                            <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$evento->comissao->id}}">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                             <div class="mb-3">
                                                 <div class="flex-1">
                                                     <span class="text-muted">Nome</span>
                                                     <br>
-                                                    <span class="fw-500 font-size-16">{{ $comissao->nome }}</span>
+                                                    <span class="fw-500 font-size-16">{{ $evento->comissao->nome }}</span>
                                                 </div>
                                                 <div class="flex-1">
                                                     <span class="text-muted">Atribuição</span>
                                                     <br>
-                                                    <span class="fw-500 font-size-16">{{ $comissao->atribuicao}}</span>
+                                                    <span class="fw-500 font-size-16">{{ $evento->comissao->atribuicao}}</span>
                                                 </div>
                                                 
                                                 <p class="mt-2"><span class="text-muted">Participantes </span> 
-                                                    <a href="{{ url('comissoes/'.$comissao->id.'/novo/participante') }}" class="btn btn-primary btn-sm btn-icon rounded-circle">
+                                                    <a href="{{ url('comissoes/'.$evento->comissao->id.'/novo/participante') }}" class="btn btn-primary btn-sm btn-icon rounded-circle">
                                                         <i class="far fa-plus"></i>
                                                     </a>
                                                 </p>
-                                                @foreach($comissao->users as $user)
+                                                @forelse($evento->comissao->users as $user)
                                                     <span class="badge badge-pill badge-secondary d-inline-flex justify-content-center align-items-center pl-3 m-1">
                                                         <div>{{ $user->name }}</div>
                                                         <form action="{{ route('participantes.delete') }}" method="post">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <input type="hidden" name="comissao_id" value="{{ $comissao->id }}">
+                                                            <input type="hidden" name="comissao_id" value="{{ $evento->comissao->id }}">
                                                             <input type="hidden" name="user_id" value="{{ $user->id }}">
                                                             <button class="btn  btn-sm btn-icon rounded-circle text-white">
                                                                 <i class="fal fa-times mx-2"></i>
@@ -94,17 +95,18 @@
                                                         </form>
                                                         
                                                     </span>
-                                                    
-                                                @endforeach
+                                                @empty 
+                                                    <span class="text-info fs-xs">Não há participantes nesta comissão</span>                                                    
+                                                @endforelse
                                             </div>
                                             
                                             <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal{{ $comissao->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $comissao->id }}" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModal{{ $evento->comissao->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $evento->comissao->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                    <form action="{{ url('comissoes/'. $comissao->id) }}" method="POST">
+                                                    <form action="{{ url('comissoes/'. $evento->comissao->id) }}" method="POST">
                                                         <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel{{ $comissao->id }}">Alerta</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel{{ $evento->comissao->id }}">Alerta</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -113,8 +115,8 @@
                                                             
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <p>{{ $comissao->nome }}</p>
-                                                                @if($comissao->users->count() > 0)
+                                                                <p>{{ $evento->comissao->nome }}</p>
+                                                                @if($evento->comissao->users->count() > 0)
                                                                     <p>Essa comissão possui membros cadastrados.</p>
                                                                 @endif
                                                                 <p>Deseja realmente remover?</p>
@@ -129,7 +131,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                    @empty
+                                    @else
                                         <form action="{{ route('comissoes.store')}}" method="post">
                                             @csrf
                                             <div class="modal-body">
@@ -149,7 +151,7 @@
                                                 <button type="submit" class="btn btn-success my-1 font-weight-bold">Enviar</button>
                                             </div>
                                         </form>
-                                    @endforelse
+                                    @endif
                                     </ul>
                                 </div>
                             </div>
