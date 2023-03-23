@@ -16,6 +16,7 @@ use App\Models\UploadFile;
 use Illuminate\Support\Facades\App;
 
 use App\Notifications\EventoCancelamentoNotificar;
+use App\Notifications\EventoAberturaVagaInscritoNotificar;
 
 class EventoController extends Controller
 {
