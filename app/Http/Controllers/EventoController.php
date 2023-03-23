@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 use App\Models\Evento;
+use App\Models\EventoInscrito;
 use App\Models\ModeloCertificado;
 use App\Models\User;
 use App\Models\UploadFile;
@@ -208,18 +209,24 @@ class EventoController extends Controller
             $dados[$key] = $value;
         }
 
-        if($evento->update($dados)) {
-            session()->flash('status', 'Evento Atualizado com sucesso.');
-            session()->flash('alert', 'success');
+        $vagasDif = $request->vagas - $evento->vagas;
 
-            return redirect()->to("eventos/$evento->id");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
-            session()->flash('alert', 'danger');
+        
+        // if($evento->update($dados)) {
+            $inscritosNaLista = EventoInscrito::where('lista_espera', 1)->limit($vagasDif)->get();
+            $inscritosNaListaUpdated = EventoInscrito::where('lista_espera', 1)->limit($vagasDif)->update(['lista_espera' => 1]);
+            Notification::send($inscritosNaLista, new EventoCancelamentoNotificar($evento, 'Motivo teste'));
+        //     session()->flash('status', 'Evento Atualizado com sucesso.');
+        //     session()->flash('alert', 'success');
 
-            return redirect()->back();
-        }
+        //     return redirect()->to("eventos/$evento->id");
+        // }
+        // else {
+        //     session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
+        //     session()->flash('alert', 'danger');
+
+        //     return redirect()->back();
+        // }
     }
 
     public function destroy(Request $request, Evento $evento)
