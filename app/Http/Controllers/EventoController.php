@@ -212,21 +212,21 @@ class EventoController extends Controller
         $vagasDif = $request->vagas - $evento->vagas;
 
         
-        // if($evento->update($dados)) {
+        if($evento->update($dados)) {
             $inscritosNaLista = EventoInscrito::where('lista_espera', 1)->limit($vagasDif)->get();
             $inscritosNaListaUpdated = EventoInscrito::where('lista_espera', 1)->limit($vagasDif)->update(['lista_espera' => 1]);
             Notification::send($inscritosNaLista, new EventoCancelamentoNotificar($evento, 'Motivo teste'));
-        //     session()->flash('status', 'Evento Atualizado com sucesso.');
-        //     session()->flash('alert', 'success');
+            session()->flash('status', 'Evento Atualizado com sucesso.');
+            session()->flash('alert', 'success');
 
-        //     return redirect()->to("eventos/$evento->id");
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
-        //     session()->flash('alert', 'danger');
+            return redirect()->to("eventos/$evento->id");
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
     }
 
     public function destroy(Request $request, Evento $evento)
