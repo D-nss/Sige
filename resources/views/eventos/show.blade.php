@@ -139,7 +139,7 @@
                                                     
                                                     <span class="font-color-light font-size-14">Vagas</span>
                                                     <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                        {{ is_null($evento->vagas) ? 'Não' : 'Sim' }}
+                                                        {{ is_null($evento->vagas) ? 0 : $evento->vagas}}
                                                     </small>
                                                 
                                                     <span class="font-color-light font-size-14">Exigir documento</span>
