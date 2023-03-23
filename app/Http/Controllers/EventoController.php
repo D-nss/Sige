@@ -161,7 +161,25 @@ class EventoController extends Controller
 
     public function update(Request $request, Evento $evento)
     {
-        $dados = [];
+        $dados = [
+            'gratuito' => NULL,
+            'online' => NULL,
+            'hibrido' => NULL,
+            'ck_documento' => NULL,
+            'ck_sexo' => NULL,
+            'ck_identidade_genero' => NULL,
+            'ck_nascimento' => NULL,
+            'ck_instituicao' => NULL,
+            'ck_vinculo' => NULL,
+            'ck_area' => NULL,
+            'ck_funcao' => NULL,
+            'ck_pais' => NULL,
+            'ck_cidade_estado' => NULL,
+            'ck_racial' => NULL,
+            'ck_deficiencia' => NULL,
+            'ck_arquivo' => NULL,
+        ];
+
         $toValidate = [
             "titulo" => 'required',
             "local" => 'required',
@@ -208,7 +226,7 @@ class EventoController extends Controller
 
             $dados[$key] = $value;
         }
-
+        
         $vagasDif = $request->vagas - $evento->vagas;
 
         if($evento->update($dados)) {
@@ -217,7 +235,7 @@ class EventoController extends Controller
             if($inscritosNaListaUpdated > 0){
                 Notification::send($inscritosNaLista, new EventoAberturaVagaInscritoNotificar($evento));
             }
-            
+
             session()->flash('status', 'Evento Atualizado com sucesso.');
             session()->flash('alert', 'success');
             
