@@ -232,7 +232,7 @@ class EventoController extends Controller
 
         if($evento->update($dados)) {
             $inscritosNaLista = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->limit($vagasDif)->get();
-            $inscritosNaListaUpdated = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->limit($vagasDif)->update(['lista_espera' => 1]);
+            $inscritosNaListaUpdated = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->limit($vagasDif)->update(['lista_espera' => 0]);
             if($inscritosNaListaUpdated > 0){
                 Notification::send($inscritosNaLista, new EventoAberturaVagaInscritoNotificar($evento));
             }
