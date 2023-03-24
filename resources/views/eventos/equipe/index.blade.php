@@ -50,6 +50,7 @@
                                     <td>{{ $membro->funcao_evento }}</td>
                                     <td>
                                         <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/editar') }}" class="btn btn-info btn-xs">Editar</a>
+                                        <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/show') }}" class="btn btn-primary btn-xs">Ver</a>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal{{ $membro->id }}">
                                             Remover
