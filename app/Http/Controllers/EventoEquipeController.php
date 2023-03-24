@@ -43,7 +43,7 @@ class EventoEquipeController extends Controller
 
         $input['evento_id'] = $evento->id;
 
-        $membroEquipeJaCadastrado = EventoEquipe::where('email', $input['email'])->first();
+        $membroEquipeJaCadastrado = EventoEquipe::where('email', $input['email'])->where('edital_id', $evento->id)->first();
 
         if($membroEquipeJaCadastrado) {
             session()->flash('status', 'Membro de equipe de evento já cadastrado.');

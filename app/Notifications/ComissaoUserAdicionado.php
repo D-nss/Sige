@@ -64,7 +64,7 @@ class ComissaoUserAdicionado extends Notification
             return (new MailMessage)
                         ->subject('Participação em comissão.')
                         ->greeting('Olá! ' . $this->comissao_user->user->name )
-                        ->line('Você foi adicionado a comissão ' . $this->comissao_user->comissao->nome . ' para análse de projetos')
+                        ->line('Você foi adicionado a comissão ' . $this->comissao_user->comissao->nome . ' para análise de projetos')
                         ->action('Clique aqui para prosseguir com a análise', url('/'))
                         ->line('Caso tenha problemas entre em contato conosco')
                         ->line('pex@unicamp.br ou suporte@proec.unicamp.br')
