@@ -22,8 +22,6 @@
             }
 
             body {
-                /* background-image: url("{{url('storage/upload/96d9c9ce_1.png')}}"); */
-                /* background-image: url("/storage/{{ $bg }}"); */
                 background-image: url({{ $bg_base64 }});
                 background-repeat: no-repeat;
                 background-size: cover;
