@@ -45,7 +45,7 @@
             @endif
         </h1>
         <h3 style="text-align: center; margin-top: 12px; padding: 0 128;font-weight: 400; color: #444;">
-            portador do CPF número 33377777722 este certificado por participar do evento
+            portador do CPF número 33377777722 este certificado por participar @if($tipo == 'evento') como palestrante @endif do evento
             @if($participante->evento->online != NULL)
                 on-line
             @endif
@@ -73,7 +73,7 @@
             Código: não gerado<br>
             @endif
             Verifique a autenticidade desse certificado em:<br>
-            {{ url('certificado/validar/' . $participante->certificado) }}
+            {{ url('certificado/validar') }}
         </p>
     </body>
 </html>

@@ -54,7 +54,7 @@ class CertificadoController extends Controller
         $bg_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
         //Não tá exibindo a imagem de background que esta salvo no evento
-        $pdf = Pdf::loadView('certificado.pdf', compact('participante', 'meses', 'bg_base64'));
+        $pdf = Pdf::loadView('certificado.pdf', compact('participante', 'meses', 'bg_base64', 'tipo'));
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream();
         //return view('certificado.pdf', compact('participante', 'meses', 'bg'));
@@ -64,9 +64,11 @@ class CertificadoController extends Controller
         return view('certificado.index');
     }
 
-    function validar($codigo){
-        if($codigo){
-            $encontrado = EventoInscrito::where('certificado', $codigo)->first(); // verifique se o codigo existe no banco de dados
+    function validarCertificado(Request $request) {
+        $this->validate($request, [
+            'codigo' => ['required']
+        ]);
+            $encontrado = EventoInscrito::where('certificado', $request->codigo)->first(); // verifique se o codigo existe no banco de dados
 
             if ($encontrado) {
                 return view('certificado.index', compact('encontrado'));
@@ -76,13 +78,6 @@ class CertificadoController extends Controller
 
                 return view('certificado.index');
             }
-        }
-    }
-
-    function validarCertificado(Request $request) {
-        $this->validate($request, [
-            'codigo' => ['required']
-        ]);
 
         return $this->validar($request->codigo);
     }

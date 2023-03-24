@@ -52,6 +52,11 @@ class EventoEquipeController extends Controller
             return redirect()->to('evento/' . $evento->id . '/equipe');
         }
 
+        $options = [
+            'cost' => 10,
+            ];
+        $input['certificado']  = str_replace('$2y$10$', '', password_hash("certificado-palestrante-".$input['evento_id'].$input['cpf'], PASSWORD_BCRYPT, $options));
+
         $membroEquipe = EventoEquipe::create($input);
 
         if($membroEquipe) {
@@ -78,7 +83,7 @@ class EventoEquipeController extends Controller
     public function update(Request $request, Evento $evento, $id)
     {
         $dados = [];
-        
+
         $validated = $request->validate(
             [
                 'nome' => 'required',
@@ -87,7 +92,7 @@ class EventoEquipeController extends Controller
                 'funcao_evento' => 'required',
             ]
         );
-        
+
         $inputs = $request->except('_token', '_method');
         $inputs['evento_id'] = $evento->id;
         // $emailJaCadastrado = EventoEquipe::where('email', $inputs['email'])->first();
@@ -122,7 +127,7 @@ class EventoEquipeController extends Controller
     public function destroy(Evento $evento, $id)
     {
         $membroEquipe = EventoEquipe::find($id);
-        
+
         if($membroEquipe->delete()) {
             session()->flash('status', 'Membro da equipe do evento removido com sucesso.');
             session()->flash('alert', 'success');

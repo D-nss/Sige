@@ -342,6 +342,13 @@ class EventoInscritosController extends Controller
                 return $this->show($inscrito->id);
             }
 
+            if(strtotime(date('Y-m-d H:i:s')) <= strtotime($evento->inscricao_fim)){
+                session()->flash('status', 'Confirmação não concluída pois já se encerrou o prazo de inscrição para este evento');
+                session()->flash('alert', 'danger');
+
+                return view('eventos.inscritos.confirmacao', compact('inscrito'));
+            }
+
             //Adiciona a lista de espera se exceder as vagas
             if(!is_null($evento->vagas) && $evento->inscritos->where('lista_espera', 0)->where('confirmacao', 1)->count() >= $evento->vagas) {
                 //Caso tenha já confirmado já uma vez e clicou novamente onde está na lista de espera

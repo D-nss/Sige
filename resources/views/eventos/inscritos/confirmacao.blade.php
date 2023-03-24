@@ -32,6 +32,14 @@
                     <h1 class="font-italic fw-300 text-info">{{ $inscrito->evento->titulo }}</h1>
                 </div>
 
+                @if($inscrito->confirmacao == 0)
+                <div class="p-3 d-flex flex-row">
+                    <div class="flex-1 ml-4">
+                        <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">{{ $inscrito->nome }} sua inscrição não foi confirmada! Pois já se encerrou o prazo de inscrição em {{ $inscrito->evento->inscricao_fim }}</span>
+                        <p>Em caso de dúvidas, entre em contato com a organização do evento.</p>
+                    </div>
+                </div>
+
                 @if($inscrito->confirmacao == 1)
                 <div class="p-3 d-flex flex-row">
                     @if($inscrito->lista_espera == 0)

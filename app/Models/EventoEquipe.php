@@ -21,7 +21,8 @@ class EventoEquipe extends Model
         'funcionario_unicamp',
         'aluno_unicamp',
         'user_id',
-        'evento_id'
+        'evento_id',
+        'certificado'
     ];
 
     public function evento()
