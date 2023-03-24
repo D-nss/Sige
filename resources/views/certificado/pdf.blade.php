@@ -40,7 +40,11 @@
         </div>
 
         <h1 style="margin-top: 60px; text-align: center; color: #952727; text-transform: uppercase; font-weight: 400;">
+            @if(isset($participante->nome_social))
+            {{ $participante->nome_social }}
+            @else
             {{ $participante->nome }}
+            @endif
         </h1>
         <h3 style="text-align: center; margin-top: 12px; padding: 0 128;font-weight: 400; color: #444;">
             portador do CPF número 33377777722 este certificado por participar do evento
@@ -71,7 +75,7 @@
             Código: não gerado<br>
             @endif
             Verifique a autenticidade desse certificado em:<br>
-            https://sistemas.proec.unicamp.br/admin/certificados/verifica
+            {{ url('certificado/validar/' . $participante->certificado) }}
         </p>
     </body>
 </html>

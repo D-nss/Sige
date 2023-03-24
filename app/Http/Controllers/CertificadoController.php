@@ -39,6 +39,12 @@ class CertificadoController extends Controller
             '12' => 'Dezembro'
         ];
 
+        if($participante->certificado == NULL){
+            session()->flash('status', 'O inscrito/participante não possui certificado para este evento');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
         //diretório de armazenamento + caminho do certificado do evento enviado
         $bg = url('storage/' . $participante->evento->certificado->arquivo);
         //pegando o conteudo da imagem
@@ -52,5 +58,32 @@ class CertificadoController extends Controller
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream();
         //return view('certificado.pdf', compact('participante', 'meses', 'bg'));
+    }
+
+    function index(){
+        return view('certificado.index');
+    }
+
+    function validar($codigo){
+        if($codigo){
+            $encontrado = EventoInscrito::where('certificado', $codigo)->first(); // verifique se o codigo existe no banco de dados
+
+            if ($encontrado) {
+                return view('certificado.index', compact('encontrado'));
+            } else {
+                session()->flash('status', 'Desculpe! Certificado não encontrado.');
+                session()->flash('alert', 'danger');
+
+                return view('certificado.index');
+            }
+        }
+    }
+
+    function validarCertificado(Request $request) {
+        $this->validate($request, [
+            'codigo' => ['required']
+        ]);
+
+        return $this->validar($request->codigo);
     }
 }

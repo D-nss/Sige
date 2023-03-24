@@ -137,6 +137,11 @@ Route::get('evento/{evento}/equipe/{id}', [EventoEquipeController::class, 'show'
 Route::get('evento/{evento}/equipe/{id}/certificado', [CertificadoController::class, 'make']);
 Route::get('evento/{evento}/inscrito/{id}/certificado', [CertificadoController::class, 'make']);
 
+//Certificado
+Route::post('certificado/validar', [CertificadoController::class, 'validarCertificado'])->name('certificado.validar');
+Route::get('certificado/validar', [CertificadoController::class, 'index'])->name('certificado.index');
+Route::get('certificado/validar/{codigo}', [CertificadoController::class, 'validar']);
+
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
