@@ -39,6 +39,7 @@
                         <p>Em caso de dúvidas, entre em contato com a organização do evento.</p>
                     </div>
                 </div>
+                @endif
 
                 @if($inscrito->confirmacao == 1)
                 <div class="p-3 d-flex flex-row">

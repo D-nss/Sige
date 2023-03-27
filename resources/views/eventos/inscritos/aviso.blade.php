@@ -33,7 +33,10 @@
                 </div>
                 <div class="alert alert-warning">
                     <i class="far fa-exclamation-circle"></i>
-                    Atenção! Conclua sua inscrição, confirmando sua presença ao evento através do e-mail informado.
+                    Falta pouco. Para concluir sua inscrição, você precisa confirmar seu e-mail.
+                    Confirme o quanto antes pois sua inscrição, respeitando o prazo das inscrições. Só será efetivada após a confirmação através do link enviado para seu endereço de e-mail.
+
+                    Caso não localizá-lo, verifique sua caixa de Spam.
                 </div>
             </div>
         </div>
