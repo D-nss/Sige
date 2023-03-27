@@ -342,7 +342,7 @@ class EventoInscritosController extends Controller
                 return $this->show($inscrito->id);
             }
 
-            if(strtotime(date('Y-m-d H:i:s')) <= strtotime($evento->inscricao_fim)){
+            if(strtotime(date('Y-m-d H:i:s')) >= strtotime($evento->inscricao_fim)){
                 session()->flash('status', 'Confirmação não concluída pois já se encerrou o prazo de inscrição para este evento');
                 session()->flash('alert', 'danger');
 
