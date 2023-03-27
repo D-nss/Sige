@@ -142,7 +142,7 @@ class EventoInscritosController extends Controller
 
     public function show($codigo)
     {
-        $id = \Illuminate\Support\Facades\Crypt::encryptString($codigo);
+        $id = \Illuminate\Support\Facades\Crypt::decryptString($codigo);
         $inscrito = EventoInscrito::find($id);
 
         if(Auth::check()) {
