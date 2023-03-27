@@ -106,13 +106,13 @@ class Subcomissao implements AvaliacaoInterface
             session()->flash('status', 'Análise enviada com sucesso.');
             session()->flash('alert', 'success');
 
-            return ["redirect" => "evento/inscrito/$inscrito->id", 'status' => true];
+            return ["redirect" => "evento/inscrito/" . \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id), 'status' => true];
         }
         else {
             session()->flash('status', 'Desculpe! Houve erro ao enviar a análise');
             session()->flash('alert', 'danger');
 
-            return ["redirect" => "evento/inscrito/$inscrito->id", 'status' => false];
+            return ["redirect" => "evento/inscrito/" . \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id), 'status' => false];
         }
     }
 
