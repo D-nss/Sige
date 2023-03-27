@@ -62,7 +62,7 @@
                         <span class="h6 font-weight-bold text-uppercase text-danger d-block m-0 mb-3">{{ $inscrito->nome }} sua inscrição está na lista de espera! Caso houver vaga, você será notificado por email</span>
                         @endif
                         <p>Para acompanhamento de inscrição e envio de arquivo acesse sua área clicando no botão abaixo.</p>
-                        <a href="{{ url('evento/inscrito/' . $inscrito->id) }}" class="btn btn-success btn-md d-flex justify-content-between align-items-center">Área do Inscrito <i class="far fa-arrow-right"></i></a>
+                        <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id) ) }}" class="btn btn-success btn-md d-flex justify-content-between align-items-center">Área do Inscrito <i class="far fa-arrow-right"></i></a>
                     </div>
                 </div>
 

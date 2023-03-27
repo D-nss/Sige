@@ -44,7 +44,7 @@ class EventoCancelamentoArquivoNotificar extends Notification
      */
     public function toMail($notifiable)
     {
-        $link = url('evento/inscrito/' . $this->inscrito->id);
+        $link = url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($this->inscrito->id));
         return (new MailMessage)
                     ->subject('Apresentação de projeto cancelada')
                     ->line('Olá, a apresentação do inscrito '. $this->inscrito->nome .' foi cancelada. Acompanhe a inscrição no link abaixo')

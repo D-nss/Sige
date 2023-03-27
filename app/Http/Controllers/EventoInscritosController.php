@@ -140,8 +140,9 @@ class EventoInscritosController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($codigo)
     {
+        $id = \Illuminate\Support\Facades\Crypt::encryptString($codigo);
         $inscrito = EventoInscrito::find($id);
 
         if(Auth::check()) {
@@ -339,7 +340,7 @@ class EventoInscritosController extends Controller
                 session()->flash('status', 'Imprima ou tenha em mãos o QR Code para o credenciamento no evento!');
                 session()->flash('alert', 'warning');
 
-                return $this->show($inscrito->id);
+                return $this->show(\Illuminate\Support\Facades\Crypt::encryptString($inscrito->id));
             }
 
             if(strtotime(date('Y-m-d H:i:s')) >= strtotime($evento->inscricao_fim)){
