@@ -27,6 +27,7 @@ class EventoInscrito extends Model
         'genero',
         'funcao',
         'municipio',
+        'titulo_trabalho',
         'arquivo',
         'certificado',
         'certificado_enviado',

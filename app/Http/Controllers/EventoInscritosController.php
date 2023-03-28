@@ -171,6 +171,10 @@ class EventoInscritosController extends Controller
 
     public function uploadArquivo(Request $request, $id)
     {
+        $this->validate($request, [
+            'titulo_trabalho' => ['required']
+        ]);
+
         if( isset($request->arquivo) || !$request->arquivo == '') {
 
             $inscrito = EventoInscrito::find($id);
@@ -183,6 +187,7 @@ class EventoInscritosController extends Controller
             $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
             $inscrito->arquivo = $arquivo;
             $inscrito->status_arquivo = 'Em Análise';
+            $inscrito->titulo_trabalho = $request->titulo_trabalho;
             if($inscrito->update()) {
                 session()->flash('status', 'Arquivo enviado com sucesso.');
                 session()->flash('alert', 'success');
