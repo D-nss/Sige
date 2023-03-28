@@ -504,11 +504,17 @@
                                             @endif
 
                                             @if(
-                                                ( $inscrito->evento->ck_arquivo == 1 && strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) && $inscrito->recurso_arquivo == NULL )
+                                                ( 
+                                                    $inscrito->evento->ck_arquivo == 1 
+                                                    && 
+                                                    strtotime(date('Y-m-d')) <= strtotime($inscrito->evento->prazo_envio_arquivo) 
+                                                    && 
+                                                    $inscrito->recurso_arquivo == NULL 
+                                                    &&
+                                                    $inscrito->status_arquivo != 'Aceito'
+                                                )
                                                     ||
                                                 ($inscrito->status_arquivo == 'Pendente' && $inscrito->arquivo_ressalva != NULL)
-                                                    ||
-                                                ($inscrito->resposta_recurso == 'Aceito')
                                             )
                                             <div class="row">
                                                 <div class="col-md-12">
