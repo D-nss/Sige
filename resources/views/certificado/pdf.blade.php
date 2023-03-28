@@ -50,6 +50,7 @@
             apresentar(em) o trabalho intitulado {{ $participante->titulo_trabalho }},
             @else
             participar
+            @endif
             @if($tipo == 'evento')
             como palestrante
             @endif no evento
