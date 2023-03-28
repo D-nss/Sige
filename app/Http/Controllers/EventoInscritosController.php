@@ -172,6 +172,10 @@ class EventoInscritosController extends Controller
 
     public function uploadArquivo(Request $request, $id)
     {
+        $validated = $request->validate([
+            'arquivo' => 'required|mime:pdf'
+        ]);
+
         if( isset($request->arquivo) || !$request->arquivo == '') {
 
             $inscrito = EventoInscrito::find($id);
