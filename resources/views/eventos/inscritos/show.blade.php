@@ -393,7 +393,7 @@
                                                                                 <h5>
                                                                                     <span class="font-color-light font-size-14">Argumentação Recurso</span>
                                                                                     <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                                                    {!! nl2br( e( $inscrito->recurso_arquivo( ) !!}
+                                                                                    {!! nl2br( e( $inscrito->recurso_arquivo) ) !!}
                                                                                     </small>
                                                                                 </h5>
                                                                             </div>
