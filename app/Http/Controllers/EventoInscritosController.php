@@ -173,7 +173,7 @@ class EventoInscritosController extends Controller
     public function uploadArquivo(Request $request, $id)
     {
         $validated = $request->validate([
-            'arquivo' => 'required|mimes:pdf'
+            'arquivo' => 'required|mime:pdf'
         ]);
 
         if( isset($request->arquivo) || !$request->arquivo == '') {
@@ -188,6 +188,7 @@ class EventoInscritosController extends Controller
             $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
             $inscrito->arquivo = $arquivo;
             $inscrito->status_arquivo = 'Em Análise';
+            $inscrito->titulo_trabalho = $request->titulo_trabalho;
             if($inscrito->update()) {
                 session()->flash('status', 'Arquivo enviado com sucesso.');
                 session()->flash('alert', 'success');

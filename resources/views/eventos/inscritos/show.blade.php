@@ -310,6 +310,22 @@
                                     </div>
                                     @endif
                                     <hr>
+                                    @if(isset($inscrito->titulo_trabalho))
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Título do Trabalho</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                        {{ $inscrito->titulo_trabalho }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                     <div class="row">
                                         <div class="col-md-12">
                                             @if( !is_null($inscrito->arquivo) && $inscrito->status_arquivo != 'Cancelado' )
@@ -444,7 +460,7 @@
                                                                 <div class="width-9 mb-2">
                                                                     <img src="{{ asset('smartadmin-4.5.1/img/pdf-icon.png') }}" class="img-fluid" alt="Arquivo PDF">
                                                                 </div>
-                                                                
+
                                                                 <a href="{{ url('storage/'.$inscrito->arquivo) }}" class="btn btn-danger" target="_blank">Abrir <i class="far fa-arrow-right ml-2"></i></a>
                                                             </small>
                                                             @if(
@@ -522,6 +538,12 @@
                                                         <div class="p-0">
                                                             <form action="{{ url('inscrito/upload-arquivo/' . $inscrito->id ) }}" method="post" enctype="multipart/form-data">
                                                                 @csrf
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Título do Trabalho<span class="text-danger">*</span></label>
+                                                                    <div class="input-group bg-white shadow-inset-2">
+                                                                        <input type="text" class="form-control bg-transparent" placeholder="Título do Trabalho" name="titulo_trabalho" value="{{old('titulo_trabalho')}}">
+                                                                    </div>
+                                                                </div>
                                                                 <div class="form-group mt-3">
                                                                     <label class="control-label fw-500 text-success fs-xl">Upload de Projeto</label>
                                                                     <div class="preview-zone hidden">
@@ -543,12 +565,12 @@
                                                                         <div class="dropzone-desc">
                                                                             <p class="fw-700">
                                                                                 Arraste o arquivo aqui ou clique para selecionar.
-                                                                                <br>    
+                                                                                <br>
                                                                                 @if($inscrito->arquivo != NULL)
                                                                                     <span class="text-info fs-xs fw-300">Caso deseje alterar o arquivo faça o upload novamente que o arquivo será substituido.</span>
                                                                                 @endif
                                                                             </p>
-                                                                            
+
                                                                         </div>
                                                                         <input type="file" name="arquivo" class="dropzone" id="arquivo" value="{{ old('arquivo') }}">
 
@@ -567,7 +589,7 @@
                                             @endif
 
                                         </div>
-                                    
+
                                     </div>
                                     @if($inscrito->arquivo != NULL && $inscrito->status_arquivo != 'Cancelado')
                                     <div class="row">
@@ -595,11 +617,11 @@
                                                                         @method('PUT')
 
                                                                         <p>Você deseja relamente cancelar sua apresentação de projeto?</p>
-                                    
+
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                                                    <button type="submit" class="btn btn-danger">Sim, Cancelar</button>
                                                                 </div>
                                                                 </div>
                                                             </form>

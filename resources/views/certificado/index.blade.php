@@ -66,6 +66,18 @@
                             </h5>
                         </div>
                     </div>
+                    @if(isset($encontrado->titulo_trabalho) && $encontrado->status_arquivo == 'Aceito')
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                <span class="font-color-light font-size-14">Título Trabalho</span>
+                                <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                {{ $encontrado->titulo_trabalho }}
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
 
                 </div>
             </div>
