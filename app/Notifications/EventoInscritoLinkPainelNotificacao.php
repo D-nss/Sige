@@ -42,7 +42,7 @@ class EventoInscritoLinkPainelNotificao extends Notification
      */
     public function toMail($notifiable)
     {
-        $link = url('evento/inscrito/' . $this->data['id']);
+        $link = url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($this->data['id']));
 
         return (new MailMessage)
             ->subject('Acompanhamento de inscrição no evento ' . $this->data['titulo_evento']  . '.')

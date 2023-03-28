@@ -44,7 +44,7 @@ class RecursoArquivoNotificar extends Notification
      */
     public function toMail($notifiable)
     {
-        $link = url('evento/inscrito/' . $this->inscrito->id);
+        $link = url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($this->inscrito->id));
         return (new MailMessage)
                 ->subject('Recurso aberto em analise feita por você.')
                 ->greeting('Olá!, ' . $this->inscrito->analista['name'])

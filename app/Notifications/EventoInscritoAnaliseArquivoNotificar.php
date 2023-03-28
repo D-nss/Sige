@@ -45,7 +45,7 @@ class EventoInscritoAnaliseArquivoNotificar extends Notification
     public function toMail($notifiable)
     {
     
-        $link = url('evento/inscrito/' . $this->inscrito->id);
+        $link = url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($this->inscrito->id));
         $mensagem = '';
 
         if($this->inscrito->status_arquivo == 'Pendente') {

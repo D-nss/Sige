@@ -68,7 +68,7 @@
                                                 <td>{{ $confirmado->nome }}</td>
                                                 <td>{{ $confirmado->email }}</td>
                                                 <td>
-                                                    <a href="{{ url('evento/inscrito/' . $confirmado->id) }}" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id) ) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                     <a href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
@@ -122,7 +122,7 @@
                                                 <td>{{ $lista->nome }}</td>
                                                 <td>{{ $lista->email }}</td>
                                                 <td>
-                                                    <a href="{{ url('evento/inscrito/' . $lista->id) }}" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($lista->id)) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                     <a href="{{ url('inscrito/enviar-email/' . $lista->id . '/novo') }}" class="btn btn-warning btn-xs">
@@ -171,7 +171,7 @@
                                                 <td>{{ $naoConfirmado->nome }}</td>
                                                 <td>{{ $naoConfirmado->email }}</td>
                                                 <td>
-                                                    <a href="{{ url('evento/inscrito/' . $naoConfirmado->id) }}" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($naoConfirmado->id)) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                     <a href="{{ url('inscrito/enviar-email/' . $naoConfirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
@@ -223,7 +223,7 @@
                                                 <td>{{ $cancelado->nome }}</td>
                                                 <td>{{ $cancelado->email }}</td>
                                                 <td>
-                                                    <a href="{{ url('evento/inscrito/' . $cancelado->id) }}" class="btn btn-info btn-xs">
+                                                    <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($cancelado->id)) }}" class="btn btn-info btn-xs">
                                                         Dados Completos
                                                     </a>
                                                 </td>

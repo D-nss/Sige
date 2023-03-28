@@ -44,7 +44,7 @@ class RecursoAnaliseNotificar extends Notification
      */
     public function toMail($notifiable)
     {
-        $link = url('evento/inscrito/' . $this->inscrito->id);
+        $link = url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($this->inscrito->id));
         return (new MailMessage)
                 ->subject('Resposta do recurso aberto por você.')
                 ->greeting('Olá!, ' . $this->inscrito->nome)
