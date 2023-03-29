@@ -45,14 +45,14 @@
             @endif
         </h1>
         <h3 style="text-align: center; margin-top: 12px; padding: 0 128;font-weight: 400; color: #444;">
-            portador do CPF número 33377777722 este certificado, por
+             este certificado, por
             @if(isset($participante->status_arquivo) && ($participante->status_arquivo == 'Aceito'))
-            apresentar(em) o trabalho intitulado {{ $participante->titulo_trabalho }},
+             apresentar(em) o trabalho intitulado {{ $participante->titulo_trabalho }},
             @else
-            participar
+             participar
             @endif
             @if($tipo == 'evento')
-            como palestrante
+             como palestrante
             @endif no evento
             @if($participante->evento->online != NULL)
                 on-line
