@@ -193,7 +193,7 @@ class EventoInscritosController extends Controller
             }
 
             $upload = new UploadFile();
-            $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000);
+            $arquivo = $upload->execute($request, 'arquivo', 'pdf', 30000000);
             $inscrito->arquivo = $arquivo;
             $inscrito->status_arquivo = 'Em Análise';
             $inscrito->titulo_trabalho = $request->titulo_trabalho;

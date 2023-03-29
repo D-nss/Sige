@@ -77,7 +77,7 @@
                         <div class="input-group bg-white shadow-inset-2">
                             <input type="text" name="documento" id="documento" pattern="" class="form-control bg-transparent" placeholder="Documento, somente numeros" value="{{old('documento')}}" >
                         </div>
-                        <!-- <span class="help-block">Some help content goes here</span> -->
+                        <span class="help-block text-danger" id="documento-alert"></span>
                     </div>
                     @endif
                     @if($evento->ck_sexo)
