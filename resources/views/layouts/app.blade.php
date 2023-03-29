@@ -408,6 +408,19 @@ Versão: 4.5.1
                     }
                 });
 
+                if( $("#tipo_documento").val() ==  'CPF' ) {
+                    $("#documento").attr({"pattern": "[0-9]{11}", "title": "O CPF deve conter 11 digitos numéricos"});
+                    
+                }
+                if( $("#tipo_documento").val() ==  'RG' ) {
+                    $("#documento").attr({"pattern": "[0-9]{9}", "title": "O RG deve conter 9 digitos numéricos"});
+                    
+                }
+                if( $("#tipo_documento").val() ==  'Passaporte' ) {
+                    $("#documento").attr({"pattern": "[0-9]{6}", "title": "O Passaporte deve conter 6 digitos numéricos"});
+                    
+                }
+
                 $("#documento").on("invalid", () => {
                     if( $("#tipo_documento").val() ==  'CPF' ) {
                         $("#documento-alert").html("O CPF deve conter 11 digitos numéricos");
@@ -418,10 +431,6 @@ Versão: 4.5.1
                     if( $("#tipo_documento").val() ==  'Passaporte' ) {
                         $("#documento-alert").html("O Passaporte deve conter 6 digitos numéricos");
                     }
-                });
-
-                $("#documento").on("valid", () => {
-                    $("#documento-alert").html("");
                 });
 
                 $("#inscricao_fim").blur(function(){

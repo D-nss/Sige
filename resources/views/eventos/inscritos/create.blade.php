@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label class="form-label">Numero Documento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" name="documento" id="documento" pattern="" class="form-control bg-transparent" placeholder="Documento, somente numeros" value="{{old('documento')}}" >
+                            <input type="text" name="documento" id="documento" class="form-control bg-transparent" placeholder="Documento, somente numeros" value="{{old('documento')}}" >
                         </div>
                         <span class="help-block text-danger" id="documento-alert"></span>
                     </div>
