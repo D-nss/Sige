@@ -103,7 +103,14 @@
                     <div class="form-group">
                         <label class="form-label">Identidade de Genero<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Identidade de Genero" name="genero" value="{{old('genero')}}">
+                            <select type="text" class="form-control bg-transparent" name="genero" >
+                                <option value="">Selecione ...</option>
+                                <option value="Mulher" @if(old('genero') == 'Amarelo') selected @endif>Mulher</option>
+                                <option value="Homem" @if(old('genero') == 'Branco') selected @endif>Homem</option>
+                                <option value="Mulher trans" @if(old('genero') == 'Mulher trans') selected @endif>Mulher trans</option>
+                                <option value="Homem trans" @if(old('genero') == 'Homem trans') selected @endif>Homem trans</option>
+                                <option value="Não binário " @if(old('genero') == 'Não binário') selected @endif>Não binário</option>
+                            </select>
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
@@ -166,7 +173,18 @@
                     <div class="form-group">
                         <label class="form-label">Vinculo com a Unicamp<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Vinculo com a Unicamp" name="vinculo" value="{{old('vinculo')}}">
+                            <select type="text" class="form-control bg-transparent" name="vinculo" >
+                                <option value="">Selecione ...</option>
+                                <option value="Docente" @if(old('vinculo') == 'Docente') selected @endif>Docente</option>
+                                <option value="Funcionário Unicamp" @if(old('vinculo') == 'Funcionário Unicamp') selected @endif>Funcionário Unicamp</option>
+                                <option value="Funcionário Funcamp" @if(old('vinculo') == 'Funcionário Funcamp') selected @endif>Funcionário Funcamp</option>
+                                <option value="Terceirizado" @if(old('vinculo') == 'Terceirizado') selected @endif>Terceirizado</option>
+                                <option value="Estagiário" @if(old('vinculo') == 'Estagiário') selected @endif>Estagiário</option>
+                                <option value="Discente de pós-graduação" @if(old('vinculo') == 'Discente de pós-graduação') selected @endif>Discente de pós-graduação</option>
+                                <option value="Discente de graduação" @if(old('vinculo') == 'Discente de graduação') selected @endif>Discente de graduação</option>
+                                <option value="Aluno de cursos e projetos" @if(old('vinculo') == 'Aluno de cursos e projetos') selected @endif>Aluno de cursos e projetos</option>
+                                <option value="Sem vínculo" @if(old('vinculo') == 'Sem vínculo') selected @endif>Sem vínculo</option>
+                            </select>
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
