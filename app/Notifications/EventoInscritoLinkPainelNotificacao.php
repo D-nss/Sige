@@ -44,9 +44,15 @@ class EventoInscritoLinkPainelNotificao extends Notification
     {
         $link = url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($this->data['id']));
 
+        if($this->data['nome_social'] != NULL) {
+            $nome = $this->data['nome_social'];
+        } else {
+            $nome = $this->data['nome'];
+        }
+
         return (new MailMessage)
             ->subject('Acompanhamento de inscrição no evento ' . $this->data['titulo_evento']  . '.')
-            ->line( 'Olá ' . $this->data['nome'] . ', caso você deseja acompanhar sua inscrição clique no botão abaixo.' )
+            ->line( 'Olá ' . $nome . ', caso você deseja acompanhar sua inscrição clique no botão abaixo.' )
             ->action('Acompanhar Inscrição', $link)
             ->line('Caso não consiga clicar no botão "Acompanhar Inscrição", copie e cole no seu navegador o link abaixo: ')
             ->line($link)

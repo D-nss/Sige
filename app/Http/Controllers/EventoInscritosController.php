@@ -112,9 +112,16 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::create($inputs);
 
         if($inscrito) {
+
+            if($inscrito->nome_social != NULL) {
+                $nome = $inscrito->nome_social;
+            } else {
+                $nome = $inscrito->nome;
+            }
+
             $inscrito->notify( new \App\Notifications\EventoInscritoNotificar([
                 'titulo_evento' => $evento->titulo,
-                'nome' => $inscrito->nome,
+                'nome' => $nome,
                 'id' => $inscrito->id
             ]));
 
@@ -405,9 +412,16 @@ class EventoInscritosController extends Controller
                 if($inscritoFila){
                     $inscritoFila->lista_espera = 0;
                     if($inscritoFila->update()){
+
+                        if($inscritoFila->nome_social != NULL) {
+                            $nome = $inscritoFila->nome_social;
+                        } else {
+                            $nome = $inscritoFila->nome;
+                        }
+
                         $inscritoFila->notify( new \App\Notifications\EventoInscritoConfirmado([
                             'titulo_evento' => $inscritoFila->evento->titulo,
-                            'nome' => $inscritoFila->nome,
+                            'nome' => $nome,
                             'id' => $inscritoFila->id
                         ]));
                     }
@@ -487,6 +501,12 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::find($data[1]);
 
+        if($inscrito->nome_social != NULL) {
+            $nome = $inscrito->nome_social;
+        } else {
+            $nome = $inscrito->nome;
+        }
+
         //Gerando QRCode
         $url = url("inscritos/presenca/$codigo");
         $qrcode = QrCode::size(200)->generate( url($url));
@@ -505,7 +525,7 @@ class EventoInscritosController extends Controller
                 </div>
                 <div>
                     <p style='font-weight: bold; font-size:28px;'>
-                    Nome: ". $inscrito->nome ."
+                    Nome: ". $nome ."
                     </p>
                 </div>
                 <div>
@@ -530,11 +550,17 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
+        if($inscrito->nome_social != NULL) {
+            $nome = $inscrito->nome_social;
+        } else {
+            $nome = $inscrito->nome;
+        }
+
         if($request->tipo_mensagem == 'confirmar'){
 
             $inscrito->notify( new \App\Notifications\EventoInscritoNotificar([
                 'titulo_evento' => $inscrito->evento->titulo,
-                'nome' => $inscrito->nome,
+                'nome' => $nome,
                 'id' => $inscrito->id
             ]));
 
@@ -546,7 +572,7 @@ class EventoInscritosController extends Controller
 
         if($request->tipo_mensagem == 'mensagem') {
             $detalhes = [
-                'nome' => $inscrito->nome,
+                'nome' => $nome,
                 'titulo_evento' => $inscrito->evento->titulo,
                 'mensagem' => $request->mensagem
             ];

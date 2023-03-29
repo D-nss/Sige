@@ -39,26 +39,6 @@
                     <div class="col-12">
                         <div class="p-0">
                             <h5>
-                                <span class="font-color-light font-size-14">Tipo Documento</span>
-                                <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                {{ $encontrado->tipo_documento }}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                <span class="font-color-light font-size-14">Documento</span>
-                                <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                {{ $encontrado->documento }}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
                                 <span class="font-color-light font-size-14">Evento</span>
                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
                                 {{ $encontrado->evento->titulo }}
