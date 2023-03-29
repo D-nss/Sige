@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label class="form-label">Tipo Documento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <select class="form-control bg-transparent"  name="tipo_documento">
+                            <select class="form-control bg-transparent"  name="tipo_documento" id="tipo_documento">
                                 @if(old('tipo_documento'))
                                 <option value="{{old('tipo_documento')}}">{{old('tipo_documento')}}</option>
                                 @else
@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label class="form-label">Numero Documento<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Documento" name="documento" value="{{old('documento')}}" pattern="[0-9]{11}">
+                            <input type="text" name="documento" id="documento" pattern="" class="form-control bg-transparent" placeholder="Documento, somente numeros" value="{{old('documento')}}" >
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>

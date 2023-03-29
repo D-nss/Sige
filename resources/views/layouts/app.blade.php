@@ -393,6 +393,18 @@ Versão: 4.5.1
                     }
                 });
 
+                $("#tipo_documento").change(() => {
+                    if( $("#tipo_documento").val() ==  'CPF' ) {
+                        $("#documento").attr({"pattern": "[0-9]{11}", "title": "O CPF deve conter 11 digitos numéricos"});
+                    }
+                    if( $("#tipo_documento").val() ==  'RG' ) {
+                        $("#documento").attr({"pattern": "[0-9]{9}", "title": "O RG deve conter 9 digitos numéricos"});
+                    }
+                    if( $("#tipo_documento").val() ==  'Passaporte' ) {
+                        $("#documento").attr({"pattern": "[0-9]{6}", "title": "O Passaporte deve conter 6 digitos numéricos"});
+                    }
+                });
+
                 $("#inscricao_fim").blur(function(){
                     var data1 = new Date($("#inscricao_inicio").val())
                     var data2 = new Date($("#inscricao_fim").val())

@@ -82,7 +82,7 @@ class EventoInscritosController extends Controller
             "nome" => 'required',
             "email" => 'required|email',
             "tipo_documento" => ($evento->ck_documento) ? 'required' : '',
-            "documento" => ($evento->ck_documento) ? 'required' : '',
+            "documento" => ($evento->ck_documento) ? 'required|numeric' : '',
             "sexo" => ($evento->ck_sexo) ? 'required' : '',
             "genero" => ($evento->ck_identidade_genero) ? 'required' : '',
             'instituicao' => ($evento->ck_instituicao) ? 'required' : '',
