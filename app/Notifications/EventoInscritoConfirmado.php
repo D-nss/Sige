@@ -48,15 +48,9 @@ class EventoInscritoConfirmado extends Notification
         $cryptNao = \Illuminate\Support\Facades\Crypt::encryptString('nao/' . $this->data['id']);
         $linkNao = url('inscritos/confirmacao') . '/' . str_replace('09', '90', $cryptNao) ;
 
-        if($this->data['nome_social'] != NULL) {
-            $nome = $this->data['nome_social'];
-        } else {
-            $nome = $this->data['nome'];
-        }
-
         return (new MailMessage)
                     ->subject('Confirmação de inscrição no evento ' . $this->data['titulo_evento']  . '.')
-                    ->line( $nome . ' não está mais na fila de espera e está confirmado no evento ' . $this->data['titulo_evento']  . '.' )
+                    ->line( $this->data['nome'] . ' não está mais na fila de espera e está confirmado no evento ' . $this->data['titulo_evento']  . '.' )
                     ->action('Acessar inscrição', $linkSim)
                     ->line('Caso não consiga clicar no link "Acessar inscrição", copie e cole no seu navegador o link abaixo: ')
                     ->line($linkSim)
