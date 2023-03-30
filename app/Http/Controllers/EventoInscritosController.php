@@ -486,7 +486,7 @@ class EventoInscritosController extends Controller
             }
         }
         else {
-            session()->flash('status', 'Desculpe! Não foi possível cadsatrar a presença.');
+            session()->flash('status', 'Desculpe! Não foi possível cadastrar a presença.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
