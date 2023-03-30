@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="form-group d-none" id="user_form_group">    
+<div class="form-group d-none" id="user_form_group">
     <label class="form-label fw-500" for="simpleinput">Usuário</label>
     <select name="user_id" id="user_id" class="form-control w-50">
         <option value="">Selecione ...</option>
@@ -63,7 +63,7 @@
     <input type="text" class="form-control" name="instituicao" id="instituicao" placeholder="Digite o nome da instituição " value="@if( isset($membro->instituicao) ){{ $membro->instituicao }}@else{{ old('instituicao') }}@endif">
 </div>
 
-<div class="form-group">    
+<div class="form-group">
     <label class="form-label fw-500" for="simpleinput">Função no Evento<span class="text-danger">*</span></label>
     <select name="funcao_evento" class="form-control w-50">
         <option value="">Selecione ...</option>
@@ -71,4 +71,9 @@
         <option value="Staff" @if( isset($membro->funcao_evento ) && $membro->funcao_evento == 'Staff' ) selected @endif>Staff</option>
     </select>
 </div>
-                
+
+<div class="form-group">
+    <label for="titulo_palestra" class="fw-500">Título Palestra</label>
+    <input type="text" class="form-control" name="titulo_palestra" id="titulo_palestra" placeholder="Caso seja palestrante, coloque o título da palestra " value="@if( isset($membro->titulo_palestra) ){{ $membro->titulo_palestra }}@else{{ old('titulo_palestra') }}@endif">
+</div>
+

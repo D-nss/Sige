@@ -18,6 +18,7 @@ class EventoEquipe extends Model
         'cpf',
         'whatsapp',
         'funcao_evento',
+        'titulo_palestra',
         'funcionario_unicamp',
         'aluno_unicamp',
         'user_id',

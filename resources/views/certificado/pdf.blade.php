@@ -52,7 +52,7 @@
              participar
             @endif
             @if($tipo == 'evento')
-             como palestrante
+             ministrou palestra sobre @if(isset($participante->titulo_palestra)) {{ $participante->titulo_palestra }} @endif
             @endif no evento
             @if($participante->evento->online != NULL)
                 on-line

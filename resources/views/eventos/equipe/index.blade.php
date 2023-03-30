@@ -18,7 +18,7 @@
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -38,6 +38,7 @@
                                     <th>E-Mail</th>
                                     <th>Whatsapp</th>
                                     <th>Função</th>
+                                    <th>Palestra</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -48,6 +49,7 @@
                                     <td>{{ $membro->email }}</td>
                                     <td>{{ $membro->whatsapp }}</td>
                                     <td>{{ $membro->funcao_evento }}</td>
+                                    <td>{{ $membro->titulo_palestra }}</td>
                                     <td>
                                         <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/editar') }}" class="btn btn-info btn-xs">Editar</a>
                                         <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/show') }}" class="btn btn-primary btn-xs">Ver</a>
@@ -67,11 +69,11 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        
+
                                                             @csrf
                                                             @method('DELETE')
                                                             <p>Deseja remover o membro <span class="fw-500">{{ $membro->nome }}</span>?</p>
-                                                        
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -80,12 +82,12 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                        </div> 
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>        
+                        </table>
                         </div>
                     </div>
                 </div>
