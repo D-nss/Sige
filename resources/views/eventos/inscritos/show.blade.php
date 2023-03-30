@@ -310,7 +310,7 @@
                                     </div>
                                     @endif
                                     <hr>
-                                    @if(isset($inscrito->titulo_trabalho))
+                                    @if(isset($inscrito->titulo_trabalho) && $inscrito->status_arquivo != 'Cancelado')
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-12">
