@@ -342,19 +342,6 @@ Versão: 4.5.1
                     }
                 });
 
-                $("#data_fim").blur(function(){
-                    var data1 = new Date($("#data_inicio").val())
-                    var data2 = new Date($("#data_fim").val())
-                    if(data1 > data2) {
-                        $("#msg_erro_data_inicio").html("A data de inicio não pode ser menor que a data fim");
-                        $("#data_inicio").val('');
-                        $("#data_fim").val('');
-                    }
-                    else {
-                        $("#msg_erro_data_inicio").html('');
-                    }
-                });
-
                 $("#funcionario_unicamp").change(() => {
                     if ( $('#funcionario_unicamp').is(':checked') ) {
                         $("#funcionario_unicamp_label").html('Sim');
@@ -406,6 +393,70 @@ Versão: 4.5.1
                         $("#documento").attr({"pattern": "[0-9]{6}", "title": "O Passaporte deve conter 6 digitos numéricos"});
                         
                     }
+                });
+
+                $("#data_fim").blur(function(){
+                    var dt_inicio = new Date($("#data_inicio").val())
+                    var dt_fim = new Date($("#data_fim").val())
+                    var dt_atual = new Date()
+                    if(dt_fim < dt_inicio || dt_fim < dt_atual) {
+                        $("#msg_erro_data_fim").html("A data fim não pode ser antes da data início");
+                        $("#data_fim").val('');
+                    }
+                    else {
+                        $("#msg_erro_data_fim").html('');
+                    }
+                });
+
+                $('#data_inicio').blur(() => {
+                    dt_atual = new Date();
+                    dt_inicio = new Date($('#data_inicio').val());
+                    if(dt_inicio < dt_atual) {
+                        $("#data_inicio").val('');
+                        $("#msg_erro_data_inicio").html('Data de início não pode ser no passado');
+                    }
+                    else {
+                        $("#msg_erro_data_inicio").html('');
+                    }
+                });
+
+                $('#inscricao_inicio').blur(() => {
+                    dt_atual = new Date();
+                    dt_inicio = new Date($('#inscricao_inicio').val());
+                    if(dt_inicio < dt_atual) {
+                        $("#inscricao_inicio").val('');
+                        $("#msg_erro_inscricao_inicio").html('Data de início das inscrições não pode ser no passado');
+                    }
+                    else {
+                        $("#msg_erro_inscricao_inicio").html('');
+                    }
+                });
+
+                $("#inscricao_fim").blur(function(){
+                    var dt_inicio = new Date($("#inscricao_inicio").val())
+                    var dt_fim = new Date($("#inscricao_fim").val())
+                    var dt_atual = new Date()
+                    if(dt_fim < dt_inicio || dt_fim < dt_atual) {
+                        $("#msg_erro_inscricao_fim").html("A data fim data inscrição não pode ser antes da data de início das incrições");                        
+                        $("#inscricao_fim").val('');
+                    }
+                    else {
+                        $("#msg_erro_inscricao_fim").html('');
+                    }
+                });
+
+                $('#prazo_envio_arquivo').blur(() => {
+                    dt_atual = new Date();
+                    dt_prazo_envio = new Date($('#prazo_envio_arquivo').val());
+                    if(dt_prazo_envio < dt_atual) {
+                        $("#prazo_envio_arquivo").val('');
+                        $("#msg_erro_prazo_envio_arquivo").html('Data de início das inscrições não pode ser no passado');
+                    }
+                    else {
+                        $("#msg_erro_prazo_envio_arquivo").html('');
+                    }
+
+                    console.log(dt_prazo_envio);
                 });
 
                 if( $("#tipo_documento").val() ==  'CPF' ) {

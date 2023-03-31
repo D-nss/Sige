@@ -102,7 +102,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('data_fim') is-invalid @enderror w-25" type="datetime-local" id="data_fim" name="data_fim" value="{{ old('data_fim') }}">
-                                                
+                                                <span class="text-danger" id="msg_erro_data_fim"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -136,7 +136,7 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <input class="form-control @error('inscricao_fim') is-invalid @enderror w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" value="{{ old('inscricao_fim') }}">
-                                                    
+                                                    <span class="text-danger" id="msg_erro_inscricao_fim"></span>
                                                 </div>
                                                 <div class="form-input mt-3">
                                                     <label class="form-label fw-400" for="vagas">
@@ -229,7 +229,8 @@
                                                                 Prazo para envio de arquivo 
                                                                 <span class="text-danger">*</span>
                                                             </label>
-                                                            <input class="form-control @error('prazo_envio_arquivo') is-invalid @enderror w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" value="{{ old('prazo_envio_arquivo') }}">
+                                                            <input class="form-control @error('prazo_envio_arquivo') is-invalid @enderror w-25" type="datetime-local" name="prazo_envio_arquivo" id="prazo_envio_arquivo" value="{{ old('prazo_envio_arquivo') }}">
+                                                            <span class="text-danger" id="msg_erro_prazo_envio_arquivo"></span>
                                                         </div>
                                                         <div class="form-group mt-2">
                                                             <label class="form-label fw-400" for="input_personalizado">
