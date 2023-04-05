@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Services\AvaliacaoInterface;
 
+use App\Models\AcaoExtensao;
 use App\Models\Inscricao;
 use App\Models\User;
 use App\Models\EventoInscrito;
@@ -30,6 +31,10 @@ class Avaliacao
     }
 
     public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user){
+        return $this->avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
+    }
+
+    public function executeAvaliacaoConext(Request $request, AcaoExtensao $acao_extensao, User $user){
         return $this->avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
     }
 

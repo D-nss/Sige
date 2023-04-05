@@ -100,6 +100,7 @@ Route::post('/acoes-extensao/local/{acao_extensao_local}', [AcaoExtensaoControll
 Route::post('/acoes-extensao/parceiro', [AcaoExtensaoController::class, 'insereParceiro'])->name('acao_extensao.parceiro.inserir');
 Route::post('/acoes-extensao/parceiro/{acao_extensao_parceiro}', [AcaoExtensaoController::class, 'removeParceiro'])->name('acao_extensao.parceiro.destroy');
 Route::post('/acoes-extensao/unidades', [AcaoExtensaoController::class, 'insereUnidade'])->name('acao_extensao.unidades.inserir');
+Route::put('/acoes-extensao/{acao_extensao}/aprovar_conext', [AcaoExtensaoController::class, 'aprovarConext'])->name('acao_extensao.aprovar_conext');
 
 //Ações Culturais
 Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');

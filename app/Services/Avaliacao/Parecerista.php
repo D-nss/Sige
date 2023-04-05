@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\AvaliacaoInterface;
 
+use App\Models\AcaoExtensao;
 use App\Models\Cronograma;
 use App\Models\ComissaoUser;
 use App\Models\Inscricao;
@@ -198,4 +199,5 @@ class Parecerista implements AvaliacaoInterface
     }
 
     public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) {}
+    public function executeAvaliacaoConext(Request $request, AcaoExtensao $acao_extensao, User $user){}
 }

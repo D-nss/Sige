@@ -90,4 +90,9 @@ class AcaoExtensao extends Model
     {
         return $this->hasMany(Comentario::class);
     }
+
+    public function analista_conext()
+    {
+        return $this->belongsTo(User::class, 'avaliacao_conext_user_id');
+    }
 }

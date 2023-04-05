@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
+use App\Services\Avaliacao\ComissaoConext;
+
 class AcaoExtensaoController extends Controller
 {
     public function dashboard(){
@@ -634,6 +636,22 @@ class AcaoExtensaoController extends Controller
         session()->flash('alert', 'success');
 
         return redirect()->route('acao_extensao.index');
+    }
+
+    //Criado a aprovação do conext, necessario no show da ação checar se o user esta na comissão com atribuição de Conext
+    //assim criar e exibir o form de aprovação onde deve ser seleciona se Aprovado ou Reprovado
+    public function aprovarConext(Request $request, AcaoExtensao $acaoExtensao){
+
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $comissaoConext = new ComissaoConext();
+        $resposta = $comissaoConext->executeAvaliacaoConext($request, $acaoExtensao, $user);
+
+        return redirect()->to($resposta['redirect']);
     }
 
     public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request){

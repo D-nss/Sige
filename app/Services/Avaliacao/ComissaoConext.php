@@ -5,13 +5,14 @@ namespace App\Services\Avaliacao;
 use Illuminate\Http\Request;
 use App\Services\AvaliacaoInterface;
 
+use App\Models\AcaoExtensao;
 use App\Models\Cronograma;
 use App\Models\ComissaoUser;
 use App\Models\Inscricao;
 use App\Models\EventoInscrito;
 use App\Models\User;
 
-class Comissao1 implements AvaliacaoInterface
+class ComissaoConext implements AvaliacaoInterface
 {
     public function getAvaliacao(Request $request, Inscricao $inscricao, User $user) 
     {
@@ -55,4 +56,38 @@ class Comissao1 implements AvaliacaoInterface
 
     public function update(Request $request, Inscricao $inscricao, User $user) {}
     public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) {}
+
+    public function executeAvaliacaoConext(Request $request, AcaoExtensao $acao_extensao, User $user)
+    {
+        if($acao_extensao->user_id == $user->id) {
+            session()->flash('status', 'Desculpe! Não é permitido a análise da própria inscrição');
+            session()->flash('alert', 'danger');
+
+            return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => false];
+        }
+
+        $validated = $request->validate([
+            'status_avaliacao_conext' => 'required'
+        ]);
+
+        $acao_extensao_updated = $acao_extensao->update([
+            'avaliacao_conext_user_id' => $user->id,
+            'status_avaliacao_conext' => $request->status_avaliacao_conext
+        ]);
+
+        if( $acao_extensao_updated )
+        {
+            session()->flash('status', 'Avaliação cadastrada com sucesso!');
+            session()->flash('alert', 'success');
+
+            return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => true];
+        }
+        else
+        {
+            session()->flash('status', 'Desculpe! Houve um problema ao enviar avaliação');
+            session()->flash('alert', 'danger');
+
+            return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => false];
+        }
+    }
 }
