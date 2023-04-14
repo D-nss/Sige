@@ -35,7 +35,7 @@
                 @if($inscrito->confirmacao == 0)
                 <div class="p-3 d-flex flex-row">
                     <div class="flex-1 ml-4">
-                        <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">@if(isset($inscrito->nome_social)) {{ $inscrito->nome_social }} else {{ $inscrito->nome }} @endif sua inscrição não foi confirmada! Pois já se encerrou o prazo de inscrição em {{ $inscrito->evento->inscricao_fim }}</span>
+                        <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">@if(isset($inscrito->nome_social)) {{ $inscrito->nome_social }} @else {{ $inscrito->nome }} @endif sua inscrição não foi confirmada! Pois já se encerrou o prazo de inscrição em {{ $inscrito->evento->inscricao_fim }}</span>
                         <p>Em caso de dúvidas, entre em contato com a organização do evento.</p>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     @endif
                     <div class="flex-1 ml-4">
                         @if($inscrito->lista_espera == 0)
-                        <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">@if(isset($inscrito->nome_social)) {{ $inscrito->nome_social }} else {{ $inscrito->nome }} @endif sua inscrição está confirmada no evento!</span>
+                        <span class="h6 font-weight-bold text-uppercase d-block m-0 mb-3">@if(isset($inscrito->nome_social)) {{ $inscrito->nome_social }} @else {{ $inscrito->nome }} @endif sua inscrição está confirmada no evento!</span>
                         <div class="alert alert-warning">
                             <span class="fs-sm text-secundary h6 fw-300 mb-0 d-block">Salve um print do QRCode abaixo ou clique no botão baixar</span>
                             <span class="fs-sm text-secundary h6 fw-500 mb-0 d-block">O acesso ao evento se dará através deste QRCode, por isso é importante apresenta-lo na portaria do evento</span>
@@ -91,7 +91,7 @@
 
                 @endif
                 @if( $inscrito->confirmacao == 2)
-                    <h3 class="fw-400 text-danger">@if(isset($inscrito->nome_social)) {{ $inscrito->nome_social }} else {{ $inscrito->nome }} @endif sua inscrição no evento foi cancelada!</h3>
+                    <h3 class="fw-400 text-danger">@if(isset($inscrito->nome_social)) {{ $inscrito->nome_social }} @else {{ $inscrito->nome }} @endif sua inscrição no evento foi cancelada!</h3>
                     <!-- Modal Small -->
                     <div class="modal fade" id="checked-modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
