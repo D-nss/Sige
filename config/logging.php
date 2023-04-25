@@ -71,6 +71,12 @@ return [
             'path' => storage_path('logs/orcamentos.log'),
             'level' => 'debug',
         ],
+
+        'acao_extensao' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/acoes_extensao.log'),
+            'level' => 'debug',
+        ],
     ],
 
 ];

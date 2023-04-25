@@ -17,7 +17,7 @@
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-1">
-            <span class="h5">Ação de Extensão cadastrada, porém não submetida para aprovação</span>
+            <span class="h5">Ação de Extensão inserida/atualizada, agora necessita que ela seja submetida para aprovação pela Unidade</span>
         </div>
         @if($userCoordenadorAcao)
         <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">

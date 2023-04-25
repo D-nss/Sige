@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
@@ -64,7 +65,6 @@ class AcaoExtensaoController extends Controller
         $total_aprovados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
         $total_pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->count();
         $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Desativado')->count();
-
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
@@ -222,9 +222,11 @@ class AcaoExtensaoController extends Controller
         });
 
         if($acao_extensao){
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
             session()->flash('alert', 'success');
         } else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação não inserida  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Erro ao adicionar a Ação de Extensão ao banco de dados.');
             session()->flash('alert', 'danger');
             return back();
@@ -312,11 +314,13 @@ class AcaoExtensaoController extends Controller
         });
 
         if(is_null($transacao) || empty($transacao)) {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: atualização da Ação de Extensão' . $acaoExtensao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro na atualização da Ação de Extensão');
             session()->flash('alert', 'danger');
             return redirect()->back();
         }
         else {
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Atualização Ação de Extensão' . $acaoExtensao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Ação de Extensão atualizada com sucesso!');
             session()->flash('alert', 'success');
             return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
@@ -334,10 +338,18 @@ class AcaoExtensaoController extends Controller
             'unidade_id' => $request->unidade_id
         ]);
 
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         if($unidadeRelacionada){
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Ação de Extensão ('. $request->acao_extensao_id . ') - Adição de Unidade: ' . $request->unidade_id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Unidade adicionada com sucesso!');
             session()->flash('alert', 'success');
         } else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação de Extensão ('. $request->acao_extensao_id . ') - Adição de Unidade: ' . $request->unidade_id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Erro ao adicionar unidade ao banco de dados.');
             session()->flash('alert', 'danger');
             return back();
@@ -350,16 +362,24 @@ class AcaoExtensaoController extends Controller
 
     public function removeUnidade($id)
     {
-        $unidadeRelacionada = DB::table('acoes_culturais_unidades')->where('id', $id)->first();
+        $unidadeRelacionada = DB::table('acoes_extensao_unidades')->where('id', $id)->first();
         $acaoExtensao = AcaoExtensao::where('id', $unidadeRelacionada->acao_extensao_id)->first();
 
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         if($unidadeRelacionada->delete()) {
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Ação de Extensão ('. $acaoExtensao->id . ') - Remoção de Unidade: ' . $unidadeRelacionada->unidade_id);
             session()->flash('status', 'Unidade relacionada removida!');
             session()->flash('alert', 'success');
 
             return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
         }
         else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação de Extensão ('. $acaoExtensao->id . ') - Remoção de Unidade: ' . $unidadeRelacionada->unidade_id);
             session()->flash('status', 'Unidade relacionada não removida!');
             session()->flash('alert', 'danger');
 
@@ -375,12 +395,20 @@ class AcaoExtensaoController extends Controller
             'local' => ['required']
         ]);
 
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $dataLocalCriado = AcaoExtensaoDataLocal::create($request->all());
 
         if($dataLocalCriado){
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Adição de Data/Local Ação de Extensão ('. $request->acao_extensao_id . ') - Local: ' . $request->local . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Data e Local adicionado com sucesso!');
             session()->flash('alert', 'success');
         } else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Adição de Data/Local Ação de Extensão ('. $request->acao_extensao_id . ') - Local: ' . $request->local . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Erro ao adicionar data e local ao banco de dados.');
             session()->flash('alert', 'danger');
             return back();
@@ -392,13 +420,21 @@ class AcaoExtensaoController extends Controller
 
     public function removeLocal($id)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $acaoExtensaoDataLocal = AcaoExtensaoDataLocal::where('id', $id)->first();
         $acaoExtensao = AcaoExtensao::where('id', $acaoExtensaoDataLocal->acao_extensao_id)->first();
         if($acaoExtensaoDataLocal->delete()) {
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Remoção de Data/Local Ação de Extensão ('. $acaoExtensao->id . ') - Local: ' . $acaoExtensaoDataLocal->local);
             session()->flash('status', 'Local removido!');
             session()->flash('alert', 'success');
         }
         else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Remoção de Data/Local Ação de Extensão ('. $acaoExtensao->id . ') - Local: ' . $acaoExtensaoDataLocal->local);
             session()->flash('status', 'Local não removido!');
             session()->flash('alert', 'danger');
         }
@@ -433,12 +469,20 @@ class AcaoExtensaoController extends Controller
             'vinculo' => ['required']
         ]);
 
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $colaboradorCriado = AcaoExtensaoColaborador::create($request->all());
 
         if($colaboradorCriado){
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Adição de colaborador na equipe na Ação de Extensão ('. $request->acao_extensao_id . ') - Email: ' . $request->email . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Colaborador(a) adicionado(a) com sucesso!');
             session()->flash('alert', 'success');
         } else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Adição de colaborador na equipe na Ação de Extensão ('. $request->acao_extensao_id . ') - Email: ' . $request->email . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Erro ao adicionar colaborador(a) ao banco de dados.');
             session()->flash('alert', 'danger');
             return back();
@@ -450,13 +494,21 @@ class AcaoExtensaoController extends Controller
 
     public function removeColaborador($id)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $acaoExtensaoColadorador = AcaoExtensaoColaborador::where('id', $id)->first();
         $acaoExtensao = AcaoExtensao::where('id', $acaoExtensaoColadorador->acao_extensao_id)->first();
         if($acaoExtensaoColadorador->delete()) {
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Remoção de colaborador na equipe na Ação de Extensão ('. $acaoExtensao->id . ') - Email: ' . $acaoExtensaoColadorador->email);
             session()->flash('status', 'Colaborador removido!');
             session()->flash('alert', 'success');
         }
         else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Remoção de colaborador na equipe na Ação de Extensão ('. $acaoExtensao->id . ') - Email: ' . $acaoExtensaoColadorador->email);
             session()->flash('status', 'Colaborador não removido!');
             session()->flash('alert', 'danger');
         }
@@ -466,6 +518,12 @@ class AcaoExtensaoController extends Controller
 
     public function grau_equipe(Request $request)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $this->validate($request, [
             'grau_envolvimento_equipe_id' => ['required']
         ]);
@@ -473,9 +531,11 @@ class AcaoExtensaoController extends Controller
         $acaoAtualizada = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
         $acaoAtualizada->fill($dados)->save();
         if($acaoAtualizada){
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Alteração grau de envolvimento da equipe na Ação de Extensão ('. $acaoAtualizada->id . ') - para: ' . $acaoAtualizada->grau_envolvimento_equipe_id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Dados de Curricularização atualizados com sucesso');
             session()->flash('alert', 'success');
         } else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Alteração grau de envolvimento da equipe na Ação de Extensão ('. $acaoAtualizada->id . ') - para: ' . $acaoAtualizada->grau_envolvimento_equipe_id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Erro ao atualizar dados de Curricularização.');
             session()->flash('alert', 'danger');
         }
@@ -509,11 +569,19 @@ class AcaoExtensaoController extends Controller
 
     public function insereParceiro(Request $request)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $parceiroCriado = AcaoExtensaoParceiro::create($request->all());
         if($parceiroCriado){
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Inclusão de parceiro na Ação de Extensão ('. $request->acao_extensao_id . ') - nome: ' . $request->nome . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Parceiro(a) adicionado(a) com sucesso!');
             session()->flash('alert', 'success');
         } else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Inclusão de parceiro na Ação de Extensão ('. $request->acao_extensao_id . ') - nome: ' . $request->nome . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Erro ao adicionar parceiro(a) ao banco de dados.');
             session()->flash('alert', 'danger');
 
@@ -526,13 +594,21 @@ class AcaoExtensaoController extends Controller
 
     public function removeParceiro($id)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $acaoExtensaoParceiro = AcaoExtensaoParceiro::where('id', $id)->first();
         $acaoExtensao = AcaoExtensao::where('id', $acaoExtensaoParceiro->acao_extensao_id)->first();
         if($acaoExtensaoParceiro->delete()) {
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Remoção de parceiro na Ação de Extensão ('. $acaoExtensao->id . ') - nome: ' . $acaoExtensaoParceiro->nome);
             session()->flash('status', 'Colaborador removido!');
             session()->flash('alert', 'success');
         }
         else {
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Remoção de parceiro na Ação de Extensão ('. $acaoExtensao->id . ') - nome: ' . $acaoExtensaoParceiro->nome);
             session()->flash('status', 'Colaborador não removido!');
             session()->flash('alert', 'danger');
         }
@@ -615,6 +691,7 @@ class AcaoExtensaoController extends Controller
     {
         $acaoExtensao->status = 'Pendente';
         $acaoExtensao->save();
+        $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoSubmetida($acaoExtensao));
         session()->flash('status', 'Ação de Extensão Submetida para aprovação!');
         session()->flash('alert', 'success');
 
@@ -624,6 +701,7 @@ class AcaoExtensaoController extends Controller
     public function aprovar(AcaoExtensao $acaoExtensao){
 
         if(App::environment('local')){
+            $user = User::where('id', 1)->first();
             $acaoExtensao->aprovado_user_id = 1;
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -632,6 +710,8 @@ class AcaoExtensaoController extends Controller
 
         $acaoExtensao->status = 'Aprovado';
         $acaoExtensao->save();
+        Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
+        $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 
@@ -668,7 +748,8 @@ class AcaoExtensaoController extends Controller
         $comentario->user_id = $user->id;
         $comentario->comentario = $request->comentario;
         $comentario->save();
-
+        Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Novo Comentário na Ação de Extensão ('. $acaoExtensao->id . ')' . ' - Endereço IP: ' . $request->ip());
+        $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoNovoComentario($acaoExtensao));
         session()->flash('status', 'Comentario feito! Coordenador da Ação será notificado');
         session()->flash('alert', 'success');
 
