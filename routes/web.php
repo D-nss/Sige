@@ -193,7 +193,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
-    Route::resource('/indicadores-itens', IndicadorController::class);
+    Route::resource('/indicadores-itens', IndicadoresController::class);
     Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
     Route::get('/indicadores-dashboard', [IndicadoresDashboardController::class, 'index']);
 
