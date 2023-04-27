@@ -1044,11 +1044,11 @@
                                             </div>
                                             <div class="p-0 col-md-6">
                                                 <h5>
-                                                    <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-danger" href="#" target="_blank">Abrir Arquivo</a>
+                                                    <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-xs btn-warning waves-effect waves-themedmb-2" href="#" target="_blank">Abrir Arquivo</a>
                                                     <form action='{{ url("upload-arquivo/$arquivo->id") }}' method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-danger" type="submit">Remover</button>
+                                                        <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                                                     </form>
                                                 </h5>
                                             </div>
