@@ -1045,10 +1045,6 @@
                                             <div class="p-0 col-md-6">
                                                 <h5>
                                                     <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-danger" href="#" target="_blank">Abrir Arquivo</a>
-                                                </h5>
-                                            </div>
-                                            <div class="p-0 col-md-6">
-                                                <h5>
                                                     <form action='{{ url("upload-arquivo/$arquivo->id") }}' method="POST">
                                                         @csrf
                                                         @method('DELETE')
