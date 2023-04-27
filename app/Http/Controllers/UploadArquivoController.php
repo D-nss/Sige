@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\UploadFile;
 use App\Models\Arquivo;
@@ -11,7 +12,7 @@ class UploadArquivoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-administrador|super|admin');
+        //$this->middleware('role:edital-administrador|super|admin');
     }
 
     public function store(Request $request)
@@ -49,6 +50,29 @@ class UploadArquivoController extends Controller
 
     public function destroy(Arquivo $arquivo)
     {
-        echo json_encode($arquivo);
+        $arquivoExists = Storage::disk('public')->exists($arquivo->url_arquivo);
+        if($arquivoExists) {
+            $arquivoDeletadoStorage = Storage::disk('public')->delete($arquivo->url_arquivo);
+            $arquivoDeletadoDb = $arquivo->delete();
+        }
+        else {
+            session()->flash('status', 'O arquivo não existe.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+        
+        if($arquivoDeletadoStorage && $arquivoDeletadoDb) {
+            session()->flash('status', 'Arquivo deletado com sucesso!!!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Erro ao deletar arquivo');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
     }
 }

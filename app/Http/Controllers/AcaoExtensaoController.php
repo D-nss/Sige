@@ -648,7 +648,7 @@ class AcaoExtensaoController extends Controller
         $parceiros_acao_extensao = AcaoExtensaoParceiro::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
         $lista_tipos = TipoParceiro::all();
 
-        $arquivos = Arquivo::where('modulo', 'acoes-extensao')->where('referencia_id', $acaoExtensao->id)->get(['nome_arquivo', 'url_arquivo']);
+        $arquivos = Arquivo::where('modulo', 'acoes-extensao')->where('referencia_id', $acaoExtensao->id)->get(['id', 'nome_arquivo', 'url_arquivo']);
 
         if(App::environment('local')){
             $user = User::where('id', 1)->first();

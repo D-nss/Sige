@@ -244,7 +244,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
 
     Route::post('/upload-arquivo', [UploadArquivoController::class, 'store']);
-    Route::delete('/upload-arquivo', [UploadArquivoController::class, 'destroy']);
+    Route::delete('/upload-arquivo/{arquivo}', [UploadArquivoController::class, 'destroy']);
 
     Route::post('/edital/{edital}/classificar', [EditalController::class, 'classificar']);
     Route::get('/edital/{edital}/listar-classificados', [EditalController::class, 'listarClassificados']);
