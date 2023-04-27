@@ -29,6 +29,7 @@ use App\Http\Controllers\AcaoExtensaoController;
 use App\Http\Controllers\ComissaoController;
 use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
+use App\Http\Controllers\IndicadoresController;
 use App\Http\Controllers\RecursoInscricaoController;
 use App\Http\Controllers\AcaoCulturalController;
 use App\Http\Controllers\EventoInscritosController;
