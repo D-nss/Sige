@@ -199,7 +199,9 @@ return [
         'prazo_envio_arquivo' => 'prazo envio de arquivo',
         'input_personalizado' => 'personaizado',
         'etnico_racial' => 'autodeclaração étnico racial',
-        'desc_deficiencia' => 'descrição da deficiência'
+        'desc_deficiencia' => 'descrição da deficiência',
+        'tipo_parceiro_id' => 'tipo parceiro',
+        'colaboracao' => 'colaboração'
     ],
 
 ];

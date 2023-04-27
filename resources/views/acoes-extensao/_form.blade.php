@@ -73,11 +73,11 @@
                                 @else
                                         <option value="">Selecione a Modalidade</option>
                                 @endif
-                                <option value="1">Programa</option>
-                                <option value="2">Projeto</option>
-                                <option value="3">Curso</option>
-                                <option value="4">Evento</option>
-                                <option value="5">Prestação de Serviço</option>
+                                <option value="1" @if( old('modalidade') == 1 ) selected @endif >Programa</option>
+                                <option value="2" @if( old('modalidade') == 2 ) selected @endif >Projeto</option>
+                                <option value="3" @if( old('modalidade') == 3 ) selected @endif >Curso</option>
+                                <option value="4" @if( old('modalidade') == 4 ) selected @endif >Evento</option>
+                                <option value="5" @if( old('modalidade') == 5 ) selected @endif >Prestação de Serviço</option>
                             </select>
                             @error('modalidade')
                                 <div class="invalid-feedback">
@@ -198,7 +198,7 @@
                                 @endif
                                 @if (!empty($linhas_extensao))
                                     @foreach ($linhas_extensao as $linha_extensao)
-                                        <option value="{{$linha_extensao->id}}">{{$linha_extensao->nome}}</option>
+                                        <option value="{{$linha_extensao->id}}" @if( old('linha_extensao_id') == $linha_extensao->id ) selected @endif >{{$linha_extensao->nome}}</option>
                                     @endforeach
                                 @endif
                             </select>

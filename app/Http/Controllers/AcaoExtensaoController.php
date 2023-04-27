@@ -360,26 +360,30 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
 
-    public function removeUnidade($id)
+    public function removeUnidade(Request $request, $id)
     {
-        $unidadeRelacionada = DB::table('acoes_extensao_unidades')->where('id', $id)->first();
-        $acaoExtensao = AcaoExtensao::where('id', $unidadeRelacionada->acao_extensao_id)->first();
-
+        $unidadeRelacionada = DB::table('acoes_extensao_unidades')
+                                ->where(function($query) use ($request, $id) {
+                                    $query->where('unidade_id', $id)
+                                    ->where('acao_extensao_id', $request->acao_extensao_id);
+                                })->limit(1)->delete();
+        $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
+        
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
-
-        if($unidadeRelacionada->delete()) {
-            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Ação de Extensão ('. $acaoExtensao->id . ') - Remoção de Unidade: ' . $unidadeRelacionada->unidade_id);
+        
+        if($unidadeRelacionada) {
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Ação de Extensão ('. $acaoExtensao->id . ') - Remoção de Unidade: ' . $request->acao_extensao_id);
             session()->flash('status', 'Unidade relacionada removida!');
             session()->flash('alert', 'success');
 
             return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
         }
         else {
-            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação de Extensão ('. $acaoExtensao->id . ') - Remoção de Unidade: ' . $unidadeRelacionada->unidade_id);
+            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação de Extensão ('. $acaoExtensao->id . ') - Remoção de Unidade: ' . $request->acao_extensao_id);
             session()->flash('status', 'Unidade relacionada não removida!');
             session()->flash('alert', 'danger');
 
@@ -501,6 +505,7 @@ class AcaoExtensaoController extends Controller
         }
 
         $acaoExtensaoColadorador = AcaoExtensaoColaborador::where('id', $id)->first();
+        
         $acaoExtensao = AcaoExtensao::where('id', $acaoExtensaoColadorador->acao_extensao_id)->first();
         if($acaoExtensaoColadorador->delete()) {
             Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Remoção de colaborador na equipe na Ação de Extensão ('. $acaoExtensao->id . ') - Email: ' . $acaoExtensaoColadorador->email);
@@ -569,6 +574,12 @@ class AcaoExtensaoController extends Controller
 
     public function insereParceiro(Request $request)
     {
+        $this->validate($request, [
+            'nome' => ['required'],
+            'tipo_parceiro_id' => ['required'],
+            'colaboracao' => ['required']
+        ]);
+
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
@@ -734,8 +745,11 @@ class AcaoExtensaoController extends Controller
         return redirect()->to($resposta['redirect']);
     }
 
-    public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request){
-        //$user = User::where('email', Auth::user()->id)->first();
+    public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request)
+    {
+        $validated = $request->validate([
+            'comentario' => 'required|max:1000',
+        ]);
 
         if(App::environment('local')){
             $user = User::where('id', 1)->first();

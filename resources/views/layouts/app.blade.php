@@ -1602,6 +1602,13 @@ Versão: 4.5.1
                         }
                     });
                 }
+            
+            //para remover a classe is-invalid quando o campo esta sendo preenchido "use o onkeyup"
+            function clearErrorClass(e)
+            {
+                const list = e.classList;
+                list.remove('is-invalid');
+            }
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->

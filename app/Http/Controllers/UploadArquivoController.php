@@ -46,4 +46,9 @@ class UploadArquivoController extends Controller
             return redirect()->back();
         }
     }
+
+    public function destroy(Arquivo $arquivo)
+    {
+        echo json_encode($arquivo);
+    }
 }
