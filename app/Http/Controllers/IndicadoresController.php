@@ -8,6 +8,11 @@ use App\Models\Indicador;
 
 class IndicadoresController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:indicadores-user|indicadores-admin|super');
+    }
+    
     public function index()
     {
        $indicadores = Indicador::all();
