@@ -54,7 +54,7 @@ class IndicadorUnidadeController extends Controller
      */
     public function create()
     {
-        $indicadores = Indicador::all()->toArray();
+        $indicadores = Indicador::where('ativo', 1)->get()->toArray();
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
         $indicadoresParametros = IndicadoresParametros::first();
 

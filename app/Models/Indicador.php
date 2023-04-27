@@ -15,5 +15,6 @@ class Indicador extends Model
         'indicador',
         'descricao_indicador',
         'item_planes',
+        'ativo'
     ];
 }
