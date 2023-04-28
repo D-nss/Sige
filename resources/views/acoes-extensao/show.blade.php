@@ -307,11 +307,13 @@
                                                             {{$unidade->nome}}
                                                         </td>
                                                         <td>
-                                                            <form method="POST" action="{{ route('acao_extensao.unidade.destroy', $unidade->id) }}" onsubmit="return confirm('Voce tem certeza?');">
-                                                                @csrf
-                                                                <input type="hidden" name="acao_extensao_id" value="{{ $acao_extensao->id }}">
-                                                                <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
-                                                            </form>
+                                                            @if($userCoordenadorAcao)
+                                                                <form method="POST" action="{{ route('acao_extensao.unidade.destroy', $unidade->id) }}" onsubmit="return confirm('Voce tem certeza?');">
+                                                                    @csrf
+                                                                    <input type="hidden" name="acao_extensao_id" value="{{ $acao_extensao->id }}">
+                                                                    <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
+                                                                </form>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -450,10 +452,12 @@
                                                     {{$data_local->created_at->format('d/m/Y')}}
                                                 </td>
                                                 <td>
+                                                @if($userCoordenadorAcao)
                                                     <form method="POST" action="{{ route('acao_extensao.local.destroy', $data_local->id) }}" onsubmit="return confirm('Voce tem certeza?');">
                                                         @csrf
                                                         <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                                                      </form>
+                                                @endif
                                                 </td>
                                                 </tr>
                                                 @endforeach
@@ -666,10 +670,12 @@
                                                         {{$colaborador->carga_horaria}}
                                                     </td>
                                                     <td>
+                                                    @if($userCoordenadorAcao)
                                                         <form method="POST" action="{{ route('acao_extensao.colaborador.destroy', $colaborador->id) }}" onsubmit="return confirm('Voce tem certeza?');">
                                                             @csrf
                                                             <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                                                         </form>
+                                                    @endif
                                                     </td>
                                               </tr>
                                               @endforeach
@@ -842,10 +848,12 @@
                                                         {{$parceiro->created_at->format('d/m/Y')}}
                                                     </td>
                                                     <td>
+                                                    @if($userCoordenadorAcao)
                                                         <form method="POST" action="{{ route('acao_extensao.parceiro.destroy', $parceiro->id) }}" onsubmit="return confirm('Voce tem certeza?');">
                                                             @csrf
                                                             <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                                                          </form>
+                                                    @endif
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -1045,11 +1053,13 @@
                                             <div class="p-0 col-md-6">
                                                 <h5>
                                                     <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-xs btn-warning waves-effect waves-themed mb-1" href="#" target="_blank">Abrir Arquivo</a>
+                                                @if($userCoordenadorAcao)
                                                     <form action='{{ url("upload-arquivo/" . $arquivo->id) }}' method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                                                     </form>
+                                                @endif
                                                 </h5>
                                             </div>
                                             @endforeach
