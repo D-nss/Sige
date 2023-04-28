@@ -56,7 +56,7 @@
             @hasanyrole('super|admin', 'web_user')
                 <li>
                     <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
-                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">BAEC</span>
+                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                     </a>
                     <ul>
                         <li class="">
@@ -77,7 +77,7 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
-                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">(Temp) Cultura</span>
+                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">(Temp) Ações de Cultura</span>
                     </a>
                     <ul>
                         <li class="">
