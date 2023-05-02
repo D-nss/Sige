@@ -226,7 +226,7 @@
                     <div class="form-group">
                         <label class="form-label">{{$evento->input_personalizado}}<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Insira a informação" name="input_personalizado" value="{{old('input_personalizado')}}">
+                            <input type="text" class="form-control bg-transparent" placeholder="Insira a informação" name="personalizado" value="{{old('personalizado')}}">
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
