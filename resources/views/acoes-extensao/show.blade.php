@@ -51,6 +51,26 @@
     </div>
 </div>
 @endif
+@if($acao_extensao->status == 'Aprovado' && $acao_extensao->aprovado_user_id != NULL && $acao_extensao->status_avaliacao_conext == NULL && $acao_extensao->avaliacao_conext_user_id)
+<div class="alert alert-warning alert-dismissible fade show">
+    <div class="d-flex align-items-center">
+        <div class="alert-icon">
+            <i class="fal fa-info-circle"></i>
+        </div>
+        <div class="flex-1">
+            <span class="h5">Ação de Extensão foi aceita pela unidade, e pendende de aprovação pela Comissão Conext</span>
+        </div>
+        @if($userNaComissaoConext)
+        <form action="{{ route('acao_extensao.aprovar_conext', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+            @csrf
+            @method('put')
+            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Aprovar</button>
+        </form>
+        @endif
+        <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
+    </div>
+</div>
+@endif
 <div class="subheader">
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-file'></i> {{$acao_extensao->titulo}}

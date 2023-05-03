@@ -28,7 +28,13 @@
         <div class="col-xl-12">
             <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/indicadores-itens/novo') }}"><i class="far fa-plus"></i></a> Adicionar Indicadores
             <div class="mt-3">
-                @include('indicadores.itens._table')
+                <div id="panel-1" class="panel">
+                    <div class="panel-container show">
+                        <div class="panel-content">
+                            @include('indicadores.itens._table')
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

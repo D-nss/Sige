@@ -21,9 +21,17 @@
             <td>{{ $indicador->item_planes }}</td>
             <td>
                 @if( is_null($indicador->ativo) )
-                    <span class="badge badge-danger">Não</span>
+                    <form action="{{ url('indicadores-itens-ativar/' . $indicador->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="ativo" value="nao">
+                        <button type="submit" class="btn badge badge-danger">Não</button>
+                    </form>
                 @else
-                    <span class="badge badge-info">Sim</span>
+                <form action="{{ url('indicadores-itens-ativar/' . $indicador->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="ativo" value="sim">
+                        <button type="submit" class="btn badge badge-info">Sim</button>
+                    </form>
                 @endif
             </td>
             <td>

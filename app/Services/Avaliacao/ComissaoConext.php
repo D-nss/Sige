@@ -14,46 +14,8 @@ use App\Models\User;
 
 class ComissaoConext implements AvaliacaoInterface
 {
-    public function getAvaliacao(Request $request, Inscricao $inscricao, User $user) 
-    {
-        $cronograma = new Cronograma();
-
-        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                ->where('comissoes.edital_id', $inscricao->edital_id)
-                                ->where('comissoes_users.user_id', $user->id)
-                                ->first();
-        
-        if( !$userNaComissao || !$user->hasAnyRole('admin','super') || $inscricao->user_id == $user->id ) {
-            session()->flash('status', 'Acesso não autorizado para avaliação.');
-            session()->flash('alert', 'warning');
-
-            return false;
-        }
-        //analisa se esta fora do periodo de avaliação
-        if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_comissao_1', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_comissao_1_termino', $inscricao->edital_id)) ) {
-            session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
-            session()->flash('alert', 'warning');
-
-            return false;
-        }
-
-        return ['comissao1' => true];
-    }
-
-    public function execute(Request $request, Inscricao $inscricao, User $user) 
-    {
-
-        if($inscricao->user_id == $user->id) {
-            session()->flash('status', 'Desculpe! Não é permitido avaliar a própria inscrição');
-            session()->flash('alert', 'danger');
-
-            return ['redirect' => 'inscricao', 'status' => false];
-        }
-
-        //Aplica as especificidades da avaliação da comissão 1
-        return ['message' => 'Avaliação da comissão 1'];
-    }
-
+    public function getAvaliacao(Request $request, Inscricao $inscricao, User $user) {}
+    public function execute(Request $request, Inscricao $inscricao, User $user) {}
     public function update(Request $request, Inscricao $inscricao, User $user) {}
     public function executeAvaliacaoInscritoEvento(Request $request, EventoInscrito $inscrito, User $user) {}
 
@@ -66,25 +28,19 @@ class ComissaoConext implements AvaliacaoInterface
             return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => false];
         }
 
-        $validated = $request->validate([
-            'status_avaliacao_conext' => 'required'
-        ]);
+        $acao_extensao->avaliacao_conext_user_id = $user->id;
+        $acao_extensao->status_avaliacao_conext = 'Aprovado';
 
-        $acao_extensao_updated = $acao_extensao->update([
-            'avaliacao_conext_user_id' => $user->id,
-            'status_avaliacao_conext' => $request->status_avaliacao_conext
-        ]);
-
-        if( $acao_extensao_updated )
+        if( $acao_extensao->update() )
         {
-            session()->flash('status', 'Avaliação cadastrada com sucesso!');
+            session()->flash('status', 'Avaliação Conext cadastrada com sucesso!');
             session()->flash('alert', 'success');
 
             return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => true];
         }
         else
         {
-            session()->flash('status', 'Desculpe! Houve um problema ao enviar avaliação');
+            session()->flash('status', 'Desculpe! Houve um problema ao enviar avaliação Conext');
             session()->flash('alert', 'danger');
 
             return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => false];

@@ -95,7 +95,7 @@ class EventoInscritosController extends Controller
             'nascimento' => ($evento->ck_nascimento) ? 'required|date|before:' . today() : '',
             'funcao' => ($evento->ck_funcao) ? 'required' : '',
             'municipio' => ($evento->ck_cidade_estado) ? 'required' : '',
-            'input_personalizado' => isset($evento->input_personalizado) ? 'required' : '',
+            'personalizado' => isset($evento->input_personalizado) ? 'required' : '',
         ];
 
         $request->validate($toValidate);

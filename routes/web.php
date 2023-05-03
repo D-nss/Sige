@@ -73,6 +73,7 @@ Route::get('/acoes-extensao/{acao_extensao}/editar', [AcaoExtensaoController::cl
 Route::put('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'update'])->name('acao_extensao.update');
 Route::delete('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'destroy'])->name('acao_extensao.destroy');
 Route::put('/acoes-extensao/{acao_extensao}/aprovar', [AcaoExtensaoController::class, 'aprovar'])->name('acao_extensao.aprovar');
+Route::put('/acoes-extensao/{acao_extensao}/aprovar_conext', [AcaoExtensaoController::class, 'aprovarConext'])->name('acao_extensao.aprovar_conext');
 Route::put('/acoes-extensao/{acao_extensao}/submeter', [AcaoExtensaoController::class, 'submeter'])->name('acao_extensao.submeter');
 
 Route::get('/acoes-extensao/unidades/{unidade}', [AcaoExtensaoController::class, 'acoesPorUnidade'])->name('acao_extensao.unidades.index');
@@ -194,7 +195,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     /* -------------- rotas idicadores ---------------- */
     Route::resource('/indicadores', IndicadorUnidadeController::class);
-    Route::resource('/indicadores-itens', IndicadoresController::class);
+    Route::resource('/indicadores-itens', IndicadoresController::class)->parameters(['indicador' => 'indicador']);
+    Route::post('/indicadores-itens-ativar/{id}', [IndicadoresController::class, 'ativar']);
     Route::resource('/indicadores-parametros', IndicadoresParametrosController::class)->parameters(['indicadoresParametros' => 'indicadorParametro']);
     Route::get('/indicadores-dashboard', [IndicadoresDashboardController::class, 'index']);
 

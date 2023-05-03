@@ -661,9 +661,15 @@ class AcaoExtensaoController extends Controller
                                         ->where('comissoes_users.user_id', $user->id)
                                         ->first();
 
+        $userNaComissaoConext = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                        ->where('comissoes_users.user_id', $user->id)
+                                        ->where('comissoes.atribuicao', 'Conext')
+                                        ->first();
+
         //restringindo usuario aprovar sua ação
         if($acaoExtensao->user_id == $user->id){
             $userNaComissao = false;
+            $userNaComissaoConext = false;
             $userCoordenadorAcao = $user;
         } else {
             $userCoordenadorAcao = false;
@@ -681,6 +687,7 @@ class AcaoExtensaoController extends Controller
             'parceiros_acao_extensao' => $parceiros_acao_extensao,
             'lista_tipos' => $lista_tipos,
             'userNaComissao' => $userNaComissao,
+            'userNaComissaoConext' => $userNaComissaoConext,
             'userCoordenadorAcao' => $userCoordenadorAcao,
             'arquivos' => $arquivos
         ]);

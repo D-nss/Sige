@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 use App\Models\Comissao;
 use App\Models\ComissaoUser;
@@ -14,7 +15,7 @@ class ComissaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
+       $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
     }
 
     /**
@@ -24,7 +25,11 @@ class ComissaoController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
 
         if($user->hasRole('edital-administrador')) {
             $comissoes = Comissao::where('edital_id', '<>' , null)->get();
@@ -48,7 +53,11 @@ class ComissaoController extends Controller
      */
     public function create()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
         //echo json_encode($edital_id);
         $editais = Edital::all();
 
