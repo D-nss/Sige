@@ -51,7 +51,7 @@
     </div>
 </div>
 @endif
-@if($acao_extensao->status == 'Aprovado' && $acao_extensao->aprovado_user_id != NULL && $acao_extensao->status_avaliacao_conext == NULL && $acao_extensao->avaliacao_conext_user_id)
+@if($acao_extensao->status == 'Aprovado' && $acao_extensao->aprovado_user_id != NULL && $acao_extensao->status_avaliacao_conext == NULL && $acao_extensao->avaliacao_conext_user_id == NULL)
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
         <div class="alert-icon">
