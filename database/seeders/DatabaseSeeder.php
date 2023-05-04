@@ -60,5 +60,8 @@ class DatabaseSeeder extends Seeder
 
         //Objetivos Desenvolvimento Sustentavel
         $this->call(ObjetivoDesenvolvimentoSustentavelSeeder::class);
+
+        //Comissao Conext
+        $this->call(ComissaoConextSeeder::class);
     }
 }
