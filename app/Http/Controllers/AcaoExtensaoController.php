@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
@@ -35,7 +36,7 @@ class AcaoExtensaoController extends Controller
     public function dashboard(){
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -140,7 +141,7 @@ class AcaoExtensaoController extends Controller
     public function edit(AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -177,7 +178,7 @@ class AcaoExtensaoController extends Controller
     public function store(StoreAcaoExtensaoRequest $request)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
             $vinculo_coordenador = 'Teste Vinculo Coordenador';
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -245,7 +246,7 @@ class AcaoExtensaoController extends Controller
     public function update(UpdateAcaoExtensaoRequest $request, AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
             $vinculo_coordenador = 'Teste Vinculo Coordenador';
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -339,7 +340,7 @@ class AcaoExtensaoController extends Controller
         ]);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -370,7 +371,7 @@ class AcaoExtensaoController extends Controller
         $acaoExtensao = AcaoExtensao::where('id', $request->acao_extensao_id)->first();
         
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -400,7 +401,7 @@ class AcaoExtensaoController extends Controller
         ]);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -425,7 +426,7 @@ class AcaoExtensaoController extends Controller
     public function removeLocal($id)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -474,7 +475,7 @@ class AcaoExtensaoController extends Controller
         ]);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -499,7 +500,7 @@ class AcaoExtensaoController extends Controller
     public function removeColaborador($id)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -524,7 +525,7 @@ class AcaoExtensaoController extends Controller
     public function grau_equipe(Request $request)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -581,7 +582,7 @@ class AcaoExtensaoController extends Controller
         ]);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -606,7 +607,7 @@ class AcaoExtensaoController extends Controller
     public function removeParceiro($id)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -651,7 +652,7 @@ class AcaoExtensaoController extends Controller
         $arquivos = Arquivo::where('modulo', 'acoes-extensao')->where('referencia_id', $acaoExtensao->id)->get(['id', 'nome_arquivo', 'url_arquivo']);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -719,7 +720,7 @@ class AcaoExtensaoController extends Controller
     public function aprovar(AcaoExtensao $acaoExtensao){
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
             $acaoExtensao->aprovado_user_id = 1;
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -730,24 +731,34 @@ class AcaoExtensaoController extends Controller
         $acaoExtensao->save();
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
+        
+        $comissaoConext = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                    ->join('users', 'comissoes_users.user_id', 'users.id')
+                                    ->where('comissoes.atribuicao', 'Conext')
+                                    ->get('users.*');
+        // Notificando a comissao conext 
+        Notification::send($users, new AcaoExtensaoAprovadaComissaoNotificar($acaoExtensao));
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 
         return redirect()->route('acao_extensao.index');
     }
 
-    //Criado a aprovação do conext, necessario no show da ação checar se o user esta na comissão com atribuição de Conext
-    //assim criar e exibir o form de aprovação onde deve ser seleciona se Aprovado ou Reprovado
     public function aprovarConext(Request $request, AcaoExtensao $acaoExtensao){
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
 
         $comissaoConext = new ComissaoConext();
         $resposta = $comissaoConext->executeAvaliacaoConext($request, $acaoExtensao, $user);
+        Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão pelo Conext ('. $acaoExtensao->id . ')' );
+        
+        if($resposta['status']) {
+            $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaConext($acaoExtensao));
+        }
 
         return redirect()->to($resposta['redirect']);
     }
@@ -759,7 +770,7 @@ class AcaoExtensaoController extends Controller
         ]);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }

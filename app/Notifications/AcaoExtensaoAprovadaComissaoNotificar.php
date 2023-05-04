@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AcaoExtensaoAprovadaConext extends Notification
+class AcaoExtensaoAprovadaComissaoNotificar extends Notification
 {
     use Queueable;
 
@@ -43,8 +43,8 @@ class AcaoExtensaoAprovadaConext extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Ação de Extensão Aprovada pelo Conext')
-                    ->line('Olá Coordenador, sua Ação de Extensão intitulado '. $this->data['titulo'] . ' foi aprovada pelo Conext e disponibilizada no Catálago da Proec.')
+                    ->subject('Ação de Extensão Aprovada pela Unidade')
+                    ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi aprovada pela Unidade e está aguardando a análise da comissão conext.')
                     ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
                     ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }
