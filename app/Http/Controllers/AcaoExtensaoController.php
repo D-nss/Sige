@@ -737,7 +737,7 @@ class AcaoExtensaoController extends Controller
                                     ->where('comissoes.atribuicao', 'Conext')
                                     ->get('users.*');
         // Notificando a comissao conext 
-        Notification::send($comissaoConext, new AcaoExtensaoAprovadaComissaoNotificar($acaoExtensao));
+        Notification::send($comissaoConext, new \App\Notifications\AcaoExtensaoAprovadaComissaoNotificar($acaoExtensao));
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 
