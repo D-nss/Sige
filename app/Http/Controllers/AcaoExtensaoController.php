@@ -18,6 +18,7 @@ use App\Models\LinhaExtensao;
 use App\Models\AreaTematica;
 use App\Models\Arquivo;
 use App\Models\Comentario;
+use App\Models\Comissao;
 use App\Models\ComissaoUser;
 use App\Models\GrauEnvolvimentoEquipe;
 use App\Models\Unidade;
@@ -732,10 +733,7 @@ class AcaoExtensaoController extends Controller
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
         
-        $comissaoConext = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                    ->join('users', 'comissoes_users.user_id', 'users.id')
-                                    ->where('comissoes.atribuicao', 'Conext')
-                                    ->get('users.*');
+        $comissaoConext = Comissao::where('atribuicao', 'Conext')->first();
         // Notificando a comissao conext 
         Notification::send($comissaoConext, new \App\Notifications\AcaoExtensaoAprovadaComissaoNotificar($acaoExtensao));
         session()->flash('status', 'Ação de Extensão aprovada!');
