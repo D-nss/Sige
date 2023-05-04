@@ -65,7 +65,7 @@ Route::get('/buscar-unidades-nao-cadastradas', [IndicadoresDashboardController::
 // Ações de Extensão - Nao utilizado via resource por problemas envio dos parametros
 //Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao'])->only(['create']);
 Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
-Route::get('/acoes-extensao-catalago', [AcaoExtensaoController::class, 'catalogo'])->name('acao_extensao.catalago');
+Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo'])->name('acao_extensao.catalogo');
 Route::get('/acoes-extensao/novo', [AcaoExtensaoController::class, 'create'])->name('acao_extensao.create');
 Route::post('/acoes-extensao', [AcaoExtensaoController::class, 'store'])->name('acao_extensao.store');
 Route::post('/acoes-extensao/{acao_extensao}/comentar', [AcaoExtensaoController::class, 'enviarComentario'])->name('acao_extensao.comentar');
