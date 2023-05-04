@@ -75,21 +75,24 @@
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-file'></i> {{$acao_extensao->titulo}}
         @switch($acao_extensao->status)
-                                        @case('Desativado')
-                                        <span class="badge badge-danger">Desativado</span>
-                                            @break
-                                        @case('Pendente')
-                                            <span class="badge badge-warning">Pendente</span>
-                                            @break
-                                        @case('Rascunho')
-                                            <span class="badge badge-warning">Rascunho</span>
-                                            @break
-                                        @case('Aprovado')
-                                            <span class="badge badge-success">Aprovado</span>
-                                            @break
-                                        @default
-                                        <span class="badge badge-warning">Indefinido</span>
+            @case('Desativado')
+            <span class="badge badge-danger">Desativado</span>
+                @break
+            @case('Pendente')
+                <span class="badge badge-warning">Pendente</span>
+                @break
+            @case('Rascunho')
+                <span class="badge badge-warning">Rascunho</span>
+                @break
+            @case('Aprovado')
+                <span class="badge badge-success">Aprovado</span>
+                @break
+            @default
+            <span class="badge badge-warning">Indefinido</span>
         @endswitch
+        @if($acao_extensao->status_avaliacao_conext == 'Aprovado')
+            <span class="badge badge-primary">Reconhecido Pelo Conext</span>
+        @endif
         <small>
             Exibição das informações desta Ação de Extensão. <span class="text-muted small text-truncate"> (<strong> Cadastrado em:</strong> {{$acao_extensao->created_at->format('d/m/Y')}}. <strong> Atualizado em: </strong> {{$acao_extensao->updated_at->format('d/m/Y')}})</span>
         </small>
