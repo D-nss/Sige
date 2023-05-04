@@ -114,6 +114,34 @@ class AcaoExtensaoController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function catalogo(Collection $acoes_extensao = null)
+    {
+        // if(is_null($acoes_extensao)){
+        //     $acoes_extensao = AcaoExtensao::all();
+        // }
+
+        //populando formulário (filtro)
+        $unidades = Unidade::all();
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+
+        $acoes_extensao = AcaoExtensao::where('status_avaliacao_conext', 'Aprovado')->get();
+
+        return view('acoes-extensao.catalogo', [
+            'acoes_extensao' => $acoes_extensao,
+            'unidades' => $unidades,
+            'linhas_extensao' => $linhas_extensao,
+            'areas_tematicas' => $areas_tematicas,
+            'estados' => $estados
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
