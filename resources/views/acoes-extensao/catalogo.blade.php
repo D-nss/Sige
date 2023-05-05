@@ -23,7 +23,7 @@
   <div class="row">
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
-            <div class="panel-hdr">
+            <div class="panel-hdr bg-success text-light">
                 <h2>
                     Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                 </h2>
@@ -58,15 +58,15 @@
                     </div>
 
                     <!-- datatable start -->
-                    <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
+                    <table id="dt-acoes-extensao" class="table table-hover table-striped w-100">
                         <thead>
                             <tr>
-                                 <th class="text-uppercase text-muted py-2 px-3">#</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Modalidade / Linha / Área</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">ODS</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Atualização</th>
+                                 <th class="text-uppercase py-2 px-3">#</th>
+                                 <th class="text-uppercase py-2 px-3">Ação de Extensão Reconhecida</th>
+                                 <th class="text-uppercase py-2 px-3">Modalidade / Linha / Área</th>
+                                 <th class="text-uppercase py-2 px-3">ODS</th>
+                                 <th class="text-uppercase py-2 px-3">Coordenador</th>
+                                 <th class="text-uppercase py-2 px-3">Atualização</th>
                             </tr>
                         </thead>
                         <tbody>
