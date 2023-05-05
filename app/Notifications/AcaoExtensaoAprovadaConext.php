@@ -43,7 +43,7 @@ class AcaoExtensaoAprovadaConext extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Ação de Extensão Aprovada pelo Conext')
+                    ->subject('Ação de Extensão Reconhecida pelo Conext')
                     ->line('Olá Coordenador, sua Ação de Extensão intitulado '. $this->data['titulo'] . ' foi reconhecida pelo Conext e disponibilizada no Catálago da Proec.')
                     ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
                     ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
