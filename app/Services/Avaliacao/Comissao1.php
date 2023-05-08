@@ -12,7 +12,7 @@ use App\Models\Inscricao;
 use App\Models\EventoInscrito;
 use App\Models\User;
 
-class ComissaoConext implements AvaliacaoInterface
+class Comissao1 implements AvaliacaoInterface
 {
     public function getAvaliacao(Request $request, Inscricao $inscricao, User $user) 
     {
