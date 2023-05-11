@@ -87,7 +87,7 @@
                                                                         </span>
                                                                     </a>
                                                                 </div>
-                                                                <div id="collapseColaborador" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionColaborador">
+                                                                <div id="collapseColaborador" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionColaborador">
                                                                     <div class="card-body">
                                                                         <form action="{{route('acao_cultural.colaborador.inserir', ['acao_cultural_id' => $acao_cultural->id])}}" id="form_acao_cultura_equipe" method="POST">
                                                                             @csrf
@@ -120,7 +120,7 @@
                                                                                     @enderror
                                                                                 </div>
                                                                               <div class="form-group col-md-3">
-                                                                                  <label class="form-label" for="vinculo">Vinculo</label>
+                                                                                  <label class="form-label" for="vinculo">Vinculo <span class="text-danger">*</span></label>
                                                                                   <select class="form-control @error('vinculo') is-invalid @enderror" id="vinculo" name="vinculo">
                                                                                       <option value="">Selecione o Vinculo</option>
                                                                                       @if (!empty($lista_vinculo))

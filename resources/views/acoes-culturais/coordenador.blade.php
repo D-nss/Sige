@@ -168,7 +168,7 @@
                                     @enderror
                                 </div>
                               <div class="form-group col-md-4">
-                                  <label class="form-label" for="vinculo_coordenador">Vinculo do Coordenador</label>
+                                  <label class="form-label" for="vinculo_coordenador">Vinculo do Coordenador <span class="text-danger">*</span></label>
                                   <select class="form-control @error('unidade_id') is-invalid @enderror" id="vinculo_coordenador" name="vinculo_coordenador">
                                     @if(isset($acao_cultural->vinculo_coordenador))
                                         <option value="{{$acao_cultural->vinculo_coordenador}}">{{$acao_cultural->vinculo_coordenador}}</option>

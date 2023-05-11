@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\AvaliacaoInterface;
 
 use App\Models\AcaoExtensao;
+use App\Models\AcaoCultural;
 use App\Models\Cronograma;
 use App\Models\ComissaoUser;
 use App\Models\Inscricao;
@@ -119,5 +120,6 @@ class Subcomissao implements AvaliacaoInterface
 
     public function update(Request $request, Inscricao $inscricao, User $user) {}
     public function executeAvaliacaoConext(Request $request, AcaoExtensao $acao_extensao, User $user) {}
+    public function executeAvaliacaoDcult(Request $request, AcaoCultural $acao_cultural, User $user) {}
     
 }

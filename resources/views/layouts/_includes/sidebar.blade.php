@@ -77,7 +77,7 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
-                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">(Temp) Ações de Cultura</span>
+                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Cultura</span>
                     </a>
                     <ul>
                         <li class="">

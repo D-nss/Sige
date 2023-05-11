@@ -201,7 +201,12 @@ return [
         'etnico_racial' => 'autodeclaração étnico racial',
         'desc_deficiencia' => 'descrição da deficiência',
         'tipo_parceiro_id' => 'tipo parceiro',
-        'colaboracao' => 'colaboração'
+        'colaboracao' => 'colaboração',
+        'unidade_id' => 'unidade',
+        'nome_coordenador' => 'nome',
+        'email_coordenador' => 'e-mail ',
+        'vinculo_coordenador' => 'vínculo',
+        'tipo_parceiro_id' => 'tipo',
     ],
 
 ];

@@ -25,19 +25,9 @@
             </span>
         </div>
     </div>
+    
 </div>
-@if(count($pendentes) > 0 && $userNaComissao)
-<div class="alert alert-warning alert-dismissible fade show">
-    <div class="d-flex align-items-center">
-        <div class="alert-icon">
-            <i class="fal fa-info-circle"></i>
-        </div>
-        <div class="flex-3">
-            <span class="h5">Existem Ações Culturais pendentes de aprovação</span>
-        </div>
-    </div>
-</div>
-@endif
+
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
     <div class="btn-group btn-group-lg">
         <a href="/acoes-culturais/novo" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</a>
@@ -92,14 +82,100 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12 col-xl-12">
+        <!--Table head-->
+        <div id="panel" class="panel">
+            <div class="panel-hdr bg-primary-600">
+                <h2>
+                    Minhas Ações de Extensão Cadastradas <span class="fw-300 color-fusion-500"></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <h5 class="m-0">
+                        <span class="badge badge-pill badge-secondary fw-400 l-h-n">
+                            {{count($acoes_cultural_usuario)}}
+                        </span>
+                    </h5>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="frame-wrap">
+                        <table class="table m-0">
+                            <thead class="thead-themed">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ação de Cultura</th>
+                                    <th>Modalidade</th>
+                                    <th>Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($acoes_cultural_usuario as $acao_cultural)
+                                <tr>
+                                    <th scope="row">{{$acao_cultural->id}}</th>
+                                    <td>
+                                        <a href="/acoes-culturais/{{$acao_cultural->id}}" class="fs-lg fw-500 ">
+                                            {{$acao_cultural->titulo}}
+                                        </a>
+                                        <div class="d-block text-muted fs-sm">
+                                            Segmento: {{$acao_cultural->segmento_cultural}}
+                                            <br>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{ ucfirst($acao_cultural->tipo_evento) }}
+                                    </td>
+                                    <td>
+                                        {{$acao_cultural->nome_coordenador}}
+                                        <div class="text-muted small text-truncate">
+                                            Unidade: {{$acao_cultural->unidade->sigla}}
+                                            <br>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @switch($acao_cultural->status)
+                                                @case('Desativado')
+                                                <span class="badge badge-danger">Desativado</span>
+                                                    @break
+                                                @case('Pendente')
+                                                    <span class="badge badge-warning">Pendente</span>
+                                                    @break
+                                                @case('Rascunho')
+                                                    <span class="badge badge-secondary">Rascunho</span>
+                                                    @break
+                                                @case('Aprovado')
+                                                    <span class="badge badge-success">Aprovado</span>
+                                                    @break
+                                                @default
+                                                <span class="badge badge-warning">Indefinido</span>
+                                        @endswitch
+                                        <div class="text-muted small text-truncate">
+                                            Atualizado: {{$acao_cultural->updated_at->format('d/m/Y')}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    Não há Ações de Extensão suas cadastradas
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12 col-xl-12">
         <!--Table head-->
         <div id="panel" class="panel">
             <div class="panel-hdr bg-warning-600">
                 <h2>
-                    Ações de Extensão Pendentes que necessitam de sua aprovação
+                    Ações de Extensão Pendentes que necessitam de aprovação
                 </h2>
                 <div class="panel-toolbar">
                     <h5 class="m-0">
@@ -177,82 +253,6 @@
 
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-xl-12">
-        <!--Table head-->
-        <div id="panel" class="panel">
-            <div class="panel-hdr">
-                <h2>
-                    Últimas Ações de Extensão da sua Unidade <span class="fw-300 color-fusion-500"><i> 3 últimas aprovadas</i></span>
-                </h2>
-            </div>
-            <div class="panel-container show">
-                <div class="panel-content">
-                    <div class="frame-wrap">
-                        <table class="table m-0">
-                            <thead class="thead-themed">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ação de Cultura</th>
-                                    <th>Modalidade</th>
-                                    <th>Coordenador</th>
-                                    <th>Atualizado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($acoes_cultural as $acao_cultural)
-                                <tr>
-                                    <th scope="row">{{$acao_cultural->id}}</th>
-                                    <td>
-                                        <a href="/acoes-culturais/{{$acao_cultural->id}}" class="fs-lg fw-500 ">
-                                            {{$acao_cultural->titulo}}
-                                        </a>
-                                        <div class="d-block text-muted fs-sm">
-                                            Segmento: {{$acao_cultural->segmento_cultural}}
-                                            <br>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {{ ucfirst($acao_cultural->tipo_evento) }}
-                                    </td>
-                                    <td>
-                                        {{$acao_cultural->nome_coordenador}}
-                                        <div class="text-muted small text-truncate">
-                                            Unidade: {{$acao_cultural->unidade->sigla}}
-                                            <br>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @switch($acao_cultural->status)
-                                                @case('Desativado')
-                                                <span class="badge badge-danger">Desativado</span>
-                                                    @break
-                                                @case('Pendente')
-                                                    <span class="badge badge-warning">Pendente</span>
-                                                    @break
-                                                @case('Rascunho')
-                                                    <span class="badge badge-secondary">Rascunho</span>
-                                                    @break
-                                                @case('Aprovado')
-                                                    <span class="badge badge-success">Aprovado</span>
-                                                    @break
-                                                @default
-                                                <span class="badge badge-warning">Indefinido</span>
-                                        @endswitch
-                                        <div class="text-muted small text-truncate">
-                                            Atualizado: {{$acao_cultural->updated_at->format('d/m/Y')}}
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div>
-</div>
 
 @endsection

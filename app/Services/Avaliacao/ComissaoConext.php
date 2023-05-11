@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\AvaliacaoInterface;
 
 use App\Models\AcaoExtensao;
+use App\Models\AcaoCultural;
 use App\Models\Cronograma;
 use App\Models\ComissaoUser;
 use App\Models\Inscricao;
@@ -46,4 +47,7 @@ class ComissaoConext implements AvaliacaoInterface
             return ['redirect' => "/acoes-extensao/$acao_extensao->id", 'status' => false];
         }
     }
+
+    public function executeAvaliacaoDcult(Request $request, AcaoCultural $acao_cultural, User $user) {}
+
 }

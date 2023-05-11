@@ -80,7 +80,7 @@
                                                                         </span>
                                                                     </a>
                                                                 </div>
-                                                                <div id="collapseParceiro" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionParceiro">
+                                                                <div id="collapseParceiro" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionParceiro">
                                                                     <div class="card-body">
                                                                         <form action="{{route('acao_cultural.parceiro.inserir', ['acao_cultural_id' => $acao_cultural->id])}}" id="form_acao_cultura_parceiro" method="POST">
                                                                             @csrf

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\AvaliacaoInterface;
 
 use App\Models\AcaoExtensao;
+use App\Models\AcaoCultural;
 use App\Models\Inscricao;
 use App\Models\User;
 use App\Models\EventoInscrito;
@@ -36,6 +37,10 @@ class Avaliacao
 
     public function executeAvaliacaoConext(Request $request, AcaoExtensao $acao_extensao, User $user){
         return $this->avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
+    }
+
+    public function executeAvaliacaoDcult(Request $request, AcaoCultural $acao_cultural, User $user){
+        return $this->avaliacao->executeAvaliacaoDcult($request, $inscrito, $user);
     }
 
     function update(Request $request, Inscricao $inscricao, User $user) {

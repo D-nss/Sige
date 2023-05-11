@@ -16,8 +16,14 @@ class ComissaoConextSeeder extends Seeder
     public function run()
     {
         Comissao::create([
-            'nome' => 'Comissão Conext',
-            'atribuicao' => 'Conext'
+            [
+                'nome' => 'Comissão Conext',
+                'atribuicao' => 'Conext'
+            ],
+            [
+                'nome' => 'DCULT',
+                'atribuicao' => 'Avaliação'
+            ],
         ]);
     }
 }

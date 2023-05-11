@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\AcaoCultural;
 use App\Models\AcaoCulturalColaborador;
 use App\Models\AcaoCulturalDataLocal;
 use App\Models\AcaoCulturalParceiro;
+use App\Models\Arquivo;
+use App\Models\ComissaoUser;
 use App\Models\Municipio;
 use App\Models\TipoParceiro;
 use App\Models\Unidade;
@@ -17,12 +20,105 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 
+use App\Services\Avaliacao\AvaliacaoDcult;
+
 
 class AcaoCulturalController extends Controller
 {
-    public function dashboard(){
+    public function dashboard()
+    {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
 
-        return view('acoes-culturais.dashboard');
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                        ->where('comissoes.unidade_id', 46) //checa se esta na comissao da unidade DCULT
+                                        ->where('comissoes_users.user_id', $user->id)
+                                        ->first();
+
+        if($userNaComissao == null) {
+            session()->flash('status', 'Acesso permitido somente para comissão DCULT.');
+            session()->flash('alert', 'warning');
+            return back();
+        }
+
+        $unidade = Unidade::where('id', $user->unidade_id)->first();
+        $acoes_cultural = AcaoCultural::where('status', 'Aprovado')->limit(3)->get();
+        $pendentes = AcaoCultural::where('status', 'Pendente')->get();
+        // $rascunhos = AcaoCultural::where('status', 'Rascunho')->get();
+        
+        $total = AcaoCultural::where('status', 'Aprovado')->count();
+        // // $total_unidade = AcaoCultural::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
+        // if(!$total == 0){
+        //     $porcentagem_unidade = (int) ($total_unidade*100/$total);
+        // } else{
+        //     $porcentagem_unidade = 0;
+        // }
+        
+        $total_cadastrados = AcaoCultural::count();
+        $total_aprovados = AcaoCultural::where('status', 'Aprovado')->count();
+        $total_pendentes = AcaoCultural::where('status', 'Pendente')->count();
+        $total_desativados = AcaoCultural::where('status', 'Desativado')->count();
+        
+         return view('acoes-culturais.dashboard', [
+             'unidade' => $unidade,
+        //     'acoes_cultural_usuario' => $acoes_cultural_usuario,
+             'acoes_cultural' => $acoes_cultural,
+             'pendentes' => $pendentes,
+        //     'rascunhos' => $rascunhos,
+             'total' => $total,
+        //     // 'total_unidade' => $total_unidade,
+        //     'porcentagem_unidade' => $porcentagem_unidade,
+             'total_cadastrados' => $total_cadastrados,
+             'total_aprovados' => $total_aprovados,
+             'total_pendentes' => $total_pendentes,
+             'total_desativados' => $total_desativados,
+             'userNaComissao' => $userNaComissao
+         ]);
+    }
+
+    public function dashboardUsuario(){
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $acoes_cultural_usuario =  AcaoCultural::where('user_id', $user->id)->get();
+        $unidade = Unidade::where('id', $user->unidade_id)->first();
+        // $acoes_cultural = AcaoCultural::where('status', 'Aprovado')->limit(3)->get();
+        $pendentes = AcaoCultural::where('user_id', $user->id)->where('status', 'Pendente')->get();
+        // $rascunhos = AcaoCultural::where('status', 'Rascunho')->get();
+        
+        $total = AcaoCultural::where('status', 'Aprovado')->count();
+        // $total_unidade = AcaoCultural::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
+        // if(!$total == 0){
+        //     $porcentagem_unidade = (int) ($total_unidade*100/$total);
+        // } else{
+        //     $porcentagem_unidade = 0;
+        // }
+        
+        $total_cadastrados = AcaoCultural::where('user_id', $user->id)->count();
+        $total_aprovados = AcaoCultural::where('user_id', $user->id)->where('status', 'Aprovado')->count();
+        $total_pendentes = AcaoCultural::where('user_id', $user->id)->where('status', 'Pendente')->count();
+        $total_desativados = AcaoCultural::where('user_id', $user->id)->where('status', 'Desativado')->count();
+        //echo json_encode($total_desativados);
+         return view('acoes-culturais.dashboard-usuario', [
+             'unidade' => $unidade,
+             'acoes_cultural_usuario' => $acoes_cultural_usuario,
+        //   'acoes_cultural' => $acoes_cultural,
+             'pendentes' => $pendentes,
+        //     'rascunhos' => $rascunhos,
+             'total' => $total,
+        //     'total_unidade' => $total_unidade,
+        //     'porcentagem_unidade' => $porcentagem_unidade,
+             'total_cadastrados' => $total_cadastrados,
+             'total_aprovados' => $total_aprovados,
+             'total_pendentes' => $total_pendentes,
+             'total_desativados' => $total_desativados
+         ]);
     }
     /**
      * Display a listing of the resource.
@@ -37,11 +133,13 @@ class AcaoCulturalController extends Controller
 
         $unidades = Unidade::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $lista_segmento_cultural = array("Arte, ciência e tecnologia","Artes da cena","Artes plásticas e visuais","Atividades socioculturais","Cinema","Jogos e desportos","Materiais impressos e literatura","Música","Natureza e meio-ambiente","Patrimônio","Rádio e televisão");
 
         return view('acoes-culturais.index', [
             'acoes_culturais' => $acoes_culturais,
             'unidades' => $unidades,
-            'estados' => $estados
+            'estados' => $estados,
+            'lista_segmento_cultural' => $lista_segmento_cultural
         ]);
     }
 
@@ -82,6 +180,18 @@ class AcaoCulturalController extends Controller
             $vinculo_coordenador = Auth::user()->employeetype;
         }
 
+        $validated = $request->validate([
+            'titulo' => 'required',
+            'gratuito' => 'required',
+            'tipo_evento' => 'required',
+            'resumo' => 'required|max:2500',
+            'segmento_cultural' => 'required',
+            'palavras_chaves' => 'required|max:250',
+            'publico_alvo' => 'required',
+            'unidade_id' => 'required',
+            'cidade' => 'required',
+        ]);
+
         $dados = array('user_id' => $user->id);
         $dados['nome_coordenador'] = $user->name;
         $dados['email_coordenador'] = $user->email;
@@ -117,6 +227,11 @@ class AcaoCulturalController extends Controller
 
     public function insereData(Request $request)
     {
+        $validated = $request->validate([
+            'data' => 'required',
+            'local' => 'required|max:190',
+        ]);
+
         $dataCriada = AcaoCulturalDataLocal::create($request->all());
 
         if($dataCriada){
@@ -158,6 +273,16 @@ class AcaoCulturalController extends Controller
      */
     public function show(AcaoCultural $acaoCultural)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                        ->where('comissoes.unidade_id', 46) //checa se esta na comissao da unidade DCULT
+                                        ->where('comissoes_users.user_id', $user->id)
+                                        ->first();
         //$acaoCultural = AcaoCultural::where('id', 1)->first();
         $segmentos_culturais =  explode(',', $acaoCultural->segmento_cultural);
         $selecao_publico_alvo = explode(',', $acaoCultural->publico_alvo);
@@ -168,7 +293,14 @@ class AcaoCulturalController extends Controller
                                                     ->get();
         $colaboradores_acao_cultural = AcaoCulturalColaborador::where('acao_cultural_id', $acaoCultural->id)->orderBy('nome')->get();
         $parceiros_acao_cultural = AcaoCulturalParceiro::where('acao_cultural_id', $acaoCultural->id)->orderBy('nome')->get();
+        $arquivos = Arquivo::where('referencia_id', $acaoCultural->id)->where('modulo', 'acoes-culturais')->get(['id', 'nome_arquivo', 'url_arquivo']);
 
+        if($acaoCultural->user_id == $user->id){
+            $userCoordenadorAcao = $user;
+        } else {
+            $userCoordenadorAcao = false;
+        }
+        
         return view('acoes-culturais.show', [
             'acao_cultural' => $acaoCultural,
             'segmentos_culturais' => $segmentos_culturais,
@@ -176,7 +308,10 @@ class AcaoCulturalController extends Controller
             'datas_acao_cultural' => $datas_acao_cultural,
             'unidades_envolvidas_acao_cultural' => $unidades_envolvidas_acao_cultural,
             'colaboradores_acao_cultural' => $colaboradores_acao_cultural,
-            'parceiros_acao_cultural' => $parceiros_acao_cultural
+            'parceiros_acao_cultural' => $parceiros_acao_cultural,
+            'arquivos' => $arquivos,
+            'userCoordenadorAcao' => $userCoordenadorAcao,
+            'userNaComissao' => $userNaComissao
         ]);
     }
 
@@ -286,6 +421,12 @@ class AcaoCulturalController extends Controller
 
     public function insereCoordenador(Request $request)
     {
+        $validated = $request->validate([
+            'nome_coordenador' => 'required|max:250',
+            'email_coordenador' => 'required|max:250',
+            'vinculo_coordenador' => 'required|max:250',
+        ]);
+
         $acao_cultural = AcaoCultural::where('id', $request->acao_cultural_id)->first();
         $acao_cultural->nome_coordenador = $request->nome_coordenador;
         $acao_cultural->email_coordenador = $request->email_coordenador;
@@ -318,6 +459,13 @@ class AcaoCulturalController extends Controller
 
     public function insereColaborador(Request $request)
     {
+        $validated = $request->validate([
+            'nome' => 'required|max:250',
+            'email' => 'required|max:250',
+            'cpf' => 'required|max:20',
+            'vinculo' => 'required|max:250',
+        ]);
+
         $colaboradorCriado = AcaoCulturalColaborador::create($request->all());
 
         if($colaboradorCriado){
@@ -348,6 +496,11 @@ class AcaoCulturalController extends Controller
 
     public function insereParceiro(Request $request)
     {
+        $validated = $request->validate([
+            'nome' => 'required|max:250',
+            'tipo_parceiro_id' => 'required',
+        ]);
+        
         $parceiroCriado = AcaoCulturalParceiro::create($request->all());
 
         if($parceiroCriado){
@@ -369,6 +522,117 @@ class AcaoCulturalController extends Controller
         return $this->index($acoes_culturais);
     }
 
+    public function filtrar(Request $request){
+        $filtro = array();
+        if($request->nome_coordenador){
+            array_push($filtro, ['nome_coordenador', 'like', "%{$request->nome_coordenador}%"]);
+        }
+        if($request->unidade_id){
+            array_push($filtro, ['unidade_id', $request->unidade_id]);
+        }
+        if($request->segmento_cultural){
+            array_push($filtro, ['segmento_cultural', 'like', "%{$request->segmento_cultural}%"]);
+        }
+        if($request->tipo_evento){
+            array_push($filtro, ['tipo_evento', $request->tipo_evento]);
+        }
+        if($request->palavra_chave){
+            array_push($filtro, ['palavras_chaves', $request->palavra_chave]);
+        }
+        if($request->cidade){
+            array_push($filtro, ['municipio_id', $request->cidade]);
+        }
+        array_push($filtro, ['status', 'Aprovado']);
+        $acoes_culturais = AcaoCultural::where($filtro)->get(['acoes_culturais.*']);
 
+        return $this->index($acoes_culturais);
+    }
+
+    public function filtrarMapa(Request $request){
+        $filtro = array();
+        if($request->nome_coordenador){
+            array_push($filtro, ['nome_coordenador', 'like', "%{$request->nome_coordenador}%"]);
+        }
+        if($request->unidade_id){
+            array_push($filtro, ['unidade_id', $request->unidade_id]);
+        }
+        if($request->segmento_cultural){
+            array_push($filtro, ['segmento_cultural', 'like', "%{$request->segmento_cultural}%"]);
+        }
+        if($request->tipo_evento){
+            array_push($filtro, ['tipo_evento', $request->tipo_evento]);
+        }
+        if($request->palavra_chave){
+            array_push($filtro, ['palavras_chaves', $request->palavra_chave]);
+        }
+        if($request->cidade){
+            array_push($filtro, ['municipio_id', $request->cidade]);
+        }
+        //array_push($filtro, ['georreferenciacao', '<>', '']);
+        array_push($filtro, ['status', 'Aprovado']);
+        $acoes_culturais = AcaoCultural::where($filtro)->get(['acoes_culturais.*']);
+
+        return $this->mapaCultura($acoes_culturais);
+    }
+
+    public function mapaCultura(Collection $acoes_cultural = null){
+        $marcadores = array();
+
+        if(is_null($acoes_cultural)){
+            $acoes_cultural = AcaoCultural::all();
+        }
+
+        /*foreach ($acoes_extensao as $acao){
+            $campos = explode(',', $acao->georreferenciacao);
+            if (count($campos) == 3){
+                $marcador = array();
+                $marcador['lat'] = $campos[1];
+                $marcador['long'] = $campos[2];
+                $link_acao = '/acoes-extensao/'.$acao->id;
+                $marcador['info'] = '<a href=' . $link_acao . '>' . $acao->titulo . '<br>' . 'Local: '. $campos[0] . '</a>';
+                array_push($marcadores, $marcador);
+            }
+        }*/
+
+        //Adicionando marcadores pela cidade - teste
+        foreach ($acoes_cultural as $acao){
+                $marcador = array();
+                $marcador['lat'] = $acao->municipio->latitude;
+                $marcador['long'] = $acao->municipio->longitude;
+                $link_acao = '/acoes-culturais/'.$acao->id;
+                $marcador['info'] = '<a href=' . $link_acao . '>' . $acao->titulo . '<br>' . 'Local: '. $acao->municipio->nome_municipio . '</a>';
+                array_push($marcadores, $marcador);
+        }
+        $unidades = Unidade::all();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $lista_segmento_cultural = array("Arte, ciência e tecnologia","Artes da cena","Artes plásticas e visuais","Atividades socioculturais","Cinema","Jogos e desportos","Materiais impressos e literatura","Música","Natureza e meio-ambiente","Patrimônio","Rádio e televisão");
+
+        return view('acoes-culturais.mapa', [
+            'acoes_cultural' => $acoes_cultural,
+            'unidades' => $unidades,
+            'estados' => $estados,
+            'marcadores' => $marcadores,
+            'lista_segmento_cultural' => $lista_segmento_cultural
+        ]);
+    }
+
+    public function aprovar(Request $request, AcaoCultural $acaoCultural){
+
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $avaliacaoDcult = new AvaliacaoDcult();
+        $resposta = $avaliacaoDcult->executeAvaliacaoDcult($request, $acaoCultural, $user);
+        Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Cultura ('. $acaoCultural->id . ')' );
+        
+        if($resposta['status']) {
+            $acaoCultural->user->notify(new \App\Notifications\AcaoCulturalAprovada($acaoCultural));
+        }
+
+        return redirect()->to($resposta['redirect']);
+    }
 
 }

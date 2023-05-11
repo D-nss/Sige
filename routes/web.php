@@ -117,12 +117,15 @@ Route::put('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, '
 Route::delete('/acoes-culturais/{acao_cultural}', [AcaoCulturalController::class, 'destroy'])->name('acao_cultural.destroy');
 Route::put('/acoes-culturais/{acao_cultural}/aprovar', [AcaoCulturalController::class, 'aprovar'])->name('acao_cultural.aprovar');
 Route::get('/painel-cultura', [AcaoCulturalController::class, 'dashboard'])->name('acao_cultural.painel');
+Route::get('/painel-cultura-usuario', [AcaoCulturalController::class, 'dashboardUsuario'])->name('acao_cultural.painel_usuario');
 Route::get('/acoes-culturais/{acao_cultural}/datas', [AcaoCulturalController::class, 'datas'])->name('acao_cultural.datas');
 Route::post('/acoes-culturais/datas', [AcaoCulturalController::class, 'insereData'])->name('acao_cultural.datas.inserir');
 Route::get('/acoes-culturais/{acao_cultural}/coordenador', [AcaoCulturalController::class, 'coordenador']);
 Route::post('/acoes-culturais/unidades', [AcaoCulturalController::class, 'insereUnidade'])->name('acao_cultural.unidades.inserir');
 Route::post('/acoes-culturais/coordenador', [AcaoCulturalController::class, 'insereCoordenador'])->name('acao_cultural.coordenador.inserir');
 Route::post('/acoes-culturais/filtrar', [AcaoCulturalController::class, 'filtrar'])->name('acao_cultural.filtrar');
+Route::post('/acoes-culturais/filtrarMapa', [AcaoCulturalController::class, 'filtrarMapa'])->name('acao_cultural.filtrar.mapa');
+Route::get('/acoes-culturais/mapa/cultura', [AcaoCulturalController::class, 'mapaCultura'])->name('acao_cultural.mapa');
 Route::get('/acoes-culturais/{acao_cultural}/equipe', [AcaoCulturalController::class, 'equipe']);
 Route::post('/acoes-culturais/colaborador', [AcaoCulturalController::class, 'insereColaborador'])->name('acao_cultural.colaborador.inserir');
 Route::get('/acoes-culturais/{acao_cultural}/parceiros', [AcaoCulturalController::class, 'parceiros']);

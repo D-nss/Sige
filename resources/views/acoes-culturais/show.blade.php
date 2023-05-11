@@ -19,13 +19,13 @@
         <div class="flex-1">
             <span class="h5">Ação Cultural pendende de aprovação pela Comissão</span>
         </div>
-        @hasanyrole('super|admin', 'web_user')
+        @if($userNaComissao)
         <form action="{{ route('acao_cultural.aprovar', ['acao_cultural' => $acao_cultural->id]) }}" method="post">
             @csrf
             @method('put')
             <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Aprovar</button>
         </form>
-        @endhasanyrole
+        @endif
         <!--a href="/acoes-extensao/{{$acao_cultural->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
     </div>
 </div>
@@ -480,6 +480,94 @@
                                                     :markers="[['lat' => $acao_cultural->municipio->latitude, 'long' => $acao_cultural->municipio->longitude, 'info' => 'teste', 'icon' => 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=home|1ABB9C|000000'], ['lat' => '-22.818177', 'long' => '-47.064098', 'info' => 'UNICAMP'] ]">
                                                 </x-maps-leaflet>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingArquivo">
+                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseArquivo" aria-expanded="false" aria-controls="collapseArquivo">
+                                        <div class='icon-stack display-3 flex-shrink-0'>
+                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
+                                            <i class="far fa-file icon-stack-1x opacity-100 color-danger-500"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            Arquivos
+                                        </div>
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-plus-circle text-success"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div id="collapseArquivo" class="collapse" aria-labelledby="headingArquivo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="col-6">
+                                            @if($userCoordenadorAcao)
+                                            <form action="{{ url('/upload-arquivo')}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <h4>Uploads de Arquivos</h4>
+                                                <label for="nome_arquivo" class="form-label">Nome Arquivo</label>
+                                                <input type="text" class="form-control mb-2 @error('nome_arquivo') is-invalid @enderror" name="nome_arquivo" id="nome_arquivo" placeholder="Nome do arquivo" value="{{ old('nome_arquivo') }}">
+
+                                                <div class="preview-zone hidden">
+                                                    <div class="box box-solid">
+                                                        <div class="box-header with-border">
+                                                        <div></div>
+                                                        <div class="box-tools pull-right">
+                                                            <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                            Limpar
+                                                            </button>
+                                                        </div>
+                                                        </div>
+                                                        <div class="box-body" id="box-body">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dropzone-wrapper @error('arquivo-anexo') border border-danger @enderror">
+                                                    <div class="dropzone-desc">
+                                                        <i class="glyphicon glyphicon-download-alt"></i>
+                                                        <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
+
+                                                    </div>
+                                                    <input type="file" name="arquivo-anexo" class="dropzone" id="arquivo" value="">
+
+                                                </div>
+                                                <input type="hidden" name="modulo" value="acoes-culturais">
+                                                <input type="hidden" name="referencia_id" value="{{ $acao_cultural->id }}">
+                                                <button class="btn btn-success mt-3">Enviar</button>
+                                            </form>
+                                            @endif
+                                            <div class="row border-bottom mb-2 mt-4">
+                                                @foreach($arquivos as $arquivo)
+                                                <div class="p-0 col-md-6">
+                                                    <h5>
+                                                        Nome Arquivo
+                                                        <small class="mt-0 mb-3">
+                                                            {{ $arquivo->nome_arquivo }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                                <div class="p-0 col-md-6">
+                                                    <h5>
+                                                        <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-xs btn-warning waves-effect waves-themed mb-1" href="#" target="_blank">Abrir Arquivo</a>
+                                                    @if($userCoordenadorAcao)
+                                                        <form action='{{ url("upload-arquivo/" . $arquivo->id) }}' method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
+                                                        </form>
+                                                    @endif
+                                                    </h5>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

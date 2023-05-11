@@ -131,7 +131,7 @@
                                 <input class="form-control" type="time" value="" id="hora_fim" name="hora_fim">
                             </div>
                             <div class="form-group col-md-3">
-                                <label class="form-label" for="local">Local</label>
+                                <label class="form-label" for="local">Local<span class="text-danger">*</span></label>
                                 <input type="text" id="local" name="local"  class="form-control @error('local') is-invalid @enderror">
                                 @error('local')
                                     <div class="invalid-feedback">
