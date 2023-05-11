@@ -55,7 +55,7 @@
 
             @hasanyrole('super|admin', 'web_user')
                 <li>
-                    <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
+                    <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
                         <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                     </a>
                     <ul>
@@ -76,7 +76,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" title="Indicadores" data-filter-tags="utilities menu child">
+                    <a href="javascript:void(0);" title="Ações de Cultura" data-filter-tags="utilities menu child">
                         <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Cultura</span>
                     </a>
                     <ul>

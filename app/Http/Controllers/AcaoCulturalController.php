@@ -39,9 +39,7 @@ class AcaoCulturalController extends Controller
                                         ->first();
 
         if($userNaComissao == null) {
-            session()->flash('status', 'Acesso permitido somente para comissão DCULT.');
-            session()->flash('alert', 'warning');
-            return back();
+            return $this->dashboardUsuario();
         }
 
         $unidade = Unidade::where('id', $user->unidade_id)->first();
