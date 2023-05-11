@@ -34,7 +34,7 @@ class AcaoCulturalController extends Controller
         }
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                        ->where('comissoes.unidade_id', 46) //checa se esta na comissao da unidade DCULT
+                                        ->where('comissoes.unidade_id', 44) //checa se esta na comissao da unidade DCULT
                                         ->where('comissoes_users.user_id', $user->id)
                                         ->first();
 
@@ -278,7 +278,7 @@ class AcaoCulturalController extends Controller
         }
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                        ->where('comissoes.unidade_id', 46) //checa se esta na comissao da unidade DCULT
+                                        ->where('comissoes.unidade_id', 44) //checa se esta na comissao da unidade DCULT
                                         ->where('comissoes_users.user_id', $user->id)
                                         ->first();
         //$acaoCultural = AcaoCultural::where('id', 1)->first();
