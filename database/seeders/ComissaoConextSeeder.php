@@ -18,11 +18,13 @@ class ComissaoConextSeeder extends Seeder
         Comissao::create([
             [
                 'nome' => 'Comissão Conext',
-                'atribuicao' => 'Conext'
+                'atribuicao' => 'Conext',
+                'unidade_id' => 41
             ],
             [
                 'nome' => 'DCULT',
-                'atribuicao' => 'Avaliação'
+                'atribuicao' => 'Avaliação',
+                'unidade_id' => 44
             ],
         ]);
     }
