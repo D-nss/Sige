@@ -16,15 +16,15 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Evandro Oliveira',
-            'email' => 'evanoliv@unicamp.br',
+            'name' => 'André Adilson Moreira',
+            'email' => 'aadilson@unicamp.br',
             'unidade_id' => 42, //DTIC
             'ativo' => true,
         ])->assignRole('super', 'admin', 'gr_dtic');
 
         User::create([
-            'name' => 'André Adilson Moreira',
-            'email' => 'aadilson@unicamp.br',
+            'name' => 'Evandro Oliveira',
+            'email' => 'evanoliv@unicamp.br',
             'unidade_id' => 42, //DTIC
             'ativo' => true,
         ])->assignRole('super', 'admin', 'gr_dtic');

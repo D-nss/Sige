@@ -46,7 +46,7 @@ class AcaoCulturalController extends Controller
         $acoes_cultural = AcaoCultural::where('status', 'Aprovado')->limit(3)->get();
         $pendentes = AcaoCultural::where('status', 'Pendente')->get();
         // $rascunhos = AcaoCultural::where('status', 'Rascunho')->get();
-        
+
         $total = AcaoCultural::where('status', 'Aprovado')->count();
         // // $total_unidade = AcaoCultural::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
         // if(!$total == 0){
@@ -54,12 +54,12 @@ class AcaoCulturalController extends Controller
         // } else{
         //     $porcentagem_unidade = 0;
         // }
-        
+
         $total_cadastrados = AcaoCultural::count();
         $total_aprovados = AcaoCultural::where('status', 'Aprovado')->count();
         $total_pendentes = AcaoCultural::where('status', 'Pendente')->count();
         $total_desativados = AcaoCultural::where('status', 'Desativado')->count();
-        
+
          return view('acoes-culturais.dashboard', [
              'unidade' => $unidade,
         //     'acoes_cultural_usuario' => $acoes_cultural_usuario,
@@ -79,7 +79,7 @@ class AcaoCulturalController extends Controller
 
     public function dashboardUsuario(){
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -89,7 +89,7 @@ class AcaoCulturalController extends Controller
         // $acoes_cultural = AcaoCultural::where('status', 'Aprovado')->limit(3)->get();
         $pendentes = AcaoCultural::where('user_id', $user->id)->where('status', 'Pendente')->get();
         // $rascunhos = AcaoCultural::where('status', 'Rascunho')->get();
-        
+
         $total = AcaoCultural::where('status', 'Aprovado')->count();
         // $total_unidade = AcaoCultural::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
         // if(!$total == 0){
@@ -97,7 +97,7 @@ class AcaoCulturalController extends Controller
         // } else{
         //     $porcentagem_unidade = 0;
         // }
-        
+
         $total_cadastrados = AcaoCultural::where('user_id', $user->id)->count();
         $total_aprovados = AcaoCultural::where('user_id', $user->id)->where('status', 'Aprovado')->count();
         $total_pendentes = AcaoCultural::where('user_id', $user->id)->where('status', 'Pendente')->count();
@@ -298,7 +298,7 @@ class AcaoCulturalController extends Controller
         } else {
             $userCoordenadorAcao = false;
         }
-        
+
         return view('acoes-culturais.show', [
             'acao_cultural' => $acaoCultural,
             'segmentos_culturais' => $segmentos_culturais,
@@ -498,7 +498,7 @@ class AcaoCulturalController extends Controller
             'nome' => 'required|max:250',
             'tipo_parceiro_id' => 'required',
         ]);
-        
+
         $parceiroCriado = AcaoCulturalParceiro::create($request->all());
 
         if($parceiroCriado){
@@ -625,7 +625,7 @@ class AcaoCulturalController extends Controller
         $avaliacaoDcult = new AvaliacaoDcult();
         $resposta = $avaliacaoDcult->executeAvaliacaoDcult($request, $acaoCultural, $user);
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Cultura ('. $acaoCultural->id . ')' );
-        
+
         if($resposta['status']) {
             $acaoCultural->user->notify(new \App\Notifications\AcaoCulturalAprovada($acaoCultural));
         }

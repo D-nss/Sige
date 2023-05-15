@@ -25,7 +25,7 @@ class EventoController extends Controller
         $grupo = '';
 
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -102,7 +102,7 @@ class EventoController extends Controller
         $dadosEvento = $request->except(['_token', 'inscricao']);
 
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -193,7 +193,7 @@ class EventoController extends Controller
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
             "modelo" => isset($request->enviar_modelo) ? 'mimes:png' : '',
         ];
-       
+
         $request->validate($toValidate);
 
         if( isset($request->modelo) || !$request->modelo == '') {
@@ -227,7 +227,7 @@ class EventoController extends Controller
 
             $dados[$key] = $value;
         }
-        
+
         $vagasDif = $request->vagas - $evento->vagas;
 
         if($evento->update($dados)) {
@@ -239,7 +239,7 @@ class EventoController extends Controller
 
             session()->flash('status', 'Evento Atualizado com sucesso.');
             session()->flash('alert', 'success');
-            
+
             return redirect()->to("eventos/$evento->id");
         }
         else {
