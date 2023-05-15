@@ -16,11 +16,9 @@ class ComissaoDcultSeeder extends Seeder
     public function run()
     {
         Comissao::create([
-            [
                 'nome' => 'DCULT',
                 'atribuicao' => 'Avaliação',
                 'unidade_id' => 44
-            ],
         ]);
     }
 }

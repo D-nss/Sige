@@ -63,5 +63,8 @@ class DatabaseSeeder extends Seeder
 
         //Comissao Conext
         $this->call(ComissaoConextSeeder::class);
+
+        //Comissao Dcult
+        $this->call(ComissaoDcultSeeder::class);
     }
 }
