@@ -53,7 +53,7 @@
         <ul id="js-nav-menu" class="nav-menu">
             @if(Auth::hasUser())
 
-            @hasanyrole('super|admin', 'web_user')
+            @hasanyrole('super|admin|acoes', 'web_user')
                 <li>
                     <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
                         <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
