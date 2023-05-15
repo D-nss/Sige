@@ -21,11 +21,6 @@ class ComissaoConextSeeder extends Seeder
                 'atribuicao' => 'Conext',
                 'unidade_id' => 41
             ],
-            [
-                'nome' => 'DCULT',
-                'atribuicao' => 'Avaliação',
-                'unidade_id' => 44
-            ],
         ]);
     }
 }
