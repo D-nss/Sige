@@ -45,7 +45,7 @@ class EventoInscritoExport implements FromCollection, WithHeadings, WithColumnFo
             $inscrito->desc_deficiencia,
             $inscrito->personalizado,
             $inscrito->titulo_trabalho,
-            url($inscrito->arquivo),
+            url('storage/'.$inscrito->arquivo),
             $inscrito->status_arquivo,
             Date::dateTimeToExcel($inscrito->created_at),
             Date::dateTimeToExcel($inscrito->updated_at)
