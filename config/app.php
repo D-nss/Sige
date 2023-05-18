@@ -179,6 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Spatie\Permission\PermissionServiceProvider::class,
+        //Exportar Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -196,6 +198,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        //Exportar Excel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

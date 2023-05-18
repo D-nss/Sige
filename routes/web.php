@@ -172,6 +172,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('evento/{evento}/equipe/{membro}/editar', [EventoEquipeController::class, 'edit']);
     Route::put('evento/{evento}/equipe/{membro}', [EventoEquipeController::class, 'update']);
     Route::post('inscrito/avaliar-recurso/{id}', [EventoInscritosController::class, 'avaliaRecurso']);
+    Route::get('evento/{evento}/exportar', [EventoInscritosController::class, 'exportarParaExcel']);
 
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EventoInscritoExport;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -26,6 +27,9 @@ use Illuminate\Support\Facades\App;
 use App\Services\Avaliacao\Subcomissao;
 
 use App\Services\Avaliacao;
+
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class EventoInscritosController extends Controller
 {
@@ -604,6 +608,35 @@ class EventoInscritosController extends Controller
             session()->flash('alert', 'danger');
 
             return redirect()->back();
+        }
+    }
+
+    public function exportarParaExcel(Evento $evento)
+    {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        foreach($user->getRoleNames() as $role) {
+            if(substr($role, 0, 3) === 'gr_') {
+                $grupo = $role;
+            }
+        }
+
+        if($evento->grupo_usuario == $grupo) {
+            /* Método download do pacote "Maatwebsite/Laravel-Excel" para criar e retornar um arquivo Excel.
+            Exporta os inscritos de um evento que estão confirmados e que não está na fila de espera.
+            No método download, estamos passando uma instância da classe EventoInscritoExport.*/
+
+            return Excel::download(new EventoInscritoExport($evento->id), 'inscritos_confirmados.xlsx');
+        }
+        else {
+            session()->flash('status', 'Desculpe! Você não tem permissão de exportar informações dos inscritos. Solicite a inclusão ao suporte.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
         }
     }
 }

@@ -84,6 +84,11 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div style='text-align: right'>
+                                        <a href="{{ url('evento/' . $evento->id . '/exportar') }}" class="btn btn-outline-success waves-effect waves-themed">
+                                            <i class="fal fa-download mr-1"></i> Exportar para Excel
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-header" id="headingTwo">
