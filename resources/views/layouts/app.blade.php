@@ -321,7 +321,7 @@ Versão: 4.5.1
                         $("#carga_horaria").val('');
                     }
                 });
-                
+
                 $("#ck_arquivo").change(function() {
                     if($("#ck_arquivo").is(':checked')) {
                         $("#div_prazo_envio_arquivo").removeClass("d-none");
@@ -383,15 +383,15 @@ Versão: 4.5.1
                 $("#tipo_documento").change(() => {
                     if( $("#tipo_documento").val() ==  'CPF' ) {
                         $("#documento").attr({"pattern": "[0-9]{11}", "title": "O CPF deve conter 11 digitos numéricos"});
-                        
+
                     }
                     if( $("#tipo_documento").val() ==  'RG' ) {
                         $("#documento").attr({"pattern": "[0-9]{9}", "title": "O RG deve conter 9 digitos numéricos"});
-                        
+
                     }
                     if( $("#tipo_documento").val() ==  'Passaporte' ) {
                         $("#documento").attr({"pattern": "[0-9]{6}", "title": "O Passaporte deve conter 6 digitos numéricos"});
-                        
+
                     }
                 });
 
@@ -437,7 +437,7 @@ Versão: 4.5.1
                     var dt_fim = new Date($("#inscricao_fim").val())
                     var dt_atual = new Date()
                     if(dt_fim < dt_inicio || dt_fim < dt_atual) {
-                        $("#msg_erro_inscricao_fim").html("A data fim data inscrição não pode ser antes da data de início das incrições");                        
+                        $("#msg_erro_inscricao_fim").html("A data fim data inscrição não pode ser antes da data de início das incrições");
                         $("#inscricao_fim").val('');
                     }
                     else {
@@ -457,31 +457,6 @@ Versão: 4.5.1
                     }
 
                     console.log(dt_prazo_envio);
-                });
-
-                if( $("#tipo_documento").val() ==  'CPF' ) {
-                    $("#documento").attr({"pattern": "[0-9]{11}", "title": "O CPF deve conter 11 digitos numéricos"});
-                    
-                }
-                if( $("#tipo_documento").val() ==  'RG' ) {
-                    $("#documento").attr({"pattern": "[0-9]{9}", "title": "O RG deve conter 9 digitos numéricos"});
-                    
-                }
-                if( $("#tipo_documento").val() ==  'Passaporte' ) {
-                    $("#documento").attr({"pattern": "[0-9]{6}", "title": "O Passaporte deve conter 6 digitos numéricos"});
-                    
-                }
-
-                $("#documento").on("invalid", () => {
-                    if( $("#tipo_documento").val() ==  'CPF' ) {
-                        $("#documento-alert").html("O CPF deve conter 11 digitos numéricos");
-                    }
-                    if( $("#tipo_documento").val() ==  'RG' ) {
-                        $("#documento-alert").html("O RG deve conter 9 digitos numéricos");
-                    }
-                    if( $("#tipo_documento").val() ==  'Passaporte' ) {
-                        $("#documento-alert").html("O Passaporte deve conter 6 digitos numéricos");
-                    }
                 });
 
                 $("#inscricao_fim").blur(function(){
@@ -509,7 +484,7 @@ Versão: 4.5.1
                     });
                 });
 
-                if ( $( "#checked-modal" ).length ) { 
+                if ( $( "#checked-modal" ).length ) {
                     $('#checked-modal').modal('show');
 
                     setInterval(() => {
@@ -1602,7 +1577,7 @@ Versão: 4.5.1
                         }
                     });
                 }
-            
+
             //para remover a classe is-invalid quando o campo esta sendo preenchido "use o onkeyup"
             function clearErrorClass(e)
             {
