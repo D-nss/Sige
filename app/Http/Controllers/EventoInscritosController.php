@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 use App\Mail\EnviarEmail;
 use App\Notifications\RecursoArquivoNotificar;
@@ -35,12 +36,45 @@ class EventoInscritosController extends Controller
 {
     public function index(Evento $evento)
     {
-        $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
-        $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
-        $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
-        $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
 
-        return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados'));
+        if($user->hasRole($evento->grupo_usuario)) {
+            session()->flash('status', 'Desculpe, acesso não autorizado.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.evento_id', $evento->id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+
+        if($userNaComissao) {
+            $confirmados = EventoInscrito::where(function (Builder $query) use ($evento){
+                $query->where('confirmacao', 1)
+                        ->where('lista_espera', 0)
+                        ->where('evento_id', $evento->id)
+                        ->where('arquivo', '<>', null )
+                        ->where('status_arquivo', 'Em Análise' );
+            })->get();
+
+            $listaEspera = [];
+            $naoConfirmados = [];
+            $cancelados = [];
+        }
+        else {
+            $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
+            $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
+            $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
+            $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
+        }
+        
+        return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
     }
 
     public function create(Evento $evento)
@@ -83,23 +117,23 @@ class EventoInscritosController extends Controller
 
         //falta validar os inputs
         $toValidate = [
-            "nome" => 'required',
-            "email" => 'required|email',
-            "tipo_documento" => ($evento->ck_documento) ? 'required' : '',
-            "documento" => ($evento->ck_documento) ? 'required|numeric' : '',
-            "sexo" => ($evento->ck_sexo) ? 'required' : '',
-            "genero" => ($evento->ck_identidade_genero) ? 'required' : '',
-            'instituicao' => ($evento->ck_instituicao) ? 'required' : '',
-            'pais' => ($evento->ck_pais) ? 'required' : '',
-            'area' => ($evento->ck_area) ? 'required' : '',
-            'vinculo' => ($evento->ck_vinculo) ? 'required' : '',
-            'deficiencia' => ($evento->ck_deficiencia) ? 'required' : '',
-            'desc_deficiencia' => (isset($request->deficiencia) && $request->deficiencia == 'Sim') ? 'required' : '',
-            'etnico_racial' => ($evento->ck_racial) ? 'required' : '',
-            'nascimento' => ($evento->ck_nascimento) ? 'required|date|before:' . today() : '',
-            'funcao' => ($evento->ck_funcao) ? 'required' : '',
-            'municipio' => ($evento->ck_cidade_estado) ? 'required' : '',
-            'personalizado' => isset($evento->input_personalizado) ? 'required' : '',
+            "nome"              => 'required',
+            "email"             => 'required|email',
+            "tipo_documento"    => ($evento->ck_documento) ? 'required' : '',
+            "documento"         => ($evento->ck_documento) ? 'required|numeric' : '',
+            "sexo"              => ($evento->ck_sexo) ? 'required' : '',
+            "genero"            => ($evento->ck_identidade_genero) ? 'required' : '',
+            'instituicao'       => ($evento->ck_instituicao) ? 'required' : '',
+            'pais'              => ($evento->ck_pais) ? 'required' : '',
+            'area'              => ($evento->ck_area) ? 'required' : '',
+            'vinculo'           => ($evento->ck_vinculo) ? 'required' : '',
+            'deficiencia'       => ($evento->ck_deficiencia) ? 'required' : '',
+            'desc_deficiencia'  => (isset($request->deficiencia) && $request->deficiencia == 'Sim') ? 'required' : '',
+            'etnico_racial'     => ($evento->ck_racial) ? 'required' : '',
+            'nascimento'        => ($evento->ck_nascimento) ? 'required|date|before:' . today() : '',
+            'funcao'            => ($evento->ck_funcao) ? 'required' : '',
+            'municipio'         => ($evento->ck_cidade_estado) ? 'required' : '',
+            'personalizado'     => isset($evento->input_personalizado) ? 'required' : '',
         ];
 
         $request->validate($toValidate);
@@ -158,7 +192,7 @@ class EventoInscritosController extends Controller
 
         if(Auth::check()) {
             if(App::environment('local')){
-                $user = User::where('id', 1)->first();
+                $user = User::where('id', 2)->first();
             } else {
                 $user = User::where('email', Auth::user()->id)->first();
             }
@@ -271,7 +305,7 @@ class EventoInscritosController extends Controller
     public function analiseArquivo(Request $request, $id)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -614,7 +648,7 @@ class EventoInscritosController extends Controller
     public function exportarParaExcel(Evento $evento)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
