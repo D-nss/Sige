@@ -171,9 +171,21 @@
             </li>
             @if(Auth::hasUser())
             <li class="">
-                <a href="{{ url('eventos') }}" title="Menu child" data-filter-tags="utilities menu child">
+                <a href="javascript:void(0);"  title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Eventos</span>
                 </a>
+                <ul>
+                    <li class="">
+                        <a href="{{ url('eventos') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Eventos</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url('eventos_por_comissao') }}" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Por Comissão</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             @hasanyrole('super|admin', 'web_user')
             <li class="nav-title">Administração</li>

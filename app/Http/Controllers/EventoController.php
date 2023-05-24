@@ -104,6 +104,12 @@ class EventoController extends Controller
 
     public function create()
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+        
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
                 $grupo = $role;
