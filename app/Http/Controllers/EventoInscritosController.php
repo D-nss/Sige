@@ -42,17 +42,17 @@ class EventoInscritosController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        if($user->hasRole($evento->grupo_usuario)) {
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+                                ->where('comissoes.evento_id', $evento->id)
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->first();
+
+        if(!$user->hasRole($evento->grupo_usuario) || !$userNaComissao) {
             session()->flash('status', 'Desculpe, acesso não autorizado.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
-
-        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                ->where('comissoes.evento_id', $evento->id)
-                                ->where('comissoes_users.user_id', $user->id)
-                                ->first();
 
         if($userNaComissao) {
             $confirmados = EventoInscrito::where(function (Builder $query) use ($evento){
