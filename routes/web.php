@@ -158,6 +158,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     //Eventos
     Route::resource('eventos', EventoController::class);
+    Route::get('eventos_por_comissao', [EventoController::class, 'eventosPorComissao']);
+
     Route::get('evento/{evento}/inscritos', [EventoInscritosController::class, 'index']);
     Route::get('inscritos/presenca/{codigo}', [EventoInscritosController::class, 'marcarPresenca']);
     Route::get('inscritos/adm/confirmacao/{id}', [EventoInscritosController::class, 'adm_confirmar']);

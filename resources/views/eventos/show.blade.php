@@ -246,7 +246,9 @@
                                             </h5>
                                         </div>
                                     </div>
-                                    <a href="{{ url('/eventos/' . $evento->id . '/editar') }}" class="btn btn-primary">Editar</a>
+                                    @hasrole($evento->grupo_usuario, 'web_user')
+                                        <a href="{{ url('/eventos/' . $evento->id . '/editar') }}" class="btn btn-primary">Editar</a>
+                                    @endhasanyrole
                                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                 </div>
                             </div>

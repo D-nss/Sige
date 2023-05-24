@@ -20,12 +20,37 @@ use App\Notifications\EventoAberturaVagaInscritoNotificar;
 
 class EventoController extends Controller
 {
+    private $diasSemana = [
+        'Mon' => 'Seg',
+        'Tue' => 'Ter',
+        'Wed' => 'Qua',
+        'Thu' => 'Qui',
+        'Fri' => 'Sex',
+        'Sat' => 'Sáb',
+        'Sun' => 'Dom',
+    ];
+
+    private $meses = [
+        '01' => 'Jan',
+        '02' => 'Fev',
+        '03' => 'Mar',
+        '04' => 'Abr',
+        '05' => 'Mai',
+        '06' => 'Jun',
+        '07' => 'Jul',
+        '08' => 'Ago',
+        '09' => 'Set',
+        '10' => 'Out',
+        '11' => 'Nov',
+        '12' => 'Dez'
+    ];
+
     public function index()
     {
         $grupo = '';
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -36,40 +61,60 @@ class EventoController extends Controller
             }
         }
 
-        $diasSemana = [
-            'Mon' => 'Seg',
-            'Tue' => 'Ter',
-            'Wed' => 'Qua',
-            'Thu' => 'Qui',
-            'Fri' => 'Sex',
-            'Sat' => 'Sáb',
-            'Sun' => 'Dom',
-        ];
-
-        $meses = [
-            '01' => 'Jan',
-            '02' => 'Fev',
-            '03' => 'Mar',
-            '04' => 'Abr',
-            '05' => 'Mai',
-            '06' => 'Jun',
-            '07' => 'Jul',
-            '08' => 'Ago',
-            '09' => 'Set',
-            '10' => 'Out',
-            '11' => 'Nov',
-            '12' => 'Dez'
-        ];
-
         $eventosAbertos = Evento::where('grupo_usuario', $grupo)->where('status', 'Aberto')->get();
         $eventosEncerrados = Evento::where('grupo_usuario', $grupo)->where('status', 'Encerrado')->get();
         $eventosCancelados = Evento::where('grupo_usuario', $grupo)->where('status', 'Cancelado')->get();
 
-        return view('eventos.index', compact('eventosAbertos', 'eventosEncerrados', 'eventosCancelados', 'meses', 'diasSemana'));
+        return view(
+            'eventos.index', 
+            [ 
+                'eventosAbertos' => $eventosAbertos, 
+                'eventosEncerrados' => $eventosEncerrados, 
+                'eventosCancelados' => $eventosCancelados, 
+                'meses' => $this->meses, 
+                'diasSemana' => $this->diasSemana
+            ]
+        );
+    }
+
+    public function eventosPorComissao()
+    {
+        $grupo = '';
+
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $eventosAbertos = Evento::join('comissoes', 'comissoes.evento_id', 'eventos.id')
+                                ->join('comissoes_users', 'comissoes_users.comissao_id', 'comissoes.id')
+                                ->where('comissoes_users.user_id', $user->id)
+                                ->get(['eventos.*']);
+
+        return view(
+            'eventos.por_comissao', 
+            [
+                'eventosAbertos' => $eventosAbertos, 
+                'meses' => $this->meses, 
+                'diasSemana' => $this->diasSemana
+            ]
+        );
     }
 
     public function create()
     {
+        foreach($user->getRoleNames() as $role) {
+            if(substr($role, 0, 3) === 'gr_') {
+                $grupo = $role;
+            }
+        }
+        if(!isset($grupo)) {
+            session()->flash('status', 'Desculpe! Você não está em um grupo que permita criar um novo evento. Solicite a inclusão ao suporte.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
+        }
         return view('eventos.create');
     }
 
@@ -102,7 +147,7 @@ class EventoController extends Controller
         $dadosEvento = $request->except(['_token', 'inscricao']);
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
