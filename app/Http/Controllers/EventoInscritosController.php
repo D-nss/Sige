@@ -47,13 +47,6 @@ class EventoInscritosController extends Controller
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
 
-        if(!$user->hasRole($evento->grupo_usuario) || !$userNaComissao) {
-            session()->flash('status', 'Desculpe, acesso não autorizado.');
-            session()->flash('alert', 'warning');
-
-            return redirect()->back();
-        }
-
         if($userNaComissao) {
             $confirmados = EventoInscrito::where(function (Builder $query) use ($evento){
                 $query->where('confirmacao', 1)
@@ -67,11 +60,17 @@ class EventoInscritosController extends Controller
             $naoConfirmados = [];
             $cancelados = [];
         }
-        else {
+        elseif($user->hasRole($evento->grupo_usuario)) {
             $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
             $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
             $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
             $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
+        }
+        else{
+            session()->flash('status', 'Desculpe, acesso não autorizado.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
         }
         
         return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
