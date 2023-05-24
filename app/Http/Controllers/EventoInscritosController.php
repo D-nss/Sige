@@ -59,15 +59,23 @@ class EventoInscritosController extends Controller
             $listaEspera = [];
             $naoConfirmados = [];
             $cancelados = [];
-        }
-        else{
+
+            return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
+        
+        }elseif($user->hasRole($evento->grupo_usuario)){
             $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
             $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
             $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
             $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
+
+            return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
         }
-        
-        return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
+        else {
+            session()->flash('status', 'Desculpe, acesso não permitido.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
     }
 
     public function create(Evento $evento)
