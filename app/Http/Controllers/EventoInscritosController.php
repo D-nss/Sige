@@ -60,17 +60,11 @@ class EventoInscritosController extends Controller
             $naoConfirmados = [];
             $cancelados = [];
         }
-        elseif($user->hasRole($evento->grupo_usuario)) {
+        else{
             $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
             $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
             $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
             $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
-        }
-        else{
-            session()->flash('status', 'Desculpe, acesso não autorizado.');
-            session()->flash('alert', 'warning');
-
-            return redirect()->back();
         }
         
         return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
