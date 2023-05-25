@@ -828,6 +828,161 @@ class ModeloCronogramaTableSeeder extends Seeder
                 'created_at' => '2022-05-03 10:02:34',
                 'updated_at' => '2022-05-03 10:02:34',
             ),
+            //Cultura
+            73 => 
+            array (
+                'id' => 74,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Divulgação',
+                'dt_input' => 'dt_divulgacao',
+                'validate' => '',
+                'msg_erro' => '',
+                'created_at' => '2022-04-12 14:03:38',
+                'updated_at' => '2022-04-12 14:03:39',
+            ),
+            74 => 
+            array (
+                'id' => 75,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Início das Inscrições',
+                'dt_input' => 'dt_inscricao',
+                'validate' => 'dt_divulgacao',
+                'msg_erro' => 'A data de inscrição não pode ser menor que a data de divulgação',
+                'created_at' => '2022-04-12 14:03:36',
+                'updated_at' => '2022-04-12 14:03:37',
+            ),
+            75 => 
+            array (
+                'id' => 76,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Termino das Inscrições',
+                'dt_input' => 'dt_termino_inscricao',
+                'validate' => 'dt_inscricao',
+                'msg_erro' => 'A data de termino das inscrições não pode ser menor que a data de inscrição',
+                'created_at' => '2022-04-12 14:05:42',
+                'updated_at' => '2022-04-12 14:05:43',
+            ),
+            76 => 
+            array (
+                'id' => 77,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Organização por Área temática',
+                'dt_input' => 'dt_org_tematica',
+                'validate' => 'dt_termino_inscricao',
+                'msg_erro' => 'A data de organização por área temática não pode ser menor que a data  de término das inscrições',
+                'created_at' => '2022-04-12 14:08:54',
+                'updated_at' => '2022-04-12 14:08:54',
+            ),
+            77 => 
+            array (
+                'id' => 78,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Término Organização por Área Temática',
+                'dt_input' => 'dt_termino_org_tematica',
+                'validate' => 'dt_org_area_tematica',
+                'msg_erro' => 'A data  término de organização por área temática não poder ser menor que a  data inicial da organizção por área temática',
+                'created_at' => '2022-05-03 09:52:28',
+                'updated_at' => '2022-05-03 09:52:29',
+            ),
+            78 => 
+            array (
+                'id' => 79,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data de Inicio de Análise dos Pareceristas',
+                'dt_input' => 'dt_pareceristas',
+                'validate' => 'dt_termino_org_area_tematica',
+                'msg_erro' => 'A data de Inicio da análise dos pareceristas não pode ser menor que a data de término da organização por área temática',
+                'created_at' => '2022-05-03 10:02:32',
+                'updated_at' => '2022-05-03 10:02:33',
+            ),
+            79 => 
+            array (
+                'id' => 80,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Término de Análise dos Pareceristas',
+                'dt_input' => 'dt_termino_pareceristas',
+                'validate' => 'dt_pareceristas',
+                'msg_erro' => 'A data de término da análise dos pareceristas não pode ser menor que a data inicio de análise dos pareceristas',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            80 => 
+            array (
+                'id' => 81,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Divulgação Preliminar',
+                'dt_input' => 'dt_divulgacao_previa',
+                'validate' => 'dt_termino_pareceristas',
+                'msg_erro' => 'A data de divulgação preliminar não pode ser menor que a data de término de análise dos pareceristas',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            81 => 
+            array (
+                'id' => 82,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Interposição Recurso',
+                'dt_input' => 'dt_recurso',
+                'validate' => 'dt_divulgacao_previa',
+                'msg_erro' => 'A data de incio da interposição de recurso não pode ser menor que a data de divulgação preliminar',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            82 => 
+            array (
+                'id' => 83,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Fim Interposição Recurso',
+                'dt_input' => 'dt_termino_recurso',
+                'validate' => 'dt_recurso',
+                'msg_erro' => 'A data fim da interposição de recurso não pode ser menor que a data de inicio da interposição de recurso',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            83 => 
+            array (
+                'id' => 84,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Resultado Final',
+                'dt_input' => 'dt_resultado',
+                'validate' => 'dt_termino_recurso',
+                'msg_erro' => 'A data de resultado final não pode ser menor que a data fim da interposição de recurso',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            84 => 
+            array (
+                'id' => 85,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Inicio Execução Projeto',
+                'dt_input' => 'dt_inicio_execucao',
+                'validate' => 'dt_resultado',
+                'msg_erro' => 'A data de inicio da execução não pode ser menor que a data do resultado final',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            85 => 
+            array (
+                'id' => 86,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Fim Execução Projeto',
+                'dt_input' => 'dt_fim_execucao',
+                'validate' => 'dt_inicio_execucao',
+                'msg_erro' => 'A data de fim da execução não pode ser menor que a data de inicio da execução',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
+            86 => 
+            array (
+                'id' => 87,
+                'tipo_edital' => 'Cultura',
+                'dt_label' => 'Data Fim Relatório Final',
+                'dt_input' => 'dt_fim_relatorio',
+                'validate' => 'dt_fim_execucao',
+                'msg_erro' => 'A data de fim do relatorio final não pode ser menor que a data da execução do projeto',
+                'created_at' => '2022-05-03 10:02:34',
+                'updated_at' => '2022-05-03 10:02:34',
+            ),
                    
         ));
         
