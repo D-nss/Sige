@@ -77,6 +77,12 @@ return [
             'path' => storage_path('logs/acoes_extensao.log'),
             'level' => 'debug',
         ],
+
+        'evento_inscricao' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/evento_inscricoes.log'),
+            'level' => 'debug',
+        ],
     ],
 
 ];
