@@ -31,7 +31,6 @@
                 <div class="row mb-3">
                     @foreach($cronogramas as $cronograma)
                     <div class="col-md-2 m-2 border border-secondary bg-secondary-50 rounded  d-flex justify-content-start alig-items-center">
-                        <?php $bg_array = ['success', 'danger', 'info', 'primary', 'warning'] ?>
                         <div class="bg-{{ $bg_array[rand(0,4)]}}" style="width: 4px; height: 100%;"></div>
                         <div class="d-flex flex-column justify-content-center alig-items-center p-2">
                             <small class="text-secondary fs-xs fw-200">{{ $cronograma['dt_label'] }}: </small>
