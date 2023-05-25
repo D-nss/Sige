@@ -36,6 +36,8 @@ class ProcessoEditalController extends Controller
                                 ->where('avaliadores.edital_id', $id)
                                 ->get(['avaliadores.id as avaliador_id', 'users.name', 'users.id', 'users.unidade_id']);
 
-        return view('processo-edital.edit', compact('edital', 'cronogramas', 'avaliadores'));
+        $bg_array = ['success', 'danger', 'info', 'primary', 'warning'];
+
+        return view('processo-edital.edit', compact('edital', 'cronogramas', 'avaliadores' ,'bg_array'));
     }
 }
