@@ -18,6 +18,7 @@
         <option value="">Selecione ... </option>
             <option value="Acoes Afirmativas" {{ (isset($edital->tipo) && $edital->tipo == 'Acoes Afirmativas') || old('tipo') == 'Acoes Afirmativas' ? 'selected' : '' }}>Ações Afirmativas</option>
             <option value="Colégios" {{ (isset($edital->tipo) && $edital->tipo == 'Colégios') || old('tipo') == 'Colégios' ? 'selected' : '' }}>Colégios</option>
+            <option value="Cultura" {{ (isset($edital->tipo) && $edital->tipo == 'Cultura') || old('tipo') == 'Cultura' ? 'selected' : '' }}>Cultura</option>
             <option value="Inovação e Empreendedorismo" {{ (isset($edital->tipo) && $edital->tipo == 'Inovação e Empreendedorismo') || old('tipo') == 'Inovação e Empreendedorismo' ? 'selected' : '' }}>Inovação e Empreendedorismo</option>
             <option value="PEX" {{ (isset($edital->tipo) && $edital->tipo == 'PEX') || old('tipo') == 'PEX' ? 'selected' : '' }}>PEX</option>
             <option value="Saberes Indígenas" {{ (isset($edital->tipo) && $edital->tipo == 'Saberes Indígenas') || old('tipo') == 'Saberes Indígenas' ? 'selected' : '' }}>Saberes Indígenas</option>
@@ -35,6 +36,7 @@
         <div class="{{ isset($edital->valor_max_programa) ? 'd-block' : 'd-none' }}" id="div_valor_programa">
             <label for="valor_max_programa" class="font-weight-bold">Valor Máximo por Programa:</label>
             <input type="text" name="valor_max_programa" id="valor_max_programa" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->valor_max_programa) ? number_format($edital->valor_max_programa, 2, ',', '') : old('valor_max_programa') }}" />
+            <p style="color: #D0D3D4;">Preencher somente se o edital contemplar programa, caso contrário deixar em branco.</p>
         </div>
         
         <div class="row">

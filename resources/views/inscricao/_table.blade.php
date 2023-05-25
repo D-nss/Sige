@@ -40,6 +40,9 @@
                     @if($inscricao->edital->tipo === 'Colégios')
                         @include('inscricao._botoes_pex')
                     @endif
+                    @if($inscricao->edital->tipo === 'Cultura')
+                        @include('inscricao._botoes_pex')
+                    @endif
                     @if($inscricao->edital->tipo === 'Inovação e Empreendedorismo')
                         @include('inscricao._botoes_pex')
                     @endif
