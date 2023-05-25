@@ -29,10 +29,10 @@
             <h1><i class="far fa-calendar-alt fa-1x"></i> {{ $evento->titulo }}</h1>
             
             @if($userNaComissao)
-                @include('eventos.inscritos._incritos_comissao')  
+                @include('eventos.inscritos._inscritos_comissao')  
             @endif
             @if($user->hasRole($evento->grupo_usuario))
-                @include('eventos.inscritos._incritos_adm')
+                @include('eventos.inscritos._inscritos_adm')
             @endif
         </div>
     </div>

@@ -53,13 +53,13 @@ class EventoInscritosController extends Controller
                         ->where('lista_espera', 0)
                         ->where('evento_id', $evento->id)
                         ->where('arquivo', '<>', null )
-                        ->where('status_arquivo', 'Em Análise' );
-            })->get();
+                        ->where('status_arquivo', '<>', 'Cancelado');
+            })->orderBy('status_arquivo', 'desc')->get();
 
             $listaEspera = [];
             $naoConfirmados = [];
             $cancelados = [];
-
+            
             return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
         
         }elseif($user->hasRole($evento->grupo_usuario)){
