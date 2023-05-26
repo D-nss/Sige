@@ -31,6 +31,8 @@ use App\Services\Avaliacao;
 
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Facades\Log;
+
 
 class EventoInscritosController extends Controller
 {
@@ -59,9 +61,9 @@ class EventoInscritosController extends Controller
             $listaEspera = [];
             $naoConfirmados = [];
             $cancelados = [];
-            
+
             return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
-        
+
         }elseif($user->hasRole($evento->grupo_usuario)){
             $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
             $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
@@ -121,7 +123,7 @@ class EventoInscritosController extends Controller
             "nome"              => 'required',
             "email"             => 'required|email',
             "tipo_documento"    => ($evento->ck_documento) ? 'required' : '',
-            "documento"         => ($evento->ck_documento) ? 'required|numeric' : '',
+            "documento"         => ($evento->ck_documento) ? 'required' : '',
             "sexo"              => ($evento->ck_sexo) ? 'required' : '',
             "genero"            => ($evento->ck_identidade_genero) ? 'required' : '',
             'instituicao'       => ($evento->ck_instituicao) ? 'required' : '',
@@ -172,6 +174,8 @@ class EventoInscritosController extends Controller
 
             }*/
 
+            Log::channel('evento_inscricao')->info('Evento ID: ' . $evento->id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao efetuada. ' . ' - Endereço IP: ' . $request->ip());
+
             session()->flash('status', 'Conclua inscrição através do email informado.');
                 session()->flash('alert', 'warning');
             //trocar o redirecionamento para a pagina de listagem de eventos para usuarios não autenticados
@@ -181,6 +185,8 @@ class EventoInscritosController extends Controller
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao realizar inscrição.');
             session()->flash('alert', 'danger');
+
+            Log::channel('evento_inscricao')->error('Evento ID: ' . $evento->id . ' Operação: Inscricao não efetuada. ' . ' - Endereço IP: ' . $request->ip());
 
             return redirect()->back();
         }
@@ -240,11 +246,15 @@ class EventoInscritosController extends Controller
                 session()->flash('status', 'Arquivo enviado com sucesso.');
                 session()->flash('alert', 'success');
 
+                Log::channel('evento_inscricao')->info('Evento ID: '. $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Envio de trabalho: ' . $inscrito->titulo_trabalho . ' - Endereço IP: ' . $request->ip());
+
                 return redirect()->back();
             }
             else {
                 session()->flash('status', 'Erro ao enviar arquivo.');
                 session()->flash('alert', 'danger');
+
+                Log::channel('evento_inscricao')->error('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' Operação: Erro envio de trabalho. ' . ' - Endereço IP: ' . $request->ip());
 
                 return redirect()->back();
             }
@@ -265,11 +275,15 @@ class EventoInscritosController extends Controller
             session()->flash('status', 'Recurso enviado com sucesso.');
             session()->flash('alert', 'success');
 
+            Log::channel('evento_inscricao')->info('Evento ID: '. $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Recurso enviado. ' . ' - Endereço IP: ' . $request->ip());
+
             return redirect()->back();
         }
         else {
             session()->flash('status', 'Erro ao enviar recurso.');
             session()->flash('alert', 'danger');
+
+            Log::channel('evento_inscricao')->error('Inscrito ID: ' . $inscrito->id . ' - Operação: Recurso enviado. ' . ' - Endereço IP: ' . $request->ip());
 
             return redirect()->back();
         }
@@ -333,6 +347,12 @@ class EventoInscritosController extends Controller
 
     public function adm_confirmar($id)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         $inscrito = EventoInscrito::find($id);
 
         $inscrito->confirmacao = 1;
@@ -342,11 +362,16 @@ class EventoInscritosController extends Controller
             $url = url("inscritos/presenca/$crypt");
             //Gerando QRCode
             $qrcode = QrCode::size(200)->generate( url($url));
+
+            Log::channel('evento_inscricao')->info('Evento ID: '. $inscrito->evento_id .' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao confirmada pelo Administrador: ID: '. $user->id);
+
             return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
             session()->flash('alert', 'danger');
+
+            Log::channel('evento_inscricao')->error('Evento ID: '. $inscrito->evento_id .' - Inscrito ID: ' . $inscrito->id . ' - Operação: Erro ao confirmar inscrição pelo Administrador: ID: '. $user->id);
 
             return redirect()->back();
         }
@@ -433,11 +458,16 @@ class EventoInscritosController extends Controller
                 $url = url("inscritos/presenca/$crypt");
                 //Gerando QRCode
                 $qrcode = QrCode::size(200)->generate( url($url));
+
+                Log::channel('evento_inscricao')->info('Evento ID: ' . $evento->id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao confirmada. ');
+
                 return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
             }
             else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
                 session()->flash('alert', 'danger');
+
+                Log::channel('evento_inscricao')->error('Evento ID: ' . $evento->id . ' - Inscrito ID: ' . $inscrito->id . ' - Erro: Inscricao não confirmada. ');
 
                 return redirect()->back();
             }
@@ -636,11 +666,15 @@ class EventoInscritosController extends Controller
             session()->flash('status', 'Apresentação cancelada com sucesso.');
             session()->flash('alert', 'success');
 
+            Log::channel('evento_inscricao')->info('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Cancelamento Apresentação. ');
+
             return redirect()->back();
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao cancelar a apresentação.');
             session()->flash('alert', 'danger');
+
+            Log::channel('evento_inscricao')->error('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Erro: Cancelamento Apresentação. ');
 
             return redirect()->back();
         }

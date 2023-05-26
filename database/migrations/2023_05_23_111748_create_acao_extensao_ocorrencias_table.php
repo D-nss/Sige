@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('acao_extensao_ocorrencias', function (Blueprint $table) {
+        Schema::create('acoes_extensao_ocorrencias', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(AcaoExtensao::class);
             $table->string('local', 255);
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acao_extensao_ocorrencias');
+        Schema::dropIfExists('acoes_extensao_ocorrencias');
     }
 };
