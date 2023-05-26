@@ -34,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($confirmados as $confirmado)
+                                @foreach($confirmados as $confirmado)
                                 <tr>
                                     <td>{{ $confirmado->nome }}</td>
                                     <td>{{ $confirmado->email }}</td>
@@ -52,9 +52,7 @@
                                         @endif
 
                                 </tr>
-                                @empty
-                                    <tr>Não Há Inscritos</tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                         <div style='text-align: right'>
