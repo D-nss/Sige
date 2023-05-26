@@ -25,7 +25,7 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
                     <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscrito/novo') }}">{{ url('evento/'. $evento->id .'/inscrito/novo') }}</a></h2>
-                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-adm" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>

@@ -525,7 +525,15 @@ Versão: 4.5.1
                     responsive: true
                 });
 
-                $('#dt-inscritos-confirmados').dataTable(
+                $('#dt-inscritos-confirmados-adm').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-inscritos-confirmados-comissao').dataTable(
                 {
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",

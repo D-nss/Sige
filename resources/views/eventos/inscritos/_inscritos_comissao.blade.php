@@ -24,7 +24,7 @@
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-comissao" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
