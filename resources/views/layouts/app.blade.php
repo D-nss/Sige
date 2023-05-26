@@ -380,21 +380,6 @@ Versão: 4.5.1
                     }
                 });
 
-                $("#tipo_documento").change(() => {
-                    if( $("#tipo_documento").val() ==  'CPF' ) {
-                        $("#documento").attr({"pattern": "[0-9]{11}", "title": "O CPF deve conter 11 digitos numéricos"});
-
-                    }
-                    if( $("#tipo_documento").val() ==  'RG' ) {
-                        $("#documento").attr({"pattern": "[0-9]{9}", "title": "O RG deve conter 9 digitos numéricos"});
-
-                    }
-                    if( $("#tipo_documento").val() ==  'Passaporte' ) {
-                        $("#documento").attr({"pattern": "[0-9]{6}", "title": "O Passaporte deve conter 6 digitos numéricos"});
-
-                    }
-                });
-
                 $("#data_fim").blur(function(){
                     var dt_inicio = new Date($("#data_inicio").val())
                     var dt_fim = new Date($("#data_fim").val())
@@ -493,6 +478,14 @@ Versão: 4.5.1
                 }
 
                 $('#dt-eventos-abertos').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-eventos-abertos-comissao').dataTable(
                 {
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
