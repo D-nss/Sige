@@ -60,7 +60,7 @@
                                                 ">
                                             {{ $confirmado->status_arquivo }}
                                         </span>
-                                </td>
+                                    </td>
                                     <td>
                                         <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id) ) }}" class="btn btn-info btn-xs">
                                             Dados Completos

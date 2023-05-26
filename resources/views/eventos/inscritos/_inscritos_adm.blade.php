@@ -93,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($listaEspera as $lista)
+                                @foreach($listaEspera as $lista)
                                 <tr>
                                     <td>{{ $lista->nome }}</td>
                                     <td>{{ $lista->email }}</td>
@@ -106,9 +106,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @empty
-                                    <tr>Não Há Inscritos</tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -144,7 +142,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($naoConfirmados as $naoConfirmado)
+                                @foreach($naoConfirmados as $naoConfirmado)
                                 <tr>
                                     <td>{{ $naoConfirmado->nome }}</td>
                                     <td>{{ $naoConfirmado->email }}</td>
@@ -160,9 +158,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @empty
-                                    <tr>Não Há Inscritos</tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -198,7 +194,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($cancelados as $cancelado)
+                                @foreach($cancelados as $cancelado)
                                 <tr>
                                     <td>{{ $cancelado->nome }}</td>
                                     <td>{{ $cancelado->email }}</td>
@@ -208,9 +204,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @empty
-                                    <tr>Não Há Inscritos</tr>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
