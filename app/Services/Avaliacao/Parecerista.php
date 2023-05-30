@@ -188,14 +188,14 @@ class Parecerista implements AvaliacaoInterface
             session()->flash('status', 'Avaliação atualizada com sucesso!');
             session()->flash('alert', 'success');
 
-            return ['redirect' => 'inscricao', 'status' => true];
+            return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => true];
         }
         else
         {
             session()->flash('status', 'Desculpe! Houve um problema ao enviar atualizar');
             session()->flash('alert', 'danger');
 
-            return ['redirect' => 'inscricao', 'status' => false];
+            return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => false];
         }
     }
 
