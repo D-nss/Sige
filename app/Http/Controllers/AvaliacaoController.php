@@ -27,25 +27,29 @@ class AvaliacaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        $questoesAvaliacao = $inscricao->edital->questoes->filter(function($value, $key) {
-            return data_get($value, 'tipo') == 'Avaliativa';
-        });
+        $avaliadorSeExiste = AvaliadorPorInscricao::where('user_id', $user->id,)
+                                                  ->where('inscricao_id', $inscricao->id)
+                                                  ->first();
 
-        $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.questao_id')
-                                                ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
-                                                ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
-                                                ->where('respostas_avaliacoes.user_id', $user->id)
-                                                ->get();
+        // $questoesAvaliacao = $inscricao->edital->questoes->filter(function($value, $key) {
+        //     return data_get($value, 'tipo') == 'Avaliativa';
+        // });
 
-        $parecerAvaliacao = Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer', 'pareceres.user_id')
-                                   ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
-                                   ->join('users', 'users.id', 'pareceres.user_id')
-                                   ->where('inscricoes.id', $inscricao->id)
-                                   ->where('pareceres.user_id', $user->id)
-                                   ->get();
+        // $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.questao_id')
+        //                                         ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
+        //                                         ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
+        //                                         ->where('respostas_avaliacoes.user_id', $user->id)
+        //                                         ->get();
 
-        //echo json_encode($parecerAvaliacao);
-        return view('inscricao.avaliacao', compact('inscricao', 'questoesAvaliacao', 'notasAvaliacao', 'parecerAvaliacao'));
+        // $parecerAvaliacao = Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer', 'pareceres.user_id')
+        //                            ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
+        //                            ->join('users', 'users.id', 'pareceres.user_id')
+        //                            ->where('inscricoes.id', $inscricao->id)
+        //                            ->where('pareceres.user_id', $user->id)
+        //                            ->get();
+
+        echo json_encode($avaliadorSeExiste);
+        // return view('inscricao.avaliacao', compact('inscricao', 'questoesAvaliacao', 'notasAvaliacao', 'parecerAvaliacao'));
     }
 
     /**
