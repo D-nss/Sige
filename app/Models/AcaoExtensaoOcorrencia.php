@@ -9,7 +9,7 @@ class AcaoExtensaoOcorrencia extends Model
 {
     use HasFactory;
 
-    protected $table = 'acao_extensao_ocorrencias';
+    protected $table = 'acoes_extensao_ocorrencias';
 
     protected $dates = ['data_hora_inicio', 'data_hora_fim'];
 
