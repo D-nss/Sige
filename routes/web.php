@@ -26,6 +26,7 @@ use App\Http\Controllers\IndicadoresParametrosController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
+use App\Http\Controllers\AcaoExtensaoCurricularizacaoController;
 use App\Http\Controllers\ComissaoController;
 use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
@@ -129,6 +130,12 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/acoes-extensao/unidades', [AcaoExtensaoController::class, 'insereUnidade'])->name('acao_extensao.unidades.inserir');
     Route::post('/acoes-extensao/unidade/{acao_extensao_unidade}', [AcaoExtensaoController::class, 'removeUnidade'])->name('acao_extensao.unidade.destroy');
     Route::put('/acoes-extensao/{acao_extensao}/aprovar_conext', [AcaoExtensaoController::class, 'aprovarConext'])->name('acao_extensao.aprovar_conext');
+    Route::get('/acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/curricularizacao', [AcaoExtensaoCurricularizacaoController::class, 'index']);
+    Route::get('/acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/curricularizacao/novo', [AcaoExtensaoCurricularizacaoController::class, 'create']);
+    Route::post('/acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/curricularizacao/store', [AcaoExtensaoCurricularizacaoController::class, 'store']);
+    Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/aceitar', [AcaoExtensaoCurricularizacaoController::class, 'aceitar']);
+    Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/apontar', [AcaoExtensaoCurricularizacaoController::class, 'apontar']);
+    Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/tornar-apto', [AcaoExtensaoCurricularizacaoController::class, 'tornarApto']);
 
     //Ações Culturais
     Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');

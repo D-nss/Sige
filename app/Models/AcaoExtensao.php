@@ -95,4 +95,9 @@ class AcaoExtensao extends Model
     {
         return $this->belongsTo(User::class, 'avaliacao_conext_user_id');
     }
+
+    public function ocorrencia()
+    {
+        return $this->hasMany(AcaoExtensaoOcorrencia::class);
+    }
 }

@@ -9,7 +9,7 @@ class AcaoExtensaoOcorrencia extends Model
 {
     use HasFactory;
 
-    protected $table = 'acoes_extensao_ocorrencias';
+    protected $table = 'acao_extensao_ocorrencias';
 
     protected $dates = ['data_hora_inicio', 'data_hora_fim'];
 
@@ -28,5 +28,10 @@ class AcaoExtensaoOcorrencia extends Model
     public function acao_extensao()
     {
         return $this->belongsTo(AcaoExtensao::class);
+    }
+
+    public function curricularizacao() 
+    {
+        return $this->hasMany(AcaoExtensaoCurricularizacao::class, 'acao_extensao_ocorrencia_id');
     }
 }
