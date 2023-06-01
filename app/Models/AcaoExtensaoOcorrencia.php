@@ -11,7 +11,7 @@ class AcaoExtensaoOcorrencia extends Model
 
     protected $table = 'acoes_extensao_ocorrencias';
 
-    protected $dates = ['data_hora_inicio', 'data_hora_fim'];
+    protected $dates = ['data_hora_inicio', 'data_hora_fim',  'inicio_inscricoes', 'fim_inscricoes'];
 
     protected $fillable = [
         'acao_extensao_id',
@@ -30,7 +30,7 @@ class AcaoExtensaoOcorrencia extends Model
         return $this->belongsTo(AcaoExtensao::class);
     }
 
-    public function curricularizacao() 
+    public function curricularizacao()
     {
         return $this->hasMany(AcaoExtensaoCurricularizacao::class, 'acao_extensao_ocorrencia_id');
     }

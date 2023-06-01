@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('local', 255);
             $table->dateTime('data_hora_inicio');
             $table->dateTime('data_hora_fim');
-            $table->dateTime('inicio_inscricoes');
-            $table->dateTime('fim_inscricoes');
+            $table->dateTime('inicio_inscricoes')->nullable();
+            $table->dateTime('fim_inscricoes')->nullable();
             $table->string('complemento', 255)->nullable();
             $table->string('latitude', 255)->nullable();
             $table->string('longitude', 255)->nullable();
