@@ -26,6 +26,7 @@ use App\Http\Controllers\IndicadoresParametrosController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
+use App\Http\Controllers\ExtensaoOcorrenciasController;
 use App\Http\Controllers\AcaoExtensaoCurricularizacaoController;
 use App\Http\Controllers\ComissaoController;
 use App\Http\Controllers\ComissaoUserController;
@@ -136,6 +137,13 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/aceitar', [AcaoExtensaoCurricularizacaoController::class, 'aceitar']);
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/apontar', [AcaoExtensaoCurricularizacaoController::class, 'apontar']);
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/tornar-apto', [AcaoExtensaoCurricularizacaoController::class, 'tornarApto']);
+
+    Route::get('/acoes-extensao/{acao_extensao}/ocorrencias', [ExtensaoOcorrenciasController::class, 'index'])->name('acao_extensao.ocorrencias.index');
+    Route::get('/acoes-extensao/{acao_extensao}/ocorrencias/novo', [ExtensaoOcorrenciasController::class, 'create'])->name('acao_extensao.ocorrencias.create');
+    Route::post('/acoes-extensao/{acao_extensao}/ocorrencias', [ExtensaoOcorrenciasController::class, 'store'])->name('acao_extensao.ocorrencias.store');
+    Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}/editar', [ExtensaoOcorrenciasController::class, 'edit'])->name('acao_extensao.ocorrencias.edit');
+    Route::put('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'update'])->name('acao_extensao.ocorrencias.update');
+    Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'show'])->name('acao_extensao.ocorrencias.show');
 
     //Ações Culturais
     Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');
