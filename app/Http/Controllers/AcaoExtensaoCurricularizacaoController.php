@@ -49,8 +49,8 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
             return redirect()->back();
         }
-        
-        return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+        var_dump(Auth::user()->employeetype === "Aluno UNICAMP");
+        //return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
