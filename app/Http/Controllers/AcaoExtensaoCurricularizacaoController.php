@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 use App\Models\AcaoExtensaoOcorrencia;
 use App\Models\AcaoExtensaoCurricularizacao;
@@ -31,14 +32,25 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function create(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
-        echo json_encode(Auth::user()->employeetype);
-        echo json_encode(Auth::user()->matricula);
-        // $matricula = 2465;
-        // $url = "http://localhost:9000/alunos/$matricula";
+        if(Auth::user()->employeetype === "Aluno UNICAMP") {
+            session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        // $dadosAluno = json_decode(file_get_contents($url));
+            return redirect()->back();
+        }
+
+        $dadosAluno = '';
+        $matricula = Auth::user()->matricula;
+        $alunos = json_decode(File::get(storage_path('alunos.json')), true);
+        foreach($alunos as $aluno){
+            if($aluno["NREGALUN"] == $matricula) {
+                $dadosAluno = $aluno;
+                break;
+            }
+            
+        }
         
-        // return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+        return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
