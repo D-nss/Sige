@@ -15,9 +15,15 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     {
         if(count($acao_extensao_ocorrencia->curricularizacao) > 0) {
             $curricularizacoes = $acao_extensao_ocorrencia->curricularizacao;
+            $alunos = json_decode(File::get(storage_path('alunos.json')), true);
             foreach($curricularizacoes as $c){
-                $conteudo = json_decode(file_get_contents('http://localhost:9000/alunos/' . $c->aluno_ra));
-                $c['aluno_ra'] = $conteudo;
+                
+                foreach($alunos as $aluno){
+                    if($aluno["NREGALUN"] == $c->aluno_ra) {
+                        $c['aluno_ra'] = $aluno;
+                        break;
+                    }
+                }
             }
 
             return view('acoes-extensao.curricularizacao.index', compact('curricularizacoes', 'acao_extensao_ocorrencia'));
@@ -47,7 +53,6 @@ class AcaoExtensaoCurricularizacaoController extends Controller
                 $dadosAluno = $aluno;
                 break;
             }
-            
         }
 
         if(empty($dadosAluno)) {
