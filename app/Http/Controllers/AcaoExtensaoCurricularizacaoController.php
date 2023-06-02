@@ -32,6 +32,13 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function create(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
+        if(Auth::user()->employeetype != "Aluno UNICAMP") {
+            session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $dadosAluno = '';
         $matricula = Auth::user()->matricula;
         $alunos = json_decode(File::get(storage_path('alunos.json')), true);
@@ -43,14 +50,14 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             
         }
 
-        // if(Auth::user()->employeetype === "Aluno UNICAMP" || empty($dadosAluno)) {
-        //     session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if(empty($dadosAluno)) {
+            session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
-        var_dump(Auth::user()->employeetype === "Aluno UNICAMP");
-        //return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+            return redirect()->back();
+        }
+
+        return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
