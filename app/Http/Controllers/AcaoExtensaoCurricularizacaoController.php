@@ -43,12 +43,12 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             
         }
 
-        if(Auth::user()->employeetype === "Aluno UNICAMP" || empty($dadosAluno)) {
-            session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
-            session()->flash('alert', 'warning');
+        // if(Auth::user()->employeetype === "Aluno UNICAMP" || empty($dadosAluno)) {
+        //     session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
+        //     session()->flash('alert', 'warning');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
         var_dump(Auth::user()->employeetype === "Aluno UNICAMP");
         //return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
     }
