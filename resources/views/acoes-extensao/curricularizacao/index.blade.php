@@ -45,7 +45,6 @@
                         <tbody>
                             
                             @foreach($curricularizacoes as $curricularizacao)
-                            {{ dd($curricularizacao->aluno_ra) }}
                                 <tr>
                                     <td>
                                         <div class="fs-xl fw-700 text-primary">{{ $curricularizacao->aluno_ra['MALUCOMPL'] }}</div>
