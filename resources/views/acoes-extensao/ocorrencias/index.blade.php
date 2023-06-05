@@ -51,7 +51,15 @@
                                 <td>{{$ocorrencia->local}}</td>
                                 <td>{{isset($ocorrencia->inicio_inscricoes) ? $ocorrencia->inicio_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td>{{isset($ocorrencia->fim_inscricoes) ? $ocorrencia->fim_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
-                                <td>Ver detalhes<br>Editar<br>Equipe<br>{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</td>
+                                <td>   
+                                    Ver detalhes
+                                    <br>
+                                    Editar
+                                    <br>
+                                    Equipe
+                                    <br>
+                                    <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

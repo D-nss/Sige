@@ -13,8 +13,23 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 {
     public function index(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
+            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         if(count($acao_extensao_ocorrencia->curricularizacao) > 0) {
             $curricularizacoes = $acao_extensao_ocorrencia->curricularizacao;
+
+            //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
             $alunos = json_decode(File::get(storage_path('alunos.json')), true);
             foreach($curricularizacoes as $c){
                 
@@ -45,6 +60,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             return redirect()->back();
         }
 
+        //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
         $matricula = Auth::user()->matricula;
         $alunos = json_decode(File::get(storage_path('alunos.json')), true);
@@ -103,6 +119,19 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function aceitar(Request $request, AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
+            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $validado = $request->validate([
             'status' => 'required',
         ]);
@@ -126,6 +155,18 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function apontar(Request $request, AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
+            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
     
         $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
 
@@ -148,6 +189,18 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function tornarApto(AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
+            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
     
         $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
 
