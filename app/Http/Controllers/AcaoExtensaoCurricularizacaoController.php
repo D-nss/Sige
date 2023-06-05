@@ -65,23 +65,23 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
-        echo $matricula = Auth::user()->matricula;
-        // $alunos = json_decode(File::get(storage_path('alunos.json')), true);
-        // foreach($alunos as $aluno){
-        //     if($aluno["NREGALUN"] == $matricula) {
-        //         $dadosAluno = $aluno;
-        //         break;
-        //     }
-        // }
+        $matricula = Auth::user()->matricula;
+        $alunos = json_decode(File::get(storage_path('alunos.json')), true);
+        foreach($alunos as $aluno){
+            if($aluno["NREGALUN"] == $matricula) {
+                $dadosAluno = $aluno;
+                break;
+            }
+        }
 
-        // if(empty($dadosAluno)) {
-        //     session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if(empty($dadosAluno)) {
+            session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
-        // return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+        return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
