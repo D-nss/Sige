@@ -128,6 +128,10 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
+        $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
+
+        $acao_extensao_ocorrencia = AcaoExtensaoOcorrencia::find($acaoExtensaoOcorrenciaId);
+
         if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
             session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
             session()->flash('alert', 'warning');
@@ -138,8 +142,6 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         $validado = $request->validate([
             'status' => 'required',
         ]);
-
-        $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
 
         $acaoExtensaoCurricularizacao->status = $request->status;
         if($acaoExtensaoCurricularizacao->update()) {
@@ -164,14 +166,16 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
+        $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
+
+        $acao_extensao_ocorrencia = AcaoExtensaoOcorrencia::find($acaoExtensaoOcorrenciaId);
+
         if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
             session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
-    
-        $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
 
         $acaoExtensaoCurricularizacao->apto = $request->apto;
         $acaoExtensaoCurricularizacao->horas = $request->horas;
@@ -198,14 +202,16 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
+        $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
+
+        $acao_extensao_ocorrencia = AcaoExtensaoOcorrencia::find($acaoExtensaoOcorrenciaId);
+
         if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
             session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
-    
-        $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
 
         if($acaoExtensaoCurricularizacao->apto == 1) {
             $acaoExtensaoCurricularizacao->apto = 0;
