@@ -145,6 +145,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $acaoExtensaoCurricularizacao->status = $request->status;
         if($acaoExtensaoCurricularizacao->update()) {
+            //Notificar aluno 
             session()->flash('status', 'Inscrição atualizada com sucesso.');
             session()->flash('alert', 'success');
 
@@ -172,6 +173,13 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
             session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
+        if($request->horas > $acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao) {
+            session()->flash('status', 'Desculpe! A quantidade de horas não pode ultrapassar a quantidade de horas de curricularizacao definida na Ação de Extensão.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
