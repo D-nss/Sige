@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\App;
 use App\Models\AcaoExtensaoOcorrencia;
 use App\Models\AcaoExtensaoCurricularizacao;
 
+use App\Models\User;
+
 class AcaoExtensaoCurricularizacaoController extends Controller
 {
     public function index(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
