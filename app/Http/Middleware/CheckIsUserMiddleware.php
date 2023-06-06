@@ -41,12 +41,17 @@ class CheckIsUserMiddleware
                     'ativo' => true,
                 ]);
 
-            session()->flash('success', 'Olá '.$user->name.'! Você foi cadastrado no sistema. Agora acesse o menu para realizar as operações desejadas');
+                session()->flash('status', 'Olá '.$user->name.'! Você foi cadastrado no sistema. Agora acesse o menu para realizar as operações desejadas');
+                session()->flash('alert', 'success');
+
+                return redirect()->back();
 
             } else {
                 //Gerar log do acesso barrado devido ao não retorno da unidade do usuário autenticado no SiSe
-                session()->flash('danger', 'Olá '.$nome.'! Unidade não encontrada, entre em contato com Administrador do sistema para utilização');
-                return redirect('/');
+                session()->flash('status', 'Olá '.$nome.'! Unidade não encontrada, entre em contato com Administrador do sistema para utilização');
+                session()->flash('alert', 'success');
+
+                return redirect()->back();
             }
 
             if (Auth::user()->employeetype == 'PROFESSOR/PESQUISADOR VISITANTE' || Auth::user()->employeetype == 'Funcionário UNICAMP'){
