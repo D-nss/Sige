@@ -137,7 +137,7 @@ class ExtensaoOcorrenciasController extends Controller
             $userCoordenadorAcao = false;
         }
 
-        return view('acoes-extensao.ocorrencias.show', compact('acaoExtensaoOcorrencia', 'graus_envolvimento_equipe', 'userCoordenadorAcao', 'lista_documento', 'lista_vinculo', 'colaboradores_ocorrencia') );
+        return view('acoes-extensao.ocorrencias.show', compact('acaoExtensaoOcorrencia', 'graus_envolvimento_equipe', 'userCoordenadorAcao', 'lista_documento', 'lista_vinculo', 'colaboradores_ocorrencia', 'user') );
     }
 
     /**

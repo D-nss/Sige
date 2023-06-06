@@ -179,7 +179,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         }
 
         if($request->horas > $acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao) {
-            session()->flash('status', 'Desculpe! A quantidade de horas não pode ultrapassar a quantidade de horas de curricularizacao definida na Ação de Extensão.');
+            session()->flash('status', 'Desculpe! A quantidade de horas não pode ultrapassar a quantidade de horas de curricularização definida na Ação de Extensão.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();

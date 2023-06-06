@@ -51,14 +51,17 @@
                                 <td>{{$ocorrencia->local}}</td>
                                 <td>{{isset($ocorrencia->inicio_inscricoes) ? $ocorrencia->inicio_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td>{{isset($ocorrencia->fim_inscricoes) ? $ocorrencia->fim_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
-                                <td>   
-                                    Ver detalhes
-                                    <br>
-                                    Editar
-                                    <br>
-                                    Equipe
-                                    <br>
-                                    <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
+                                <td>  
+                                    @if(isset($user))
+                                        <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
+                                    @else
+                                        <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
+                                        Editar
+                                        <br>
+                                        Equipe
+                                        <br>
+                                        <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
