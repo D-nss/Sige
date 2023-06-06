@@ -2,15 +2,15 @@
     $user = \App\Models\User::where('email', Auth::user()->id)->first();
 ?>
 <div>
-    <a href="#" class="header-icon" data-toggle="dropdown" title="Você tem 11 notificações">
+    <a href="#" class="header-icon" data-toggle="dropdown" title="Você tem {{ isset($user->unreadNotifications) ? count($user->unreadNotifications->toArray()) : 0 }} notificações">
         <i class="fal fa-bell"></i>
-        <span class="badge badge-icon">{{ count($user->unreadNotifications->toArray()) }}</span>
+        <span class="badge badge-icon">{{ isset($user->unreadNotifications) ? count($user->unreadNotifications->toArray()) : 0 }}</span>
     </a>
     <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
         <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
             <h4 class="m-0 text-center color-white">
                 
-                {{ count($user->unreadNotifications->toArray()) }}
+                {{ isset($user->unreadNotifications) ? count($user->unreadNotifications->toArray()) : 0 }}
                 <small class="mb-0 opacity-80">Notificações</small>
             </h4>
         </div>
@@ -35,20 +35,24 @@
                 <div class="custom-scroll h-100">
                     <ul class="notification">
                         <div id="notification">
-                        @foreach($user->unreadNotifications as $unreadNotification)
-                        <li>
-                            <a href="{{ route('notificacao.show', $unreadNotification->id) }}" class="d-flex align-items-center">
-                                <span class="status status-danger mr-2">
-                                    
-                                </span>
-                                <span class="d-flex flex-column flex-1 ml-1">
-                                    <span class="name">{{ $unreadNotification->data['dados']['titulo'] }}</span>
-                                    <span class="msg-a fs-sm mt-1 text-primary">{{ $unreadNotification->data['mensagem'] }}</span>
-                                    <span class="fs-nano text-muted mt-1">{{ date('d/m/Y H:i:s', strtotime($unreadNotification->created_at)) }}</span>
-                                </span>
-                            </a>
-                        </li>
-                        @endforeach
+                        @if(isset($user->unreadNotifications))
+                            @foreach($user->unreadNotifications as $unreadNotification)
+                            <li>
+                                <a href="{{ route('notificacao.show', $unreadNotification->id) }}" class="d-flex align-items-center">
+                                    <span class="status status-danger mr-2">
+                                        
+                                    </span>
+                                    <span class="d-flex flex-column flex-1 ml-1">
+                                        <span class="name">{{ $unreadNotification->data['dados']['titulo'] }}</span>
+                                        <span class="msg-a fs-sm mt-1 text-primary">{{ $unreadNotification->data['mensagem'] }}</span>
+                                        <span class="fs-nano text-muted mt-1">{{ date('d/m/Y H:i:s', strtotime($unreadNotification->created_at)) }}</span>
+                                    </span>
+                                </a>
+                            </li>
+                            @endforeach
+                        @else
+                            <li>Sem Notificações</li>
+                        @endif
                         </div>
                     </ul>
                 </div>
