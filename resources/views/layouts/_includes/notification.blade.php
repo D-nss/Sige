@@ -50,8 +50,6 @@
                                 </a>
                             </li>
                             @endforeach
-                        @else
-                            <li>Sem Notificações</li>
                         @endif
                         </div>
                     </ul>
