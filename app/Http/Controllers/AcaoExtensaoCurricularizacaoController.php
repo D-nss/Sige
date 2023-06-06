@@ -56,12 +56,12 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function create(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
-        // if(Auth::user()->employeetype != "Aluno UNICAMP") {
-        //     session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if(Auth::user()->employeetype != "Aluno UNICAMP") {
+            session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
