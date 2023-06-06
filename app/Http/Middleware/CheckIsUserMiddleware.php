@@ -44,14 +44,14 @@ class CheckIsUserMiddleware
                 session()->flash('status', 'Olá '.$user->name.'! Você foi cadastrado no sistema. Agora acesse o menu para realizar as operações desejadas');
                 session()->flash('alert', 'success');
 
-                return redirect()->back();
+                return redirect()->to('/');
 
             } else {
                 //Gerar log do acesso barrado devido ao não retorno da unidade do usuário autenticado no SiSe
                 session()->flash('status', 'Olá '.$nome.'! Unidade não encontrada, entre em contato com Administrador do sistema para utilização');
-                session()->flash('alert', 'success');
+                session()->flash('alert', 'warning');
 
-                return redirect()->back();
+                return redirect()->to('/');
             }
 
             if (Auth::user()->employeetype == 'PROFESSOR/PESQUISADOR VISITANTE' || Auth::user()->employeetype == 'Funcionário UNICAMP'){
