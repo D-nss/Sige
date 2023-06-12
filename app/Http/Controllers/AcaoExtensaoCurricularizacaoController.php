@@ -122,7 +122,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             session()->flash('status', 'Inscrição relizada com sucesso, a próxima etapa é a análise do coordenador, fique atento ao seu e-mail você será avisado por lá.');
             session()->flash('alert', 'success');
 
-            return redirect()->back();
+            return redirect()->to('acoes-extensao/ocorrencias/' . $acao_extensao_ocorrencia->id);
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao se inscrever.');
