@@ -28,7 +28,7 @@ class CheckIsUserMiddleware
         //Usuário não encontrado
         if (!$user){
 
-            if(Auth::user()->employeetype != "Aluno UNICAMP") {
+            if(Auth::user()->employeetype == "Aluno UNICAMP") {
                 $unidade = Unidade::where('sigla', 'ALUNO')->first();
             }else {
                 //Consulta Unidade pela sigla retornado pelo Keycloak
