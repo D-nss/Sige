@@ -45,9 +45,9 @@ class NotificarAceiteCurricularizacao extends Notification
     {
         return (new MailMessage)
                     ->subject('Resposta do coordenador sobre sua participação em ação de extensão')
-                    ->line('Sua participação na ação de extensão "'. $acao_extensao_ocorrencia->acao_extensao->titulo .'" foi aceita.')
-                    ->line('Data Inicio: '. date('d/m/Y', $acao_extensao_ocorrencia->data_hora_inicio))
-                    ->line('Data Fim: '. date('d/m/Y', $acao_extensao_ocorrencia->data_hora_fim))
+                    ->line('Sua participação na ação de extensão "'. $this->acao_extensao_ocorrencia->acao_extensao->titulo .'" foi aceita.')
+                    ->line('Data Inicio: '. date('d/m/Y', $this->acao_extensao_ocorrencia->data_hora_inicio))
+                    ->line('Data Fim: '. date('d/m/Y', $this->acao_extensao_ocorrencia->data_hora_fim))
                     //->action('Notification Action', url('/'))
                     ->line('Obrigado por usar nosso sistema')
                     ->line('Equipe Extecult');
