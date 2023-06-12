@@ -157,7 +157,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $acaoExtensaoCurricularizacao->status = $request->status;
         if($acaoExtensaoCurricularizacao->update()) {
-            //Notificar aluno 
+            $acaoExtensaoCurricularizacao->user->notify(new \App\Notifications\NotificarAceiteCurricularizacao($acao_extensao_ocorrencia));
             session()->flash('status', 'Inscrição atualizada com sucesso.');
             session()->flash('alert', 'success');
 

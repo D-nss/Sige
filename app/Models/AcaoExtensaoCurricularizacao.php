@@ -24,4 +24,9 @@ class AcaoExtensaoCurricularizacao extends Model
     {
         return $this->belongsTo(AcaoExtensaoOcorrencia::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
