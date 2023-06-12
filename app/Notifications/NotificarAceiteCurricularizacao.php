@@ -49,8 +49,7 @@ class NotificarAceiteCurricularizacao extends Notification
                     ->line('Data Inicio: '. date('d/m/Y', strtotime($this->acao_extensao_ocorrencia->data_hora_inicio)))
                     ->line('Data Fim: '. date('d/m/Y',strtotime( $this->acao_extensao_ocorrencia->data_hora_fim)))
                     //->action('Notification Action', url('/'))
-                    ->line('Obrigado por usar nosso sistema')
-                    ->line('Equipe Extecult');
+                    ->line('Obrigado por usar nosso sistema');
     }
 
     /**
