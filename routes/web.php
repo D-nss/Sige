@@ -140,7 +140,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/tornar-apto', [AcaoExtensaoCurricularizacaoController::class, 'tornarApto']);
 
     Route::get('/acoes-extensao/{acao_extensao}/ocorrencias', [ExtensaoOcorrenciasController::class, 'index'])->name('acao_extensao.ocorrencias.index');
-    Route::get('/acoes-extensao/{acao_extensao}/catalogo', [ExtensaoOcorrenciasCatalogoController::class, 'index'])->name('acao_extensao.catalogo.index');
+    Route::get('/acoes-extensao-ocorrencias/catalogo', [ExtensaoOcorrenciasCatalogoController::class, 'index'])->name('acao_extensao.catalogo.index');
     Route::get('/acoes-extensao/{acao_extensao}/ocorrencias/novo', [ExtensaoOcorrenciasController::class, 'create'])->name('acao_extensao.ocorrencias.create');
     Route::post('/acoes-extensao/{acao_extensao}/ocorrencias', [ExtensaoOcorrenciasController::class, 'store'])->name('acao_extensao.ocorrencias.store');
     Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}/editar', [ExtensaoOcorrenciasController::class, 'edit'])->name('acao_extensao.ocorrencias.edit');

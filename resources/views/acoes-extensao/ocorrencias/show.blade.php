@@ -33,18 +33,17 @@
               <div class="panel-content">
 
                     <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
-                                        <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
-                                            <i class="fal fa-calendar-alt icon-stack-1x opacity-100 color-secondary-500"></i>
-                                        </div>
-                                        <div class="ml-3">
-                                        <h5 class="mb-0 flex-1 text-dark fw-500">
-                                            Período:
-                            <small class="m-0 l-h-n">
-                                <b>Inicio:</b> {{$acaoExtensaoOcorrencia->data_hora_inicio->format('d/m/Y - H:i')}}. <b>Final:</b> {{$acaoExtensaoOcorrencia->data_hora_fim->format('d/m/Y - H:i')}}
-                            </small>
-                        </h5>
-
+                        <div class='icon-stack display-3 flex-shrink-0'>
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
+                            <i class="fal fa-calendar-alt icon-stack-1x opacity-100 color-secondary-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h5 class="mb-0 flex-1 align-items-center text-dark fw-500">
+                                Período:
+                                <small class="m-0 l-h-n">
+                                    <b>Inicio:</b> {{$acaoExtensaoOcorrencia->data_hora_inicio->format('d/m/Y - H:i')}}. <b>Final:</b> {{$acaoExtensaoOcorrencia->data_hora_fim->format('d/m/Y - H:i')}}
+                                </small>
+                            </h5>
                         </div>
                     </div>
                     <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
@@ -93,6 +92,15 @@
                         </div>
                     </div>
                     @endif
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                            <a href="/acoes-extensao/{{ $acaoExtensaoOcorrencia->acao_extensao->id }}" class="btn btn-md btn-info">
+                                Ver Detalhes da Ação de Extensão <i class="far fa-chevron-double-right"></i>
+                            </a>
+                            </h5>
+                        </div>
+                    </div>
 
                     @if(isset($user) && $user->id == $acaoExtensaoOcorrencia->acao_extensao->user_id)
                     <div class="accordion" id="accordionExample">
@@ -392,7 +400,11 @@
                         </div>
                     </div>
                     @else
-                        <a href="{{ url('acoes-extensao-ocorrencia/'. $acaoExtensaoOcorrencia->id . '/curricularizacao/novo' ) }}" class="btn btn-md btn-primary">Solicitar Participação</a>
+                    <div class="col-12">
+                        <div class="p-0">
+                            <a href="{{ url('acoes-extensao-ocorrencia/'. $acaoExtensaoOcorrencia->id . '/curricularizacao/novo' ) }}" class="btn btn-md btn-success">Solicitar Participação</a>
+                        </div>
+                    </div>
                     @endif
               </div>
           </div>

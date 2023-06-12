@@ -17,7 +17,7 @@ class ExtensaoOcorrenciasCatalogoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
@@ -25,13 +25,10 @@ class ExtensaoOcorrenciasCatalogoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        $ocorrencias = AcaoExtensaoOcorrencia::where('acao_extensao_id', $id)->where('fim_inscricoes', '>=', date('Y-m-d'))->get();
-
-        $acao_extensao = AcaoExtensao::where('id', $id)->first();
+        $ocorrencias = AcaoExtensaoOcorrencia::where('fim_inscricoes', '>=', date('Y-m-d'))->get();
         
-        return view('acoes-extensao.ocorrencias.index', [
+        return view('acoes-extensao.ocorrencias.catalogo', [
             'ocorrencias'   => $ocorrencias,
-            'acao_extensao' => $acao_extensao,
             'user'          => $user,
         ]);
     }

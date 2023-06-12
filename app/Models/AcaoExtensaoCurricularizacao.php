@@ -16,6 +16,8 @@ class AcaoExtensaoCurricularizacao extends Model
         'aluno_ra',
         'status',
         'apto',
+        'unidade_id',
+        'user_id',
     ];
 
     public function acao_extensao_ocorrencia()

@@ -28,8 +28,13 @@ class CheckIsUserMiddleware
         //Usuário não encontrado
         if (!$user){
 
-            //Consulta Unidade pela sigla retornado pelo Keycloak
-            $unidade = Unidade::where(DB::raw('lower(sigla)'), 'like', strtolower(Auth::user()->unidade))->first();
+            if(Auth::user()->employeetype != "Aluno UNICAMP") {
+                $unidade = Unidade::where('sigla', 'ALUNO')->first();
+            }else {
+                //Consulta Unidade pela sigla retornado pelo Keycloak
+                $unidade = Unidade::where(DB::raw('lower(sigla)'), 'like', strtolower(Auth::user()->unidade))->first();
+            }
+            
             $nome = implode(' ',array_unique(explode(' ', Auth::user()->name)));
 
             if($unidade){

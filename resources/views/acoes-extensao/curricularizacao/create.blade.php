@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group ">
                         <label for="munidensi" class="form-label">Faculdade ou Instituto</label>
-                        <input type="text" class="form-control w-50" id="munidensi" value="{{ $dadosAluno['MUNIDENSI'] }}" readonly>
+                        <input type="text" class="form-control w-50" id="munidensi" name="munidensi" value="{{ $dadosAluno['MUNIDENSI'] }}" readonly>
                     </div>
                     <div class="form-group ">
                         <label for="nivform" class="form-label">Nível Formação</label>

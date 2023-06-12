@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\App;
 
 use App\Models\AcaoExtensaoOcorrencia;
 use App\Models\AcaoExtensaoCurricularizacao;
-
+use App\Models\Unidade;
 use App\Models\User;
+
+use App\Services\Curricularizacao\PreparaUnidade;
 
 class AcaoExtensaoCurricularizacaoController extends Controller
 {
@@ -56,16 +58,16 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function create(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
-        // if(Auth::user()->employeetype != "Aluno UNICAMP") {
-        //     session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if(Auth::user()->employeetype != "Aluno UNICAMP") {
+            session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
-        $matricula = Auth::user()->matricula;
+        $matricula = 2465/*Auth::user()->matricula*/;
         $alunos = json_decode(File::get(storage_path('alunos.json')), true);
         foreach($alunos as $aluno){
             if($aluno["NREGALUN"] == $matricula) {
@@ -85,7 +87,15 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
-    {
+    {  
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $unidade = PreparaUnidade::execute($request->munidensi);
+
         $checkCurricularizacao = AcaoExtensaoCurricularizacao::where('acao_extensao_ocorrencia_id', $acao_extensao_ocorrencia->id)
                                                             ->where('aluno_ra', $request->ra)->get();
         
@@ -98,10 +108,12 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $acaoExtensaoCurricularizacao = [
             'acao_extensao_ocorrencia_id' => $acao_extensao_ocorrencia->id,
-            'aluno_ra' => $request->ra,
-            'status' => NULL,
-            'horas' => NULL,
-            'apto' => NULL
+            'aluno_ra'   => $request->ra,
+            'status'     => NULL,
+            'horas'      => NULL,
+            'apto'       => NULL,
+            'unidade_id' => $unidade[0]->id,
+            'user_id'    => $user->id
         ];
         
         $acaoExtensaoCurricularizacaoCriada = AcaoExtensaoCurricularizacao::create($acaoExtensaoCurricularizacao);
