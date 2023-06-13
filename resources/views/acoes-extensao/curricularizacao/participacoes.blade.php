@@ -28,6 +28,9 @@
                 <h3 class="text-primary fw-700">{{ $curricularizacao->titulo }}</h3>
 
                 <label class="text-muted disabled fs-xs fw-500">Ocorrência</label>
+
+                <label class="text-muted disabled fs-xs fw-500 mb-0">Local</label>
+                <span class="text-black fw-500 fs-lg mb-2">{{ $curricularizacao->local }}</span>
                 
                 <label class="text-muted disabled fs-xs fw-500 mb-0">Inicio</label>
                 <span class="text-black fw-500 fs-lg mb-2">{{ date('d/m/Y H:i', strtotime($curricularizacao->data_hora_inicio)) }}</span>

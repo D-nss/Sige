@@ -26,6 +26,7 @@ class AcaoExtensaoCurricularizacaoParticipacaoController extends Controller
                                                             'acoes_extensao.titulo',
                                                             'acoes_extensao_ocorrencias.data_hora_inicio',
                                                             'acoes_extensao_ocorrencias.data_hora_fim',
+                                                            'acoes_extensao_ocorrencias.local',
                                                             'acoes_extensao_curricularizacao.status',
                                                             'acoes_extensao_curricularizacao.horas',
                                                         ]);
