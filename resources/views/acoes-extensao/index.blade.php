@@ -67,6 +67,7 @@
                                  <th class="text-uppercase text-muted py-2 px-3">ODS</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
                                  <th class="text-uppercase text-muted py-2 px-3">Atualização</th>
+                                 <th class="text-uppercase text-muted py-2 px-3">Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,6 +133,11 @@
                                 </td>
                                 <td>
                                     {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                </td>
+                                <td>
+                                    @if($acao_extensao->ocorrencia->count() > 0 && $acao_extensao->user_id == Auth::guard('web_user')->user()->id)
+                                        <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

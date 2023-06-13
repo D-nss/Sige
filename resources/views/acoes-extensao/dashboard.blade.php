@@ -236,6 +236,7 @@
                                                             <th>Modalidade / Área Temática</th>
                                                             <th>Coordenador</th>
                                                             <th>Atualizado</th>
+                                                            <th>Opções</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -295,6 +296,11 @@
                                                                 <div class="text-muted small text-truncate">
                                                                     Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                                                 </div>
+                                                            </td>
+                                                            <td>
+                                                                @if($acao_extensao->ocorrencia->count() > 0)
+                                                                    <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                         @endforeach
