@@ -78,6 +78,11 @@
                             <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa" data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
                             </a>
+                            @if(Auth::user()->employeetype == "Aluno UNICAMP")
+                                <a href="{{ url('acoes-extensao-participacoes') }}" title="Participações" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Participações</span>
+                                </a>
+                            @endif
                         </li>
                     </ul>
                 </li>

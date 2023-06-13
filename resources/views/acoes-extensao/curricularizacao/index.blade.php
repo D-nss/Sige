@@ -14,7 +14,7 @@
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-list'></i> Ações de Extensão
         <small>
-            Listagem das curricularizações cadastradas da Ação de Extensão <span class="text-success">{{ $acao_extensao_ocorrencia->acao_extensao->titulo }}</stan>
+            Listagem das curricularizações cadastradas da Ação de Extensão <span class="text-success">{{ $acao_extensao_ocorrencia->acao_extensao->titulo }}</span>
         </small>
     </h1>
 </div>
