@@ -40,6 +40,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\UploadArquivoController;
 use App\Http\Controllers\EventoEquipeController;
 use App\Http\Controllers\PalestranteController;
+use App\Http\Controllers\AcaoExtensaoCurricularizacaoParticipacaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +147,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}/editar', [ExtensaoOcorrenciasController::class, 'edit'])->name('acao_extensao.ocorrencias.edit');
     Route::put('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'update'])->name('acao_extensao.ocorrencias.update');
     Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'show'])->name('acao_extensao.ocorrencias.show');
+
+    Route::get('/acoes-extensao-participacoes', [AcaoExtensaoCurricularizacaoParticipacaoController::class, 'index']);
 
     //Ações Culturais
     Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');
