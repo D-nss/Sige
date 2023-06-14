@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Participações ezmlm_hash Ações de Extensão')
+@section('title', 'Participações em Ações de Extensão')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
