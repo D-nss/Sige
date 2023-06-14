@@ -53,7 +53,7 @@
                                 <td>{{isset($ocorrencia->fim_inscricoes) ? $ocorrencia->fim_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td> 
                                     <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
-                                    <a href="" class="btn btn-primary btn-xs disabled">Editar</a>
+                                    <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
                                     <a href="" class="btn btn-success btn-xs disabled">Equipe</a>
                                     <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
                                 </td>
