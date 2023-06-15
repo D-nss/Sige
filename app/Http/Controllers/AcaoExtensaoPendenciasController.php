@@ -44,7 +44,7 @@ class AcaoExtensaoPendenciasController extends Controller
         $userNaComissao = $user->comissoes->where('comissao_id', $comissao->id);
 
         if($userNaComissao) {
-            $acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->whereNull('avaliacao_conext_user_id')->whereNull('status_avaliacao_conext');
+            $acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->whereNull('avaliacao_conext_user_id')->whereNull('status_avaliacao_conext')->whereNot('user_id', $user->id);
         }
         else {
             $acoes_extensao = $acoes_extensao->where('unidade_id', $user->unidade->id)->whereNull('aprovado_user_id')->where('status', 'Pendente');
