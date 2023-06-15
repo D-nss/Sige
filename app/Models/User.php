@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Inscricao::class);
     }
 
+    public function comissoes()
+    {
+        return $this->hasMany(ComissaoUser::class);
+    }
+
     public function checaAvaliadorExistenteEmEdital($edital_id, $user_id)
     {
         $avaliadorExiste = AvaliadorPorInscricao::select('avaliadores_por_inscricao.*')

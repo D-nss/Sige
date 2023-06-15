@@ -97,6 +97,12 @@ class AcaoExtensaoController extends Controller
      */
     public function index(Collection $acoes_extensao = null)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 4)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         if(is_null($acoes_extensao)){
             $acoes_extensao = AcaoExtensao::all();
         }
@@ -107,8 +113,8 @@ class AcaoExtensaoController extends Controller
         $areas_tematicas = AreaTematica::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
-        $acoes_extensao = $acoes_extensao->where('status', 'Aprovado');
-
+        $acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->where('unidade_id', $user->unidade->id);
+        
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,
