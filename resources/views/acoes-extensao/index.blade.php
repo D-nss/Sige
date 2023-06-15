@@ -75,12 +75,14 @@
                             <tr >
                                 <td>{{$acao_extensao->id}}</td>
                                 <td>
-                                    <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500 d-block">
-                                        {{$acao_extensao->titulo}}
-                                    </a>
-                                    @if($acao_extensao->status == 'Aprovado' && $acao_extensao->status_avaliacao_conext == NULL) 
-                                        <span class="fw-300 color-danger-500"><i class="fal fa-exclamation-circle"></i><i> Pendente avaliação Conext!</i></span>
-                                    @endif
+                                    <div class="d-block">
+                                        <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500">
+                                            {{$acao_extensao->titulo}}
+                                        </a>
+                                        @if($acao_extensao->status == 'Aprovado' && $acao_extensao->status_avaliacao_conext == NULL) 
+                                            <span class="fw-300 color-warning-500"><i class="fal fa-exclamation-circle"></i><i> Pendente avaliação Conext!</i></span>
+                                        @endif
+                                    </div>
                                     <div class="d-block text-muted fs-sm">
                                         <small class="mt-0 mb-3 text-muted">
                                             @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
