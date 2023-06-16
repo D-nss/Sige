@@ -140,7 +140,7 @@
                                     {{$acao_extensao->updated_at->format('d/m/Y')}}
                                 </td>
                                 <td>
-                                    @if($acao_extensao->ocorrencia->count() > 0 ) && $acao_extensao->user_id == $user->id)
+                                    @if($acao_extensao->ocorrencia->count() > 0 && $acao_extensao->user_id == $user->id)
                                         <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
                                     @endif
                                 </td>
