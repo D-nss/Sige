@@ -85,6 +85,10 @@ Route::get('evento/{evento}/inscrito/{id}/certificado', [CertificadoController::
 Route::post('certificado/validar', [CertificadoController::class, 'validarCertificado'])->name('certificado.validar');
 Route::get('certificado/validar', [CertificadoController::class, 'index'])->name('certificado.index');
 
+
+//Catalogo das Ações de Extensão aprovadas pela proec
+Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo'])->name('acao_extensao.catalogo');
+
 // Adicionar as rotas que necessitam de Autenticação
 Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
@@ -96,7 +100,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao'])->only(['create']);
     Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
     Route::get('/acoes-extensao-pendencias', [AcaoExtensaoPendenciasController::class, 'index'])->name('acao_extensao_pendencias.index');
-    Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo'])->name('acao_extensao.catalogo');
+   
     Route::get('/acoes-extensao/novo', [AcaoExtensaoController::class, 'create'])->name('acao_extensao.create');
     Route::post('/acoes-extensao', [AcaoExtensaoController::class, 'store'])->name('acao_extensao.store');
     Route::post('/acoes-extensao/{acao_extensao}/comentar', [AcaoExtensaoController::class, 'enviarComentario'])->name('acao_extensao.comentar');
