@@ -121,7 +121,8 @@ class AcaoExtensaoController extends Controller
             'unidades' => $unidades,
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
-            'estados' => $estados
+            'estados' => $estados,
+            'user'    => $user
         ]);
     }
 
