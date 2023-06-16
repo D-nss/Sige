@@ -28,6 +28,7 @@ class AcaoExtensao extends Model
         'email_coordenador',
         'vinculo_coordenador',
         'vagas_curricularizacao',
+        'qtd_horas_curricularizacao',
         'parceiro',
         'tipo_parceiro_id',
         'impactos_universidade',

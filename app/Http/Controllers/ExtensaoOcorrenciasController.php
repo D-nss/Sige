@@ -202,6 +202,18 @@ class ExtensaoOcorrenciasController extends Controller
      */
     public function destroy(AcaoExtensaoOcorrencia $acaoExtensaoOcorrencia)
     {
-        //
+        $acao_extensao_id = $acaoExtensaoOcorrencia->acao_extensao->id;
+        if($acaoExtensaoOcorrencia->delete()) {
+            session()->flash('status', 'Ocorrencia removida com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->route('acao_extensao.ocorrencias.index', ['acao_extensao' => $acao_extensao_id]);
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao remover a ocorrencia da ação.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
     }
 }

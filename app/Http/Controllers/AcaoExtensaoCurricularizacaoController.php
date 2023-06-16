@@ -19,7 +19,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     public function index(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -37,7 +37,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
             $alunos = json_decode(File::get(storage_path('alunos.json')), true);
             foreach($curricularizacoes as $c){
-                
+
                 foreach($alunos as $aluno){
                     if($aluno["NREGALUN"] == $c->aluno_ra) {
                         $c['aluno_ra'] = $aluno;
@@ -49,6 +49,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             return view('acoes-extensao.curricularizacao.index', compact('curricularizacoes', 'acao_extensao_ocorrencia'));
         }
         else {
+            //Tratar melhor essa parte do Controller, e tratativa de mensagens ao usuário, pois caso tenha uma ocorrência, mas não tem aluno inscrito, também cai nessa mensagem
             session()->flash('status', 'Desculpe! Não há ocorrências para esta ação e extensão, por tanto não possui alunos de curricularização');
             session()->flash('alert', 'warning');
 
@@ -87,9 +88,9 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
-    {  
+    {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -98,7 +99,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $checkCurricularizacao = AcaoExtensaoCurricularizacao::where('acao_extensao_ocorrencia_id', $acao_extensao_ocorrencia->id)
                                                             ->where('aluno_ra', $request->ra)->get();
-        
+
         if(count($checkCurricularizacao) > 0) {
             session()->flash('status', 'Desculpe! Você já se inscreveu para esta Ação de Extensão.');
             session()->flash('alert', 'warning');
@@ -115,7 +116,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             'unidade_id' => $unidade[0]->id,
             'user_id'    => $user->id
         ];
-        
+
         $acaoExtensaoCurricularizacaoCriada = AcaoExtensaoCurricularizacao::create($acaoExtensaoCurricularizacao);
 
         if($acaoExtensaoCurricularizacaoCriada) {
@@ -135,7 +136,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     public function aceitar(Request $request, AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -174,7 +175,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     public function apontar(Request $request, AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -217,7 +218,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     public function tornarApto(AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }

@@ -219,6 +219,18 @@
                         </div>
                     </div>
                     @endif
+                    @if(isset($acao_extensao->qtd_horas_curricularizacao))
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                            Quantidade de horas por Aluno na Curricularização:
+                            <small class="mt-0 mb-3 text-muted">
+                                {{$acao_extensao->qtd_horas_curricularizacao}}
+                            </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-12">
                       <div class="p-0">
                           <h5>
@@ -431,150 +443,41 @@
                                     @endif
                                     @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
                                     <div class="panel-tag">
-                                        Neste local só é possível inserir datas/locais que já foram realizadas, para datas futuras e não concluídas, <code>utilize o módudo de eventos!</code>
+                                        @if($userCoordenadorAcao)
+                                            <a href="/acoes-extensao/{{$acao_extensao->id}}/ocorrencias"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Gerenciar Ocorrências
+                                            </button></a></li>
+                                        @endif
                                     </div>
                                     @endif
                                   <div class="frame-wrap">
                                       <table class="table m-0">
                                           <thead class="thead-themed">
                                               <tr>
-                                                  <th>Local Realização</th>
                                                   <th>Data/Hora Inicio</th>
                                                   <th>Data/Hora Fim</th>
+                                                  <th>Local Realização</th>
                                                   <th>Complemento</th>
-                                                  <th>Latitude</th>
-                                                  <th>Longitude</th>
-                                                  <th>Adicionado em:</th>
-                                                  <th>Remoção</th>
                                               </tr>
                                           </thead>
                                           <tbody>
-                                              @foreach ($datas_locais_acao_extensao as $data_local)
-
-
+                                              @foreach ($ocorrencias as $ocorrencia)
                                               <tr>
                                                   <td>
-                                                    {{$data_local->local}}
+                                                    {{$ocorrencia->data_hora_inicio}}
                                                   </td>
                                                   <td>
-                                                    {{$data_local->data_hora_inicio}}
+                                                    {{$ocorrencia->data_hora_fim}}
                                                   </td>
                                                   <td>
-                                                    {{$data_local->data_hora_fim}}
+                                                    {{$ocorrencia->local}}
                                                   </td>
                                                   <td>
-                                                      {{$data_local->complemento}}
+                                                      {{$ocorrencia->complemento}}
                                                   </td>
-                                                  <td>
-                                                    {{$data_local->latitude}}
-                                                </td>
-                                                <td>
-                                                    {{$data_local->longitude}}
-                                                </td>
-                                                <td>
-                                                    {{$data_local->created_at->format('d/m/Y')}}
-                                                </td>
-                                                <td>
-                                                @if($userCoordenadorAcao)
-                                                    <form method="POST" action="{{ route('acao_extensao.local.destroy', $data_local->id) }}" onsubmit="return confirm('Voce tem certeza?');">
-                                                        @csrf
-                                                        <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
-                                                     </form>
-                                                @endif
-                                                </td>
                                                 </tr>
                                                 @endforeach
                                           </tbody>
                                       </table>
-                                      @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
-                                      <div class="accordion" id="accordionLocal">
-                                        <div class="card">
-                                            <div class="card-header" id="headingTwo">
-                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseLocal" aria-expanded="true" aria-controls="collapseLocal">
-                                                    Adicionar Data e Local de Realização da Ação de Extensão
-                                                    <span class="ml-auto">
-                                                        <span class="collapsed-reveal">
-                                                            <i class="fal fa-minus-circle text-danger"></i>
-                                                        </span>
-                                                        <span class="collapsed-hidden">
-                                                            <i class="fal fa-plus-circle text-success"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div id="collapseLocal" class="show" aria-labelledby="headingTwo" data-parent="#accordionLocal">
-                                                <div class="card-body">
-                                                    <form action="{{route('acao_extensao.data_local.inserir', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao_data_local" method="POST">
-                                                        @csrf
-                                                        <div class="row g-5">
-                                                            <div class="form-group col-md-2">
-                                                                <label class="form-label" for="data_hora_inicio">Data Hora Inicio<span class="text-danger">*</span></label>
-                                                                <input class="form-control @error('data_hora_inicio') is-invalid @enderror" type="datetime-local" id="data_hora_inicio" name="data_hora_inicio" placeholder="dd/mm/aaaa" value="{{ old('data_hora_inicio') }}">
-                                                                @error('data_hora_inicio')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-2">
-                                                                <label class="form-label" for="data_hora_fim">Data Hora Fim<span class="text-danger">*</span></label>
-                                                                <input class="form-control @error('data_hora_fim') is-invalid @enderror" type="datetime-local" id="data_hora_fim" name="data_hora_fim" placeholder="dd/mm/aaaa" value="{{ old('data_hora_fim') }}">
-                                                                @error('data_hora_fim')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label class="form-label" for="local">Local<span class="text-danger">*</span></label>
-                                                                <input type="text" id="local" name="local" class="form-control @error('local') is-invalid @enderror" value="{{ old('local') }}">
-                                                                @error('local')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-2">
-                                                                <label class="form-label" for="latitude">Latitude </label>
-                                                                <input type="number" id="latitude" name="latitude" class="form-control @error('latitude') is-invalid @enderror" value="{{ old('latitude') }}">
-                                                                @error('latitude')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-2">
-                                                                <label class="form-label" for="longitude">Longitude </label>
-                                                                <input type="number" id="longitude" name="longitude" class="form-control @error('longitude') is-invalid @enderror" value="{{ old('longitude') }}">
-                                                                @error('longitude')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                          </div>
-                                                          <div class="row">
-                                                            <div class="form-group col-md-10">
-                                                                <label class="form-label" for="complemento">Complemento</label>
-                                                                <textarea id="complemento" name="complemento" class="form-control @error('complemento') is-invalid @enderror" rows="2">{{ old('complemento') }}</textarea>
-                                                                @error('complemento')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-2">
-
-                                                                <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
-                                                            </div>
-                                                          </div>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
                                   </div>
                                 </div>
                             </div>
@@ -649,6 +552,12 @@
                                                   </div>
                                             </div>
                                         </form>
+                                        <div class="panel-tag">
+                                            @if($userCoordenadorAcao)
+                                                Para gerenciar a equipe e adicionar membros, é necessário haver uma ocorrência. <a href="/acoes-extensao/{{$acao_extensao->id}}/ocorrencias"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Gerenciar Ocorrências
+                                                </button></a></li>
+                                            @endif
+                                        </div>
                                         @endif
                                       <table class="table m-0">
                                           <thead class="thead-themed">
@@ -704,107 +613,6 @@
                                               @endforeach
                                           </tbody>
                                       </table>
-                                      @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
-                                      <div class="accordion" id="accordionColaborador">
-                                        <div class="card">
-                                            <div class="card-header" id="headingTwo">
-                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseColaborador" aria-expanded="true" aria-controls="collapseColaborador">
-                                                    Adicionar Colaborador com a Ação Extensão
-                                                    <span class="ml-auto">
-                                                        <span class="collapsed-reveal">
-                                                            <i class="fal fa-minus-circle text-danger"></i>
-                                                        </span>
-                                                        <span class="collapsed-hidden">
-                                                            <i class="fal fa-plus-circle text-success"></i>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div id="collapseColaborador" class="show" aria-labelledby="headingTwo" data-parent="#accordionColaborador">
-                                                <div class="card-body">
-                                                    <form action="{{route('acao_extensao.colaborador.inserir', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_acao_extensao_equipe" method="POST">
-                                                        @csrf
-                                                        <div class="row g-4">
-                                                            <div class="form-group col-md-3">
-                                                                <label class="form-label" for="nome">Nome do Colaborador(a) <span class="text-danger">*</span></label>
-                                                                <input type="text" id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror" value="{{ old('nome') }}">
-                                                                @error('nome')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                                                                <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-                                                                @error('email')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label class="form-label" for="documento">Documento <span class="text-danger">*</span></label>
-                                                                <select class="form-control @error('documento') is-invalid @enderror" id="documento" name="documento">
-                                                                    <option value="">Selecione o Documento</option>
-                                                                    @if (!empty($lista_documento))
-                                                                        @foreach ($lista_documento as $documento_colaborador)
-                                                                          <option value="{{$documento_colaborador}}" @if( old('documento') == $documento_colaborador ) selected @endif>{{$documento_colaborador}}</option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
-                                                                @error('documento')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label class="form-label" for="numero_doc">Número Documento<span class="text-danger">*</span></label>
-                                                                <input type="number" id="numero_doc" name="numero_doc" class="form-control @error('numero_doc') is-invalid @enderror" value="{{ old('numero_doc') }}">
-                                                                @error('numero_doc')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label class="form-label" for="carga_horaria">Carga Horária<span class="text-danger">*</span></label>
-                                                                <input type="number" id="carga_horaria" name="carga_horaria" class="form-control @error('carga_horaria') is-invalid @enderror" value="{{ old('carga_horaria') }}">
-                                                                @error('carga_horaria')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                          <div class="form-group col-md-3">
-                                                              <label class="form-label" for="vinculo">Vinculo <span class="text-danger">*</span></label>
-                                                              <select class="form-control @error('vinculo') is-invalid @enderror" id="vinculo" name="vinculo">
-                                                                  <option value="">Selecione o Vinculo</option>
-                                                                  @if (!empty($lista_vinculo))
-                                                                      @foreach ($lista_vinculo as $vinculo_colaborador)
-                                                                        <option value="{{$vinculo_colaborador}}" @if( old('vinculo') == $vinculo_colaborador ) selected @endif>{{$vinculo_colaborador}}</option>
-                                                                      @endforeach
-                                                                  @endif
-                                                              </select>
-                                                              @error('vinculo')
-                                                                  <div class="invalid-feedback">
-                                                                      {{ $message }}
-                                                                  </div>
-                                                              @enderror
-                                                          </div>
-                                                          <div class="form-group col-md-2">
-                                                              <label class="form-label" hidden></label>
-                                                              <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
-                                                          </div>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
                                   </div>
                                   </div>
                               </div>

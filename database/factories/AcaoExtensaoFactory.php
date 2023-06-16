@@ -34,6 +34,7 @@ class AcaoExtensaoFactory extends Factory
             'vinculo_coordenador' => $this->faker->jobTitle(),
             'email_coordenador' => $this->faker->companyEmail(),
             'vagas_curricularizacao' => rand(5,20),
+            'qtd_horas_curricularizacao' => rand(5,20),
             'grau_envolvimento_equipe_id' => rand(1,7),
             'impactos_universidade' => $this->faker->text(),
             'impactos_sociedade' => $this->faker->text(),

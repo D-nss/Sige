@@ -6,10 +6,34 @@
 <ol class="breadcrumb page-breadcrumb">
     <li class="breadcrumb-item"><a href="/acoes-extensao">BAEC</a></li>
     <li class="breadcrumb-item active">Alterar Ocorrência</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
+    <li class="breadcrumb-item"><a href="#"><button type="button" class="btn btn-xs btn-outline-danger waves-effect waves-themed" data-toggle="modal" data-target="#modal{{ $acaoExtensaoOcorrencia->id }}">Excluir
     </button></a></li>
-    <li class="breadcrumb-item"><a href="#"><button type="button" class="btn btn-xs btn-outline-danger waves-effect waves-themed">Remover Ação
-    </button></a></li>
+    <!-- Modal -->
+    <div class="modal fade" id="modal{{ $acaoExtensaoOcorrencia->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $acaoExtensaoOcorrencia->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ url('acoes-extensao/ocorrencias/' . $acaoExtensaoOcorrencia->id )}}" method="post">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel{{ $acaoExtensaoOcorrencia->id }}">Alerta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        @csrf
+                        @method('DELETE')
+                        <p>Deseja realmente remover a ocorrência?</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-danger">Confirmar remoção</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">

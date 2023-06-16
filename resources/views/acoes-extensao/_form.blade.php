@@ -228,13 +228,36 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label class="form-label" for="estimativa_publico">Estimativa de público</label>
                             <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_cultural->estimativa_publico) ? $acao_cultural->estimativa_publico : old('estimativa_publico')}}">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
                             <input class="form-control" id="vagas_curricularizacao" type="number" min=1 name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="qtd_horas_curricularizacao"><a href="#modal-ajuda-curricularizacao" data-toggle="modal">Horas Curricularização</a> <span class="text-danger">*</span></label>
+                            <!-- Modal center -->
+                            <div class="modal fade" id="modal-ajuda-curricularizacao" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Horas Curricularização:</h4>
+                                            <p>Informe a quantidade de horas por vaga que o aluno terá na Curricularização nesta Ação de Extensão.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="form-control" id="qtd_horas_curricularizacao" type="number" min=1 name="qtd_horas_curricularizacao" value="{{isset($acao_extensao->qtd_horas_curricularizacao) ? $acao_extensao->qtd_horas_curricularizacao : old('qtd_horas_curricularizacao')}}">
                         </div>
                     </div>
                     <div class="form-group">

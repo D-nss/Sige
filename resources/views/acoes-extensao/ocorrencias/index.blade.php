@@ -22,6 +22,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xl-12">
+        <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}"><i class="far fa-plus"></i></a> Adicionar Ocorrência <br>
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
@@ -51,10 +52,10 @@
                                 <td>{{$ocorrencia->local}}</td>
                                 <td>{{isset($ocorrencia->inicio_inscricoes) ? $ocorrencia->inicio_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td>{{isset($ocorrencia->fim_inscricoes) ? $ocorrencia->fim_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
-                                <td> 
+                                <td>
                                     <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
                                     <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
-                                    <a href="" class="btn btn-success btn-xs disabled">Equipe</a>
+                                    <a href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" class="btn btn-success btn-xs disabled">Equipe</a>
                                     <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
                                 </td>
                             </tr>

@@ -79,7 +79,7 @@
                                         <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500">
                                             {{$acao_extensao->titulo}}
                                         </a>
-                                        @if($acao_extensao->status == 'Aprovado' && $acao_extensao->status_avaliacao_conext == NULL) 
+                                        @if($acao_extensao->status == 'Aprovado' && $acao_extensao->status_avaliacao_conext == NULL)
                                             <span class="fw-300 color-warning-500"><i class="fal fa-exclamation-circle"></i><i> Pendente avaliação Conext!</i></span>
                                         @endif
                                     </div>
@@ -140,7 +140,7 @@
                                     {{$acao_extensao->updated_at->format('d/m/Y')}}
                                 </td>
                                 <td>
-                                    @if($acao_extensao->ocorrencia->count() > 0 && $acao_extensao->user_id == Auth::guard('web_user')->user()->id)
+                                    @if($acao_extensao->ocorrencia->count() > 0 ) <!-- && $acao_extensao->user_id == Auth::guard('web_user')->user()->id) -->
                                         <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
                                     @endif
                                 </td>

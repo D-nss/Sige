@@ -42,6 +42,7 @@ use App\Http\Controllers\UploadArquivoController;
 use App\Http\Controllers\EventoEquipeController;
 use App\Http\Controllers\PalestranteController;
 use App\Http\Controllers\AcaoExtensaoCurricularizacaoParticipacaoController;
+use App\Http\Controllers\ExtensaoEquipeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +143,14 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/apontar', [AcaoExtensaoCurricularizacaoController::class, 'apontar']);
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/tornar-apto', [AcaoExtensaoCurricularizacaoController::class, 'tornarApto']);
 
+    Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/novo', [ExtensaoEquipeController::class, 'create']);
+    Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/', [ExtensaoEquipeController::class, 'index']);
+    Route::post('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/', [ExtensaoEquipeController::class, 'store']);
+    Route::delete('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/{acaoExtensaoOcorrenciaMembro}', [ExtensaoEquipeController::class, 'destroy']);
+    Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/{acaoExtensaoOcorrenciaMembro}/editar', [ExtensaoEquipeController::class, 'edit']);
+    Route::put('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/{acaoExtensaoOcorrenciaMembro}', [ExtensaoEquipeController::class, 'update']);
+    Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/{acaoExtensaoOcorrenciaMembro}/show', [ExtensaoEquipeController::class, 'show']);
+
     Route::get('/acoes-extensao/{acao_extensao}/ocorrencias', [ExtensaoOcorrenciasController::class, 'index'])->name('acao_extensao.ocorrencias.index');
     Route::get('/acoes-extensao-ocorrencias/catalogo', [ExtensaoOcorrenciasCatalogoController::class, 'index'])->name('acao_extensao.catalogo.index');
     Route::get('/acoes-extensao/{acao_extensao}/ocorrencias/novo', [ExtensaoOcorrenciasController::class, 'create'])->name('acao_extensao.ocorrencias.create');
@@ -149,6 +158,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}/editar', [ExtensaoOcorrenciasController::class, 'edit'])->name('acao_extensao.ocorrencias.edit');
     Route::put('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'update'])->name('acao_extensao.ocorrencias.update');
     Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'show'])->name('acao_extensao.ocorrencias.show');
+    Route::delete('acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'destroy']);
 
     Route::get('/acoes-extensao-participacoes', [AcaoExtensaoCurricularizacaoParticipacaoController::class, 'index']);
 

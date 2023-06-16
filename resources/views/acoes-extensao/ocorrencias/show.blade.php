@@ -80,28 +80,6 @@
                             </div>
                         </div>
                     @endif
-                    @if(isset($acaoExtensaoOcorrencia->acao_extensao->vagas_curricularizacao))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                            Vagas Curricularização:
-                            <small class="mt-0 mb-3 text-muted">
-                                {{$acaoExtensaoOcorrencia->acao_extensao->vagas_curricularizacao}}
-                            </small>
-                            </h5>
-                        </div>
-                    </div>
-                    @endif
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                            <a href="/acoes-extensao/{{ $acaoExtensaoOcorrencia->acao_extensao->id }}" class="btn btn-md btn-info">
-                                Ver Detalhes da Ação de Extensão <i class="far fa-chevron-double-right"></i>
-                            </a>
-                            </h5>
-                        </div>
-                    </div>
-
                     @if(isset($user) && $user->id == $acaoExtensaoOcorrencia->acao_extensao->user_id)
                     <div class="accordion" id="accordionExample">
                         <div class="card">
@@ -229,111 +207,11 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    @if($userCoordenadorAcao && $acaoExtensaoOcorrencia->acao_extensao->status == 'Aprovado')
-                                    <div class="accordion" id="accordionColaborador">
-                                    <div class="card">
-                                        <div class="card-header" id="headingTwo">
-                                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseColaborador" aria-expanded="true" aria-controls="collapseColaborador">
-                                                Adicionar Colaborador na Ocorrência
-                                                <span class="ml-auto">
-                                                    <span class="collapsed-reveal">
-                                                        <i class="fal fa-minus-circle text-danger"></i>
-                                                    </span>
-                                                    <span class="collapsed-hidden">
-                                                        <i class="fal fa-plus-circle text-success"></i>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div id="collapseColaborador" class="show" aria-labelledby="headingTwo" data-parent="#accordionColaborador">
-                                            <div class="card-body">
-                                                <form action="{{route('acao_extensao.colaborador.inserir', ['acao_extensao_id' => $acaoExtensaoOcorrencia->acao_extensao->id])}}" id="form_acao_extensao_equipe" method="POST">
-                                                    @csrf
-                                                    <div class="row g-4">
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label" for="nome">Nome do Colaborador(a) <span class="text-danger">*</span></label>
-                                                            <input type="text" id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror" value="{{ old('nome') }}">
-                                                            @error('nome')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                                                            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-                                                            @error('email')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label" for="documento">Documento <span class="text-danger">*</span></label>
-                                                            <select class="form-control @error('documento') is-invalid @enderror" id="documento" name="documento">
-                                                                <option value="">Selecione o Documento</option>
-                                                                @if (!empty($lista_documento))
-                                                                    @foreach ($lista_documento as $documento_colaborador)
-                                                                        <option value="{{$documento_colaborador}}" @if( old('documento') == $documento_colaborador ) selected @endif>{{$documento_colaborador}}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-                                                            @error('documento')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label" for="numero_doc">Número Documento<span class="text-danger">*</span></label>
-                                                            <input type="number" id="numero_doc" name="numero_doc" class="form-control @error('numero_doc') is-invalid @enderror" value="{{ old('numero_doc') }}">
-                                                            @error('numero_doc')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label" for="carga_horaria">Carga Horária<span class="text-danger">*</span></label>
-                                                            <input type="number" id="carga_horaria" name="carga_horaria" class="form-control @error('carga_horaria') is-invalid @enderror" value="{{ old('carga_horaria') }}">
-                                                            @error('carga_horaria')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label" for="vinculo">Vinculo <span class="text-danger">*</span></label>
-                                                            <select class="form-control @error('vinculo') is-invalid @enderror" id="vinculo" name="vinculo">
-                                                                <option value="">Selecione o Vinculo</option>
-                                                                @if (!empty($lista_vinculo))
-                                                                    @foreach ($lista_vinculo as $vinculo_colaborador)
-                                                                    <option value="{{$vinculo_colaborador}}" @if( old('vinculo') == $vinculo_colaborador ) selected @endif>{{$vinculo_colaborador}}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-                                                            @error('vinculo')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label" hidden></label>
-                                                            <button class="btn btn-primary" type="submit"><span class="fal fa-plus mr-1"></span>Adicionar</button>
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
                                 </div>
                                 </div>
                             </div>
                         </div>
+                        @if(isset($acaoExtensaoOcorrencia->acao_extensao->vagas_curricularizacao))
                         <div class="card">
                         <div class="card-header" id="headingThree">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -341,8 +219,14 @@
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                                     <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
                                 </div>
+
                                 <div class="ml-3">
-                                    Curricularização
+                                    <h5 class="mb-0 flex-1 align-items-center text-dark fw-500">
+                                        Curricularização:
+                                        <small class="m-0 l-h-n">
+                                            <b>Vagas:</b> {{$acaoExtensaoOcorrencia->acao_extensao->vagas_curricularizacao}}. <b>Quantidade de Horas por Aluno:</b> {{$acaoExtensaoOcorrencia->acao_extensao->qtd_horas_curricularizacao}}
+                                        </small>
+                                    </h5>
                                 </div>
                                 <span class="ml-auto">
                                     <span class="collapsed-reveal">
@@ -398,6 +282,7 @@
                             </div>
                         </div>
                         </div>
+                        @endif
                     </div>
                     @else
                     <div class="col-12">
@@ -406,6 +291,16 @@
                         </div>
                     </div>
                     @endif
+
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                            <a href="/acoes-extensao/{{ $acaoExtensaoOcorrencia->acao_extensao->id }}" class="btn btn-md btn-info">
+                                Ver Detalhes da Ação de Extensão <i class="far fa-chevron-double-right"></i>
+                            </a>
+                            </h5>
+                        </div>
+                    </div>
               </div>
           </div>
       </div>

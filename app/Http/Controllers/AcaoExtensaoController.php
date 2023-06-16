@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateAcaoExtensaoRequest;
 use App\Models\AcaoExtensao;
 use App\Models\AcaoExtensaoColaborador;
 use App\Models\AcaoExtensaoDataLocal;
+use App\Models\AcaoExtensaoOcorrencia;
 use App\Models\AcaoExtensaoODS;
 use App\Models\AcaoExtensaoParceiro;
 use App\Models\LinhaExtensao;
@@ -98,7 +99,7 @@ class AcaoExtensaoController extends Controller
     public function index(Collection $acoes_extensao = null)
     {
         if(App::environment('local')){
-            $user = User::where('id', 4)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -114,7 +115,7 @@ class AcaoExtensaoController extends Controller
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
         $acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->where('unidade_id', $user->unidade->id);
-        
+
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,
@@ -318,6 +319,7 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->publico_alvo = $dados['publico_alvo'];
             $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
             $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
+            $acaoExtensao->qtd_horas_curricularizacao = $dados['qtd_horas_curricularizacao'];
             $acaoExtensao->municipio_id = $dados['municipio_id'];
             $acaoExtensao->unidade_id = $dados['unidade_id'];
             $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
@@ -432,6 +434,7 @@ class AcaoExtensaoController extends Controller
         }
     }
 
+    /* remover futuro
     public function insereDataLocal(Request $request)
     {
         $this->validate($request, [
@@ -561,6 +564,7 @@ class AcaoExtensaoController extends Controller
 
         return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
     }
+    */
 
     public function grau_equipe(Request $request)
     {
@@ -589,6 +593,7 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoAtualizada->id] );
     }
 
+    /*remover futuro
     public function locais(AcaoExtensao $acaoExtensao)
     {
         $locais_acao_extensao = AcaoExtensaoDataLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
@@ -598,8 +603,7 @@ class AcaoExtensaoController extends Controller
             'locais_acao_extensao' => $locais_acao_extensao
         ]);
     }
-
-
+    */
 
     public function parceiros(AcaoExtensao $acaoExtensao)
     {
@@ -685,7 +689,8 @@ class AcaoExtensaoController extends Controller
         $colaboradores_acao_extensao = AcaoExtensaoColaborador::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
         $lista_documento = array('CPF', 'Estrangeiro (RNE)');
         $lista_vinculo = array('Aluno Graduação (Unicamp)', 'Aluno Pós-Graduação (Unicamp)', 'Docente (Unicamp)', 'Pesquisador (Unicamp)', 'Técnico-Administrativo (Unicamp)','Externo à universidade');
-        $datas_locais_acao_extensao = AcaoExtensaoDataLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
+        //$datas_locais_acao_extensao = AcaoExtensaoDataLocal::where('acao_extensao_id', $acaoExtensao->id)->orderBy('local')->get();
+        $ocorrencias = AcaoExtensaoOcorrencia::where('acao_extensao_id', $acaoExtensao->id)->orderBy('data_hora_inicio')->get();
         $parceiros_acao_extensao = AcaoExtensaoParceiro::where('acao_extensao_id', $acaoExtensao->id)->orderBy('nome')->get();
         $lista_tipos = TipoParceiro::all();
 
@@ -724,7 +729,7 @@ class AcaoExtensaoController extends Controller
             'colaboradores_acao_extensao' => $colaboradores_acao_extensao,
             'lista_documento' => $lista_documento,
             'lista_vinculo' => $lista_vinculo,
-            'datas_locais_acao_extensao' => $datas_locais_acao_extensao,
+            'ocorrencias' => $ocorrencias,
             'parceiros_acao_extensao' => $parceiros_acao_extensao,
             'lista_tipos' => $lista_tipos,
             'userNaComissao' => $userNaComissao,
