@@ -6,8 +6,7 @@
 <ol class="breadcrumb page-breadcrumb">
     <li class="breadcrumb-item">BAEC</li>
     <li class="breadcrumb-item active">Listagem</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao/novo"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Cadastrar
-    </button></a></li>
+    <li class="breadcrumb-item">Arpovados Proec</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
