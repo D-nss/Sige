@@ -71,10 +71,10 @@
                                 <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Catálogo Ocorrências" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Ocorrências</span>
                                 </a>
-                                <a href="javascript:void(0);" title="Listagem" data-filter-tags="utilities menu child">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
-                                </a>
                                 <ul>
+                                    <a href="javascript:void(0);" title="Listagem" data-filter-tags="utilities menu child">
+                                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                                    </a>
                                     <li class="">
                                         <a href="{{ url('acoes-extensao-pendencias') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Pendentes</span>
