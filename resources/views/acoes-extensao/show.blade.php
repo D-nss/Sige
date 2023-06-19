@@ -900,7 +900,8 @@
                             </div>
                         </div>
                       </div>
-
+                      <a href="/acoes-extensao/{{$acao_extensao->id}}/editar"><button type="button" class="btn btn-md btn-primary waves-effect waves-themed mt-2">Editar
+                        </button></a>
               </div>
           </div>
       </div>
