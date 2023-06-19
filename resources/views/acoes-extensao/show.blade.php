@@ -6,8 +6,6 @@
 <ol class="breadcrumb page-breadcrumb">
     <li class="breadcrumb-item"><a href="/acoes-extensao"> Ações de Extensão</a></li>
     <li class="breadcrumb-item active">Detalhes da Ação</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao/{{$acao_extensao->id}}/editar"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Editar
-    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 @if($acao_extensao->status == 'Rascunho')
@@ -900,8 +898,10 @@
                             </div>
                         </div>
                       </div>
+                      @if($user->id == $acao_extensao->user_id)
                       <a href="/acoes-extensao/{{$acao_extensao->id}}/editar"><button type="button" class="btn btn-md btn-primary waves-effect waves-themed mt-2">Editar
                         </button></a>
+                      @endif
               </div>
           </div>
       </div>
