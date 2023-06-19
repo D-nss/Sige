@@ -753,7 +753,8 @@ class AcaoExtensaoController extends Controller
             'userNaComissao' => $userNaComissao,
             'userNaComissaoConext' => $userNaComissaoConext,
             'userCoordenadorAcao' => $userCoordenadorAcao,
-            'arquivos' => $arquivos
+            'arquivos' => $arquivos,
+            'user' => $user
         ]);
     }
 
