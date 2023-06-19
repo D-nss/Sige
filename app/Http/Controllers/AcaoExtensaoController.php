@@ -49,14 +49,30 @@ class AcaoExtensaoController extends Controller
         }
 
         $unidade = Unidade::where('id', $user->unidade_id)->first();
-        $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
-        $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
-        $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                        ->where('comissoes.unidade_id', $unidade->id)
-                                        ->where('comissoes_users.user_id', $user->id)
-                                        ->first();
+        ->where('comissoes.unidade_id', $unidade->id)
+        ->where('comissoes_users.user_id', $user->id)
+        ->first();
+
+        $userNaComissaoConext = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+        ->where('comissoes.atribuicao', 'Conext')
+        ->where('comissoes_users.user_id', $user->id)
+        ->first();
+        
+        $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
+
+        if($userNaComissaoConext) {
+            $pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')
+            ->where('status', 'Aprovado')
+            ->whereNull('avaliacao_conext_user_id')
+            ->whereNull('status_avaliacao_conext')
+            ->get();
+        }else {
+            $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
+        }
+
+        $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
         //pegar id do usuario
         $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->where('unidade_id', $unidade->id)->get();
@@ -71,13 +87,14 @@ class AcaoExtensaoController extends Controller
 
         $total_cadastrados = AcaoExtensao::where('unidade_id', $unidade->id)->count();
         $total_aprovados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
-        $total_pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->count();
+        $total_pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')->where('status', 'Pendente')->count();
         $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Desativado')->count();
-
+        
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
             'userNaComissao' => $userNaComissao,
+            'userNaComissaoConext' => $userNaComissaoConext,
             'acoes_extensao' => $acoes_extensao,
             'pendentes' => $pendentes,
             'rascunhos' => $rascunhos,
@@ -99,7 +116,7 @@ class AcaoExtensaoController extends Controller
     public function index(Collection $acoes_extensao = null)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 3)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
