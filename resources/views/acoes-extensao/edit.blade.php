@@ -8,8 +8,6 @@
     <li class="breadcrumb-item active">Alterar Ação</li>
     <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
     </button></a></li>
-    <li class="breadcrumb-item"><a href="#"><button type="button" class="btn btn-xs btn-outline-danger waves-effect waves-themed">Remover Ação
-    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
@@ -50,10 +48,26 @@
                                 <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
                                     <i class="fal fa-save"></i>
                                     </span>
-                                    <span class="text">Salvar</span></button>
+                                    <span class="text">Salvar</span>
+                                </button>
                             </div>
-                          </div>
+                        </div>
                     </form>
+                    <div class="float-right m-3">
+                    @if(isset($acao_extensao->ocorrencias) && $acao_extensao->ocorrencias->count() > 0)
+                        <form action="{{route('acao_extensao.destroy', ['acao_extensao' => $acao_extensao->id])}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Remover</button>
+                        </form>
+                    @else
+                        <form action="{{route('acao_extensao.desativar', ['acao_extensao' => $acao_extensao->id])}}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-danger">Desativar</button>
+                        </form>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>

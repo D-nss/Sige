@@ -108,6 +108,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao/{acao_extensao}/editar', [AcaoExtensaoController::class, 'edit'])->name('acao_extensao.edit');
     Route::put('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'update'])->name('acao_extensao.update');
     Route::delete('/acoes-extensao/{acao_extensao}', [AcaoExtensaoController::class, 'destroy'])->name('acao_extensao.destroy');
+    Route::put('/acoes-extensao/{acao_extensao}/desativar', [AcaoExtensaoController::class, 'desativar'])->name('acao_extensao.desativar');
     Route::put('/acoes-extensao/{acao_extensao}/aprovar', [AcaoExtensaoController::class, 'aprovar'])->name('acao_extensao.aprovar');
     Route::put('/acoes-extensao/{acao_extensao}/aprovar_conext', [AcaoExtensaoController::class, 'aprovarConext'])->name('acao_extensao.aprovar_conext');
     Route::put('/acoes-extensao/{acao_extensao}/submeter', [AcaoExtensaoController::class, 'submeter'])->name('acao_extensao.submeter');

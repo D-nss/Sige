@@ -116,7 +116,7 @@ class AcaoExtensaoController extends Controller
     public function index(Collection $acoes_extensao = null)
     {
         if(App::environment('local')){
-            $user = User::where('id', 3)->first();
+            $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -766,6 +766,13 @@ class AcaoExtensaoController extends Controller
     public function destroy(AcaoExtensao $acaoExtensao)
     {
         $acaoExtensao->delete();
+        return redirect()->route('acao_extensao.index');
+    }
+
+    public function desativar(AcaoExtensao $acaoExtensao)
+    {
+        $acaoExtensao->status = 'Desativado';
+        $acaoExtensao->update();
         return redirect()->route('acao_extensao.index');
     }
 
