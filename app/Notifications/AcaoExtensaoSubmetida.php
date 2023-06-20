@@ -46,7 +46,7 @@ class AcaoExtensaoSubmetida extends Notification
         return (new MailMessage)
                     ->subject('Ação de Extensão submetida para aprovação pela Unidade')
                     ->line('Olá Coordenador(a)! Sua Ação de Extensão foi submetida para aprovação em sua Unidade,  acompanhe o andamento através do link.')
-                    ->action('Visualizar Ação de Extensão', url('inscricoes-enviadas'))
+                    ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->acao_extensao->id ))
                     ->line('Obrigado por usar nosso sistema!');
     }
 
