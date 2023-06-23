@@ -90,7 +90,7 @@ class AcaoExtensaoPendenciasController extends Controller
         else {
             $acoes_extensao = [];
         }
-        echo json_encode($acoes_extensao);
+        echo json_encode($userNaComissaoUnidades);
         // return view('acoes-extensao.index', [
         //     'acoes_extensao' => $acoes_extensao,
         //     'unidades' => $unidades,
