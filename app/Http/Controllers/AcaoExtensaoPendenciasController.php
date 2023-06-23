@@ -90,7 +90,7 @@ class AcaoExtensaoPendenciasController extends Controller
         }
         
         if($userNaComissaoUnidades->count() > 0) {
-            $acoes_extensao = AcaoExtensao::where('status', 'Pendentes')->whereIn('unidade_id', $unidades)->get();
+            $acoes_extensao = AcaoExtensao::where('status', 'Pendente')->whereIn('unidade_id', $unidades)->get();
         }
         else {
             $acoes_extensao = [];
