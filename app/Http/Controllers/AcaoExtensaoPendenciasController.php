@@ -22,16 +22,12 @@ class AcaoExtensaoPendenciasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Collection $acoes_extensao = null)
+    public function porComissaoConext(Collection $acoes_extensao = null)
     {
         if(App::environment('local')){
-            $user = User::where('id', 4)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
-        }
-
-        if(is_null($acoes_extensao)){
-            $acoes_extensao = AcaoExtensao::all();
         }
 
         //populando formulário (filtro)
@@ -41,13 +37,14 @@ class AcaoExtensaoPendenciasController extends Controller
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
         $comissao = Comissao::where('atribuicao', 'Conext')->first();
-        $userNaComissao = $user->comissoes->where('comissao_id', $comissao->id);
+        $userNaComissaoConext = $user->comissoes->where('comissao_id', $comissao->id);
 
-        if($userNaComissao) {
+        if($userNaComissaoConext->count() > 0) {
+            $acoes_extensao = AcaoExtensao::all();
             $acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->whereNull('avaliacao_conext_user_id')->whereNull('status_avaliacao_conext')->whereNotIn('user_id', $user->id);
         }
         else {
-            $acoes_extensao = $acoes_extensao->where('unidade_id', $user->unidade->id)->whereNull('aprovado_user_id')->where('status', 'Pendente');
+            $acoes_extensao = [];
         }
         
         return view('acoes-extensao.index', [
@@ -66,9 +63,42 @@ class AcaoExtensaoPendenciasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function porComissaoUnidades()
     {
-        //
+        if(App::environment('local')){
+            $user = User::where('id', 4)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        //populando formulário (filtro)
+        $unidades = Unidade::all();
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+
+        $userNaComissaoUnidades = Comissao::join('comissoes_users', 'comissoes.id','comissoes_users.comissao_id')
+        ->whereNull('comissoes.edital_id')
+        ->whereNull('comissoes.evento_id')
+        ->where('comissoes.atribuicao', '<>', 'Conext' )
+        ->where('comissoes_users.user_id', $user->id)
+        ->get(['comissoes.unidade_id']);
+        
+        if($userNaComissaoUnidades->count() > 0) {
+            $acoes_extensao = AcaoExtensao::where('status', 'Pendentes')->whereIn('unidade_id', $userNaComissaoUnidades)->get();
+        }
+        else {
+            $acoes_extensao = [];
+        }
+        echo json_encode($acoes_extensao);
+        // return view('acoes-extensao.index', [
+        //     'acoes_extensao' => $acoes_extensao,
+        //     'unidades' => $unidades,
+        //     'linhas_extensao' => $linhas_extensao,
+        //     'areas_tematicas' => $areas_tematicas,
+        //     'estados' => $estados,
+        //     'user'    => $user
+        // ]);
     }
 
     /**
