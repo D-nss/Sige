@@ -90,12 +90,12 @@ class AcaoExtensaoPendenciasController extends Controller
         }
         
         if($userNaComissaoUnidades->count() > 0) {
-            $acoes_extensao = AcaoExtensao::where('status', 'Pendentes')->whereIn('unidade_id', $userNaComissaoUnidades)->get();
+            $acoes_extensao = AcaoExtensao::where('status', 'Pendentes')->whereIn('unidade_id', $unidades)->get();
         }
         else {
             $acoes_extensao = [];
         }
-        echo json_encode($unidades);
+        echo json_encode($acoes_extensao);
         // return view('acoes-extensao.index', [
         //     'acoes_extensao' => $acoes_extensao,
         //     'unidades' => $unidades,
