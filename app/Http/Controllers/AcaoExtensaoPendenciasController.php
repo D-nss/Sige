@@ -86,7 +86,7 @@ class AcaoExtensaoPendenciasController extends Controller
 
         $unidades =[];
         foreach($userNaComissaoUnidades as $userNaComissaoUnidade) {
-            array_push($unidades, $userNaComissaoUnidade);
+            array_push($unidades, $userNaComissaoUnidade->unidade_id);
         }
         
         if($userNaComissaoUnidades->count() > 0) {
