@@ -83,6 +83,11 @@ class AcaoExtensaoPendenciasController extends Controller
         ->where('comissoes.atribuicao', '<>', 'Conext' )
         ->where('comissoes_users.user_id', $user->id)
         ->get(['comissoes.unidade_id']);
+
+        $unidades =[];
+        foreach($userNaComissaoUnidades as $userNaComissaoUnidade) {
+            array_push($unidades, $userNaComissaoUnidade);
+        }
         
         if($userNaComissaoUnidades->count() > 0) {
             $acoes_extensao = AcaoExtensao::where('status', 'Pendentes')->whereIn('unidade_id', $userNaComissaoUnidades)->get();
@@ -90,7 +95,7 @@ class AcaoExtensaoPendenciasController extends Controller
         else {
             $acoes_extensao = [];
         }
-        echo json_encode($userNaComissaoUnidades);
+        echo json_encode($unidades);
         // return view('acoes-extensao.index', [
         //     'acoes_extensao' => $acoes_extensao,
         //     'unidades' => $unidades,
