@@ -59,14 +59,16 @@ class AcaoExtensaoController extends Controller
         ->where('comissoes.atribuicao', 'Conext')
         ->where('comissoes_users.user_id', $user->id)
         ->first();
-        
+
         $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
+
 
         if($userNaComissaoConext) {
             $pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')
             ->where('status', 'Aprovado')
             ->whereNull('avaliacao_conext_user_id')
             ->whereNull('status_avaliacao_conext')
+            ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
             ->get();
         }else {
             $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
@@ -89,10 +91,11 @@ class AcaoExtensaoController extends Controller
         $total_aprovados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
         $total_pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')->where('status', 'Pendente')->count();
         $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Desativado')->count();
-        
+
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
+            'user' => $user,
             'userNaComissao' => $userNaComissao,
             'userNaComissaoConext' => $userNaComissaoConext,
             'acoes_extensao' => $acoes_extensao,

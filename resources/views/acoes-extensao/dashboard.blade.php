@@ -127,6 +127,7 @@
                                                             <th>Ação de Extensão</th>
                                                             <th>Modalidade / Área Temática</th>
                                                             <th>Situação</th>
+                                                            <th>Ações</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -203,6 +204,17 @@
                                                                 <div class="text-muted small text-truncate">
                                                                     Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                                                 </div>
+                                                            </td>
+                                                            <td>
+                                                                @if($user->id == $acao_extensao->user_id)
+                                                                    <a href="{{ url('acoes-extensao/' . $acao_extensao->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
+                                                                    <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
+                                                                        <form action="{{route('acao_extensao.destroy', ['acao_extensao' => $acao_extensao->id])}}" method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn btn-xs btn-danger">Remover</button>
+                                                                        </form>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                         @endforeach
