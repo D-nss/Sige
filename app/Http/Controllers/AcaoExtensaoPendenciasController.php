@@ -95,15 +95,15 @@ class AcaoExtensaoPendenciasController extends Controller
         else {
             $acoes_extensao = [];
         }
-        echo json_encode($acoes_extensao);
-        // return view('acoes-extensao.index', [
-        //     'acoes_extensao' => $acoes_extensao,
-        //     'unidades' => $unidades,
-        //     'linhas_extensao' => $linhas_extensao,
-        //     'areas_tematicas' => $areas_tematicas,
-        //     'estados' => $estados,
-        //     'user'    => $user
-        // ]);
+       
+        return view('acoes-extensao.index', [
+            'acoes_extensao' => $acoes_extensao,
+            'unidades' => $unidades,
+            'linhas_extensao' => $linhas_extensao,
+            'areas_tematicas' => $areas_tematicas,
+            'estados' => $estados,
+            'user'    => $user
+        ]);
     }
 
     /**
