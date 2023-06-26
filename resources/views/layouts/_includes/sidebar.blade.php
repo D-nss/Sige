@@ -62,15 +62,23 @@
                                 <a href="{{ url('acoes-extensao/painel/extensao') }}" title="Dashboard" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
                                 </a>
+                            </li>
+                            <li class="">
                                 <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
                                 </a>
+                            </li>
+                            <li class="">
                                 <a href="{{ url('acoes-extensao-catalogo') }}" title="Catálogo" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Aprovados PROEC</span>
                                 </a>
+                            </li>
+                            <li class="">
                                 <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Catálogo Ocorrências" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Ocorrências</span>
                                 </a>
+                            </li>
+                            <li class="">
                                 <a href="javascript:void(0);" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem Pendencias</span>
                                 </a>
@@ -86,14 +94,16 @@
                                         </a>
                                     </li>
                                 </ul>
-                                    
+                            </li>
+                            <li class="">
                                 <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
                                 </a>
+                            </li>
+                            <li class="">
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
                                 </a>
-                                
                             </li>
                         </ul>
                     </li>
