@@ -71,25 +71,29 @@
                                 <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Catálogo Ocorrências" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Ocorrências</span>
                                 </a>
-                                <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                <a href="javascript:void(0);" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem Pendencias</span>
                                 </a>
-                                <ul>                                    
+                                <ul>
                                     <li>
                                         <a href="icons_fontawesome_light.html" title="Light" data-filter-tags="utilities menu child sublevel item" class=" waves-effect waves-themed">
-                                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Conext</span>
+                                            <span class="nav-link-text" data-i18n="nav.font_icons_fontawesome_light">Por Conext</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="icons_fontawesome_regular.html" title="Regular" data-filter-tags="utilities menu child sublevel item" class=" waves-effect waves-themed">
-                                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Unidades</span>
+                                            <span class="nav-link-text" data-i18n="nav.font_icons_fontawesome_regular">Por Unidades</span>
                                         </a>
                                     </li>
                                 </ul>
+                                    
+                                <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                                </a>
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
                                 </a>
-                                </ul>
+                                
                             </li>
                         </ul>
                     </li>
