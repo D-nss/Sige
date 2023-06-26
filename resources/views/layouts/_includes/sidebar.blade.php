@@ -84,12 +84,12 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="icons_fontawesome_light.html" title="Light" data-filter-tags="utilities menu child sublevel item" class=" waves-effect waves-themed">
+                                        <a href="{{ url('acoes-extensao-pendencias-conext') }}" title="Pendencias Conext" data-filter-tags="utilities menu child sublevel item" class=" waves-effect waves-themed">
                                             <span class="nav-link-text" data-i18n="nav.font_icons_fontawesome_light">Por Conext</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="icons_fontawesome_regular.html" title="Regular" data-filter-tags="utilities menu child sublevel item" class=" waves-effect waves-themed">
+                                        <a href="{{ url('acoes-extensao-pendencias-unidades') }}" title="Pendencias Unidades" data-filter-tags="utilities menu child sublevel item" class=" waves-effect waves-themed">
                                             <span class="nav-link-text" data-i18n="nav.font_icons_fontawesome_regular">Por Unidades</span>
                                         </a>
                                     </li>
