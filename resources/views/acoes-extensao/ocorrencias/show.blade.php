@@ -83,8 +83,8 @@
                     @if(isset($user) && $user->id == $acaoExtensaoOcorrencia->acao_extensao->user_id)
                     <div class="accordion" id="accordionExample">
                         <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <div class="card-header" id="headingEquipe">
+                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseEquipe" aria-expanded="false" aria-controls="collapseEquipe">
                                 <div class='icon-stack display-3 flex-shrink-0'>
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                                     <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
@@ -102,7 +102,7 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div id="collapseEquipe" class="collapse" aria-labelledby="headingEquipe" data-parent="#accordionExample">
                                 <div class="card-body">
                                 @if($acaoExtensaoOcorrencia->acao_extensao->status != 'Aprovado')
                                 <div class="panel-tag">
@@ -117,52 +117,16 @@
                                 </div>
                                 @endif
                                 <div class="frame-wrap">
-                                    @if($acaoExtensaoOcorrencia->acao_extensao->status == 'Aprovado')
-                                    <form action="{{route('acao_extensao.grau_equipe', ['acao_extensao_id' => $acaoExtensaoOcorrencia->acao_extensao->id])}}" id="form_grau_equipe" method="POST">
-                                        @csrf
-                                        <div class="row g-2">
-                                            <div class="form-group col-md-6">
-                                                <label class="form-label" for="grau_envolvimento_equipe_id">Tipo de envolvimento da equipe com a Comunidade <span class="text-danger">*</span></label>
-                                                <select class="form-control @error('grau_envolvimento_equipe_id') is-invalid @enderror" id="grau_envolvimento_equipe_id" name="grau_envolvimento_equipe_id">
-                                                    @if(isset($acaoExtensaoOcorrencia->acao_extensao->grau_envolvimento_equipe))
-                                                        <option value="{{$acaoExtensaoOcorrencia->acao_extensao->grau_envolvimento_equipe->id}}">{{$acaoExtensaoOcorrencia->acao_extensao->grau_envolvimento_equipe->descricao}}</option>
-                                                    @else
-                                                        <option value="">Selecione o Tipo</option>
-                                                    @endif
-                                                    <option value="">Selecione o tipo do envolvimento</option>
-                                                    @if (!empty($graus_envolvimento_equipe))
-                                                        @foreach ($graus_envolvimento_equipe as $grau_envolvimento_equipe)
-                                                            <option value="{{$grau_envolvimento_equipe->id}}">{{$grau_envolvimento_equipe->descricao}}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                                @error('grau_envolvimento_equipe_id')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group mt-3 ml-3">
-                                                    <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
-                                                        <i class="fal fa-save"></i>
-                                                        </span>
-                                                        <span class="text">Salvar</span></button>
-                                                </div>
-                                                </div>
-                                        </div>
-                                    </form>
-                                    @endif
+                                    
                                     <table class="table m-0">
                                         <thead class="thead-themed">
                                             <tr>
                                                 <th>Nome Completo</th>
                                                 <th>Email</th>
-                                                <th>Documento</th>
                                                 <th>Nº Documento</th>
                                                 <th>Vinculo</th>
+                                                <th>Função</th>
                                                 <th>Carga Horaria</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -173,36 +137,28 @@
                                             <th>N/A</th>
                                             <th>{{$acaoExtensaoOcorrencia->acao_extensao->vinculo_coordenador}}</th>
                                             <th>N/A</th>
-                                            <th>-</th>
                                         </tr>
-                                            @foreach ($colaboradores_ocorrencia as $colaborador)
+                                            @foreach ($acaoExtensaoOcorrencia->equipe as $equipe)
                                             <tr>
                                                 <td>
-                                                    {{$colaborador->nome}}
+                                                    {{$equipe->nome}}
                                                 </td>
                                                 <td>
-                                                    {{$colaborador->email}}
+                                                    {{$equipe->email}}
                                                 </td>
                                                 <td>
-                                                    {{$colaborador->documento}}
+                                                    {{$equipe->cpf}}
                                                 </td>
                                                 <td>
-                                                    {{$colaborador->numero_doc}}
+                                                    {{$equipe->vinculo}}
                                                 </td>
                                                 <td>
-                                                    {{$colaborador->vinculo}}
+                                                    {{$equipe->funcao}}
                                                 </td>
                                                 <td>
-                                                    {{$colaborador->carga_horaria}}
+                                                    {{$equipe->carga_horaria}}
                                                 </td>
-                                                <td>
-                                                @if($userCoordenadorAcao)
-                                                    <form method="POST" action="{{ route('acao_extensao.colaborador.destroy', $colaborador->id) }}" onsubmit="return confirm('Voce tem certeza?');">
-                                                        @csrf
-                                                        <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
-                                                    </form>
-                                                @endif
-                                                </td>
+                                               
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -213,8 +169,8 @@
                         </div>
                         @if(isset($acaoExtensaoOcorrencia->acao_extensao->vagas_curricularizacao))
                         <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <div class="card-header" id="headingCurricularizacao">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseCurricularizacao" aria-expanded="false" aria-controls="collapseCurricularizacao">
                                 <div class='icon-stack display-3 flex-shrink-0'>
                                     <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                                     <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
@@ -238,42 +194,33 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div id="collapseCurricularizacao" class="collapse" aria-labelledby="headingCurricularizacao" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="frame-wrap">
                                 <table class="table m-0">
                                     <thead class="thead-themed">
                                         <tr>
                                             <th>Nome Completo</th>
-                                            <th>Email</th>
-                                            <th>RA</th>
-                                            <th>Carga Horaria</th>
-                                            <th>Ação</th>
+                                            <th>Status</th>
+                                            <th>Horas</th>
+                                            <th>Apto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($colaboradores_ocorrencia as $colaborador)
+                                        @foreach ($acaoExtensaoOcorrencia->curricularizacao as $curricularizacao)
                                         <tr>
-                                                <td>
-                                                    {{$colaborador->nome}}
-                                                </td>
-                                                <td>
-                                                    {{$colaborador->email}}
-                                                </td>
-                                                <td>
-                                                    {{$colaborador->documento}}
-                                                </td>
-                                                <td>
-                                                    {{$colaborador->carga_horaria}}
-                                                </td>
-                                                <td>
-                                                @if($userCoordenadorAcao)
-                                                    <form method="POST" action="{{ route('acao_extensao.colaborador.destroy', $colaborador->id) }}" onsubmit="return confirm('Voce tem certeza?');">
-                                                        @csrf
-                                                        <button class="btn btn-xs btn-success waves-effect waves-themed" type="submit">Aprovar</button>
-                                                    </form>
-                                                @endif
-                                                </td>
+                                            <td>
+                                                {{$curricularizacao->user->name}}
+                                            </td>
+                                            <td>
+                                                {{$curricularizacao->status}}
+                                            </td>
+                                            <td>
+                                                {{$curricularizacao->horas}}
+                                            </td>
+                                            <td>
+                                                {{$curricularizacao->apto}}
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -285,14 +232,14 @@
                         @endif
                     </div>
                     @else
-                    <div class="col-12">
+                    <div class="col-12 mt-2">
                         <div class="p-0">
                             <a href="{{ url('acoes-extensao-ocorrencia/'. $acaoExtensaoOcorrencia->id . '/curricularizacao/novo' ) }}" class="btn btn-md btn-success">Solicitar Participação</a>
                         </div>
                     </div>
                     @endif
 
-                    <div class="col-12">
+                    <div class="col-12 mt-2">
                         <div class="p-0">
                             <h5>
                             <a href="/acoes-extensao/{{ $acaoExtensaoOcorrencia->acao_extensao->id }}" class="btn btn-md btn-info">

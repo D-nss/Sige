@@ -34,4 +34,9 @@ class AcaoExtensaoOcorrencia extends Model
     {
         return $this->hasMany(AcaoExtensaoCurricularizacao::class, 'acao_extensao_ocorrencia_id');
     }
+
+    public function equipe()
+    {
+        return $this->hasMany(AcaoExtensaoOcorrenciaMembro::class, 'acao_extensao_ocorrencia_id');
+    }
 }
