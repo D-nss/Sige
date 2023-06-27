@@ -20,9 +20,14 @@
 </div>
 
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}"><i class="far fa-plus"></i></a> Adicionar Ocorrência <br>
+        </div>
+    </div>
   <div class="row">
     <div class="col-xl-12">
-        <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}"><i class="far fa-plus"></i></a> Adicionar Ocorrência <br>
+        
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
