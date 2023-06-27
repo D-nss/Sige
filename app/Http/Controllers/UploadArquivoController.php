@@ -12,7 +12,7 @@ class UploadArquivoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-administrador|super|admin');
+        $this->middleware('role:edital-administrador|super|admin|acoes');
     }
 
     public function store(Request $request)
