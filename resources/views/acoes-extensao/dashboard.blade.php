@@ -209,6 +209,9 @@
                                                                 @if($user->id == $acao_extensao->user_id)
                                                                     <a href="{{ url('acoes-extensao/' . $acao_extensao->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
                                                                     <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
+                                                                    @if($acao_extensao->status_avaliacao_conext === 'Aprovado')
+                                                                        <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
+                                                                    @endif
                                                                     <!-- Modal -->
                                                                     <div class="modal fade" id="modal{{ $acao_extensao->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $acao_extensao->id }}" aria-hidden="true">
                                                                         <div class="modal-dialog">
@@ -274,7 +277,6 @@
                                     <th>Modalidade / Área Temática</th>
                                     <th>Coordenador</th>
                                     <th>Atualizado</th>
-                                    <th>Opções</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -334,11 +336,6 @@
                                         <div class="text-muted small text-truncate">
                                             Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                         </div>
-                                    </td>
-                                    <td>
-                                        @if($acao_extensao->ocorrencia->count() > 0)
-                                            <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
-                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
