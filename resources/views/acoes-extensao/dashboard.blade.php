@@ -209,11 +209,37 @@
                                                                 @if($user->id == $acao_extensao->user_id)
                                                                     <a href="{{ url('acoes-extensao/' . $acao_extensao->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
                                                                     <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
-                                                                        <form action="{{route('acao_extensao.destroy', ['acao_extensao' => $acao_extensao->id])}}" method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-xs btn-danger">Remover</button>
-                                                                        </form>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="modal{{ $acao_extensao->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $acao_extensao->id }}" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <form action="{{route('acao_extensao.destroy', ['acao_extensao' => $acao_extensao->id])}}" method="post">
+                                                                                <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="modalLabel{{ $acao_extensao->id }}">Alerta</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <p>Deseja realmente remover a ação?</p>
+
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                    <button type="submit" class="btn btn-danger">Confirmar remoção</button>
+                                                                                </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    @if($acao_extensao->status == 'Rascunho')
+                                                                        <button type="button" class="btn btn-xs btn-danger waves-effect waves-themed" data-toggle="modal" data-target="#modal{{ $acao_extensao->id }}">Excluir
+                                                                        </button>
+                                                                    @endif
                                                                 @endif
                                                             </td>
                                                         </tr>
