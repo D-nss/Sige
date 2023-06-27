@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-xl-12">
         
-        <div id="panel-1" class="panel">
+        <div id="panel-1" class="panel mt-2">
             <div class="panel-hdr">
                 <h2>
                     Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
