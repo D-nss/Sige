@@ -219,7 +219,7 @@
                                                 {{$curricularizacao->horas}}
                                             </td>
                                             <td>
-                                                {{$curricularizacao->apto}}
+                                                {{$curricularizacao->apto ? 'Sim' : 'Não'}}
                                             </td>
                                         </tr>
                                         @endforeach
