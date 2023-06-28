@@ -85,13 +85,13 @@
                         <div class="card">
                             <div class="card-header" id="headingEquipe">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseEquipe" aria-expanded="false" aria-controls="collapseEquipe">
-                                <div class='icon-stack display-3 flex-shrink-0'>
-                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                    <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
-                                </div>
-                                <div class="ml-3">
-                                    Equipe
-                                </div>
+                                    <div class='icon-stack display-3 flex-shrink-0'>
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                                        <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        Equipe
+                                    </div>
                                     <span class="ml-auto">
                                         <span class="collapsed-reveal">
                                             <i class="fal fa-minus-circle text-danger"></i>
@@ -117,7 +117,9 @@
                                 </div>
                                 @endif
                                 <div class="frame-wrap">
-                                    
+                                    <div class="mb-2">
+                                        <a href="{{ url('acoes-extensao-ocorrencia/'. $acaoExtensaoOcorrencia->id .'/equipe') }}" class="btn btn-primary btn-xs">Gerenciar</a>
+                                    </div>
                                     <table class="table m-0">
                                         <thead class="thead-themed">
                                             <tr>
@@ -163,6 +165,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    
                                 </div>
                                 </div>
                             </div>
@@ -172,8 +175,8 @@
                         <div class="card-header" id="headingCurricularizacao">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseCurricularizacao" aria-expanded="false" aria-controls="collapseCurricularizacao">
                                 <div class='icon-stack display-3 flex-shrink-0'>
-                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                    <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                    <i class="fal fa-users icon-stack-1x opacity-100 color-info-500"></i>
                                 </div>
 
                                 <div class="ml-3">
@@ -197,35 +200,38 @@
                         <div id="collapseCurricularizacao" class="collapse" aria-labelledby="headingCurricularizacao" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="frame-wrap">
-                                <table class="table m-0">
-                                    <thead class="thead-themed">
-                                        <tr>
-                                            <th>Nome Completo</th>
-                                            <th>Status</th>
-                                            <th>Horas</th>
-                                            <th>Apto</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($acaoExtensaoOcorrencia->curricularizacao as $curricularizacao)
-                                        <tr>
-                                            <td>
-                                                {{$curricularizacao->user->name}}
-                                            </td>
-                                            <td>
-                                                {{$curricularizacao->status}}
-                                            </td>
-                                            <td>
-                                                {{$curricularizacao->horas}}
-                                            </td>
-                                            <td>
-                                                {{$curricularizacao->apto ? 'Sim' : 'Não'}}
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                    <div class="mb-2">
+                                        <a href="{{ url('acoes-extensao-ocorrencia/'. $acaoExtensaoOcorrencia->id .'/curricularizacao') }}" class="btn btn-info btn-xs">Gerenciar</a>
+                                    </div>
+                                    <table class="table m-0">
+                                        <thead class="thead-themed">
+                                            <tr>
+                                                <th>Nome Completo</th>
+                                                <th>Status</th>
+                                                <th>Horas</th>
+                                                <th>Apto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($acaoExtensaoOcorrencia->curricularizacao as $curricularizacao)
+                                            <tr>
+                                                <td>
+                                                    {{$curricularizacao->user->name}}
+                                                </td>
+                                                <td>
+                                                    {{$curricularizacao->status}}
+                                                </td>
+                                                <td>
+                                                    {{$curricularizacao->horas}}
+                                                </td>
+                                                <td>
+                                                    {{$curricularizacao->apto ? 'Sim' : 'Não'}}
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         </div>
