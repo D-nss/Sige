@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="form-group border rounded p-3">
                                         
-                                            <label for="local" class="fw-700"><i class="far fa-check-circle fa-1x mr-2"></i>Tipo do Evento</label>
+                                            <label class="fw-700"><i class="far fa-check-circle fa-1x mr-2"></i>Tipo do Evento</label>
                                             <div class="custom-control custom-switch">
                                                 <input class="custom-control-input" type="checkbox" id="gratuito" name="gratuito" value="1" {{ old('gratuito') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="gratuito">
@@ -108,7 +108,7 @@
                                         <div class="form-group">
                                             <label class="form-label fw-700" for="detalhes">Detalhes (Notas do Evento, Programação, Palestrantes): <span class="text-danger">*</span></label>
                                             <div class=" @error('data_fim') border border-danger rounded p-3 @enderror">
-                                                <textarea name="detalhes" id="detalhes" rows="10" cols="80">
+                                                <textarea id="detalhes" name="detalhes">
                                                     {{ old('detalhes') }}
                                                 </textarea>
                                             </div>

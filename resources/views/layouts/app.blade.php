@@ -247,8 +247,12 @@ Versão: 4.5.1
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/easypiechart/easypiechart.bundle.js')}}"></script>
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/flot/flot.bundle.js')}}"></script>
         <script src="{{ asset('smartadmin-4.5.1/ckeditor/ckeditor.js') }}"></script>
-        <script>
-            CKEDITOR.replace( 'detalhes' );
+        <script type="text/javascript">
+
+            if($('#detalhes').length) {
+                //console.log($('#ckeditor').length );
+                CKEDITOR.replace('detalhes');
+            }
 
             $(document).ready(function()
             {
@@ -1500,60 +1504,60 @@ Versão: 4.5.1
                 }
             });
 
-            var dataSetPie = [
-                {
-                    label: "Asia",
-                    data: 4119630000,
-                    color: color.primary._500
-                },
-                {
-                    label: "Latin America",
-                    data: 590950000,
-                    color: color.info._500
-                },
-                {
-                    label: "Africa",
-                    data: 1012960000,
-                    color: color.warning._500
-                },
-                {
-                    label: "Oceania",
-                    data: 95100000,
-                    color: color.danger._500
-                },
-                {
-                    label: "Europe",
-                    data: 727080000,
-                    color: color.success._500
-                },
-                {
-                    label: "North America",
-                    data: 344120000,
-                    color: color.fusion._400
-                }];
+            // var dataSetPie = [
+            //     {
+            //         label: "Asia",
+            //         data: 4119630000,
+            //         color: color.primary._500
+            //     },
+            //     {
+            //         label: "Latin America",
+            //         data: 590950000,
+            //         color: color.info._500
+            //     },
+            //     {
+            //         label: "Africa",
+            //         data: 1012960000,
+            //         color: color.warning._500
+            //     },
+            //     {
+            //         label: "Oceania",
+            //         data: 95100000,
+            //         color: color.danger._500
+            //     },
+            //     {
+            //         label: "Europe",
+            //         data: 727080000,
+            //         color: color.success._500
+            //     },
+            //     {
+            //         label: "North America",
+            //         data: 344120000,
+            //         color: color.fusion._400
+            //     }];
 
-            $.plot($("#flotPie"), dataSetPie,
-                {
-                    series:
-                    {
-                        pie:
-                        {
-                            innerRadius: 0.5,
-                            show: true,
-                            radius: 1,
-                            label:
-                            {
-                                show: true,
-                                radius: 2 / 3,
-                                threshold: 0.1
-                            }
-                        }
-                    },
-                    legend:
-                    {
-                        show: true
-                    }
-                });
+            // $.plot($("#flotPie"), dataSetPie,
+            //     {
+            //         series:
+            //         {
+            //             pie:
+            //             {
+            //                 innerRadius: 0.5,
+            //                 show: true,
+            //                 radius: 1,
+            //                 label:
+            //                 {
+            //                     show: true,
+            //                     radius: 2 / 3,
+            //                     threshold: 0.1
+            //                 }
+            //             }
+            //         },
+            //         legend:
+            //         {
+            //             show: true
+            //         }
+            //     });
 
                 function buscarUnidadesNaoCadastradasPorAno(ano){
                     $.ajax({
