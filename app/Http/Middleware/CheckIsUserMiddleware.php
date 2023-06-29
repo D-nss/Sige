@@ -61,11 +61,17 @@ class CheckIsUserMiddleware
 
             if (Auth::user()->employeetype == 'PROFESSOR/PESQUISADOR VISITANTE' || Auth::user()->employeetype == 'Funcionário UNICAMP'){
                 $user->assignRole('edital-coordenador');
+                $user->assignRole('acoes');
                 //para teste:
                 //$user->assignRole('admin');
                 //$user->assignRole('super');
                 //$user->assignRole('indicadores-user');
             }
+        }
+
+        if(!$user->hasRole(['edital-coordenador', 'acoes'])) {
+            $user->assignRole('edital-coordenador');
+            $user->assignRole('acoes');
         }
 
         $user->updated_at = now();
