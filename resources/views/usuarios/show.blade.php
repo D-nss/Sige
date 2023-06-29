@@ -20,7 +20,6 @@
                                 </small>
                             </h1>
                         </div>
-                        @include('layouts._includes.alert')
                         <div class="row">
                             <div class="col-lg-6 col-xl-3 order-lg-1 order-xl-1">
                                 <!-- profile summary -->
@@ -421,37 +420,75 @@
                             </div> -->
                             <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
                                 <!-- add : -->
-                                <h2>Papeis</h2>
-                                <div>
-                                    @if ($usuario->roles)
-                                        @foreach ($usuario->roles as $user_role)
-                                            <form method="POST"
-                                                action="{{ route('user.roles.remove', [$usuario->id, $user_role->id]) }}"
-                                                onsubmit="return confirm('Voce tem certeza em remover?');">
+                                <!-- <h2>Papeis</h2> -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Papeis</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        @if ($usuario->roles)
+                                            @foreach ($usuario->roles as $user_role)
+                                                <!-- <form method="POST"
+                                                    action="{{ route('user.roles.remove', [$usuario->id, $user_role->id]) }}"
+                                                    onsubmit="return confirm('Voce tem certeza em remover?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="card mb-2">
+                                                        <div class="card-body">
+                                                            <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
+                                                                <div class='icon-stack display-3 flex-shrink-0'>
+                                                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
+                                                                    <i class="fal fa-user-tag icon-stack-1x opacity-100 color-primary-500"></i>
+                                                                </div>
+                                                                <div class="ml-3">
+                                                                    <strong>
+                                                                        {{ $user_role->name }}
+                                                                    </strong>
+                                                                    <br>
+                                                                    <button class="btn btn-xs btn-secondary waves-effect waves-themed" type="submit">Remover Papel</button>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </form> -->
+                                                <div class="badge badge-success badge-pill px-3 m-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        {{ $user_role->name }}
+                                                        <form method="POST"
+                                                            action="{{ route('user.roles.remove', [$usuario->id, $user_role->id]) }}"
+                                                            onsubmit="return confirm('Voce tem certeza em remover?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-success btn-xs btn-icon rounded-circle ml-3" type="submit"><i class="far fa-times-circle"></i></button>         
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                
+                                            @endforeach
+                                        @endif
+                                        <div class="mt-3">
+                                            <form method="POST" action="{{ route('user.roles', $usuario->id) }}">
                                                 @csrf
-                                                @method('DELETE')
-                                                <div class="card mb-2">
-                                                    <div class="card-body">
-                                                        <a href="javascript:void(0);" class="d-flex flex-row align-items-center">
-                                                            <div class='icon-stack display-3 flex-shrink-0'>
-                                                                <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                                                <i class="fal fa-user-tag icon-stack-1x opacity-100 color-primary-500"></i>
-                                                            </div>
-                                                            <div class="ml-3">
-                                                                <strong>
-                                                                    {{ $user_role->name }}
-                                                                </strong>
-                                                                <br>
-                                                                <button class="btn btn-xs btn-secondary waves-effect waves-themed" type="submit">Remover Papel</button>
-                                                            </div>
-                                                        </a>
+                                                <div class="d-flex align-items-center">
+                                                    <!-- <label for="role">Papeis: </label> -->
+                                                    <select id="role" name="role" autocomplete="role-name" class="form-control input-sm mr-2">
+                                                        <option value="">Selecione o Papel ...</option>
+                                                        @foreach ($roles as $role)
+                                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="mx-auto">
+                                                        @error('role')
+                                                            <span class="text-red-400 text-sm">{{ $message }}</span>
+                                                        @enderror
+                                                        <button class="btn btn-md btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                        @endforeach
-                                    @endif
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card mb-2">
+                                <!-- <div class="card mb-2">
                                     <form method="POST" action="{{ route('user.roles', $usuario->id) }}">
                                         @csrf
                                         <div class="card-body">
@@ -469,8 +506,8 @@
                                             </div>
                                         </div>
                                 </div>
-                                </form>
-                                <h2>Permissões</h2>
+                                </form> -->
+                                <!-- <h2>Permissões</h2>
                                 <div>
                                     @if ($usuario->permissions)
                                         @foreach ($usuario->permissions as $user_permission)
@@ -518,7 +555,7 @@
                                             </div>
                                         </div>
                                 </div>
-                                </form>
+                                </form> -->
 
                                 <!-- rating
                                 <div class="card mb-g">
@@ -695,6 +732,51 @@
                                         </div>
                                     </div>
                                 </div> -->
+                            </div>
+                            <div class="col-lg-6 col-xl-3 order-lg-2 order-xl-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Permissões</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        @if ($usuario->permissions)
+                                            @foreach ($usuario->permissions as $user_permission)
+                                                <div class="badge badge-success badge-pill px-3 m-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        {{ $user_permission->name }}
+                                                        <form method="POST"
+                                                            action="{{ route('user.permissions.revoke', [$usuario->id, $user_permission->id]) }}"
+                                                            onsubmit="return confirm('Você tem certeza em Remover?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-success btn-xs btn-icon rounded-circle ml-3" type="submit"><i class="far fa-times-circle"></i></button>         
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                        <div class="mt-3">
+                                            <form method="POST" action="{{ route('user.permissions', $usuario->id) }}">
+                                                @csrf
+                                                <div class="d-flex align-items-center">
+                                                    <select id="permission" name="permission" autocomplete="permission-name" class="form-control input-sm mr-2">
+                                                        <option value="">Selecione a Permissão ...</option>
+                                                        @foreach ($permissions as $permission)
+                                                            <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="mx-auto">
+                                                        @error('role')
+                                                            <span class="text-red-400 text-sm">{{ $message }}</span>
+                                                        @enderror
+                                                        <button class="btn btn-md btn-primary waves-effect waves-themed" type="submit">Atribuir</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
                     </main>
