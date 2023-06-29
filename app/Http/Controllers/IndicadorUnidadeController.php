@@ -129,7 +129,7 @@ class IndicadorUnidadeController extends Controller
         {
             session()->flash('status', 'Indicadores cadastrados com sucesso!');
             session()->flash('alert', 'success');
-            return redirect('/indicadores/' . $request->ano_base);
+            return redirect()->to('indicadores');
         }
         else
         {
@@ -228,7 +228,7 @@ class IndicadorUnidadeController extends Controller
         {
             session()->flash('status', 'Todos os indicadores foram atualizados com sucesso!');
             session()->flash('alert', 'success');
-            return redirect('/indicadores/' . $request->ano_base );
+            return redirect()->to('/indicadores');
         }
         else
         {
@@ -236,12 +236,12 @@ class IndicadorUnidadeController extends Controller
             {
                 session()->flash('status', 'Nenhum indicador foi atualizado.');
                 session()->flash('alert', 'warning');
-                return redirect('/indicadores/' . $request->ano_base );
+                return redirect()->to('/indicadores');
             }
             else{
                 session()->flash('status', 'Somente os indicadores alterados foram atualizados.');
                 session()->flash('alert', 'warning');
-                return redirect('/indicadores/' . $request->ano_base );
+                return redirect()->to('/indicadores');
             }
 
         }
