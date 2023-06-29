@@ -15,7 +15,12 @@
             </a>
         </div>
     </div>
-
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-green">Para ver detalhes e atualizar os dados, clique sobre o botão editar do registro.</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
             <!-- datatable start -->
             <table id="dt-roles" class="table table-bordered table-hover table-striped w-100">
                 <thead>
@@ -34,13 +39,15 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
-                             </form></td>
+                            </form></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <!-- datatable end -->
 
+            </div>
+        </div>
     </div>
 </div>
 <!-- /.container-fluid -->
