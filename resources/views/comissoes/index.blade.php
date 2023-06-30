@@ -31,25 +31,29 @@
         Adicionar Comissão
     </div>
     
-    <div id="panel-1" class="panel">
+    <!-- <div id="panel-1" class="panel">
         <div class="panel-hdr">
             <h2>
             <span class="fw-300"><i>Preencha todos os campos do formulário de cadastro de comissão</i></span>
             </h2>
-            <!-- <div class="panel-toolbar">
+            <div class="panel-toolbar">
                 <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                 <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
                 <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-            </div> -->
-        </div>
-        <div class="panel-container show">
+            </div> 
+        </div> 
+       <div class="panel-container show">
             <div class="panel-content"> 
-                <ul class="list-group ">                        
+                <ul class="list-group "> -->
+                <div class="row">
                     @forelse($comissoes as $comissao)
-                        <li class="list-group-item bg-info-50 mb-1">
-                        <button type="button" class="btn btn-sm btn-danger btn-lg btn-icon rounded-circle float-right" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
-                            <i class="far fa-trash-alt"></i>
+                        <!-- <li class="list-group-item bg-info-50 mb-1"> -->
+                    <div class="col-md-2  bg-light m-2 p-3 d-flex flex-column shadow">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-danger btn-sm btn-icon rounded-circle" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
+                                <i class="fal fa-trash"></i>
                             </button>
+                        </div>
                             <div class="mb-3">
                                 @if($comissao->edital_id != null)
                                     <h3><span data-filter-tags="reports file"><strong>Edital: </strong>{{ $comissao->edital->titulo }}</span></h3>
@@ -66,7 +70,7 @@
                                     </a>
                                 </p>
                                 @foreach($comissao->users as $user)
-                                    <span class="badge badge-pill badge-secondary d-inline-flex justify-content-center align-items-center pl-3">
+                                    <span class="badge badge-pill badge-info d-inline-flex justify-content-center align-items-center pl-3 mt-1">
                                         <div>{{ $user->name }}</div>
                                         <form action="{{ route('participantes.delete') }}" method="post">
                                             @csrf
@@ -82,7 +86,6 @@
                                     
                                 @endforeach
                             </div>
-                            
 
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal{{ $comissao->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $comissao->id }}" aria-hidden="true">
@@ -113,15 +116,16 @@
                                         </div>
                                     </form>
                                 </div>
-                                </div>
-                        </li>
-                        
+                            </div>
+                        <!-- </li> -->
+                    </div>
                     @empty
-                        <li class="list-group-item">
+                        <!-- <li class="list-group-item">
                             <span data-filter-tags="reports file">Sem comissões cadastrada</span>
-                        </li>
+                        </li> -->
                     @endforelse
-                    </ul>
+                </div>
+            <!-- </ul> -->
     </div>
     </div>
     </div>
