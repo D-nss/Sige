@@ -157,6 +157,9 @@
                         </a>
                         <ul>
                             <li class="">
+                                <a href="{{ url('indicadores-dashboard') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
+                                </a>
                                 <a href="{{ url('indicadores/novo') }}" title="Cadastrar" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
                                 </a>
@@ -239,6 +242,9 @@
             @hasanyrole('super|admin', 'web_user')
             <li class="nav-title">Administração</li>
             <li>
+                <a href="{{ url('comissoes') }}" title="Menu child" data-filter-tags="utilities menu child">
+                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Comissões</span>
+                </a>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Usuarios</span>
                 </a>
