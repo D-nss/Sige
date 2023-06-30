@@ -242,9 +242,22 @@
             @hasanyrole('super|admin', 'web_user')
             <li class="nav-title">Administração</li>
             <li>
-                <a href="{{ url('comissoes') }}" title="Menu child" data-filter-tags="utilities menu child">
+                <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Comissões</span>
                 </a>
+                <ul>
+                    <li class="">
+                        <a href="/comissoes" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Comissões</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/comissoes/novo" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
+                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar Comissão</span>
+                        </a>
+                    </li>
+                </ul>
+            <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Usuarios</span>
                 </a>
