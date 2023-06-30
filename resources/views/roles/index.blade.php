@@ -19,31 +19,30 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-            <!-- datatable start -->
-            <table id="dt-roles" class="table table-bordered table-hover table-striped w-100">
-                <thead>
-                    <tr>
-                        <th><i class="fal fa-user"></i></th>
-                        <th>Papel</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($roles as $role)
+                <!-- datatable start -->
+                <table id="dt-roles" class="table table-bordered table-hover table-striped w-100">
+                    <thead>
                         <tr>
-                            <td>{{$role->id}}</td>
-                            <td>{{$role->name}}</td>
-                            <td><a href="{{ route('roles.edit', $role->id) }}" class="btn btn-xs btn-success waves-effect waves-themed">Editar</a><form method="POST" action="{{ route('roles.destroy', $role->id) }}" onsubmit="return confirm('Voce tem certeza?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
-                            </form></td>
+                            <th><i class="fal fa-user"></i></th>
+                            <th>Papel</th>
+                            <th>Ações</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <!-- datatable end -->
-
+                    </thead>
+                    <tbody>
+                        @foreach($roles as $role)
+                            <tr>
+                                <td>{{$role->id}}</td>
+                                <td>{{$role->name}}</td>
+                                <td><a href="{{ route('roles.edit', $role->id) }}" class="btn btn-xs btn-success waves-effect waves-themed">Editar</a><form method="POST" action="{{ route('roles.destroy', $role->id) }}" onsubmit="return confirm('Voce tem certeza?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
+                                </form></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <!-- datatable end -->
             </div>
         </div>
     </div>
