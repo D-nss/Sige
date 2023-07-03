@@ -268,6 +268,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/comissoes', [ComissaoController::class, 'index']);
     Route::delete('comissoes/{comissao}', [ComissaoController::class, 'destroy']);
     Route::delete('comissoes/participante/delete', [ComissaoUserController::class, 'destroy'])->name('participantes.delete');
+    Route::get('comissoes/busca', [ComissaoController::class, 'buscar'])->name('comisssao.buscar');
    // Route::get('comissoes/novo/edital/{id}', [ComissaoController::class, 'create']);
     Route::get('comissoes/novo/', [ComissaoController::class, 'create']);
     Route::get('comissoes/{id}/novo/participante', [ComissaoUserController::class, 'create']);

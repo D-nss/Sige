@@ -27,7 +27,7 @@ Versão: 4.5.1
 
         <!-- Place favicon.ico in the root directory -->
         <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('smartadmin-4.5.1/img/logo-proec.png') }}">
         <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/datagrid/datatables/datatables.bundle.css')}}">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/formplugins/smartwizard/smartwizard.css')}}">
@@ -1559,29 +1559,29 @@ Versão: 4.5.1
             //         }
             //     });
 
-                function buscarUnidadesNaoCadastradasPorAno(ano){
-                    $.ajax({
-                        url: "{{ url('buscar-unidades-nao-cadastradas') }}",
-                        method: "GET",
-                        dataType: 'json',
-                        data: { _token : $('meta[name="csrf-token"]').attr('content'), ano: ano },
-                        success: function(data) {
-                            var content = ``;
-                            data.map(dado => {
-                                content += `<tr class="text-muted">
-                                                <td>${dado.nome}</td>
-                                                <td>${dado.sigla}</td>
-                                                <td></td>
-                                            </tr>`;
-                            });
+            function buscarUnidadesNaoCadastradasPorAno(ano){
+                $.ajax({
+                    url: "{{ url('buscar-unidades-nao-cadastradas') }}",
+                    method: "GET",
+                    dataType: 'json',
+                    data: { _token : $('meta[name="csrf-token"]').attr('content'), ano: ano },
+                    success: function(data) {
+                        var content = ``;
+                        data.map(dado => {
+                            content += `<tr class="text-muted">
+                                            <td>${dado.nome}</td>
+                                            <td>${dado.sigla}</td>
+                                            <td></td>
+                                        </tr>`;
+                        });
 
-                            $('#unidades-nao-cadastradas-table').html(content);
-                            $('#ano-selecionado').html(ano);
-                            $('#unidades-nao-enviadas').text(data.length);
-                            $('#unidades-enviadas').text($("#total-unidades").text() - data.length);
-                        }
-                    });
-                }
+                        $('#unidades-nao-cadastradas-table').html(content);
+                        $('#ano-selecionado').html(ano);
+                        $('#unidades-nao-enviadas').text(data.length);
+                        $('#unidades-enviadas').text($("#total-unidades").text() - data.length);
+                    }
+                });
+            }
 
             //para remover a classe is-invalid quando o campo esta sendo preenchido "use o onkeyup"
             function clearErrorClass(e)

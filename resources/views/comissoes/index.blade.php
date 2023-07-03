@@ -29,6 +29,11 @@
             <i class="far fa-plus"></i>
         </a>
         Adicionar Comissão
+        <form action="{{ url('comissoes/busca') }}" method="get" class="d-flex mt-3">
+            <input type="text" class="form-control mr-1" style="max-width: 400px;" placeholder="Digite para Buscar" id="buscar-comissao" name="palavra">
+            <button class="btn btn-info mr-1"><i class="far fa-search mr-1"></i> Buscar</button>
+            <a href="{{ url('comissoes') }}" class="btn btn-warning"><i class="far fa-broom mr-1"></i> Limpar busca</a>
+        </form>
     </div>
     
     <!-- <div id="panel-1" class="panel">
@@ -48,7 +53,7 @@
                 <div class="row">
                     @forelse($comissoes as $comissao)
                         <!-- <li class="list-group-item bg-info-50 mb-1"> -->
-                    <div class="col-md-2  bg-light m-2 p-3 d-flex flex-column shadow">
+                    <div class="col-md-2 bg-light m-2 p-3 d-flex flex-column shadow">
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-danger btn-sm btn-icon rounded-circle" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
                                 <i class="fal fa-trash"></i>

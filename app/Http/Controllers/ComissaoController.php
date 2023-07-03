@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Comissao;
 use App\Models\ComissaoUser;
@@ -15,7 +16,7 @@ class ComissaoController extends Controller
 {
     public function __construct()
     {
-       $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
+       //$this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
     }
 
     /**
@@ -26,7 +27,7 @@ class ComissaoController extends Controller
     public function index()
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -43,6 +44,43 @@ class ComissaoController extends Controller
             $comissoes = Comissao::all();
         }
 
+        return view('comissoes.index', compact('comissoes', 'user'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function buscar(Request $request)
+    {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        $comissoesTodas = Comissao::all();
+        
+        if($user->hasRole('edital-administrador')) {
+            $comissoes = $comissoesTodas->where('edital_id', '<>' , null)->filter(function($item) use ($request) {
+                return false !== stristr($item->nome, $request->palavra);
+            });
+        }
+        
+        if($user->hasRole('extensao-coordenador')){
+            $comissoes = $comissoesTodas->where('unidade_id', $user->unidade->id)->filter(function($item) use ($request) {
+                return false !== stristr($item->nome, $request->palavra);
+            });
+        }
+
+        if($user->hasAnyRole('super|admin')) {
+            $comissoes = $comissoesTodas->filter(function($item) use ($request) {
+                return false !== stristr($item->nome, $request->palavra);
+            });
+        }
+
+        //echo json_encode($comissoes);
         return view('comissoes.index', compact('comissoes', 'user'));
     }
 
@@ -146,5 +184,6 @@ class ComissaoController extends Controller
             return redirect()->back();
         }
     }
+
 
 }
