@@ -124,7 +124,7 @@ Versão: 4.5.1
             }
 
         </script>
-            @if(env('APP_ENV') == 'Testing')
+            @if(env('APP_ENV') == 'testing')
                 <div class="alert alert-danger m-0 fs-xl"><strong class="">Ambiente de Teste</strong> - As informações salvas neste ambiente podem sofre alterações ou sumirem no decorrer dos teste</div>
             @endif
         <!-- BEGIN Page Wrapper -->
