@@ -124,13 +124,19 @@ Versão: 4.5.1
             }
 
         </script>
+            @if (env('APP_ENV') == 'local')
+                <div class="alert alert-danger m-0 fs-xl"><strong class="">Ambiente de Teste</strong> - As informações salvas neste ambiente podem sofre alterações ou sumirem no decorrer dos teste</div>
+            @endif
         <!-- BEGIN Page Wrapper -->
         <div class="page-wrapper">
+           
             <div class="page-inner">
+                
                 <!-- BEGIN Left Aside -->
                 @include('layouts._includes.sidebar')
                 <!-- END Left Aside -->
                 <div class="page-content-wrapper">
+                
                     <!-- BEGIN Page Header -->
                     @include('layouts._includes.header')
                     <!-- END Page Header -->
