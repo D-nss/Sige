@@ -61,7 +61,7 @@
             "{{ $participante->evento->titulo }}"
             no período de {{ date('d', strtotime($participante->evento->data_inicio)) . ' a ' . date('d', strtotime($participante->evento->data_fim)) . ' de ' . $meses[strftime('%m', strtotime($participante->evento->data_fim))] .' de '. date('Y', strtotime($participante->evento->data_fim)) }}
             @if($participante->evento->carga_horaria != NULL)
-            , com carga horária de 2 horas
+            , com carga horária de {{$participante->evento->carga_horaria}} horas
             @endif
             .
         </h3>
