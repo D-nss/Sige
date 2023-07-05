@@ -77,7 +77,7 @@ class AcaoExtensaoController extends Controller
         $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
         //pegar id do usuario
-        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->where('unidade_id', $unidade->id)->get();
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id);
 
         $total = AcaoExtensao::where('status', 'Aprovado')->count();
         $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
@@ -804,7 +804,7 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->aprovado_user_id = $user->id;
         }
 
-        if($acaoExtensao->user_id && $user->id) {
+        if($acaoExtensao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Você não pode aprovar sua própria ação de extensão.');
             session()->flash('alert', 'warning');
 

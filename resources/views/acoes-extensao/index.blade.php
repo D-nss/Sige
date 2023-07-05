@@ -35,7 +35,7 @@
                             <div class="card-header">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3b" aria-expanded="false">
                                     <i class="fal fa-filter width-2 fs-xl"></i>
-                                    Pesquisa Avançada
+                                    Filtragem
                                     <span class="ml-auto">
                                         <span class="collapsed-reveal">
                                             <i class="fal fa-minus fs-xl"></i>
