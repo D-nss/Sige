@@ -14,7 +14,7 @@
     <h1 class="subheader-title">
         <i class='subheader-icon fal fa-list'></i> Ações de Extensão
         <small>
-            Listagem das Ações de Extensão cadastradas
+            Listagem das Ações de Extensão Cadastradas e Aprovadas
         </small>
     </h1>
 </div>

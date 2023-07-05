@@ -38,7 +38,7 @@
         <div class="flex-1">
             <span class="h5">Ação de Extensão foi Submetida, e pendende de aprovação pela Unidade</span>
         </div>
-        @if($userNaComissao)
+        @if($userNaComissao && $acao_extensao->user_id != $user->id)
         <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
             @csrf
             @method('put')
@@ -49,7 +49,7 @@
     </div>
 </div>
 @endif
-@if($acao_extensao->status == 'Aprovado' && $acao_extensao->aprovado_user_id != NULL && $acao_extensao->status_avaliacao_conext == NULL && $acao_extensao->avaliacao_conext_user_id == NULL)
+@if($acao_extensao->status == 'Aprovado' && $acao_extensao->aprovado_user_id != NULL && $acao_extensao->status_avaliacao_conext == NULL && $acao_extensao->avaliacao_conext_user_id == NULL && $acao_extensao->user_id != $user->id)
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
         <div class="alert-icon">

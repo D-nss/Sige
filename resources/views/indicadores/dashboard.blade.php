@@ -30,7 +30,7 @@
                 <div id="panel-1" class="panel" data-panel-lock="false" data-panel-close="false" data-panel-fullscreen="false" data-panel-collapsed="false" data-panel-color="false" data-panel-locked="false" data-panel-refresh="false" data-panel-reset="false">
                     <div class="panel-hdr">
                         <h2>
-                            Preenchimento dos Indicadores nas Unidades
+                            Preenchimento dos Indicadores nas Unidades <span class="fw-300 color-fusion-500"><i>Clique no ano desejado para visualizar os dados</i></span>
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>

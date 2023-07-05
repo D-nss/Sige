@@ -325,6 +325,9 @@ class AcaoExtensaoController extends Controller
         $dados_form = $request->all();
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Rascunho';
+        $dados['aprovado_user_id'] = NULL;
+        $dados['avaliacao_conext_user_id'] = NULL;
+        $dados['status_avaliacao_conext'] = NULL;
         $areasTematicasInsert = array();
         $odsInsert = array();
 
@@ -801,6 +804,13 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->aprovado_user_id = $user->id;
         }
 
+        if($acaoExtensao->user_id && $user->id) {
+            session()->flash('status', 'Desculpe! Você não pode aprovar sua própria ação de extensão.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $acaoExtensao->status = 'Aprovado';
         $acaoExtensao->save();
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
@@ -821,6 +831,13 @@ class AcaoExtensaoController extends Controller
             $user = User::where('id', 1)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        if($acaoExtensao->user_id && $user->id) {
+            session()->flash('status', 'Desculpe! Você não pode aprovar sua própria ação de extensão.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
         }
 
         $comissaoConext = new ComissaoConext();
