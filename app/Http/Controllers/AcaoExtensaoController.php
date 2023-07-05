@@ -833,7 +833,7 @@ class AcaoExtensaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        if($acaoExtensao->user_id && $user->id) {
+        if($acaoExtensao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Você não pode aprovar sua própria ação de extensão.');
             session()->flash('alert', 'warning');
 
