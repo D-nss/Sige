@@ -30,7 +30,7 @@
                             {{Auth::user()->id}}
                         </span>
                     </a>
-                    <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }},<br>
+                    <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}, {{Auth::user()->unidade->sigla}} </span><br>
                     <a href="/logout" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</a>
                 @else
                     <a href="#" class="d-flex align-items-center text-white">
@@ -120,7 +120,7 @@
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
                                 </a>
                                 <a href="{{ url('acoes-culturais') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>                                    
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
                                 </a>
                                 <a href="#" title="Listagem" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
