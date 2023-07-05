@@ -77,7 +77,7 @@ class AcaoExtensaoController extends Controller
         $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
         //pegar id do usuario
-        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id);
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->get();
 
         $total = AcaoExtensao::where('status', 'Aprovado')->count();
         $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
