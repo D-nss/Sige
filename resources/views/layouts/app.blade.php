@@ -1606,7 +1606,7 @@ Versão: 4.5.1
                 if($(this).val() === 'Não Aceito') {
                     $('#curricularizacao_justificativa').removeClass( "d-none" );
                 } else {
-                    $('#lbl_vinculo_extensao').addClass( "d-none" );
+                    $('#curricularizacao_justificativa').addClass( "d-none" );
                 }
             });
 
