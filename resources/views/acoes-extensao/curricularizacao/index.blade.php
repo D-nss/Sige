@@ -135,15 +135,15 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="status" class="form-label">Status de aceite de aluno</label>
-                                                        <select name="status" class="form-control">
+                                                        <select name="status" class="form-control" id="curricularizacao_status">
                                                             <option value="">Selecione ...</option>
                                                             <option value="Aceito">Aceito</option>
                                                             <option value="Não Aceito">Não Aceito</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="curricularizacao_justificativa" class="form-label">Status de aceite de aluno</label>
-                                                        <textarea class="form-control" name="justificativa" id="curricularizacao_justificativa" rows="20"></textarea>
+                                                    <div class="form-group d-none" id="curricularizacao_justificativa" >
+                                                        <label for="justificativa" class="form-label">Justificativa</label>
+                                                        <textarea class="form-control" name="justificativa" rows="20"></textarea>
                                                     </div>                                                    
                                                 </div>
                                                 <div class="modal-footer">
