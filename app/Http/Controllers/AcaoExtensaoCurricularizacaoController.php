@@ -107,14 +107,20 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             return redirect()->back();
         }
 
+        $validated = $request->validate([
+            'carta_apresentacao' => 'required|max:2500',
+        ]);
+
         $acaoExtensaoCurricularizacao = [
-            'acao_extensao_ocorrencia_id' => $acao_extensao_ocorrencia->id,
-            'aluno_ra'   => $request->ra,
-            'status'     => NULL,
-            'horas'      => NULL,
-            'apto'       => NULL,
-            'unidade_id' => $unidade[0]->id,
-            'user_id'    => $user->id
+            'acao_extensao_ocorrencia_id'   => $acao_extensao_ocorrencia->id,
+            'aluno_ra'                      => $request->ra,
+            'status'                        => NULL,
+            'horas'                         => NULL,
+            'apto'                          => NULL,
+            'unidade_id'                    => $unidade[0]->id,
+            'user_id'                       => $user->id,
+            'carta_apresentacao'            => $request->carta_apresentacao,
+            'justificativa'                 => NULL,
         ];
 
         $acaoExtensaoCurricularizacaoCriada = AcaoExtensaoCurricularizacao::create($acaoExtensaoCurricularizacao);
@@ -152,11 +158,22 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             return redirect()->back();
         }
 
-        $validado = $request->validate([
-            'status' => 'required',
-        ]);
+        if($request->status == 'Não Aceito') {
+            $validar = [
+                'status' => 'required',
+                'justificativa' => 'required|max:2500'
+            ];
+        }
+        else {
+            $validar = [
+                'status' => 'required',
+            ];
+        }
+
+        $validado = $request->validate($validar);
 
         $acaoExtensaoCurricularizacao->status = $request->status;
+        $acaoExtensaoCurricularizacao->justificativa = $request->justificativa;
         if($acaoExtensaoCurricularizacao->update()) {
             $acaoExtensaoCurricularizacao->user->notify(new \App\Notifications\NotificarAceiteCurricularizacao($acao_extensao_ocorrencia));
             session()->flash('status', 'Inscrição atualizada com sucesso.');

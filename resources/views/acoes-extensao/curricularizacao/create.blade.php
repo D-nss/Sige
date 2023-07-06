@@ -51,6 +51,10 @@
                         <label for="nivform" class="form-label">Nível Formação</label>
                         <input type="text" class="form-control w-25" id="nivform" value="{{ $dadosAluno['NIVFORM'] }}" readonly>
                     </div>
+                    <div class="form-group ">
+                        <label for="nivform" class="form-label">Carta Apresentação</label>
+                        <textarea class="form-control w-25" name="carta_apresentacao" id="carta_apresentacao"></textarea>
+                    </div>
 
                     <button class="btn btn-primary">Inscrever</button>
                   </form>

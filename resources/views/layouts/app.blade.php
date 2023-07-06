@@ -260,6 +260,11 @@ Versão: 4.5.1
                 CKEDITOR.replace('detalhes');
             }
 
+            if($('#carta_apresentacao').length) {
+                //console.log($('#ckeditor').length );
+                CKEDITOR.replace('carta_apresentacao');
+            }
+
             $(document).ready(function()
             {
                 $("#online").change(function(){

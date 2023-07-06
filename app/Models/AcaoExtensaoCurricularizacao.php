@@ -18,6 +18,8 @@ class AcaoExtensaoCurricularizacao extends Model
         'apto',
         'unidade_id',
         'user_id',
+        'carta_apresentacao',
+        'justificativa',
     ];
 
     public function acao_extensao_ocorrencia()
