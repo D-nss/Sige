@@ -51,7 +51,7 @@
                                         <div class="fs-md text-success">{{ $curricularizacao->aluno_ra['NIVFORM'] }} - {{ $curricularizacao->aluno_ra['MUNIDENSI'] }}</div>
                                         <div class="fs-xs text-muted mb-1">{{ $curricularizacao->aluno_ra['SITALUNO'] }}</div>
                                                 
-                                        <button class="btn btn-warning btn-xs mb-2" type="button" data-toggle="collapse" data-target="#collapseCoeficientes{{ $curricularizacao->id }}" aria-expanded="false" aria-controls="collapseCoeficientes{{ $curricularizacao->id }}">
+                                        <!-- <button class="btn btn-warning btn-xs mb-2" type="button" data-toggle="collapse" data-target="#collapseCoeficientes{{ $curricularizacao->id }}" aria-expanded="false" aria-controls="collapseCoeficientes{{ $curricularizacao->id }}">
                                             Coeficientes DAC
                                         </button>
                                         <div class="collapse" id="collapseCoeficientes{{ $curricularizacao->id }}">
@@ -63,7 +63,7 @@
                                                 <div class="border border-secondary rounded fw-700 mr-2 p-2">vcr - 60%</div>
                                                 <div class="border border-success rounded fw-700 mr-2 p-2">crr - 70%</div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </td>
                                     <td class="align-middle">  
                                         <div class="
@@ -93,7 +93,7 @@
                                                 @if($curricularizacao->status == 'Aceito')
                                                     <form action='{{ url("/acoes-extensao-ocorrencia/curricularizacao/$curricularizacao->id/tornar-apto") }}' method="post">
                                                         @csrf
-                                                        <button type="submit" class="btn text-info"><i class="fal fa-thumbs-up fa-2x"></i></button>
+                                                        <button type="submit" class="btn text-info" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}><i class="fal fa-thumbs-up fa-2x "></i></button>
                                                     </form>
                                                 @else
                                                     <span class="ml-3 text-info"><i class="fal fa-thumbs-up fa-2x"></i></span>
@@ -103,7 +103,7 @@
                                             @if($curricularizacao->status == 'Aceito')
                                                     <form action='{{ url("/acoes-extensao-ocorrencia/curricularizacao/$curricularizacao->id/tornar-apto") }}' method="post">
                                                         @csrf
-                                                        <button type="submit" class="btn font-color-light"><i class="fal fa-thumbs-down fa-2x"></i></button>
+                                                        <button type="submit" class="btn font-color-light" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}><i class="fal fa-thumbs-down fa-2x"></i></button>
                                                     </form>
                                                 @else
                                                     <span class="ml-3 font-color-light"><i class="fal fa-thumbs-down fa-2x"></i></span>
@@ -116,7 +116,7 @@
                                     </td>
                                     <td class="align-middle">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal{{ $curricularizacao->id }}">
+                                        <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
                                         Aceitar
                                         </button>
 
@@ -154,7 +154,7 @@
                                         </div>
                                         
                                         @if($curricularizacao->status == 'Aceito')
-                                        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalApontar{{ $curricularizacao->id }}">
+                                        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalApontar{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
                                             Apontar Horas
                                         </button>
 

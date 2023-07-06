@@ -59,9 +59,38 @@
                                 <td>{{isset($ocorrencia->fim_inscricoes) ? $ocorrencia->fim_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td>
                                     <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
-                                    <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
-                                    <a href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" class="btn btn-success btn-xs">Equipe</a>
+                                    <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Editar</a>
+                                    <a href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" class="btn btn-success btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Equipe</a>
                                     <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
+
+                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal{{ $ocorrencia->id }}">
+                                            Encerrar
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal{{ $ocorrencia->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $ocorrencia->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <form action="{{ route('acao_extensao.ocorrencias.encerrar', ['acaoExtensaoOcorrencia' => $ocorrencia]) }}" method="post">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalLabel{{ $ocorrencia->id }}">Alerta</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                            @csrf
+                                                            <p>Deseja encerrar a ocorrência de <span class="fw-500 text-info">{{ $ocorrencia->data_hora_inicio->format('d/m/Y H:i') }} </span> à <span class="fw-500 text-info">{{ $ocorrencia->data_hora_fim }}</span>?</p>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-danger">Confirmar o Encerramento</button>
+                                                    </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                 </td>
                             </tr>
                             @endforeach

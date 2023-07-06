@@ -92,6 +92,7 @@ class ExtensaoOcorrenciasController extends Controller
         }
 
         $dados = $request->all();
+        $dados['status'] = 'Aberto';
         $dados['acao_extensao_id'] = $acaoExtensao->id;
 
         $ocorrenciaCriada = AcaoExtensaoOcorrencia::create($dados);
@@ -211,6 +212,24 @@ class ExtensaoOcorrenciasController extends Controller
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao remover a ocorrencia da ação.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+    }
+
+    public function encerrar(AcaoExtensaoOcorrencia $acaoExtensaoOcorrencia)
+    {
+        $acao_extensao_id = $acaoExtensaoOcorrencia->acao_extensao->id;
+        $acaoExtensaoOcorrencia->status = 'Encerrado';
+        if($acaoExtensaoOcorrencia->update()) {
+            session()->flash('status', 'Ocorrencia encerrada com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->route('acao_extensao.ocorrencias.index', ['acao_extensao' => $acao_extensao_id]);
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao encerrar a ocorrencia da ação.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();

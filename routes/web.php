@@ -165,6 +165,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::put('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'update'])->name('acao_extensao.ocorrencias.update');
     Route::get('/acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'show'])->name('acao_extensao.ocorrencias.show');
     Route::delete('acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}', [ExtensaoOcorrenciasController::class, 'destroy']);
+    Route::post('acoes-extensao/ocorrencias/{acaoExtensaoOcorrencia}/encerrar', [ExtensaoOcorrenciasController::class, 'encerrar'])->name('acao_extensao.ocorrencias.encerrar');
 
     Route::get('/acoes-extensao-participacoes', [AcaoExtensaoCurricularizacaoParticipacaoController::class, 'index']);
 

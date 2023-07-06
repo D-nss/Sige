@@ -56,6 +56,8 @@ class EventoInscritoNotificar extends Notification
                     ->line("\n")
                     ->line("\n")
                     ->line("\n")
+                    ->line("\n")
+                    ->line("\n")
                     ->line('Caso queira CANCELAR a sua inscrição clique neste link:')
                     ->line($linkNao)
                     ->line('Caso não consiga clicar no link de cancelamento, copie e cole o link no seu navegador.');
