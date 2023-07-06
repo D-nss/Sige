@@ -116,43 +116,67 @@
                                     </td>
                                     <td class="align-middle">
                                         <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-xs btn-secondary" data-toggle="modal" data-target="#modalApresentacao{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
+                                        Carta Apresentação
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalApresentacao{{ $curricularizacao->id }}" tabindex="-1" role="dialog" aria-labelledby="modalApresentacao{{ $curricularizacao->id }}Label" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalApresentacao{{ $curricularizacao->id }}Label">Carta de Apresentação</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                    <div class="modal-body">
+                                                        {!! nl2br( e($curricularizacao->carta_apresentacao) ) !!}                                                  
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
                                         Aceitar
                                         </button>
 
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal{{ $curricularizacao->id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ $curricularizacao->id }}Label" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modal{{ $curricularizacao->id }}Label">Aceitar Aluno na Curricularização</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <form action='{{ url("/acoes-extensao-ocorrencia/curricularizacao/$curricularizacao->id/aceitar") }}' method="post">
-                                                @csrf
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="status" class="form-label">Status de aceite de aluno</label>
-                                                        <select name="status" class="form-control" id="curricularizacao_status">
-                                                            <option value="">Selecione ...</option>
-                                                            <option value="Aceito">Aceito</option>
-                                                            <option value="Não Aceito">Não Aceito</option>
-                                                        </select>
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modal{{ $curricularizacao->id }}Label">Aceitar Aluno na Curricularização</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action='{{ url("/acoes-extensao-ocorrencia/curricularizacao/$curricularizacao->id/aceitar") }}' method="post">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="status" class="form-label">Status de aceite de aluno</label>
+                                                            <select name="status" class="form-control" id="curricularizacao_status">
+                                                                <option value="">Selecione ...</option>
+                                                                <option value="Aceito">Aceito</option>
+                                                                <option value="Não Aceito">Não Aceito</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group d-none" id="curricularizacao_justificativa" >
+                                                            <label for="justificativa" class="form-label">Justificativa</label>
+                                                            <textarea class="form-control" name="justificativa" rows="20"></textarea>
+                                                        </div>                                                    
                                                     </div>
-                                                    <div class="form-group d-none" id="curricularizacao_justificativa" >
-                                                        <label for="justificativa" class="form-label">Justificativa</label>
-                                                        <textarea class="form-control" name="justificativa" rows="20"></textarea>
-                                                    </div>                                                    
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-success">Enviar</button>
+                                                    </div>
+                                                </form>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                    <button type="submit" class="btn btn-success">Enviar</button>
-                                                </div>
-                                            </form>
                                             </div>
-                                        </div>
                                         </div>
                                         
                                         @if($curricularizacao->status == 'Aceito')
@@ -162,37 +186,37 @@
 
                                         <!-- Modal -->
                                         <div class="modal fade" id="modalApontar{{ $curricularizacao->id }}" tabindex="-1" role="dialog" aria-labelledby="modalApontar{{ $curricularizacao->id }}Label" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modalApontar{{ $curricularizacao->id }}Label">Apontamentos do Aluno na Curricularização</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <form action='{{ url("/acoes-extensao-ocorrencia/curricularizacao/$curricularizacao->id/apontar") }}' method="post">
-                                                @csrf
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="apto" class="form-label">Aluno está apto?</label>
-                                                        <select name="apto" class="form-control">
-                                                            <option value="">Selecione ...</option>
-                                                            <option value="1" {{ $curricularizacao->apto == 1 ? 'selected' : '' }}>Sim</option>
-                                                            <option value="0" {{ $curricularizacao->apto == 0 ? 'selected' : '' }}>Não</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="apto" class="form-label">Horas executadas</label>
-                                                        <input type="number" class="form-control" name="horas" placeholder="Somente números" value="{{ $curricularizacao->horas != null ? $curricularizacao->horas : '' }}">
-                                                    </div>
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalApontar{{ $curricularizacao->id }}Label">Apontamentos do Aluno na Curricularização</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                    <button type="submit" class="btn btn-success">Enviar</button>
+                                                <form action='{{ url("/acoes-extensao-ocorrencia/curricularizacao/$curricularizacao->id/apontar") }}' method="post">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="apto" class="form-label">Aluno está apto?</label>
+                                                            <select name="apto" class="form-control">
+                                                                <option value="">Selecione ...</option>
+                                                                <option value="1" {{ $curricularizacao->apto == 1 ? 'selected' : '' }}>Sim</option>
+                                                                <option value="0" {{ $curricularizacao->apto == 0 ? 'selected' : '' }}>Não</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="apto" class="form-label">Horas executadas</label>
+                                                            <input type="number" class="form-control" name="horas" placeholder="Somente números" value="{{ $curricularizacao->horas != null ? $curricularizacao->horas : '' }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-success">Enviar</button>
+                                                    </div>
+                                                </form>
                                                 </div>
-                                            </form>
                                             </div>
-                                        </div>
                                         </div>
                                         @endif
                                     </td>
