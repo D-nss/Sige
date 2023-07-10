@@ -271,6 +271,16 @@
                             </h5>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                              Arquivo Projeto:
+                              <small class="mt-0 mb-3 text-muted">
+                                  <a href='{{ url("storage/$acao_extensao->arquivo") }}' class="btn btn-danger "target="_blank" ><i class="far fa-file-pdf mr-1"></i>Projeto em PDF</a>
+                              </small>
+                            </h5>
+                        </div>
+                    </div>
                       <div class="accordion" id="accordionExample">
                           <div class="card">
                               <div class="card-header" id="headingTwo">

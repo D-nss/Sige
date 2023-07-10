@@ -78,10 +78,10 @@ class EditalController extends Controller
                 $validar[$key] = 'required|max:1000';
             }
             elseif($key == 'anexo_edital') {
-                $validar[$key] = 'required|mimes:pdf';
+                $validar[$key] = 'required|file|max:5120|mimes:pdf';
             }
             elseif($key == 'anexo_imagem') {
-                $validar[$key] = 'mimes:png';
+                $validar[$key] = 'file|max:5120|mimes:png';
             }
             else {
                 $validar[$key] = 'required';
@@ -99,8 +99,8 @@ class EditalController extends Controller
             'total_recurso' => str_replace(',', '.', str_replace('.', '',$request->total_recurso)),
             'valor_max_inscricao' => str_replace(',', '.', str_replace('.', '',$request->valor_max_inscricao)),
             'valor_max_programa' => empty($request->valor_max_programa) ? 0.00 : str_replace(',', '.', str_replace('.', '',$request->valor_max_programa)),
-            'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000), //chama o função execute da model UploadFile e faz o upload do arquivo
-            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : '',
+            'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 5000000), //chama o função execute da model UploadFile e faz o upload do arquivo
+            'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 5000000) : '',
         ]);
 
         if($edital) {
@@ -159,10 +159,10 @@ class EditalController extends Controller
                 $validar[$key] = 'required|max:1000';
             }
             elseif($key == 'anexo_edital') {
-                $validar[$key] = 'mimes:pdf';
+                $validar[$key] = 'file|max:5120|mimes:pdf';
             }
             elseif($key == 'anexo_imagem') {
-                $validar[$key] = 'mimes:png';
+                $validar[$key] = 'file|max:5120|mimes:png';
             }
             else {
                 $validar[$key] = 'required';

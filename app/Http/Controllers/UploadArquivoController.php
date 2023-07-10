@@ -19,13 +19,13 @@ class UploadArquivoController extends Controller
     {
         $validated = $request->validate(
             [
-            'arquivo-anexo' => 'required|mimes:pdf',
-            'nome_arquivo' => 'required|max:190'
+            'arquivo-anexo' => 'required|file|max:5120|mimes:pdf',
+            'nome_arquivo' => 'required|max:190',
             ],
         );
 
         $upload = new UploadFile();
-        $arquivo = $upload->execute($request, 'arquivo-anexo', 'pdf', 3000000);
+        $arquivo = $upload->execute($request, 'arquivo-anexo', 'pdf', 5000000);
 
         $arquivo_uploaded = Arquivo::create([
             'nome_arquivo'  => $request->nome_arquivo,

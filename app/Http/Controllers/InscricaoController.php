@@ -114,11 +114,11 @@ class InscricaoController extends Controller
             elseif($key == 'palavras_chaves') {
                 $validar[$key] = 'max:190';
             }
-            elseif($key == 'pdf_projeto') {
-                $validar[$key] = 'required|mimes:pdf';
-            }
+            // elseif($key == 'pdf_projeto') {
+            //     $validar[$key] = 'required|mimes:pdf';
+            // }
             elseif($key == 'comprovante_parceria') {
-                $validar[$key] = 'mimes:pdf';
+                $validar[$key] = 'file|max:5120|mimes:pdf';
             }
             elseif(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:10000';
@@ -139,7 +139,7 @@ class InscricaoController extends Controller
 
         $validar['areas_tematicas'] = 'required';
         $validar['obj_desenvolvimento_sustentavel'] = 'required';
-        $validar['pdf_projeto'] = 'required|mimes:pdf';
+        $validar['pdf_projeto'] = 'required|file|max:5120|mimes:pdf';
         $validar['link_lattes'] = 'max:190';
         $validar['link_projeto'] = 'max:190';
         $validar['cidade'] = 'required';
@@ -172,8 +172,8 @@ class InscricaoController extends Controller
                 'resumo' => $request->resumo,
                 'palavras_chaves' => $request->palavras_chaves,
                 'parceria' => $request->parceria,
-                'anexo_parceria' => !!$request->comprovante_parceria ? $upload->execute($request, 'comprovante_parceria', 'pdf', 30000000) : '',
-                'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 30000000),
+                'anexo_parceria' => !!$request->comprovante_parceria ? $upload->execute($request, 'comprovante_parceria', 'pdf', 5000000) : '',
+                'anexo_projeto' => $upload->execute($request, 'pdf_projeto', 'pdf', 5000000),
                 'url_projeto' => $request->link_projeto,
                 'url_lattes' => $request->link_lattes,
                 'status' => 'Salvo',
@@ -473,11 +473,11 @@ class InscricaoController extends Controller
             if($key == 'resumo') {
                 $validar[$key] = 'required|max:2500';
             }
-            elseif($key == 'pdf_projeto') {
-                $validar[$key] = 'mimes:pdf';
-            }
+            // elseif($key == 'pdf_projeto') {
+            //     $validar[$key] = 'file:1,5120|mimes:pdf';
+            // }
             elseif($key == 'comprovante_parceria') {
-                $validar[$key] = 'mimes:pdf';
+                $validar[$key] = 'file|max:5120|mimes:pdf';
             }
             elseif(substr($key, 0, 8) == 'questao-'){
                 $validar[$key] = 'required|max:10000';
@@ -498,7 +498,7 @@ class InscricaoController extends Controller
 
         $validar['areas_tematicas'] = 'required';
         $validar['obj_desenvolvimento_sustentavel'] = 'required';
-        $validar['pdf_projeto'] = 'mimes:pdf';
+        $validar['pdf_projeto'] = 'required|file|max:5120|mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
 
@@ -519,10 +519,10 @@ class InscricaoController extends Controller
             $inscricao->palavras_chaves = $request->palavras_chaves;
             $inscricao->parceria = $request->parceria;
             if($request->comprovante_parceria != null || $request->comprovante_parceria != '') {
-                $inscricao->anexo_parceria = $upload->execute($request, 'comprovante_parceria', 'pdf', 3000000);
+                $inscricao->anexo_parceria = $upload->execute($request, 'comprovante_parceria', 'pdf', 5000000);
             }
             if($request->pdf_projeto != null || $request->pdf_projeto != '') {
-                $inscricao->anexo_projeto = $upload->execute($request, 'pdf_projeto', 'pdf', 3000000);
+                $inscricao->anexo_projeto = $upload->execute($request, 'pdf_projeto', 'pdf', 5000000);
             }
             $inscricao->url_projeto = $request->link_projeto;
             $inscricao->url_lattes = $request->link_lattes;

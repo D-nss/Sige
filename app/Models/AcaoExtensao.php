@@ -34,7 +34,8 @@ class AcaoExtensao extends Model
         'impactos_universidade',
         'impactos_sociedade',
         'grau_envolvimento_equipe_id',
-        'status'
+        'status',
+        'arquivo'
     ];
 
     public function user()

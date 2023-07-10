@@ -340,6 +340,47 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Upload de Arquivo</h4>
+                            <div class="preview-zone hidden">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                    <div></div>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                        Limpar
+                                        </button>
+                                    </div>
+                                    </div>
+                                    <div class="box-body" id="box-body">
+                                    @if(isset($acao_extensao->arquivo))
+                                        <a href='{{ url("storage/$acao_extensao->arquivo") }}' class="btn btn-link" target="_blank">
+                                            <img src='{{ url("smartadmin-4.5.1/img/pdf-icon.png") }}' alt="{{ $acao_extensao->titulo}}" class="img-thumbnail mb-2" style="max-width: 75px;" />
+                                            <br>
+                                            Arquivo Projeto
+                                        </a>
+                                    @endif
+
+                                    @if($errors->any())
+                                        <span class="font-weight-bold text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
+                                    @endif
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropzone-wrapper">
+                                <div class="dropzone-desc">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                    <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
+
+                                </div>
+                                <input type="file" name="arquivo" class="dropzone" id="arquivo" {{ isset($acao_extensao->arquivo) ? '' : 'required' }}>
+
+                            </div>
+                            <span class="text-info fw-500" id="alert-pdf-format">O arquivo deve ter no máximo 5MB.</span>
+                        </div>
+                    </div>
 
 
 

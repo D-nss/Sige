@@ -30,7 +30,7 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <form action="{{route('acao_extensao.update', ['acao_extensao' => $acao_extensao->id])}}" id="form_acao_extensao" method="POST">
+                    <form action="{{route('acao_extensao.update', ['acao_extensao' => $acao_extensao->id])}}" id="form_acao_extensao" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         @include('acoes-extensao._form')

@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\StoreAcaoExtensaoRequest;
 use App\Http\Requests\UpdateAcaoExtensaoRequest;
@@ -27,9 +31,7 @@ use App\Models\User;
 use App\Models\Municipio;
 use App\Models\ObjetivoDesenvolvimentoSustentavel;
 use App\Models\TipoParceiro;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use App\Models\UploadFile;
 
 use App\Services\Avaliacao\ComissaoConext;
 
@@ -254,6 +256,8 @@ class AcaoExtensaoController extends Controller
         $dados['municipio_id'] = $request->cidade;
         //$dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
+        $upload = new UploadFile();
+        $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Rascunho';
         $areasTematicasInsert = array();
@@ -314,7 +318,7 @@ class AcaoExtensaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
-
+       
         $dados = array('user_id' => $user->id);
         $dados['unidade_id'] = $user->unidade_id;
         $dados['nome_coordenador'] = $user->name;
@@ -323,6 +327,16 @@ class AcaoExtensaoController extends Controller
         $dados['municipio_id'] = $request->cidade;
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
+        
+        if( !is_null($dados_form['arquivo']) ) {
+            $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
+            if($arquivoExiste) {
+                Storage::disk('public')->delete($acaoExtensao->arquivo);
+            }
+            $upload = new UploadFile();
+            $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
+        }
+
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Rascunho';
         $dados['aprovado_user_id'] = NULL;
@@ -330,7 +344,7 @@ class AcaoExtensaoController extends Controller
         $dados['status_avaliacao_conext'] = NULL;
         $areasTematicasInsert = array();
         $odsInsert = array();
-
+        
         $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
             $acaoExtensao->user_id = $dados['user_id'];
             $acaoExtensao->modalidade = $dados['modalidade'];
@@ -349,6 +363,9 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
             $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
             $acaoExtensao->status = $dados['status'];
+            if(!is_null($dados['arquivo'])) {
+                $acaoExtensao->arquivo = $dados['arquivo'];
+            }
             $acaoAtualizada = $acaoExtensao->save();
 
             //remove areas temáticas anteriores
