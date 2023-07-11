@@ -4,8 +4,8 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item"><a href="/acoes-extensao"> BAEC</a></li>
-    <li class="breadcrumb-item active">Mapa das Ações de Extensão</li>
+    <li class="breadcrumb-item"><a href="/acoes-extensao">Ações de Extensão</a></li>
+    <li class="breadcrumb-item active">Mapa</li>
     <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
     </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
