@@ -363,6 +363,9 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
             $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
             $acaoExtensao->status = $dados['status'];
+            $acaoExtensao->aprovado_user_id = $dados['aprovado_user_id'];
+            $acaoExtensao->avaliacao_conext_user_id = $dados['avaliacao_conext_user_id'];
+            $acaoExtensao->status_avaliacao_conext = $dados['status_avaliacao_conext'];
             if(isset($dados_form['arquivo']) && !is_null($dados['arquivo'])) {
                 $acaoExtensao->arquivo = $dados['arquivo'];
             }
