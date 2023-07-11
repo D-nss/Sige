@@ -4,10 +4,8 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item"><a href="/acoes-extensao">BAEC</a></li>
+    <li class="breadcrumb-item"><a href="/acoes-extensao">Ãções de Extensão</a></li>
     <li class="breadcrumb-item active">Nova Ação</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
-    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
@@ -27,6 +25,9 @@
                 <h2>
                     Dados gerais<span class="fw-300"><i>Insira as informações nos campos correspondentes</i></span>
                 </h2>
+                <div class="panel-toolbar">
+                    <h2><span class="badge badge-info badge-pill">Dados Ação <i class="fad fa-dot-circle"></i> <i class="fad fa-circle-notch"></i> <i class="fad fa-circle-notch"></i></span></h2>
+                </div>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">

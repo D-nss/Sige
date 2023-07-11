@@ -4,10 +4,8 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item">BAEC</li>
+    <li class="breadcrumb-item">Ações de Exensão</li>
     <li class="breadcrumb-item active">Listagem</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao/novo"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Cadastrar
-    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
@@ -27,6 +25,9 @@
                 <h2>
                     Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                 </h2>
+                <div class="panel-toolbar">
+                    <a href="/acoes-extensao/novo" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>
+                </div>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">

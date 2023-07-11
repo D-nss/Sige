@@ -32,6 +32,7 @@ Versão: 4.5.1
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/datagrid/datatables/datatables.bundle.css')}}">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/formplugins/smartwizard/smartwizard.css')}}">
         <link rel="stylesheet" media="screen, print" href="{{ asset('smartadmin-4.5.1/css/notifications/toastr/toastr.css') }}">
+        <link rel="stylesheet" media="screen, print" href="{{ asset('smartadmin-4.5.1/css/fa-duotone.css') }}">
     </head>
     <!-- BEGIN Body -->
     <!-- Possible Classes
@@ -129,14 +130,14 @@ Versão: 4.5.1
             @endif
         <!-- BEGIN Page Wrapper -->
         <div class="page-wrapper">
-           
+
             <div class="page-inner">
-                
+
                 <!-- BEGIN Left Aside -->
                 @include('layouts._includes.sidebar')
                 <!-- END Left Aside -->
                 <div class="page-content-wrapper">
-                
+
                     <!-- BEGIN Page Header -->
                     @include('layouts._includes.header')
                     <!-- END Page Header -->

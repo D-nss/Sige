@@ -4,17 +4,37 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item">Ações de Extensão</li>
+    <li class="breadcrumb-item">BAEC</li>
     <li class="breadcrumb-item active">Dashboard</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        Olá, {{$user->name}}
+        <i class='subheader-icon fal fa-chart-area'></i> Banco de Ações de Extensão <span class='fw-300'>Dashboard</span>
         <small>
-            Bem vindo(a) a sua área de coordenação das Ações de Extensão da EXTECULT
+            Painel de informações das Ações de Extensão da Unidade <span class='color-danger-500'>{{$unidade->sigla}}</span>
         </small>
     </h1>
+    <div class="subheader-block d-lg-flex align-items-center">
+        <div class="d-inline-flex flex-column justify-content-center mr-3">
+            <span class="fw-300 fs-xs d-block opacity-50">
+                <small>TOTAIS UNICAMP</small>
+            </span>
+            <span class="fw-500 fs-xl d-block color-primary-500">
+                {{$total}}
+            </span>
+        </div>
+    </div>
+    <div class="subheader-block d-lg-flex align-items-center border-faded border-right-0 border-top-0 border-bottom-0 ml-3 pl-3">
+        <div class="d-inline-flex flex-column justify-content-center mr-3">
+            <span class="fw-300 fs-xs d-block opacity-50">
+                <small>TOTAIS UNIDADE</small>
+            </span>
+            <span class="fw-500 fs-xl d-block color-danger-500">
+                {{$total_unidade.' ('.$porcentagem_unidade.'%)'}}
+            </span>
+        </div>
+    </div>
 </div>
 @if(count($pendentes) > 0 && $userNaComissao)
 <div class="alert alert-warning alert-dismissible fade show">
@@ -29,9 +49,11 @@
 </div>
 @endif
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
-    <h1 class="subheader-title">
-        <span>Visão geral</span>
-    </h1>
+    <div class="btn-group btn-group-lg">
+        <a href="/acoes-extensao/novo" class="btn btn-primary"><span class="fal fa-plus mr-1"></span>Cadastrar</a>
+        <a href="/acoes-extensao" class="btn btn-primary"><span class="fal fa-list mr-1"></span>Listar Ações</a>
+        <a href="/acoes-extensao/mapa/extensao" class="btn btn-primary"><span class="fal fa-map-marker-check mr-1"></span>Mapa Extensão</a>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-6 col-xl-3">
@@ -83,12 +105,16 @@
     <div class="col-lg-12 col-xl-12">
                                 <!--Table head-->
                                 <div id="panel" class="panel">
-                                    <div class="panel-hdr ">
+                                    <div class="panel-hdr bg-primary-600">
                                         <h2>
-                                            Listagem das Ações de Extensão cadastradas
+                                            Minhas Ações de Extensão Cadastradas <span class="fw-300 color-fusion-500"></span>
                                         </h2>
                                         <div class="panel-toolbar">
-                                            <a href="/acoes-extensao/novo" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>
+                                            <h5 class="m-0">
+                                                <span class="badge badge-pill badge-secondary fw-400 l-h-n">
+                                                    {{count($acoes_extensao_usuario)}}
+                                                </span>
+                                            </h5>
                                         </div>
                                     </div>
                                     <div class="panel-container show">
@@ -98,7 +124,7 @@
                                                     <thead class="thead-themed">
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Título / Linha</th>
+                                                            <th>Ação de Extensão</th>
                                                             <th>Modalidade / Área Temática</th>
                                                             <th>Situação</th>
                                                             <th>Ações</th>
@@ -231,27 +257,14 @@
 
     </div>
 </div>
-@if(count($pendentes_unidade) > 0 && ($userNaComissao))
-<div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
-    <h1 class="subheader-title text-danger">
-        <span>Pendende de sua aprovação (Unidade)</span>
-    </h1>
-</div>
 <div class="row">
     <div class="col-lg-12 col-xl-12">
         <!--Table head-->
         <div id="panel" class="panel">
-            <div class="panel-hdr bg-warning-50">
+            <div class="panel-hdr">
                 <h2>
-                    Ações de Extensão Pendentes que necessitam de sua aprovação
+                    Últimas Ações de Extensão da sua Unidade <span class="fw-300 color-fusion-500"><i> 3 últimas aprovadas</i></span>
                 </h2>
-                <div class="panel-toolbar">
-                    <h5 class="m-0">
-                        <span class="badge badge-pill badge-secondary fw-400 l-h-n">
-                            {{count($pendentes_unidade)}}
-                        </span>
-                    </h5>
-                </div>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
@@ -263,17 +276,22 @@
                                     <th>Ação de Extensão</th>
                                     <th>Modalidade / Área Temática</th>
                                     <th>Coordenador</th>
-                                    <th>Situação</th>
+                                    <th>Atualizado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($pendentes_unidade as $acao_extensao)
+                                @foreach($acoes_extensao as $acao_extensao)
                                 <tr>
                                     <th scope="row">{{$acao_extensao->id}}</th>
                                     <td>
                                         <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500 ">
                                             {{$acao_extensao->titulo}}
                                         </a>
+                                        @if($acao_extensao->status == 'Pendente')
+
+                                        <span class="fw-300 color-danger-500"><i class="fal fa-exclamation-circle"></i><i> Ação pendente!</i></span>
+
+                                        @endif
                                         <div class="d-block text-muted fs-sm">
                                             Linha: <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
                                             <br>
@@ -315,25 +333,6 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
-                                            @switch($acao_extensao->status)
-                                                    @case('Desativado')
-                                                    <span class="badge badge-danger">Desativado</span>
-                                                        @break
-                                                    @case('Pendente')
-                                                        <span class="badge badge-warning">Pendente</span>
-                                                        @break
-                                                    @case('Rascunho')
-                                                        <span class="badge badge-secondary">Rascunho</span>
-                                                        @break
-                                                    @case('Aprovado')
-                                                        <span class="badge badge-success">Aprovado</span>
-                                                        @break
-                                                    @default
-                                                    <span class="badge badge-warning">Indefinido</span>
-                                            @endswitch
-                                        </a>
-
                                         <div class="text-muted small text-truncate">
                                             Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                         </div>
@@ -349,18 +348,13 @@
 
     </div>
 </div>
-@endif
-@if(count($pendentes) > 0 && $userNaComissaoConext))
-<div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
-    <h1 class="subheader-title text-danger">
-        <span>Pendende de sua aprovação (Conext)</span>
-    </h1>
-</div>
+
+@if(count($pendentes) > 0 && ($userNaComissao || $userNaComissaoConext))
 <div class="row">
     <div class="col-lg-12 col-xl-12">
         <!--Table head-->
         <div id="panel" class="panel">
-            <div class="panel-hdr bg-warning-50">
+            <div class="panel-hdr bg-warning-600">
                 <h2>
                     Ações de Extensão Pendentes que necessitam de sua aprovação
                 </h2>

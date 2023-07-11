@@ -80,7 +80,7 @@
                 <span class="badge badge-warning">Pendente</span>
                 @break
             @case('Rascunho')
-                <span class="badge badge-warning">Rascunho</span>
+                <span class="badge badge-secondary">Rascunho</span>
                 @break
             @case('Aprovado')
                 <span class="badge badge-success">Aprovado</span>

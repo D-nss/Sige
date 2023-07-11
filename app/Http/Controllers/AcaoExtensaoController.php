@@ -64,6 +64,14 @@ class AcaoExtensaoController extends Controller
 
         $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
 
+        if($userNaComissao) {
+            $pendentes_unidade = AcaoExtensao::where('unidade_id', $unidade->id)
+            ->where('status', 'Pendente')
+            ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
+            ->get();
+        } else{
+            $pendentes_unidade = array(null);
+        }
 
         if($userNaComissaoConext) {
             $pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')
@@ -89,10 +97,10 @@ class AcaoExtensaoController extends Controller
             $porcentagem_unidade = 0;
         }
 
-        $total_cadastrados = AcaoExtensao::where('unidade_id', $unidade->id)->count();
-        $total_aprovados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
-        $total_pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')->where('status', 'Pendente')->count();
-        $total_desativados = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Desativado')->count();
+        $total_cadastrados = AcaoExtensao::where('user_id', $user->id)->count();
+        $total_aprovados = AcaoExtensao::where('user_id', $user->id)->where('status', 'Aprovado')->count();
+        $total_pendentes = AcaoExtensao::where('user_id', $user->id)->where('status', 'Pendente')->count();
+        $total_desativados = AcaoExtensao::where('user_id', $user->id)->where('status', 'Desativado')->count();
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
@@ -102,6 +110,7 @@ class AcaoExtensaoController extends Controller
             'userNaComissaoConext' => $userNaComissaoConext,
             'acoes_extensao' => $acoes_extensao,
             'pendentes' => $pendentes,
+            'pendentes_unidade' => $pendentes_unidade,
             'rascunhos' => $rascunhos,
             'total' => $total,
             'total_unidade' => $total_unidade,
@@ -318,7 +327,7 @@ class AcaoExtensaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
-       
+
         $dados = array('user_id' => $user->id);
         $dados['unidade_id'] = $user->unidade_id;
         $dados['nome_coordenador'] = $user->name;
@@ -327,7 +336,7 @@ class AcaoExtensaoController extends Controller
         $dados['municipio_id'] = $request->cidade;
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
-        
+
         if( isset($dados_form['arquivo']) && !is_null($dados_form['arquivo']) ) {
             $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
             if($arquivoExiste) {
@@ -344,7 +353,7 @@ class AcaoExtensaoController extends Controller
         $dados['status_avaliacao_conext'] = null;
         $areasTematicasInsert = array();
         $odsInsert = array();
-        
+
         $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
             $acaoExtensao->user_id = $dados['user_id'];
             $acaoExtensao->modalidade = $dados['modalidade'];
