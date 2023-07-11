@@ -328,7 +328,7 @@ class AcaoExtensaoController extends Controller
         $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->all();
         
-        if( !is_null($dados_form['arquivo']) ) {
+        if( isset($dados_form['arquivo']) && !is_null($dados_form['arquivo']) ) {
             $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
             if($arquivoExiste) {
                 Storage::disk('public')->delete($acaoExtensao->arquivo);
