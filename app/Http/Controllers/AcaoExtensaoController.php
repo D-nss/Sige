@@ -363,7 +363,7 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
             $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
             $acaoExtensao->status = $dados['status'];
-            if(!is_null($dados['arquivo'])) {
+            if(isset($dados_form['arquivo']) && !is_null($dados['arquivo'])) {
                 $acaoExtensao->arquivo = $dados['arquivo'];
             }
             $acaoAtualizada = $acaoExtensao->save();
