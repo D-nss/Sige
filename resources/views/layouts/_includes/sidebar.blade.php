@@ -30,7 +30,7 @@
                             {{Auth::user()->id}}
                         </span>
                     </a>
-                    <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}, {{Str::upper(Auth::user()->unidade)}} </span><br>
+                    <span class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}, @if(isset($user->unidade()->sigla)) {{Str::upper($user->unidade()->sigla)}} @endif </span><br>
                     <a href="/logout" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</a>
                 @else
                     <a href="#" class="d-flex align-items-center text-white">
