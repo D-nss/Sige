@@ -131,7 +131,7 @@
                                                     </button>
                                                 </div>
                                                     <div class="modal-body">
-                                                        {!! nl2br( e($curricularizacao->carta_apresentacao) ) !!}                                                  
+                                                        {!! $curricularizacao->carta_apresentacao !!}                                                  
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
