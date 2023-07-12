@@ -69,7 +69,7 @@ class CheckIsUserMiddleware
             }
         }
 
-        if(!$user->hasRole(['edital-coordenador', 'acoes'])) {
+        if( !$user->hasRole(['edital-coordenador', 'acoes']) && (Auth::user()->employeetype == 'PROFESSOR/PESQUISADOR VISITANTE' || Auth::user()->employeetype == 'Funcionário UNICAMP') ) {
             $user->assignRole('edital-coordenador');
             $user->assignRole('acoes');
         }

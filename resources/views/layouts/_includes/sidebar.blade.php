@@ -130,7 +130,7 @@
                     </li>
                 @endhasanyrole
 
-                @if(Auth::user()->employeetype == "Aluno UNICAMP" || Auth::user()->hasRole('super|admin'))
+                <!-- @if(Auth::user()->employeetype == "Aluno UNICAMP" || Auth::user()->hasRole('super|admin'))
                     <li>
                         <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
@@ -146,7 +146,7 @@
                             </li>
                         </ul>
                     </li>
-                @endif
+                @endif -->
             @endif
 
             @if(Auth::hasUser())
