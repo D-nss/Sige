@@ -30,13 +30,6 @@ class RecursoInscricaoController extends Controller
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
 
-        if( $inscricao->user_id != $user->id || is_null($userNaComissao)) {
-            session()->flash('status', 'Desculpe! Somente o coordenador pode abrir recurso');
-            session()->flash('alert', 'warning');
-
-            return redirect()->back();
-        }
-
         $status = [
             'Aberto' => 'info',
             'Aceito' => 'success',
