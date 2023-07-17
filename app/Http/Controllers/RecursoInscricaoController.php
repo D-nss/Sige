@@ -30,7 +30,7 @@ class RecursoInscricaoController extends Controller
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
 
-        if( $inscricao->user_id != $user->id || !$userNaComissao) {
+        if( $inscricao->user_id != $user->id || $userNaComissao->count() < 1) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode abrir recurso');
             session()->flash('alert', 'warning');
 
