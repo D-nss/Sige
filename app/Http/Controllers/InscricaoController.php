@@ -648,7 +648,7 @@ class InscricaoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
 
-        if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|edital-administrador|super|admin') ) {
+        if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|edital-administrador|super|admin') || !ChecaPublicoAlvo::execute($edital->id) ) {
 
             $inscricoes = Inscricao::where('user_id', $user->id)->where('edital_id', $edital->id)->get();
 
