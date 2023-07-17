@@ -36,7 +36,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter');
     }
     /**
      * Display a listing of the resource.
@@ -605,6 +605,12 @@ class InscricaoController extends Controller
     public function submeter(Inscricao $inscricao, Request $request)
     {
         //$inscricao = Inscricao::findOrFail($id);
+        if( $inscricao->user_id != $user->id ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
 
         if($inscricao->status === 'Submetido') {
             session()->flash('status', 'Inscrição já submetida.');
