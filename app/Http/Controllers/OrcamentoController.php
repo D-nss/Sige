@@ -169,7 +169,7 @@ class OrcamentoController extends Controller
     public function destroy(Orcamento $orcamento)
     {
         $user = User::where('email', Auth::user()->id)->first();
-        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+        if( $orcamento->inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode remover itens do orçamento');
             session()->flash('alert', 'warning');
 
