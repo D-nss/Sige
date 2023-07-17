@@ -17,9 +17,9 @@ class ChecaPublicoAlvo
         $checaUserPublicoAlvo = PublicoAlvo::join('tipos_publico', 'tipos_publico.id', 'publicos_alvo.tipo_publico_id')
         ->where('publicos_alvo.edital_id', $id)
         ->where('tipos_publico.descricao', Auth::user()->employeetype)
-        ->first();
+        ->get(['publicos_alvo.*']);
         
-        if(!$checaUserPublicoAlvo){
+        if(!!$checaUserPublicoAlvo){
             session()->flash('status', 'Desculpe! Você não faz parte do publico alvo!');
             session()->flash('alert', 'warning');
 
