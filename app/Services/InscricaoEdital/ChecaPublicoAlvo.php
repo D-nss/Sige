@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Inscricao;
 use App\Models\User;
 use App\Models\Edital;
+use App\Models\PublicoAlvo;
 
 class ChecaPublicoAlvo
 {
