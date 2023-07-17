@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Inscricao;
 use App\Models\Edital;
 use App\Models\Orcamento;
 use App\Models\TipoItem;
+use App\Models\User;
+
+use App\Services\InscricaoEdital\ChecaPublicoAlvo;
 
 class OrcamentoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-administrador|super');
+        //$this->middleware('role:edital-coordenador|edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -33,6 +37,13 @@ class OrcamentoController extends Controller
      */
     public function create(Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
         //$inscricao = Inscricao::find($id);
         $edital = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao','valor_max_programa','tipo']);
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital[0]['valor_max_programa'] : $edital[0]['valor_max_inscricao'] ;
@@ -56,6 +67,13 @@ class OrcamentoController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
 
         $validated = $request->validate([
             'tipo_item' => 'required|max:190',
@@ -150,6 +168,14 @@ class OrcamentoController extends Controller
      */
     public function destroy(Orcamento $orcamento)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode remover itens do orçamento');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+        
         if($orcamento->delete()) {
             session()->flash('status', 'Item removido com sucesso!');
             session()->flash('alert', 'success');

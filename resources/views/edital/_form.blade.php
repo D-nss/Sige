@@ -39,7 +39,17 @@
             <input type="text" name="valor_max_programa" id="valor_max_programa" class="form-control mb-3" placeholder="R$ 0" value ="{{ isset($edital->valor_max_programa) ? number_format($edital->valor_max_programa, 2, ',', '') : old('valor_max_programa') }}" />
             <p style="color: #D0D3D4;">Preencher somente se o edital contemplar programa, caso contrário deixar em branco.</p>
         </div>
-        
+
+        <div class="mb-3">
+            <label for="publicos_alvo" class="font-weight-bold">Publico Alvo:</label>
+            <select name="publicos_alvo[]" class="form-control mb-1" style="height: 150px;" multiple required>  
+                @foreach($tipos_publico as $tipo_publico)
+                    <option value="{{ $tipo_publico->id }}" @if( (collect(old('publicos_alvo'))->contains($tipo_publico->id)) || (isset($edital->publico_alvo) && $edital->publico_alvo->contains($tipo_publico->id)) ) selected @endif>{{ $tipo_publico->descricao }}</option>
+                @endforeach
+            </select>
+            <span class="text-muted">Mantenha o ctrl pressionado para selecionar vários públicos.</span>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

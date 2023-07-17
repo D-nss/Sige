@@ -58,4 +58,9 @@ class Edital extends Model
     {
         return $this->hasMany(Comissao::class);
     }
+
+    public function publico_alvo()
+    {
+        return $this->belongsToMany(TipoPublico::class, 'publicos_alvo', 'edital_id', 'tipo_publico_id' );
+    }
 }

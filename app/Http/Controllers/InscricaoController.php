@@ -30,12 +30,13 @@ use App\Services\Avaliacao\Parecerista;
 use App\Services\Avaliacao\Subcomissao;
 
 use App\Services\Avaliacao;
+use App\Services\InscricaoEdital\ChecaPublicoAlvo;
 
 class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-administrador|super|admin');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update');
     }
     /**
      * Display a listing of the resource.
@@ -58,6 +59,9 @@ class InscricaoController extends Controller
     public function create($id)
     {
         $user = User::where('email', Auth::user()->id)->first();
+        if(ChecaPublicoAlvo::execute($id)) {
+            return redirect()->back();
+        }
         /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
@@ -104,6 +108,10 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
+        if(ChecaPublicoAlvo::execute($request->edital_id)) {
+            return redirect()->back();
+        }
+
         $inputsParaValidar = $request->except(['estado']);
         $validar = array();
 
@@ -466,6 +474,14 @@ class InscricaoController extends Controller
      */
     public function update(Request $request, Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+        
         $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
@@ -501,8 +517,6 @@ class InscricaoController extends Controller
         $validar['pdf_projeto'] = 'required|file|max:5120|mimes:pdf';
 
         $validated = $request->validate($validar,$mensagens);
-
-        $user = User::where('email', Auth::user()->id)->first();
 
         //$inscricao = Inscricao::findOrFail($id);
         $areasTematicasInsert = array();
@@ -754,5 +768,5 @@ class InscricaoController extends Controller
 
             return redirect()->back();
         }
-    }
+    }  
 }

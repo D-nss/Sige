@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\SubcomissaoTematica;
 use App\Models\Inscricao;
 use App\Models\RespostasAvaliacoes;
+use App\Models\TipoPublico;
 
 class EditalController extends Controller
 {
@@ -57,8 +58,8 @@ class EditalController extends Controller
      */
     public function create()
     {
-
-        return view('edital.create');
+        $tipos_publico = TipoPublico::all();
+        return view('edital.create', compact('tipos_publico'));
     }
 
     /**
@@ -88,6 +89,8 @@ class EditalController extends Controller
             }
         }
 
+        $validar['publicos_alvo'] = 'required';
+
         $validated = $request->validate($validar);
 
         $uploaded = new UploadFile();
@@ -102,6 +105,18 @@ class EditalController extends Controller
             'anexo_edital' => $uploaded->execute($request, 'anexo_edital', 'pdf', 5000000), //chama o função execute da model UploadFile e faz o upload do arquivo
             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 5000000) : '',
         ]);
+
+        $publicos = [];
+        foreach($request->publicos_alvo as $publico) {
+            array_push($publicos, [
+                'tipo_publico_id' => $publico,
+                'edital_id'       => $edital->id,
+                'created_at'      => date('Y-m-d H:i:s'),
+                'updated_at'      => date('Y-m-d H:i:s')
+            ]);
+        }
+
+        DB::table('publicos_alvo')->insert($publicos);
 
         if($edital) {
 
@@ -137,8 +152,8 @@ class EditalController extends Controller
      */
     public function edit(Edital $edital)
     {
-        
-        return view('edital.edit', compact('edital'));
+        $tipos_publico = TipoPublico::all();
+        return view('edital.edit', compact('edital', 'tipos_publico'));
         
     }
 
@@ -169,6 +184,8 @@ class EditalController extends Controller
             }
         }
 
+        $validar['publicos_alvo'] = 'required';
+
         $validated = $request->validate($validar);
 
         $uploaded = new UploadFile();
@@ -184,6 +201,20 @@ class EditalController extends Controller
                             'anexo_edital' => !!$request->anexo_edital ? $uploaded->execute($request, 'anexo_edital', 'pdf', 3000000) : $edital->anexo_edital,
                             'anexo_imagem' => !!$request->anexo_imagem ? $uploaded->execute($request, 'anexo_imagem', 'png', 3000000) : $edital->anexo_imagem,
                         ]);
+
+        DB::table('publicos_alvo')->where('edital_id', $edital->id)->delete();
+
+        $publicos = [];
+        foreach($request->publicos_alvo as $publico) {
+            array_push($publicos, [
+                'tipo_publico_id' => $publico,
+                'edital_id'       => $edital->id,
+                'created_at'      => date('Y-m-d H:i:s'),
+                'updated_at'      => date('Y-m-d H:i:s')
+            ]);
+        }
+
+        DB::table('publicos_alvo')->insert($publicos);
 
         if($editalUpdated) {
 
