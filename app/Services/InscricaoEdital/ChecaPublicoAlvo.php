@@ -18,12 +18,12 @@ class ChecaPublicoAlvo
         ->where('publicos_alvo.edital_id', $id)
         ->where('tipos_publico.descricao', Auth::user()->employeetype)
         ->get(['publicos_alvo.*']);
-        echo json_encode($checaUserPublicoAlvo);
-        // if(!!$checaUserPublicoAlvo){
-        //     session()->flash('status', 'Desculpe! Você não faz parte do publico alvo!');
-        //     session()->flash('alert', 'warning');
+        
+        if($checaUserPublicoAlvo->count() < 1){
+            session()->flash('status', 'Desculpe! Você não faz parte do publico alvo!');
+            session()->flash('alert', 'warning');
 
-        //     return true;
-        // }
+            return true;
+        }
     }
 }
