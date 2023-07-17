@@ -36,7 +36,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario');
     }
     /**
      * Display a listing of the resource.

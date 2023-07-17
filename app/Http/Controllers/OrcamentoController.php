@@ -37,13 +37,13 @@ class OrcamentoController extends Controller
      */
     public function create(Inscricao $inscricao)
     {
-        $user = User::where('email', Auth::user()->id)->first();
-        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
-            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
-            session()->flash('alert', 'warning');
+        // $user = User::where('email', Auth::user()->id)->first();
+        // if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+        //     session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+        //     session()->flash('alert', 'warning');
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
         //$inscricao = Inscricao::find($id);
         $edital = Edital::where('id', $inscricao->edital_id)->get(['valor_max_inscricao','valor_max_programa','tipo']);
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $edital[0]['valor_max_programa'] : $edital[0]['valor_max_inscricao'] ;
