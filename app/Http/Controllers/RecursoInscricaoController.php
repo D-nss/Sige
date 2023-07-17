@@ -30,7 +30,7 @@ class RecursoInscricaoController extends Controller
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
 
-        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador')) {
+        if( $inscricao->user_id != $user->id || !$userNaComissao) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode abrir recurso');
             session()->flash('alert', 'warning');
 
