@@ -605,6 +605,7 @@ class InscricaoController extends Controller
     public function submeter(Inscricao $inscricao, Request $request)
     {
         //$inscricao = Inscricao::findOrFail($id);
+        $user = User::where('email', Auth::user()->id)->first();
         if( $inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
             session()->flash('alert', 'danger');
