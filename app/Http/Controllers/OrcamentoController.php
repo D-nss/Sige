@@ -69,7 +69,7 @@ class OrcamentoController extends Controller
     {
         $user = User::where('email', Auth::user()->id)->first();
         $inscricao = Inscricao::find($request->inscricao_id);
-        if( $inscricao->user_id != $user->id || !$user->hasRole('edital-administrador') ) {
+        if( $inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
             session()->flash('alert', 'warning');
 
