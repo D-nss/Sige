@@ -4,6 +4,7 @@ namespace App\Services\InscricaoEdital;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Inscricao;
 use App\Models\User;
@@ -18,6 +19,14 @@ class ChecaPublicoAlvo
         ->where('publicos_alvo.edital_id', $id)
         ->where('tipos_publico.descricao', Auth::user()->employeetype)
         ->get(['publicos_alvo.*']);
+
+        Log::info('Usuario: {user} ( {email} ) - Tipo do Usuario: {employeetype}', 
+            [
+                'email' => Auth::user()->id,
+                'user' => Auth::user()->name,
+                'employeetype' => Auth::user()->employeetype
+            ]
+        );
         
         if($checaUserPublicoAlvo->count() < 1){
             session()->flash('status', 'Desculpe! Você não faz parte do publico alvo!');
