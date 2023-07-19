@@ -20,7 +20,7 @@ class ChecaPublicoAlvo
         ->where('tipos_publico.descricao', Auth::user()->employeetype)
         ->get(['publicos_alvo.*']);
 
-        Log::info('Usuario: {user} ( {email} ) - Tipo do Usuario: {employeetype}', 
+        Log::info('Usuario: ', 
             [
                 'email' => Auth::user()->id,
                 'user' => Auth::user()->name,
