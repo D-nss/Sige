@@ -666,51 +666,63 @@
                                     <div class="p-0">
                                         <h5>
                                             Resultados e Conclusão
-                                            <small class="mt-0 mb-3">
-                                                <a href="{{ url('storage/' . $inscricao->arquivo_relatorio) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
-                                            </small>
+                                            @if(isset($inscricao->arquivo_relatorio))
+                                                <small class="mt-0 mb-3">
+                                                    <a href="{{ url('storage/' . $inscricao->arquivo_relatorio) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
+                                                </small>
+                                            @endif
                                         </h5>
                                     </div>
                                     <div class="p-0">
                                         <h5>
                                         Total Orçado
-                                            <small class="mt-0 mb-3 text-primary">
-                                            R$ {{ number_format($inscricao->orcamento->sum('valor'), 2, ',', '.' )}}
-                                            </small>
+                                            @if(isset($inscricao->orcamento->count() > 0))
+                                                <small class="mt-0 mb-3 text-primary">
+                                                R$ {{ number_format($inscricao->orcamento->sum('valor'), 2, ',', '.' )}}
+                                                </small>
+                                            @endif
                                         </h5>
                                     </div>
                                     <div class="p-0">
                                         <h5>
                                         Total Orçamento Realizado
-                                            <small class="mt-0 mb-3 text-primary">
-                                            R$ {{ number_format($inscricao->total_orcamento_realizado, 2, ',', '.' )}}
-                                            </small>
+                                            @if(isset($inscricao->total_orcamento_realizado))
+                                                <small class="mt-0 mb-3 text-primary">
+                                                R$ {{ number_format($inscricao->total_orcamento_realizado, 2, ',', '.' )}}
+                                                </small>
+                                            @endif
                                         </h5>
                                     </div>
                                     <div class="mt-3" style="width: 160px">
                                         <div class="p-0">
                                             <h6 class="bg-warning-200 p-3">
                                             Saldo
+                                            @if(isset($inscricao->total_orcamento_realizado))
                                                 <small class="mt-0 mb-1 fs-xl">
                                                 R$ {{ number_format($inscricao->orcamento->sum('valor') - $inscricao->total_orcamento_realizado, 2, ',', '.') }}
                                                 </small>
+                                            @endif
                                             </h6>
                                         </div>
                                     </div>
                                     <div class="p-0">
                                         <h5>
                                             Justificativa do Orçamento Realizado
-                                            <small class="mt-0 mb-3">
-                                            {{ $inscricao->justificativa_orcamento_realizado }}
-                                            </small>
+                                            @if(isset($inscricao->justificativa_orcamento_realizado))
+                                                <small class="mt-0 mb-3">
+                                                {{ $inscricao->justificativa_orcamento_realizado }}
+                                                </small>
+                                            @endif
                                         </h5>
                                     </div>
                                     <div class="p-0">
                                         <h5>
                                             Comprovante Prestação de contas
+                                            @if(isset($inscricao->arquivo_prestacao_contas))
                                             <small class="mt-0 mb-3">
                                                 <a href="{{ url('storage/' . $inscricao->arquivo_prestacao_contas) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
                                             </small>
+                                            @endif
                                         </h5>
                                     </div>
                                     <div class="table-responsive">

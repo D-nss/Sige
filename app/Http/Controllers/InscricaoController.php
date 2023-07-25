@@ -40,7 +40,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
+        //$this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
     }
     /**
      * Display a listing of the resource.

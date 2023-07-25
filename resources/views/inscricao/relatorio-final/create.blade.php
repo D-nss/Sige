@@ -43,8 +43,9 @@
             <span>
                 Seu relatório final está com todas as fases preenchidas, certifique-se de que está tudo correto e envie para aprovação.
             </span>
-            <form action="" method="post">
-                <button class="btn btn-warning">Enviar</button>
+            <form action="{{route('edital.relatorio-final.enviar_aprovacao', ['inscricao' => $inscricao])}}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-warning">Enviar</button>
             </form>
         </div>
         @endif
