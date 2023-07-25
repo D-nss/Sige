@@ -43,6 +43,7 @@ use App\Http\Controllers\EventoEquipeController;
 use App\Http\Controllers\PalestranteController;
 use App\Http\Controllers\AcaoExtensaoCurricularizacaoParticipacaoController;
 use App\Http\Controllers\ExtensaoEquipeController;
+use App\Http\Controllers\EditalPartipantesProjetoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -293,12 +294,17 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/{inscricao}/submeter', [InscricaoController::class, 'submeter']);
     Route::post('/inscricao/{inscricao}/contemplar', [InscricaoController::class, 'contemplar']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
+    Route::get('/inscricao/relatorio_final/{inscricao}', [InscricaoController::class, 'relatorioFinalCriar']);
+    Route::post('/inscricao/relatorio_final/{inscricao}/upload', [InscricaoController::class, 'relatorioFinalUpload'])->name('edital.relatorio-final.upload');
+    Route::post('/inscricao/relatorio_final/{inscricao}/despesas', [InscricaoController::class, 'relatorioFinalComprovarDespesas'])->name('edital.relatorio-final.despesas');
+    Route::post('/inscricao/relatorio_final/{inscricao}/participantes', [EditalPartipantesProjetoController ::class, 'store'])->name('edital.relatorio-final.participantes');
 
     Route::post('/upload-arquivo', [UploadArquivoController::class, 'store']);
     Route::delete('/upload-arquivo/{arquivo}', [UploadArquivoController::class, 'destroy']);
 
     Route::post('/edital/{edital}/classificar', [EditalController::class, 'classificar']);
     Route::get('/edital/{edital}/listar-classificados', [EditalController::class, 'listarClassificados']);
+    //Route::post('/edital/{edital}/gerar-termos', [InscricaoController::class, 'gerarTermos'])->name('editais.gerar-termos');
     Route::get('/edital/{edital}/inscricoes', [InscricaoController::class, 'inscricoesPorEdital']);
 
     Route::get('/inscricao/{inscricao}/orcamento', [OrcamentoController::class, 'create']);
@@ -319,7 +325,6 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('notificacoes', [NotificationController::class, 'index'])->name('notificacoes.index');
     Route::get('notificacao/{id}', [NotificationController::class, 'show'])->name('notificacao.show');
     Route::post('notificacoes/marcar-como-lida', [NotificationController::class, 'markAsRead'])->name('marcar.como.lida');
-
 });
 
 /*

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use PDF;
+use ZipArchive;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 
 use App\Models\Arquivo;
 use App\Models\Edital;
@@ -36,7 +40,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
     }
     /**
      * Display a listing of the resource.
@@ -147,7 +151,7 @@ class InscricaoController extends Controller
 
         $validar['areas_tematicas'] = 'required';
         $validar['obj_desenvolvimento_sustentavel'] = 'required';
-        $validar['pdf_projeto'] = 'required|file|max:5120|mimes:pdf';
+        $validar['pdf'] = 'required|file|max:5120|mimes:pdf';
         $validar['link_lattes'] = 'max:190';
         $validar['link_projeto'] = 'max:190';
         $validar['cidade'] = 'required';
@@ -775,5 +779,84 @@ class InscricaoController extends Controller
 
             return redirect()->back();
         }
-    }  
+    }
+
+    public function relatorioFinalCriar(Inscricao $inscricao)
+    {
+        $dtInicioExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_inicio_execucao')->get('data');
+        $inicioExecucao = Carbon::createMidnightDate($dtInicioExecucao[0]['data']);
+        $dtFimExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_fim_execucao')->get('data');
+        $fimExecucao = Carbon::createMidnightDate($dtFimExecucao[0]['data']);
+        $realizacao = $inicioExecucao->diffInMonths($fimExecucao);
+
+        return view('inscricao.relatorio-final.create', compact('inscricao', 'realizacao'));
+    }
+
+    public function relatorioFinalUpload(Request $request, Inscricao $inscricao)
+    {
+        $validated = $request->validate([
+            'arquivo_relatorio' => 'required|file|max:5120|mimes:pdf',
+        ]);
+
+        $upload = new UploadFile();
+        $inscricao->arquivo_relatorio = $upload->execute($request, 'arquivo_relatorio', 'pdf', 5000000);
+
+        if($inscricao->update()) {
+            session()->flash('status', 'Arquivo enviado com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar o arquivo!');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+    }
+
+    public function relatorioFinalComprovarDespesas(Request $request, Inscricao $inscricao)
+    {
+        $validated = $request->validate([
+            'arquivo_comprovante' => 'required|file|max:5120|mimes:pdf',
+            'total_orcamento_realizado' => 'required',
+            'justificativa_orcamento_realizado' => 'required|max:1000',
+        ]);
+
+        $upload = new UploadFile();
+        $inscricao->arquivo_prestacao_contas = $upload->execute($request, 'arquivo_comprovante', 'pdf', 5000000);
+        $inscricao->total_orcamento_realizado = str_replace(',', '.', str_replace('.', '', $request->total_orcamento_realizado));
+        $inscricao->justificativa_orcamento_realizado = $request->justificativa_orcamento_realizado;
+
+        if($inscricao->update()) {
+            session()->flash('status', 'Dados enviado com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar o dados!');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+    }
+
+    public function relatorioFinalEnviarAprovacao(Inscricao $inscricao)
+    {
+        $inscricao->status = 'Relatório em Análise';
+
+        if($inscricao->update()) {
+            session()->flash('status', 'Relatório enviado para análise com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao enviar o relatório!');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to("inscricao/$inscricao->id");
+        }
+    }
 }

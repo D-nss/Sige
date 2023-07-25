@@ -398,6 +398,7 @@
                                             <input type="file" name="arquivo-anexo" class="dropzone" id="arquivo" value="" required>
 
                                         </div>
+                                        <p class="text-muted">O arquivo deve ser no formato PDF e ter 5MB de tamanho</p>
                                         <input type="hidden" name="modulo" value="editais">
                                         <input type="hidden" name="referencia_id" value="{{ $inscricao->id }}">
                                         <button class="btn btn-success mt-3">Enviar</button>
@@ -634,6 +635,111 @@
                                             {{ !is_null($inscricao->recurso) && !is_null($inscricao->recurso->user) ? $inscricao->recurso->user->name : ''}}
                                             </small>
                                         </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingRecurso">
+                            <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseRelatorioFinal" aria-expanded="false" aria-controls="collapseRelatorioFinal">
+                                <div class='icon-stack display-3 flex-shrink-0'>       
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-dark-400"></i>
+                                    <i class="far fa-clipboard-list-check icon-stack-1x opacity-100 color-dark-500"></i>
+                                </div>
+                                <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
+                                    Relatório Final
+                                </h4>
+                                <span class="ml-auto">
+                                    <span class="collapsed-reveal">
+                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    </span>
+                                    <span class="collapsed-hidden">
+                                        <i class="fal fa-plus-circle text-success"></i>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div id="collapseRelatorioFinal" class="collapse" aria-labelledby="headingRecurso" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="col-12">
+                                    <div class="p-0">
+                                        <h5>
+                                            Resultados e Conclusão
+                                            <small class="mt-0 mb-3">
+                                                <a href="{{ url('storage/' . $inscricao->arquivo_relatorio) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="p-0">
+                                        <h5>
+                                        Total Orçado
+                                            <small class="mt-0 mb-3 text-primary">
+                                            R$ {{ number_format($inscricao->orcamento->sum('valor'), 2, ',', '.' )}}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="p-0">
+                                        <h5>
+                                        Total Orçamento Realizado
+                                            <small class="mt-0 mb-3 text-primary">
+                                            R$ {{ number_format($inscricao->total_orcamento_realizado, 2, ',', '.' )}}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="mt-3" style="width: 160px">
+                                        <div class="p-0">
+                                            <h6 class="bg-warning-200 p-3">
+                                            Saldo
+                                                <small class="mt-0 mb-1 fs-xl">
+                                                R$ {{ number_format($inscricao->orcamento->sum('valor') - $inscricao->total_orcamento_realizado, 2, ',', '.') }}
+                                                </small>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="p-0">
+                                        <h5>
+                                            Justificativa do Orçamento Realizado
+                                            <small class="mt-0 mb-3">
+                                            {{ $inscricao->justificativa_orcamento_realizado }}
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="p-0">
+                                        <h5>
+                                            Comprovante Prestação de contas
+                                            <small class="mt-0 mb-3">
+                                                <a href="{{ url('storage/' . $inscricao->arquivo_prestacao_contas) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
+                                            </small>
+                                        </h5>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mt-4">
+                                            <thead class="thead-light ">
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Categoria</th>
+                                                    <th>RA</th>
+                                                    <th>Unidade</th>
+                                                    <th>Instituição</th>
+                                                    <th>Carga Semanal</th>
+                                                    <th>Carga Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($inscricao->participantes as $participante)
+                                                <tr>
+                                                    <td>{{ $participante->nome }}</td>
+                                                    <td>{{ $participante->categoria }}</td>
+                                                    <td>{{ $participante->ra }}</td>
+                                                    <td>{{ $participante->unidade }}</td>
+                                                    <td>{{ $participante->instituicao }}</td>
+                                                    <td>{{ $participante->carga_semanal }}</td>
+                                                    <td>{{ $participante->carga_total }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

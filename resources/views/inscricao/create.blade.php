@@ -174,7 +174,7 @@
                                             </div>
                                             <input type="file" name="comprovante_parceria" class="dropzone" id="comprovante_arquivo" value="{{ old('comprovante_parceria') }}">
                                         </div>
-                                        <p class="text-warning font-size-16">O comprovante deve ser no formato PDF</p>
+                                        <p class="text-muted">O arquivo deve ser no formato PDF e ter 5MB de tamanho</p>
                                     </div>
 
                                     <hr class="border-top border-bottom">
@@ -252,7 +252,7 @@
                                         <input type="file" name="pdf_projeto" class="dropzone" id="projeto_arquivo" value="" @if(isset($inscricao->anexo_projeto)) required="false" @else required="true" @endif value="{{ old('pdf_projeto') }}">
 
                                     </div>
-                                    <p class="text-warning font-size-16">O projeto deve ter no máximo 20 páginas e ser no formato PDF</p>
+                                    <p class="text-muted">O arquivo deve ser no formato PDF e ter 5MB de tamanho</p>
                                 </div>
                                 <div id="step-2" class="tab-pane" role="tabpanel">
                                     <h3 class="text-success">Detalhamento</h3>

@@ -207,6 +207,9 @@ return [
         'email_coordenador' => 'e-mail ',
         'vinculo_coordenador' => 'vínculo',
         'tipo_parceiro_id' => 'tipo',
+        'arquivo_relatorio' => 'arquivo dos resultados e da conclusão',
+        'arquivo_comprovante' => 'arquivo dos comprovantes',
+        'despesas-realizadas' => 'total de despesas realizadas',
     ],
 
 ];

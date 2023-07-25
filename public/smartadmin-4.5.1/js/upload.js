@@ -1,7 +1,7 @@
 // Code By Webdevtrick ( https://webdevtrick.com )
 function readFile(input, id) {
     if (input.files && input.files[0]) {
-      if(/*input.files[0].type == 'application/pdf' &&*/ input.files[0].size <= 30000000) {
+      if(/*input.files[0].type == 'application/pdf' &&*/ input.files[0].size <= 5000000) {
         
         var reader = new FileReader();
     
@@ -25,7 +25,7 @@ function readFile(input, id) {
         $('#alert-pdf-format').html('');
       }
       else {
-        $('#alert-pdf-format').html('<span class="text-warning font-size-14">Desculpe! O arquivo deve ter no máximo 30MB.</span>');
+        $('#alert-pdf-format').html('<span class="text-warning fw-500">Desculpe! O arquivo deve ter no máximo 5MB.</span>');
         $('.box-body').empty();
         $('.preview-zone').addClass('hidden');
       }
@@ -49,6 +49,14 @@ function readFile(input, id) {
     readFile(this, 'box-body');
   });
    
+  $("#arquivo_relatorio").change(function() {
+    readFile(this, 'relatorio-box-body');
+  });
+
+  $("#arquivo_comprovante").change(function() {
+    readFile(this, 'comprovante-box-body');
+  });
+
   $("#comprovante_arquivo").change(function() {
     readFile(this, 'comprovante-box-body');
   });

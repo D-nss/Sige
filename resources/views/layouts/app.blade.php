@@ -1095,6 +1095,7 @@ Versão: 4.5.1
                 $('#valor_max_inscricao').mask("#.##0,00", {reverse: true});
                 $('#valor_max_programa').mask("#.##0,00", {reverse: true});
                 $('#valor').mask("#.##0,00", {reverse: true});
+                $('#total_orcamento_realizado').mask("#.##0,00", {reverse: true});
 
                 $('#investimento').mask("#.##0,00", {reverse: true});
 
@@ -1609,6 +1610,25 @@ Versão: 4.5.1
                 } else {
                     $('#curricularizacao_justificativa').addClass( "d-none" );
                 }
+            });
+
+            let divAtual = 1;
+            const numDivs = 3;
+
+            $('#btn-anterior').click(function(){
+                $('#div' + divAtual).addClass('d-none');
+                $('#step' + divAtual).addClass('opacity-50');
+                divAtual = (divAtual - 1) <= 0 ? numDivs : (divAtual - 1);
+                $('#div' + divAtual).removeClass('d-none');
+                $('#step' + divAtual).removeClass('opacity-50');
+            });
+
+            $('#btn-proximo').click(function(){
+                $('#div' + divAtual).addClass('d-none');
+                $('#step' + divAtual).addClass('opacity-50');
+                divAtual = (divAtual + 1) > numDivs ? 1 : (divAtual + 1);
+                $('#div' + divAtual).removeClass('d-none');
+                $('#step' + divAtual).removeClass('opacity-50');
             });
 
         </script>

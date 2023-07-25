@@ -119,4 +119,9 @@ class Inscricao extends Model
         return $this->hasMany(Comentario::class);
     }
 
+    public function participantes()
+    {
+        return $this->hasMany(EditalParticipanteProjeto::class);
+    }
+
 }
