@@ -10,6 +10,7 @@ use PDF;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 use App\Models\Arquivo;
 use App\Models\Edital;
@@ -35,6 +36,8 @@ use App\Services\Avaliacao\Subcomissao;
 
 use App\Services\Avaliacao;
 use App\Services\InscricaoEdital\ChecaPublicoAlvo;
+
+use App\Notifications\EditalRealtorioFinalComissaoNotificar;
 
 class InscricaoController extends Controller
 {
@@ -847,6 +850,14 @@ class InscricaoController extends Controller
         $inscricao->status = 'Relatório em Análise';
 
         if($inscricao->update()) {
+            $users  = User::join('comissoes_users', 'comissoes_users.user_id', 'users.id')
+            ->join('comissoes', 'comissoes_users.comissao_id', 'comissoes.id')
+            ->where('comissoes.edital_id', $inscricao->edital_id)
+            ->get(['users.email']);
+
+            Notification::send($users, new EditalRealtorioFinalComissaoNotificar($inscricao));
+            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Inscrição "'. $inscricao->titulo .'" enviada para aprovação do relatório final  - Endereço IP: ' . $request->ip());
+            
             session()->flash('status', 'Relatório enviado para análise com sucesso!');
             session()->flash('alert', 'success');
 
