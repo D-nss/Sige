@@ -786,6 +786,14 @@ class InscricaoController extends Controller
 
     public function relatorioFinalCriar(Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         $dtInicioExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_inicio_execucao')->get('data');
         $inicioExecucao = Carbon::createMidnightDate($dtInicioExecucao[0]['data']);
         $dtFimExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_fim_execucao')->get('data');
@@ -797,6 +805,14 @@ class InscricaoController extends Controller
 
     public function relatorioFinalUpload(Request $request, Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         $validated = $request->validate([
             'arquivo_relatorio' => 'required|file|max:5120|mimes:pdf',
         ]);
@@ -820,6 +836,14 @@ class InscricaoController extends Controller
 
     public function relatorioFinalComprovarDespesas(Request $request, Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         $validated = $request->validate([
             'arquivo_comprovante' => 'required|file|max:5120|mimes:pdf',
             'total_orcamento_realizado' => 'required',
@@ -845,8 +869,16 @@ class InscricaoController extends Controller
         }
     }
 
-    public function relatorioFinalEnviarAprovacao(Inscricao $inscricao)
+    public function relatorioFinalEnviarAprovacao(Request $request, Inscricao $inscricao)
     {
+        $user = User::where('email', Auth::user()->id)->first();
+        if( $inscricao->user_id != $user->id ) {
+            session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         $inscricao->status = 'Relatório em Análise';
 
         if($inscricao->update()) {
