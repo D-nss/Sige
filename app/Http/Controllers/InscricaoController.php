@@ -331,7 +331,8 @@ class InscricaoController extends Controller
                 'Avaliado' => 'success',
                 'Indeferido' => 'danger',
                 'Desclassificado' => 'danger',
-                'Contemplado' => 'success'
+                'Contemplado' => 'success',
+                'Relatório em Análise' => 'warning'
             ];
 
             return view('inscricao.show-novo', compact(
@@ -408,7 +409,8 @@ class InscricaoController extends Controller
             'Avaliado' => 'success',
             'Indeferido' => 'danger',
             'Desclassificado' => 'danger',
-            'Contemplado' => 'success'
+            'Contemplado' => 'success',
+            'Relatório em Análise' => 'warning'
         ];
         
         return view('inscricao.show-completo', 
@@ -674,7 +676,8 @@ class InscricaoController extends Controller
                 'Avaliado' => 'success',
                 'Indeferido' => 'danger',
                 'Desclassificado' => 'danger',
-                'Contemplado' => 'success'
+                'Contemplado' => 'success',
+                'Relatório em Análise' => 'warning'
             ];
 
             $cronograma = new Cronograma();
@@ -707,7 +710,8 @@ class InscricaoController extends Controller
             'Avaliado' => 'primary',
             'Indeferido' => 'danger',
             'Desclassificado' => 'danger',
-            'Contemplado' => 'success'
+            'Contemplado' => 'success',
+            'Relatório em Análise' => 'warning'
         ];
 
         /* lista todas as inscrições se o user for administrador */
