@@ -676,7 +676,7 @@
                                     <div class="p-0">
                                         <h5>
                                         Total Orçado
-                                            @if(isset($inscricao->orcamento->count() > 0))
+                                            @if($inscricao->orcamento->count() > 0)
                                                 <small class="mt-0 mb-3 text-primary">
                                                 R$ {{ number_format($inscricao->orcamento->sum('valor'), 2, ',', '.' )}}
                                                 </small>
