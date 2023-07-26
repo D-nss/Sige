@@ -34,6 +34,17 @@
             Recurso
         </a>
     @endif
+    @if(
+            $inscricao->status == 'Contemplado' 
+            && 
+            strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) 
+            && 
+            strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)
+        )
+        <a href='{{ url("inscricao/relatorio_final/$inscricao->id") }}' class="btn btn-outline-info btn-xs m-1">
+            Relatório Final
+        </a>
+    @endif
     @if( $user->hasAnyRole('edital-administrador') && $inscricao->status == 'Avaliado' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_resultado', $inscricao->edital_id)) )
     <button type="button" class="btn btn-success btn-xs my-1" data-toggle="modal" data-target="#default-example-modal-sm-center"><i class="far fa-dollar-sign"></i> Contemplar</button>
     <!-- Modal center Small -->
