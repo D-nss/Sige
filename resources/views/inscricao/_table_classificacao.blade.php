@@ -1,5 +1,4 @@
-<!-- <form action="{{ route('editais.gerar-termos', ['edital' => $edital]) }}" method="POST">
-@csrf -->
+
     <table class="table table-bordered table-hover" id="dt-classificados" style="width: 100%">
         <thead>
             <tr>
@@ -35,5 +34,3 @@
             @endforeach
         </tbody>
     </table>
-    <!-- <button type="submit" class="btn btn-primary">Gerar Termos</button>
-</form> -->
