@@ -109,6 +109,8 @@
                             <div id="collapseRelatorioFinal" class="collapse" aria-labelledby="headingRecurso" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="col-12">
+                                        {{ var_dump($userNaComissao) }}
+                                        {{ var_dump(strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) }}
                                         @if( $userNaComissao && $inscricao->status == 'Relatório em Análise' && strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) )
                                             <div class="alert alert-warning fs-lg">
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#avaliarRelatorio">Avaliar Relatório</button>
