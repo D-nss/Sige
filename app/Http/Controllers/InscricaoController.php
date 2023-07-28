@@ -938,13 +938,13 @@ class InscricaoController extends Controller
             $inscricao->user->notify(new \App\Notifications\InscricaoAnaliseRelatorioFinalNotificar($inscricao));
             Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Inscrição "'. $inscricao->titulo .'" efetuado análise do relatório final  - Endereço IP: ' . $request->ip());
             
-            session()->flash('status', 'Relatório enviado para análise com sucesso!');
+            session()->flash('status', 'Relatório analisado com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
-            session()->flash('status', 'Desculpe! Houve erro ao enviar o relatório!');
+            session()->flash('status', 'Desculpe! Houve erro ao analisar o relatório!');
             session()->flash('alert', 'warning');
 
             return redirect()->to("inscricao/$inscricao->id");
