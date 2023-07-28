@@ -18,9 +18,6 @@
                 <td>
                     <h3 class="fw-700 text-primary">
                         {{ $inscricao->titulo }} 
-                        @if($inscricao->status == 'Relatório em Análise')
-                            <small class="fw-300 color-warning-500"><i class="fal fa-exclamation-circle"></i><i> Análise pendente!</i></small>
-                        @endif
                     </h3>
                     
                     <small class="font-italic font-color-light">Linhas de Extensão: {{ isset($inscricao->linha_extensao->nome) ? $inscricao->linha_extensao->nome : '' }}</small>
