@@ -1,6 +1,6 @@
 <div class="">
     @if($user->hasAnyRole('super','edital-administrador'))
-        <div class="d-flex flex-column">
+        <div class="d-flex">
             <a href='{{ url("inscricao/show-completo/$inscricao->id") }}' class="btn btn-info btn-xs m-1">
                 <i class="far fa-eye"></i> 
                 Visualização completa
