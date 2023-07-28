@@ -298,7 +298,8 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/relatorio_final/{inscricao}/upload', [InscricaoController::class, 'relatorioFinalUpload'])->name('edital.relatorio-final.upload');
     Route::post('/inscricao/relatorio_final/{inscricao}/despesas', [InscricaoController::class, 'relatorioFinalComprovarDespesas'])->name('edital.relatorio-final.despesas');
     Route::post('/inscricao/relatorio_final/{inscricao}/participantes', [EditalPartipantesProjetoController ::class, 'store'])->name('edital.relatorio-final.participantes');
-    Route::post('/inscricao/relatorio_final/{inscricao}/relatorio_final_enviar_aprovacao', [InscricaoController ::class, 'relatorioFinalEnviarAprovacao'])->name('edital.relatorio-final.enviar_aprovacao');
+    Route::post('/inscricao/relatorio_final/{inscricao}/enviar_aprovacao', [InscricaoController ::class, 'relatorioFinalEnviarAprovacao'])->name('edital.relatorio-final.enviar_aprovacao');
+    Route::post('/inscricao/relatorio_final/{inscricao}/analisar', [InscricaoController ::class, 'analisarRelatorioFinal'])->name('edital.relatorio-final.analisar');
 
     Route::post('/upload-arquivo', [UploadArquivoController::class, 'store']);
     Route::delete('/upload-arquivo/{arquivo}', [UploadArquivoController::class, 'destroy']);

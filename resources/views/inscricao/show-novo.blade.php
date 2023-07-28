@@ -33,9 +33,13 @@
 <div class="container-fluid">
     
      <div class="col-md-12">
-
-        <div class="card row">
-                                                
+        @if( $userNaComissao && $inscricao->status == 'Relatório em Análise' && strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) )
+        <div class="alert alert-warning fs-lg">
+            Pendente de análise do relatório final
+        </div>
+        @endif
+        <div class="card row">  
+            
             <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="demo">
@@ -71,15 +75,200 @@
                                             
             <div class="frame-wrap w-100">
                 <div class="accordion" id="accordionExample">
+                    @if(
+                        isset($inscricao->arquivo_relatorio) 
+                        && 
+                        $inscricao->participantes->count() > 0 
+                        && 
+                        isset($inscricao->total_orcamento_realizado) 
+                        && 
+                        isset($inscricao->justificativa_orcamento_realizado) 
+                        && 
+                        isset($inscricao->arquivo_prestacao_contas)
+                    )
+                        <div class="card">
+                            <div class="card-header" id="headingRecurso">
+                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseRelatorioFinal" aria-expanded="false" aria-controls="collapseRelatorioFinal">
+                                    <div class='icon-stack display-3 flex-shrink-0'>       
+                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                        <i class="far fa-clipboard-list-check icon-stack-1x opacity-100 color-info-500"></i>
+                                    </div>
+                                    <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
+                                        Relatório Final
+                                    </h4>
+                                    <span class="ml-auto">
+                                        <span class="collapsed-reveal">
+                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        </span>
+                                        <span class="collapsed-hidden">
+                                            <i class="fal fa-plus-circle text-success"></i>
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div id="collapseRelatorioFinal" class="collapse" aria-labelledby="headingRecurso" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="col-12">
+                                        @if( $userNaComissao && $inscricao->status == 'Relatório em Análise' && strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) )
+                                            <div class="alert alert-warning fs-lg">
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#avaliarRelatorio">Avaliar Relatório</button>
+                                                
+                                            </div>
+                                            <div class="modal" tabindex="-1" id="avaliarRelatorio">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form action="{{ route('edital.relatorio-final.analisar', ['inscricao' => $inscricao]) }}" method="post">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Analisar Relatório Final</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="">Status</label>
+                                                                    <select class="form-control" name="relatorio_final_status">
+                                                                        <option value="">Selecione ...</option>
+                                                                        <option value="Aceito">Aceito</option>
+                                                                        <option value="Negado">Negado</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Observação</label>
+                                                                    <textarea class="form-control" name="relatorio_final_observacao" id="" rows="10"></textarea>
+                                                                </div>                                                            
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">Enviar</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="p-0">
+                                            <h5>
+                                                Resultados e Conclusão
+                                                <small class="mt-0 mb-3">
+                                                    <a href="{{ url('storage/' . $inscricao->arquivo_relatorio) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        <div class="p-0">
+                                            <h5>
+                                            Total Orçado
+                                                <small class="mt-0 mb-3 text-primary">
+                                                R$ {{ number_format($inscricao->orcamento->sum('valor'), 2, ',', '.' )}}
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        <div class="p-0">
+                                            <h5>
+                                            Total Orçamento Realizado
+                                                <small class="mt-0 mb-3 text-primary">
+                                                R$ {{ number_format($inscricao->total_orcamento_realizado, 2, ',', '.' )}}
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        <div class="mt-3" style="width: 160px">
+                                            <div class="p-0">
+                                                <h6 class="bg-warning-200 p-3">
+                                                Saldo
+                                                    <small class="mt-0 mb-1 fs-xl">
+                                                    R$ {{ number_format($inscricao->orcamento->sum('valor') - $inscricao->total_orcamento_realizado, 2, ',', '.') }}
+                                                    </small>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="p-0">
+                                            <h5>
+                                                Justificativa do Orçamento Realizado
+                                                <small class="mt-0 mb-3">
+                                                {{ $inscricao->justificativa_orcamento_realizado }}
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        <div class="p-0">
+                                            <h5>
+                                                Comprovante Prestação de contas
+                                                <small class="mt-0 mb-3">
+                                                    <a href="{{ url('storage/' . $inscricao->arquivo_prestacao_contas) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        @if( !is_null($inscricao->relatorio_final_status) )
+                                            <div class="p-0">
+                                                <h5>
+                                                    Status Relatório Final
+                                                    <small class="mt-0 mb-3 ">
+                                                        <span class="
+                                                        badge 
+                                                        @if($inscricao->relatorio_final_status == 'Aceito')
+                                                            badge-success
+                                                        @else
+                                                            badge-danger
+                                                        @endif
+                                                        ">
+                                                            {{ $inscricao->relatorio_final_status }}
+                                                        </span>
+                                                    </small>
+                                                </h5>
+                                            </div>
+                                        @endif
+                                        @if( !is_null($inscricao->relatorio_final_observacao) )
+                                            <div class="p-0">
+                                                <h5>
+                                                    Observação Relatório Final
+                                                    <small class="mt-0 mb-3">
+                                                    {{ $inscricao->relatorio_final_observacao }}
+                                                    </small>
+                                                </h5>
+                                            </div>
+                                        @endif
+                                        <div class="table-responsive">
+                                            <table class="table table-striped mt-4">
+                                                <thead class="thead-light ">
+                                                    <tr>
+                                                        <th>Nome</th>
+                                                        <th>Categoria</th>
+                                                        <th>RA</th>
+                                                        <th>Unidade</th>
+                                                        <th>Instituição</th>
+                                                        <th>Carga Semanal</th>
+                                                        <th>Carga Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($inscricao->participantes as $participante)
+                                                    <tr>
+                                                        <td>{{ $participante->nome }}</td>
+                                                        <td>{{ $participante->categoria }}</td>
+                                                        <td>{{ $participante->ra }}</td>
+                                                        <td>{{ $participante->unidade }}</td>
+                                                        <td>{{ $participante->instituicao }}</td>
+                                                        <td>{{ $participante->carga_semanal }}</td>
+                                                        <td>{{ $participante->carga_total }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     @if( (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id))) && $notasAvaliacao )
                     <div class="card">
-                        <div class="card-header bg-success bg-primary-gradient" id="headingFour">
+                        <div class="card-header" id="headingFour">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
-                                    <i class="fal fa-circle icon-stack-3x opacity-100 " style="color: #f0f0f5"></i>
-                                    <i class="fal fa-credit-card icon-stack-1x opacity-100 " style="color: #f0f0f5"></i>
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                    <i class="fal fa-credit-card icon-stack-1x opacity-100 color-info-500"></i>
                                 </div>
-                                <h4 class="ml-2 mb-0 flex-1 text-light fw-500">
+                                <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                     Resultado Prévio
                                 </h4>
                                 <span class="ml-auto">
@@ -361,8 +550,8 @@
                         <div class="card-header" id="headingTwo">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
-                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                    <i class="fal fa-newspaper icon-stack-1x opacity-100 color-primary-500"></i>
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                    <i class="fal fa-newspaper icon-stack-1x opacity-100 color-info-500"></i>
                                 </div>
                                 <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                     Detalhamento
@@ -398,8 +587,8 @@
                         <div class="card-header" id="headingThree">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 <div class='icon-stack display-3 flex-shrink-0'>       
-                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                                    <i class="fal fa-file-invoice-dollar icon-stack-1x opacity-100 color-warning-500"></i>
+                                    <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
+                                    <i class="fal fa-file-invoice-dollar icon-stack-1x opacity-100 color-info-500"></i>
                                 </div>
                                 <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                     Orçamento
@@ -446,123 +635,7 @@
                             </div>
                         </div>
                     </div>
-                    @if(
-                        isset($inscricao->arquivo_relatorio) 
-                        && 
-                        $inscricao->participantes->count() > 0 
-                        && 
-                        isset($inscricao->total_orcamento_realizado) 
-                        && 
-                        isset($inscricao->justificativa_orcamento_realizado) 
-                        && 
-                        isset($inscricao->arquivo_prestacao_contas)
-                    )
-                        <div class="card">
-                            <div class="card-header" id="headingRecurso">
-                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseRelatorioFinal" aria-expanded="false" aria-controls="collapseRelatorioFinal">
-                                    <div class='icon-stack display-3 flex-shrink-0'>       
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-dark-400"></i>
-                                        <i class="far fa-clipboard-list-check icon-stack-1x opacity-100 color-dark-500"></i>
-                                    </div>
-                                    <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
-                                        Relatório Final
-                                    </h4>
-                                    <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
-                                        </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div id="collapseRelatorioFinal" class="collapse" aria-labelledby="headingRecurso" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <div class="col-12">
-                                        <div class="p-0">
-                                            <h5>
-                                                Resultados e Conclusão
-                                                <small class="mt-0 mb-3">
-                                                    <a href="{{ url('storage/' . $inscricao->arquivo_relatorio) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
-                                                </small>
-                                            </h5>
-                                        </div>
-                                        <div class="p-0">
-                                            <h5>
-                                            Total Orçado
-                                                <small class="mt-0 mb-3 text-primary">
-                                                R$ {{ number_format($inscricao->orcamento->sum('valor'), 2, ',', '.' )}}
-                                                </small>
-                                            </h5>
-                                        </div>
-                                        <div class="p-0">
-                                            <h5>
-                                            Total Orçamento Realizado
-                                                <small class="mt-0 mb-3 text-primary">
-                                                R$ {{ number_format($inscricao->total_orcamento_realizado, 2, ',', '.' )}}
-                                                </small>
-                                            </h5>
-                                        </div>
-                                        <div class="mt-3" style="width: 160px">
-                                            <div class="p-0">
-                                                <h6 class="bg-warning-200 p-3">
-                                                Saldo
-                                                    <small class="mt-0 mb-1 fs-xl">
-                                                    R$ {{ number_format($inscricao->orcamento->sum('valor') - $inscricao->total_orcamento_realizado, 2, ',', '.') }}
-                                                    </small>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="p-0">
-                                            <h5>
-                                                Justificativa do Orçamento Realizado
-                                                <small class="mt-0 mb-3">
-                                                {{ $inscricao->justificativa_orcamento_realizado }}
-                                                </small>
-                                            </h5>
-                                        </div>
-                                        <div class="p-0">
-                                            <h5>
-                                                Comprovante Prestação de contas
-                                                <small class="mt-0 mb-3">
-                                                    <a href="{{ url('storage/' . $inscricao->arquivo_prestacao_contas) }}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf mr-1"></i> Abrir PDF </a>
-                                                </small>
-                                            </h5>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped mt-4">
-                                                <thead class="thead-light ">
-                                                    <tr>
-                                                        <th>Nome</th>
-                                                        <th>Categoria</th>
-                                                        <th>RA</th>
-                                                        <th>Unidade</th>
-                                                        <th>Instituição</th>
-                                                        <th>Carga Semanal</th>
-                                                        <th>Carga Total</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($inscricao->participantes as $participante)
-                                                    <tr>
-                                                        <td>{{ $participante->nome }}</td>
-                                                        <td>{{ $participante->categoria }}</td>
-                                                        <td>{{ $participante->ra }}</td>
-                                                        <td>{{ $participante->unidade }}</td>
-                                                        <td>{{ $participante->instituicao }}</td>
-                                                        <td>{{ $participante->carga_semanal }}</td>
-                                                        <td>{{ $participante->carga_total }}</td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                    
                     <!-- <div class="card">
                         <div class="card-header" id="headingFour">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">

@@ -15,7 +15,15 @@
             
             <tr>
                 <td><h5 class="fw-400 text-secondary">{{ $inscricao->edital->titulo }}</h5></td>
-                <td><h3 class="fw-700 text-primary">{{ $inscricao->titulo }}</h3><small class="font-italic font-color-light">Linhas de Extensão: {{ isset($inscricao->linha_extensao->nome) ? $inscricao->linha_extensao->nome : '' }}</small></td>
+                <td>
+                    <h3 class="fw-700 text-primary">
+                        {{ $inscricao->titulo }} 
+                    </h3>
+                    @if($inscricao->status == 'Relatório em Análise')
+                        <span class="fw-300 color-warning-500"><i class="fal fa-exclamation-circle"></i><i> Análise pendente!</i></span>
+                    @endif
+                    <small class="font-italic font-color-light">Linhas de Extensão: {{ isset($inscricao->linha_extensao->nome) ? $inscricao->linha_extensao->nome : '' }}</small>
+                </td>
                 <td><h6 class="text-secondary">{{ $inscricao->tipo}}</h6></td>
                 <td><h6 class="text-secondary">{{ $inscricao->user->name}}</h6><small class="font-italic font-color-light">Unidade: {{ $inscricao->unidade->sigla}}</small></td>
                 <td>
