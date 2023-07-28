@@ -265,7 +265,7 @@ class InscricaoController extends Controller
         $edital = Edital::findOrFail($inscricao->edital_id);
         $cronograma = new Cronograma();
         $avaliacaoResposta = false;
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
                                 ->where('comissoes.edital_id', $inscricao->edital_id)
