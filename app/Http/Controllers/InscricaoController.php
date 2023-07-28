@@ -923,7 +923,7 @@ class InscricaoController extends Controller
             'relatorio_final_observacao' => 'required|max:1000',
         ]);
 
-        if($request->relatorio_final_status == 'Aceite') {
+        if($request->relatorio_final_status == 'Aceito') {
             $inscricao->status = "Concluído";
         }
         elseif($request->relatorio_final_status == 'Negado') {
