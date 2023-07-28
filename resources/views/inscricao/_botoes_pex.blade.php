@@ -4,7 +4,8 @@
             <i class="far fa-eye"></i> 
             Visualização completa
             @if($inscricao->status == 'Relatório em Análise')
-                <small class="fw-300 color-warning-500"><i class="fal fa-exclamation-circle"></i><i> Análise pendente! Acesse aqui.</i></small>
+                <br>
+                <span class="fw-300 color-warning-500"><i class="fal fa-exclamation-circle"></i><i> Análise pendente! Acesse aqui.</i></span>
             @endif
         </a>
     @else
