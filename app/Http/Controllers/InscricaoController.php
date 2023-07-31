@@ -154,7 +154,7 @@ class InscricaoController extends Controller
 
         $validar['areas_tematicas'] = 'required';
         $validar['obj_desenvolvimento_sustentavel'] = 'required';
-        $validar['pdf'] = 'required|file|max:5120|mimes:pdf';
+        $validar['pdf_projeto'] = 'required|file|max:5120|mimes:pdf';
         $validar['link_lattes'] = 'max:190';
         $validar['link_projeto'] = 'max:190';
         $validar['cidade'] = 'required';
