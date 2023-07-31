@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('inscricoes', function (Blueprint $table) {
             $table->string('relatorio_final_status', 30)->nullable();
-            $table->string('relatorio_final_observacao', 1000)->nullable();
+            $table->text('relatorio_final_observacao', 1000);
         });
     }
 
