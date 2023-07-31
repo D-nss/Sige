@@ -106,7 +106,7 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseRelatorioFinal" class="collapse" aria-labelledby="headingRecurso" data-parent="#accordionExample">
+                            <div id="collapseRelatorioFinal" class="collapse show" aria-labelledby="headingRecurso" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="col-12">
                                         @if( $userNaComissao && $inscricao->status == 'Relatório em Análise' && strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) )
