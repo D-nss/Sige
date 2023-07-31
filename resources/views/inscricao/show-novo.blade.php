@@ -281,7 +281,10 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
+                        <div id="collapseFour" class="collapse 
+                        @if( (strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id))) )
+                            show
+                        @endif" aria-labelledby="headingFour" data-parent="#accordionExample">
                             <div class="card-body">
                             @if($inscricao->qtde_contemplacao)
                                 <div class="mb-2">
