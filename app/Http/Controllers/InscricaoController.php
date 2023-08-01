@@ -43,7 +43,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
     }
     /**
      * Display a listing of the resource.
@@ -71,7 +71,7 @@ class InscricaoController extends Controller
         }
         /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
-        $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
+        $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluído')->first();
 
         if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
             session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
@@ -154,7 +154,7 @@ class InscricaoController extends Controller
 
         $validar['areas_tematicas'] = 'required';
         $validar['obj_desenvolvimento_sustentavel'] = 'required';
-        $validar['pdf'] = 'required|file|max:5120|mimes:pdf';
+        $validar['pdf_projeto'] = 'required|file|max:5120|mimes:pdf';
         $validar['link_lattes'] = 'max:190';
         $validar['link_projeto'] = 'max:190';
         $validar['cidade'] = 'required';
@@ -164,7 +164,7 @@ class InscricaoController extends Controller
         $user = User::where('email', Auth::user()->id)->first();
         /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
         $checaInscricaoExistente = Inscricao::where('edital_id', $request->edital_id)->where('user_id', $user->id)->first();
-        $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluido')->first();
+        $checaInscricaoEmAberto = Inscricao::where('user_id', $user->id)->where('status', '<>', 'Concluído')->first();
 
         if(!!$checaInscricaoExistente && !!$checaInscricaoEmAberto){
             session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto, ou ja possui uma inscrição para o edital!');
@@ -332,7 +332,9 @@ class InscricaoController extends Controller
                 'Indeferido' => 'danger',
                 'Desclassificado' => 'danger',
                 'Contemplado' => 'success',
-                'Relatório em Análise' => 'warning'
+                'Relatório em Análise' => 'warning',
+                'Concluído' => 'success',
+                'Bloqueado' => 'danger',
             ];
 
             return view('inscricao.show-novo', compact(
@@ -348,7 +350,8 @@ class InscricaoController extends Controller
                     'criterios',
                     'status',
                     'cronograma',
-                    'user'
+                    'user',
+                    'userNaComissao'
                 )
             );
         }
@@ -410,7 +413,9 @@ class InscricaoController extends Controller
             'Indeferido' => 'danger',
             'Desclassificado' => 'danger',
             'Contemplado' => 'success',
-            'Relatório em Análise' => 'warning'
+            'Relatório em Análise' => 'warning',
+            'Concluído' => 'success',
+            'Bloqueado' => 'danger',
         ];
         
         return view('inscricao.show-completo', 
@@ -677,7 +682,9 @@ class InscricaoController extends Controller
                 'Indeferido' => 'danger',
                 'Desclassificado' => 'danger',
                 'Contemplado' => 'success',
-                'Relatório em Análise' => 'warning'
+                'Relatório em Análise' => 'warning',
+                'Concluído' => 'success',
+                'Bloqueado' => 'danger',
             ];
 
             $cronograma = new Cronograma();
@@ -711,7 +718,9 @@ class InscricaoController extends Controller
             'Indeferido' => 'danger',
             'Desclassificado' => 'danger',
             'Contemplado' => 'success',
-            'Relatório em Análise' => 'warning'
+            'Relatório em Análise' => 'warning',
+            'Concluído' => 'success',
+            'Bloqueado' => 'danger',
         ];
 
         /* lista todas as inscrições se o user for administrador */
@@ -901,6 +910,41 @@ class InscricaoController extends Controller
         }
         else {
             session()->flash('status', 'Desculpe! Houve erro ao enviar o relatório!');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to("inscricao/$inscricao->id");
+        }
+    }
+
+    public function analisarRelatorioFinal(Request $request, Inscricao $inscricao)
+    {
+        $validated = $request->validate([
+            'relatorio_final_status' => 'required',
+            'relatorio_final_observacao' => 'required|max:1000',
+        ]);
+
+        if($request->relatorio_final_status == 'Aceito') {
+            $inscricao->status = "Concluído";
+        }
+        elseif($request->relatorio_final_status == 'Negado') {
+            $inscricao->status = "Bloqueado";
+        }
+        
+        $inscricao->relatorio_final_status = $request->relatorio_final_status;
+        $inscricao->relatorio_final_observacao = $request->relatorio_final_observacao;
+
+        if($inscricao->update()) {
+
+            $inscricao->user->notify(new \App\Notifications\InscricaoAnaliseRelatorioFinalNotificar($inscricao));
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Inscrição "'. $inscricao->titulo .'" efetuado análise do relatório final  - Endereço IP: ' . $request->ip());
+            
+            session()->flash('status', 'Relatório analisado com sucesso!');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve erro ao analisar o relatório!');
             session()->flash('alert', 'warning');
 
             return redirect()->to("inscricao/$inscricao->id");

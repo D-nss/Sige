@@ -35,6 +35,7 @@ class EditalController extends Controller
         $user = User::where('email', Auth::user()->id)->first();
 
         $editais = Edital::all();
+        $editais = $editais->sortByDesc('created_at');
 
         $inscricoes = Inscricao::where('user_id', $user->id)->get();
 

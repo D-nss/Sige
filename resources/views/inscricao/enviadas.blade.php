@@ -81,8 +81,14 @@
                                         <a href='{{ url("inscricao/$inscricao->id/recurso") }}' class="btn btn-warning btn-xs m-1"><i class="far fa-list"></i> Recurso</a>
                                     @endif
                                     
-                                    @if( $inscricao->status == 'Contemplado' && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) )
-                                        <a href='{{ url("inscricao/relatorio_final/$inscricao->id") }}' class="btn btn-outline-info btn-xs m-1">
+                                    @if( 
+                                        $inscricao->status == 'Contemplado' 
+                                        && 
+                                        strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) 
+                                        && 
+                                        strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) 
+                                    )
+                                        <a href='{{ url("inscricao/relatorio_final/$inscricao->id") }}' class="btn btn-info btn-xs m-1">
                                             Relatório Final
                                         </a>
                                     @endif
