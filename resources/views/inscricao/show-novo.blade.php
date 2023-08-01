@@ -300,23 +300,11 @@
                             @endif
                             <h1><i class="far fa-clipboard-list-check"></i> Nota Geral: {{ $inscricao->nota == null ? 00.00 : $inscricao->nota }}</h1>
                             <div class="mt-3">
-                                <h4>Questões Avaliativas</h4>
-                                    @foreach($notasAvaliacao as $notas)
-                                        <div class="mb-3"><span class="text-secondary fs-md fw-300">{{ $notas->enunciado }}</span></br><span class="">Nota: </span><span class="fs-md fw-500">{{ $notas->valor }}</span></div>
-                                    @endforeach
-                                </div>
+                                
                                 <div class="mt-3">
-                                    <h4>Justificativa das Notas e Parecer</h4>
+                                    <h4>Justificativa, Parecer e Notas</h4>
                                     @foreach($parecerAvaliacao as $parecer)
                                         <div class="mb-2">
-                                            <div class="p-0">
-                                                <h5>
-                                                Justificativa das notas:
-                                                    <small class="mt-0 mb-3 text-primary">
-                                                        {{ $parecer->justificativa }}
-                                                    </small>
-                                                </h5>
-                                            </div>
                                             <div class="p-0">
                                                 <h5>
                                                 Parecer da avaliação:
@@ -325,7 +313,30 @@
                                                     </small>
                                                 </h5>
                                             </div>
+                                            <div class="p-0">
+                                                <h5>
+                                                Justificativa da nota:
+                                                    <small class="mt-0 mb-3 text-primary">
+                                                        {{ $parecer->justificativa }}
+                                                    </small>
+                                                </h5>
+                                            </div>
                                         </div>
+                                        @foreach( $notasAvaliacao->filter(function ($nota) use ($parecer) {
+                                                return $nota['user_id'] === $parecer->user_id;
+                                            }) as $notas )
+                                            <div class="mb-3">
+                                                <span class="text-secondary fs-md fw-300">
+                                                    {{ $notas['enunciado']}}
+                                                </span>
+                                                </br>
+                                                <span class="">Nota: </span>
+                                                <span class="fs-md fw-500">
+                                                    {{ $notas['valor'] }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                        <hr>
                                     @endforeach
                                 </div>
                             </div>

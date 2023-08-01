@@ -304,12 +304,12 @@ class InscricaoController extends Controller
                 return data_get($value, 'tipo') == 'Avaliativa';
             });
 
-            $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor')
+            $notasAvaliacao = RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.user_id')
                                                     ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
                                                     ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
                                                     ->get();
 
-            $parecerAvaliacao = Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer')
+            $parecerAvaliacao = Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer', 'pareceres.user_id')
                                        ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
                                        ->join('users', 'users.id', 'inscricoes.user_id')
                                        ->where('inscricoes.id', $inscricao->id)
