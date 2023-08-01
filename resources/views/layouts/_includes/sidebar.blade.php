@@ -2,13 +2,13 @@
     <div class="page-logo">
         <!-- <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut"> -->
             <span class="fa-4x d-inline l-h-n">
-                <img src="{{ asset('smartadmin-4.5.1/img/proec.svg') }}" alt="Proec - ExteCult" class="w-100" style="fill:white;"/>
+                <img src="{{ asset('img/proec-negativo.svg') }}" alt="Proec - ExteCult" class="w-100" style="fill:white;"/>
             </span>
             <span class="page-logo-text mr-1 fw-900 fs-xxl p-2">
                 ExteCult
             </span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+            <!--<i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>-->
         <!-- </a> -->
     </div>
     <!-- BEGIN PRIMARY NAVIGATION -->
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="info-card">
-            <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+            <!--<img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="avatar do usuário">-->
             <div class="info-card-text">
                 @if(Auth::hasUser())
                     <a href="#" class="d-flex align-items-center text-white">
@@ -38,13 +38,14 @@
                             Visitante
                         </span>
                     </a>
-                    <a href="/login" class="btn btn-xs btn-primary waves-effect waves-themed">Entrar</a>
+                    <div class="espacador-vertical-1"></div>
+                    <a href="/login" class="btn btn-xs btn-primary waves-effect waves-themed centrar-horizontal">Entrar</a>
                 @endif
             </div>
             <img src="{{asset('smartadmin-4.5.1/img/card-backgrounds/cover-3-lg.png')}}" class="cover" alt="cover">
-            <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
+            <!-- <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
                 <i class="fal fa-angle-down"></i>
-            </a>
+            </a> -->
         </div>
         <!--
         TIP: The menu items are not auto translated. You must have a residing lang file associated with the menu saved inside dist/media/data with reference to each 'data-i18n' attribute.

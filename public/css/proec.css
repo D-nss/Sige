@@ -1,0 +1,16 @@
+/* CSS estilo ProEC aqui */
+
+
+/* Utilitários - Design System */
+.espacador-vertical-1 {
+    display: block;
+    height: 1rem;
+}
+
+.centrar-horizontal {
+    margin: auto !important;
+}
+
+.quebra-linha {
+    clear: both;
+}

@@ -1,6 +1,6 @@
 <nav class="shortcut-menu d-none d-sm-block">
     <input type="checkbox" class="menu-open" name="menu-open" id="menu_open" />
-    <label for="menu_open" class="menu-open-button ">
+    <label for="menu_open" class="menu-open-button " data-toggle="tooltip" data-placement="left" title="Mais opções">
         <span class="app-shortcut-icon d-block"></span>
     </label>
     <a href="#" class="menu-item btn" data-toggle="tooltip" data-placement="left" title="Ir ao Topo">
