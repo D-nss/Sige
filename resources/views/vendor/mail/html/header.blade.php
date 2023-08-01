@@ -1,7 +1,7 @@
 <header class="p-4 text-white " style="background: #3060af;">
         <div style=" display: flex; justify-content: center; align-items: center;">
                 <h4 class="font-weight-bold">{{ $slot }}</h4>
-                <!-- <img src="{{ asset('smartadmin-4.5.1/img/proec.svg') }}" class="logo" alt="{{ config('app.name') }}"> -->
+                <!-- <img src="{{ asset('img/proec.svg') }}" class="logo" alt="{{ config('app.name') }}"> -->
         </div>
 </header>
 

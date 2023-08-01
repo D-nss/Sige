@@ -24,10 +24,10 @@
                 <h5 class="mt-4 pt-4 fw-500">
                     <span class="d-block fa-3x pb-4 text-muted">
                         <i class="ni ni-arrow-up text-gradient opacity-70"></i>
-                    </span> Select a tab above to activate
+                    </span> Selecione uma aba acima para ativar suas notificações.
                     <small class="mt-3 fs-b fw-400 text-muted">
-                        This blank page message helps protect your privacy, or you can show the first message here automatically through
-                        <a href="#">settings page</a>
+                        Este mecanismo é para proteger sua privacidade. <!--Você pode exibir sua primeira mensagem aqui automaticamente através da
+                        <a href="#">página de configuração</a>-->
                     </small>
                 </h5>
             </div>

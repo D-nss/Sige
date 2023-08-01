@@ -17,7 +17,15 @@ Versão: 4.5.1
 
         <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
-        <!-- Styles -->
+        <!-- Estilos -->
+        
+        <!-- PROEC (transicionando)-->
+        <link id="proec-estilo" rel="stylesheet" media="screen" href="{{asset('css/proec.css')}}">
+        <link id="extecult-estilo" rel="stylesheet" media="screen" href="{{asset('css/extecult.css')}}">
+        <link id="fontes" rel="stylesheet" media="screen" href="{{asset('css/fontes.css')}}">
+        <link id="fontes-typekit" rel="stylesheet" href="https://use.typekit.net/tzw0dhy.css">
+
+        <!-- Templates/plugins, etc -->
         <link id="vendorsbundle" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/vendors.bundle.css')}}">
         <link id="appbundle" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/app.bundle.css')}}">
         <link id="myskin" rel="stylesheet" media="screen, print" href="{{asset('smartadmin-4.5.1/css/themes/cust-theme-3.css')}}">
@@ -27,7 +35,7 @@ Versão: 4.5.1
 
         <!-- Place favicon.ico in the root directory -->
         <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('smartadmin-4.5.1/img/logo-proec.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/logo-proec.png') }}">
         <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/datagrid/datatables/datatables.bundle.css')}}">
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/formplugins/smartwizard/smartwizard.css')}}">

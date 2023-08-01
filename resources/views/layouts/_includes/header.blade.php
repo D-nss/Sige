@@ -2,7 +2,7 @@
     <!-- we need this logo when user switches to nav-function-top -->
     <div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{ asset('smartadmin-4.5.1/img/logo-proec.png') }}" alt="Extecult - Proec" aria-roledescription="logo">
+            <img src="{{ asset('img/logo-proec.png') }}" alt="Extecult - Proec" aria-roledescription="logo">
             <span class="page-logo-text mr-1">EXTECULT</span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
@@ -240,9 +240,9 @@
             <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
                 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
-                        <span class="mr-2">
+                        <!-- <span class="mr-2">
                             <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="rounded-circle profile-image" alt="{{ Auth::user()->id }}">
-                        </span>
+                        </span> -->
                         <div class="info-card-text">
                             <div class="fs-lg text-truncate text-truncate-lg">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}</div>
                             <span class="text-truncate text-truncate-md opacity-80">{{Auth::user()->id}}</span>
@@ -269,7 +269,7 @@
                 <div class="dropdown-divider m-0"></div>
                 <a class="dropdown-item fw-500 pt-3 pb-3" href="/logout">
                     <span data-i18n="drpdwn.page-logout">Sair</span>
-                    <span class="float-right fw-n">{{Auth::user()->id}}</span>
+                    <!--<span class="float-right fw-n">{{Auth::user()->id}}--></span>
                 </a>
                 <form id="logout-form" action="#" method="POST" class="d-none">
                     @csrf

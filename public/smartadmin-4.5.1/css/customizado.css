@@ -1,3 +1,5 @@
+/* Customizações SOBRE o template */
+
 .page-logo img {
     width: 180px;
     height: 60px;
@@ -115,6 +117,60 @@
   }
 
   .font-color-light {
-    color: #999;
+    color: #888;
   }
- 
+
+  .info-card-text{
+    margin: auto !important;
+}
+
+.page-header{
+  background-color: #fff !important;
+}
+
+.page-logo{
+}
+
+.panel-toolbar .btn-panel[data-action="panel-collapse"], .panel-toolbar .btn-panel.js-panel-collapse, .panel-toolbar .btn-panel[data-action="panel-fullscreen"]
+{
+  background: #3da0e9 !important; */
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: none;
+}
+
+.btn-primary {
+  background: #14f !important; 
+}
+
+[data-action="panel-collapse"]{
+  /* content: '_'; */
+}
+
+.menu-item, label.menu-open-button{
+  background: #14f !important;
+}
+
+.text-secondary{
+  color: #333 !important;
+}
+
+.shortcut-menu {
+  /*ações na camada de topo da renderização */
+  z-index: 1001;
+}
+
+
+
+  /* Teste novo font stack (TESTE 001)*/
+
+ /*
+  .header-btn {
+    padding: 4px 0 0 0;
+  }
+
+  .btn {
+    padding: 4px 0 0 0;
+  }
+
+  */

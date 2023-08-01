@@ -15,7 +15,7 @@
       </h1>
       <div class="subheader-block d-lg-flex align-items-center">
           <div class="d-inline-flex flex-column justify-content-center">
-            <img src="{{ url('smartadmin-4.5.1/img/proec.svg')}}" alt="PROEC" class="img-fluid" style="width: 50%;">
+            <img src="{{ url('img/proec.svg')}}" alt="PROEC" class="img-fluid" style="width: 50%;">
           </div>
       </div>
   </div>
@@ -31,7 +31,9 @@
         <div class="d-flex flex-fill">
             <div class="flex-fill">
                 <span class="h5">Sobre </span>
-                <p>A Pró-Reitoria de Extensão e Cultura tem como missão coordenar, fomentar, estimular e produzir ações de Extensão e de Cultura pela integração dialógica, interativa e pró ativa com a sociedade, difundindo e adquirindo conhecimento por meio da comunidade universitária. “Extensão Comunitária” é a atividade acadêmica de Extensão Universitária destinada a atender a sociedade civil em comunidade externa à UNICAMP em segmentos da população ou em grupos específicos (minorias, grupos étnicos, portadores de necessidades especiais, faixas etárias, etc.), promovendo ação de natureza social, artística, cultural, desportiva ou educativa. A ação de "Extensão Comunitária" deve estar diretamente vinculada a uma atividade acadêmica regular de ensino e de pesquisa; deve ser dirigida por um docente ou pesquisador da UNICAMP; deve ter, necessariamente, a participação de alunos regularmente matriculados na UNICAMP; e deve prever a troca mútua de conhecimentos e de experiências entre os acadêmicos participantes do projeto e as pessoas da comunidade atendida.</p>
+                <p>A Pró-Reitoria de Extensão e Cultura tem como missão coordenar, fomentar, estimular e produzir ações de Extensão e de Cultura pela integração dialógica, interativa e pró ativa com a sociedade, difundindo e adquirindo conhecimento por meio da comunidade universitária.</p>
+                <p>“Extensão Comunitária” é a atividade acadêmica de Extensão Universitária destinada a atender a sociedade civil em comunidade externa à UNICAMP em segmentos da população ou em grupos específicos (minorias, grupos étnicos, portadores de necessidades especiais, faixas etárias, etc.), promovendo ação de natureza social, artística, cultural, desportiva ou educativa.</p>
+                <p>A ação de "Extensão Comunitária" deve estar diretamente vinculada a uma atividade acadêmica regular de ensino e de pesquisa; deve ser dirigida por um docente ou pesquisador da UNICAMP; deve ter, necessariamente, a participação de alunos regularmente matriculados na UNICAMP; e deve prever a troca mútua de conhecimentos e de experiências entre os acadêmicos participantes do projeto e as pessoas da comunidade atendida.</p>
                 <!-- <p class="m-0">
                     Find in-depth, guidelines, tutorials and more on Bootstrap Colorpicker's <a href="https://farbelous.io/bootstrap-colorpicker/" target="_blank">Official Documentation</a>
                 </p> -->

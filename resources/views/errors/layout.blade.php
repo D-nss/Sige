@@ -44,7 +44,7 @@
     <body>
         <div class="flex-center position-ref full-height">
             <div class="content">
-                <img src="{{ asset('smartadmin-4.5.1/img/proec.svg') }}" alt="Proec - ExteCult" style="width: 200px; min-width: 80px;"/>
+                <img src="{{ asset('img/proec.svg') }}" alt="Proec - ExteCult" style="width: 200px; min-width: 80px;"/>
                 <div class="title">
                     @yield('message')
                 </div>
