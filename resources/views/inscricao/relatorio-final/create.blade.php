@@ -184,7 +184,7 @@
                                 <input type="file" name="arquivo_relatorio" class="dropzone" id="arquivo_relatorio" value="{{ old('arquivo_relatorio') }}">
                             </div>
                             <p class="text-muted">O arquivo deve ser no formato PDF e ter 5MB de tamanho</p>
-                            <button class="btn btn-success btn-pills" type="submit">Enviar</button>
+                            <button class="btn btn-success" type="submit">Enviar</button>
                         </form>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
             <div class="card-body d-none" id="div2">
                 <h3 class="fw-500 fs-xl text-success">Participantes</h3>
                 <div class="col-md-2">
-                    <button class="btn btn-success btn-pills" type="button"  data-toggle="modal" data-target="#adicionar-participantes">Adicionar</button>
+                    <button class="btn btn-success" type="button"  data-toggle="modal" data-target="#adicionar-participantes">Adicionar</button>
                 </div>
                 <!-- Modal Large -->
                 <div class="modal fade" id="adicionar-participantes" tabindex="-1" role="dialog" aria-hidden="true">
@@ -237,8 +237,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-pills" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-success btn-pills">Salvar</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-success">Salvar</button>
                                 </div>
                             </form>
                         </div>
@@ -333,7 +333,7 @@
                             <input type="file" name="arquivo_comprovante" class="dropzone" id="arquivo_comprovante" value="{{ old('arquivo_comprovante') }}">
                         </div>
                         <p class="text-muted">O arquivo deve ser no formato PDF e ter 5MB de tamanho</p>
-                        <button class="btn btn-success btn-pills" type="submit">Enviar</button>
+                        <button class="btn btn-success" type="submit">Enviar</button>
                     </div>
                 </form>
                 <div class="mt-3" style="width: 160px">
@@ -349,8 +349,8 @@
             </div>
             <div class="row">
                 <div class="col-md-12 text-center mb-2">
-                    <button class="btn btn-info btn-pills" id="btn-anterior"><i class="far fa-angle-left"></i> Anterior</button>
-                    <button class="btn btn-info btn-pills" id="btn-proximo">Próximo <i class="far fa-angle-right"></i></button>
+                    <button class="btn btn-info" id="btn-anterior"><i class="far fa-angle-left"></i> Anterior</button>
+                    <button class="btn btn-info" id="btn-proximo">Próximo <i class="far fa-angle-right"></i></button>
                 </div>
             </div>
         </div>

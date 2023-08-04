@@ -84,9 +84,21 @@
                                     @if( 
                                         $inscricao->status == 'Contemplado' 
                                         && 
-                                        strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) 
-                                        && 
-                                        strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) 
+                                        (
+                                            (
+                                                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) 
+                                                && 
+                                                strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id))
+                                                &&
+                                                $inscricao->tipo == 'Projeto'
+                                            )
+                                            ||
+                                            (
+                                                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao_programa', $inscricao->edital_id)) 
+                                                && 
+                                                strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio_programa', $inscricao->edital_id))
+                                            )
+                                        )
                                     )
                                         <a href='{{ url("inscricao/relatorio_final/$inscricao->id") }}' class="btn btn-info btn-xs m-1">
                                             Relatório Final
