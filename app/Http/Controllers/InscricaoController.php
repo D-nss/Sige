@@ -799,7 +799,7 @@ class InscricaoController extends Controller
 
     public function relatorioFinalCriar(Inscricao $inscricao)
     {
-        $user = User::where('email', 'aadilson@unicamp.br'/*Auth::user()->id*/)->first();
+        $user = User::where('email', Auth::user()->id)->first();
         if( $inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
             session()->flash('alert', 'danger');
@@ -810,7 +810,7 @@ class InscricaoController extends Controller
         $cronograma = new Cronograma();
         
         if(
-            !(
+            (
                 strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) 
                 && 
                 strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id))
@@ -818,7 +818,7 @@ class InscricaoController extends Controller
                 $inscricao->tipo == 'Projeto'
             )
             ||
-            !(
+            (
                 strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao_programa', $inscricao->edital_id)) 
                 && 
                 strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio_programa', $inscricao->edital_id))
@@ -826,19 +826,22 @@ class InscricaoController extends Controller
                 $inscricao->tipo == 'Programa'
             )
         ) {
+            $dtInicioExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_inicio_execucao')->get('data');
+            $inicioExecucao = Carbon::createMidnightDate($dtInicioExecucao[0]['data']);
+            $dtFimExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_fim_execucao')->get('data');
+            $fimExecucao = Carbon::createMidnightDate($dtFimExecucao[0]['data']);
+            $realizacao = $inicioExecucao->diffInMonths($fimExecucao);
+
+            return view('inscricao.relatorio-final.create', compact('inscricao', 'realizacao'));
+        }
+        else{
             session()->flash('status', 'Desculpe! Esta fora do período de envio do relatório final.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
         }
 
-        $dtInicioExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_inicio_execucao')->get('data');
-        $inicioExecucao = Carbon::createMidnightDate($dtInicioExecucao[0]['data']);
-        $dtFimExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_fim_execucao')->get('data');
-        $fimExecucao = Carbon::createMidnightDate($dtFimExecucao[0]['data']);
-        $realizacao = $inicioExecucao->diffInMonths($fimExecucao);
-
-        return view('inscricao.relatorio-final.create', compact('inscricao', 'realizacao'));
+        
     }
 
     public function relatorioFinalUpload(Request $request, Inscricao $inscricao)
