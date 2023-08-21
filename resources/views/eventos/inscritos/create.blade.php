@@ -41,13 +41,22 @@
                         </div>
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
+
                     <div class="form-group">
-                        <label class="form-label">Nome Social</label>
-                        <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Nome Social" name="nome_social" value="{{old('nome_social')}}">
+                    <label class="form-label">Nome Social</label><br>
+                       
+
+                        <div class="input-group bg-white shadow-inset-2" >
+                        <!--<input type="checkbox" id="nome-social" name="nome-social" unchecked />
+                        <label class="form-label">Quero incluir meu Nome Social&nbsp;&nbsp;</label>-->
+                            <input type="text" class="form-control bg-transparent" id="nome_social_campo" placeholder="Caso possua um Nome Social, digite-o aqui." name="nome_social" value="{{old('nome_social')}}">
                         </div>
-                        <!-- <span class="help-block">Some help content goes here</span> -->
+
+
+
+                        <span class="help-block">Observação: o Nome Social é apenas para pessoas transgêneros e travestis. Este será o nome que será exibido no certificado.</span>
                     </div>
+
                     <div class="form-group">
                         <label class="form-label">E-Mail<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
