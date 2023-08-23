@@ -52,15 +52,7 @@ class EventoInscritoNotificar extends Notification
                     ->subject('Confirmação de inscrição no evento ' . $this->data['titulo_evento']  . '.')
                     ->line( $this->data['nome'] . ' por favor confirme sua inscrição no evento ' . $this->data['titulo_evento']  . '.' )
                     ->action('Clique aqui para Confirmar Inscrição', $linkSim)
-                    ->line('Caso não consiga clicar no link "Clique aqui para Confirmar Inscrição", copie e cole no seu navegador o link que está no rodapé: ')
-                    ->line("\n")
-                    ->line("\n")
-                    ->line("\n")
-                    ->line("\n")
-                    ->line("\n")
-                    ->line('Caso queira CANCELAR a sua inscrição clique neste link:')
-                    ->line($linkNao)
-                    ->line('Caso não consiga clicar no link de cancelamento, copie e cole o link no seu navegador.');
+                    ->line('Caso não consiga clicar no link "Clique aqui para Confirmar Inscrição", copie e cole no seu navegador o link que está no rodapé: ');
     }
 
     /**

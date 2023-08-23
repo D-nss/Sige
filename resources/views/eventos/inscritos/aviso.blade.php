@@ -33,10 +33,11 @@
                 </div>
                 <div class="alert alert-warning">
                     <i class="far fa-exclamation-circle"></i>
-                    Falta pouco. Para concluir sua inscrição, você precisa confirmar seu e-mail.
-                    Confirme o quanto antes pois sua inscrição, respeitando o prazo das inscrições. Só será efetivada após a confirmação através do link enviado para seu endereço de e-mail.
+                    Estamos quase lá! Para finalizar o processo de inscrição, é necessário que você confirme o seu endereço de e-mail. Por favor, realize essa confirmação o quanto antes, a fim de garantir a validade da sua inscrição dentro do prazo estabelecido.
 
-                    Caso não localizá-lo, verifique sua caixa de Spam.
+A efetivação da sua inscrição só ocorrerá após a confirmação, para a qual enviamos um link para o seu endereço de e-mail.
+
+Se não conseguir encontrar o e-mail, por favor, verifique também a sua pasta de Spam.
                 </div>
             </div>
         </div>

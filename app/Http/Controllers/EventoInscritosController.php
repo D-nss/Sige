@@ -36,6 +36,31 @@ use Illuminate\Support\Facades\Log;
 
 class EventoInscritosController extends Controller
 {
+    private $diasSemana = [
+        'Mon' => 'Segunda',
+        'Tue' => 'Terça',
+        'Wed' => 'Quarta',
+        'Thu' => 'Quinta',
+        'Fri' => 'Sexta',
+        'Sat' => 'Sábado',
+        'Sun' => 'Domingo',
+    ];
+
+    private $meses = [
+        '01' => 'Janeiro',
+        '02' => 'Fevereiro',
+        '03' => 'Março',
+        '04' => 'Abril',
+        '05' => 'Maio',
+        '06' => 'Junho',
+        '07' => 'Julho',
+        '08' => 'Agosto',
+        '09' => 'Setembro',
+        '10' => 'Outubro',
+        '11' => 'Novembro',
+        '12' => 'Dezembro'
+    ];
+
     public function index(Evento $evento)
     {
         if(App::environment('local')){
@@ -197,6 +222,12 @@ class EventoInscritosController extends Controller
         $id = \Illuminate\Support\Facades\Crypt::decryptString($codigo);
         $inscrito = EventoInscrito::find($id);
 
+        //return dd($inscrito);
+
+        $participados = EventoInscrito::where('email', $inscrito->email)->get();
+
+        //return dd($participados);
+
         if(Auth::check()) {
             if(App::environment('local')){
                 $user = User::where('id', 2)->first();
@@ -219,7 +250,14 @@ class EventoInscritosController extends Controller
         //Gerando QRCode
         $qrcode = QrCode::size(200)->generate( url($url));
 
-        return view('eventos.inscritos.show', compact('inscrito', 'userNaComissao', 'qrcode', 'crypt'));
+        //Mudando a forma de cancelamento do inscrito ao evento (antes era na notificação no email)
+        $cryptNao = \Illuminate\Support\Facades\Crypt::encryptString('nao/' . $inscrito->id);
+        $linkNao = url('inscritos/confirmacao') . '/' . str_replace('09', '90', $cryptNao) ;
+
+        $meses = $this->meses;
+        $diasSemana = $this->diasSemana;
+
+        return view('eventos.inscritos.show', compact('inscrito', 'userNaComissao', 'qrcode', 'crypt', 'linkNao', 'participados', 'meses', 'diasSemana'));
     }
 
     public function uploadArquivo(Request $request, $id)
@@ -461,7 +499,8 @@ class EventoInscritosController extends Controller
 
                 Log::channel('evento_inscricao')->info('Evento ID: ' . $evento->id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao confirmada. ');
 
-                return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
+                return $this->show(\Illuminate\Support\Facades\Crypt::encryptString($inscrito->id));
+                //return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
             }
             else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');

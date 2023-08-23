@@ -1,62 +1,42 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Eventos')
+@section('title', 'Formulário de Inscrição')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
     <li class="breadcrumb-item">Eventos</li>
-    <li class="breadcrumb-item active">Gestão de Eventos</li>
+    <li class="breadcrumb-item active">Inscrição</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-user-plus'></i>Inscrição em Evento</span>
-        <small>
-        Utilize o formulário abaixo para se inscrever no evento.
-        </small>
+        <i class="subheader-icon fal fa-edit"></i>Inscrição para o evento {{ $evento->titulo }} @if($evento->gratuito)<span class="badge border border-info text-info">Gratuito</span>@endif
     </h1>
-    <div class="subheader-block d-lg-flex align-items-center">
-        <div class="d-inline-flex flex-column justify-content-center">
-
-        </div>
-    </div>
 </div>
 
-<div class="container-fluid">
+
     <div class="row">
         <div class="col-xl-12">
             <div class="panel mt-3 p-3">
-                <div class="flex-1">
-                    <span class="f-lg font-color-light">Título do Evento</span>
-                    <h1 class="font-italic fw-300 text-info">{{ $evento->titulo }}</h1>
+                <div class="panel-tag">
+                    Forneça seu endereço de e-mail preciso, pois usaremos esse canal para enviar o link de confirmação da inscrição.
                 </div>
-                <span class="h4 fw-300 font-color-light">Dados da Inscrição</span>
                 <form action="{{ url('evento/' . $evento->id .'/inscrito') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label class="form-label">Nome Completo<span class="text-danger">*</span></label>
-                        <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" class="form-control bg-transparent" placeholder="Nome Completo" name="nome" value="{{old('nome')}}">
+
+                        <div class="form-group">
+                            <label class="form-label">Nome Completo<span class="text-danger">*</span></label>
+                            <div class="input-group bg-white shadow-inset-2">
+                                <input type="text" class="form-control bg-transparent" placeholder="Nome Completo" name="nome" value="{{old('nome')}}">
+                            </div>
                         </div>
-                        <!-- <span class="help-block">Some help content goes here</span> -->
-                    </div>
-
-                    <div class="form-group">
-                    <label class="form-label">Nome Social</label><br>
-                       
-
-                        <div class="input-group bg-white shadow-inset-2" >
-                        <!--<input type="checkbox" id="nome-social" name="nome-social" unchecked />
-                        <label class="form-label">Quero incluir meu Nome Social&nbsp;&nbsp;</label>-->
-                            <input type="text" class="form-control bg-transparent" id="nome_social_campo" placeholder="Caso possua um Nome Social, digite-o aqui." name="nome_social" value="{{old('nome_social')}}">
+                        <div class="form-group">
+                            <label class="form-label">Nome Social</label><small><span class="text-small text-danger"> (Será exibido no certificado se preenchido.)</span></small>
+                            <div class="input-group bg-white shadow-inset-2">
+                                <input type="text" class="form-control bg-transparent" placeholder="Caso possua um Nome Social, digite-o aqui." name="nome_social" value="{{old('nome_social')}}">
+                            </div>
+                            <span class="help-block">Observação: O Nome Social se destina exclusivamente às pessoas transgênero e travestis. Ele será o nome a ser apresentado no certificado.</span>
                         </div>
-
-
-
-                        <span class="help-block">Observação: o Nome Social é apenas para pessoas transgêneros e travestis. Este será o nome que será exibido no certificado.</span>
-                    </div>
-
                     <div class="form-group">
                         <label class="form-label">E-Mail<span class="text-danger">*</span></label>
                         <div class="input-group bg-white shadow-inset-2">
@@ -65,29 +45,28 @@
                         <!-- <span class="help-block">Some help content goes here</span> -->
                     </div>
                     @if($evento->ck_documento)
-                    <div class="form-group">
-                        <label class="form-label">Tipo Documento<span class="text-danger">*</span></label>
-                        <div class="input-group bg-white shadow-inset-2">
-                            <select class="form-control bg-transparent"  name="tipo_documento" id="tipo_documento">
-                                @if(old('tipo_documento'))
-                                <option value="{{old('tipo_documento')}}">{{old('tipo_documento')}}</option>
-                                @else
-                                 <option value="">Selecione ...</option>
-                                @endif
-                                <option value="CPF">CPF</option>
-                                <option value="RG">RG</option>
-                                <option value="Passaporte">Passaporte</option>
-                            </select>
+                        <div class="form-group">
+                            <label class="form-label">Tipo Documento<span class="text-danger">*</span></label>
+                            <div class="input-group bg-white shadow-inset-2">
+                                <select class="form-control bg-transparent"  name="tipo_documento" id="tipo_documento">
+                                    @if(old('tipo_documento'))
+                                    <option value="{{old('tipo_documento')}}">{{old('tipo_documento')}}</option>
+                                    @else
+                                    <option value="">Selecione ...</option>
+                                    @endif
+                                    <option value="CPF">CPF</option>
+                                    <option value="RG">RG</option>
+                                    <option value="Passaporte">Passaporte</option>
+                                </select>
+                            </div>
                         </div>
-                        <!-- <span class="help-block">Some help content goes here</span> -->
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Numero do Documento<span class="text-danger">*</span></label>
-                        <div class="input-group bg-white shadow-inset-2">
-                            <input type="text" name="documento" id="documento" class="form-control bg-transparent" placeholder="Documento, relacionado a seleção do campo anterior" value="{{old('documento')}}" >
+                        <div class="form-group">
+                            <label class="form-label">Numero do Documento<span class="text-danger">*</span></label>
+                            <div class="input-group bg-white shadow-inset-2">
+                                <input type="text" name="documento" id="documento" class="form-control bg-transparent" placeholder="Documento, relacionado a seleção do campo anterior" value="{{old('documento')}}" >
+                            </div>
+                            <span class="help-block text-danger" id="documento-alert"></span>
                         </div>
-                        <span class="help-block text-danger" id="documento-alert"></span>
-                    </div>
                     @endif
                     @if($evento->ck_sexo)
                     <div class="form-group">
@@ -250,6 +229,6 @@
             </div>
         </div>
     </div>
-</div>
+
 
 @endsection

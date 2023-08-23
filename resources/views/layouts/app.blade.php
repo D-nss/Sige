@@ -18,7 +18,7 @@ Versão: 4.5.1
         <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
         <!-- Estilos -->
-        
+
         <!-- PROEC (transicionando)-->
         <link id="proec-estilo" rel="stylesheet" media="screen" href="{{asset('css/proec.css')}}">
         <link id="extecult-estilo" rel="stylesheet" media="screen" href="{{asset('css/extecult.css')}}">
@@ -567,6 +567,14 @@ Versão: 4.5.1
                 });
 
                 $('#dt-inscritos-cancelados').dataTable(
+                {
+                    language: {
+                        url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
+                    },
+                    responsive: true
+                });
+
+                $('#dt-inscrito-historico').dataTable(
                 {
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
@@ -1638,6 +1646,74 @@ Versão: 4.5.1
                 $('#div' + divAtual).removeClass('d-none');
                 $('#step' + divAtual).removeClass('opacity-50');
             });
+
+            document.addEventListener("DOMContentLoaded", function() {
+  const enderecoInput = document.getElementById("endereco");
+  const latitudeInput = document.getElementById("latitude");
+  const longitudeInput = document.getElementById("longitude");
+
+  enderecoInput.addEventListener("input", function() {
+    const endereco = enderecoInput.value;
+
+    if (endereco) {
+      fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(endereco)}&format=json`)
+        .then(response => response.json())
+        .then(data => {
+          const suggestions = data.map(item => item.display_name);
+          const latitudes = data.map(item => item.lat);
+          const longitudes = data.map(item => item.lon);
+          createAutocompleteSuggestions(suggestions, latitudes, longitudes);
+        })
+        .catch(error => {
+          console.error("Erro ao buscar sugestões de endereço:", error);
+        });
+    } else {
+      clearAutocompleteSuggestions();
+    }
+  });
+
+  function createAutocompleteSuggestions(suggestions, latitudes, longitudes) {
+    const suggestionsList = document.getElementById("suggestions-list");
+
+    // Limpar sugestões anteriores
+    suggestionsList.innerHTML = "";
+
+    suggestions.forEach((suggestion, index) => {
+      const suggestionItem = document.createElement("li");
+      suggestionItem.textContent = suggestion;
+
+      suggestionItem.addEventListener("click", function() {
+        enderecoInput.value = suggestion;
+        latitudeInput.value = latitudes[index];
+        longitudeInput.value = longitudes[index];
+        clearAutocompleteSuggestions();
+      });
+
+      suggestionsList.appendChild(suggestionItem);
+    });
+  }
+
+  function clearAutocompleteSuggestions() {
+    const suggestionsList = document.getElementById("suggestions-list");
+    suggestionsList.innerHTML = "";
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+      const openMapButton = document.getElementById("open-map-button");
+
+      openMapButton.addEventListener("click", function () {
+        const latitude = document.getElementById("latitude").value;
+        const longitude = document.getElementById("longitude").value;
+
+        if (latitude && longitude) {
+          const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          window.open(mapUrl, "_blank");
+        } else {
+          alert("Por favor, insira valores válidos para latitude e longitude.");
+        }
+      });
+    });
 
         </script>
         <!--This page contains the basic JS and CSS files to get started on your project. If you need aditional addon's or plugins please see scripts located at the bottom of each page in order to find out which JS/CSS files to add.-->

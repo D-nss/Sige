@@ -16,6 +16,10 @@ class Evento extends Model
     protected $fillable = [
         'titulo',
         'local',
+        'endereco',
+        'latitude',
+        'longitude',
+        'valor_inscricao',
         'gratuito',
         'online',
         'hibrido',

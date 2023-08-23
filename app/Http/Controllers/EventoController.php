@@ -66,12 +66,12 @@ class EventoController extends Controller
         $eventosCancelados = Evento::where('grupo_usuario', $grupo)->where('status', 'Cancelado')->get();
 
         return view(
-            'eventos.index', 
-            [ 
-                'eventosAbertos' => $eventosAbertos, 
-                'eventosEncerrados' => $eventosEncerrados, 
-                'eventosCancelados' => $eventosCancelados, 
-                'meses' => $this->meses, 
+            'eventos.index',
+            [
+                'eventosAbertos' => $eventosAbertos,
+                'eventosEncerrados' => $eventosEncerrados,
+                'eventosCancelados' => $eventosCancelados,
+                'meses' => $this->meses,
                 'diasSemana' => $this->diasSemana
             ]
         );
@@ -93,10 +93,10 @@ class EventoController extends Controller
                                 ->get(['eventos.*']);
 
         return view(
-            'eventos.por_comissao', 
+            'eventos.por_comissao',
             [
-                'eventosAbertos' => $eventosAbertos, 
-                'meses' => $this->meses, 
+                'eventosAbertos' => $eventosAbertos,
+                'meses' => $this->meses,
                 'diasSemana' => $this->diasSemana
             ]
         );
@@ -109,7 +109,7 @@ class EventoController extends Controller
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
-        
+
         foreach($user->getRoleNames() as $role) {
             if(substr($role, 0, 3) === 'gr_') {
                 $grupo = $role;
@@ -135,6 +135,7 @@ class EventoController extends Controller
             "detalhes" => 'required',
             "inscricao_inicio" => isset($request->inscricao) ? 'required' : '',
             "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
+            "valor_inscricao" => isset($request->gratuito) ? '' : 'required',
             "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
             "modelo" => isset($request->enviar_modelo) ? 'file|max:5120|required|mimes:png' : '',

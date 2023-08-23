@@ -33,7 +33,7 @@
     background: #ffffff;
     width: 100%;
   }
-   
+
   .box-header {
     color: #444;
     display: block;
@@ -42,20 +42,20 @@
     border-bottom: 1px solid #f4f4f4;
     margin-bottom: 10px;
   }
-   
+
   .box-tools {
     position: absolute;
     right: 10px;
     top: 5px;
   }
-   
+
   .dropzone-wrapper {
     border: 2px dashed #91b0b3;
     color: #92b0b3;
     position: relative;
     height: 150px;
   }
-   
+
   .dropzone-desc {
     position: absolute;
     margin: 0 auto;
@@ -66,7 +66,7 @@
     top: 50px;
     font-size: 16px;
   }
-   
+
   .dropzone,
   .dropzone:focus {
     position: absolute;
@@ -76,16 +76,16 @@
     cursor: pointer;
     opacity: 0;
   }
-   
+
   .dropzone-wrapper:hover,
   .dropzone-wrapper.dragover {
     background: #ecf0f5;
   }
-   
+
   .preview-zone {
     text-align: center;
   }
-   
+
   .preview-zone .box {
     box-shadow: none;
     border-radius: 0;
@@ -139,16 +139,8 @@
   border-color: none;
 }
 
-.btn-primary {
-  background: #14f !important; 
-}
-
 [data-action="panel-collapse"]{
   /* content: '_'; */
-}
-
-.menu-item, label.menu-open-button{
-  background: #14f !important;
 }
 
 .text-secondary{
@@ -159,9 +151,6 @@
   /*ações na camada de topo da renderização */
   z-index: 1001;
 }
-
-
-
   /* Teste novo font stack (TESTE 001)*/
 
  /*

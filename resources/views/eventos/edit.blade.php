@@ -1,26 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Eventos')
+@section('title', 'Editar Evento')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
     <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
     <li class="breadcrumb-item">Eventos</li>
-    <li class="breadcrumb-item active">Gestão de Eventos</li>
+    <li class="breadcrumb-item active">Editar</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Eventos</span>
+        <i class='subheader-icon fal fa-plus'></i>Editar Evento
         <small>
-        Gestão dos eventos da PROEC
+        Por gentileza, preencha o formulário abaixo.
         </small>
     </h1>
-    <div class="subheader-block d-lg-flex align-items-center">
-        <div class="d-inline-flex flex-column justify-content-center">
-        
-        </div>
-    </div>
 </div>
 
 <div class="container-fluid">
@@ -30,35 +25,8 @@
                 <div class="frame-wrap w-100">
                     <div class="accordion" id="accordionExample">
                         <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <div class='icon-stack display-3 flex-shrink-0'>
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
-                                        @if(isset($evento))
-                                            <i class="far fa-edit icon-stack-1x opacity-100 color-success-500"></i>
-                                        @else
-                                            <i class="far fa-plus icon-stack-1x opacity-100 color-success-500"></i>
-                                        @endif
-                                        
-                                    </div>
-                                    <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
-                                        @if(isset($evento))
-                                            Editar Evento
-                                        @else
-                                            Novo Evento
-                                        @endif
-                                    </h4>
-                                    <span class="ml-auto disable">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
-                                        </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     @if(isset($evento))
                                         <form action="{{ url('eventos/' . $evento->id ) }}" method="post" enctype="multipart/form-data">
@@ -66,9 +34,11 @@
                                     @else
                                         <form action="{{ route('eventos.store') }}" method="post" enctype="multipart/form-data">
                                     @endif
-                                    
+
                                         @csrf
-                                        <h3>Preencha corretamente o formulário com as informações sobre o evento nos campos correspondentes</h3>
+                                        <div class="panel-tag">
+                                            Complete de forma adequada o formulário com as informações relacionadas ao evento nos campos correspondentes.
+                                        </div>
                                         <div class="form-group">
                                             <label for="titulo" class="fw-700">Título do Evento</label>
                                             <input type="text" class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="titulo" placeholder="Digite o título do Evento. Máximo: 100 caracteres." @if(isset($evento))value="{{ $evento->titulo }}"@endif>
@@ -78,7 +48,33 @@
                                             <input type="text" class="form-control @error('local') is-invalid @enderror" name="local" placeholder="Digite o local do Evento." value="@if(isset($evento)){{ $evento->local }}@endif">
                                         </div>
                                         <div class="form-group border rounded p-3">
-                                        
+
+                                            <div class="form-group">
+                                                <label class="fw-700"><i class="far fa-check-circle fa-1x mr-2"></i>Local do Evento</label>
+                                                <input type="text" class="form-control @error('local') is-invalid @enderror" name="local" placeholder="Digite o nome do local do Evento." value="@if(isset($evento)){{ $evento->local }}@endif">
+                                            </div>
+                                                <div class="alert alert-info" role="alert">
+                                                    <ul id="suggestions-list">Ao preencher o endereço, abaixo conterá uma lista de sugestões:</ul>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="fw-700">Endereço</label>
+                                                    <input type="text" class="form-control @error('endereco') is-invalid @enderror" id="endereco" name="endereco" placeholder="Digite o endereço do local do Evento." value="@if(isset($evento)){{ $evento->endereco }}@endif">
+                                                </div>
+                                                <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="fw-700">Latitude</label>
+                                                    <input type="text" class="form-control @error('latitude') is-invalid @enderror" id="latitude" name="latitude" placeholder="Latitude." value="@if(isset($evento)){{ $evento->latitude }}@endif">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="fw-700">Longitude</label>
+                                                    <input type="text" class="form-control @error('longitude') is-invalid @enderror" id="longitude" name="longitude" placeholder="Longitude" value="@if(isset($evento)){{ $evento->longitude }}@endif">
+                                                </div>
+                                                </div>
+
+
+                                            </div>
+                                        <div class="form-group border rounded p-3">
+
                                             <label for="local" class="fw-700"><i class="far fa-check-circle fa-1x mr-2"></i>Tipo do Evento</label>
                                             <div class="custom-control custom-switch">
                                                 <input class="custom-control-input" type="checkbox" id="gratuito" name="gratuito" value="1" @if(isset($evento) && $evento->gratuito == 1) checked="true" @endif>
@@ -106,14 +102,14 @@
                                                     Inicio do Evento
                                                 </label>
                                                 <input class="form-control @error('data_inicio') is-invalid @enderror w-25" type="datetime-local" id="data_inicio" name="data_inicio" @if(isset($evento))value="{{ $evento->data_inicio }}"@endif>
-                                                
+
                                             </div>
                                             <div class="form-input mt-2">
                                                 <label class="form-label fw-400" for="data_fim">
                                                     Fim do Evento
                                                 </label>
                                                 <input class="form-control @error('data_fim') is-invalid @enderror w-25" type="datetime-local" id="data_fim" name="data_fim" @if(isset($evento))value="{{ $evento->data_fim }}"@endif>
-                                                
+
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -138,21 +134,21 @@
                                                         Inscricão Inicio
                                                     </label>
                                                     <input class="form-control @error('inscricao_inicio') is-invalid @enderror w-25" type="datetime-local" id="inscricao_inicio" name="inscricao_inicio" @if(isset($evento->inscricao_inicio)) value="{{ $evento->inscricao_inicio }}" @endif>
-                                                    
+
                                                 </div>
                                                 <div class="form-input mt-2">
                                                     <label class="form-label fw-400" for="inscricao_fim">
                                                         Inscrição Fim
                                                     </label>
                                                     <input class="form-control @error('inscricao_fim') is-invalid @enderror w-25" type="datetime-local" id="inscricao_fim" name="inscricao_fim" @if(isset($evento->inscricao_inicio)) value="{{ $evento->inscricao_fim }}" @endif>
-                                                    
+
                                                 </div>
                                                 <div class="form-input mt-3">
                                                     <label class="form-label fw-400" for="vagas">
                                                         Limite de inscritos:
                                                     </label>
                                                     <input class="form-control @error('vagas') is-invalid @enderror w-25" type="number" name="vagas" id="vagas" placeholder="Ilimitado"  @if(isset($evento->inscricao_inicio)) value="{{ $evento->vagas }}" @endif>
-                                                    
+
                                                     <div class="mt-3">
                                                         <div class="custom-control custom-switch">
                                                             <input class="custom-control-input" type="checkbox" id="ck_documento" name="ck_documento" value="1" @if(isset($evento->ck_documento)) checked @endif>
@@ -202,7 +198,7 @@
                                                                 Exigir Função/Cargo
                                                             </label>
                                                         </div>
-                                                        <div class="custom-control custom-switch"> 
+                                                        <div class="custom-control custom-switch">
                                                             <input class="custom-control-input" type="checkbox" id="ck_pais" name="ck_pais" value="1" @if(isset($evento->ck_pais)) checked @endif>
                                                             <label class="custom-control-label mb-2" for="ck_pais">
                                                                 Exigir País de Origem
@@ -234,7 +230,7 @@
                                                         </div>
                                                         <div class="form-group {{ isset($evento->ck_arquivo) ? 'd-block' : 'd-none' }}" id="div_prazo_envio_arquivo">
                                                             <label class="form-label fw-400" for="prazo_envio_arquivo">
-                                                                Prazo para envio de arquivo 
+                                                                Prazo para envio de arquivo
                                                                 <span class="text-danger">*</span>
                                                             </label>
                                                             <input class="form-control @error('prazo_envio_arquivo') is-invalid @enderror w-25" type="date" name="prazo_envio_arquivo" id="prazo_envio_arquivo" @if(isset($evento->prazo_envio_arquivo)) value="{{ $evento->prazo_envio_arquivo }}" @endif>
@@ -246,10 +242,10 @@
                                                             <input class="form-control" type="text" name="input_personalizado" id="input_personalizado" placeholder="Digite o texto do campo personalizado ..." @if(isset($evento->input_personalizado)) value="{{ $evento->input_personalizado }}" @endif >
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="form-group border rounded p-3">
                                             <label for="inscricao_inicio" class="fw-700"><i class="far fa-file-certificate mr-2"></i>Certificado</label>
@@ -260,7 +256,7 @@
                                                 </label>
 
                                             </div>
-                                                 
+
                                             <div class="@if(!isset($evento->certificado)) d-none @endif" id="evento_certificado">
                                                 <div class="custom-control custom-switch mb-3">
                                                     <input class="custom-control-input" type="checkbox" id="enviar_modelo" name="enviar_modelo" value="1" @if(isset($evento->certificado)) checked @endif>
@@ -296,11 +292,11 @@
                                                                 <p class="text-info fs-sm">O arquivo deve ser no formato PNG</p>
                                                             </div>
                                                             <input type="file" name="modelo" class="dropzone" id="modelo" value="{{ old('modelo') }}">
-                                                            
+
                                                         </div>
                                                         <div id="alert-pdf-format"></div>
-                                                    </div> 
-                                                </div> 
+                                                    </div>
+                                                </div>
                                                 <label class="form-label fw-400" for="carga_horaria">
                                                     Carga Horária:
                                                 </label>
@@ -313,7 +309,7 @@
 
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                         <button type="submit" class="btn btn-primary">
                                             Atualizar
@@ -324,7 +320,7 @@
                                             Cancelar Evento
                                         </button>
                                     </form>
-                                    
+
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal{{ $evento->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $evento->id }}" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -337,7 +333,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    
+
                                                         @csrf
                                                         @method('DELETE')
                                                         <p>Deseja cancelar o evento <span class="fw-500">{{ $evento->titulo }}</span>?</p>
@@ -351,7 +347,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
