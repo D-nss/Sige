@@ -1,9 +1,36 @@
 /* Customizações SOBRE o template */
 
-.page-logo img {
-    width: 180px;
-    height: 60px;
+a{/* color: #14F !important; */font-weight: 500;}
+
+a[target]:not(.btn){
+  text-decoration: none !important;
 }
+
+a[target]:not(.btn):hover{
+  text-decoration: underline !important;
+}
+
+.nav-menu li a{
+  color: #97b1dc !important;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+.page-logo img{
+  width: 100%;
+}
+
+/*minified */
+@media (min-width: 992px){
+.nav-function-minify .nav-footer [data-class="nav-function-minify"] {
+    color: #4a78c2;}
+    .nav-function-minify .page-logo img{
+      width: 70%;
+    }
+
+  }
 
 .btn-light-green {
     color: #444;
@@ -16,7 +43,14 @@
 }
 
 .active {
-    color:#1dc9b7 !important;
+    font-weight: bold;
+}
+
+/* item de breadcrumb ativo sem limite de largura */
+.breadcrumb > li.breadcrumb-item.active {
+max-width: 1000px;
+text-overflow:ellipsis;
+white-space:nowrap;
 }
 
 .btn-pdf {
@@ -120,6 +154,16 @@
     color: #888;
   }
 
+ .card-body{
+    border-bottom: solid 1px #ddd;
+}
+
+.card-title[aria-expanded="false"]{
+  border-bottom: solid 1px #ddd !important;
+}
+
+
+
   .info-card-text{
     margin: auto !important;
 }
@@ -133,10 +177,15 @@
 
 .panel-toolbar .btn-panel[data-action="panel-collapse"], .panel-toolbar .btn-panel.js-panel-collapse, .panel-toolbar .btn-panel[data-action="panel-fullscreen"]
 {
-  background: #3da0e9 !important; */
+  background: #3d6acc !important; */
   -webkit-box-shadow: none;
   box-shadow: none;
   border-color: none;
+}
+
+.btn-primary {
+  background: #14f !important;
+  color: #fff !important;
 }
 
 [data-action="panel-collapse"]{
@@ -151,6 +200,51 @@
   /*ações na camada de topo da renderização */
   z-index: 1001;
 }
+
+/* Extende a implementação dos ícones */
+
+.fa-08x{font-size: 0.8em;}
+
+
+.panel-hdr h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #5d91d5;
+}
+
+.panel.panel-fullscreen .panel-hdr h2{
+  font-size: 1.5rem;
+  position: relative;
+  vertical-align: middle;
+}
+
+/* Painel maximizado */
+.panel.panel-fullscreen .panel-toolbar .btn-panel{
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.panel.panel-fullscreen .fa-08x{
+  font-size:1rem;
+position: relative;
+top: 2px;
+}
+
+h4.funcao-form{
+  font-size: 2rem;
+  font-weight: 200;
+}
+
+.header-btn[data-class='mobile-nav-on']{
+  background-color: #fff;
+  color: #a6a6a6;
+  border-color: #a6a6a6;
+  background-image: none;
+}
+
+/* */
+
+
   /* Teste novo font stack (TESTE 001)*/
 
  /*
@@ -163,3 +257,31 @@
   }
 
   */
+
+
+
+  /* Custom control Input */
+  /* .custom-switch{
+    cursor: pointer;
+    padding-bottom:0.5rem;
+  }
+
+  .custom-switch:first-child{
+  padding-top:1rem;
+  }
+
+  .custom-control-input{
+    color: #a00;
+  }
+
+  input[type=checkbox].custom-switch{
+    color: red;
+  }*/
+
+  hr{
+  border-bottom: 1px dotted #eee;
+  }
+
+  .form-control{
+    background-color: #fefefe;
+  }

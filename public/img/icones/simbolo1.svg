@@ -1,0 +1,5 @@
+<?xml-stylesheet type="text/css" href="estilo.css" ?>
+<svg id="Simbolo1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <path d="m13,3v10H3V3h10m1-1H2v12h12V2h0Z" />
+  <circle cx="8" cy="8" r="2"/>
+</svg>

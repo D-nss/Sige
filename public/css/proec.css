@@ -14,3 +14,34 @@
 .quebra-linha {
     clear: both;
 }
+
+.btn-panel{
+    color: #fff!important;
+}
+
+.botao-minimizar{
+
+}
+
+.barra-opcoes, .linha-msg{
+    padding: 1rem;
+    background-color: #fff;
+}
+
+.linha-txt{
+    margin-bottom: 1rem;
+}
+
+.comandinho{
+    font-size: 0.75rem;
+    vertical-align: middle;
+}
+
+.icone-acao{
+    font-size: 1rem;
+}
+
+.help-block{
+    font-size:0.7rem !important;
+}
+

@@ -2,7 +2,7 @@
     <div class="page-logo">
         <!-- <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut"> -->
             <span class="fa-4x d-inline l-h-n">
-                <img src="{{ asset('img/proec-negativo.svg') }}" alt="Proec - ExteCult" class="w-100" style="fill:white;"/>
+                <img src="{{ asset('img/proec-negativo.svg') }}" alt="Proec - ExteCult" class="" style="fill:white;"/>
             </span>
             <span class="page-logo-text mr-1 fw-900 fs-xxl p-2">
                 ExteCult

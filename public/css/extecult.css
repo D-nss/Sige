@@ -1,3 +1,41 @@
 /* CSS do ExteCult aqui */
 
+.bem-vindo{
+    font-size: 2rem;
+}
 
+.btn-ec, .btn-neutro, .btn-primario {
+    background-color: #14F !important;
+    color: #fff !important;
+}
+
+.botao-acao-label{
+    font-size: 1.5rem !important;
+    vertical-align: middle;
+    padding-left:.5rem;
+    font-weight: 500;
+}
+
+.secao-titulo{
+    font-size: 1.5rem !important;
+    font-weight:300;
+}
+
+.cor-ok{
+    color: #66cc66;
+}
+
+.texto-inline{
+    vertical-align: middle;
+    display: table;
+}
+
+/*:checked + #nome-social#nome_social_campo { display: block !important; }
+#nome_social_campo { display: none !important; }*/
+
+/*input[type=checkbox] + #nome-social {
+display: none !important;
+  } 
+  input[type=checkbox]:checked + #nome-social {
+display: block !important;
+  }*/

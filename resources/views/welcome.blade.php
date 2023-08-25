@@ -8,9 +8,9 @@
 
   <div class="subheader">
       <h1 class="subheader-title">
-          <span class="text-success">Seja bem vindo!</span>
+          <span class="bem-vindo">Seja bem vindo!</span>
           <small>
-          <span class="text-danger">Extecult</span> - Sistema de gestão de extensão e cultura
+          <span class="">Extecult</span> - Sistema de gestão de extensão e cultura
           </small>
       </h1>
       <div class="subheader-block d-lg-flex align-items-center">
@@ -50,16 +50,16 @@
                 Editais
             </h2>
             <div class="panel-toolbar">
-                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"><i class="botao-painel botao-minimizar fa-08x fal fa-window-minimize"></i></button>
+                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"><i class="botao-painel fa-08x fal fa-window-maximize"></i></button>
             </div>
         </div>
         <div class="panel-container show">
             <div class="panel-content">
                 @forelse($editais as $edital)
                   <div class="panel-tag">{{ $edital->titulo }} 
-                    <a href="{{ url('storage/' . $edital->anexo_edital) }}" class="badge badge-primary px-3"> Edital<i class="fal fa-file-pdf ml-2"></i></a>
-                    <a href="{{ url('inscricao/' . $edital->id .'/novo') }}" class="badge badge-danger px-3"> Inscrever-se<i class="far fa-arrow-right ml-2"></i></a>
+                    <a href="{{ url('storage/' . $edital->anexo_edital) }}" class="badge badge-primary px-3"><i class="fal fa-file-pdf ml-2"></i> Edital</a>
+                    <a href="{{ url('inscricao/' . $edital->id .'/novo') }}" class="px-3"><i class="far fa-arrow-right ml-2"></i> Inscrever-se</a>
                   </div>
                 @empty
                 <div class="panel-tag"><p class="font-italic font-color-light">Nenhum edital com inscrição aberta.</p></div>
@@ -76,8 +76,8 @@
               Contato
           </h2>
           <div class="panel-toolbar">
-              <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-              <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+              <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"><i class="botao-painel botao-minimizar fa-08x fal fa-window-minimize"></i></button>
+              <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"><i class="botao-painel botao-maximizar fa-08x fal fa-window-maximize"></i></button>
           </div>
       </div>
       <div class="panel-container show">

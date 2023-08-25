@@ -18,11 +18,12 @@ Versão: 4.5.1
         <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
         <!-- Estilos -->
-
-        <!-- PROEC (transicionando)-->
+        
+        <!-- PROEC e Design System EC (transicionando)-->
         <link id="proec-estilo" rel="stylesheet" media="screen" href="{{asset('css/proec.css')}}">
         <link id="extecult-estilo" rel="stylesheet" media="screen" href="{{asset('css/extecult.css')}}">
         <link id="fontes" rel="stylesheet" media="screen" href="{{asset('css/fontes.css')}}">
+        <link id="icones" rel="stylesheet" media="screen" href="{{asset('css/icones.css')}}">
         <link id="fontes-typekit" rel="stylesheet" href="https://use.typekit.net/tzw0dhy.css">
 
         <!-- Templates/plugins, etc -->

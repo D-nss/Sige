@@ -1,0 +1,63 @@
+/* Design System */
+/* Ícones customizados */
+
+.icone-teste{
+   content: url('../img/icones/simbolo1.svg');
+}
+
+.icone-teste-branco{
+    content: url('../img/icones/simbolo1-bco.svg');
+ }
+
+.icone-e::before{
+    content: url('../img/icones/simbolo1.svg');
+}
+
+
+
+.icone {
+    display: block;
+    float: left;
+    padding-right: .3rem;
+    /* vertical-align: middle; */
+}
+
+.icone-depois {
+    float: right;
+    padding-right: .3rem;
+}
+
+.icone-antes {
+    float: left;
+    padding-right: .3rem;
+}
+
+.icone.tamanho-mini, .icone.mini {
+    display:block;
+    width: 1rem;
+    height: 1rem;
+}
+
+.icone.tamanho-normal, .icone.n {
+    /* display:block; */
+    width: 1.5rem;
+    height: 1rem;
+}
+
+.icone.tamanho-grande, .icone.g {
+    display:block;
+    width: 2rem;
+    height: 2rem;
+}
+
+.icone.tamanho-extragrande, .icone.xg {
+    /* display: inline; */
+    width: 3rem;
+    height: 3rem;
+}
+
+.icone.tamanho-extra-extragrande, .icone.xxg {
+    display:block;
+    width: 4rem;
+    height: 4rem;
+}

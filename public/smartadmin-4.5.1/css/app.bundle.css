@@ -266,19 +266,20 @@ aside.page-sidebar ($nav-width, $nav-background)
 
 body {
   /* Font stack "herdado" */
- /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   
   /*
   Preparando o sistema para ter uma fonte melhor:*/
-  font-family: "Acumin Pro", "Helvetica Neue", Helvetica, Arial, "Roboto";
   /*Bloco TESTE001 no customizado.
   */
-  
+  font-family: "Acumin Pro", "Helvetica Neue", Helvetica, Arial, "Roboto";
+  font-weight:  300;
   font-size: 0.8125rem;
-  letter-spacing: 0.1px; }
+  letter-spacing: 0.1px;
+  }
 
   a {
-    /* Ícones usam a fonte herdada. */
+    /* Ícones em botões acionáveis usam a fonte herdada. */
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
@@ -750,8 +751,9 @@ html {
   scroll-behavior: smooth; }
   html body {
     direction: ltr;
-    text-rendering: optimizeLegibility;
-    background-color: #fff; }
+    /* text-rendering: optimizeLegibility; */
+    background-color: #fff;
+    }
     html body a {
       color: #886ab5;
       text-decoration: none;
@@ -2474,8 +2476,9 @@ html {
   text-shadow: #fff 0 1px;
   margin: 0;
   -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1; }
+  -ms-flex: 1;
+  flex: 1;
+  }
   .subheader-title sup.badge {
     text-shadow: none;
     position: absolute;
@@ -3859,7 +3862,8 @@ html {
   .panel-hdr > :first-child {
     padding-left: 1rem; }
   .panel-hdr > :last-child {
-    padding-right: 1rem; }
+    padding-right: 1rem;
+    }
   .panel-hdr h2 {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -3940,10 +3944,10 @@ html {
           align-items: center;
   /* we curve the last button to make it seamless with panel's border radius */ }
   .panel-toolbar .btn-panel {
-    margin-left: 0.3rem;
+    margin-left: 0.5em;
     padding: 0;
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.6rem;
+    height: 1.6rem;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: 50%;
@@ -4585,10 +4589,12 @@ a.text-blur {
   font-weight: 400 !important; }
 
 .fw-500 {
-  font-weight: 500 !important; }
+  /* font-weight: 500 !important; */
+  }
 
 .fw-700 {
-  font-weight: 700 !important; }
+  font-weight: 700 !important;
+  }
 
 .fw-900 {
   font-weight: 900 !important; }
@@ -5601,8 +5607,9 @@ a, area, button, [role="button"], input, label, select, summary, textarea {
 a[target]:not(.btn) {
   font-weight: 500;
   -webkit-text-decoration-skip: ink;
-          text-decoration-skip-ink: auto;
-  text-decoration: underline !important; }
+  text-decoration-skip-ink: auto;
+  text-decoration: underline !important;
+  }
 
 /* btn active */
 /*.btn.active, 
@@ -5725,7 +5732,8 @@ $grid-breakpoints: (
   .page-header {
     padding: 0 2rem; }
   .page-content {
-    padding: 1.5rem 2rem; }
+    padding: 1.5rem 2rem;
+    }
     .page-content .panel {
       margin-bottom: 1.5rem; } }
 
