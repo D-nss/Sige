@@ -13,13 +13,26 @@
     content: url('../img/icones/simbolo1.svg');
 }
 
+.icone-chevron-expandir{
+    content: url('../img/icones/chevron-expandir.svg');
+ }
+ 
+ .icone-chevron-colapsar{
+     content: url('../img/icones/chevron-colapsar.svg');
+  }
 
+
+svg g#Camada4{
+fill:blue;
+}
 
 .icone {
     display: block;
     float: left;
-    padding-right: .3rem;
-    /* vertical-align: middle; */
+    /* padding-right: .3rem; */
+    vertical-align: middle;
+    width: 1.5rem;
+    height:  1.5rem;
 }
 
 .icone-depois {
@@ -28,8 +41,8 @@
 }
 
 .icone-antes {
-    float: left;
-    padding-right: .3rem;
+/*    float: left;
+    padding-right: .3rem;*/
 }
 
 .icone.tamanho-mini, .icone.mini {
@@ -39,9 +52,9 @@
 }
 
 .icone.tamanho-normal, .icone.n {
-    /* display:block; */
+    display:block;
     width: 1.5rem;
-    height: 1rem;
+    height: 1.5rem;
 }
 
 .icone.tamanho-grande, .icone.g {

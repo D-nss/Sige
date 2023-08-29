@@ -285,3 +285,16 @@ h4.funcao-form{
   .form-control{
     background-color: #fefefe;
   }
+
+  .icon-stack-0-5x {
+  position: absolute !important;
+  left: 0;
+  bottom: 1px;
+  width: 100%;
+  text-align: center;
+  line-height: inherit !important;
+  }
+
+  .icon-stack-0-5x{
+    font-size: 0.35em;
+  }

@@ -42,11 +42,13 @@
                                         Eventos Abertos
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                         </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -57,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="card-header" id="headingOne">
-                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosFechados" aria-expanded="true" aria-controls="collapseEventosFechados">
+                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosFechados" aria-expanded="false" aria-controls="collapseEventosFechados">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
                                         <i class="far fa-clipboard-list icon-stack-1x opacity-100 color-warning-500"></i>
@@ -67,11 +69,13 @@
                                         Eventos Fechados
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                         </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -82,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="card-header" id="headingOne">
-                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosCancelados" aria-expanded="true" aria-controls="collapseEventosCancelados">
+                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseEventosCancelados" aria-expanded="false" aria-controls="collapseEventosCancelados">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
                                         <i class="far fa-times icon-stack-1x opacity-100 color-danger-500"></i>
@@ -92,11 +96,13 @@
                                         Eventos Cancelados
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                         </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                         </span>
                                     </span>
                                 </a>

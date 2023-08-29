@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 16">
+  <defs>
+    <style>
+      .uuid-59512964-7841-4120-a1de-1634585a4a82 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+      }
+
+      .uuid-df536a02-a8ac-401c-ab70-c2b2f7bd54ea, .uuid-8124d56b-e03b-4317-97a1-f9cd5013decd {
+        stroke-width: 0px;
+      }
+
+      .uuid-8124d56b-e03b-4317-97a1-f9cd5013decd {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="uuid-76f07c95-6366-420e-865e-ed6c9051a970" data-name="alvo">
+    <g>
+      <circle class="uuid-8124d56b-e03b-4317-97a1-f9cd5013decd" cx="8" cy="8" r="7.5"/>
+      <path class="uuid-df536a02-a8ac-401c-ab70-c2b2f7bd54ea" d="m8,1c3.86,0,7,3.14,7,7s-3.14,7-7,7S1,11.86,1,8,4.14,1,8,1m0-1C3.58,0,0,3.58,0,8s3.58,8,8,8,8-3.58,8-8S12.42,0,8,0h0Z"/>
+    </g>
+  </g>
+  <g id="uuid-107f8f23-5e29-4d7d-9ac0-2b22163a2239" data-name="Camada 4">
+    <polyline class="uuid-59512964-7841-4120-a1de-1634585a4a82" points="12 9 8 5 4 9"/>
+  </g>
+</svg>
