@@ -7,7 +7,7 @@
     <li class="breadcrumb-item"><a href="/acoes-extensao">Ações de Extensão</a></li>
     <li class="breadcrumb-item active">Mapa</li>
     <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
-    </button></a></li>
+            </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
@@ -27,11 +27,13 @@
                     <i class="fal fa-filter width-2 fs-xl"></i>
                     Filtragem
                     <span class="ml-auto">
-                        <span class="collapsed-reveal">
-                            <i class="fal fa-minus fs-xl"></i>
+                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                         </span>
-                        <span class="collapsed-hidden">
-                            <i class="fal fa-plus fs-xl"></i>
+                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                         </span>
                     </span>
                 </a>
@@ -50,7 +52,7 @@
         <div class="col-xl-12">
             <div class="card mb-g">
                 <div class="card-body pb-0 px-4">
-                <x-maps-leaflet
+                    <x-maps-leaflet
                         :centerPoint="['lat' => -22.195240, 'long' => -48.433408]"
                         :zoomLevel="7"
                         :markers="$marcadores">

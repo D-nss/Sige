@@ -13,12 +13,12 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-list'></i>Eventos</span>
         <small>
-        Gestão dos eventos da PROEC
+            Gestão dos eventos da PROEC
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -35,22 +35,24 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                         <i class="far fa-list icon-stack-1x opacity-100 color-success-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                         Detalhes do Palestrante
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                         </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                         </span>
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="col-12 flex-1">
                                         <span class="f-lg font-color-light">Título do Evento</span>
@@ -61,7 +63,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Local</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $evento->local }}
+                                                    {{ $evento->local }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -70,15 +72,15 @@
                                         <div class="p-0">
                                             <h5 class="d-flex flex-column">
                                                 <span class="font-color-light font-size-14">Data</span>
-                                                
+
                                                 <small class="mt-0 mb-3 font-size-16 fw-400">
-                                                <span class="font-color-light font-size-12">Início</span>
-                                                <br>
-                                                {{ date('d/m/Y H:i:s', strtotime($evento->data_inicio)) }}
-                                                <br>
-                                                <span class="font-color-light font-size-12">Fim</span>
-                                                <br>
-                                                {{ date('d/m/Y H:i:s', strtotime($evento->data_fim)) }}
+                                                    <span class="font-color-light font-size-12">Início</span>
+                                                    <br>
+                                                    {{ date('d/m/Y H:i:s', strtotime($evento->data_inicio)) }}
+                                                    <br>
+                                                    <span class="font-color-light font-size-12">Fim</span>
+                                                    <br>
+                                                    {{ date('d/m/Y H:i:s', strtotime($evento->data_fim)) }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -88,7 +90,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Nome Completo</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $membroEquipe->nome }}
+                                                    {{ $membroEquipe->nome }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -98,7 +100,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">E-Mail</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $membroEquipe->email }}
+                                                    {{ $membroEquipe->email }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -108,7 +110,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Documento</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $membroEquipe->cpf }}
+                                                    {{ $membroEquipe->cpf }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -119,7 +121,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Whatsapp</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $membroEquipe->whatsapp }}
+                                                    {{ $membroEquipe->whatsapp }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -131,7 +133,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Instituição</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $membroEquipe->instituicao }}
+                                                    {{ $membroEquipe->instituicao }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -143,7 +145,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Função</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $membroEquipe->funcao_evento }}
+                                                    {{ $membroEquipe->funcao_evento }}
                                                 </small>
                                             </h5>
                                         </div>

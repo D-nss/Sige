@@ -13,7 +13,7 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-list'></i>Ocorrência</span>
         <small>
-        Gestão da Ocorrência
+            Gestão da Ocorrência
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
@@ -41,11 +41,13 @@
                                         Detalhes do Membro da Equipe
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                         </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -61,7 +63,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Local</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{$acaoExtensaoOcorrencia->local}}
+                                                    {{$acaoExtensaoOcorrencia->local}}
                                                 </small>
                                             </h5>
                                         </div>
@@ -72,13 +74,13 @@
                                                 <span class="font-color-light font-size-14">Data</span>
 
                                                 <small class="mt-0 mb-3 font-size-16 fw-400">
-                                                <span class="font-color-light font-size-12">Início</span>
-                                                <br>
-                                                {{ date('d/m/Y H:i:s', strtotime($acaoExtensaoOcorrencia->data_inicio)) }}
-                                                <br>
-                                                <span class="font-color-light font-size-12">Fim</span>
-                                                <br>
-                                                {{ date('d/m/Y H:i:s', strtotime($acaoExtensaoOcorrencia->data_fim)) }}
+                                                    <span class="font-color-light font-size-12">Início</span>
+                                                    <br>
+                                                    {{ date('d/m/Y H:i:s', strtotime($acaoExtensaoOcorrencia->data_inicio)) }}
+                                                    <br>
+                                                    <span class="font-color-light font-size-12">Fim</span>
+                                                    <br>
+                                                    {{ date('d/m/Y H:i:s', strtotime($acaoExtensaoOcorrencia->data_fim)) }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -88,7 +90,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Nome Completo</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $acaoExtensaoOcorrenciaMembro->nome }}
+                                                    {{ $acaoExtensaoOcorrenciaMembro->nome }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -98,7 +100,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">E-Mail</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $acaoExtensaoOcorrenciaMembro->email }}
+                                                    {{ $acaoExtensaoOcorrenciaMembro->email }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -108,7 +110,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Documento</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $acaoExtensaoOcorrenciaMembro->cpf }}
+                                                    {{ $acaoExtensaoOcorrenciaMembro->cpf }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -119,7 +121,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Whatsapp</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $acaoExtensaoOcorrenciaMembro->whatsapp }}
+                                                    {{ $acaoExtensaoOcorrenciaMembro->whatsapp }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -131,7 +133,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Instituição</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $acaoExtensaoOcorrenciaMembro->instituicao }}
+                                                    {{ $acaoExtensaoOcorrenciaMembro->instituicao }}
                                                 </small>
                                             </h5>
                                         </div>
@@ -143,7 +145,7 @@
                                             <h5>
                                                 <span class="font-color-light font-size-14">Função</span>
                                                 <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                {{ $acaoExtensaoOcorrenciaMembro->funcao }}
+                                                    {{ $acaoExtensaoOcorrenciaMembro->funcao }}
                                                 </small>
                                             </h5>
                                         </div>

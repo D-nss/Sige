@@ -13,12 +13,12 @@
     <h1 class="subheader-title">
         <span class="text-success"><i class='subheader-icon fal fa-list'></i>Eventos</span>
         <small>
-        Gestão dos eventos da PROEC
+            Gestão dos eventos da PROEC
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -35,24 +35,26 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                         <i class="far fa-clipboard-list-check icon-stack-1x opacity-100 color-success-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                         Eventos
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                         </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                         </span>
                                     </span>
                                 </a>
                             </div>
                             <div id="collapseEventosAbertos" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    @include('eventos._table_abertos_por_comissao') 
+                                    @include('eventos._table_abertos_por_comissao')
                                 </div>
                             </div>
                         </div>

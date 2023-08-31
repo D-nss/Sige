@@ -13,11 +13,13 @@
                             Inscritos Confirmados <span class="alert-info p-1">Avaliação</span>
                         </h4>
                         <span class="ml-auto">
-                            <span class="collapsed-reveal">
-                                <i class="fal fa-minus-circle text-danger"></i>
+                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                             </span>
-                            <span class="collapsed-hidden">
-                                <i class="fal fa-plus-circle text-info"></i>
+                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                             </span>
                         </span>
                     </a>

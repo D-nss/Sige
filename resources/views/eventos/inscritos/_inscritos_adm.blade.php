@@ -13,18 +13,20 @@
                             Inscritos Confirmados
                         </h4>
                         <span class="ml-auto">
-                            <span class="collapsed-reveal">
-                                <i class="fal fa-minus-circle text-danger"></i>
+                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                             </span>
-                            <span class="collapsed-hidden">
-                                <i class="fal fa-plus-circle text-success"></i>
+                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                             </span>
                         </span>
                     </a>
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                    <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscrito/novo') }}">{{ url('evento/'. $evento->id .'/inscrito/novo') }}</a></h2>
+                        <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscrito/novo') }}">{{ url('evento/'. $evento->id .'/inscrito/novo') }}</a></h2>
                         <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-adm" style="width: 100%">
                             <thead>
                                 <tr>
@@ -73,11 +75,13 @@
                             Inscritos Lista de Espera
                         </h4>
                         <span class="ml-auto">
-                            <span class="collapsed-reveal">
-                                <i class="fal fa-minus-circle text-danger"></i>
+                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                             </span>
-                            <span class="collapsed-hidden">
-                                <i class="fal fa-plus-circle text-success"></i>
+                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                             </span>
                         </span>
                     </a>
@@ -122,18 +126,20 @@
                             Inscritos Aguardando Confirmação
                         </h4>
                         <span class="ml-auto">
-                            <span class="collapsed-reveal">
-                                <i class="fal fa-minus-circle text-danger"></i>
+                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                             </span>
-                            <span class="collapsed-hidden">
-                                <i class="fal fa-plus-circle text-success"></i>
+                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                             </span>
                         </span>
                     </a>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                    <table class="table table-bordered table-hover" id="dt-inscritos-nao-confirmados" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-nao-confirmados" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -174,18 +180,20 @@
                             Inscritos Cancelados
                         </h4>
                         <span class="ml-auto">
-                            <span class="collapsed-reveal">
-                                <i class="fal fa-minus-circle text-danger"></i>
+                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                             </span>
-                            <span class="collapsed-hidden">
-                                <i class="fal fa-plus-circle text-success"></i>
+                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                             </span>
                         </span>
                     </a>
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                     <div class="card-body">
-                    <table class="table table-bordered table-hover" id="dt-inscritos-cancelados" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-cancelados" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>

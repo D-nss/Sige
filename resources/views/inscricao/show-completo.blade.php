@@ -56,11 +56,13 @@
                                     Dados do Projeto
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -267,11 +269,13 @@
                                     Detalhamento
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -304,11 +308,13 @@
                                     Orçamento
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -356,11 +362,13 @@
                                     Arquivos
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -436,11 +444,13 @@
                                     Sub-comissão
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -479,11 +489,13 @@
                                     Notas e Parecer
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -556,11 +568,13 @@
                                     Avaliadores(Pareceristas)
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -603,11 +617,13 @@
                                     Recurso
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -654,11 +670,13 @@
                                     Relatório Final
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>

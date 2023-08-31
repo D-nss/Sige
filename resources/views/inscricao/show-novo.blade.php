@@ -97,13 +97,15 @@
                                         Relatório Final
                                     </h4>
                                     <span class="ml-auto">
-                                        <span class="collapsed-reveal">
-                                            <i class="fal fa-minus-circle text-danger"></i>
-                                        </span>
-                                        <span class="collapsed-hidden">
-                                            <i class="fal fa-plus-circle text-success"></i>
-                                        </span>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
+                                    </span>
+                                </span>
                                 </a>
                             </div>
                             <div id="collapseRelatorioFinal" class="collapse show" aria-labelledby="headingRecurso" data-parent="#accordionExample">
@@ -272,11 +274,13 @@
                                     Resultado Prévio
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -354,11 +358,13 @@
                                     Dados do Projeto
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -571,11 +577,13 @@
                                     Detalhamento
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -608,11 +616,13 @@
                                     Orçamento
                                 </h4>
                                 <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
+                                    <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                        <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                        <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                     </span>
                                 </span>
                             </a>
@@ -654,14 +664,16 @@
                         <div class="card-header" id="headingFour">
                             <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                 Collapsible Group Item #4
-                                <span class="ml-auto">
-                                    <span class="collapsed-reveal">
-                                        <i class="fal fa-minus-circle text-danger"></i>
+                                    <span class="ml-auto">
+                                        <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
+                                        </span>
+                                        <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
+                                        </span>
                                     </span>
-                                    <span class="collapsed-hidden">
-                                        <i class="fal fa-plus-circle text-success"></i>
-                                    </span>
-                                </span>
                             </a>
                         </div>
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">

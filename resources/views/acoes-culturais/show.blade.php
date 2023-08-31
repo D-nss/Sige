@@ -7,7 +7,7 @@
     <li class="breadcrumb-item"><a href="/acoes-culturais"> Ações Culturais</a></li>
     <li class="breadcrumb-item active">Detalhes da Ação</li>
     <li class="breadcrumb-item"><a href="/acoes-culturais/{{$acao_cultural->id}}/editar"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Editar
-    </button></a></li>
+            </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 @if($acao_cultural->status == 'Pendente')
@@ -39,8 +39,8 @@
     </h1>
 </div>
 
-    <div class="row">
-      <div class="col-xl-12">
+<div class="row">
+    <div class="col-xl-12">
         <div id="panel-3" class="panel">
             <div class="panel-container show">
                 <div class="panel-content">
@@ -53,15 +53,15 @@
                             <div class="ml-3">
                                 <h5 class="mb-0 flex-1 text-dark fw-500">
                                     Evento Cultural
-                                <small class="m-0 l-h-n">
-                                    <b>Seguimento:</b>
-                                </small>
-                            </h5>
-                            <div>
-                                @foreach ($segmentos_culturais as $segmento_cultural)
+                                    <small class="m-0 l-h-n">
+                                        <b>Seguimento:</b>
+                                    </small>
+                                </h5>
+                                <div>
+                                    @foreach ($segmentos_culturais as $segmento_cultural)
                                     <a href="/acoes-culturais/segmento/{{$segmento_cultural}}"><span class="badge badge-danger">{{$segmento_cultural}}</span></a>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <div class="col-12">
@@ -81,7 +81,7 @@
                                     Palavras-chaves:
                                     <small class="mt-0 mb-3 text-muted">
                                         @foreach (explode(',', $acao_cultural->palavras_chaves) as $palavra_chave)
-                                            <a href="/acoes-culturais/palavra-chave/{{$palavra_chave}}"><span class="badge badge-info">{{$palavra_chave}}</span></a>
+                                        <a href="/acoes-culturais/palavra-chave/{{$palavra_chave}}"><span class="badge badge-info">{{$palavra_chave}}</span></a>
                                         @endforeach
                                     </small>
                                 </h5>
@@ -140,9 +140,9 @@
                                     Gratuito:
                                     <small class="mt-0 mb-3 text-muted">
                                         @if ($acao_cultural->gratuito)
-                                            Sim
+                                        Sim
                                         @else
-                                            Não
+                                        Não
                                         @endif
                                     </small>
                                 </h5>
@@ -175,7 +175,7 @@
                                 <h5>
                                     Link Externo:
                                     <small class="mt-0 mb-3 text-muted">
-                                        <a href="{{$acao_cultural->url}}" target="_blank" >{{$acao_cultural->url}}</a>
+                                        <a href="{{$acao_cultural->url}}" target="_blank">{{$acao_cultural->url}}</a>
                                     </small>
                                 </h5>
                             </div>
@@ -192,11 +192,13 @@
                                             Datas e Locais de Realização
                                         </div>
                                         <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                             </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
+                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                             </span>
                                         </span>
                                     </a>
@@ -249,11 +251,13 @@
                                             Coordenador e Unidades
                                         </div>
                                         <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                             </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
+                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                             </span>
                                         </span>
                                     </a>
@@ -343,11 +347,13 @@
                                             Colaboradores (Equipe)
                                         </div>
                                         <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                             </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
+                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                             </span>
                                         </span>
                                     </a>
@@ -400,11 +406,13 @@
                                             Parceiros
                                         </div>
                                         <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                             </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
+                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                             </span>
                                         </span>
                                     </a>
@@ -449,11 +457,13 @@
                                             Cidade e Georreferenciação
                                         </div>
                                         <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                             </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
+                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                             </span>
                                         </span>
                                     </a>
@@ -463,14 +473,14 @@
                                         <div class="frame-wrap">
                                             <div class="col-12">
                                                 <div class="p-0">
-                                                        <h5>
-                                                            <a href="/acoes-culturais/cidades/{{$acao_cultural->municipio->id}}">
-                                                                <i class="fal fa-map-marker-alt"></i> {{$acao_cultural->municipio->nome_municipio}} - {{$acao_cultural->municipio->estado}}
-                                                            </a>
-                                                            <small>
-                                                                Cidade - Estado
-                                                            </small>
-                                                        </h5>
+                                                    <h5>
+                                                        <a href="/acoes-culturais/cidades/{{$acao_cultural->municipio->id}}">
+                                                            <i class="fal fa-map-marker-alt"></i> {{$acao_cultural->municipio->nome_municipio}} - {{$acao_cultural->municipio->estado}}
+                                                        </a>
+                                                        <small>
+                                                            Cidade - Estado
+                                                        </small>
+                                                    </h5>
                                                 </div>
                                             </div>
                                             <div class="pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted">
@@ -495,11 +505,13 @@
                                             Arquivos
                                         </div>
                                         <span class="ml-auto">
-                                            <span class="collapsed-reveal">
-                                                <i class="fal fa-minus-circle text-danger"></i>
+                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
                                             </span>
-                                            <span class="collapsed-hidden">
-                                                <i class="fal fa-plus-circle text-success"></i>
+                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
+                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
+                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
                                             </span>
                                         </span>
                                     </a>
@@ -513,16 +525,15 @@
                                                 <h4>Uploads de Arquivos</h4>
                                                 <label for="nome_arquivo" class="form-label">Nome Arquivo</label>
                                                 <input type="text" class="form-control mb-2 @error('nome_arquivo') is-invalid @enderror" name="nome_arquivo" id="nome_arquivo" placeholder="Nome do arquivo" value="{{ old('nome_arquivo') }}">
-
                                                 <div class="preview-zone hidden">
                                                     <div class="box box-solid">
                                                         <div class="box-header with-border">
-                                                        <div></div>
-                                                        <div class="box-tools pull-right">
-                                                            <button type="button" class="btn btn-secondary btn-xs remove-preview">
-                                                            Limpar
-                                                            </button>
-                                                        </div>
+                                                            <div></div>
+                                                            <div class="box-tools pull-right">
+                                                                <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                                                    Limpar
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                         <div class="box-body" id="box-body">
 
@@ -556,18 +567,18 @@
                                                 <div class="p-0 col-md-6">
                                                     <h5>
                                                         <a href='{{ url("storage/$arquivo->url_arquivo") }}' class="btn btn-xs btn-warning waves-effect waves-themed mb-1" href="#" target="_blank">Abrir Arquivo</a>
-                                                    @if($userCoordenadorAcao)
+                                                        @if($userCoordenadorAcao)
                                                         <form action='{{ url("upload-arquivo/" . $arquivo->id) }}' method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="btn btn-xs btn-danger waves-effect waves-themed" type="submit">Remover</button>
                                                         </form>
-                                                    @endif
+                                                        @endif
                                                     </h5>
                                                 </div>
                                                 @endforeach
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -577,8 +588,8 @@
                 </div>
             </div>
         </div>
-      </div>
     </div>
+</div>
 
 
 @endsection
