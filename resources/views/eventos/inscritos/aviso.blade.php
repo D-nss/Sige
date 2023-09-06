@@ -7,7 +7,6 @@
     <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
     <li class="breadcrumb-item">Eventos</li>
     <li class="breadcrumb-item active">Gestão de Eventos</li>
-    <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
@@ -33,11 +32,7 @@
                 </div>
                 <div class="alert alert-warning">
                     <i class="far fa-exclamation-circle"></i>
-                    Estamos quase lá! Para finalizar o processo de inscrição, é necessário que você confirme o seu endereço de e-mail. Por favor, realize essa confirmação o quanto antes, a fim de garantir a validade da sua inscrição dentro do prazo estabelecido.
-
-A efetivação da sua inscrição só ocorrerá após a confirmação, para a qual enviamos um link para o seu endereço de e-mail.
-
-Se não conseguir encontrar o e-mail, por favor, verifique também a sua pasta de Spam.
+                    Para concluir sua inscrição, é crucial confirmar seu endereço de e-mail o mais rápido possível, pois isso é necessário para validar sua inscrição dentro do prazo estipulado. A inscrição só será efetivada após a confirmação, e enviamos um link para seu e-mail para isso. Certifique-se de verificar sua pasta de Spam se não encontrar o e-mail..
                 </div>
             </div>
         </div>

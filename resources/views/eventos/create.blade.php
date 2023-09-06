@@ -39,9 +39,9 @@
                             <label class="fw-700"><i class="far fa-map-marker-alt fa-1x mr-2"></i>Local do Evento</label>
                             <input type="text" class="form-control @error('local') is-invalid @enderror" name="local" placeholder="Digite o nome do local do Evento." value="{{ old('local') }}">
                         </div>
-                            <div class="alert alert-info" role="alert">
+                            <!--<div class="alert alert-info" role="alert">
                                 <ul id="suggestions-list">Ao inserir as informações no campo de endereço, você verá uma lista de sugestões abaixo. Clique na opção correspondente para preencher automaticamente os campos restantes (latitude e longitude) e receber auxílio.</ul>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <label class="fw-700">Endereço</label>
                                 <input type="text" class="form-control @error('endereco') is-invalid @enderror" id="endereco" name="endereco" placeholder="Digite o endereço do local do Evento." value="{{ old('endereco') }}">

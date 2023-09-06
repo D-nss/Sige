@@ -28,10 +28,12 @@ use Illuminate\Support\Facades\App;
 use App\Services\Avaliacao\Subcomissao;
 
 use App\Services\Avaliacao;
-
+use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\Log;
+
+use Illuminate\Database\Connection\DB;
 
 
 class EventoInscritosController extends Controller
@@ -223,9 +225,7 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::find($id);
 
         //return dd($inscrito);
-
         $participados = EventoInscrito::where('email', $inscrito->email)->get();
-
         //return dd($participados);
 
         if(Auth::check()) {

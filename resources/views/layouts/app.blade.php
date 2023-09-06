@@ -18,7 +18,7 @@ Versão: 4.5.1
         <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
         <!-- Estilos -->
-        
+
         <!-- PROEC e Design System EC (transicionando)-->
         <link id="proec-estilo" rel="stylesheet" media="screen" href="{{asset('css/proec.css')}}">
         <link id="extecult-estilo" rel="stylesheet" media="screen" href="{{asset('css/extecult.css')}}">
@@ -580,7 +580,11 @@ Versão: 4.5.1
                     language: {
                         url: "{{ asset('/smartadmin-4.5.1/js/pt_BR.json') }}",
                     },
-                    responsive: true
+                    responsive: true,
+                    paging: false,
+                    searching: false,
+                    info: false
+
                 });
 
                 $('#dt-usuarios').dataTable(
@@ -1648,6 +1652,9 @@ Versão: 4.5.1
                 $('#step' + divAtual).removeClass('opacity-50');
             });
 
+            /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
+            Mas apresenta erros - por enquanto desconsiderar...
+
             document.addEventListener("DOMContentLoaded", function() {
   const enderecoInput = document.getElementById("endereco");
   const latitudeInput = document.getElementById("latitude");
@@ -1698,7 +1705,7 @@ Versão: 4.5.1
     const suggestionsList = document.getElementById("suggestions-list");
     suggestionsList.innerHTML = "";
   }
-});
+}); */
 
 document.addEventListener("DOMContentLoaded", function () {
       const openMapButton = document.getElementById("open-map-button");
