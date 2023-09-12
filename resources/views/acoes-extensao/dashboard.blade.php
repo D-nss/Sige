@@ -33,6 +33,7 @@
         <span>Visão geral</span>
     </h1>
 </div>
+@if($userNaComissao && $userNaComissaoConext)
 <div class="row">
     <div class="col-sm-6 col-xl-3">
         <div class="p-3 bg-fusion-200 rounded overflow-hidden position-relative text-white mb-g">
@@ -79,13 +80,14 @@
         </div>
     </div>
 </div>
+@endif
 <div class="row">
     <div class="col-lg-12 col-xl-12">
                                 <!--Table head-->
                                 <div id="panel" class="panel">
                                     <div class="panel-hdr ">
                                         <h2>
-                                            Listagem das Ações de Extensão cadastradas
+                                            Minhas Ações de Extensões
                                         </h2>
                                         <div class="panel-toolbar">
                                             <a href="/acoes-extensao/novo" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>

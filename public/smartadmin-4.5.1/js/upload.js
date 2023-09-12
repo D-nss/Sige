@@ -25,7 +25,7 @@ function readFile(input, id) {
         $('#alert-pdf-format').html('');
       }
       else {
-        $('#alert-pdf-format').html('<span class="text-warning fw-500">Desculpe! O arquivo deve ter no máximo 5MB.</span>');
+        alert('Desculpe! O arquivo deve ter no máximo 5MB.');
         $('.box-body').empty();
         $('.preview-zone').addClass('hidden');
       }

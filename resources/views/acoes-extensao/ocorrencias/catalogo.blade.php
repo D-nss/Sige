@@ -11,7 +11,7 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-list'></i> Catálogo de Ocorrências
+        <i class='subheader-icon fal fa-list'></i> Ações de Extensão com Inscrições Abertas
         <small>
             Listagem das Ocorrências de Ações de Extensão Abertas para Participação
         </small>

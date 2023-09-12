@@ -11,9 +11,9 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-list'></i> Ações de Extensão
+        <i class='subheader-icon fal fa-list'></i> Ações de Extensão Reconhecidadas pela ProEC
         <small>
-            Listagem do Catálago de Ações Reconhecidas pela PROEC
+            Listagem das Ações de Extensão
         </small>
     </h1>
 </div>

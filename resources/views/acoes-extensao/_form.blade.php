@@ -372,7 +372,7 @@
                             <div class="dropzone-wrapper">
                                 <div class="dropzone-desc">
                                     <i class="glyphicon glyphicon-download-alt"></i>
-                                    <p class="font-weight-bold">Arraste o pdf do projeto aqui ou clique para selecionar.</p>
+                                    <p class="font-weight-bold">Arraste o PDF (5MB) aqui, ou clique para selecionar.</p>
 
                                 </div>
                                 <input type="file" name="arquivo" class="dropzone" id="arquivo" {{ isset($acao_extensao->arquivo) ? '' : 'required' }}>

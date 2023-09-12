@@ -71,12 +71,12 @@
                             </li>
                             <li class="">
                                 <a href="{{ url('acoes-extensao-catalogo') }}" title="Catálogo" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Aprovados PROEC</span>
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo PROEC</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Catálogo Ocorrências" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Ocorrências</span>
+                                <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                 </a>
                             </li>
                             <li class="">
@@ -97,13 +97,13 @@
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="{{ url('acoes-extensao') }}" title="Listagem" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                                <a href="{{ url('acoes-extensao') }}" title="Catálogo da UNIDADE" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
                                 </a>
                             </li>
                             <li class="">
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa das Ações</span>
                                 </a>
                             </li>
                         </ul>
@@ -138,8 +138,8 @@
                         </a>
                         <ul>
                             <li class="">
-                                <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Catálogo Ocorrências" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo Ocorrências</span>
+                                <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                 </a>
                                 <a href="{{ url('acoes-extensao-participacoes') }}" title="Participações" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Participações</span>
