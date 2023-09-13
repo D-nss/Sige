@@ -352,7 +352,7 @@
     </div>
 </div>
 @endif
-@if(count($pendentes) > 0 && $userNaComissaoConext))
+@if(count($pendentes) > 0 && $userNaComissaoConext)
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
     <h1 class="subheader-title text-danger">
         <span>Pendende de sua aprovação (Conext)</span>
