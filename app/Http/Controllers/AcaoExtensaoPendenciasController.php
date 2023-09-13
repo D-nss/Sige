@@ -104,7 +104,7 @@ class AcaoExtensaoPendenciasController extends Controller
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados,
             'user'    => $user,
-            '$userNaComissaoUnidades' => $$userNaComissaoUnidades
+            '$userNaComissaoUnidades' => $userNaComissaoUnidades
         ]);
     }
 

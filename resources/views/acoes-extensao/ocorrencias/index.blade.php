@@ -60,11 +60,9 @@
                                 <td>
                                     <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
                                     @if($ocorrencia->acao_extensao->user_id === $user->id)
-
-                                    @endif
-                                    <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Editar</a>
-                                    <a href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" class="btn btn-success btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Equipe</a>
-                                    <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
+                                        <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Editar</a>
+                                        <a href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" class="btn btn-success btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Equipe</a>
+                                        <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
 
                                         <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal{{ $ocorrencia->id }}">
                                             Encerrar
@@ -94,6 +92,8 @@
                                                 </form>
                                             </div>
                                         </div>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                             @endforeach

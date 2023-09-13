@@ -149,7 +149,7 @@
                                         {{$acao_extensao->updated_at->format('d/m/Y')}}
                                     </td>
                                     <td>
-                                        @if($acao_extensao->status_avaliacao_conext === 'Aprovado' && $acao_extensao->ocorrencias->count() > 0)
+                                        @if($acao_extensao->status_avaliacao_conext === 'Aprovado')
                                             <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
                                         @endif
                                     </td>
