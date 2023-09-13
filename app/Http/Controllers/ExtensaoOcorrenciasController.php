@@ -32,15 +32,16 @@ class ExtensaoOcorrenciasController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        if($acao_extensao->user_id != $user->id){
-            session()->flash('status', 'Apenas o Coordenador da Ação pode gerenciar as ocorrências.');
-            session()->flash('alert', 'danger');
-            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
-        }
+        // if($acao_extensao->user_id != $user->id){
+        //     session()->flash('status', 'Apenas o Coordenador da Ação pode gerenciar as ocorrências.');
+        //     session()->flash('alert', 'danger');
+        //     return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
+        // }
 
         return view('acoes-extensao.ocorrencias.index', [
             'ocorrencias' => $ocorrencias,
             'acao_extensao' => $acao_extensao,
+            'user' => $user
         ]);
     }
 

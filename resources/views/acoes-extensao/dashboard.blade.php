@@ -33,7 +33,7 @@
         <span>Visão geral</span>
     </h1>
 </div>
-@if($userNaComissao && $userNaComissaoConext)
+@if($userNaComissao || $userNaComissaoConext)
 <div class="row">
     <div class="col-sm-6 col-xl-3">
         <div class="p-3 bg-fusion-200 rounded overflow-hidden position-relative text-white mb-g">

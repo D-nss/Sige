@@ -10,9 +10,15 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-list'></i> Ações de Extensão
+        <i class='subheader-icon fal fa-list'></i> 
+        Ações de Extensão
+        @if(isset($userNaComissaoConext)) 
+            Pendentes de Aprovação (CONEXT)
+        @elseif(isset($$userNaComissaoUnidades))
+            Pendentes de Aprovação (UNIDADE)
+        @endif
         <small>
-            Listagem das Ações de Extensão Cadastradas e Aprovadas
+            Listagem das Ações de Extensão
         </small>
     </h1>
 </div>
@@ -143,8 +149,8 @@
                                         {{$acao_extensao->updated_at->format('d/m/Y')}}
                                     </td>
                                     <td>
-                                        @if($acao_extensao->status_avaliacao_conext === 'Aprovado' && $acao_extensao->user_id == $user->id)
-                                        <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
+                                        @if($acao_extensao->status_avaliacao_conext === 'Aprovado' && $acao_extensao->ocorrencias->count() > 0)
+                                            <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
                                         @endif
                                     </td>
                                 </tr>

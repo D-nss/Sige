@@ -53,7 +53,8 @@ class AcaoExtensaoPendenciasController extends Controller
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados,
-            'user'    => $user
+            'user'    => $user,
+            'userNaComissaoConext' => $userNaComissaoConext
         ]);
     }
     
@@ -102,7 +103,8 @@ class AcaoExtensaoPendenciasController extends Controller
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados,
-            'user'    => $user
+            'user'    => $user,
+            '$userNaComissaoUnidades' => $$userNaComissaoUnidades
         ]);
     }
 
