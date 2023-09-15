@@ -177,15 +177,15 @@ white-space:nowrap;
 
 .panel-toolbar .btn-panel[data-action="panel-collapse"], .panel-toolbar .btn-panel.js-panel-collapse, .panel-toolbar .btn-panel[data-action="panel-fullscreen"]
 {
-  background: #3d6acc !important; */
+  background: #3d6acc !important;
   -webkit-box-shadow: none;
   box-shadow: none;
   border-color: none;
 }
 
 .btn-primary {
-  background: #14f !important;
-  color: #fff !important;
+  /* background: #14f !important;
+  color: #fff !important; */
 }
 
 [data-action="panel-collapse"]{
