@@ -20,17 +20,10 @@
       </div>
   </div>
 
-  <div class="alert alert-primary">
+<div class="bg-white mb-5 p-5 shadow">
     <div class="d-flex flex-start w-100">
-        <div class="mr-2 hidden-md-down">
-            <span class="icon-stack icon-stack-lg">
-                <i class="base base-5 icon-stack-3x opacity-100 color-primary-500"></i>
-                <i class="far fa-money-check-edit icon-stack-1x opacity-100 color-white"></i>
-            </span>
-        </div>
         <div class="d-flex flex-fill">
-            <div class="flex-fill">
-                <span class="h5">Sobre </span>
+            <div class="flex-fill fs-xl">
                 <p>A Pró-Reitoria de Extensão e Cultura tem como missão coordenar, fomentar, estimular e produzir ações de Extensão e de Cultura pela integração dialógica, interativa e pró ativa com a sociedade, difundindo e adquirindo conhecimento por meio da comunidade universitária.</p>
                 <p>“Extensão Comunitária” é a atividade acadêmica de Extensão Universitária destinada a atender a sociedade civil em comunidade externa à UNICAMP em segmentos da população ou em grupos específicos (minorias, grupos étnicos, portadores de necessidades especiais, faixas etárias, etc.), promovendo ação de natureza social, artística, cultural, desportiva ou educativa.</p>
                 <p>A ação de "Extensão Comunitária" deve estar diretamente vinculada a uma atividade acadêmica regular de ensino e de pesquisa; deve ser dirigida por um docente ou pesquisador da UNICAMP; deve ter, necessariamente, a participação de alunos regularmente matriculados na UNICAMP; e deve prever a troca mútua de conhecimentos e de experiências entre os acadêmicos participantes do projeto e as pessoas da comunidade atendida.</p>
@@ -43,52 +36,72 @@
 </div>
  
 <div class="row">
-  <div class="col-xl-6">
+  <div class="col-xl-4">
     <div id="panel-1" class="panel">
-        <div class="panel-hdr">
+        <div class="panel-hdr bg-primary-700">
             <h2>
                 Editais
             </h2>
-            <div class="panel-toolbar">
-                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"><i class="botao-painel botao-minimizar fa-08x fal fa-window-minimize"></i></button>
-                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"><i class="botao-painel fa-08x fal fa-window-maximize"></i></button>
-            </div>
         </div>
         <div class="panel-container show">
             <div class="panel-content">
                 @forelse($editais as $edital)
                   <div class="panel-tag">{{ $edital->titulo }} 
-                    <a href="{{ url('storage/' . $edital->anexo_edital) }}" class="badge badge-primary px-3"><i class="fal fa-file-pdf ml-2"></i> Edital</a>
+                    <a href="{{ url('storage/' . $edital->anexo_edital) }}" class="btn btn-info btn-xs"><i class="fal fa-file-pdf"></i> Edital</a>
                     <a href="{{ url('inscricao/' . $edital->id .'/novo') }}" class="px-3"><i class="far fa-arrow-right ml-2"></i> Inscrever-se</a>
                   </div>
                 @empty
                 <div class="panel-tag"><p class="font-italic font-color-light">Nenhum edital com inscrição aberta.</p></div>
                 @endforelse
+                <a href="{{ url('editais') }}" class="btn btn-link fw-bold fs-xl">Ver Mais ...</a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4">
+    <div id="panel-1" class="panel">
+        <div class="panel-hdr bg-primary-700">
+            <h2>
+                Eventos
+            </h2>
+        </div>
+        <div class="panel-container show">
+            <div class="panel-content">
+                @forelse($eventos as $evento)
+                  <div class="panel-tag">{{ $evento->titulo }}
+                    <a href="{{ url('eventos/' . $evento->id ) }}" class="px-3"><i class="far fa-arrow-right ml-2"></i> Ver Detalhes</a>
+                  </div>
+                @empty
+                <div class="panel-tag"><p class="font-italic font-color-light">Nenhum evento com inscrição aberta.</p></div>
+                @endforelse
+                <a href="{{ url('eventos') }}" class="btn btn-link fw-bold fs-xl">Ver Mais ...</a>
             </div>
         </div>
     </div>
   </div>
         
-  <div class="col-xl-6">
+  <div class="col-xl-4">
     <div class="panel">
-      <div class="panel-hdr">
+      <div class="panel-hdr bg-primary-700">
           <h2>
               Contato
           </h2>
-          <div class="panel-toolbar">
-              <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"><i class="botao-painel botao-minimizar fa-08x fal fa-window-minimize"></i></button>
-              <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"><i class="botao-painel botao-maximizar fa-08x fal fa-window-maximize"></i></button>
-          </div>
       </div>
       <div class="panel-container show">
           <div class="panel-content">
-              <div class="panel-tag">
-                <p><span class="text-secondary font-weight-bold">Dúvidas sobre editais:</span> pex@unicamp.br</p>
-                <p><span class="text-secondary font-weight-bold">Dúvidas sobre Indicadores:</span> conex@unicamp.br</p>
-                <p><span class="text-secondary font-weight-bold">Dúvidas sobre Sistemas:</span> suporte@proec.unicamp.br</p>
-                <p><span class="text-secondary font-weight-bold">Endereço:</span>Av. Érico Veríssimo, 500 – Cidade Universitária “Zeferino Vaz” – Barão Geraldo CEP 13083-851 – Campinas – SP</p>
-              
-              </div>
+            <div class="panel-tag fs-xl">
+                  <span class="text-secondary font-weight-bold">Dúvidas sobre editais:</span> pex@unicamp.br
+            </div>
+                <div class="panel-tag fs-xl">
+                    <span class="text-secondary font-weight-bold">Dúvidas sobre Indicadores:</span> conex@unicamp.br
+                </div>
+                <div class="panel-tag fs-xl">
+                    <span class="text-secondary font-weight-bold">Dúvidas sobre Sistemas:</span> suporte@proec.unicamp.br
+                </div>
+                <div class="panel-tag fs-xl">
+                    <span class="text-secondary font-weight-bold">Endereço: </span>Av. Érico Veríssimo, 500 – Cidade Universitária “Zeferino Vaz” – Barão Geraldo CEP 13083-851 – Campinas – SP
+                </div>
           </div>
       </div>
           

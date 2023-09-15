@@ -57,8 +57,9 @@ use App\Http\Controllers\EditalPartipantesProjetoController;
 */
 
 Route::get('/', function () {
-    $editais = \App\Models\Edital::where('status', 'Divulgação')->get(['id', 'titulo', 'anexo_edital']);
-    return view('welcome', compact('editais'));
+    $editais = \App\Models\Edital::where('status', 'Divulgação')->limit(3)->orderBy('created_at', 'desc')->get(['id', 'titulo', 'anexo_edital']);
+    $eventos = \App\Models\Evento::where('inscricao_fim', '<=', date('Y-m-d H:i:s'))->limit(3)->orderBy('inscricao_fim', 'desc')->get(['id', 'titulo',]);
+    return view('welcome', compact('editais', 'eventos'));
 });
 
 Route::group(['middleware' => ['keycloak-web', 'check_is_user']], function () {
