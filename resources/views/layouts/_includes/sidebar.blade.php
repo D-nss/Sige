@@ -259,7 +259,7 @@
                 </ul>
             </li>
             @endhasanyrole
-            @hasanyrole('super|admin|extensao-coordenador', 'web_user')
+            @hasanyrole('super|admin', 'web_user')
             <li class="nav-title">Administração</li>
             
             <li>
