@@ -75,6 +75,11 @@
                                 </a>
                             </li>
                             <li class="">
+                                <a href="{{ url('acoes-extensao') }}" title="Catálogo da UNIDADE" data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
+                                </a>
+                            </li>
+                            <li class="">
                                 <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas" data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                 </a>
@@ -95,11 +100,6 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao') }}" title="Catálogo da UNIDADE" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
-                                </a>
                             </li>
                             <li class="">
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa" data-filter-tags="utilities menu child sublevel item">
@@ -240,8 +240,7 @@
                     </li>
                 </ul>
             </li>
-            @hasanyrole('super|admin', 'web_user')
-            <li class="nav-title">Administração</li>
+            @hasanyrole('super|admin|extensao-coordenador', 'web_user')
             <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Comissões</span>
@@ -258,6 +257,11 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            @endhasanyrole
+            @hasanyrole('super|admin|extensao-coordenador', 'web_user')
+            <li class="nav-title">Administração</li>
+            
             <li>
                 <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Usuarios</span>
