@@ -20,11 +20,7 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-12">
-            <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}"><i class="far fa-plus"></i></a> Adicionar Ocorrência <br>
-        </div>
-    </div>
+    
   <div class="row">
     <div class="col-xl-12">
         
@@ -33,6 +29,9 @@
                 <h2>
                     Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                 </h2>
+                <div class="panel-toolbar">
+                    <a href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>
+                </div>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
@@ -41,30 +40,61 @@
                     <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
                         <thead>
                             <tr>
-                                 <th class="text-uppercase text-muted py-2 px-3">Inicio</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Fim</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Local</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Inicio (Inscrições)</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Fim (Inscrições)</th>
-                                 <th class="text-uppercase text-muted py-2 px-3">Ações</th>
+                                <th class="text-uppercase text-muted py-2 px-3">Local</th>
+                                <th class="text-uppercase text-muted py-2 px-3">Inicio</th>
+                                <th class="text-uppercase text-muted py-2 px-3">Fim</th>
+                                <th class="text-uppercase text-muted py-2 px-3">Inicio (Inscrições)</th>
+                                <th class="text-uppercase text-muted py-2 px-3">Fim (Inscrições)</th>
+                                <th class="text-uppercase text-muted py-2 px-3">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($ocorrencias as $ocorrencia)
                             <tr >
+                                <td><a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-link fw-bold fs-xl"> {{$ocorrencia->local}}</a></td>
                                 <td>{{$ocorrencia->data_hora_inicio->format('d/m/Y - H:i')}}</td>
                                 <td>{{$ocorrencia->data_hora_fim->format('d/m/Y - H:i')}}</td>
-                                <td>{{$ocorrencia->local}}</td>
                                 <td>{{isset($ocorrencia->inicio_inscricoes) ? $ocorrencia->inicio_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td>{{isset($ocorrencia->fim_inscricoes) ? $ocorrencia->fim_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
                                 <td>
-                                    <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
                                     @if($ocorrencia->acao_extensao->user_id === $user->id)
-                                        <a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" class="btn btn-primary btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Editar</a>
-                                        <a href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" class="btn btn-success btn-xs {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}">Equipe</a>
-                                        <a href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" class="btn btn-xs btn-warning">{{isset($ocorrencia->fim_inscricoes) ? 'Curricularização' : ''}}</a>
+                                        <a 
+                                            href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" 
+                                            class="btn btn-info btn-block btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            data-toggle="tooltip" 
+                                            data-placement="bottom" 
+                                            title="" 
+                                            data-original-title="Editar Registro"
+                                        >
+                                            <i class="far fa-file-edit"></i>
+                                        </a>
+                                        <a 
+                                            href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" 
+                                            class="btn btn-primary btn-block btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            data-toggle="tooltip" 
+                                            data-placement="bottom" 
+                                            title="" 
+                                            data-original-title="Equipe"
+                                        >
+                                            <i class="far fa-user-friends"></i>
+                                        </a>
+                                        <a 
+                                            href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
+                                            class="btn btn-warning btn-block btn-pills waves-effect waves-themed"
+                                            data-toggle="tooltip" 
+                                            data-placement="bottom" 
+                                            title="" 
+                                            data-original-title="Curricularização"
+                                        >
+                                            {{isset($ocorrencia->fim_inscricoes) ? '<i class="far fa-clipboard-user"></i>' : ''}}
+                                        </a>
 
-                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal{{ $ocorrencia->id }}">
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-danger btn-block btn-pills waves-effect waves-themed" 
+                                            data-toggle="modal" 
+                                            data-target="#modal{{ $ocorrencia->id }}"
+                                        >
                                             Encerrar
                                         </button>
                                         <!-- Modal -->
