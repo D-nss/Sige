@@ -60,7 +60,7 @@
                                     @if($ocorrencia->acao_extensao->user_id === $user->id)
                                         <a 
                                             href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" 
-                                            class="btn btn-info btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            class="btn btn-info btn-pills waves-effect waves-themed fs-xl {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
