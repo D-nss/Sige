@@ -60,7 +60,7 @@
                                     @if($ocorrencia->acao_extensao->user_id === $user->id)
                                         <a 
                                             href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" 
-                                            class="btn btn-info btn-block btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            class="btn btn-info btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
@@ -70,7 +70,7 @@
                                         </a>
                                         <a 
                                             href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" 
-                                            class="btn btn-primary btn-block btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            class="btn btn-primary btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
@@ -80,22 +80,22 @@
                                         </a>
                                         <a 
                                             href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
-                                            class="btn btn-warning btn-block btn-pills waves-effect waves-themed"
+                                            class="btn btn-warning btn-pills waves-effect waves-themed"
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
                                             data-original-title="Curricularização"
                                         >
-                                            {{isset($ocorrencia->fim_inscricoes) ? '<i class="far fa-clipboard-user"></i>' : ''}}
+                                            <i class="far fa-clipboard-user"></i>
                                         </a>
 
                                         <button 
                                             type="button" 
-                                            class="btn btn-danger btn-block btn-pills waves-effect waves-themed" 
+                                            class="btn btn-danger btn-pills waves-effect waves-themed" 
                                             data-toggle="modal" 
                                             data-target="#modal{{ $ocorrencia->id }}"
                                         >
-                                            Encerrar
+                                        <i class="far fa-trash-alt"></i>
                                         </button>
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal{{ $ocorrencia->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $ocorrencia->id }}" aria-hidden="true">
