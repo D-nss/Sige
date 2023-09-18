@@ -183,10 +183,27 @@
                                                             </td>
                                                             <td>
                                                                 @if($user->id == $acao_extensao->user_id)
-                                                                    <a href="{{ url('acoes-extensao/' . $acao_extensao->id ) }}" class="btn btn-xs btn-info">Ver Detalhes</a>
-                                                                    <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" class="btn btn-primary btn-xs">Editar</a>
+                                                                    <a 
+                                                                        href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" 
+                                                                        class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
+                                                                        data-toggle="tooltip" 
+                                                                        data-placement="bottom" 
+                                                                        title="" 
+                                                                        data-original-title="Editar Registro"
+                                                                    >
+                                                                        <i class="fal fa-file-edit"></i>
+                                                                    </a>
                                                                     @if($acao_extensao->status_avaliacao_conext === 'Aprovado')
-                                                                        <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>
+                                                                        <a 
+                                                                            href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" 
+                                                                            class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
+                                                                            data-toggle="tooltip" 
+                                                                            data-placement="bottom" 
+                                                                            title="" 
+                                                                            data-original-title="Ocorrências"
+                                                                        >
+                                                                        <i class="far fa-clipboard-list-check"></i>
+                                                                        </a>
                                                                     @endif
                                                                     <!-- Modal -->
                                                                     <div class="modal fade" id="modal{{ $acao_extensao->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $acao_extensao->id }}" aria-hidden="true">
@@ -216,7 +233,8 @@
                                                                     </div>
 
                                                                     @if($acao_extensao->status == 'Rascunho')
-                                                                        <button type="button" class="btn btn-xs btn-danger waves-effect waves-themed" data-toggle="modal" data-target="#modal{{ $acao_extensao->id }}">Excluir
+                                                                        <button type="button" class="btn btn-danger btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modal{{ $acao_extensao->id }}">
+                                                                            <i class="fal fa-trash-alt"></i>
                                                                         </button>
                                                                     @endif
                                                                 @endif
