@@ -60,7 +60,7 @@
                                     @if($ocorrencia->acao_extensao->user_id === $user->id)
                                         <a 
                                             href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id .'/editar') }}" 
-                                            class="btn btn-info btn-pills waves-effect waves-themed fs-xl {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            class="btn btn-primary btn-pills waves-effect waves-themed fs-xl {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
@@ -80,7 +80,7 @@
                                         </a>
                                         <a 
                                             href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
-                                            class="btn btn-warning btn-pills waves-effect waves-themed fs-xl "
+                                            class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
@@ -91,7 +91,7 @@
 
                                         <button 
                                             type="button" 
-                                            class="btn btn-danger btn-pills waves-effect waves-themed fs-xl " 
+                                            class="btn btn-primary btn-pills waves-effect waves-themed fs-xl " 
                                             data-toggle="modal" 
                                             data-target="#modal{{ $ocorrencia->id }}"
                                         >
