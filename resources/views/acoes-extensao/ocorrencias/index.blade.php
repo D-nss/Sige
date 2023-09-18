@@ -30,7 +30,7 @@
                     Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                 </h2>
                 <div class="panel-toolbar">
-                    <a href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ocorrências</a>
+                    <a href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ocorrência</a>
                 </div>
             </div>
             <div class="panel-container show">
@@ -91,7 +91,7 @@
 
                                         <button 
                                             type="button" 
-                                            class="btn btn-primary btn-pills waves-effect waves-themed fs-xl " 
+                                            class="btn btn-danger btn-pills waves-effect waves-themed fs-xl " 
                                             data-toggle="modal" 
                                             data-target="#modal{{ $ocorrencia->id }}"
                                         >

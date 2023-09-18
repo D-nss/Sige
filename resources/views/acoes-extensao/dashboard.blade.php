@@ -88,6 +88,7 @@
                                     <div class="panel-hdr ">
                                         <h2>
                                             Minhas Ações de Extensões
+                                            <small class="text-muted">Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo</small>
                                         </h2>
                                         <div class="panel-toolbar">
                                             <a href="/acoes-extensao/novo" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>
@@ -202,7 +203,7 @@
                                                                             title="" 
                                                                             data-original-title="Ocorrências"
                                                                         >
-                                                                        <i class="far fa-clipboard-list-check"></i>
+                                                                        <i class="fal fa-clipboard-list-check"></i>
                                                                         </a>
                                                                     @endif
                                                                     <!-- Modal -->
