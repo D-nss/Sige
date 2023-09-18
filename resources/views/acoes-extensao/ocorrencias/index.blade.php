@@ -30,7 +30,7 @@
                     Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                 </h2>
                 <div class="panel-toolbar">
-                    <a href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>
+                    <a href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ocorrências</a>
                 </div>
             </div>
             <div class="panel-container show">
@@ -51,7 +51,7 @@
                         <tbody>
                             @foreach($ocorrencias as $ocorrencia)
                             <tr >
-                                <td><a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-link fw-bold fs-xl"> {{$ocorrencia->local}}</a></td>
+                                <td><a href="{{ url('acoes-extensao/ocorrencias/'. $ocorrencia->id ) }}" class="btn btn-xs btn-link fw-700 fs-xl"> {{$ocorrencia->local}}</a></td>
                                 <td>{{$ocorrencia->data_hora_inicio->format('d/m/Y - H:i')}}</td>
                                 <td>{{$ocorrencia->data_hora_fim->format('d/m/Y - H:i')}}</td>
                                 <td>{{isset($ocorrencia->inicio_inscricoes) ? $ocorrencia->inicio_inscricoes->format('d/m/Y - H:i') : 'Sem curricularização'}}</td>
@@ -66,36 +66,36 @@
                                             title="" 
                                             data-original-title="Editar Registro"
                                         >
-                                            <i class="far fa-file-edit"></i>
+                                            <i class="fal fa-file-edit"></i>
                                         </a>
                                         <a 
                                             href="{{ url('acoes-extensao-ocorrencia/'. $ocorrencia->id .'/equipe') }}" 
-                                            class="btn btn-primary btn-pills waves-effect waves-themed {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
+                                            class="btn btn-primary btn-pills waves-effect waves-themed fs-xl  {{ $ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}"
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
                                             data-original-title="Equipe"
                                         >
-                                            <i class="far fa-user-friends"></i>
+                                            <i class="fal fa-user-friends"></i>
                                         </a>
                                         <a 
                                             href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
-                                            class="btn btn-warning btn-pills waves-effect waves-themed"
+                                            class="btn btn-warning btn-pills waves-effect waves-themed fs-xl "
                                             data-toggle="tooltip" 
                                             data-placement="bottom" 
                                             title="" 
                                             data-original-title="Curricularização"
                                         >
-                                            <i class="far fa-clipboard-user"></i>
+                                            <i class="fal fa-clipboard-user"></i>
                                         </a>
 
                                         <button 
                                             type="button" 
-                                            class="btn btn-danger btn-pills waves-effect waves-themed" 
+                                            class="btn btn-danger btn-pills waves-effect waves-themed fs-xl " 
                                             data-toggle="modal" 
                                             data-target="#modal{{ $ocorrencia->id }}"
                                         >
-                                        <i class="far fa-trash-alt"></i>
+                                        <i class="fal fa-trash-alt"></i>
                                         </button>
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal{{ $ocorrencia->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $ocorrencia->id }}" aria-hidden="true">
