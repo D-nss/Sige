@@ -184,8 +184,8 @@ white-space:nowrap;
 }
 
 .btn-primary {
-  /* background: #14f !important;
-  color: #fff !important; */
+  background: #14f !important;
+  color: #fff !important;
 }
 
 [data-action="panel-collapse"]{
