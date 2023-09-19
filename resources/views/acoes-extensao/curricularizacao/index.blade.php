@@ -152,7 +152,7 @@
                                                 data-toggle="tooltip" 
                                                 data-placement="bottom" 
                                                 title="" 
-                                                data-original-title="Aceitar"
+                                                data-original-title="Aceitar Aluno"
                                             >
                                                 <i class="fal fa-check-circle"></i>
                                             </div>
