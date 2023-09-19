@@ -150,7 +150,16 @@
                                     </td>
                                     <td>
                                         @if($acao_extensao->status_avaliacao_conext === 'Aprovado')
-                                            <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" class="btn btn-xs btn-warning">Ocorrências</a>git 
+                                            <a 
+                                                href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" 
+                                                class="btn btn-primary btn-pills waves-effect waves-themed fs-xl"
+                                                data-toggle="tooltip" 
+                                                data-placement="bottom" 
+                                                title="" 
+                                                data-original-title="Ocorrências"
+                                            >
+                                                <i class="fal fa-clipboard-list-check"></i>
+                                            </a>
                                         @endif
                                     </td>
                                 </tr>

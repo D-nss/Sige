@@ -116,8 +116,15 @@
                                     </td>
                                     <td class="align-middle">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-xs btn-secondary" data-toggle="modal" data-target="#modalApresentacao{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
-                                        Carta Apresentação
+                                        <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed fs-xl " data-toggle="modal" data-target="#modalApresentacao{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
+                                            <div 
+                                                data-toggle="tooltip" 
+                                                data-placement="bottom" 
+                                                title="" 
+                                                data-original-title="Carta de Apresentação"
+                                            >
+                                                <i class="fal fa-envelope-open-text"></i>
+                                            </div>
                                         </button>
 
                                         <!-- Modal -->
@@ -140,8 +147,15 @@
                                             </div>
                                         </div>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
-                                        Aceitar
+                                        <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modal{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
+                                            <div
+                                                data-toggle="tooltip" 
+                                                data-placement="bottom" 
+                                                title="" 
+                                                data-original-title="Aceitar"
+                                            >
+                                                <i class="fal fa-check-circle"></i>
+                                            </div>
                                         </button>
 
                                         <!-- Modal -->
@@ -180,8 +194,15 @@
                                         </div>
                                         
                                         @if($curricularizacao->status == 'Aceito')
-                                        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalApontar{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
-                                            Apontar Horas
+                                        <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modalApontar{{ $curricularizacao->id }}" {{ $curricularizacao->acao_extensao_ocorrencia->status == 'Encerrado' ? 'disabled' : '' }}>
+                                            <div
+                                                data-toggle="tooltip" 
+                                                data-placement="bottom" 
+                                                title="" 
+                                                data-original-title="Apontar Horas"
+                                            >
+                                                <i class="fal fa-clock"></i>
+                                            </div>
                                         </button>
 
                                         <!-- Modal -->
