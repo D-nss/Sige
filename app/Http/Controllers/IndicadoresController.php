@@ -10,7 +10,7 @@ class IndicadoresController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:indicadores-user|indicadores-admin|super');
+        $this->middleware('role:indicadores-user|indicadores-admin|super');
     }
     
     public function index()

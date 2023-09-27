@@ -24,8 +24,19 @@ class Subcomissao implements AvaliacaoInterface
                                 ->where('comissoes_users.user_id', $user->id)
                                 ->first();
 
-        //analisa se esta fora do periodo de analise
-        if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) ) {
+        
+        if($inscricao->edital->tipo == 'Fluxo Contínuo'){
+            return ['analise' => true];
+        }
+        elseif( 
+            strtotime(date('Y-m-d')) 
+            < 
+            strtotime($cronograma->getDate('dt_org_tematica', $inscricao->edital_id)) 
+            || 
+            strtotime(date('Y-m-d')) 
+            > 
+            strtotime($cronograma->getDate('dt_termino_org_tematica', $inscricao->edital_id)) 
+        ) {
             session()->flash('status', 'Período de analise ainda não foi aberto.');
             session()->flash('alert', 'warning');
 

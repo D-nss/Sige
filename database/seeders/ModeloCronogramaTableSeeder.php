@@ -1137,7 +1137,42 @@ class ModeloCronogramaTableSeeder extends Seeder
                 'msg_erro' => 'A data de fim do relatorio final não pode ser menor que a data da execução do projeto',
                 'created_at' => '2022-05-03 10:02:34',
                 'updated_at' => '2022-05-03 10:02:34',
-            ),     
+            ),  
+            
+            //FLUXO CONTINUO
+            101 => 
+            array (
+                'id' => 102,
+                'tipo_edital' => 'Fluxo Continuo',
+                'dt_label' => 'Data Divulgação',
+                'dt_input' => 'dt_divulgacao',
+                'validate' => '',
+                'msg_erro' => '',
+                'created_at' => '2022-04-12 14:03:38',
+                'updated_at' => '2022-04-12 14:03:39',
+            ),
+            102 => 
+            array (
+                'id' => 103,
+                'tipo_edital' => 'Fluxo Continuo',
+                'dt_label' => 'Data Início das Inscrições',
+                'dt_input' => 'dt_inscricao',
+                'validate' => 'dt_divulgacao',
+                'msg_erro' => 'A data de inscrição não pode ser menor que a data de divulgação',
+                'created_at' => '2022-04-12 14:03:36',
+                'updated_at' => '2022-04-12 14:03:37',
+            ),
+            103 => 
+            array (
+                'id' => 104,
+                'tipo_edital' => 'Fluxo Continuo',
+                'dt_label' => 'Data Termino das Inscrições',
+                'dt_input' => 'dt_termino_inscricao',
+                'validate' => 'dt_inscricao',
+                'msg_erro' => 'A data de termino das inscrições não pode ser menor que a data de inscrição',
+                'created_at' => '2022-04-12 14:05:42',
+                'updated_at' => '2022-04-12 14:05:43',
+            ),
         ));
         
         

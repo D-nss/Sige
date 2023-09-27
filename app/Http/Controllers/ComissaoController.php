@@ -92,7 +92,7 @@ class ComissaoController extends Controller
     public function create()
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }

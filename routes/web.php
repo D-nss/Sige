@@ -6,25 +6,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\IndicadorUnidadeController;
-use App\Http\Controllers\AvaliadorController;
-use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\AnalistaController;
 use App\Http\Controllers\CertificadoController;
-use App\Http\Controllers\CriterioController;
-use App\Http\Controllers\CronogramaController;
 use App\Http\Controllers\ComentarioController;
-use App\Http\Controllers\EditalController;
-use App\Http\Controllers\QuestaoController;
-use App\Http\Controllers\InscricaoController;
-use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\SubcomissaoTematicaController;
 use App\Http\Controllers\AreaTematicaController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\AvaliadorPorInscricaoController;
 use App\Http\Controllers\IndicadoresParametrosController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProcessoEditalController;
 use App\Http\Controllers\AcaoExtensaoController;
 use App\Http\Controllers\AcaoExtensaoPendenciasController;
 use App\Http\Controllers\ExtensaoOcorrenciasController;
@@ -34,7 +24,6 @@ use App\Http\Controllers\ComissaoController;
 use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
 use App\Http\Controllers\IndicadoresController;
-use App\Http\Controllers\RecursoInscricaoController;
 use App\Http\Controllers\AcaoCulturalController;
 use App\Http\Controllers\EventoInscritosController;
 use App\Http\Controllers\EventoController;
@@ -43,7 +32,20 @@ use App\Http\Controllers\EventoEquipeController;
 use App\Http\Controllers\PalestranteController;
 use App\Http\Controllers\AcaoExtensaoCurricularizacaoParticipacaoController;
 use App\Http\Controllers\ExtensaoEquipeController;
-use App\Http\Controllers\EditalPartipantesProjetoController;
+
+//Controllers do modulo de Editais
+use App\Http\Controllers\Editais\AvaliadorController;
+use App\Http\Controllers\Editais\AvaliacaoController;
+use App\Http\Controllers\Editais\CriterioController;
+use App\Http\Controllers\Editais\CronogramaController;
+use App\Http\Controllers\Editais\EditalController;
+use App\Http\Controllers\Editais\QuestaoController;
+use App\Http\Controllers\Editais\OrcamentoController;
+use App\Http\Controllers\Editais\AvaliadorPorInscricaoController;
+use App\Http\Controllers\Editais\ProcessoEditalController;
+use App\Http\Controllers\Editais\RecursoInscricaoController;
+use App\Http\Controllers\Editais\EditalPartipantesProjetoController;
+use App\Http\Controllers\Editais\InscricaoController;
 
 /*
 |--------------------------------------------------------------------------
