@@ -43,6 +43,9 @@
                     @if($inscricao->edital->tipo === 'Saberes Indígenas')
                         @include('inscricao._botoes_pex')
                     @endif
+                    @if($inscricao->edital->tipo === 'Fluxo Contínuo')
+                        @include('inscricao._botoes_pex')
+                    @endif
                     @if($inscricao->edital->tipo === 'Colégios')
                         @include('inscricao._botoes_pex')
                     @endif
