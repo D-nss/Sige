@@ -124,7 +124,7 @@ class InscricaoController extends Controller
         }
 
         /* Checagem se o user já é inscrito no edital ou se possui uma inscrição em aberto em outros editais */
-        if(ChecaUserInscrito::execute($id, $user) && ChecaInscricaoAberta::execute($id, $user)){
+        if(ChecaUserInscrito::execute($request->edital_id, $user) && ChecaInscricaoAberta::execute($request->edital_id, $user)){
             return redirect()->back();
         }
         
