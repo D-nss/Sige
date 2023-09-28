@@ -627,17 +627,21 @@ class InscricaoController extends Controller
             'Bloqueado' => 'danger',
         ];
 
+        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
+            ->where('comissoes.edital_id', $edital->id)
+            ->where('comissoes_users.user_id', $user->id)
+            ->first();
+
+        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
+
         /* lista todas as inscrições se o user for administrador */
         if($user->hasRole('edital-administrador')) {
             $inscricoes = Inscricao::orderBy('titulo', 'asc')->where('edital_id', $edital->id)->get();
 
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
         }
 
-        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                ->where('comissoes.edital_id', $edital->id)
-                                ->where('comissoes_users.user_id', $user->id)
-                                ->first();
+       
         if($userNaComissao) {
             /* Lista as incrições se o user estiver em uma comissão */
             // if($edital->tipo === 'PEX') {
@@ -661,10 +665,8 @@ class InscricaoController extends Controller
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
             // }         
             
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'userNaComissao', 'avaliadorPorInscricao'));
         }
-
-        $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $user->id)->first();
     
         if($avaliadorPorInscricao) {
             $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
@@ -672,7 +674,7 @@ class InscricaoController extends Controller
                                 ->where('inscricoes.edital_id', $edital->id)
                                 ->get(['inscricoes.*']);
 
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status'));
+            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');

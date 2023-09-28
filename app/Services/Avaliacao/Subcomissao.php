@@ -25,7 +25,7 @@ class Subcomissao implements AvaliacaoInterface
                                 ->first();
 
         
-        if($inscricao->edital->tipo == 'Fluxo Contínuo'){
+        if($inscricao->edital->tipo == 'Fluxo Contínuo' && $userNaComissao){
             return ['analise' => true];
         }
         elseif( 

@@ -42,7 +42,7 @@ class Parecerista implements AvaliacaoInterface
         }
 
         
-        if($inscricao->edital->tipo == 'Fluxo Contínuo'){
+        if($inscricao->edital->tipo == 'Fluxo Contínuo' && $avaliadorPorInscricao){
             return ['parecerista' => true];
         }
         //analisa se esta fora do periodo de avaliação
