@@ -1,4 +1,4 @@
-{{ dd($inscricao->respostas_avaliacoes) }}
+{{ dd( is_null($inscricao->respostas_avaliacoes) ) }}
 <div class="">
     @if($user->hasAnyRole('super','edital-administrador'))
         <a href='{{ url("inscricao/show-completo/$inscricao->id") }}' class="btn btn-info btn-xs m-1">
