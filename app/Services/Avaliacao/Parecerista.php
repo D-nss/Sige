@@ -29,12 +29,32 @@ class Parecerista implements AvaliacaoInterface
                                                         ->first();
 
         //analisa se esta no periodo de recurso e se tem recurso aberto
-        if( strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_recurso', $inscricao->edital_id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && $inscricao->recurso ) {
+        if( 
+            strtotime(date('Y-m-d')) 
+            >= 
+            strtotime($cronograma->getDate('dt_recurso', $inscricao->edital_id)) 
+            && 
+            strtotime(date('Y-m-d')) 
+            <= 
+            strtotime($cronograma->getDate('dt_termino_recurso', $inscricao->edital_id)) && $inscricao->recurso 
+        ) {
             return ['parecerista' => true];
         }
 
+        
+        if($inscricao->edital->tipo == 'Fluxo Contínuo'){
+            return ['parecerista' => true];
+        }
         //analisa se esta fora do periodo de avaliação
-        if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) || strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) ) {
+        elseif( 
+            strtotime(date('Y-m-d')) 
+            < 
+            strtotime($cronograma->getDate('dt_pareceristas', $inscricao->edital_id)) 
+            || 
+            strtotime(date('Y-m-d')) 
+            > 
+            strtotime($cronograma->getDate('dt_termino_pareceristas', $inscricao->edital_id)) 
+        ) {
             session()->flash('status', 'Perído de avaliação ainda não foi aberto.');
             session()->flash('alert', 'warning');
 
