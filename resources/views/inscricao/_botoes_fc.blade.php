@@ -1,4 +1,3 @@
-{{ dd( empty($inscricao->respostas_avaliacoes) ) }}
 <div class="">
     @if($user->hasAnyRole('super','edital-administrador'))
         <a href='{{ url("inscricao/show-completo/$inscricao->id") }}' class="btn btn-info btn-xs m-1">
@@ -23,7 +22,7 @@
             <a href='{{ url("inscricao/$inscricao->id/avaliadores") }}' class="btn btn-info btn-xs m-1">Pareceristas</a>
         @endif
     @endif
-    @if( $avaliadorPorInscricao && !is_null($inscricao->respostas_avaliacoes))
+    @if( $avaliadorPorInscricao && empty($inscricao->respostas_avaliacoes))
         <a href='{{ url("inscricao/$inscricao->id/?tipo_avaliacao=parecerista") }}' class="btn btn-success btn-xs m-1">Parecer</a>
     @endif
     @if( $user->hasAnyRole('edital-administrador') && $inscricao->status == 'Avaliado' )
