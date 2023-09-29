@@ -690,6 +690,7 @@ class InscricaoController extends Controller
         $inscricao->status = 'Contemplado';
 
         if($inscricao->update()) {
+            //notificar user inscricao
             session()->flash('status', 'Contemplado com sucesso!');
             session()->flash('alert', 'success');
 
@@ -736,6 +737,11 @@ class InscricaoController extends Controller
                 &&
                 $inscricao->tipo == 'Programa'
             )
+            || 
+            (
+                $inscricao->tipo == 'Fluxo Contínuo'
+            )
+
         ) {
             $dtInicioExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_inicio_execucao')->get('data');
             $inicioExecucao = Carbon::createMidnightDate($dtInicioExecucao[0]['data']);
