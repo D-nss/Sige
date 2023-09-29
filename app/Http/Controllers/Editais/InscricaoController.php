@@ -739,7 +739,7 @@ class InscricaoController extends Controller
             )
             || 
             (
-                $inscricao->tipo == 'Fluxo Contínuo'
+                $inscricao->edital->tipo == 'Fluxo Contínuo'
             )
 
         ) {
