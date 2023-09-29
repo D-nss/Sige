@@ -98,6 +98,7 @@
                                                 && 
                                                 strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio_programa', $inscricao->edital_id))
                                             )
+                                            || $inscricao->edital->tipo == 'Fluxo Contínuo'
                                         )
                                     )
                                         <a href='{{ url("inscricao/relatorio_final/$inscricao->id") }}' class="btn btn-info btn-xs m-1">
