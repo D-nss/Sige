@@ -743,13 +743,7 @@ class InscricaoController extends Controller
             )
 
         ) {
-            $dtInicioExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_inicio_execucao')->get('data');
-            $inicioExecucao = Carbon::createMidnightDate($dtInicioExecucao[0]['data']);
-            $dtFimExecucao = Cronograma::where('edital_id', $inscricao->edital->id)->where('dt_input', 'dt_fim_execucao')->get('data');
-            $fimExecucao = Carbon::createMidnightDate($dtFimExecucao[0]['data']);
-            $realizacao = $inicioExecucao->diffInMonths($fimExecucao);
-
-            return view('inscricao.relatorio-final.create', compact('inscricao', 'realizacao'));
+            return view('inscricao.relatorio-final.create', compact('inscricao'));
         }
         else{
             session()->flash('status', 'Desculpe! Esta fora do período de envio do relatório final.');

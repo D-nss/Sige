@@ -125,9 +125,11 @@
                             <div class="p-0">
                                 <h5>
                                 Período de Realização
-                                    <small class="mt-0 mb-3">
-                                    {{ $realizacao }} Meses
-                                    </small>
+                                    <label for="execucao_inicio">Inicio Execução</label>
+                                    <input type="text" class="form-control" name="execucao_inicio" id="execucao_inicio">
+                                    <label for="execucao_fim">Fim Execução</label>
+                                    <input type="text" class="form-control" name="execucao_fim" id="execucao_fim">
+                                    <button id="btn-cad-execucao" class="btn btn-success">Cadastrar</button>
                                 </h5>
                             </div>
                         </div>
