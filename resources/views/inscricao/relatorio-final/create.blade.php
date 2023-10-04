@@ -131,17 +131,9 @@
                                 Período de Realização
                                     <form action="{{ route('edital.relatorio-final.execucao',['inscricao' => $inscricao])}}" method="post">
                                         @csrf
-                                        <label for="execucao_inicio">
-                                            <small class="mt-0">
-                                                Inicio Execução
-                                            </small>
-                                        </label>
+                                        <label for="execucao_inicio" class="fs-sm">Inicio Execução</label>
                                         <input type="date" class="form-control mb-2" name="execucao_inicio" id="execucao_inicio">
-                                        <label for="execucao_fim">
-                                            <small class="mt-0">    
-                                                Fim Execução
-                                            </small>
-                                        </label>
+                                        <label for="execucao_fim" class="fs-sm">Fim Execução</label>
                                         <input type="date" class="form-control mb-2" name="execucao_fim" id="execucao_fim">
                                         <button id="btn-cad-execucao" class="btn btn-sm btn-success">Incluir</button>
                                     </form>
