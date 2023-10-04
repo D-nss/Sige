@@ -132,13 +132,13 @@
                                     <form action="{{ route('edital.relatorio-final.execucao',['inscricao' => $inscricao])}}" method="post">
                                         @csrf
                                         <label for="execucao_inicio">
-                                            <small class="mt-0 mb-3">
+                                            <small class="mt-0">
                                                 Inicio Execução
                                             </small>
                                         </label>
                                         <input type="date" class="form-control mb-2" name="execucao_inicio" id="execucao_inicio">
                                         <label for="execucao_fim">
-                                            <small class="mt-0 mb-3">    
+                                            <small class="mt-0">    
                                                 Fim Execução
                                             </small>
                                         </label>
