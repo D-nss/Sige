@@ -132,9 +132,9 @@
                                     <form action="{{ route('edital.relatorio-final.execucao',['inscricao' => $inscricao])}}" method="post">
                                         @csrf
                                         <label for="execucao_inicio" class="fs-sm">Inicio Execução</label>
-                                        <input type="date" class="form-control mb-2" name="execucao_inicio" id="execucao_inicio" @if(!is_null($inscricao->execucao_inicio)) value="{{$inscricao->execucao_inicio}}" @endif>
+                                        <input type="date" class="form-control mb-2" name="execucao_inicio" id="execucao_inicio" @if(!is_null($inscricao->execucao_inicio)) value="{{$inscricao->execucao_inicio->format('Y-m-d')}}" @endif>
                                         <label for="execucao_fim" class="fs-sm">Fim Execução</label>
-                                        <input type="date" class="form-control mb-2" name="execucao_fim" id="execucao_fim" @if(!is_null($inscricao->execucao_fim)) value="{{$inscricao->execucao_fim}}" @endif>
+                                        <input type="date" class="form-control mb-2" name="execucao_fim" id="execucao_fim" @if(!is_null($inscricao->execucao_fim)) value="{{$inscricao->execucao_fim->format('Y-m-d')}}" @endif>
                                         <button id="btn-cad-execucao" class="btn btn-sm btn-success">Incluir</button>
                                     </form>
                                 </h5>
