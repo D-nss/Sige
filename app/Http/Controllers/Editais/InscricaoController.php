@@ -282,12 +282,12 @@ class InscricaoController extends Controller
             return data_get($value, 'tipo') == 'Avaliativa';
         });
     
-        $notasAvaliacao = \App\Models\RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.updated_at')
+        $notasAvaliacao = \App\Models\RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.updated_at', 'respostas_avaliacoes.user_id')
                                                 ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
                                                 ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
                                                 ->get();
     
-        $parecerAvaliacao = \App\Models\Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer')
+        $parecerAvaliacao = \App\Models\Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer', 'pareceres.user_id')
                                    ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
                                    ->join('users', 'users.id', 'inscricoes.user_id')
                                    ->where('inscricoes.id', $inscricao->id)
@@ -751,8 +751,34 @@ class InscricaoController extends Controller
 
             return redirect()->back();
         }
-
         
+    }
+
+    public function relatorioFinalAdicionarTempoExecucao(Request $request, Inscricao $inscricao){
+        $validated = $request->validate([
+            'execucao_inicio' => 'required|date',
+            'execucao_fim' => 'required|date',
+        ]);
+
+        $dataInicio = strtotime($request->execucao_inicio);
+        $dataFim = strtotime($request->execucao_fim);
+
+        if($inscricao->status == 'Contemplado' && $dataInicio <= $dataFim) {
+            $inscricao->execucao_inicio = $request->execucao_inicio;
+            $inscricao->execucao_fim = $request->execucao_fim;
+            $inscricao->update();
+            session()->flash('status', 'Data de execução registrada com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }
+        else {
+            session()->flash('status', 'Desculpe! Periodo de execução ja registrado ou a data de inicio da execução é maior que a data de fim da execução.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
     }
 
     public function relatorioFinalUpload(Request $request, Inscricao $inscricao)

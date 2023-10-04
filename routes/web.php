@@ -298,6 +298,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/{inscricao}/contemplar', [InscricaoController::class, 'contemplar']);
     Route::get('edital/{edital}/suas-inscricoes', [InscricaoController::class, 'inscricoesPorUsuario']);
     Route::get('/inscricao/relatorio_final/{inscricao}', [InscricaoController::class, 'relatorioFinalCriar']);
+    Route::post('/inscricao/relatorio_final/{inscricao}/execucao', [InscricaoController::class, 'relatorioFinalAdicionarTempoExecucao'])->name('edital.relatorio-final.execucao');
     Route::post('/inscricao/relatorio_final/{inscricao}/upload', [InscricaoController::class, 'relatorioFinalUpload'])->name('edital.relatorio-final.upload');
     Route::post('/inscricao/relatorio_final/{inscricao}/despesas', [InscricaoController::class, 'relatorioFinalComprovarDespesas'])->name('edital.relatorio-final.despesas');
     Route::post('/inscricao/relatorio_final/{inscricao}/participantes', [EditalPartipantesProjetoController ::class, 'store'])->name('edital.relatorio-final.participantes');

@@ -31,6 +31,10 @@
         @if(
             isset($inscricao->arquivo_relatorio) 
             && 
+            !is_null($inscricao->execucao_inicio) 
+            && 
+            !is_null($inscricao->execucao_fim) 
+            && 
             $inscricao->participantes->count() > 0 
             && 
             isset($inscricao->total_orcamento_realizado) 
@@ -125,11 +129,14 @@
                             <div class="p-0">
                                 <h5>
                                 Período de Realização
-                                    <label for="execucao_inicio">Inicio Execução</label>
-                                    <input type="text" class="form-control" name="execucao_inicio" id="execucao_inicio">
-                                    <label for="execucao_fim">Fim Execução</label>
-                                    <input type="text" class="form-control" name="execucao_fim" id="execucao_fim">
-                                    <button id="btn-cad-execucao" class="btn btn-success">Cadastrar</button>
+                                    <form action="{{ route('edital.relatorio-final.execucao',['id' => $inscricao->id])}}" method="post">
+                                        @csrf
+                                        <label for="execucao_inicio">Inicio Execução</label>
+                                        <input type="date" class="form-control mb-2" name="execucao_inicio" id="execucao_inicio">
+                                        <label for="execucao_fim">Fim Execução</label>
+                                        <input type="date" class="form-control mb-2" name="execucao_fim" id="execucao_fim">
+                                        <button id="btn-cad-execucao" class="btn btn-sm btn-success">Incluir</button>
+                                    </form>
                                 </h5>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Services\Avaliacao;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use App\Services\AvaliacaoInterface;
 
 use App\Models\AcaoExtensao;
@@ -78,6 +79,17 @@ class Parecerista implements AvaliacaoInterface
 
     public function execute(Request $request, Inscricao $inscricao, User $user)
     {
+        if( 
+            ( session()->exists('user_id') && session()->exists('inscricao_id' )) 
+            && 
+            ( session('user_id') == $user->id && session('inscricao_id') == $inscricao->id ) 
+        ) {
+            session()->flash('status', 'Desculpe! Avaliação já efetuada.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
         if($inscricao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Não é permitido avaliar a própria inscrição');
             session()->flash('alert', 'danger');
@@ -148,6 +160,9 @@ class Parecerista implements AvaliacaoInterface
         {
             session()->flash('status', 'Avaliação cadastrada com sucesso!');
             session()->flash('alert', 'success');
+
+            session()->flash('user_id', $user->id);
+            session()->flash('inscricao_id', $inscricao->id);
 
             return ['redirect' => "edital/$inscricao->edital_id/inscricoes", 'status' => true];
         }

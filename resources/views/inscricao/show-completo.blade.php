@@ -541,12 +541,12 @@
                                                 }) as $notas )
                                                 <div class="mb-3">
                                                     <span class="text-secondary fs-md fw-300">
-                                                        {{ $notas['enunciado']}}
+                                                        {{ $notas->enunciado}}
                                                     </span>
                                                     </br>
                                                     <span class="">Nota: </span>
                                                     <span class="fs-md fw-500">
-                                                        {{ $notas['valor'] }}
+                                                        {{ $notas->valor }}
                                                     </span>
                                                 </div>
                                             @endforeach
