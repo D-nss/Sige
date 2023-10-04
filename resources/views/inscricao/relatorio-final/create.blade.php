@@ -129,7 +129,7 @@
                             <div class="p-0">
                                 <h5>
                                 Período de Realização
-                                    <form action="{{ route('edital.relatorio-final.execucao',['id' => $inscricao->id])}}" method="post">
+                                    <form action="{{ route('edital.relatorio-final.execucao',['id' => $inscricao])}}" method="post">
                                         @csrf
                                         <label for="execucao_inicio">Inicio Execução</label>
                                         <input type="date" class="form-control mb-2" name="execucao_inicio" id="execucao_inicio">
