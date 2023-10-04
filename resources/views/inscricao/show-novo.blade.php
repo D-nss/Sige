@@ -111,7 +111,15 @@
                             <div id="collapseRelatorioFinal" class="collapse show" aria-labelledby="headingRecurso" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="col-12">
-                                        @if( $userNaComissao && $inscricao->status == 'Relatório em Análise' && strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) )
+                                        @if( 
+                                            $userNaComissao && $inscricao->status == 'Relatório em Análise' 
+                                            && 
+                                            ( 
+                                                strtotime(date('Y-m-d')) > strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id)) 
+                                                || 
+                                                $inscricao->edital->tipo == 'Fluxo Contínuo' 
+                                            )
+                                        )
                                             <div class="alert alert-warning fs-lg">
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#avaliarRelatorio">Avaliar Relatório</button>
                                                 
