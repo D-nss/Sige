@@ -166,6 +166,16 @@
                                                 </small>
                                             </h5>
                                         </div>
+                                        @if(!is_null($inscricao->execucao_inicio) && !is_null($inscricao->execucao_fim))
+                                        <div class="p-0">
+                                            <h5>
+                                            Tempo Execução
+                                                <small class="mt-0 mb-3 text-primary">
+                                                {{ date('d/m/Y', strtotime($inscricao->execucao_inicio)) }} à {{ date('d/m/Y', strtotime($inscricao->execucao_fim)) }}
+                                                </small>
+                                            </h5>
+                                        </div>
+                                        @endif
                                         <div class="p-0">
                                             <h5>
                                             Total Orçado

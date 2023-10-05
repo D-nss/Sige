@@ -42,7 +42,7 @@ class EditalRealtorioFinalComissaoNotificar extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/inscricao/'. $this->inscricao->id . '/recurso');
+        $url = url('/inscricao/show-novo/'. $this->inscricao->id);
         return (new MailMessage)
                 ->subject('Relatório Final Aguardando sua Aprovação. Inscrição de Título: ' . $this->inscricao->titulo .'.')
                 ->greeting('Olá! ')

@@ -80,6 +80,17 @@ class InscricaoController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
+        $edital = Edital::find($id);
+        $totalInscricoes = $edital->inscricoes->count();
+        $editalRecursoChecado = $totalInscricoes * $edital->valor_max_inscricao;
+
+        if($editalRecursoChecado > $edital->total_recurso && $edital->tipo == "Fluxo Contínuo") {
+            session()->flash('status', 'Desculpe! O total de recurso esta esgotado.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         if(ChecaPublicoAlvo::execute($id)) {
             return redirect()->back();
         }
@@ -93,8 +104,7 @@ class InscricaoController extends Controller
         if(ChecaPeriodoInscricao::execute($id)){
             return redirect()->back();
         }
-
-        $edital = Edital::find($id);
+        
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
