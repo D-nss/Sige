@@ -27,6 +27,16 @@ class ProcessoEditalController extends Controller
 
     public function edit($id){
         $edital = Edital::find($id);
+        if($edital->valor_max_programa > 0) {
+            $inscricoesProgramaTotal = $edital->inscricoes->where('tipo', 'Programa')->count();
+            $val_prog_solic = $inscricoesProgramaTotal * $edital->valor_max_programa;
+        }
+        else {
+            $val_prog_solic = 0;
+        }
+
+        $inscricoesProjetoTotal = $edital->inscricoes->where('tipo', 'Projeto')->count();
+        $val_proj_solic = $inscricoesProjetoTotal * $edital->valor_max_inscricao;
 
         $cronogramas = Cronograma::join('modelo_cronograma', 'modelo_cronograma.dt_input', 'cronogramas.dt_input')
                                             ->distinct()
@@ -40,6 +50,6 @@ class ProcessoEditalController extends Controller
 
         $bg_array = ['success', 'danger', 'info', 'primary', 'warning'];
 
-        return view('processo-edital.edit', compact('edital', 'cronogramas', 'avaliadores' ,'bg_array'));
+        return view('processo-edital.edit', compact('edital', 'cronogramas', 'avaliadores' ,'bg_array', 'val_proj_solic', 'val_prog_solic'));
     }
 }
