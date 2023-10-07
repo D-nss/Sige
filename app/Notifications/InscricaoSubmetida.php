@@ -44,10 +44,11 @@ class InscricaoSubmetida extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url('edital/'.$inscricao->edital->id.'/suas-inscricoes');
         return (new MailMessage)
                     ->subject('Confirmação de inscrição')
                     ->line('Sua inscrição foi enviada com sucesso em nosso sistema, acompanhe o andamento através do link.')
-                    ->action('Acompanhar', url('inscricoes-enviadas'))
+                    ->action('Acompanhar', $url)
                     ->line('Obrigado por usar nosso sistema!');
     }
 
