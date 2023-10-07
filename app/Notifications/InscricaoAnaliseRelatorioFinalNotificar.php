@@ -44,7 +44,7 @@ class InscricaoAnaliseRelatorioFinalNotificar extends Notification
      */
     public function toMail($notifiable)
     {
-        $link = url('inscrito/' . $this->inscricao->id);
+        $link = url('inscricao/' . $this->inscricao->id);
 
         return (new MailMessage)
             ->subject('Resposta da análise do relatório final da inscrição - '. $this->inscricao->titulo .'.')
