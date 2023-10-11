@@ -548,6 +548,11 @@
                                                     <span class="fs-md fw-500">
                                                         {{ $notas->valor }}
                                                     </span>
+                                                    <br>
+                                                    <span class="text-muted fs-xs">
+                                                        Atualização: 
+                                                        {{ is_null($notas->updated_at) ? '' : date('d/m/Y H:i:s', strtotime($notas->updated_at))  }}
+                                                    </span>
                                                 </div>
                                             @endforeach
                                             <hr>
