@@ -166,7 +166,7 @@ class EditalController extends Controller
         $tipos_publico = TipoPublico::all();
         $tipos_editais = TipoEdital::all();
 
-        return view('edital.edit', compact('edital', 'tipos_publico'));
+        return view('edital.edit', compact('edital', 'tipos_publico', 'tipos_editais'));
         
     }
 
