@@ -45,14 +45,7 @@ class RecursoInscricaoController extends Controller
     {
         $validated = $request->validate([
             'argumentacao' => 'required|max:5000'
-        ]);
-
-        $users  = User::join('comissoes_users', 'comissoes_users.user_id', 'users.id')
-                    ->join('comissoes', 'comissoes_users.comissao_id', 'comissoes.id')
-                    ->where('comissoes.edital_id', $inscricao->edital_id)
-                    ->get(['users.email']);
-        
-        Notification::send($users, new RecursoAdicionado($inscricao));
+        ]);    
 
         $recurso = Recurso::create([
             'inscricao_id' => $inscricao->id,
@@ -61,6 +54,7 @@ class RecursoInscricaoController extends Controller
         ]);
 
         if($recurso) {
+            Notification::send($inscricao->analista, new RecursoAdicionado($inscricao));
             session()->flash('status', 'Recurso cadastrado com sucesso!');
             session()->flash('alert', 'success');
 

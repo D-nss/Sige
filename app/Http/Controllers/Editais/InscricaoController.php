@@ -648,7 +648,7 @@ class InscricaoController extends Controller
         if($user->hasRole('edital-administrador')) {
             $inscricoes = Inscricao::orderBy('titulo', 'asc')->where('edital_id', $edital->id)->get();
 
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
+            return view('inscricao.index', compact('edital', 'inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
         }
 
        
@@ -675,7 +675,7 @@ class InscricaoController extends Controller
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
             // }         
             
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'userNaComissao', 'avaliadorPorInscricao'));
+            return view('inscricao.index', compact('edital', 'inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'userNaComissao', 'avaliadorPorInscricao'));
         }
     
         if($avaliadorPorInscricao) {
@@ -684,7 +684,7 @@ class InscricaoController extends Controller
                                 ->where('inscricoes.edital_id', $edital->id)
                                 ->get(['inscricoes.*']);
 
-            return view('inscricao.index', compact('inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
+            return view('inscricao.index', compact('edital', 'inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
         }
 
         session()->flash('status', 'Desculpe! Acesso não autorizado');
