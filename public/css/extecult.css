@@ -30,6 +30,10 @@
     display: table;
 }
 
+.logo-extecult{
+    height: 32px !important;
+}
+
 /*:checked + #nome-social#nome_social_campo { display: block !important; }
 #nome_social_campo { display: none !important; }*/
 

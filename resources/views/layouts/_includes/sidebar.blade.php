@@ -5,8 +5,8 @@
                 <img src="{{ asset('img/extecult_logo.png') }}" alt="Proec - ExteCult" class="" style="fill:white;"/>
             </span> -->
            <div class=" d-flex justify-content-center align-items-center mx-1">
-                <img src="{{ asset('img/logo_unicamp_branco.png') }}" alt="Unicamp" class="mr-3 w-75" style="height:50px;"/>
-                <img src="{{ asset('img/extecult_logo.png') }}" alt="Proec - ExteCult" class="w-75" style="height:auto;fill:white;"/>
+                <img class="logo-unicamp mr-3 w-75" src="{{ asset('img/logo_unicamp_branco.png') }}" alt="Logotipo Unicamp" />
+                <img class="logo-extecult w-75" src="{{ asset('img/logo-extecult-negativo.png') }}" alt="Logotipo Proec - ExteCult" data-toggle="tooltip" data-original-title="ExteCult - Sistema de Gestão de Extensão e Cultura" style="height:auto;fill:white;"/>
             </div>
             <!-- <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span> -->
             <!--<i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>-->
