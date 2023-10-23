@@ -3,7 +3,8 @@
         <div class="accordion" id="accordionExample">
             <div class="card">
                 <div class="card-header" id="headingOne">
-                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                             <i class="far fa-users icon-stack-1x opacity-100 color-success-500"></i>
@@ -24,10 +25,14 @@
                         </span>
                     </a>
                 </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                    data-parent="#accordionExample">
                     <div class="card-body">
-                        <h2>Link para inscrição fora do prazo: <a href="{{ url('evento/'. $evento->id .'/inscrito/novo') }}">{{ url('evento/'. $evento->id .'/inscrito/novo') }}</a></h2>
-                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-adm" style="width: 100%">
+                        <h2>Link para inscrição fora do prazo: <a
+                                href="{{ url('evento/' . $evento->id . '/inscrito/novo') }}">{{ url('evento/' . $evento->id . '/inscrito/novo') }}</a>
+                        </h2>
+                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-adm"
+                            style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -36,36 +41,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($confirmados as $confirmado)
-                                <tr>
-                                    <td>{{ $confirmado->nome }}</td>
-                                    <td>{{ $confirmado->email }}</td>
-                                    <td>
-                                        <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id) ) }}" class="btn btn-info btn-xs">
-                                            Dados Completos
-                                        </a>
-                                        <a href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
-                                            Enviar E-Mail
-                                        </a>
-                                        @if($confirmado->presenca == 0)
-                                        <a href="{{ url('inscritos/adm/presenca/' . $confirmado->id) }}" class="btn btn-success btn-xs">
-                                            Marcar Presença
-                                        </a>
-                                        @endif
+                                @foreach ($confirmados as $confirmado)
+                                    <tr>
+                                        <td>{{ $confirmado->nome }}</td>
+                                        <td>{{ $confirmado->email }}</td>
+                                        <td>
+                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id)) }}"
+                                                class="btn btn-primary btn-xs">
+                                                Dados Completos
+                                            </a>
+                                            <a href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}"
+                                                class="btn btn-primary btn-xs">
+                                                Enviar E-Mail
+                                            </a>
+                                            @if ($confirmado->presenca == 0)
+                                                <a href="{{ url('inscritos/adm/presenca/' . $confirmado->id) }}"
+                                                    class="btn btn-primary btn-xs">
+                                                    Marcar Presença
+                                                </a>
+                                            @endif
 
-                                </tr>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div style='text-align: right'>
-                            <a href="{{ url('evento/' . $evento->id . '/exportar') }}" class="btn btn-outline-success waves-effect waves-themed">
+                            <a href="{{ url('inscritos/adm/certificados/' . $evento->id) }}" class="btn btn-primary">
+                                <i class="fal fa-bell-on mr-1"></i> Notificar Certificados
+                            </a>
+                            <a href="{{ url('evento/' . $evento->id . '/exportar') }}"
+                                class="btn btn-primary waves-effect waves-themed">
                                 <i class="fal fa-download mr-1"></i> Exportar para Excel
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="card-header" id="headingTwo">
-                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
                             <i class="far fa-users icon-stack-1x opacity-100 color-primary-500"></i>
@@ -97,26 +110,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($listaEspera as $lista)
-                                <tr>
-                                    <td>{{ $lista->nome }}</td>
-                                    <td>{{ $lista->email }}</td>
-                                    <td>
-                                        <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($lista->id)) }}" class="btn btn-info btn-xs">
-                                            Dados Completos
-                                        </a>
-                                        <a href="{{ url('inscrito/enviar-email/' . $lista->id . '/novo') }}" class="btn btn-warning btn-xs">
-                                            Enviar E-Mail
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($listaEspera as $lista)
+                                    <tr>
+                                        <td>{{ $lista->nome }}</td>
+                                        <td>{{ $lista->email }}</td>
+                                        <td>
+                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($lista->id)) }}"
+                                                class="btn btn-primary btn-xs">
+                                                Dados Completos
+                                            </a>
+                                            <a href="{{ url('inscrito/enviar-email/' . $lista->id . '/novo') }}"
+                                                class="btn btn-primary btn-xs">
+                                                Enviar E-Mail
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="card-header" id="headingThree">
-                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="true" aria-controls="collapseThree">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
                             <i class="far fa-users icon-stack-1x opacity-100 color-warning-500"></i>
@@ -139,7 +155,8 @@
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                        <table class="table table-bordered table-hover" id="dt-inscritos-nao-confirmados" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-nao-confirmados"
+                            style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -148,29 +165,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($naoConfirmados as $naoConfirmado)
-                                <tr>
-                                    <td>{{ $naoConfirmado->nome }}</td>
-                                    <td>{{ $naoConfirmado->email }}</td>
-                                    <td>
-                                        <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($naoConfirmado->id)) }}" class="btn btn-info btn-xs">
-                                            Dados Completos
-                                        </a>
-                                        <a href="{{ url('inscrito/enviar-email/' . $naoConfirmado->id . '/novo') }}" class="btn btn-warning btn-xs">
-                                            Enviar E-Mail
-                                        </a>
-                                        <a href="{{ url('inscritos/adm/confirmacao/' . $naoConfirmado->id) }}" class="btn btn-success btn-xs">
-                                            Confirmar
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($naoConfirmados as $naoConfirmado)
+                                    <tr>
+                                        <td>{{ $naoConfirmado->nome }}</td>
+                                        <td>{{ $naoConfirmado->email }}</td>
+                                        <td>
+                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($naoConfirmado->id)) }}"
+                                                class="btn btn-info btn-xs">
+                                                Dados Completos
+                                            </a>
+                                            <a href="{{ url('inscrito/enviar-email/' . $naoConfirmado->id . '/novo') }}"
+                                                class="btn btn-primary btn-xs">
+                                                Enviar E-Mail
+                                            </a>
+                                            <a href="{{ url('inscritos/adm/confirmacao/' . $naoConfirmado->id) }}"
+                                                class="btn btn-primary btn-xs">
+                                                Confirmar
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="card-header" id="headingFour">
-                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                        data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
                             <i class="far fa-users icon-stack-1x opacity-100 color-danger-500"></i>
@@ -191,9 +212,11 @@
                         </span>
                     </a>
                 </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                    data-parent="#accordionExample">
                     <div class="card-body">
-                        <table class="table table-bordered table-hover" id="dt-inscritos-cancelados" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-cancelados"
+                            style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -202,16 +225,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($cancelados as $cancelado)
-                                <tr>
-                                    <td>{{ $cancelado->nome }}</td>
-                                    <td>{{ $cancelado->email }}</td>
-                                    <td>
-                                        <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($cancelado->id)) }}" class="btn btn-info btn-xs">
-                                            Dados Completos
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($cancelados as $cancelado)
+                                    <tr>
+                                        <td>{{ $cancelado->nome }}</td>
+                                        <td>{{ $cancelado->email }}</td>
+                                        <td>
+                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($cancelado->id)) }}"
+                                                class="btn btn-primary btn-xs">
+                                                Dados Completos
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

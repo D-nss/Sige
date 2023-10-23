@@ -186,6 +186,12 @@ class EventoController extends Controller
 
         $dadosEvento['status'] = 'Aberto';
 
+        if(isset($request->valor_inscricao)){
+            $dadosEvento['valor_inscricao'] = str_replace(',', '.', str_replace('.', '',$request->valor_inscricao));
+        }
+
+        //$dadosEvento['valor_inscricao'] = empty($request->valor_inscricao) ? 0.00 : str_replace(',', '.', str_replace('.', '',$request->valor_inscricao));
+
         $evento = Evento::create($dadosEvento);
 
         if($evento) {
@@ -216,6 +222,7 @@ class EventoController extends Controller
     {
         $dados = [
             'gratuito' => NULL,
+            'valor_inscricao' => NULL,
             'online' => NULL,
             'hibrido' => NULL,
             'ck_documento' => NULL,
@@ -241,6 +248,7 @@ class EventoController extends Controller
             "detalhes" => 'required',
             "inscricao_inicio" => isset($request->inscricao) ? 'required' : '',
             "inscricao_fim" => isset($request->inscricao) ? 'required' : '',
+            "valor_inscricao" => isset($request->gratuito) ? '' : 'required',
             "prazo_envio_arquivo" => isset($request->ck_arquivo) ? 'required' : '',
             "input_personalizado" => isset($request->input_personalizado) ? 'max:255' : '',
             "modelo" => isset($request->enviar_modelo) ? 'file|max:5120|mimes:png' : '',
@@ -265,6 +273,10 @@ class EventoController extends Controller
                 $certificado->arquivo = $upload->execute($request, 'modelo', 'png', 5000000);
                 $certificado->save();
             }
+        }
+
+        if(isset($request->valor_inscricao)){
+            $dados['valor_inscricao'] = str_replace(',', '.', str_replace('.', '',$request->valor_inscricao));
         }
 
         // $vagasPreenchidas = $evento->inscritos->where('lista_espera', 0)->count();

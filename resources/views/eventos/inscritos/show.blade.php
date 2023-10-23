@@ -606,7 +606,7 @@
                                                                                             class="btn btn-secondary"
                                                                                             data-dismiss="modal">Fechar</button>
                                                                                         <button type="submit"
-                                                                                            class="btn btn-success">Enviar</button>
+                                                                                            class="btn btn-primary">Enviar</button>
                                                                                     </div>
                                                                                 </div>
                                                                             </form>
@@ -677,7 +677,7 @@
                                                                                                 class="btn btn-secondary"
                                                                                                 data-dismiss="modal">Fechar</button>
                                                                                             <button type="submit"
-                                                                                                class="btn btn-success">Enviar</button>
+                                                                                                class="btn btn-primary">Enviar</button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </form>
@@ -698,7 +698,7 @@
                                                             </div>
 
                                                             <a href="{{ url('storage/' . $inscrito->arquivo) }}"
-                                                                class="btn btn-danger" target="_blank">Abrir <i
+                                                                class="btn btn-primary" target="_blank">Abrir <i
                                                                     class="far fa-arrow-right ml-2"></i></a>
                                                         </small>
                                                         @if (
@@ -767,7 +767,7 @@
                                                                                         class="btn btn-secondary"
                                                                                         data-dismiss="modal">Fechar</button>
                                                                                     <button type="submit"
-                                                                                        class="btn btn-success">Enviar</button>
+                                                                                        class="btn btn-primary">Enviar</button>
                                                                                 </div>
                                                                             </div>
                                                                         </form>
@@ -855,7 +855,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <button type="submit"
-                                                                        class="btn btn-success">Enviar</button>
+                                                                        class="btn btn-primary">Enviar</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -872,7 +872,7 @@
                                         <div class="col-md-12">
                                             <div class="col-12">
                                                 <div class="p-0 mt-3">
-                                                    <button type="button" class="btn btn-md btn-warning"
+                                                    <button type="button" class="btn btn-md btn-primary"
                                                         data-toggle="modal"
                                                         data-target="#cancelaModal{{ $inscrito->id }}">
                                                         Cancelar Apresentação de Projeto
@@ -987,7 +987,7 @@
                                     <div class="col-12">
                                         <div class="p-0">
                                             <a href="{{ url('evento/' . $inscrito->evento->id . '/inscrito/' . $inscrito->id . '/certificado') }}"
-                                                class="btn btn-success">Gerar Certificado</a>
+                                                class="btn btn-primary">Gerar Certificado</a>
                                         </div>
                                     </div>
                                 </div>

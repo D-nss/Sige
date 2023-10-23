@@ -1120,6 +1120,20 @@ Versão: 4.5.1
 
                 $('#investimento').mask("#.##0,00", {reverse: true});
 
+                //Eventos
+                $('#valor_inscricao').mask("#.##0,00", {reverse: true});
+
+                $("#gratuito").change(() => {
+                    if ( $('#gratuito').is(':checked') ) {
+                        $("#div_valor_inscricao").removeClass("d-block");
+                        $("#div_valor_inscricao").addClass("d-none");
+                    }
+                    else {
+                        $("#div_valor_inscricao").removeClass("d-none");
+                        $("#div_valor_inscricao").addClass("d-block");
+                    }
+                });
+
                 toastr.options = {
                     closeButton: true,
                     debug: false,

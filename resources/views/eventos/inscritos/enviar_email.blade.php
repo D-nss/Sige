@@ -4,21 +4,20 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
     <li class="breadcrumb-item">Eventos</li>
     <li class="breadcrumb-item active">Gestão de Eventos</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-check-circle'></i>Mensagem Inscrito</span>
+        <i class='subheader-icon fal fa-envelope'></i>Mensagem Inscrito
         <small>
         Envio de mensagem para o inscrito
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -38,8 +37,9 @@
 
                     <label for="tipo_mensagem" class="form-label mt-3">Tipo Mensagem</label>
                     <textarea class="form-control" name="mensagem" id="mensagem" cols="30" rows="10" placeholder="Escreva sua mensagem ..."></textarea>
-                    <button class="btn btn-success mt-3">Enviar</button>
-                </form>                
+                    <button class="btn btn-primary mt-3"><i class="fal fa-paper-plane"></i> Enviar</button>
+                    <a href="javascript:history.back()" class="btn btn-secondary mt-3">Voltar</a>
+                </form>
             </div>
         </div>
     </div>

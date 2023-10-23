@@ -105,7 +105,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
     Route::get('/acoes-extensao-pendencias-conext', [AcaoExtensaoPendenciasController::class, 'porComissaoConext'])->name('acao_extensao_pendencias.por_comissao_conext');
     Route::get('/acoes-extensao-pendencias-unidades', [AcaoExtensaoPendenciasController::class, 'porComissaoUnidades'])->name('acao_extensao_pendencias.por_comissao_unidades');
-   
+
     Route::get('/acoes-extensao/novo', [AcaoExtensaoController::class, 'create'])->name('acao_extensao.create');
     Route::post('/acoes-extensao', [AcaoExtensaoController::class, 'store'])->name('acao_extensao.store');
     Route::post('/acoes-extensao/{acao_extensao}/comentar', [AcaoExtensaoController::class, 'enviarComentario'])->name('acao_extensao.comentar');
@@ -207,6 +207,9 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('inscritos/presenca/{codigo}', [EventoInscritosController::class, 'marcarPresenca']);
     Route::get('inscritos/adm/confirmacao/{id}', [EventoInscritosController::class, 'adm_confirmar']);
     Route::get('inscritos/adm/presenca/{id}', [EventoInscritosController::class, 'adm_presenca']);
+    Route::get('inscritos/adm/certificados/{evento}', [EventoInscritosController::class, 'emailNotificarCertificados']);
+    Route::get('inscritos/adm/email/{evento}/novo', [EventoInscritosController::class, 'enviarEmailTodosCreate']);
+    Route::post('inscritos/adm/email/{evento}', [EventoInscritosController::class, 'emailNotificarTodos']);
     Route::post('inscrito/enviar-email/{id}', [EventoInscritosController::class, 'enviarEmail']);
     Route::get('inscrito/enviar-email/{id}/novo', [EventoInscritosController::class, 'enviarEmailCreate']);
     Route::put('inscrito/arquivo-analise/{id}', [EventoInscritosController::class, 'analiseArquivo']);

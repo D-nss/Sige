@@ -65,24 +65,24 @@ class EventoInscritosController extends Controller
 
     public function index(Evento $evento)
     {
-        if(App::environment('local')){
+        if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                ->where('comissoes.evento_id', $evento->id)
-                                ->where('comissoes_users.user_id', $user->id)
-                                ->first();
+            ->where('comissoes.evento_id', $evento->id)
+            ->where('comissoes_users.user_id', $user->id)
+            ->first();
 
-        if($userNaComissao) {
-            $confirmados = EventoInscrito::where(function (Builder $query) use ($evento){
+        if ($userNaComissao) {
+            $confirmados = EventoInscrito::where(function (Builder $query) use ($evento) {
                 $query->where('confirmacao', 1)
-                        ->where('lista_espera', 0)
-                        ->where('evento_id', $evento->id)
-                        ->where('arquivo', '<>', null )
-                        ->where('status_arquivo', '<>', 'Cancelado');
+                    ->where('lista_espera', 0)
+                    ->where('evento_id', $evento->id)
+                    ->where('arquivo', '<>', null)
+                    ->where('status_arquivo', '<>', 'Cancelado');
             })->orderBy('status_arquivo', 'desc')->get();
 
             $listaEspera = [];
@@ -90,16 +90,14 @@ class EventoInscritosController extends Controller
             $cancelados = [];
 
             return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
-
-        }elseif($user->hasRole($evento->grupo_usuario)){
+        } elseif ($user->hasRole($evento->grupo_usuario)) {
             $confirmados = EventoInscrito::where('confirmacao', 1)->where('lista_espera', 0)->where('evento_id', $evento->id)->get();
             $listaEspera = EventoInscrito::where('lista_espera', 1)->where('evento_id', $evento->id)->get();
             $naoConfirmados = EventoInscrito::where('confirmacao', 0)->where('evento_id', $evento->id)->get();
             $cancelados = EventoInscrito::where('confirmacao', 2)->where('evento_id', $evento->id)->get();
 
             return view('eventos.inscritos.index', compact('evento', 'confirmados', 'listaEspera', 'naoConfirmados', 'cancelados', 'userNaComissao', 'user'));
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe, acesso não permitido.');
             session()->flash('alert', 'warning');
 
@@ -109,35 +107,31 @@ class EventoInscritosController extends Controller
 
     public function create(Evento $evento)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        if(
-            (
-                !is_null($evento->inscricao_inicio)
+        if (
+            (!is_null($evento->inscricao_inicio)
                 &&
                 strtotime(date('Y-m-d H:i:s')) >= strtotime($evento->inscricao_inicio)
                 &&
                 strtotime(date('Y-m-d H:i:s')) <= strtotime($evento->inscricao_fim)
             )
             ||
-            (
-                isset($user)
+            (isset($user)
                 &&
                 $user->hasRole($evento->grupo_usuario)
             )
 
         ) {
             return view('eventos.inscritos.create', compact('evento'));
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe, ainda não está no prazo de inscrição.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
-
     }
 
     public function store(Request $request, Evento $evento)
@@ -170,7 +164,7 @@ class EventoInscritosController extends Controller
 
         $checkInscrito = EventoInscrito::where('email', $request->email)->where('evento_id', $evento->id)->first();
         //Checa se o e-mail já está cadastrado
-        if($checkInscrito) {
+        if ($checkInscrito) {
             session()->flash('status', 'Desculpe! Este e-mail já está cadastrado.');
             session()->flash('alert', 'warning');
 
@@ -179,15 +173,15 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::create($inputs);
 
-        if($inscrito) {
+        if ($inscrito) {
 
-            if($inscrito->nome_social != NULL) {
+            if ($inscrito->nome_social != NULL) {
                 $nome = $inscrito->nome_social;
             } else {
                 $nome = $inscrito->nome;
             }
 
-            $inscrito->notify( new \App\Notifications\EventoInscritoNotificar([
+            $inscrito->notify(new \App\Notifications\EventoInscritoNotificar([
                 'titulo_evento' => $evento->titulo,
                 'nome' => $nome,
                 'id' => $inscrito->id
@@ -204,12 +198,11 @@ class EventoInscritosController extends Controller
             Log::channel('evento_inscricao')->info('Evento ID: ' . $evento->id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao efetuada. ' . ' - Endereço IP: ' . $request->ip());
 
             session()->flash('status', 'Conclua inscrição através do email informado.');
-                session()->flash('alert', 'warning');
+            session()->flash('alert', 'warning');
             //trocar o redirecionamento para a pagina de listagem de eventos para usuarios não autenticados
             //return redirect()->back();
             return view('eventos.inscritos.aviso', compact('inscrito'));
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Houve um erro ao realizar inscrição.');
             session()->flash('alert', 'danger');
 
@@ -228,31 +221,30 @@ class EventoInscritosController extends Controller
         $participados = EventoInscrito::where('email', $inscrito->email)->get();
         //return dd($participados);
 
-        if(Auth::check()) {
-            if(App::environment('local')){
+        if (Auth::check()) {
+            if (App::environment('local')) {
                 $user = User::where('id', 2)->first();
             } else {
                 $user = User::where('email', Auth::user()->id)->first();
             }
             $user_id = $user->id;
-        }
-        else {
+        } else {
             $user_id = '';
         }
         // o acesso a view do painel do inscrito será limitado a quem?
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                ->where('comissoes.evento_id', $inscrito->evento->id)
-                                ->where('comissoes_users.user_id', $user_id)
-                                ->first();
+            ->where('comissoes.evento_id', $inscrito->evento->id)
+            ->where('comissoes_users.user_id', $user_id)
+            ->first();
 
         $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
         $url = url("inscritos/presenca/$crypt");
         //Gerando QRCode
-        $qrcode = QrCode::size(200)->generate( url($url));
+        $qrcode = QrCode::size(200)->generate(url($url));
 
         //Mudando a forma de cancelamento do inscrito ao evento (antes era na notificação no email)
         $cryptNao = \Illuminate\Support\Facades\Crypt::encryptString('nao/' . $inscrito->id);
-        $linkNao = url('inscritos/confirmacao') . '/' . str_replace('09', '90', $cryptNao) ;
+        $linkNao = url('inscritos/confirmacao') . '/' . str_replace('09', '90', $cryptNao);
 
         $meses = $this->meses;
         $diasSemana = $this->diasSemana;
@@ -267,10 +259,10 @@ class EventoInscritosController extends Controller
             'titulo_trabalho' => 'required'
         ]);
 
-        if( isset($request->arquivo) || !$request->arquivo == '') {
+        if (isset($request->arquivo) || !$request->arquivo == '') {
 
             $inscrito = EventoInscrito::find($id);
-            if(!is_null($inscrito->arquivo) && Storage::disk('public')->exists($inscrito->arquivo)) {
+            if (!is_null($inscrito->arquivo) && Storage::disk('public')->exists($inscrito->arquivo)) {
                 $arquivo_antigo = $inscrito->arquivo;
                 Storage::disk('public')->delete($arquivo_antigo);
             }
@@ -280,15 +272,14 @@ class EventoInscritosController extends Controller
             $inscrito->arquivo = $arquivo;
             $inscrito->status_arquivo = 'Em Análise';
             $inscrito->titulo_trabalho = $request->titulo_trabalho;
-            if($inscrito->update()) {
+            if ($inscrito->update()) {
                 session()->flash('status', 'Arquivo enviado com sucesso.');
                 session()->flash('alert', 'success');
 
-                Log::channel('evento_inscricao')->info('Evento ID: '. $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Envio de trabalho: ' . $inscrito->titulo_trabalho . ' - Endereço IP: ' . $request->ip());
+                Log::channel('evento_inscricao')->info('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Envio de trabalho: ' . $inscrito->titulo_trabalho . ' - Endereço IP: ' . $request->ip());
 
                 return redirect()->back();
-            }
-            else {
+            } else {
                 session()->flash('status', 'Erro ao enviar arquivo.');
                 session()->flash('alert', 'danger');
 
@@ -296,7 +287,6 @@ class EventoInscritosController extends Controller
 
                 return redirect()->back();
             }
-
         }
     }
 
@@ -308,16 +298,15 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::find($id);
         $inscrito->recurso_arquivo = $request->argumentacao;
-        if($inscrito->save()) {
+        if ($inscrito->save()) {
             Notification::send($inscrito->analista, new RecursoArquivoNotificar($inscrito));
             session()->flash('status', 'Recurso enviado com sucesso.');
             session()->flash('alert', 'success');
 
-            Log::channel('evento_inscricao')->info('Evento ID: '. $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Recurso enviado. ' . ' - Endereço IP: ' . $request->ip());
+            Log::channel('evento_inscricao')->info('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Recurso enviado. ' . ' - Endereço IP: ' . $request->ip());
 
             return redirect()->back();
-        }
-        else {
+        } else {
             session()->flash('status', 'Erro ao enviar recurso.');
             session()->flash('alert', 'danger');
 
@@ -325,7 +314,6 @@ class EventoInscritosController extends Controller
 
             return redirect()->back();
         }
-
     }
 
     public function avaliaRecurso(Request $request, $id)
@@ -336,18 +324,17 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::find($id);
         $inscrito->resposta_recurso = $request->resposta_recurso;
-        if($request->resposta_recurso == 'Aceito') {
+        if ($request->resposta_recurso == 'Aceito') {
             $inscrito->status_arquivo = 'Aceito';
         }
 
-        if($inscrito->save()) {
-            $inscrito->notify( new \App\Notifications\RecursoAnaliseNotificar($inscrito));
+        if ($inscrito->save()) {
+            $inscrito->notify(new \App\Notifications\RecursoAnaliseNotificar($inscrito));
             session()->flash('status', 'Avaliação de recurso enviada com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->back();
-        }
-        else {
+        } else {
             session()->flash('status', 'Erro ao enviar avaliação de recurso.');
             session()->flash('alert', 'danger');
 
@@ -357,7 +344,7 @@ class EventoInscritosController extends Controller
 
     public function analiseArquivo(Request $request, $id)
     {
-        if(App::environment('local')){
+        if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -367,15 +354,14 @@ class EventoInscritosController extends Controller
         $avaliacao = new Avaliacao($subcomissao);
         $resposta = $avaliacao->executeAvaliacaoInscritoEvento($request, $inscrito, $user);
 
-        if($resposta) {
-            $inscrito->notify( new \App\Notifications\EventoInscritoAnaliseArquivoNotificar($inscrito));
+        if ($resposta) {
+            $inscrito->notify(new \App\Notifications\EventoInscritoAnaliseArquivoNotificar($inscrito));
 
             session()->flash('status', 'Análise enviado com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->to($resposta['redirect']);
-        }
-        else {
+        } else {
             session()->flash('status', 'Erro ao enviar análise.');
             session()->flash('alert', 'danger');
 
@@ -385,7 +371,7 @@ class EventoInscritosController extends Controller
 
     public function adm_confirmar($id)
     {
-        if(App::environment('local')){
+        if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -395,21 +381,20 @@ class EventoInscritosController extends Controller
 
         $inscrito->confirmacao = 1;
         $inscrito->data_confirmacao = date('Y-m-d H:i:s');
-        if($inscrito->update()) {
+        if ($inscrito->update()) {
             $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
             $url = url("inscritos/presenca/$crypt");
             //Gerando QRCode
-            $qrcode = QrCode::size(200)->generate( url($url));
+            $qrcode = QrCode::size(200)->generate(url($url));
 
-            Log::channel('evento_inscricao')->info('Evento ID: '. $inscrito->evento_id .' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao confirmada pelo Administrador: ID: '. $user->id);
+            Log::channel('evento_inscricao')->info('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao confirmada pelo Administrador: ID: ' . $user->id);
 
             return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
             session()->flash('alert', 'danger');
 
-            Log::channel('evento_inscricao')->error('Evento ID: '. $inscrito->evento_id .' - Inscrito ID: ' . $inscrito->id . ' - Operação: Erro ao confirmar inscrição pelo Administrador: ID: '. $user->id);
+            Log::channel('evento_inscricao')->error('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Erro ao confirmar inscrição pelo Administrador: ID: ' . $user->id);
 
             return redirect()->back();
         }
@@ -419,19 +404,18 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
-        if($inscrito && $inscrito->presenca == 0) {
+        if ($inscrito && $inscrito->presenca == 0) {
             $inscrito->presenca = 1;
             $options = [
                 'cost' => 10,
-                ];
-            $inscrito->certificado = str_replace('$2y$10$', '', password_hash("certificado-inscrito-".$inscrito->id, PASSWORD_BCRYPT, $options));
-            if($inscrito->update()) {
+            ];
+            $inscrito->certificado = str_replace('$2y$10$', '', password_hash("certificado-inscrito-" . $inscrito->id, PASSWORD_BCRYPT, $options));
+            if ($inscrito->update()) {
                 session()->flash('status', 'Presença efetuada com sucesso.');
                 session()->flash('alert', 'success');
 
                 return redirect()->back();
-            }
-            else {
+            } else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a presença do inscrito.');
                 session()->flash('alert', 'danger');
 
@@ -446,19 +430,18 @@ class EventoInscritosController extends Controller
         $data = explode('/', $decrypt);
 
         $inscrito = EventoInscrito::find($data[1]);
-        if($inscrito && $data[0] == 'sim' && $inscrito->lista_espera == 0)
-        {
+        if ($inscrito && $data[0] == 'sim' && $inscrito->lista_espera == 0) {
             $evento = Evento::find($inscrito->evento_id);
 
             //se inscrito já confirmou vai na area do inscrito
-            if($inscrito->confirmacao == 1){
+            if ($inscrito->confirmacao == 1) {
                 session()->flash('status', 'Imprima ou tenha em mãos o QR Code para o credenciamento no evento!');
                 session()->flash('alert', 'warning');
 
                 return $this->show(\Illuminate\Support\Facades\Crypt::encryptString($inscrito->id));
             }
 
-            if(strtotime(date('Y-m-d H:i:s')) >= strtotime($evento->inscricao_fim)){
+            if (strtotime(date('Y-m-d H:i:s')) >= strtotime($evento->inscricao_fim)) {
                 session()->flash('status', 'Confirmação não concluída pois já se encerrou o prazo de inscrição para este evento');
                 session()->flash('alert', 'danger');
 
@@ -466,7 +449,7 @@ class EventoInscritosController extends Controller
             }
 
             //Adiciona a lista de espera se exceder as vagas
-            if(!is_null($evento->vagas) && $evento->inscritos->where('lista_espera', 0)->where('confirmacao', 1)->count() >= $evento->vagas) {
+            if (!is_null($evento->vagas) && $evento->inscritos->where('lista_espera', 0)->where('confirmacao', 1)->count() >= $evento->vagas) {
                 //Caso tenha já confirmado já uma vez e clicou novamente onde está na lista de espera
                 /*if($inscrito->lista_espera == 1){
                     session()->flash('status', 'Desculpe, as vagas esgotaram, e você persiste na lista de espera. Caso tenha aberto mais vagas, você será notificado por email .');
@@ -474,35 +457,34 @@ class EventoInscritosController extends Controller
 
                     return redirect()->back();
                 } else {*/
-                    $inscrito->lista_espera = 1;
-                    $inscrito->posicao_espera = $evento->inscritos->last()->posicao_espera + 1;
-                    session()->flash('status', 'Desculpe, as vagas esgotaram, e você está lista de espera. Caso houver vaga, você será notificado por email .');
-                    session()->flash('alert', 'danger');
+                $inscrito->lista_espera = 1;
+                $inscrito->posicao_espera = $evento->inscritos->last()->posicao_espera + 1;
+                session()->flash('status', 'Desculpe, as vagas esgotaram, e você está lista de espera. Caso houver vaga, você será notificado por email .');
+                session()->flash('alert', 'danger');
                 //}
             }
 
             $inscrito->confirmacao = 1;
             $inscrito->data_confirmacao = date('Y-m-d H:i:s');
 
-            if($inscrito->update()) {
+            if ($inscrito->update()) {
                 $crypt = \Illuminate\Support\Facades\Crypt::encryptString('sim/' . $inscrito->id);
                 $idCrypted = \Illuminate\Support\Facades\Crypt::encryptString($inscrito->id);
                 // em ajuste...
-               /* $inscrito->notify( new \App\Notifications\EventoInscritoLinkPainelNotificacao([
+                /* $inscrito->notify( new \App\Notifications\EventoInscritoLinkPainelNotificacao([
                     'titulo_evento' => $inscrito->evento->titulo,
                     'nome' => $inscrito->nome,
                     'id' => $idCrypted
                 ]));*/
                 $url = url("inscritos/presenca/$crypt");
                 //Gerando QRCode
-                $qrcode = QrCode::size(200)->generate( url($url));
+                $qrcode = QrCode::size(200)->generate(url($url));
 
                 Log::channel('evento_inscricao')->info('Evento ID: ' . $evento->id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Inscricao confirmada. ');
 
                 return $this->show(\Illuminate\Support\Facades\Crypt::encryptString($inscrito->id));
                 //return view('eventos.inscritos.confirmacao', compact('inscrito', 'qrcode', 'crypt'));
-            }
-            else {
+            } else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
                 session()->flash('alert', 'danger');
 
@@ -510,24 +492,22 @@ class EventoInscritosController extends Controller
 
                 return redirect()->back();
             }
-        }
-        elseif($inscrito && $data[0] == 'nao' && $inscrito->confirmacao == 1 && $inscrito->lista_espera == 0)
-        {
+        } elseif ($inscrito && $data[0] == 'nao' && $inscrito->confirmacao == 1 && $inscrito->lista_espera == 0) {
             $inscrito->confirmacao = 2;
-            if($inscrito->update()) {
+            if ($inscrito->update()) {
                 //Caso tenha inscrito na fila de espera, remove o primeiro que foi incluso e atualiza e é notificado por email que está confirmado
                 $inscritoFila = EventoInscrito::where('evento_id', $inscrito->evento->id)->where('lista_espera', 1)->first();
-                if($inscritoFila){
+                if ($inscritoFila) {
                     $inscritoFila->lista_espera = 0;
-                    if($inscritoFila->update()){
+                    if ($inscritoFila->update()) {
 
-                        if($inscritoFila->nome_social != NULL) {
+                        if ($inscritoFila->nome_social != NULL) {
                             $nome = $inscritoFila->nome_social;
                         } else {
                             $nome = $inscritoFila->nome;
                         }
 
-                        $inscritoFila->notify( new \App\Notifications\EventoInscritoConfirmado([
+                        $inscritoFila->notify(new \App\Notifications\EventoInscritoConfirmado([
                             'titulo_evento' => $inscritoFila->evento->titulo,
                             'nome' => $nome,
                             'id' => $inscritoFila->id
@@ -536,22 +516,19 @@ class EventoInscritosController extends Controller
                 }
 
                 return view('eventos.inscritos.confirmacao', compact('inscrito'));
-            }
-            else {
+            } else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a cancelar inscrição.');
                 session()->flash('alert', 'danger');
 
                 return redirect()->back();
             }
-        }
-        else {
-            if ($inscrito && $data[0] == 'sim' && $inscrito->lista_espera == 1){
+        } else {
+            if ($inscrito && $data[0] == 'sim' && $inscrito->lista_espera == 1) {
                 session()->flash('status', 'Desculpe, as vagas esgotaram, e você está lista de espera. Caso tenha aberto mais vagas, você será notificado por email .');
                 session()->flash('alert', 'danger');
 
                 return view('eventos.inscritos.confirmacao', compact('inscrito'));
-            }
-            else {
+            } else {
                 session()->flash('status', 'Desculpe! Não foi possível confirmação inscrição. Caso persista, entre em contato com a equipe do evento');
                 session()->flash('alert', 'danger');
             }
@@ -567,39 +544,36 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::find($data[1]);
 
-        if($inscrito->lista_espera == 1) {
+        if ($inscrito->lista_espera == 1) {
             session()->flash('status', 'Desculpe! O usuário está na fila de espera.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
         }
 
-        if($inscrito && $inscrito->presenca == 0 && $data[0] == 'sim') {
+        if ($inscrito && $inscrito->presenca == 0 && $data[0] == 'sim') {
             $inscrito->presenca = 1;
             $options = [
                 'cost' => 10,
-                ];
-            $inscrito->certificado = str_replace('$2y$10$', '', password_hash("certificado-inscrito-".$inscrito->id, PASSWORD_BCRYPT, $options));
-            if($inscrito->update()) {
+            ];
+            $inscrito->certificado = str_replace('$2y$10$', '', password_hash("certificado-inscrito-" . $inscrito->id, PASSWORD_BCRYPT, $options));
+            if ($inscrito->update()) {
                 session()->flash('status', 'Presença cadastrada com sucesso.');
                 session()->flash('alert', 'success');
 
                 return redirect()->back();
-            }
-            else {
+            } else {
                 session()->flash('status', 'Desculpe! Houve um erro ao realizar a confirmação inscrição.');
                 session()->flash('alert', 'danger');
 
                 return redirect()->back();
             }
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Não foi possível cadastrar a presença.');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
         }
-
     }
 
     public function baixarQrcode($codigo)
@@ -609,7 +583,7 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::find($data[1]);
 
-        if($inscrito->nome_social != NULL) {
+        if ($inscrito->nome_social != NULL) {
             $nome = $inscrito->nome_social;
         } else {
             $nome = $inscrito->nome;
@@ -617,27 +591,27 @@ class EventoInscritosController extends Controller
 
         //Gerando QRCode
         $url = url("inscritos/presenca/$codigo");
-        $qrcode = QrCode::size(200)->generate( url($url));
+        $qrcode = QrCode::size(200)->generate(url($url));
 
         $html = "
             <div style='display:flex; flex-direction: column; border: 2px solid #000; border-radius: 8px; max-width:350px; padding: 24px;'>
                 <div>
                     <p style='font-weight: bold; font-size:32px;'>
-                    Evento: ". $inscrito->evento->titulo ."
+                    Evento: " . $inscrito->evento->titulo . "
                     </p>
                 </div>
                 <div>
                     <p style='font-weight: bold; font-size:16px;'>
-                    De ". date('d/m/Y H:i:s', strtotime($inscrito->evento->data_inicio)) ." à ". date('d/m/Y H:i:s', strtotime($inscrito->evento->data_fim)) ."
+                    De " . date('d/m/Y H:i:s', strtotime($inscrito->evento->data_inicio)) . " à " . date('d/m/Y H:i:s', strtotime($inscrito->evento->data_fim)) . "
                     </p>
                 </div>
                 <div>
                     <p style='font-weight: bold; font-size:28px;'>
-                    Nome: ". $nome ."
+                    Nome: " . $nome . "
                     </p>
                 </div>
                 <div>
-                    <img src='data:image/png;base64, " . base64_encode($qrcode) ."'>
+                    <img src='data:image/png;base64, " . base64_encode($qrcode) . "'>
                 </div>
                 <div style='margin-top: 8px;'>
                     Pro-reitoria de Extensão e Cultura - UNICAMP
@@ -658,15 +632,15 @@ class EventoInscritosController extends Controller
     {
         $inscrito = EventoInscrito::find($id);
 
-        if($inscrito->nome_social != NULL) {
+        if ($inscrito->nome_social != NULL) {
             $nome = $inscrito->nome_social;
         } else {
             $nome = $inscrito->nome;
         }
 
-        if($request->tipo_mensagem == 'confirmar'){
+        if ($request->tipo_mensagem == 'confirmar') {
 
-            $inscrito->notify( new \App\Notifications\EventoInscritoNotificar([
+            $inscrito->notify(new \App\Notifications\EventoInscritoNotificar([
                 'titulo_evento' => $inscrito->evento->titulo,
                 'nome' => $nome,
                 'id' => $inscrito->id
@@ -678,7 +652,7 @@ class EventoInscritosController extends Controller
             return redirect()->back();
         }
 
-        if($request->tipo_mensagem == 'mensagem') {
+        if ($request->tipo_mensagem == 'mensagem') {
             $detalhes = [
                 'nome' => $nome,
                 'titulo_evento' => $inscrito->evento->titulo,
@@ -692,6 +666,99 @@ class EventoInscritosController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    public function emailNotificarCertificados(Evento $evento)
+    {
+        if (App::environment('local')) {
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        foreach ($user->getRoleNames() as $role) {
+            if (substr($role, 0, 3) === 'gr_') {
+                $grupo = $role;
+            }
+        }
+
+        if ($evento->grupo_usuario == $grupo) {
+            $presentes = EventoInscrito::where('evento_id', $evento->id)
+                ->where('confirmacao', 1)
+                ->where('presenca', 1)->get();
+
+            foreach ($presentes as $presente) {
+                if ($presente->nome_social != NULL) {
+                    $nome = $presente->nome_social;
+                } else {
+                    $nome = $presente->nome;
+                }
+
+                $presente->notify(new \App\Notifications\EventoInscritoCertificado([
+                    'titulo_evento' => $presente->evento->titulo,
+                    'nome' => $nome,
+                    'id' => $presente->id
+                ]));
+
+                session()->flash('status', 'Inscritos notificados.');
+                session()->flash('alert', 'success');
+
+                return redirect()->back();
+            }
+        } else {
+            session()->flash('status', 'Desculpe! Você não tem permissão de notificar os certificados para os inscritos. Solicite a inclusão ao suporte.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
+        }
+    }
+
+    public function enviarEmailTodosCreate(Evento $evento){
+        return view('eventos.inscritos.email_inscritos', compact('evento'));
+    }
+
+    public function emailNotificarTodos(Request $request, Evento $evento){
+        if (App::environment('local')) {
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        foreach ($user->getRoleNames() as $role) {
+            if (substr($role, 0, 3) === 'gr_') {
+                $grupo = $role;
+            }
+        }
+
+        if ($evento->grupo_usuario == $grupo) {
+            $todos = EventoInscrito::where('evento_id', $evento->id)->get();
+
+            foreach ($todos as $inscrito) {
+                if ($inscrito->nome_social != NULL) {
+                    $nome = $inscrito->nome_social;
+                } else {
+                    $nome = $inscrito->nome;
+                }
+
+                $detalhes = [
+                    'nome' => $nome,
+                    'titulo_evento' => $inscrito->evento->titulo,
+                    'mensagem' => $request->mensagem
+                ];
+
+                Mail::to($inscrito->email)->send(new EnviarEmail($detalhes));
+
+                session()->flash('status', 'Mensagem de E-mail enviada com sucesso aos inscritos.');
+                session()->flash('alert', 'success');
+
+                return redirect()->to('/eventos');
+            }
+        } else {
+            session()->flash('status', 'Desculpe! Você não tem permissão de notificar os inscritos. Solicite a inclusão ao suporte.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
+        }
 
     }
 
@@ -700,7 +767,7 @@ class EventoInscritosController extends Controller
         $inscrito = EventoInscrito::find($id);
         $inscrito->status_arquivo = 'Cancelado';
 
-        if($inscrito->update()) {
+        if ($inscrito->update()) {
             Notification::send($inscrito->evento->comissao->users, new EventoCancelamentoArquivoNotificar($inscrito));
             session()->flash('status', 'Apresentação cancelada com sucesso.');
             session()->flash('alert', 'success');
@@ -708,8 +775,7 @@ class EventoInscritosController extends Controller
             Log::channel('evento_inscricao')->info('Evento ID: ' . $inscrito->evento_id . ' - Inscrito ID: ' . $inscrito->id . ' - Operação: Cancelamento Apresentação. ');
 
             return redirect()->back();
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Houve um erro ao cancelar a apresentação.');
             session()->flash('alert', 'danger');
 
@@ -721,26 +787,25 @@ class EventoInscritosController extends Controller
 
     public function exportarParaExcel(Evento $evento)
     {
-        if(App::environment('local')){
+        if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        foreach($user->getRoleNames() as $role) {
-            if(substr($role, 0, 3) === 'gr_') {
+        foreach ($user->getRoleNames() as $role) {
+            if (substr($role, 0, 3) === 'gr_') {
                 $grupo = $role;
             }
         }
 
-        if($evento->grupo_usuario == $grupo) {
+        if ($evento->grupo_usuario == $grupo) {
             /* Método download do pacote "Maatwebsite/Laravel-Excel" para criar e retornar um arquivo Excel.
             Exporta os inscritos de um evento que estão confirmados e que não está na fila de espera.
             No método download, estamos passando uma instância da classe EventoInscritoExport.*/
 
             return Excel::download(new EventoInscritoExport($evento->id), 'inscritos_confirmados.xlsx');
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Você não tem permissão de exportar informações dos inscritos. Solicite a inclusão ao suporte.');
             session()->flash('alert', 'warning');
 

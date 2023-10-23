@@ -3,7 +3,8 @@
         <div class="accordion" id="accordionExample">
             <div class="card">
                 <div class="card-header" id="headingOne">
-                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             <i class="fal fa-circle icon-stack-3x opacity-100 color-info-400"></i>
                             <i class="far fa-users icon-stack-1x opacity-100 color-info-500"></i>
@@ -24,9 +25,11 @@
                         </span>
                     </a>
                 </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                    data-parent="#accordionExample">
                     <div class="card-body">
-                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-comissao" style="width: 100%">
+                        <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-comissao"
+                            style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -36,39 +39,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($confirmados as $confirmado)
-                                <tr>
-                                    <td>{{ $confirmado->nome }}</td>
-                                    <td>{{ $confirmado->email }}</td>
-                                    <td><span class="badge
+                                @foreach ($confirmados as $confirmado)
+                                    <tr>
+                                        <td>{{ $confirmado->nome }}</td>
+                                        <td>{{ $confirmado->email }}</td>
+                                        <td><span
+                                                class="badge
                                                         @switch($confirmado->status_arquivo )
                                                             @case('Em Análise')
-                                                                badge-warning 
+                                                                badge-warning
                                                                 @break
                                                             @case('Pendente')
-                                                                badge-warning 
+                                                                badge-warning
                                                                 @break
                                                             @case('Cancelado')
-                                                                badge-danger 
+                                                                badge-danger
                                                                 @break
                                                             @case('Recusado')
-                                                                badge-danger 
+                                                                badge-danger
                                                                 @break
                                                             @case('Aceito')
-                                                                badge-success 
+                                                                badge-success
                                                                 @break
                                                         @endswitch
                                                     badge-pill
                                                 ">
-                                            {{ $confirmado->status_arquivo }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id) ) }}" class="btn btn-info btn-xs">
-                                            Dados Completos
-                                        </a>
-                                    </td>
-                                </tr>
+                                                {{ $confirmado->status_arquivo }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id)) }}"
+                                                class="btn btn-primary btn-xs">
+                                                Dados Completos
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
