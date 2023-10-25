@@ -48,8 +48,8 @@
                                         value="{{ old('local') }}">
                                 </div>
                                 <!--<div class="alert alert-info" role="alert">
-                                    <ul id="suggestions-list">Ao inserir as informações no campo de endereço, você verá uma lista de sugestões abaixo. Clique na opção correspondente para preencher automaticamente os campos restantes (latitude e longitude) e receber auxílio.</ul>
-                                </div>-->
+                                            <ul id="suggestions-list">Ao inserir as informações no campo de endereço, você verá uma lista de sugestões abaixo. Clique na opção correspondente para preencher automaticamente os campos restantes (latitude e longitude) e receber auxílio.</ul>
+                                        </div>-->
                                 <div class="form-group">
                                     <label class="fw-700">Endereço</label>
                                     <input type="text" class="form-control @error('endereco') is-invalid @enderror"
@@ -71,8 +71,8 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="fw-700">Conferir coordenadas no mapa</label>
-                                        <button id="open-map-button" type="button" class="form-control btn btn-primary"><i
-                                                class="far fa-external-link"></i> Abrir Mapa</button>
+                                        <button id="open-map-button" type="button" class="col-md-12 btn btn-primary waves-effect waves-themed">
+                                            <span class="fal fa-external-link mr-1"></span> Abrir Mapa</button>
                                     </div>
                                 </div>
                                 <br>
@@ -393,7 +393,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">
-                                Adicionar
+                                <span class="fal fa-check mr-1"></span> Adicionar
                             </button>
                             <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                         </form>

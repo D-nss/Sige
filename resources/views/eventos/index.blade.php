@@ -25,8 +25,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12">
-                <a class="btn btn-primary btn-lg btn-icon rounded-circle" href="{{ url('/eventos/novo') }}"><i
-                        class="far fa-plus"></i></a> Adicionar Evento
+                <a class="btn btn-primary waves-effect waves-themed" href="{{ url('/eventos/novo') }}"><span
+                        class="fal fa-plus mr-1"></span> Novo Evento</a>
                 <div class="mt-3">
                     <div class="frame-wrap w-100">
                         <div class="accordion" id="accordionExample">

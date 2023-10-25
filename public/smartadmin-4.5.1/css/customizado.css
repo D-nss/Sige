@@ -183,11 +183,6 @@ white-space:nowrap;
   border-color: none;
 }
 
-.btn-primary {
-  background: #14f !important;
-  color: #fff !important;
-}
-
 [data-action="panel-collapse"]{
   /* content: '_'; */
 }

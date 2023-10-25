@@ -1,24 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Eventos')
+@section('title', 'Novo Membro de Equipe')
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item"><a href="javascript:void(0);">EXTECULT</a></li>
     <li class="breadcrumb-item">Eventos</li>
     <li class="breadcrumb-item active">Gestão de Eventos</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Equipe do Evento</span>
+        <i class='subheader-icon fal fa-plus'></i>Equipe do Evento
         <small>
         Gestão da equipe do evento {{ $evento->titulo }}
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
         <div class="d-inline-flex flex-column justify-content-center">
-        
+
         </div>
     </div>
 </div>
@@ -35,7 +34,7 @@
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
                                         <i class="far fa-plus icon-stack-1x opacity-100 color-success-500"></i>
-                                        
+
                                     </div>
                                     <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                         Novo Membro de Equipe
@@ -50,14 +49,14 @@
                                     </span>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> 
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                         <form action="{{ url('evento/' . $evento->id . '/equipe') }}" method="post">
-                                    
+
                                         @csrf
-                                        @include('eventos.equipe._form')                                                        
+                                        @include('eventos.equipe._form')
                                         <button type="submit" class="btn btn-primary">
-                                            Adicionar
+                                            <span class="fal fa-check mr-1"></span>Adicionar
                                         </button>
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </form>
