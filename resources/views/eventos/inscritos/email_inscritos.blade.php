@@ -12,7 +12,7 @@
         <h1 class="subheader-title">
             <i class='subheader-icon fal fa-envelope'></i>Mensagem aos Inscritos
             <small>
-                Envio de mensagem para todos aqueles que se inscreveram no evento
+                Envio de mensagem para todos aqueles que se inscreveram no evento {{$evento->titulo}}
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">

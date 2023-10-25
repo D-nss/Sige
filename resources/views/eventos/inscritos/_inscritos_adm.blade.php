@@ -6,11 +6,13 @@
                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseOne"
                         aria-expanded="true" aria-controls="collapseOne">
                         <div class='icon-stack display-3 flex-shrink-0'>
-                            <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
-                            <i class="far fa-users icon-stack-1x opacity-100 color-success-500"></i>
-
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
+                            <i class="far fa-check icon-stack-1x opacity-100 color-primary"></i>
+                            @if(count($confirmados) > 0)
+                            <span class="badge badge-icon pos-top pos-right">{{count($confirmados)}}</span>
+                            @endif
                         </div>
-                        <h4 class="ml-2 mb-0 flex-1 text-success fw-500">
+                        <h4 class="ml-2 mb-0 flex-1 fw-500">
                             Inscritos Confirmados
                         </h4>
                         <span class="ml-auto">
@@ -28,7 +30,7 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                     data-parent="#accordionExample">
                     <div class="card-body">
-                        <h2>Link para inscrição fora do prazo: <a
+                        <h2>Link para inscrição: <a
                                 href="{{ url('evento/' . $evento->id . '/inscrito/novo') }}">{{ url('evento/' . $evento->id . '/inscrito/novo') }}</a>
                         </h2>
                         <table class="table table-bordered table-hover" id="dt-inscritos-confirmados-adm"
@@ -80,11 +82,11 @@
                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
                         <div class='icon-stack display-3 flex-shrink-0'>
-                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                            <i class="far fa-users icon-stack-1x opacity-100 color-primary-500"></i>
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
+                            <i class="far fa-ellipsis-v icon-stack-1x opacity-100 color-primary"></i>
 
                         </div>
-                        <h4 class="ml-2 mb-0 flex-1 text-primary fw-500">
+                        <h4 class="ml-2 mb-0 flex-1 fw-500">
                             Inscritos Lista de Espera
                         </h4>
                         <span class="ml-auto">
@@ -134,11 +136,11 @@
                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#collapseThree"
                         aria-expanded="true" aria-controls="collapseThree">
                         <div class='icon-stack display-3 flex-shrink-0'>
-                            <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                            <i class="far fa-users icon-stack-1x opacity-100 color-warning-500"></i>
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
+                            <i class="far fa-clock icon-stack-1x opacity-100 color-primary"></i>
 
                         </div>
-                        <h4 class="ml-2 mb-0 flex-1 text-warning fw-500">
+                        <h4 class="ml-2 mb-0 flex-1 fw-500">
                             Inscritos Aguardando Confirmação
                         </h4>
                         <span class="ml-auto">
@@ -193,11 +195,10 @@
                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
                         data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                         <div class='icon-stack display-3 flex-shrink-0'>
-                            <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
-                            <i class="far fa-users icon-stack-1x opacity-100 color-danger-500"></i>
-
+                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
+                            <i class="far fa-times icon-stack-1x opacity-100 color-primary"></i>
                         </div>
-                        <h4 class="ml-2 mb-0 flex-1 text-danger fw-500">
+                        <h4 class="ml-2 mb-0 flex-1 fw-500">
                             Inscritos Cancelados
                         </h4>
                         <span class="ml-auto">

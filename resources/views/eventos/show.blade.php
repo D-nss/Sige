@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Eventos')
+@section('title', 'Detalhes do Evento')
 
 @section('content')
     <ol class="breadcrumb page-breadcrumb">
@@ -10,9 +10,9 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-calendar'></i>Eventos
+            <i class='subheader-icon fal fa-calendar-day'></i>{{$evento->titulo}}
             <small>
-                Gestão dos eventos da PROEC
+                Detalhes do Evento
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
@@ -29,36 +29,7 @@
                     <div class="frame-wrap w-100">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
-                                            <i class="far fa-calendar-check icon-stack-1x opacity-100 color-primary"></i>
-
-                                        </div>
-                                        <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
-                                            Detalhes do Evento
-                                        </h4>
-                                        <span class="ml-auto">
-                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
-                                            </span>
-                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                    data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <div class="col-12 flex-1">
-                                            <span class="f-lg font-color-light">Título do Evento</span>
-                                            <h1 class="fw-300 text-info">{{ $evento->titulo }}</h1>
-                                        </div>
                                         <div class="col-12">
                                             <div class="p-0">
                                                 <h5>
@@ -287,7 +258,6 @@
                                         @endhasanyrole
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>

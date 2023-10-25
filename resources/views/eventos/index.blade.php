@@ -12,7 +12,7 @@
         <h1 class="subheader-title">
             <i class='subheader-icon fal fa-calendar'></i>Eventos
             <small>
-                Gestão dos eventos da PROEC
+                Gestão dos Eventos
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
@@ -37,8 +37,10 @@
                                         aria-controls="collapseEventosAbertos">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
-                                            <i
-                                                class="far fa-calendar-alt icon-stack-1x opacity-100 color-primary"></i>
+                                            <i class="far fa-calendar-alt icon-stack-1x opacity-100 color-primary"></i>
+                                            @if(count($eventosAbertos) > 0)
+                                            <span class="badge badge-icon pos-top pos-right">{{count($eventosAbertos)}}</span>
+                                            @endif
 
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
@@ -68,9 +70,10 @@
                                         aria-controls="collapseEventosFechados">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
-                                            <i
-                                                class="far fa-calendar-minus icon-stack-1x opacity-100 color-primary"></i>
-
+                                            <i class="far fa-calendar-minus icon-stack-1x opacity-100 color-primary"></i>
+                                            @if(count($eventosEncerrados) > 0)
+                                            <span class="badge badge-icon pos-top pos-right">{{count($eventosEncerrados)}}</span>
+                                            @endif
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                             Eventos Fechados
@@ -100,7 +103,9 @@
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
                                             <i class="far fa-calendar-times icon-stack-1x opacity-100 color-primary"></i>
-
+                                            @if(count($eventosCancelados) > 0)
+                                            <span class="badge badge-icon pos-top pos-right">{{count($eventosCancelados)}}</span>
+                                            @endif
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
                                             Eventos Cancelados
