@@ -10,7 +10,7 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-list'></i>Eventos
+            <i class='subheader-icon fal fa-calendar'></i>Eventos
             <small>
                 Gestão dos eventos da PROEC
             </small>
@@ -33,8 +33,8 @@
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
                                         data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
-                                            <i class="far fa-list icon-stack-1x opacity-100 color-success-500"></i>
+                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
+                                            <i class="far fa-calendar-check icon-stack-1x opacity-100 color-primary"></i>
 
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
@@ -282,7 +282,8 @@
                                         </div>
                                         @hasrole($evento->grupo_usuario, 'web_user')
                                             <a href="{{ url('/eventos/' . $evento->id . '/editar') }}"
-                                                class="btn btn-primary">Editar</a>
+                                                class="btn btn-primary"><span
+                                                class="fal fa-calendar-edit mr-1"></span>Editar</a>
                                         @endhasanyrole
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </div>

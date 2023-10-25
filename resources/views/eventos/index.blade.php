@@ -10,7 +10,7 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-list'></i>Eventos
+            <i class='subheader-icon fal fa-calendar'></i>Eventos
             <small>
                 Gestão dos eventos da PROEC
             </small>
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <a class="btn btn-primary waves-effect waves-themed" href="{{ url('/eventos/novo') }}"><span
-                        class="fal fa-plus mr-1"></span> Novo Evento</a>
+                        class="fal fa-calendar-plus mr-1"></span> Novo Evento</a>
                 <div class="mt-3">
                     <div class="frame-wrap w-100">
                         <div class="accordion" id="accordionExample">
@@ -36,9 +36,9 @@
                                         data-target="#collapseEventosAbertos" aria-expanded="true"
                                         aria-controls="collapseEventosAbertos">
                                         <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
+                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
                                             <i
-                                                class="far fa-clipboard-list-check icon-stack-1x opacity-100 color-success-500"></i>
+                                                class="far fa-calendar-alt icon-stack-1x opacity-100 color-primary"></i>
 
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
@@ -67,9 +67,9 @@
                                         data-target="#collapseEventosFechados" aria-expanded="false"
                                         aria-controls="collapseEventosFechados">
                                         <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
+                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
                                             <i
-                                                class="far fa-clipboard-list icon-stack-1x opacity-100 color-warning-500"></i>
+                                                class="far fa-calendar-minus icon-stack-1x opacity-100 color-primary"></i>
 
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
@@ -98,8 +98,8 @@
                                         data-target="#collapseEventosCancelados" aria-expanded="false"
                                         aria-controls="collapseEventosCancelados">
                                         <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
-                                            <i class="far fa-times icon-stack-1x opacity-100 color-danger-500"></i>
+                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
+                                            <i class="far fa-calendar-times icon-stack-1x opacity-100 color-primary"></i>
 
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">

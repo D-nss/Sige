@@ -393,7 +393,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">
-                                <span class="fal fa-check mr-1"></span> Adicionar
+                                <span class="fal fa-calendar-check mr-1"></span> Adicionar
                             </button>
                             <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                         </form>

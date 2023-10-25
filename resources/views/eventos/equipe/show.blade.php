@@ -10,9 +10,9 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-list'></i>Eventos
+            <i class='subheader-icon fal fa-calendar-day'></i>Detalhes do Membro do Evento
             <small>
-                Gestão dos eventos da PROEC
+                Informações do membro da equipe participante do evento {{ $evento->titulo }}
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
@@ -29,31 +29,7 @@
                     <div class="frame-wrap w-100">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <div class='icon-stack display-3 flex-shrink-0'>
-                                            <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
-                                            <i class="far fa-list icon-stack-1x opacity-100 color-success-500"></i>
 
-                                        </div>
-                                        <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
-                                            Detalhes do Palestrante
-                                        </h4>
-                                        <span class="ml-auto">
-                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
-                                            </span>
-                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                    data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="col-12 flex-1">
                                             <span class="f-lg font-color-light">Título do Evento</span>
@@ -153,10 +129,10 @@
                                             </div>
                                         @endif
                                         <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membroEquipe->id . '/certificado') }}"
-                                            class="btn btn-danger">Gerar Certificado</a>
+                                            class="btn btn-primary"><span class="fal fa-file-certificate mr-1"></span> Certificado</a>
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

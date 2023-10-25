@@ -10,7 +10,7 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-list'></i>Equipe do Evento
+            <i class='subheader-icon fal fa-calendar-edit'></i>Equipe do Evento
             <small>
                 Gestão da equipe do evento {{ $evento->titulo }}
             </small>
@@ -52,11 +52,11 @@
                                                 <td>{{ $membro->titulo_palestra }}</td>
                                                 <td>
                                                     <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/editar') }}"
-                                                        class="btn btn-info btn-xs">Editar</a>
+                                                        class="btn btn-primary btn-xs">Editar</a>
                                                     <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/show') }}"
                                                         class="btn btn-primary btn-xs">Ver</a>
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal"
+                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                         data-target="#modal{{ $membro->id }}">
                                                         Remover
                                                     </button>
@@ -89,7 +89,7 @@
                                                                         <button type="button" class="btn btn-secondary"
                                                                             data-dismiss="modal">Fechar</button>
                                                                         <button type="submit"
-                                                                            class="btn btn-danger">Confirmar
+                                                                            class="btn btn-primary"><span class="fal fa-check mr-1"></span>Confirmar
                                                                             remoção</button>
                                                                     </div>
                                                                 </div>
