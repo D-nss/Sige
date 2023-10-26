@@ -10,9 +10,9 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-calendar-day'></i>Detalhes do Membro do Evento
+            <i class='subheader-icon fal fa-calendar-day'></i>{{ $evento->titulo }}
             <small>
-                Informações do membro da equipe participante do evento {{ $evento->titulo }}
+                Informações do membro da equipe participante do evento
             </small>
         </h1>
         <div class="subheader-block d-lg-flex align-items-center">
@@ -29,39 +29,7 @@
                     <div class="frame-wrap w-100">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
-
                                     <div class="card-body">
-                                        <div class="col-12 flex-1">
-                                            <span class="f-lg font-color-light">Título do Evento</span>
-                                            <h1 class="fw-300 text-info">{{ $evento->titulo }}</h1>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5>
-                                                    <span class="font-color-light font-size-14">Local</span>
-                                                    <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
-                                                        {{ $evento->local }}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="p-0">
-                                                <h5 class="d-flex flex-column">
-                                                    <span class="font-color-light font-size-14">Data</span>
-
-                                                    <small class="mt-0 mb-3 font-size-16 fw-400">
-                                                        <span class="font-color-light font-size-12">Início</span>
-                                                        <br>
-                                                        {{ date('d/m/Y H:i:s', strtotime($evento->data_inicio)) }}
-                                                        <br>
-                                                        <span class="font-color-light font-size-12">Fim</span>
-                                                        <br>
-                                                        {{ date('d/m/Y H:i:s', strtotime($evento->data_fim)) }}
-                                                    </small>
-                                                </h5>
-                                            </div>
-                                        </div>
                                         <div class="col-12">
                                             <div class="p-0">
                                                 <h5>

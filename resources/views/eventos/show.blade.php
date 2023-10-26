@@ -254,7 +254,7 @@
                                         @hasrole($evento->grupo_usuario, 'web_user')
                                             <a href="{{ url('/eventos/' . $evento->id . '/editar') }}"
                                                 class="btn btn-primary"><span
-                                                class="fal fa-calendar-edit mr-1"></span>Editar</a>
+                                                class="fal fa-edit mr-1"></span>Editar</a>
                                         @endhasanyrole
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </div>

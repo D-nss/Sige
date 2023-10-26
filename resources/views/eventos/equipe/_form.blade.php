@@ -1,5 +1,6 @@
-<h3 class="font-color-light">Preencha corretamente o formulário com as informações sobre o membro da equipe nos campos correspondentes</h3>
-
+<div class="panel-tag">
+    Preencha corretamente o formulário com as informações sobre o membro da equipe nos campos correspondentes.
+</div>
 <div class="form-group mt-3">
     <label for="local" class="fw-500">O membro da equipe é funcionário da UNICAMP?</label>
     <div class="custom-control custom-switch">

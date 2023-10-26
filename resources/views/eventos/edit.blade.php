@@ -433,13 +433,13 @@
 
                                         </div>
                                         <button type="submit" class="btn btn-primary">
-                                            <span class="fal fa-calendar-check mr-1"></span> Atualizar
+                                            <span class="fal fa-check mr-1"></span> Atualizar
                                         </button>
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger float-right" data-toggle="modal"
                                             data-target="#exampleModal{{ $evento->id }}">
-                                            <span class="fal fa-calendar-times mr-1"></span> Cancelar Evento
+                                            <span class="fal fa-times mr-1"></span> Cancelar Evento
                                         </button>
                                         </form>
 

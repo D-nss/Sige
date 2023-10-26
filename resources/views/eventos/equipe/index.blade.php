@@ -56,8 +56,8 @@
                                                     <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/show') }}"
                                                         class="btn btn-primary btn-xs">Ver</a>
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                                                        data-target="#modal{{ $membro->id }}">
+                                                    <button type="button" class="btn btn-primary btn-xs"
+                                                        data-toggle="modal" data-target="#modal{{ $membro->id }}">
                                                         Remover
                                                     </button>
                                                     <!-- Modal -->
@@ -88,8 +88,8 @@
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
                                                                             data-dismiss="modal">Fechar</button>
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary"><span class="fal fa-check mr-1"></span>Confirmar
+                                                                        <button type="submit" class="btn btn-primary"><span
+                                                                                class="fal fa-check mr-1"></span>Confirmar
                                                                             remoção</button>
                                                                     </div>
                                                                 </div>
@@ -101,6 +101,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                             </div>
                         </div>
                     </div>

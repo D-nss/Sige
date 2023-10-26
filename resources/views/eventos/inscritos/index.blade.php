@@ -10,7 +10,7 @@
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-clipboard-list-check'></i>Inscrições: {{ $evento->titulo }}
+            <i class='subheader-icon fal fa-clipboard-list-check'></i>{{ $evento->titulo }}
             <small>
                 Utilize as ferramentas abaixo para gerenciar os inscritos no evento.
             </small>
