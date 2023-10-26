@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <a class="btn btn-primary waves-effect waves-themed" href="{{ url('/eventos/novo') }}"><span
-                        class="fal fa-calendar-plus mr-1"></span> Novo Evento</a>
+                        class="fal fa-plus mr-1"></span> Novo Evento</a>
                 <div class="mt-3">
                     <div class="frame-wrap w-100">
                         <div class="accordion" id="accordionExample">
@@ -70,13 +70,13 @@
                                         aria-controls="collapseEventosFechados">
                                         <div class='icon-stack display-3 flex-shrink-0'>
                                             <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
-                                            <i class="far fa-calendar-minus icon-stack-1x opacity-100 color-primary"></i>
+                                            <i class="far fa-calendar-check icon-stack-1x opacity-100 color-primary"></i>
                                             @if(count($eventosEncerrados) > 0)
                                             <span class="badge badge-icon pos-top pos-right">{{count($eventosEncerrados)}}</span>
                                             @endif
                                         </div>
                                         <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">
-                                            Eventos Fechados
+                                            Eventos Encerrados
                                         </h4>
                                         <span class="ml-auto">
                                             <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">

@@ -11,7 +11,7 @@
     <div class="subheader">
         <h1 class="subheader-title">
             <i class="subheader-icon fal fa-edit"></i>Inscrição para o evento {{ $evento->titulo }} @if ($evento->gratuito)
-                <span class="badge border border-info text-info">Gratuito</span>
+                <span class="badge border border-primary text-primary">Gratuito</span>
             @endif
         </h1>
     </div>
@@ -264,7 +264,7 @@
                     @endif
 
                     <button type="submit" class="btn btn-primary">
-                        Cadastrar
+                        <span class="fal fa-calendar-check mr-1"></span> Cadastrar
                     </button>
                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
 

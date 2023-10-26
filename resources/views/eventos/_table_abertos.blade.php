@@ -1,9 +1,9 @@
 <table class="table table-bordered table-hover" id="dt-eventos-abertos" style="width: 100%">
     <thead>
         <tr>
-            <th>Período</th>
-            <th>Local</th>
-            <th>Título</th>
+            <th>Início</th>
+            <th>Fim</th>
+            <th>Título / Local</th>
             <th>Autor</th>
             <th>Ações</th>
         </tr>
@@ -13,30 +13,35 @@
             <tr>
                 <td>
                     <div class="flex-1">
-                        <span class="f-sm text-muted">Data Início</span>
-                        <br>
-                        <span class="fs-lg text-secondary">{{ $diasSemana[date('D', strtotime($evento->data_inicio))] }}
-                            , {{ date('d', strtotime($evento->data_inicio)) }} de
-                            {{ $meses[date('m', strtotime($evento->data_inicio))] }} de
-                            {{ date('Y', strtotime($evento->data_inicio)) }} às
-                            {{ date('H:i', strtotime($evento->data_inicio)) }}</span>
-                    </div>
-                    <div class="flex-1">
-                        <span class="fs-sm text-muted">Data Fim</span>
-                        <br>
-                        <span class="fs-lg text-secondary">{{ $diasSemana[date('D', strtotime($evento->data_fim))] }} ,
-                            {{ date('d', strtotime($evento->data_fim)) }} de
-                            {{ $meses[date('m', strtotime($evento->data_fim))] }} de
-                            {{ date('Y', strtotime($evento->data_fim)) }} às
-                            {{ date('H:i', strtotime($evento->data_fim)) }}</span>
+                        {{date('d/m/Y', strtotime($evento->data_inicio))}}<br>
+                        <span class="text-muted">{{ $diasSemana[date('D', strtotime($evento->data_inicio))] }},
+                            <br>{{ date('d', strtotime($evento->data_inicio)) }} de
+                            {{ $meses[date('m', strtotime($evento->data_inicio))] }}
+                            <br> às {{ date('H:i', strtotime($evento->data_inicio)) }}</span>
+
                     </div>
                 </td>
                 <td>
-                    <span class="text-secondary">{{ $evento->local }}</span>
+                    <div class="flex-1">
+                        {{date('d/m/Y', strtotime($evento->data_fim))}}<br>
+                        <span class="text-muted">{{ $diasSemana[date('D', strtotime($evento->data_fim))] }},
+                            <br>{{ date('d', strtotime($evento->data_fim)) }} de
+                            {{ $meses[date('m', strtotime($evento->data_fim))] }}
+                            <br> às {{ date('H:i', strtotime($evento->data_fim)) }}</span>
+                    </div>
                 </td>
-                <td><span class="fs-lg fw-700 text-primary">{{ $evento->titulo }}</span></td>
+                <td>
+                    <span class="fs-lg fw-700 text-primary">{{ $evento->titulo }}</span>
+                    <br><span class="fw-700 text-muted"><small>Local:</small> {{ $evento->local }}</span>
+                    <br><span class="fw-700 text-muted"><small>(Criado em: {{ date('d/m/Y', strtotime($evento->created_at)) }}. Atualização: {{ date('d/m/Y', strtotime($evento->updated_at)) }})</small></span>
+                </td>
+
                 <td>
                     <span class="text-secondary">{{ $evento->user->name }}</span>
+                    <div class="text-muted small text-truncate">
+                        Unidade: <a href="#">{{$evento->user->unidade->sigla}}</a>
+                        <br>
+                    </div>
                 </td>
                 <td>
                     <div class="d-flex flex-column">
@@ -48,16 +53,23 @@
                         </a>
                         <a href="{{ url('evento/' . $evento->id . '/equipe') }}" class="btn btn-primary btn-xs mb-1">
                             Equipe
+                            @if($evento->equipe->count() > 0)
+                            <span class="badge bg-primary-900 ml-1">{{$evento->equipe->count()}}</span>
+                            @endif
                         </a>
                         <a href="{{ url('evento/' . $evento->id . '/inscritos') }}"
                             class="btn btn-primary btn-xs mb-1">
                             Inscrições
+                            @if($evento->inscritos->count() > 0)
+                            <span class="badge bg-primary-900 ml-1">{{$evento->inscritos->count()}}</span>
+                            @endif
                         </a>
                         <!-- <a href="" class="btn btn-warning btn-xs">
                             Enviar E-Mail
                         </a> -->
                         <button type="button" class="btn btn-primary my-1 btn-xs mb-1" data-toggle="modal"
-                            data-target="#modal{{ $evento->id }}">Comissão</button>
+                            data-target="#modal{{ $evento->id }}">Comissão
+                        </button>
                         <!-- Modal center Small -->
                         <div class="modal fade" id="modal{{ $evento->id }}" tabindex="-1" role="dialog"
                             aria-hidden="true">

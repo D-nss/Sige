@@ -64,6 +64,11 @@ class Evento extends Model
         return $this->belongsTo(ModeloCertificado::class, 'modelo_certificado_id');
     }
 
+    public function equipe()
+    {
+        return $this->hasMany(EventoEquipe::class);
+    }
+
     public function inscritos()
     {
         return $this->hasMany(EventoInscrito::class);
