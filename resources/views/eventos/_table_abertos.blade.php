@@ -46,8 +46,7 @@
                     </div>
                 </td>
                 <td>
-                    <div class="d-flex flex-column">
-                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                    <div class="btn-group-vertical" style="width: 180px" role="group" aria-label="Vertical button group">
                         <a class="btn btn-primary" href="{{ url('/eventos/' . $evento->id) }}">
                             <span class="fal fa-eye mr-1"></span>Ver Detalhes
                         </a>
@@ -209,7 +208,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+
                 </td>
             </tr>
         @endforeach
