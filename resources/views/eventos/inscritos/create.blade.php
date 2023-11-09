@@ -264,7 +264,7 @@
                     @endif
 
                     <button type="submit" class="btn btn-primary">
-                        <span class="fal fa-calendar-check mr-1"></span> Cadastrar
+                        <span class="fal fa-check mr-1"></span> Cadastrar
                     </button>
                     <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
 

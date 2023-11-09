@@ -34,12 +34,16 @@
     height: 32px !important;
 }
 
+.btn-primary:hover {
+    background-color: #1dc9b7 !important;
+}
+
 /*:checked + #nome-social#nome_social_campo { display: block !important; }
 #nome_social_campo { display: none !important; }*/
 
 /*input[type=checkbox] + #nome-social {
 display: none !important;
-  } 
+  }
   input[type=checkbox]:checked + #nome-social {
 display: block !important;
   }*/

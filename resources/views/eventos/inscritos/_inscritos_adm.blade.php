@@ -48,21 +48,19 @@
                                         <td>{{ $confirmado->nome }}</td>
                                         <td>{{ $confirmado->email }}</td>
                                         <td>
-                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id)) }}"
-                                                class="btn btn-primary btn-xs">
-                                                Dados Completos
-                                            </a>
-                                            <a href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}"
-                                                class="btn btn-primary btn-xs">
-                                                Enviar E-Mail
-                                            </a>
-                                            @if ($confirmado->presenca == 0)
-                                                <a href="{{ url('inscritos/adm/presenca/' . $confirmado->id) }}"
-                                                    class="btn btn-primary btn-xs">
-                                                    Marcar Presença
+                                            <div class="btn-group btn-group-xs">
+                                                <a class="btn btn-primary" href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($confirmado->id)) }}">
+                                                    <span class="fal fa-eye mr-1"></span>Dados Completos
                                                 </a>
-                                            @endif
-
+                                                <a class="btn btn-primary" href="{{ url('inscrito/enviar-email/' . $confirmado->id . '/novo') }}">
+                                                    <span class="fal fa-envelope mr-1"></span>Enviar E-Mail
+                                                </a>
+                                                @if ($confirmado->presenca == 0)
+                                                <a class="btn btn-primary" href="{{ url('inscritos/adm/presenca/' . $confirmado->id) }}">
+                                                    <span class="fal fa-check mr-1"></span>Marcar Presença
+                                                </a>
+                                                @endif
+                                            </div>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -117,14 +115,14 @@
                                         <td>{{ $lista->nome }}</td>
                                         <td>{{ $lista->email }}</td>
                                         <td>
-                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($lista->id)) }}"
-                                                class="btn btn-primary btn-xs">
-                                                Dados Completos
-                                            </a>
-                                            <a href="{{ url('inscrito/enviar-email/' . $lista->id . '/novo') }}"
-                                                class="btn btn-primary btn-xs">
-                                                Enviar E-Mail
-                                            </a>
+                                            <div class="btn-group btn-group-xs">
+                                                <a class="btn btn-primary" href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($lista->id)) }}">
+                                                    <span class="fal fa-eye mr-1"></span>Dados Completos
+                                                </a>
+                                                <a class="btn btn-primary" href="{{ url('inscrito/enviar-email/' . $lista->id . '/novo') }}">
+                                                    <span class="fal fa-envelope mr-1"></span>Enviar E-Mail
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -172,18 +170,17 @@
                                         <td>{{ $naoConfirmado->nome }}</td>
                                         <td>{{ $naoConfirmado->email }}</td>
                                         <td>
-                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($naoConfirmado->id)) }}"
-                                                class="btn btn-info btn-xs">
-                                                Dados Completos
-                                            </a>
-                                            <a href="{{ url('inscrito/enviar-email/' . $naoConfirmado->id . '/novo') }}"
-                                                class="btn btn-primary btn-xs">
-                                                Enviar E-Mail
-                                            </a>
-                                            <a href="{{ url('inscritos/adm/confirmacao/' . $naoConfirmado->id) }}"
-                                                class="btn btn-primary btn-xs">
-                                                Confirmar
-                                            </a>
+                                            <div class="btn-group btn-group-xs">
+                                                <a class="btn btn-primary" href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($naoConfirmado->id)) }}">
+                                                    <span class="fal fa-eye mr-1"></span>Dados Completos
+                                                </a>
+                                                <a class="btn btn-primary" href="{{ url('inscrito/enviar-email/' . $naoConfirmado->id . '/novo') }}">
+                                                    <span class="fal fa-mail mr-1"></span>Enviar E-Mail
+                                                </a>
+                                                <a class="btn btn-primary" href="{{ url('inscritos/adm/confirmacao/' . $naoConfirmado->id) }}">
+                                                    <span class="fal fa-check mr-1"></span>Confirmar
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -231,10 +228,11 @@
                                         <td>{{ $cancelado->nome }}</td>
                                         <td>{{ $cancelado->email }}</td>
                                         <td>
-                                            <a href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($cancelado->id)) }}"
-                                                class="btn btn-primary btn-xs">
-                                                Dados Completos
-                                            </a>
+                                            <div class="btn-group btn-group-xs">
+                                                <a class="btn btn-primary" href="{{ url('evento/inscrito/' . \Illuminate\Support\Facades\Crypt::encryptString($cancelado->id)) }}">
+                                                    <span class="fal fa-eye mr-1"></span>Dados Completos
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

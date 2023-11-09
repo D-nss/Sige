@@ -33,19 +33,19 @@
                     <span class="text-secondary">{{ $evento->user->name }}</span>
                 </td>
                 <td>
-                    <div class="d-flex flex-column">
-                        <a href="{{ url('/eventos/' . $evento->id) }}" class="btn btn-primary btn-xs mb-1">
-                            Ver Detalhes
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <a class="btn btn-primary" href="{{ url('/eventos/' . $evento->id) }}">
+                            <span class="fal fa-eye mr-1"></span>Ver Detalhes
                         </a>
-                        <a href="{{ url('/eventos/' . $evento->id . '/editar') }}" class="btn btn-primary btn-xs mb-1">
-                            Editar
+                        <a class="btn btn-primary" href="{{ url('/eventos/' . $evento->id . '/editar') }}">
+                            <span class="fal fa-pencil mr-1"></span>Editar
                         </a>
-                        <a href="{{ url('evento/' . $evento->id . '/inscritos') }}" class="btn btn-primary btn-xs mb-1">
-                            Inscrições
+                        <a class="btn btn-primary" href="{{ url('evento/' . $evento->id . '/inscritos') }}">
+                            <span class="fal fa-users mr-1"></span>Inscrições
+                            @if ($evento->inscritos->count() > 0)
+                                <span class="badge bg-danger ml-1">{{ $evento->inscritos->count() }}</span>
+                            @endif
                         </a>
-                        <!-- <a href="" class="btn btn-warning btn-xs">
-                            Enviar E-Mail
-                        </a> -->
                     </div>
                 </td>
             </tr>

@@ -13,7 +13,7 @@
             <tr>
                 <td>
                     <div class="flex-1">
-                        {{date('d/m/Y', strtotime($evento->data_inicio))}}<br>
+                        {{ date('d/m/Y', strtotime($evento->data_inicio)) }}<br>
                         <span class="text-muted">{{ $diasSemana[date('D', strtotime($evento->data_inicio))] }},
                             <br>{{ date('d', strtotime($evento->data_inicio)) }} de
                             {{ $meses[date('m', strtotime($evento->data_inicio))] }}
@@ -23,7 +23,7 @@
                 </td>
                 <td>
                     <div class="flex-1">
-                        {{date('d/m/Y', strtotime($evento->data_fim))}}<br>
+                        {{ date('d/m/Y', strtotime($evento->data_fim)) }}<br>
                         <span class="text-muted">{{ $diasSemana[date('D', strtotime($evento->data_fim))] }},
                             <br>{{ date('d', strtotime($evento->data_fim)) }} de
                             {{ $meses[date('m', strtotime($evento->data_fim))] }}
@@ -33,43 +33,43 @@
                 <td>
                     <span class="fs-lg fw-700 text-primary">{{ $evento->titulo }}</span>
                     <br><span class="fw-700 text-muted"><small>Local:</small> {{ $evento->local }}</span>
-                    <br><span class="fw-700 text-muted"><small>(Criado em: {{ date('d/m/Y', strtotime($evento->created_at)) }}. Atualização: {{ date('d/m/Y', strtotime($evento->updated_at)) }})</small></span>
+                    <br><span class="fw-700 text-muted"><small>(Criado em:
+                            {{ date('d/m/Y', strtotime($evento->created_at)) }}. Atualização:
+                            {{ date('d/m/Y', strtotime($evento->updated_at)) }})</small></span>
                 </td>
 
                 <td>
                     <span class="text-secondary">{{ $evento->user->name }}</span>
                     <div class="text-muted small text-truncate">
-                        Unidade: <a href="#">{{$evento->user->unidade->sigla}}</a>
+                        Unidade: <a href="#">{{ $evento->user->unidade->sigla }}</a>
                         <br>
                     </div>
                 </td>
                 <td>
                     <div class="d-flex flex-column">
-                        <a href="{{ url('/eventos/' . $evento->id) }}" class="btn btn-primary btn-xs mb-1">
-                            Ver Detalhes
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <a class="btn btn-primary" href="{{ url('/eventos/' . $evento->id) }}">
+                            <span class="fal fa-eye mr-1"></span>Ver Detalhes
                         </a>
-                        <a href="{{ url('/eventos/' . $evento->id . '/editar') }}" class="btn btn-primary btn-xs mb-1">
-                            Editar
+                        <a class="btn btn-primary" href="{{ url('/eventos/' . $evento->id . '/editar') }}">
+                            <span class="fal fa-pencil mr-1"></span>Editar
                         </a>
-                        <a href="{{ url('evento/' . $evento->id . '/equipe') }}" class="btn btn-primary btn-xs mb-1">
-                            Equipe
-                            @if($evento->equipe->count() > 0)
-                            <span class="badge bg-primary-900 ml-1">{{$evento->equipe->count()}}</span>
+                        <a class="btn btn-primary" href="{{ url('evento/' . $evento->id . '/equipe') }}">
+                            <span class="fal fa-user-friends mr-1"></span>Equipe
+                            @if ($evento->equipe->count() > 0)
+                                <span class="badge bg-danger ml-1">{{ $evento->equipe->count() }}</span>
                             @endif
                         </a>
-                        <a href="{{ url('evento/' . $evento->id . '/inscritos') }}"
-                            class="btn btn-primary btn-xs mb-1">
-                            Inscrições
-                            @if($evento->inscritos->count() > 0)
-                            <span class="badge bg-primary-900 ml-1">{{$evento->inscritos->count()}}</span>
+                        <a class="btn btn-primary" href="{{ url('evento/' . $evento->id . '/inscritos') }}">
+                            <span class="fal fa-users mr-1"></span>Inscrições
+                            @if ($evento->inscritos->count() > 0)
+                                <span class="badge bg-danger ml-1">{{ $evento->inscritos->count() }}</span>
                             @endif
                         </a>
-                        <!-- <a href="" class="btn btn-warning btn-xs">
-                            Enviar E-Mail
-                        </a> -->
-                        <button type="button" class="btn btn-primary my-1 btn-xs mb-1" data-toggle="modal"
-                            data-target="#modal{{ $evento->id }}">Comissão
-                        </button>
+                        <a href="#" class="btn btn-primary" data-toggle="modal"
+                            data-target="#modal{{ $evento->id }}">
+                            <span class="fal fa-shield-alt mr-1"></span>Comissão
+                        </a>
                         <!-- Modal center Small -->
                         <div class="modal fade" id="modal{{ $evento->id }}" tabindex="-1" role="dialog"
                             aria-hidden="true">
@@ -208,6 +208,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </td>
             </tr>
