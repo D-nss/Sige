@@ -283,7 +283,7 @@ class EventoController extends Controller
         $vagasPreenchidas = $evento->inscritos->where('confirmacao', 1)->count();
         $inputs = $request->except('_token', '_method');
         foreach($inputs as $key => $value) {
-            if($key == 'vagas' && ( $value < $vagasPreenchidas ) ) {
+            if($key == 'vagas' && !is_null($value) && ( $value < $vagasPreenchidas ) ) {
                 session()->flash('status', 'O número de vagas não poder ser menor que o número de inscritos já cadastrados.');
                 session()->flash('alert', 'danger');
 
