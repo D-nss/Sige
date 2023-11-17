@@ -38,6 +38,70 @@
     background-color: #1dc9b7 !important;
 }
 
+
+/* Exibir 'n' resultados por página: alinhado na horizontal */
+
+.dataTables_length {
+    width: auto;
+}
+
+.dataTables_length label {
+    display: block;
+    float: left;
+    margin-right: .5em;
+}
+
+select.custom-select {
+    width: auto;
+    margin: 0 .5em;
+}
+
+select.custom-select option {
+    padding: 1em 0 0 0;
+}
+
+select.custom-select * {
+    background-color: #eee;
+}
+
+/* alinhamento à esquerda em botão */
+.btn-group-vertical .btn{
+text-align: left !important;
+}
+
+/* área fixa em torno de ícones em botões alinhar as etiquetas (labels) dos botões */
+.a-ic-bt-peq{
+width:24px;
+}
+
+.dataTables_filter label{
+    /* background-color: red; Teste */
+}
+
+.btn-negativo{
+    margin-right: 3em;
+}
+
+.nome-evento {
+    margin-bottom: 0;
+    font-size: 1.7em;
+    margin-bottom: .25em;
+    font-weight: 900 !important;
+}
+
+.nome-evento a:hover, .acoes-evento a:hover {
+color:#1dc9b7;
+}
+
+.acoes-evento {
+margin-bottom: .5em;    
+}
+
+
+.btn-group-vertical a:last-child {
+    border-bottom-left-radius: 4px !important;
+}
+
 /*:checked + #nome-social#nome_social_campo { display: block !important; }
 #nome_social_campo { display: none !important; }*/
 

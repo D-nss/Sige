@@ -8,7 +8,7 @@
     "loadingRecords": "Carregando...",
     "processing": "Processando...",
     "zeroRecords": "Nenhum registro encontrado",
-    "search": "Pesquisar",
+    "search": "",
     "paginate": {
       "next": "Próximo",
       "previous": "Anterior",

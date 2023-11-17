@@ -15582,9 +15582,9 @@ $.extend(true, $.fn.dataTable.defaults, {
 		/* replace the default search lable text with a nice icon */
 		search: '<div class="input-group-text d-inline-flex width-3 align-items-center justify-content-center border-bottom-right-radius-0 border-top-right-radius-0 border-right-0"><i class="fal fa-search"></i></div>',
 		/* add search filter */
-		searchPlaceholder: "Search",
+		searchPlaceholder: "Digite aqui para pesquisar",
 		/* change text for zero records */
-		zeroRecords: "No records to display"
+		zeroRecords: "Nenhum resultado para exibir"
 	},
 	initComplete: function(settings, json) {
 		initApp.appForms('.dataTables_filter', 'has-length', 'has-disabled');
