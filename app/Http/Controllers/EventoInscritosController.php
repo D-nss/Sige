@@ -699,12 +699,11 @@ class EventoInscritosController extends Controller
                     'nome' => $nome,
                     'id' => $presente->id
                 ]));
-
+            }
                 session()->flash('status', 'Inscritos notificados.');
                 session()->flash('alert', 'success');
 
                 return redirect()->back();
-            }
         } else {
             session()->flash('status', 'Desculpe! Você não tem permissão de notificar os certificados para os inscritos. Solicite a inclusão ao suporte.');
             session()->flash('alert', 'warning');

@@ -96,6 +96,18 @@
                                                 </div>
                                             </div>
                                         @endif
+                                        @if (!is_null($membroEquipe->titulo_palestra))
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Título da Palestra</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                            {{ $membroEquipe->titulo_palestra }}
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        @endif
                                         <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membroEquipe->id . '/certificado') }}"
                                             class="btn btn-primary"><span class="fal fa-file-certificate mr-1"></span> Certificado</a>
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
