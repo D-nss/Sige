@@ -99,6 +99,7 @@ class EventoEquipeController extends Controller
                 'cpf' => 'required',
                 'email' => 'required',
                 'funcao_evento' => 'required',
+                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"'
             ]
         );
 
