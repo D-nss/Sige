@@ -275,7 +275,7 @@ class EventoController extends Controller
             }
         }
 
-        if(isset($request->valor_inscricao)){
+        if(!isset($request->gratuito) && isset($request->valor_inscricao)){
             $dados['valor_inscricao'] = str_replace(',', '.', str_replace('.', '',$request->valor_inscricao));
         }
 

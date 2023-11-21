@@ -36,6 +36,7 @@ class EventoEquipeController extends Controller
                 'cpf' => 'required',
                 'email' => 'required',
                 'funcao_evento' => 'required',
+                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"'
             ]
         );
 
@@ -43,6 +44,7 @@ class EventoEquipeController extends Controller
 
         $input['evento_id'] = $evento->id;
 
+        /* Trecho comentado para poder adicionar o mesmo membro, para emissão de certificado para palestras diferentes
         $membroEquipeJaCadastrado = EventoEquipe::where('email', $input['email'])->where('evento_id', $evento->id)->first();
 
         if($membroEquipeJaCadastrado) {
@@ -51,11 +53,18 @@ class EventoEquipeController extends Controller
 
             return redirect()->to('evento/' . $evento->id . '/equipe');
         }
+        */
 
         $options = [
             'cost' => 10,
             ];
-        $input['certificado']  = str_replace('$2y$10$', '', password_hash("certificado-palestrante-".$input['evento_id'].$input['cpf'], PASSWORD_BCRYPT, $options));
+
+        if($input['funcao_evento'] == "Palestrante"){
+            $input['certificado']  = str_replace('$2y$10$', '', password_hash("palestrante-".$input['evento_id'].$input['titulo_palestra'], PASSWORD_BCRYPT, $options));
+        }
+        else{
+            $input['certificado']  = str_replace('$2y$10$', '', password_hash("staff-".$input['evento_id'].$input['cpf'], PASSWORD_BCRYPT, $options));
+        }
 
         $membroEquipe = EventoEquipe::create($input);
 
@@ -90,6 +99,7 @@ class EventoEquipeController extends Controller
                 'cpf' => 'required',
                 'email' => 'required',
                 'funcao_evento' => 'required',
+                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"'
             ]
         );
 
