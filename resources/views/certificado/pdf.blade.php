@@ -53,7 +53,7 @@
             @endif
             @if($tipo == 'equipe')
             @if(isset($participante->titulo_palestra))
-             e ministrar a palestra sobre {{ $participante->titulo_palestra }}
+             e ministrar a palestra "{{ $participante->titulo_palestra }}"
             @else
              da comissão de organização
             @endif
