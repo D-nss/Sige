@@ -45,7 +45,7 @@
 
         $data_formatada = '';
 
-        if ($data_inicio == $data_fim) {
+        if ($dia_inicio == $dia_fim && $mes_inicio == $mes_fim && $ano_inicio == $ano_fim) {
             $data_formatada = 'na data de ' . $dia_inicio . ' de ' . $meses[$mes_inicio] . ' de ' . $ano_inicio;
         } elseif ($mes_inicio == $mes_fim && $ano_inicio == $ano_fim) {
             $data_formatada = 'no período de ' . $dia_inicio . ' a ' . $dia_fim . ' de ' . $meses[$mes_fim] . ' de ' . $ano_fim;
