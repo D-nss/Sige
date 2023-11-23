@@ -232,7 +232,8 @@
         @include('layouts._includes.notification')
         <div>
             <a href="#" data-toggle="dropdown" title="{{ Auth::user()->id }}" class="header-icon d-flex align-items-center justify-content-center ml-2">
-                <img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="{{ Auth::user()->id }}">
+                <i class="fal fa-user-circle"></i>
+                <!--<img src="{{asset('smartadmin-4.5.1/img/demo/avatars/avatar-m.png')}}" class="profile-image rounded-circle" alt="{{ Auth::user()->id }}">-->
                 <!-- you can also add username next to the avatar with the codes below:
                 <span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
                 <i class="ni ni-chevron-down hidden-xs-down"></i> -->
