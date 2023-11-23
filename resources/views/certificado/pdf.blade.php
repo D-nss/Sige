@@ -29,7 +29,30 @@
             }
 
         </style>
+
     </head>
+    @php
+        $data_inicio = strtotime($participante->evento->data_inicio);
+        $data_fim = strtotime($participante->evento->data_fim);
+
+        $dia_inicio = date('d', $data_inicio);
+        $mes_inicio = date('m', $data_inicio);
+        $ano_inicio = date('Y', $data_inicio);
+
+        $dia_fim = date('d', $data_fim);
+        $mes_fim = date('m', $data_fim);
+        $ano_fim = date('Y', $data_fim);
+
+        $data_formatada = '';
+
+        if ($data_inicio == $data_fim) {
+            $data_formatada = 'na data de ' . $dia_inicio . ' de ' . $meses[$mes_inicio] . ' de ' . $ano_inicio;
+        } elseif ($mes_inicio == $mes_fim && $ano_inicio == $ano_fim) {
+            $data_formatada = 'no período de ' . $dia_inicio . ' a ' . $dia_fim . ' de ' . $meses[$mes_fim] . ' de ' . $ano_fim;
+        } else {
+            $data_formatada = 'no período de ' . $dia_inicio . ' de ' . $meses[$mes_inicio] . ' de ' . $ano_inicio . ' a ' . $dia_fim . ' de ' . $meses[$mes_fim] . ' de ' . $ano_fim;
+        }
+    @endphp
     <body style="">
         <div style="margin-top: 250px;">
             <h3 style="text-align: center; color: #666;">
@@ -63,14 +86,14 @@
             @endif
 
             "{{ $participante->evento->titulo }}"
-            no período de {{ date('d', strtotime($participante->evento->data_inicio)) . ' a ' . date('d', strtotime($participante->evento->data_fim)) . ' de ' . $meses[strftime('%m', strtotime($participante->evento->data_fim))] .' de '. date('Y', strtotime($participante->evento->data_fim)) }}
+            {{ $data_formatada }}
             @if($participante->evento->carga_horaria != NULL)
             , com carga horária de {{$participante->evento->carga_horaria}} horas
             @endif
             .
         </h3>
         <h3 style="text-align: center; margin-top: 12px; font-weight: 400; color: #444;">
-            Campinas, {{ date('d', strtotime($participante->evento->data_inicio)) . ' de ' . $meses[strftime('%m', strtotime($participante->evento->data_fim))] .' de '. date('Y', strtotime($participante->evento->data_fim)) }}
+            Campinas, {{ date('d', strtotime($participante->evento->data_fim)) . ' de ' . $meses[strftime('%m', strtotime($participante->evento->data_fim))] .' de '. date('Y', strtotime($participante->evento->data_fim)) }}
         </h3>
         <p style="
             position: absolute;
