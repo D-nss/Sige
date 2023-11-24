@@ -60,7 +60,7 @@
                 </div>
             </td>
             <td>
-                <div class="btn-group-vertical" style="width: 180px" role="group" aria-label="Vertical button group">
+                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                     <a class="btn btn-primary" href="{{ url('evento/' . $evento->id . '/equipe') }}">
                         <span class="a-ic-bt-peq fal fa-user-friends"></span>Equipe
                         @if ($evento->equipe->count() > 0)

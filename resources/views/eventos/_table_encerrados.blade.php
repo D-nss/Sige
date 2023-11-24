@@ -28,15 +28,25 @@
                 <td>
                     <span class="text-secondary">{{ $evento->local }}</span>
                 </td>
-                <td><span class="fs-lg fw-700 text-primary">{{ $evento->titulo }}</span></td>
+                <td>
+
+                <h4 class="nome-evento text-primary"><a href="{{ url('/eventos/' . $evento->id) }}">
+                        {{ $evento->titulo }}</a>
+                    </h4>
+
+                <div class="acoes-evento">
+                    <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id) }}">
+                        <span class="a-ic-bt-peq fal fa-eye"></span>Ver Detalhes
+                    </a>
+                </div>
+
+            </td>
+
                 <td>
                     <span class="text-secondary">{{ $evento->user->name }}</span>
                 </td>
                 <td>
-                    <div class="btn-group-vertical"  style="width: 180px" role="group" aria-label="Vertical button group">
-                        <a class="btn btn-primary" href="{{ url('/eventos/' . $evento->id) }}">
-                            <span class="fal fa-eye mr-1"></span>Ver Detalhes
-                        </a>
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                         <a class="btn btn-primary" href="{{ url('evento/' . $evento->id . '/inscritos') }}">
                             <span class="fal fa-users mr-1"></span>Inscrições
                             @if ($evento->inscritos->count() > 0)
