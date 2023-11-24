@@ -130,7 +130,7 @@ class Parecerista implements AvaliacaoInterface
                 'inscricao_id' => $inscricao->id,
                 'questao_id'   => $questao_id,
                 'valor'        => $value,
-                'updated_at'   => date('Y-m-d H:i:s')
+                'created_at'   => date('Y-m-d H:i:s')
             ));
         }
 

@@ -1,9 +1,7 @@
-<table class="table table-bordered table-hover" id="dt-propostas" style="width: 100%">
+<table class="table" id="dt-propostas" style="width: 100%">
     <thead>
         <tr>
-            <th>Edital</th>
             <th>Inscrição</th>
-            <th>Tipo</th>
             <th>Coordenador</th>
             <th>Status</th>
             <th>Pendentes</th>
@@ -14,23 +12,28 @@
         @foreach($inscricoes as $inscricao)
             
             <tr>
-                <td><h5 class="fw-400 text-secondary">{{ $inscricao->edital->titulo }}</h5></td>
                 <td>
-                    <h3 class="fw-700 text-primary">
-                        {{ $inscricao->titulo }} 
-                    </h3>
-                    
-                    <small class="font-italic font-color-light">Linhas de Extensão: {{ isset($inscricao->linha_extensao->nome) ? $inscricao->linha_extensao->nome : '' }}</small>
+                    <div class="d-flex flex-column">
+                        <span class="fw-700 text-primary fs-xl">
+                            {{ $inscricao->titulo }} 
+                        </span>
+                        <span class="text-muted fw-200">Tipo: {{ $inscricao->tipo}}</span>
+                        <small class="text-muted fw-200">Linhas de Extensão: {{ isset($inscricao->linha_extensao->nome) ? $inscricao->linha_extensao->nome : '' }}</small>
+                    </div>
                 </td>
-                <td><h6 class="text-secondary">{{ $inscricao->tipo}}</h6></td>
-                <td><h6 class="text-secondary">{{ $inscricao->user->name}}</h6><small class="font-italic font-color-light">Unidade: {{ $inscricao->unidade->sigla}}</small></td>
+                <td>
+                    <div class="d-flex flex-column">
+                        <span class="text-dark">{{ $inscricao->user->name}}</span>
+                        <small class="text-muted fw-200">Unidade: {{ $inscricao->unidade->sigla}}</small>
+                    </div>  
+                </td>
                 <td>
                     @if( strtotime(date('Y-m-d')) < strtotime($cronograma->getDate('dt_divulgacao_previa', $inscricao->edital_id)) && ($inscricao->status == 'Indeferido' || $inscricao->status == 'Deferido') )
-                        <span class="badge badge-warning badge-pill">
+                        <span class="badge badge-warning badge-pill p-2">
                             Em Análise
                         </span>
                     @else
-                        <span class="badge badge-{{ $status[$inscricao->status] }} badge-pill">
+                        <span class="badge badge-{{ $status[$inscricao->status] }} badge-pill p-2">
                             {{ $inscricao->status }}
                         </span>
                     @endif

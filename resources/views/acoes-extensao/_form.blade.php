@@ -207,6 +207,17 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+
+                            <div class="mt-3">
+                                <label class="form-label" for="">Se vinculo com programa indicar programa</label>
+                                <select class="form-control" id="programa_id" name="programa_id">
+                                    <option value=""> Selecione o programa</option>
+                                    @foreach($programas as $programa)
+                                        <option value="{{ $programa->id }}" @if( old('programa_id') == $programa->id || (isset($acao_extensao) && $acao_extensao->programa_id == $programa->id)) selected @endif >{{ $programa->titulo }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="form-group">

@@ -27,7 +27,9 @@
 
     <div class="row card p-4">
         <div class="col-xl-12">
-
+            <div class="card-header">
+                <h2>Inscrições para o edital <span class="text-dark fw-700">{{ $edital->titulo }}</span></h2>
+            </div>
             <div class="card-body">
                 @include('inscricao._table')
             </div>

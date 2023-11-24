@@ -35,12 +35,18 @@ class AcaoExtensao extends Model
         'impactos_sociedade',
         'grau_envolvimento_equipe_id',
         'status',
-        'arquivo'
+        'arquivo',
+        'programa_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function comite_user()
+    {
+        return $this->belongsTo(User::class, 'comite_user_id', 'id');
     }
 
     public function unidade()
@@ -101,5 +107,10 @@ class AcaoExtensao extends Model
     public function ocorrencia()
     {
         return $this->hasMany(AcaoExtensaoOcorrencia::class);
+    }
+
+    public function programa()
+    {
+        return $this->hasOne(AcaoExtensao::class, 'id', 'programa_id');
     }
 }

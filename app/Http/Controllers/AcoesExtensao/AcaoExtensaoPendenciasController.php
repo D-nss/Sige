@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AcoesExtensao;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;

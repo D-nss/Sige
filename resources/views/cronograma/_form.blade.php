@@ -52,13 +52,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="mt-3">
-                    <a href="#" onclick="history.back()" class="btn btn-secondary btn-user ">
-                        <span class="icon text-white-50">
+                    <a href="#" onclick="history.back()" class="btn btn-outline-primary btn-pills waves-effect waves-themed">
+                        <span class="icon">
                             <i class="fal fa-long-arrow-left"></i>
                         </span>
                         <span class="text">Voltar</span>
                     </a>
-                    <button class="btn btn-primary btn-user btn-verde font-weight-bold loading">
+                    <button class="btn btn-primary btn-pills waves-effect waves-themed loading">
                         <div class="spinner-border spinner-border-sm d-none spin" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>

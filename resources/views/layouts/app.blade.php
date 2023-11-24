@@ -868,7 +868,7 @@ Versão: 4.5.1
                         showPreviousButton: true, // show/hide a Previous button
                         toolbarExtraButtons: [
                         $('<button></button>').text('Salvar')
-                                    .addClass('btn btn-primary btn-user btn-block btn-salvar')
+                                    .addClass('btn btn-primary btn-pills waves-effect btn-salvar')
                                     .prop('disabled', true)
                                     .on('click', function(){
                                         $(this).text('');
@@ -1665,6 +1665,7 @@ Versão: 4.5.1
                 $('#div' + divAtual).removeClass('d-none');
                 $('#step' + divAtual).removeClass('opacity-50');
             });
+
 
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...

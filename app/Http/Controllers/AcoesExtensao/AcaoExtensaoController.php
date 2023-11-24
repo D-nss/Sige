@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AcoesExtensao;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -196,12 +198,14 @@ class AcaoExtensaoController extends Controller
         $areas_tematicas = AreaTematica::all();
         $ods = ObjetivoDesenvolvimentoSustentavel::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $programas = AcaoExtensao::where('modalidade', 1)->where('status', 'Aprovado')->get(['id', 'titulo']);
 
         return view('acoes-extensao.create', [
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'ods' => $ods,
-            'estados' => $estados
+            'estados' => $estados,
+            'programas' => $programas
         ]);
     }
 
@@ -231,6 +235,7 @@ class AcaoExtensaoController extends Controller
         $areas_tematicas = AreaTematica::all();
         $ods = ObjetivoDesenvolvimentoSustentavel::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+        $programas = AcaoExtensao::where('modalidade', 1)->where('status', 'Aprovado')->get(['id', 'titulo']);
 
         return view('acoes-extensao.edit', [
             'acao_extensao' => $acaoExtensao,
@@ -238,7 +243,8 @@ class AcaoExtensaoController extends Controller
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'ods' => $ods,
-            'estados' => $estados
+            'estados' => $estados,
+            'programas' => $programas
         ]);
     }
 
@@ -251,7 +257,7 @@ class AcaoExtensaoController extends Controller
     public function store(StoreAcaoExtensaoRequest $request)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
             $vinculo_coordenador = 'Teste Vinculo Coordenador';
         } else {
             $user = User::where('email', Auth::user()->id)->first();
@@ -817,6 +823,10 @@ class AcaoExtensaoController extends Controller
         $acaoExtensao->status = 'Pendente';
         $acaoExtensao->save();
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoSubmetida($acaoExtensao));
+
+        $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
+        Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidade($acaoExtensao));
+
         session()->flash('status', 'Ação de Extensão Submetida para aprovação!');
         session()->flash('alert', 'success');
 
@@ -826,8 +836,8 @@ class AcaoExtensaoController extends Controller
     public function aprovar(AcaoExtensao $acaoExtensao){
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
-            $acaoExtensao->aprovado_user_id = 1;
+            $user = User::where('id', 4)->first();
+            $acaoExtensao->aprovado_user_id = 4;
         } else {
             $user = User::where('email', Auth::user()->id)->first();
             $acaoExtensao->aprovado_user_id = $user->id;
@@ -840,14 +850,20 @@ class AcaoExtensaoController extends Controller
             return redirect()->back();
         }
 
+        if(!\App\Services\Comissao\ChecaComissao::execute($acaoExtensao->user_id)) {
+            session()->flash('status', 'Desculpe! Para aprovar esta ação você deve estar na comissão da unidade '. $acaoExtensao->unidade->sigla .'.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $acaoExtensao->status = 'Aprovado';
         $acaoExtensao->save();
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
 
-        $comissaoConext = Comissao::where('atribuicao', 'Conext')->first();
-        // Notificando a comissao conext
-        Notification::send($comissaoConext->users, new \App\Notifications\AcaoExtensaoAprovadaComissaoNotificar($acaoExtensao));
+        $at_conext = User::role('at_conext')->get();
+        Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 

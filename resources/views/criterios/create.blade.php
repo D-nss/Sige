@@ -33,9 +33,10 @@
                 
                 @include('criterios._form')
 
-                @include('criterios._table')
+                @include('criterios._list')
 
-                <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary float-right">
+                <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary btn-pills waves-effect waves-themed float-right">
+                    <i class="far fa-paper-plane"></i>
                     <div class="spinner-border spinner-border-sm d-none spin" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>

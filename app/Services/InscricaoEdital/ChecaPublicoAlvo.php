@@ -17,7 +17,7 @@ class ChecaPublicoAlvo
     {
         $checaUserPublicoAlvo = PublicoAlvo::join('tipos_publico', 'tipos_publico.id', 'publicos_alvo.tipo_publico_id')
         ->where('publicos_alvo.edital_id', $id)
-        ->where('tipos_publico.descricao', Auth::user()->employeetype)
+        ->where('tipos_publico.descricao', 'Funcionário UNICAMP'/*Auth::user()->employeetype*/)
         ->get(['publicos_alvo.*']);
 
         Log::info('Usuario: ', 

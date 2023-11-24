@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AcoesExtensao;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\AcaoExtensao;
 use App\Models\User;

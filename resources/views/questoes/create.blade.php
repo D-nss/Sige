@@ -38,18 +38,19 @@
               <div class="mt-3">
                   @include('questoes._form')
 
-                  @include('questoes._table_complementares')
-
-                  @include('questoes._table_avaliativa')
+                  @include('questoes._lista_complementar')
 
                   <div class="mt-3">
-                      <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary float-right">Finalizar</a>
-                      <a href="#" onclick="history.back()" class="btn btn-secondary btn-user float-left">
-                          <span class="icon text-white-50">
-                              <i class="fal fa-long-arrow-left"></i>
-                          </span>
-                          <span class="text">Voltar</span>
-                      </a>
+                        <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary btn-pills waves-effect waves-themed float-right">
+                            <i class="far fa-paper-plane"></i>  
+                            Finalizar
+                        </a>
+                        <a href="#" onclick="history.back()" class="btn btn-outline-primary btn-pills waves-effect waves-themed float-left">
+                            <span class="icon">
+                                <i class="fal fa-long-arrow-left"></i>
+                            </span>
+                            <span class="text">Voltar</span>
+                        </a>
                   </div>
                   
               </div>

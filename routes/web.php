@@ -15,11 +15,6 @@ use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\IndicadoresParametrosController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\AcaoExtensaoController;
-use App\Http\Controllers\AcaoExtensaoPendenciasController;
-use App\Http\Controllers\ExtensaoOcorrenciasController;
-use App\Http\Controllers\ExtensaoOcorrenciasCatalogoController;
-use App\Http\Controllers\AcaoExtensaoCurricularizacaoController;
 use App\Http\Controllers\ComissaoController;
 use App\Http\Controllers\ComissaoUserController;
 use App\Http\Controllers\IndicadoresDashboardController;
@@ -30,8 +25,17 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\UploadArquivoController;
 use App\Http\Controllers\EventoEquipeController;
 use App\Http\Controllers\PalestranteController;
-use App\Http\Controllers\AcaoExtensaoCurricularizacaoParticipacaoController;
-use App\Http\Controllers\ExtensaoEquipeController;
+
+//Controllers do modulo de Ações de Extensão
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoCurricularizacaoParticipacaoController;
+use App\Http\Controllers\AcoesExtensao\ExtensaoEquipeController;
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoController;
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoPendenciasController;
+use App\Http\Controllers\AcoesExtensao\ExtensaoOcorrenciasController;
+use App\Http\Controllers\AcoesExtensao\ExtensaoOcorrenciasCatalogoController;
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoCurricularizacaoController;
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoComiteController;
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoDeliberacaoController;
 
 //Controllers do modulo de Editais
 use App\Http\Controllers\Editais\AvaliadorController;
@@ -152,6 +156,19 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/aceitar', [AcaoExtensaoCurricularizacaoController::class, 'aceitar']);
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/apontar', [AcaoExtensaoCurricularizacaoController::class, 'apontar']);
     Route::post('/acoes-extensao-ocorrencia/curricularizacao/{acao_extensao_curricularizacao}/tornar-apto', [AcaoExtensaoCurricularizacaoController::class, 'tornarApto']);
+
+    Route::get('/acoes-extensao-comite-consultivo', [AcaoExtensaoComiteController::class, 'index'])->name('acoes_extensao.comite');
+    Route::get('/acoes-extensao-comite-consultivo/{acao_extensao}/adicionar-membro', [AcaoExtensaoComiteController::class, 'create'])->name('acoes_extensao.comite.create');
+    Route::post('/acoes-extensao-comite-consultivo/{acao_extensao}/adicionar-membro/', [AcaoExtensaoComiteController::class, 'store'])->name('acoes_extensao.comite.store');
+    Route::post('/acoes-extensao-comite-consultivo/{acao_extensao}/parecer', [AcaoExtensaoComiteController::class, 'parecer'])->name('acoes_extensao.comite.parecer');
+    Route::get('teste', function(){
+        $acao_extensao = \App\Models\AcaoExtensao::first();
+        echo json_encode(\App\Services\Comissao\BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade));
+    });
+
+    Route::get('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'index'])->name('acao_extensao_pendencias.deliberacao_conext');
+    Route::post('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'gerarExcel'])->name('acao_extensao_pendencias.deliberacao_conext.gerar');
+    Route::post('/acoes-extensao-deliberacao-conext/reconhecer', [AcaoExtensaoDeliberacaoController::class, 'reconhecer'])->name('acao_extensao_pendencias.deliberacao_conext.reconhecer');
 
     Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/novo', [ExtensaoEquipeController::class, 'create']);
     Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/', [ExtensaoEquipeController::class, 'index']);

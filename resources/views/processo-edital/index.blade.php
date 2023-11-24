@@ -27,10 +27,10 @@
 
     <div class="row">
         <div class="col-xl-12">
-            <a href="{{ route('editais.create') }}" class="btn btn-success btn-lg btn-icon rounded-circle" >
+            <a href="{{ route('editais.create') }}" class="btn btn-primary btn-pills waves-effect waves-themed btn-lg" >
                 <i class="far fa-plus"></i>
+                Novo processo de edital
             </a>
-            Novo processo de edital
         </div>
     </div>
 
@@ -38,16 +38,20 @@
         @if( isset( $editais ) )
         @forelse( $editais as $edital)
         
-        <div class="card border m-3 col-md-4 shadow" style="max-width: 18rem;">
-            <img src='{{ !!$edital->anexo_imagem ? asset("storage/$edital->anexo_imagem" ) : asset("/smartadmin-4.5.1/img/pdf-icon.png") }}' class="card-img-top mt-3" alt="{{ $edital->titulo }}">
-            <div class="card-body">
-                <h2 class="card-text font-weight-bold">{{ $edital->titulo }}</h2>
+        <div class="card m-3 col-md-4 shadow" style="max-width: 18rem;">
+            <div class="card-header">
+                <h5 class="card-text font-weight-bold">{{ $edital->titulo }}</h5>
+            </div>
+            <div class="card-body">      
                 <p><strong>Data de cadastro: </strong>{{ date('d/m/Y', strtotime($edital->created_at)) }}</p>
-                <p class="">{{ substr($edital->resumo, 0, 120) . ' ... ' }}</p>
-                <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-info my-1 font-weight-bold"><i class="far fa-edit"></i> Editar</a>
+                <p class="text-justify">{{ substr($edital->resumo, 0, 120) . ' ... ' }}</p>
+                <img src='{{ !!$edital->anexo_imagem ? asset("storage/$edital->anexo_imagem" ) : asset("/smartadmin-4.5.1/img/logo_proec_completo.png") }}' class="img-fluid mx-auto my-3" alt="{{ $edital->titulo }}">   
+            </div>
+            <div class="card-footer">
+                <a href='{{ url("processo-editais/$edital->id/editar") }}' class="btn btn-primary btn-pills waves-effect waves-themed my-1"><i class="far fa-edit"></i> Editar</a>
                 @if( strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) !== false && strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_divulgacao_previa', $edital->id)) )
                 @if( !isset($edital->inscricoes->firstWhere('nota', '<>', NULL)->nota) || (strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_termino_recurso', $edital->id)) && strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_resultado', $edital->id))) )
-                    <button type="button" class="btn btn-warning my-1 font-weight-bold" data-toggle="modal" data-target="#modal{{ $edital->id }}"><i class="far fa-list-ol"></i> Classificar</button>
+                    <button type="button" class="btn btn-outline-primary btn-pills waves-effect waves-themed my-1" data-toggle="modal" data-target="#modal{{ $edital->id }}"><i class="far fa-list-ol"></i> Classificar</button>
                     <!-- Modal center Small -->
                     <div class="modal fade" id="modal{{ $edital->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -72,15 +76,15 @@
                                         </select>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                        <button type="submit" class="btn btn-success my-1 font-weight-bold">Enviar</button>
+                                        <button type="button" class="btn btn-outline-primary btn-pills waves-effect waves-themed" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary btn-pills waves-effect waves-themed my-1 font-weight-bold">Enviar</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                     @else
-                    <a href='{{ url("edital/$edital->id/listar-classificados") }}' class="btn btn-primary"><i class="fal fa-eye"></i> Classificação</a>
+                    <a href='{{ url("edital/$edital->id/listar-classificados") }}' class="btn btn-outline-primary btn-pills waves-effect waves-themed"><i class="fal fa-eye"></i> Classificação</a>
                     @endif
                 @endif
             </div>

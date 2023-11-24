@@ -42,30 +42,69 @@
         <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
             @csrf
             @method('put')
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Aprovar</button>
+            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">De Acordo</button>
         </form>
         @endif
         <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
     </div>
 </div>
 @endif
-@if($acao_extensao->status == 'Aprovado' && $acao_extensao->aprovado_user_id != NULL && $acao_extensao->status_avaliacao_conext == NULL && $acao_extensao->avaliacao_conext_user_id == NULL && $acao_extensao->user_id != $user->id)
+@if(
+    isset($acao_extensao->comite_user_id) 
+    && 
+    $acao_extensao->comite_user_id == $user->id 
+    && 
+    is_null($acao_extensao->parecer_comite) 
+    && 
+    is_null($acao_extensao->aceite_comite)
+)
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
         <div class="alert-icon">
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-1">
-            <span class="h5">Ação de Extensão foi aceita pela unidade, e pendende de aprovação pela Comissão Conext</span>
+            <span class="h5">
+            Ação de Extensão aprovada pela comissão de extensão, pendente de análise do comitê consultivo
+            </span>
         </div>
-        @if($userNaComissaoConext)
-        <form action="{{ route('acao_extensao.aprovar_conext', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
-            @csrf
-            @method('put')
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Aprovar</button>
-        </form>
-        @endif
-        <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
+        <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm"  data-toggle="modal" data-target="#modal-parecer-comite">Parecer</button>
+    </div>
+</div>
+<!-- Modal Large -->
+<div class="modal fade" id="modal-parecer-comite" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Emissão de Parecer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <form action="{{ url('acoes-extensao-comite-consultivo/'. $acao_extensao->id .'/parecer')}}" method="post">
+                <div class="modal-body">
+                    @csrf
+                    <input type="hidden" id="acao_extensao_id" name="acao_extensao_id" value="{{ $acao_extensao->id }}">
+
+                    <div class="form-group">    
+                        <label class="form-label" for="parecer_comite">Descrição (Parecer)</label>
+                        <textarea name="parecer_comite" class="form-control" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">    
+                        <label class="form-label" for="simpleinput">De Acordo</label>
+                        <select name="aceite_comite" class="form-control w-50">
+                            <option value="">Selecione ...</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary wave-effect" data-dismiss="modal">Fecha</button>
+                    <button type="submit" class="btn btn-primary wave-effect">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endif
@@ -88,6 +127,9 @@
         @default
         <span class="badge badge-warning">Indefinido</span>
         @endswitch
+        @if(!is_null($acao_extensao->aceite_comite ) && $acao_extensao->aceite_comite == 'Sim')
+        <span class="badge badge-primary">Aceito no Comitê Consultivo</span>
+        @endif
         @if($acao_extensao->status_avaliacao_conext == 'Aprovado')
         <span class="badge badge-primary">Reconhecido Pelo Conext</span>
         @endif
@@ -159,6 +201,18 @@
                             </div>
                         </div>
                     </div>
+                    @if(!empty($acao_extensao->programa))
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                Essa ação faz parte do programa:
+                                <small class="mt-0 mb-3 text-muted">
+                                    {{$acao_extensao->programa->titulo}}
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-12">
                         <div class="p-0">
                             <h5>
