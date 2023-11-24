@@ -162,17 +162,91 @@ white-space:nowrap;
   border-bottom: solid 1px #ddd !important;
 }
 
-
-
   .info-card-text{
     margin: auto !important;
 }
 
 .page-header{
   background-color: #fff !important;
+  position: fixed;
+  top:0;
+  width: 100%;
 }
 
-.page-logo{
+.page-sidebar {
+  display: block;
+  position: fixed;
+  height: 100%;
+  float: left;
+}
+
+.primary-nav {
+  /*position: sticky;
+  top: 0;*/
+}
+
+/* Box Model - a página se alinha a esquerda no espaço deixado pelo sidebar */
+
+.page-content-wrapper{
+  display: block;
+  float: left;
+  margin-left: 16.875rem;
+  margin-top: 4.125rem;
+}
+
+/* O template tem três 'estados' de interface para o menu: 'minificado', escondido e fixado. */
+
+/* minificado */
+.nav-function-minify .page-content-wrapper{
+  margin-left: 4.71rem;
+}
+
+/* Se a página estiver minificada, logotipos não precisam aparecer */
+
+.nav-function-minify .page-logo img.logo-unicamp{
+  max-width: 50%;
+  height: auto;
+  display: none;
+}
+
+.nav-function-minify .page-logo img.logo-extecult{
+  max-width: 50%;
+  height: auto;
+  display: none;
+}
+
+.nav-function-minify .page-header{
+  height: 4.125rem;
+}
+
+.nav-function-minify .header-btn{
+}
+
+.nav-function-minify .page-content{
+  margin-top: 0;
+}
+
+.nav-function-minify .page-logo{
+  height: 4.125rem;
+}
+
+/* escondido */
+
+.nav-function-hidden .page-content-wrapper{
+  margin-left: 0;
+}
+
+/* fixado */
+
+.nav-function-fixed .page-content-wrapper{
+  margin-left: 0;
+}
+
+/* Logotipos (Unicamp / ExteCult) se mantêm em proporção */
+
+.page-logo img{
+  width:unset;
+  height: unset;
 }
 
 .panel-toolbar .btn-panel[data-action="panel-collapse"], .panel-toolbar .btn-panel.js-panel-collapse, .panel-toolbar .btn-panel[data-action="panel-fullscreen"]
