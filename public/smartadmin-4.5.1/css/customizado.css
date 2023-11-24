@@ -10,8 +10,9 @@ a[target]:not(.btn):hover{
   text-decoration: underline !important;
 }
 
+/* contraste em item de menu */
 .nav-menu li a{
-  color: #97b1dc !important;
+  /*color: #dee2e9 !important;*/
 }
 
 a:hover{
@@ -185,13 +186,22 @@ white-space:nowrap;
   top: 0;*/
 }
 
-/* Box Model - a página se alinha a esquerda no espaço deixado pelo sidebar */
+/* Box Model - a página se alinha a esquerda no espaço deixado pelo sidebar... */
 
 .page-content-wrapper{
   display: block;
   float: left;
   margin-left: 16.875rem;
   margin-top: 4.125rem;
+}
+
+/* ...exceto na visão Mobile */
+
+@media only screen and (max-width: 992px){
+.page-content-wrapper{
+  margin-left: 0;
+  margin-top: 4.125rem;
+}
 }
 
 /* O template tem três 'estados' de interface para o menu: 'minificado', escondido e fixado. */
@@ -310,6 +320,11 @@ h4.funcao-form{
   border-color: #a6a6a6;
   background-image: none;
 }
+
+.menu-item:hover,
+label.menu-open-button:hover {
+  background: #1dc9b7;
+  }
 
 /* */
 
