@@ -21,6 +21,8 @@ use App\Models\Municipio;
 
 use App\Exports\AcoesExtensaoDeliberacaoExport;
 
+use App\Services\Comissao\BuscaUsuariosComissaoUnidade;
+
 class AcaoExtensaoDeliberacaoController extends Controller
 {
     public function index(Collection $acoes_extensao = null)
