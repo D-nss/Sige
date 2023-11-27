@@ -107,6 +107,48 @@ margin-bottom: .5em;
     border-bottom-left-radius: 4px !important;
 }
 
+.extecult-wrap{
+    overflow-y: auto;
+    height: 100%;
+    max-height: 65vh;
+}
+
+.extecult-sidebar
+{height: auto;
+}
+
+.teste-overflow{
+    overflow-y: auto;
+}
+
+#js-nav-menu {
+}
+
+.page-logo{
+    position: relative;
+    top: 0;
+}
+
+.page-logo img{
+    width: unset !important;
+}
+
+.info-card{
+    position: relative;
+    top: 0;
+}
+
+#js-primary-nav{
+    position: relative;
+    top: 0;
+}
+
+.menu-extecult{
+    position: relative;
+    width: 100%;
+top: 0;
+}
+
 /*:checked + #nome-social#nome_social_campo { display: block !important; }
 #nome_social_campo { display: none !important; }*/
 
