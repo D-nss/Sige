@@ -36,7 +36,8 @@ class EventoEquipeController extends Controller
                 'cpf' => 'required',
                 'email' => 'required',
                 'funcao_evento' => 'required',
-                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"'
+                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"',
+                'carga_horaria' => 'required_if:funcao_evento,"Palestrante"'
             ]
         );
 
@@ -99,7 +100,8 @@ class EventoEquipeController extends Controller
                 'cpf' => 'required',
                 'email' => 'required',
                 'funcao_evento' => 'required',
-                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"'
+                'titulo_palestra' => 'required_if:funcao_evento,"Palestrante"',
+                'carga_horaria' => 'required_if:funcao_evento,"Palestrante"'
             ]
         );
 
