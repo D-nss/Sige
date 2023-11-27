@@ -21,6 +21,7 @@ class EventoEquipe extends Model
         'titulo_palestra',
         'funcionario_unicamp',
         'aluno_unicamp',
+        'carga_horaria',
         'user_id',
         'evento_id',
         'certificado'

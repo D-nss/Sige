@@ -78,3 +78,13 @@
     <input type="text" class="form-control" name="titulo_palestra" id="titulo_palestra" placeholder="Caso seja palestrante, coloque o título da palestra " value="@if( isset($membro->titulo_palestra) ){{ $membro->titulo_palestra }}@else{{ old('titulo_palestra') }}@endif">
 </div>
 
+<div class="form-group">
+    <label class="form-label" for="carga_horaria">Carga Horária<span class="text-danger">*</span></label>
+    <input type="number" id="carga_horaria" name="carga_horaria" class="form-control @error('carga_horaria') is-invalid @enderror" placeholder="Em horas" pattern="[0-9]" value="@if( isset($membro->carga_horaria) ){{ $membro->carga_horaria }}@else{{ old('carga_horaria') }}@endif">
+    @error('carga_horaria')
+    <div class="invalid-feedback">
+        {{ $message }}
+    </div>
+    @enderror
+</div>
+

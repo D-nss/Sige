@@ -39,6 +39,7 @@
                                             <th>Whatsapp</th>
                                             <th>Função</th>
                                             <th>Palestra</th>
+                                            <th>Carga Horária</th>
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -50,6 +51,17 @@
                                                 <td>{{ $membro->whatsapp }}</td>
                                                 <td>{{ $membro->funcao_evento }}</td>
                                                 <td>{{ $membro->titulo_palestra }}</td>
+                                                <td>
+                                                    @if($membro->funcao_evento == 'Staff' && !isset($membro->carga_horaria))
+                                                        {{ $evento->carga_horaria }} hora(s)
+                                                    @else
+                                                        @if(isset($membro->carga_horaria))
+                                                            {{ $membro->carga_horaria }} hora(s)
+                                                        @else
+                                                            <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/editar') }}">Inserir horas</a>
+                                                        @endif
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membro->id . '/editar') }}"
                                                         class="btn btn-primary btn-xs">Editar</a>

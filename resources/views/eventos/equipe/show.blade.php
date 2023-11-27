@@ -108,6 +108,24 @@
                                                 </div>
                                             </div>
                                         @endif
+                                        @if (!is_null($membroEquipe->carga_horaria))
+                                            <div class="col-12">
+                                                <div class="p-0">
+                                                    <h5>
+                                                        <span class="font-color-light font-size-14">Carga horária</span>
+                                                        <small class="mt-0 mb-3 font-size-16 fw-400 text-uppercase">
+                                                            {{ $membroEquipe->carga_horaria }} hora(s)
+                                                        </small>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @if($membroEquipe->funcao_evento == 'Staff')
+                                                {{ $evento->carga_horaria }}
+                                            @else
+                                                <a href="{{ url('evento/' . $evento->id . '/equipe/' . $memembroEquipe->id . '/editar') }}">Inserir horas</a>
+                                            @endif
+                                        @endif
                                         <a href="{{ url('evento/' . $evento->id . '/equipe/' . $membroEquipe->id . '/certificado') }}"
                                             class="btn btn-primary"><span class="fal fa-file-certificate mr-1"></span> Certificado</a>
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
