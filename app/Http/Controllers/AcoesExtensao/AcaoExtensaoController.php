@@ -870,32 +870,6 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.index');
     }
 
-    public function aprovarConext(Request $request, AcaoExtensao $acaoExtensao){
-
-        if(App::environment('local')){
-            $user = User::where('id', 1)->first();
-        } else {
-            $user = User::where('email', Auth::user()->id)->first();
-        }
-
-        if($acaoExtensao->user_id == $user->id) {
-            session()->flash('status', 'Desculpe! Você não pode aprovar sua própria ação de extensão.');
-            session()->flash('alert', 'warning');
-
-            return redirect()->back();
-        }
-
-        $comissaoConext = new ComissaoConext();
-        $resposta = $comissaoConext->executeAvaliacaoConext($request, $acaoExtensao, $user);
-        Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão pelo Conext ('. $acaoExtensao->id . ')' );
-
-        if($resposta['status']) {
-            $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaConext($acaoExtensao));
-        }
-
-        return redirect()->to($resposta['redirect']);
-    }
-
     public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request)
     {
         $validated = $request->validate([

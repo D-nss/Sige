@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AcoesExtensao;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Notification;
 
 use App\Models\AcaoExtensao;
 use App\Models\User;

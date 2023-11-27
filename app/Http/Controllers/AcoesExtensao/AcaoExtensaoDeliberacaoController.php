@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Notification;
 
 use App\Http\Controllers\Controller;
 
@@ -120,9 +121,11 @@ class AcaoExtensaoDeliberacaoController extends Controller
         if( $acoes_extensao > 0 ) {
             foreach($acoes_extensao as $acao_extensao){
                 $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
+                $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
+                Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidade($acao_extensao));
             }
             
-            //notificar coordenador  comissão de extensão
+            
 
             session()->flash('status', 'Ações reconhecidas com sucesso!');
             session()->flash('alert', 'success');
