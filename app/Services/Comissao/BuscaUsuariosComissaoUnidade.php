@@ -15,9 +15,9 @@ class BuscaUsuariosComissaoUnidade
 {
     public static function execute($unidade)
     {
-        $usersComissao = Comissao::join('comissoes_users as cmu', 'cmu.comissao_id', 'comissoes.id')
-                                    ->join('users as u', 'u.id', 'cmu.user_id')
-                                    ->where('comissoes.unidade_id', $unidade->id)
+        $usersComissao = User::join('comissoes_users as cmu', 'cmu.user_id', 'users.id')
+                                    ->join('comissoes as c', 'c.id', 'cmu.comissao_id')
+                                    ->where('c.unidade_id', $unidade->id)
                                     ->get('u.*');
         
         return $usersComissao;
