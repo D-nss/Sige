@@ -51,6 +51,8 @@ use App\Http\Controllers\Editais\RecursoInscricaoController;
 use App\Http\Controllers\Editais\EditalPartipantesProjetoController;
 use App\Http\Controllers\Editais\InscricaoController;
 
+use Illuminate\Support\Facades\Notification;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -161,11 +163,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao-comite-consultivo/{acao_extensao}/adicionar-membro', [AcaoExtensaoComiteController::class, 'create'])->name('acoes_extensao.comite.create');
     Route::post('/acoes-extensao-comite-consultivo/{acao_extensao}/adicionar-membro/', [AcaoExtensaoComiteController::class, 'store'])->name('acoes_extensao.comite.store');
     Route::post('/acoes-extensao-comite-consultivo/{acao_extensao}/parecer', [AcaoExtensaoComiteController::class, 'parecer'])->name('acoes_extensao.comite.parecer');
-    Route::get('teste', function(){
-        $acao_extensao = \App\Models\AcaoExtensao::first();
-        echo json_encode(\App\Services\Comissao\BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade));
-    });
-
+   
     Route::get('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'index'])->name('acao_extensao_pendencias.deliberacao_conext');
     Route::post('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'gerarExcel'])->name('acao_extensao_pendencias.deliberacao_conext.gerar');
     Route::post('/acoes-extensao-deliberacao-conext/reconhecer', [AcaoExtensaoDeliberacaoController::class, 'reconhecer'])->name('acao_extensao_pendencias.deliberacao_conext.reconhecer');
