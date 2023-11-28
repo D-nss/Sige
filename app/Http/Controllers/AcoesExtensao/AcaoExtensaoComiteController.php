@@ -13,6 +13,12 @@ use App\Models\User;
 class AcaoExtensaoComiteController extends Controller
 {
     public function index() {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         if( !$user->hasRole('at_conext') ) {
             session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
             session()->flash('alert', 'warning');
@@ -25,6 +31,12 @@ class AcaoExtensaoComiteController extends Controller
     }
 
     public function create(AcaoExtensao $acao_extensao){
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
         if( !$user->hasRole('at_conext') ) {
             session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
             session()->flash('alert', 'warning');
@@ -40,6 +52,12 @@ class AcaoExtensaoComiteController extends Controller
 
     public function store(Request $request, AcaoExtensao $acao_extensao)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+        
         if( !$user->hasRole('at_conext') ) {
             session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
             session()->flash('alert', 'warning');
