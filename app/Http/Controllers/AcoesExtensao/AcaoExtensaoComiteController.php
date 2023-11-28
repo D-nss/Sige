@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AcoesExtensao;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 use App\Models\AcaoExtensao;
@@ -57,7 +58,7 @@ class AcaoExtensaoComiteController extends Controller
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
-        
+
         if( !$user->hasRole('at_conext') ) {
             session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
             session()->flash('alert', 'warning');
