@@ -1,6 +1,6 @@
 <footer class="page-footer" role="contentinfo">
     <div class="d-flex align-items-center flex-1 text-muted">
-        <span class="hidden-md-down fw-700">EXTECULT &copy; 2022 - Sistema de Gestão de Extensão e Cultura da PROEC por&nbsp;<a href='http://www.dtic.proec.unicamp.br' class='text-primary fw-500' title='DTIC' target='_blank'>DTIC</a> - Universidade Estadual de Campinas (UNICAMP)</span>
+        <span class="hidden-md-down fw-700">EXTECULT &copy; 2023 - Sistema de Gestão de Extensão e Cultura da PROEC por&nbsp;<a href='http://www.dtic.proec.unicamp.br' class='text-primary fw-500' title='DTIC' target='_blank'>DTIC</a> - Universidade Estadual de Campinas (UNICAMP)</span>
     </div>
     <div>
         <ul class="list-table m-0">
