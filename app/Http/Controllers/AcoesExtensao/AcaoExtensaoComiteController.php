@@ -92,7 +92,7 @@ class AcaoExtensaoComiteController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
-        if( $acao_extensao->comite_user_id == $user->id ) {
+        if( $acao_extensao->comite_user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente membros do comitê consultivo podem dar o parecer.');
             session()->flash('alert', 'warning');
 
