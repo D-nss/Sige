@@ -93,11 +93,13 @@
         @if (isset($participante->status_arquivo) && $participante->status_arquivo == 'Aceito')
             apresentar(em) o trabalho intitulado {{ $participante->titulo_trabalho }},
         @else
+            @if ($tipo != 'equipe')
             participar
+            @endif
         @endif
         @if ($tipo == 'equipe')
             @if (isset($participante->titulo_palestra))
-                e ministrar a palestra intitulada "{{ $participante->titulo_palestra }}"
+                ministrar a palestra intitulada "{{ $participante->titulo_palestra }}"
             @else
                 da comissão de organização
             @endif
