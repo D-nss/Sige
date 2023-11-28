@@ -74,7 +74,7 @@ class AcaoExtensaoComiteController extends Controller
         }
 
         if( $acao_extensao->comite_user_id == $user->id ) {
-            session()->flash('status', 'Desculpe! Somente menbros do comitê consultivo podem dar o parecer.');
+            session()->flash('status', 'Desculpe! Somente membros do comitê consultivo podem dar o parecer.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
