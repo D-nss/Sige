@@ -13,11 +13,25 @@ use App\Models\User;
 class AcaoExtensaoComiteController extends Controller
 {
     public function index() {
+        if( !$user->hasRole('at_conext') ) {
+            session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')->where('modalidade', 1)->get();
         return view('acoes-extensao.comite.index', compact('acoes_extensao'));
     }
 
     public function create(AcaoExtensao $acao_extensao){
+        if( !$user->hasRole('at_conext') ) {
+            session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $users = User::join('unidades', 'users.unidade_id', 'unidades.id')
                         ->orderBy('name', 'asc')
                         ->get(['users.*', 'unidades.sigla']);
@@ -26,6 +40,13 @@ class AcaoExtensaoComiteController extends Controller
 
     public function store(Request $request, AcaoExtensao $acao_extensao)
     {
+        if( !$user->hasRole('at_conext') ) {
+            session()->flash('status', 'Desculpe! Somente AT Conext pode ter acesso a este tela.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $acao_extensao->comite_user_id = $request->user_id;
         $user_comite = User::find($request->user_id);
 
@@ -46,6 +67,19 @@ class AcaoExtensaoComiteController extends Controller
 
     public function parecer(Request $request, AcaoExtensao $acao_extensao)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        if( $acao_extensao->comite_user_id == $user->id ) {
+            session()->flash('status', 'Desculpe! Somente menbros do comitê consultivo podem dar o parecer.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
+
         $acao_extensao->parecer_comite = $request->parecer_comite;
         $acao_extensao->aceite_comite = $request->aceite_comite;
 
