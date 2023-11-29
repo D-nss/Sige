@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AcaoExtensaoNotificaReconhecimento extends Notification
+class AcaoExtensaoNotificarReconhecimentoComissaoUnidade extends Notification
 {
     use Queueable;
 
@@ -22,7 +22,6 @@ class AcaoExtensaoNotificaReconhecimento extends Notification
     {
         $this->data = $data;
     }
-
 
     /**
      * Get the notification's delivery channels.
@@ -44,8 +43,8 @@ class AcaoExtensaoNotificaReconhecimento extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Ação de Extensão Reconhecida pela PROEC')
-            ->line('Olá Coordenador, sua Ação de Extensão intitulado '. $this->data['titulo'] . ' foi reconhecida pela PROEC.')
+            ->subject('Proposta ' . $this->data['titulo'] . ' foi reconhecida pela PROEC.')
+            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi reconhecida pela PROEC.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

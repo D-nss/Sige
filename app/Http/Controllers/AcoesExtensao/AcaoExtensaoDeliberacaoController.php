@@ -131,7 +131,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
             foreach($acoes_extensao as $acao_extensao){
                 $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
                 $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
-                Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidade($acao_extensao));
+                Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarReconhecimentoComissaoUnidade($acao_extensao));
             }
             
             session()->flash('status', 'Ações reconhecidas com sucesso!');
