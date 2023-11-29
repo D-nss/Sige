@@ -108,27 +108,32 @@ class AcaoExtensaoDeliberacaoController extends Controller
             ->where('deliberacao', 'Gerado')
             ->whereNull('status_avaliacao_conext')
             ->whereNull('avaliacao_conext_user_id')
+            ->get();
+        
+        AcaoExtensao::where('status', 'Aprovado')
+            ->where('aceite_comite', 'Sim')
+            ->where('deliberacao', 'Gerado')
+            ->whereNull('status_avaliacao_conext')
+            ->whereNull('avaliacao_conext_user_id')
             ->update([
                 'status_avaliacao_conext'   => 'Reconhecido',
                 'avaliacao_conext_user_id'  => $user->id
             ]);
 
-        if( $acoes_extensao == 0 ) {
+        if( $acoes_extensao->count() == 0 ) {
             session()->flash('status', 'Nenhuma ação foi reconhecida!');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
 
-        if( $acoes_extensao > 0 ) {
+        if( $acoes_extensao->count() > 0 ) {
             foreach($acoes_extensao as $acao_extensao){
                 $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
                 $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
                 Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidade($acao_extensao));
             }
             
-            
-
             session()->flash('status', 'Ações reconhecidas com sucesso!');
             session()->flash('alert', 'success');
 
