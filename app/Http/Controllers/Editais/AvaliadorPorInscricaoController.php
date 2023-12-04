@@ -88,6 +88,17 @@ class AvaliadorPorInscricaoController extends Controller
      */
     public function delete(Request $request)
     {
+        $respostasAvaliacoes = RespostasAvaliacoes::where('user_id', $request->user_id)
+                                                    ->where('inscricao_id', $request->inscricao_id)
+                                                    ->count();
+                                                
+        if($respostasAvaliacoes > 0) {
+            session()->flash('status', 'Avaliador não pode ser removido, pois já possui avaliação para esta inscrição.');
+            session()->flash('alert', 'success');
+
+            return redirect()->back();
+        }                       
+
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $request->user_id)
                                         ->where('inscricao_id', $request->inscricao_id)
                                         ->delete();
