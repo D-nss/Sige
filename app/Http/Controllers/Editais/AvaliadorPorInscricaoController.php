@@ -95,7 +95,7 @@ class AvaliadorPorInscricaoController extends Controller
                                                 
         if($respostasAvaliacoes > 0) {
             session()->flash('status', 'Avaliador não pode ser removido, pois já possui avaliação para esta inscrição.');
-            session()->flash('alert', 'success');
+            session()->flash('alert', 'warning');
 
             return redirect()->back();
         }                       
