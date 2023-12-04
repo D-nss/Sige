@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\AvaliadorPorInscricao;
 use App\Models\User;
 use App\Models\Inscricao;
+use App\Models\RespostasAvaliacoes;
 
 class AvaliadorPorInscricaoController extends Controller
 {
