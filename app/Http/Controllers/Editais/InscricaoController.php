@@ -52,7 +52,7 @@ class InscricaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
+        $this->middleware('role:edital-coordenador|edital-administrador|super|admin')->except('create', 'store', 'show', 'edit', 'update', 'inscricoesPorUsuario', 'submeter', 'relatorioFinalCriar', 'relatorioFinalUpload', 'relatorioFinalComprovarDespesas', 'relatorioFinalEnviarAprovacao');
     }
     /**
      * Display a listing of the resource.
@@ -506,12 +506,14 @@ class InscricaoController extends Controller
         });
 
         if(is_null($transacao) || empty($transacao)) {
+            Log::channel('inscricao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Erro ao atualizar inscricao ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
             session()->flash('alert', 'danger');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Inscricao atualizada ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Inscrição atualizada com sucesso.');
             session()->flash('alert', 'success');
 
@@ -558,7 +560,7 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
         else {
-            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Submissao de inscricao ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
+            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Erro na submissao de inscricao ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao submeter sua inscrição');
             session()->flash('alert', 'danger');
 
@@ -701,12 +703,14 @@ class InscricaoController extends Controller
 
         if($inscricao->update()) {
             //notificar user inscricao
+            Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: inscricao contemplada' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Contemplado com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Error na inscricao contemplada' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao contemplar!');
             session()->flash('alert', 'warning');
 
@@ -776,13 +780,16 @@ class InscricaoController extends Controller
         if($inscricao->status == 'Contemplado' && $dataInicio <= $dataFim) {
             $inscricao->execucao_inicio = $request->execucao_inicio;
             $inscricao->execucao_fim = $request->execucao_fim;
+            Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Relatorio final adicionar tempo execucao incricao ID:' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             $inscricao->update();
+            
             session()->flash('status', 'Data de execução registrada com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Relatorio final adicionar tempo execucao - Periodo de execução ja registrado ou a data de inicio da execução é maior que a data de fim da execução incricao ID:' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Periodo de execução ja registrado ou a data de inicio da execução é maior que a data de fim da execução.');
             session()->flash('alert', 'warning');
 
@@ -814,12 +821,14 @@ class InscricaoController extends Controller
         $inscricao->arquivo_relatorio = $upload->execute($request, 'arquivo_relatorio', 'pdf', 5000000);
 
         if($inscricao->update()) {
+            Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: upload de arquivo no relatorio final da incricao ID: ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Arquivo enviado com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Erro no upload de arquivo no relatorio final da incricao ID: ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar o arquivo!');
             session()->flash('alert', 'warning');
 
@@ -854,12 +863,14 @@ class InscricaoController extends Controller
         $inscricao->justificativa_orcamento_realizado = $request->justificativa_orcamento_realizado;
 
         if($inscricao->update()) {
+            Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Comprovação de despesas no relatorio final da incricao ID: ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Dados enviado com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Erro na Comprovação de despesas no relatorio final da incricao ID: ' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar o dados!');
             session()->flash('alert', 'warning');
 
@@ -891,7 +902,7 @@ class InscricaoController extends Controller
             ->get(['users.email']);
 
             Notification::send($users, new EditalRealtorioFinalComissaoNotificar($inscricao));
-            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Inscrição "'. $inscricao->titulo .'" enviada para aprovação do relatório final  - Endereço IP: ' . $request->ip());
+            Log::channel('inscricao')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Inscrição "'. $inscricao->titulo .'" enviada para aprovação do relatório final  - Endereço IP: ' . $request->ip());
             
             session()->flash('status', 'Relatório enviado para análise com sucesso!');
             session()->flash('alert', 'success');
@@ -899,6 +910,7 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Inscrição "'. $inscricao->titulo .'" erro ao enviar para aprovação do relatório final  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar o relatório!');
             session()->flash('alert', 'warning');
 
@@ -926,7 +938,7 @@ class InscricaoController extends Controller
         if($inscricao->update()) {
 
             $inscricao->user->notify(new \App\Notifications\InscricaoAnaliseRelatorioFinalNotificar($inscricao));
-            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Inscrição "'. $inscricao->titulo .'" efetuado análise do relatório final  - Endereço IP: ' . $request->ip());
+            Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Inscrição "'. $inscricao->titulo .'" efetuado análise do relatório final  - Endereço IP: ' . $request->ip());
             
             session()->flash('status', 'Relatório analisado com sucesso!');
             session()->flash('alert', 'success');
@@ -934,6 +946,7 @@ class InscricaoController extends Controller
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Inscrição "'. $inscricao->titulo .'" erro ao efetuar análise do relatório final  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao analisar o relatório!');
             session()->flash('alert', 'warning');
 

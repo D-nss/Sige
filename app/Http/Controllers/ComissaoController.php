@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Comissao;
 use App\Models\ComissaoUser;
@@ -16,7 +17,7 @@ class ComissaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
+        //$this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
     }
 
     /**
@@ -27,7 +28,7 @@ class ComissaoController extends Controller
     public function index()
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id',3)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -55,7 +56,7 @@ class ComissaoController extends Controller
     public function buscar(Request $request)
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 3)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -92,7 +93,7 @@ class ComissaoController extends Controller
     public function create()
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 3)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -124,13 +125,30 @@ class ComissaoController extends Controller
             ]
         );
 
-        $comissao_unidade_created = Comissao::where('unidade_id', is_null($request->unidade_id) ? '' : $request->unidade_id)->first();
-        
-        if($comissao_unidade_created && !is_null($request->unidade_id)) {
-            session()->flash('status', 'A unidade já possui uma comissão cadastrada!!!');
-            session()->flash('alert', 'warning');
+        if($request->atribuicao == 'Extensão') {
+            $comissao_ext_unidade = Comissao::where('unidade_id', is_null($request->unidade_id) ? '' : $request->unidade_id)
+                                            ->where('atribuicao', 'Extensão')
+                                            ->first();
 
-            return redirect()->to('/comissoes');
+            if( $comissao_ext_unidade && !is_null($request->unidade_id) ) {
+                session()->flash('status', 'A unidade já possui uma comissão de extensão cadastrada!!!');
+                session()->flash('alert', 'warning');
+    
+                return redirect()->to('/comissoes');
+            }
+        }
+
+        if($request->atribuicao == 'Graduação') {
+            $comissao_grd_unidade = Comissao::where('unidade_id', is_null($request->unidade_id) ? '' : $request->unidade_id)
+                                            ->where('atribuicao', 'Graduação')
+                                            ->first();
+
+            if( $comissao_grd_unidade && !is_null($request->unidade_id) ) {
+                session()->flash('status', 'A unidade já possui uma comissão de graduação cadastrada!!!');
+                session()->flash('alert', 'warning');
+
+                return redirect()->to('/comissoes');
+            }
         }
 
         $comissao = Comissao::create(
@@ -144,6 +162,7 @@ class ComissaoController extends Controller
         );
 
         if($comissao) {
+            Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Comissão cadastrada ID:'. $comissao->id .'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Comissão cadastrada com sucesso!!!');
             session()->flash('alert', 'success');
 
@@ -154,6 +173,7 @@ class ComissaoController extends Controller
             return redirect()->to('/comissoes');
         }
         else {
+            Log::channel('comissoes')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Comissão não cadastrada ID:'. $comissao->id .'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar comissão');
             session()->flash('alert', 'danger');
 
@@ -172,12 +192,14 @@ class ComissaoController extends Controller
         $comissao_user_deleted = ComissaoUser::where('comissao_id', $comissao->id)->delete();
 
         if($comissao->delete()) {
+            Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Comissão removida ID:'. $comissao->id .'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Comissão removida com sucesso!!!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('comissoes')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Comissão não removida ID:'. $comissao->id .'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao remover comissão');
             session()->flash('alert', 'danger');
 

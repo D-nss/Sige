@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Comissao;
 use App\Models\ComissaoUser;
@@ -54,6 +56,7 @@ class ComissaoUserController extends Controller
         ]);
 
         if($comissao) {
+            Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' adicionado a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
             $comissao->user->notify(new \App\Notifications\ComissaoUserAdicionado($comissao));
 
             session()->flash('status', 'Participante de comissão cadastrado com sucesso!!!');
@@ -62,6 +65,7 @@ class ComissaoUserController extends Controller
             return redirect()->to('/comissoes');
         }
         else {
+            Log::channel('comissoes')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' não adicionado a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar participante na comissão');
             session()->flash('alert', 'danger');
 
@@ -80,12 +84,14 @@ class ComissaoUserController extends Controller
         $comissao_user_deleted = ComissaoUser::where('comissao_id', $request->comissao_id)->where('user_id', $request->user_id)->delete();
         
         if(!!$comissao_user_deleted) {
+            Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' removido a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Participante de comissão removido com sucesso!!!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('comissoes')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' não removido a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao remover participante na comissão');
             session()->flash('alert', 'danger');
 

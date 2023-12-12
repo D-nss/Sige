@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\AvaliadorPorInscricao;
 use App\Models\User;
@@ -16,7 +17,7 @@ class AvaliadorPorInscricaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
+        $this->middleware('role:edital-coordenador|edital-analista|edital-administrador|super');
     }
 
     public function create(Inscricao $inscricao)
@@ -66,6 +67,7 @@ class AvaliadorPorInscricaoController extends Controller
         ]);
 
         if($avaliadorPorInscricao) {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Avaliador com user_id ' . $request->avaliador_id  .' cadastrado na inscricao ' . $request->inscricao_id . ' - Endereço IP: ' . $request->ip());
             $avaliadorPorInscricao->user->notify(new \App\Notifications\AdicionarAvaliador($avaliadorPorInscricao));
             session()->flash('status', 'Avaliador cadastrado com sucesso');
             session()->flash('alert', 'success');
@@ -105,6 +107,7 @@ class AvaliadorPorInscricaoController extends Controller
                                         ->delete();
 
         if($avaliadorPorInscricao > 0) {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Avaliador com user_id ' . $request->avaliador_id  .' REMOVIDO da inscricao ' . $request->inscricao_id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Avaliador removido com sucesso');
             session()->flash('alert', 'success');
 

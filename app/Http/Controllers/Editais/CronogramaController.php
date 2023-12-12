@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Cronograma;
 use App\Models\Edital;
@@ -14,7 +16,7 @@ class CronogramaController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-administrador|super');
+        $this->middleware('role:edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -68,6 +70,7 @@ class CronogramaController extends Controller
 
         if($cronogramas)
         {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Cronograma cadastrado para edital '.$edital_id.'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Cronograma cadastrado com sucesso!');
             session()->flash('alert', 'success');
             return redirect("processo-editais/$edital_id/editar");
@@ -137,6 +140,7 @@ class CronogramaController extends Controller
         //checa se ocorreu tudo certo com base no array linhasAfetadas
         if(!in_array(0, $linhasAfetadas))
         {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Atualização de todas as datas do cronograma do edital '.$edital_id.'- Endereço IP: ' . $request->ip());
             session()->flash('status', 'Todas as datas do cronograma foram atualizadas com sucesso!');
             session()->flash('alert', 'success');
             return redirect("processo-editais/$edital_id/editar");
@@ -150,6 +154,7 @@ class CronogramaController extends Controller
                 return redirect()->back();
             }
             else{
+                Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Atualização das datas alteradas do cronograma do edital '.$edital_id.' - Endereço IP: ' . $request->ip());
                 session()->flash('status', 'Somente as datas do cronograma alteradas foram atualizadas.');
                 session()->flash('alert', 'warning');
                 return redirect("processo-editais/$edital_id/editar");
@@ -195,6 +200,7 @@ class CronogramaController extends Controller
 
         }
 
+        Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Datas do cronograma do edital '.$request->edital_id.' foram prorrogadas em ' . $request->dias . ' dias.  - Endereço IP: ' . $request->ip());
         session()->flash('status', 'As proximas datas do cronograma foram prorrogadas em ' . $request->dias . ' dias.');
         session()->flash('alert', 'success');
         return redirect()->back();

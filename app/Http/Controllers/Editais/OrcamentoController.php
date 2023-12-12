@@ -20,7 +20,7 @@ class OrcamentoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-coordenador|edital-administrador|super');
+        $this->middleware('role:edital-coordenador|edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -118,7 +118,7 @@ class OrcamentoController extends Controller
             return redirect()->to("/inscricao/$request->inscricao_id/orcamento");
         }
         else {
-            Log::channel('orcamento')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Novo item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
+            Log::channel('orcamento')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Novo item de orcamento ' . $orcamento->id . ' não adicionado - Endereço IP: ' . $request->ip());
 
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar item.');
             session()->flash('alert', 'warning');
@@ -179,12 +179,14 @@ class OrcamentoController extends Controller
         }
         
         if($orcamento->delete()) {
+            Log::channel('orcamento')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Remoção item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Item removido com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->to("/inscricao/$orcamento->inscricao_id/orcamento");
         }
         else {
+            Log::channel('orcamento')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Não Remoção item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao remover item.');
             session()->flash('alert', 'warning');
 

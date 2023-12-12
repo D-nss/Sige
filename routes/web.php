@@ -48,7 +48,7 @@ use App\Http\Controllers\Editais\OrcamentoController;
 use App\Http\Controllers\Editais\AvaliadorPorInscricaoController;
 use App\Http\Controllers\Editais\ProcessoEditalController;
 use App\Http\Controllers\Editais\RecursoInscricaoController;
-use App\Http\Controllers\Editais\EditalPartipantesProjetoController;
+use App\Http\Controllers\Editais\EditalParticipantesProjetoController;
 use App\Http\Controllers\Editais\InscricaoController;
 
 use Illuminate\Support\Facades\Notification;
@@ -319,7 +319,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/inscricao/relatorio_final/{inscricao}/execucao', [InscricaoController::class, 'relatorioFinalAdicionarTempoExecucao'])->name('edital.relatorio-final.execucao');
     Route::post('/inscricao/relatorio_final/{inscricao}/upload', [InscricaoController::class, 'relatorioFinalUpload'])->name('edital.relatorio-final.upload');
     Route::post('/inscricao/relatorio_final/{inscricao}/despesas', [InscricaoController::class, 'relatorioFinalComprovarDespesas'])->name('edital.relatorio-final.despesas');
-    Route::post('/inscricao/relatorio_final/{inscricao}/participantes', [EditalPartipantesProjetoController ::class, 'store'])->name('edital.relatorio-final.participantes');
+    Route::post('/inscricao/relatorio_final/{inscricao}/participantes', [EditalParticipantesProjetoController ::class, 'store'])->name('edital.relatorio-final.participantes');
     Route::post('/inscricao/relatorio_final/{inscricao}/enviar_aprovacao', [InscricaoController ::class, 'relatorioFinalEnviarAprovacao'])->name('edital.relatorio-final.enviar_aprovacao');
     Route::post('/inscricao/relatorio_final/{inscricao}/analisar', [InscricaoController ::class, 'analisarRelatorioFinal'])->name('edital.relatorio-final.analisar');
 

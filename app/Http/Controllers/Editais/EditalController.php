@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Avaliador;
 use App\Models\AreaTematica;
@@ -26,7 +27,7 @@ class EditalController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-administrador|super')->except('index');
+        $this->middleware('role:edital-administrador|super')->except('index');
     }
     /**
      * Display a listing of the resource.
@@ -130,13 +131,14 @@ class EditalController extends Controller
         DB::table('publicos_alvo')->insert($publicos);
 
         if($edital) {
-
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital cadastrado com ID: '.$edital->id.' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Edital cadastrado com sucesso!!!');
             session()->flash('alert', 'success');
 
             return redirect()->to("editais/$edital->id/criterios");
         }
         else {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital não cadastrado - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar');
             session()->flash('alert', 'danger');
 
@@ -230,13 +232,14 @@ class EditalController extends Controller
         DB::table('publicos_alvo')->insert($publicos);
 
         if($editalUpdated) {
-
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' atualizado  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Edital Atualizado com sucesso!!!');
             session()->flash('alert', 'success');
 
             return redirect()->to("processo-editais/$edital->id/editar");
         }
         else {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' não atualizado  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar');
             session()->flash('alert', 'danger');
 
@@ -268,13 +271,14 @@ class EditalController extends Controller
         $edital->status = 'Divulgação';
 
         if( $edital->update() ) {
-
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' divulgado  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Edital Divulgado com sucesso!!!');
             session()->flash('alert', 'success');
 
             return redirect()->to("processo-editais");
         }
         else {
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' não divulgado  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao divulgar');
             session()->flash('alert', 'danger');
 
@@ -307,7 +311,7 @@ class EditalController extends Controller
         }
 
         $inscricoes = Inscricao::where('edital_id', $edital->id)->where('nota', '<>', null)->orderby('nota', 'desc')->get();
-
+        Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' classificado  - Endereço IP: ' . $request->ip());
         return view('inscricao.classificacao', compact('edital', 'inscricoes'));
     }
 

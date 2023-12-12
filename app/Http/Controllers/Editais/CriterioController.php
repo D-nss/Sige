@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Editais;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Criterio;
 use App\Models\Edital;
@@ -13,7 +15,7 @@ class CriterioController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:edital-administrador|super');
+        $this->middleware('role:edital-administrador|super');
     }
     /**
      * Display a listing of the resource.
@@ -54,7 +56,7 @@ class CriterioController extends Controller
         ]);
 
         if($criterio) {
-
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Critério de edital cadastrado no edital '.$request->edital_id.'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Critério cadastrado com sucesso!!!');
             session()->flash('alert', 'success');
 
@@ -117,7 +119,7 @@ class CriterioController extends Controller
         $edital = $criterio->edital;
 
         if($criterio->delete()) {
-
+            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Critério de edital removido do edital '.$edital->id.' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Critério removido com sucesso!!!');
             session()->flash('alert', 'success');
 
