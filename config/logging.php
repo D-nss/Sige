@@ -66,6 +66,18 @@ return [
             'level' => 'debug',
         ],
 
+        'editais' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/editais.log'),
+            'level' => 'debug',
+        ],
+
+        'comissoes' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/comissoes.log'),
+            'level' => 'debug',
+        ],
+
         'orcamento' => [
             'driver' => 'single',
             'path' => storage_path('logs/orcamentos.log'),
