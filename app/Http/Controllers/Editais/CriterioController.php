@@ -63,6 +63,7 @@ class CriterioController extends Controller
             return redirect()->to("editais/$request->edital_id/criterios");
         }
         else {
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Critério de edital não cadastrado no edital '.$request->edital_id.'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar');
             session()->flash('alert', 'danger');
 
@@ -114,7 +115,7 @@ class CriterioController extends Controller
      * @param  \App\Models\Criterio $criterio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Criterio $criterio)
+    public function destroy(Criterio $criterio, Request $request)
     {
         $edital = $criterio->edital;
 
@@ -126,6 +127,7 @@ class CriterioController extends Controller
             return redirect()->to("editais/$edital->id/criterios");
         }
         else {
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Critério de edital não removido do edital '.$edital->id.' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao remover');
             session()->flash('alert', 'danger');
 

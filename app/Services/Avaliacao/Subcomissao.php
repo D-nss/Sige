@@ -4,6 +4,7 @@ namespace App\Services\Avaliacao;
 
 use Illuminate\Http\Request;
 use App\Services\AvaliacaoInterface;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\AcaoExtensao;
 use App\Models\AcaoCultural;
@@ -91,12 +92,14 @@ class Subcomissao implements AvaliacaoInterface
         }
 
         if($inscricao->update()) {
+            Log::channel('editais')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Info: Executado analise de SCT(Sub comissão temática) na inscrição ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Analise enviada com sucesso. Prossiga indicando os pareceristas no botão Pareceristas');
             session()->flash('alert', 'success');
 
             return ["redirect" => "edital/$inscricao->edital_id/inscricoes", 'status' => true];
         }
         else {
+            Log::channel('editais')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Info: Executado analise de SCT(Sub comissão temática) na inscrição ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar a analise');
             session()->flash('alert', 'danger');
 

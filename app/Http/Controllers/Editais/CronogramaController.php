@@ -77,6 +77,7 @@ class CronogramaController extends Controller
         }
         else
         {
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Cronograma não cadastrado para edital '.$edital_id.'  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve um problema ao cadastrar o cronograma');
             session()->flash('alert', 'danger');
             return redirect()->back();
@@ -149,6 +150,7 @@ class CronogramaController extends Controller
         {
             if(count(array_unique($linhasAfetadas)) == 1)
             {
+                Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Nenhuma das datas do cronograma do edital foram alteradas '.$edital_id.' - Endereço IP: ' . $request->ip());
                 session()->flash('status', 'Nenhuma data do cronograma foi atualizada.');
                 session()->flash('alert', 'warning');
                 return redirect()->back();

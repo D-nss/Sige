@@ -112,7 +112,7 @@ class QuestaoController extends Controller
      * @param  \App\Models\Questao $questao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Questao $questao)
+    public function destroy(Questao $questao, Request $request)
     {
         //$questao = Questao::find($id);
 

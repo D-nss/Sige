@@ -168,7 +168,7 @@ class OrcamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Orcamento $orcamento)
+    public function destroy(Orcamento $orcamento, Request $request)
     {
         $user = User::where('email', Auth::user()->id)->first();
         if( $orcamento->inscricao->user_id != $user->id ) {

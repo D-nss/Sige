@@ -138,7 +138,7 @@ class EditalController extends Controller
             return redirect()->to("editais/$edital->id/criterios");
         }
         else {
-            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital não cadastrado - Endereço IP: ' . $request->ip());
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital não cadastrado - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar');
             session()->flash('alert', 'danger');
 
@@ -239,7 +239,7 @@ class EditalController extends Controller
             return redirect()->to("processo-editais/$edital->id/editar");
         }
         else {
-            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' não atualizado  - Endereço IP: ' . $request->ip());
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' não atualizado  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao cadastrar');
             session()->flash('alert', 'danger');
 
@@ -265,7 +265,7 @@ class EditalController extends Controller
      * @param  App\Models\Edital $edital
      * @return \Illuminate\Http\Response
      */
-    public function divulgar(Edital $edital)
+    public function divulgar(Edital $edital, Request $request)
     {
         //$edital = Edital::findOrFail($id);
         $edital->status = 'Divulgação';
@@ -278,7 +278,7 @@ class EditalController extends Controller
             return redirect()->to("processo-editais");
         }
         else {
-            Log::channel('editais')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' não divulgado  - Endereço IP: ' . $request->ip());
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Edital de ID '.$edital->id.' não divulgado  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao divulgar');
             session()->flash('alert', 'danger');
 

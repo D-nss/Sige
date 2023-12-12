@@ -54,6 +54,7 @@ class RecursoInscricaoController extends Controller
         ]);
 
         if($recurso) {
+            Log::channel('inscricao')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Info: Recurso adicionado a inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             Notification::send($inscricao->analista, new RecursoAdicionado($inscricao));
             session()->flash('status', 'Recurso cadastrado com sucesso!');
             session()->flash('alert', 'success');
@@ -61,6 +62,7 @@ class RecursoInscricaoController extends Controller
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Info: Recurso não adicionado a inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve um erro ao cadastrar recurso.');
             session()->flash('alert', 'danger');
 
@@ -78,12 +80,14 @@ class RecursoInscricaoController extends Controller
         $recurso->user_id = $user->id;
 
         if( $recurso->save() ) {
+            Log::channel('inscricao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Info: Recurso avaliado para inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Recurso avaliado com sucesso!');
             session()->flash('alert', 'success');
 
             return redirect()->back();
         }
         else {
+            Log::channel('inscricao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Info: Recurso não avaliado para inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve um erro ao avaliar recurso.');
             session()->flash('alert', 'danger');
 

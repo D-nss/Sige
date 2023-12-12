@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Services\AvaliacaoInterface;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\AcaoExtensao;
 use App\Models\AcaoCultural;
@@ -158,6 +159,7 @@ class Parecerista implements AvaliacaoInterface
 
         if( is_null($transacao) )
         {
+            Log::channel('editais')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Info: Executado analise de parecerista na inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Avaliação cadastrada com sucesso!');
             session()->flash('alert', 'success');
 
@@ -220,6 +222,7 @@ class Parecerista implements AvaliacaoInterface
 
         if( is_null($transacao) )
         {
+            Log::channel('editais')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Info: Executado atualização de notas do parecerista na inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Avaliação atualizada com sucesso!');
             session()->flash('alert', 'success');
 

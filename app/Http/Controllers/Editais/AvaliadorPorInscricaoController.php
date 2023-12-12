@@ -114,6 +114,7 @@ class AvaliadorPorInscricaoController extends Controller
             return redirect()->back();
         }
         else {
+            Log::channel('editais')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Avaliador com user_id ' . $request->avaliador_id  .' Não REMOVIDO da inscricao ' . $request->inscricao_id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Não foi possível remover o avaliador.');
             session()->flash('alert', 'danger');
 

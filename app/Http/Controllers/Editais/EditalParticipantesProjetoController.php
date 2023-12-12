@@ -37,7 +37,7 @@ class EditalParticipantesProjetoController extends Controller
             return redirect()->back();
         }
         else {
-            Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: erro ao adicionar participante em relatorio final da inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
+            Log::channel('inscricao')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: erro ao adicionar participante em relatorio final da inscricao ID: '. $inscricao->id .' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar o dados!');
             session()->flash('alert', 'warning');
 
