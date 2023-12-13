@@ -14,7 +14,7 @@ class ChecaUserInscrito
     {
         $checaInscricaoExistente = Inscricao::where('edital_id', $id)->where('user_id', $user->id)->first();
         if(!!$checaInscricaoExistente){
-            session()->flash('status', 'Desculpe! Você possui uma inscrição em aberto!');
+            session()->flash('status', 'Desculpe! Você já está inscrito para este edital!');
             session()->flash('alert', 'warning');
 
             return true;

@@ -137,10 +137,10 @@ class InscricaoController extends Controller
         if(ChecaUserInscrito::execute($request->edital_id, $user) && ChecaInscricaoAberta::execute($request->edital_id, $user)){
             return redirect()->back();
         }
-        
+
         /* Inserção no banco de dados usando transação, caso alguma inserção de erro ele retorna o banco ao estado anterior */
         $inscricao = CriarInscricao::execute($request, $user);
-
+       
         if(is_null($inscricao) || empty($inscricao)) {
             Log::channel('inscricao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Inscricao não inserida  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');

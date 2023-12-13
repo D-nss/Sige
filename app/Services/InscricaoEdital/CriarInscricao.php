@@ -19,7 +19,7 @@ class CriarInscricao
         $respostasQuestoesInsert = array();
         $upload = new UploadFile();
 
-        DB::transaction(function() use( $request, $areasTematicasInsert, $odsInsert, $respostasQuestoesInsert, $upload, $user) {
+        $transaction = DB::transaction(function() use( $request, $areasTematicasInsert, $odsInsert, $respostasQuestoesInsert, $upload, $user) {
             /* Faz a inserção da inscrição */
             $inscricaoCriada = Inscricao::create([
                 'titulo' => $request->titulo,
@@ -76,5 +76,7 @@ class CriarInscricao
 
             return $inscricaoCriada;
         });
+
+        return $transaction;
     }
 }
