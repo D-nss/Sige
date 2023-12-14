@@ -133,7 +133,7 @@ class AcaoExtensaoController extends Controller
     public function index(Collection $acoes_extensao = null)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -177,7 +177,9 @@ class AcaoExtensaoController extends Controller
         $areas_tematicas = AreaTematica::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
-        $acoes_extensao = AcaoExtensao::where('status_avaliacao_conext', 'Aprovado')->get();
+        $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')
+        ->where('status_comissao_graduacao', 'Sim')
+        ->get();
 
         return view('acoes-extensao.catalogo', [
             'acoes_extensao' => $acoes_extensao,
@@ -863,8 +865,9 @@ class AcaoExtensaoController extends Controller
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
 
-        $at_conext = User::role('at_conext')->get();
-        Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
+        //$at_conext = User::role('at_conext')->get();
+       // Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
+       //deve notificar a comissão de graduação da unidade
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 

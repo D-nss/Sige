@@ -18,7 +18,7 @@
             Pendentes de Aprovação (UNIDADE)
         @endif
         <small>
-            Listagem das Ações de Extensão
+            Listagem das Ações de Extensão a serem encaminhadas analisadas pela comissão de graduação
         </small>
     </h1>
 </div>
@@ -32,39 +32,11 @@
                         Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                     </h2>
                     <div class="panel-toolbar">
-                        <a href="/acoes-extensao/novo" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a>
+                        <!-- <a href="/acoes-extensao/novo" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Nova Ação</a> -->
                     </div>
                 </div>
                 <div class="panel-container show">
                     <div class="panel-content">
-                        <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3b" aria-expanded="false">
-                                        <i class="fal fa-filter width-2 fs-xl"></i>
-                                        Filtragem
-                                        <span class="ml-auto">
-                                            <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                                <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
-                                            </span>
-                                            <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                                <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                                <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div id="js_demo_accordion-3b" class="collapse" data-parent="#js_demo_accordion-3">
-                                    <div class="card-body">
-                                        <form action="{{route('acao_extensao.filtrar')}}" id="form_filtro_acao_extensao" class="form-horizontal form-label-left" method="POST">
-                                            @csrf
-                                            @include('acoes-extensao._filtro')
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- datatable start -->
                         <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
@@ -149,18 +121,52 @@
                                         {{$acao_extensao->updated_at->format('d/m/Y')}}
                                     </td>
                                     <td>
-                                        @if($acao_extensao->status_comissao_graduacao === 'Sim')
-                                            <a 
-                                                href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" 
-                                                class="btn btn-primary btn-pills waves-effect waves-themed fs-xl"
+                                        <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modalAcao{{$acao_extensao->id}}">
+                                            <div
                                                 data-toggle="tooltip" 
                                                 data-placement="bottom" 
                                                 title="" 
-                                                data-original-title="Ocorrências"
+                                                data-original-title="Analisar parâmetros pedagógicos"
                                             >
-                                                <i class="fal fa-clipboard-list-check"></i>
-                                            </a>
-                                        @endif
+                                                <i class="fal fa-list"></i>
+                                            </div>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalAcao{{$acao_extensao->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">
+                                                            Análise de Parâmetros Pedagógicos
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{ route('acoes_extensao.comissao_graduacao.store', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                                                    <div class="modal-body">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label>Atende aos requisitos?</label>
+                                                            <select name="status_comissao_graduacao" class="form-control">
+                                                                <option value=""> ... </option>
+                                                                <option value="Sim">Sim</option>
+                                                                <option value="Não">Não</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Parecer da Comissão</label>
+                                                            <textarea name="parecer_comissao_graduacao" class="form-control" cols="30" rows="10"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

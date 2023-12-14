@@ -14,11 +14,14 @@ use App\Models\ComissaoUser;
 
 class ChecaComissao
 {
-    public static function execute($local, $local_id, $user_id)
+    public static function execute($local, $local_id, $atribuicao, $user_id)
     {
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-                                ->where("comissoes.".$local."_id", $local_id)
-                                ->where('comissoes_users.user_id', $user_id)
+                                ->where(function($query) use ($local, $local_id, $atribuicao, $user_id){
+                                    $query->where("comissoes.".$local."_id", $local_id);
+                                    $query->where("comissoes.atribuicao", $atribuicao);
+                                    $query->where('comissoes_users.user_id', $user_id);
+                                })
                                 ->first();
         
         if(!$userNaComissao){
