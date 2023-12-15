@@ -64,14 +64,14 @@ select.custom-select * {
     background-color: #eee;
 }
 
-/* alinhamento à esquerda em botão */
-.btn-group-vertical .btn{
-text-align: left !important;
+/* usando largura fixa em botão empilhado */
+
+.btn-group-vertical{
+    width: 180px;
 }
 
-/* usando largura fixa em botão empilhado */
 .btn-group-vertical .btn{
-    max-width: 150px;
+    text-align: left !important;
 }
 
 /* área fixa em torno de ícones em botões alinhar as etiquetas (labels) dos botões */
@@ -147,6 +147,18 @@ margin-bottom: .5em;
     position: relative;
     width: 100%;
 top: 0;
+}
+
+.ambiente-teste{
+    /*position: fixed;
+    top:0;
+    display: block;
+    height: 50px;
+    width: 100%;*/
+}
+
+#extecult-header {
+
 }
 
 /*:checked + #nome-social#nome_social_campo { display: block !important; }
