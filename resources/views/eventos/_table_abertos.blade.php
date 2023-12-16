@@ -204,6 +204,38 @@
                             </div>
                         </div>
                     </div>
+                    @if ($evento->data_fim < now())
+                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalEncerrar{{ $evento->id }}">
+                        <span class="badge bg-danger"><span class="fal fa-check"></span> Encerrar Evento</span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalEncerrar{{ $evento->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $evento->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="{{route('evento.encerrar', ['evento' => $evento->id])}}" method="post">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel{{ $evento->id }}">Alerta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                        @csrf
+                                        @method('PUT')
+                                        <p>Tem certeza de que deseja encerrar o evento? Lembre-se de que uma vez concluído, não será possível editar o evento posteriormente, assim como outras dependências relacionadas, como equipe e participantes. </p>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-danger">Confirmar encerramento</button>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
 
             </td>

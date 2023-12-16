@@ -47,13 +47,13 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-            
+
         })->dailyAt('00:01')->timezone('America/Fortaleza');
 
         $schedule->call(function(){
             $users = \App\Models\User::all();
             $cronograma = new \App\Models\Cronograma();
-        
+
             foreach($users as $user) {
                 foreach($user->inscricoes as $inscricao) {
 
@@ -65,15 +65,27 @@ class Kernel extends ConsoleKernel
                     $dias = floor($diff / (60 * 60 * 24));
 
                     echo "A diferença é de $dias dias entre as datas";
-                    if(empty($inscricao->orcamento->toArray()) && $dias == 3 ) 
+                    if(empty($inscricao->orcamento->toArray()) && $dias == 3 )
                     {
                         echo 'Sending mail notification...';
                         $inscricao->user->notify(new \App\Notifications\OrcamentoFaltante($inscricao, ['mail']));
                     }
-                    
+
                 }
             }
         })->dailyAt('00:01')->timezone('America/Fortaleza');
+
+        //Adicionar funcao
+        /*
+        $schedule->call(function(){
+
+            $eventosPendentes = \App\Models\Eventos::where('status', 'Aberto')->where('data_fim', '<', now())->get();
+            $eventosPendentes->each(function($eventosPendentes) {
+                $user = $eventosPendentes->user;
+                $user->notify(new \App\Notifications\
+            });
+
+        })->daily();*/
     }
 
     /**

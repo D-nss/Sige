@@ -111,6 +111,12 @@ class EventoInscritosController extends Controller
             $user = User::where('email', Auth::user()->id)->first();
         }
 
+        if ($evento->status == 'Encerrado') {
+            session()->flash('status', 'Desculpe! Não é permitido inscrição a um evento encerrado.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
+
         if (
             (!is_null($evento->inscricao_inicio)
                 &&
@@ -379,6 +385,12 @@ class EventoInscritosController extends Controller
 
         $inscrito = EventoInscrito::find($id);
 
+        if ($inscrito->evento->status == 'Encerrado') {
+            session()->flash('status', 'Desculpe! Não é permitido alterações em evento encerrado.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
+
         $inscrito->confirmacao = 1;
         $inscrito->data_confirmacao = date('Y-m-d H:i:s');
         if ($inscrito->update()) {
@@ -403,6 +415,12 @@ class EventoInscritosController extends Controller
     public function adm_presenca($id)
     {
         $inscrito = EventoInscrito::find($id);
+
+        if ($inscrito->evento->status == 'Encerrado') {
+            session()->flash('status', 'Desculpe! Não é permitido alterações em evento encerrado.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
 
         if ($inscrito && $inscrito->presenca == 0) {
             $inscrito->presenca = 1;
@@ -543,6 +561,12 @@ class EventoInscritosController extends Controller
         $data = explode('/', $decrypt);
 
         $inscrito = EventoInscrito::find($data[1]);
+
+        if ($inscrito->evento->status == 'Encerrado') {
+            session()->flash('status', 'Desculpe! Não é permitido alterações em evento encerrado.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
 
         if ($inscrito->lista_espera == 1) {
             session()->flash('status', 'Desculpe! O usuário está na fila de espera.');

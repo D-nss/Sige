@@ -17,12 +17,22 @@ class EventoEquipeController extends Controller
 
     public function create(Evento $evento)
     {
+        if ($evento->status == 'Encerrado') {
+            session()->flash('status', 'Desculpe! Não é permitido a edição de um evento encerrado.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
         $users = \App\Models\User::all();
         return view('eventos.equipe.create', compact('users', 'evento'));
     }
 
     public function edit(Evento $evento, $membro_id)
     {
+        if ($evento->status == 'Encerrado') {
+            session()->flash('status', 'Desculpe! Não é permitido a edição de um evento encerrado.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
         $membro = EventoEquipe::find($membro_id);
         $users = \App\Models\User::all();
         return view('eventos.equipe.edit', compact('evento', 'membro', 'users'));
@@ -58,24 +68,22 @@ class EventoEquipeController extends Controller
 
         $options = [
             'cost' => 10,
-            ];
+        ];
 
-        if($input['funcao_evento'] == "Palestrante"){
-            $input['certificado']  = str_replace('$2y$10$', '', password_hash("palestrante-".$input['evento_id'].$input['titulo_palestra'], PASSWORD_BCRYPT, $options));
-        }
-        else{
-            $input['certificado']  = str_replace('$2y$10$', '', password_hash("staff-".$input['evento_id'].$input['cpf'], PASSWORD_BCRYPT, $options));
+        if ($input['funcao_evento'] == "Palestrante") {
+            $input['certificado'] = str_replace('$2y$10$', '', password_hash("palestrante-" . $input['evento_id'] . $input['titulo_palestra'], PASSWORD_BCRYPT, $options));
+        } else {
+            $input['certificado'] = str_replace('$2y$10$', '', password_hash("staff-" . $input['evento_id'] . $input['cpf'], PASSWORD_BCRYPT, $options));
         }
 
         $membroEquipe = EventoEquipe::create($input);
 
-        if($membroEquipe) {
+        if ($membroEquipe) {
             session()->flash('status', 'Membro da equipe do evento cadastrado com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->to('evento/' . $evento->id . '/equipe');
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Houve um erro ao cadastrar o membro da equipe do evento.');
             session()->flash('alert', 'danger');
 
@@ -116,19 +124,18 @@ class EventoEquipeController extends Controller
         //     return redirect()->back();
         // }
 
-        foreach($inputs as $key => $value) {
+        foreach ($inputs as $key => $value) {
             $dados[$key] = $value;
         }
 
         $membroEquipe = EventoEquipe::where('id', $id)->update($dados);
 
-        if($membroEquipe) {
+        if ($membroEquipe) {
             session()->flash('status', 'Membro da equipe do evento atualizado com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->to('evento/' . $evento->id . '/equipe');
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Houve um erro ao atualizar o membro da equipe do evento.');
             session()->flash('alert', 'danger');
 
@@ -140,13 +147,12 @@ class EventoEquipeController extends Controller
     {
         $membroEquipe = EventoEquipe::find($id);
 
-        if($membroEquipe->delete()) {
+        if ($membroEquipe->delete()) {
             session()->flash('status', 'Membro da equipe do evento removido com sucesso.');
             session()->flash('alert', 'success');
 
             return redirect()->back();
-        }
-        else {
+        } else {
             session()->flash('status', 'Desculpe! Houve um erro ao remover o membro da equipe do evento.');
             session()->flash('alert', 'danger');
 
