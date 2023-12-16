@@ -135,9 +135,10 @@ Versão: 4.5.1
 
         </script>
             @if(config('app.env') == 'testing')
-                <div class="alert alert-danger m-0 fs-xl"><strong class="">Ambiente de Teste</strong> - As informações salvas neste ambiente podem sofre alterações ou sumirem no decorrer dos teste</div>
+                <div class="ambiente-teste alert alert-danger m-0 fs-xl"><strong class="">Ambiente de Teste</strong> - As informações salvas neste ambiente podem sofrer alterações, ou sumir, no decorrer dos testes</div>
             @endif
         <!-- BEGIN Page Wrapper -->
+
         <div class="page-wrapper">
 
             <div class="page-inner">
@@ -146,8 +147,8 @@ Versão: 4.5.1
                 @include('layouts._includes.sidebar')
                 <!-- END Left Aside -->
                 <div class="page-content-wrapper">
-
-                    <!-- BEGIN Page Header -->
+                    
+                <!-- BEGIN Page Header -->
                     @include('layouts._includes.header')
                     <!-- END Page Header -->
                     <!-- BEGIN Page Content -->
