@@ -163,7 +163,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao-comite-consultivo/{acao_extensao}/adicionar-membro', [AcaoExtensaoComiteController::class, 'create'])->name('acoes_extensao.comite.create');
     Route::post('/acoes-extensao-comite-consultivo/{acao_extensao}/adicionar-membro/', [AcaoExtensaoComiteController::class, 'store'])->name('acoes_extensao.comite.store');
     Route::post('/acoes-extensao-comite-consultivo/{acao_extensao}/parecer', [AcaoExtensaoComiteController::class, 'parecer'])->name('acoes_extensao.comite.parecer');
-   
+
     Route::get('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'index'])->name('acao_extensao_pendencias.deliberacao_conext');
     Route::post('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'gerarExcel'])->name('acao_extensao_pendencias.deliberacao_conext.gerar');
     Route::post('/acoes-extensao-deliberacao-conext/reconhecer', [AcaoExtensaoDeliberacaoController::class, 'reconhecer'])->name('acao_extensao_pendencias.deliberacao_conext.reconhecer');
@@ -236,6 +236,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::put('evento/{evento}/equipe/{membro}', [EventoEquipeController::class, 'update']);
     Route::post('inscrito/avaliar-recurso/{id}', [EventoInscritosController::class, 'avaliaRecurso']);
     Route::get('evento/{evento}/exportar', [EventoInscritosController::class, 'exportarParaExcel']);
+    Route::put('evento/{evento}/encerrar', [EventoController::class, 'encerrar'])->name('evento.encerrar');
 
     //Usuarios
     Route::resource('/usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);

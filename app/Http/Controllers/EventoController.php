@@ -61,13 +61,15 @@ class EventoController extends Controller
             }
         }
 
-        $eventosAbertos = Evento::where('grupo_usuario', $grupo)->where('status', 'Aberto')->get();
+        $eventosPendentes = Evento::where('grupo_usuario', $grupo)->where('status', 'Aberto')->where('data_fim', '<', now())->get();
+        $eventosAbertos = Evento::where('grupo_usuario', $grupo)->where('status', 'Aberto')->where('data_fim', '>', now())->get();
         $eventosEncerrados = Evento::where('grupo_usuario', $grupo)->where('status', 'Encerrado')->get();
         $eventosCancelados = Evento::where('grupo_usuario', $grupo)->where('status', 'Cancelado')->get();
 
         return view(
             'eventos.index',
             [
+                'eventosPendentes' => $eventosPendentes,
                 'eventosAbertos' => $eventosAbertos,
                 'eventosEncerrados' => $eventosEncerrados,
                 'eventosCancelados' => $eventosCancelados,
@@ -90,6 +92,7 @@ class EventoController extends Controller
         $eventosAbertos = Evento::join('comissoes', 'comissoes.evento_id', 'eventos.id')
                                 ->join('comissoes_users', 'comissoes_users.comissao_id', 'comissoes.id')
                                 ->where('comissoes_users.user_id', $user->id)
+                                ->where('status', 'Aberto')
                                 ->get(['eventos.*']);
 
         return view(
@@ -215,6 +218,35 @@ class EventoController extends Controller
 
     public function edit(Evento $evento)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        foreach($user->getRoleNames() as $role) {
+            if(substr($role, 0, 3) === 'gr_') {
+                $grupo = $role;
+            }
+        }
+
+        if(!isset($grupo) && $grupo != $evento->grupo_usuario) {
+            session()->flash('status', 'Desculpe! Você não está em um grupo que permita editar este evento. Solicite a inclusão ao suporte.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
+        }
+        if($evento->status == 'Encerrado'){
+            if($user->hasRole('super')){
+                session()->flash('status', 'Atenção! Você está acessando um evento que já foi encerrado. Por favor, tenha cuidado ao fazer alterações nos campos');
+                session()->flash('alert', 'warning');
+            } else {
+                session()->flash('status', 'Desculpe! Não é permitido a edição de um evento encerrado.');
+                session()->flash('alert', 'danger');
+
+                return redirect()->back();
+            }
+        }
         return view('eventos.edit', compact('evento'));
     }
 
@@ -275,9 +307,10 @@ class EventoController extends Controller
             }
         }
 
-        if(!isset($request->gratuito) && isset($request->valor_inscricao)){
+        /*if(!isset($request->gratuito) && isset($request->valor_inscricao)){
             $dados['valor_inscricao'] = str_replace(',', '.', str_replace('.', '',$request->valor_inscricao));
         }
+        */
 
         // $vagasPreenchidas = $evento->inscritos->where('lista_espera', 0)->count();
         $vagasPreenchidas = $evento->inscritos->where('confirmacao', 1)->count();
@@ -313,6 +346,45 @@ class EventoController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    public function encerrar(Evento $evento)
+    {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('email', Auth::user()->id)->first();
+        }
+
+        foreach($user->getRoleNames() as $role) {
+            if(substr($role, 0, 3) === 'gr_') {
+                $grupo = $role;
+            }
+        }
+        if(!isset($grupo) && $grupo != $evento->grupo_usuario) {
+            session()->flash('status', 'Desculpe! Você não está em um grupo que permita encerrar este evento. Solicite suporte caso discorde.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->to('/eventos');
+        }
+
+        $evento->status = 'Encerrado';
+
+        if($evento->save()) {
+            session()->flash('status', 'Evento Encerrado com sucesso.');
+            session()->flash('alert', 'success');
+
+            return redirect()->to('/eventos');
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao Encerrar o evento.');
+            session()->flash('alert', 'danger');
+
+            return redirect()->back();
+        }
+
+
+
     }
 
     public function destroy(Request $request, Evento $evento)
