@@ -76,13 +76,13 @@
                             </div>
                         </div>
                     @endif
-                    @if($userNaComissao && $inscricao->recurso->status == 'Aberto')
+                    @if($userNaComissao && (isset($inscricao->recurso->status) && $inscricao->recurso->status == 'Aberto'))
                         <!-- aprova trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aprovaModal">
                             Aprovar
                         </button>
                     @endif
-                    @if($userNaComissao && $inscricao->recurso->status == 'Aceito')
+                    @if($userNaComissao && (isset($inscricao->recurso->status) && $inscricao->recurso->status == 'Aceito'))
                         <!-- notificar trigger modal -->
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#notificaModal">
                             Notificar Pareceristas
