@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Models\AcaoExtensao;
 use App\Models\User;
 
+use App\Services\Comissao\BuscaUsuariosComissaoUnidade;
 use App\Services\Comissao\ChecaComissao;
 
 class AcaoExtensaoComissaoGraduacaoController extends Controller
