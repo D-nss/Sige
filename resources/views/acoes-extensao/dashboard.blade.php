@@ -357,6 +357,7 @@
                                     <th>Modalidade / Área Temática</th>
                                     <th>Coordenador</th>
                                     <th>Situação</th>
+                                    <th class="text-uppercase text-muted py-2 px-3">Opções</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -429,6 +430,54 @@
 
                                         <div class="text-muted small text-truncate">
                                             Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modalAcao{{$acao_extensao->id}}">
+                                            <div
+                                                data-toggle="tooltip" 
+                                                data-placement="bottom" 
+                                                title="" 
+                                                data-original-title="Analisar parâmetros pedagógicos"
+                                            >
+                                                <i class="fal fa-list"></i>
+                                            </div>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalAcao{{$acao_extensao->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">
+                                                            Análise de Parâmetros Pedagógicos
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{ route('acoes_extensao.comissao_graduacao.store', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                                                    <div class="modal-body">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label>Atende aos requisitos?</label>
+                                                            <select name="status_comissao_graduacao" class="form-control">
+                                                                <option value=""> ... </option>
+                                                                <option value="Sim">Sim</option>
+                                                                <option value="Não">Não</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Parecer da Comissão</label>
+                                                            <textarea name="parecer_comissao_graduacao" class="form-control" cols="30" rows="10"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
