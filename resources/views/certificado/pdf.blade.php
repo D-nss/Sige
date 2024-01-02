@@ -101,7 +101,7 @@
             @if (isset($participante->titulo_palestra))
                 ministrar a palestra intitulada "{{ $participante->titulo_palestra }}"
             @else
-                da comissão de organização
+                participar da comissão de organização
             @endif
         @endif do evento
         @if ($participante->evento->online != null)

@@ -38,7 +38,7 @@
                                             aria-controls="collapseEventosPendentes">
                                             <div class='icon-stack display-3 flex-shrink-0'>
                                                 <i class="fal fa-circle icon-stack-3x opacity-100 color-primary"></i>
-                                                <i class="far fa-calendar-alt icon-stack-1x opacity-100 color-primary"></i>
+                                                <i class="fal fa-calendar-exclamation icon-stack-1x opacity-100 color-primary"></i>
                                                 <span class="badge badge-icon pos-top pos-right">{{count($eventosPendentes)}}</span>
                                             </div>
                                             <h4 class="ml-2 mb-0 flex-1 text-dark fw-500">

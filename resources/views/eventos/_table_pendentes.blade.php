@@ -36,7 +36,7 @@
                     </h4>
 
                 <div class="acoes-evento">
-                    <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id) }}">
+                    <a class="btn-negativo" href="#" data-toggle="modal" data-target="#modalEncerrar{{ $evento->id }}">
                         <span class="a-ic-bt-peq fal fa-check-circle"></span>Encerrar
                     </a>
                     <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id) }}">
@@ -102,7 +102,7 @@
                                             <span class="badge bg-danger ml-1">{{ $evento->inscritos->count() }}</span>
                                             @endif
                                         </a>
-                                        <a class="btn btn-primary" href="#">
+                                        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalCertificado{{ $evento->id }}">
                                             <span class="a-ic-bt-peq fal fa-file-certificate"></span>Certificado
                                         </a>
                                     </p>
@@ -120,6 +120,72 @@
                             </form>
                         </div>
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalCertificado{{ $evento->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $evento->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <form action="{{route('evento.updateCertificado', ['evento' => $evento->id])}}" method="post">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel{{ $evento->id }}">Alterar Certificado</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                        @csrf
+                                        @method('PUT')
+                                        <div class=" @error('modelo') border border-danger rounded p-3 @enderror mb-2">
+                                            <div class="form-group d-block"
+                                                id="carregar_modelo">
+                                                <label class="control-label font-weight-bold text-success">Upload do modelo do
+                                                    certificado</label>
+                                                <div class="preview-zone hidden">
+                                                    <div class="box box-solid">
+                                                        <div class="box-header with-border">
+                                                            <div></div>
+                                                            <div class="box-tools pull-right">
+                                                                <button type="button"
+                                                                    class="btn btn-secondary btn-xs remove-preview">
+                                                                    Limpar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body" id="box-body">
+                                                            @if ($errors->any())
+                                                                <span class="fw-500 text-danger" style="font-size: 16px">Favor
+                                                                    Inclua o arquivo novamente.</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dropzone-wrapper">
+                                                    <div class="dropzone-desc">
+                                                        <i class="glyphicon glyphicon-download-alt"></i>
+                                                        <p class="font-weight-bold">Arraste o arquivo aqui ou clique para
+                                                            selecionar.</p>
+                                                        <p class="text-info fs-sm">O arquivo deve ser no formato PNG</p>
+                                                    </div>
+                                                    <input type="file" name="modelo" class="dropzone" id="modelo"
+                                                        value="{{ old('modelo') }}">
+
+                                                </div>
+                                                <div id="alert-pdf-format"></div>
+                                            </div>
+                                        </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fal fa-times"></span> Fechar</button>
+                                    <button type="submit" class="btn btn-primary"><span class="fal fa-check-circle"></span> Salvar</button>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
 
                 </div>
 
