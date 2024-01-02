@@ -43,7 +43,7 @@ class AcaoExtensaoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:admin|super');
+        //$this->middleware('role:admin|super');
     }
 
     public function dashboard(){
