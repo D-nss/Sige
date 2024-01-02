@@ -75,17 +75,15 @@ class Kernel extends ConsoleKernel
             }
         })->dailyAt('00:01')->timezone('America/Fortaleza');
 
-        //Adicionar funcao
-        /*
-        $schedule->call(function(){
 
+        $schedule->call(function(){
             $eventosPendentes = \App\Models\Eventos::where('status', 'Aberto')->where('data_fim', '<', now())->get();
             $eventosPendentes->each(function($eventosPendentes) {
                 $user = $eventosPendentes->user;
-                $user->notify(new \App\Notifications\
+                $user->notify(new \App\Notifications\EventoPendente($eventosPendentes));
             });
 
-        })->daily();*/
+        })->daily();
     }
 
     /**

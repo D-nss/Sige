@@ -1,11 +1,11 @@
 <table class="table table-bordered table-hover" id="dt-eventos-encerrados" style="width: 100%">
     <thead>
         <tr>
-            <th>Período</th>
-            <th>Local</th>
-            <th>Título</th>
+            <th>Início</th>
+            <th>Fim</th>
+            <th>Nome / Local</th>
             <th>Autor</th>
-            <th>Ações</th>
+            <th>Mais ações</th>
         </tr>
     </thead>
     <tbody>
@@ -13,37 +13,48 @@
             <tr>
                 <td>
                     <div class="flex-1">
-                        <span class="f-sm text-muted">Data Início</span>
-                        <br>
-                        <span
-                            class="fs-lg text-secondary">{{ date('D. M, j Y - H:i', strtotime($evento->data_inicio)) }}</span>
+                        {{ date('d/m/Y', strtotime($evento->data_inicio)) }}<br>
+                        <span class="text-muted">{{ $diasSemana[date('D', strtotime($evento->data_inicio))] }},
+                            <br>{{ date('d', strtotime($evento->data_inicio)) }} de
+                            {{ $meses[date('m', strtotime($evento->data_inicio))] }}
+                            <br> às {{ date('H:i', strtotime($evento->data_inicio)) }}</span>
+
                     </div>
+                </td>
+                <td>
                     <div class="flex-1">
-                        <span class="fs-sm text-muted">Data Fim</span>
-                        <br>
-                        <span
-                            class="fs-lg text-secondary">{{ date('D. M, j Y - H:i', strtotime($evento->data_fim)) }}</span>
+                        {{ date('d/m/Y', strtotime($evento->data_fim)) }}<br>
+                        <span class="text-muted">{{ $diasSemana[date('D', strtotime($evento->data_fim))] }},
+                            <br>{{ date('d', strtotime($evento->data_fim)) }} de
+                            {{ $meses[date('m', strtotime($evento->data_fim))] }}
+                            <br> às {{ date('H:i', strtotime($evento->data_fim)) }}</span><br>
                     </div>
                 </td>
                 <td>
-                    <span class="text-secondary">{{ $evento->local }}</span>
+                    <h4 class="nome-evento text-primary"><a href="{{ url('/eventos/' . $evento->id) }}">
+                            {{ $evento->titulo }}</a>
+                        </h4>
+
+                    <div class="acoes-evento">
+                        <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id) }}">
+                            <span class="a-ic-bt-peq fal fa-eye"></span>Ver Detalhes
+                        </a>
+                    </div>
+
+                    <span class="fw-700 text-muted"><small>Local:</small> {{ $evento->local }}</span>
+                    <br><span class="fw-700 text-muted"><small>(Criado em:
+                            {{ date('d/m/Y', strtotime($evento->created_at)) }}. Atualização:
+                            {{ date('d/m/Y', strtotime($evento->updated_at)) }})</small></span>
                 </td>
-                <td>
-
-                <h4 class="nome-evento text-primary"><a href="{{ url('/eventos/' . $evento->id) }}">
-                        {{ $evento->titulo }}</a>
-                    </h4>
-
-                <div class="acoes-evento">
-                    <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id) }}">
-                        <span class="a-ic-bt-peq fal fa-eye"></span>Ver Detalhes
-                    </a>
-                </div>
-
-            </td>
 
                 <td>
                     <span class="text-secondary">{{ $evento->user->name }}</span>
+                    <div class="text-muted small text-truncate">
+                        Unidade:
+                        <!-- <a href="#"> -->{{ $evento->user->unidade->sigla }}
+                        <!--</a>-->
+                        <br>
+                    </div>
                 </td>
                 <td>
                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
