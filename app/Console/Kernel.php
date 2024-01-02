@@ -80,7 +80,7 @@ class Kernel extends ConsoleKernel
             $eventosPendentes = \App\Models\Eventos::where('status', 'Aberto')->where('data_fim', '<', now())->get();
             $eventosPendentes->each(function($eventosPendentes) {
                 $user = $eventosPendentes->user;
-                $user->notify(new \App\Notifications\EventoPendente($eventosPendentes));
+                $user->notify(new \App\Notifications\EventoPendente($eventosPendentes, ['mail']));
             });
 
         })->daily();
