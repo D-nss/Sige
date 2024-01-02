@@ -37,37 +37,31 @@ use App\Models\UploadFile;
 
 use App\Services\Avaliacao\ComissaoConext;
 use App\Services\Comissao\BuscaUsuariosComissaoUnidade;
+use App\Services\Comissao\ChecaComissao;
 
 class AcaoExtensaoController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('role:admin|super');
+        $this->middleware('role:admin|super');
     }
 
     public function dashboard(){
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
 
         $unidade = Unidade::where('id', $user->unidade_id)->first();
 
-        $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-        ->where('comissoes.unidade_id', $unidade->id)
-        ->where('comissoes_users.user_id', $user->id)
-        ->first();
+        $checaComissaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Extensão', $user->id);
+        $checaComissaoGraduacaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Graduação', $user->id);
 
-        $userNaComissaoConext = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
-        ->where('comissoes.atribuicao', 'Conext')
-        ->where('comissoes_users.user_id', $user->id)
-        ->first();
+        // $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
 
-        $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
-
-        if($userNaComissao) {
+        if($checaComissaoUnidade) {
             $pendentes_unidade = AcaoExtensao::where('unidade_id', $unidade->id)
             ->where('status', 'Pendente')
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
@@ -76,52 +70,51 @@ class AcaoExtensaoController extends Controller
             $pendentes_unidade = array(null);
         }
 
-        if($userNaComissaoConext) {
-            $pendentes = AcaoExtensao::whereNotNull('aprovado_user_id')
+        if($checaComissaoGraduacaoUnidade) {
+            $pendentes_graduacao = AcaoExtensao::whereNotNull('aprovado_user_id')
             ->where('status', 'Aprovado')
-            ->whereNull('avaliacao_conext_user_id')
-            ->whereNull('status_avaliacao_conext')
+            ->whereNull('comissao_graduacao_user_id')
+            ->whereNull('parecer_comissao_graduacao')
+            ->whereNull('status_comissao_graduacao')
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
             ->get();
         }else {
-            $pendentes = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Pendente')->get();
+            $pendentes_graduacao =  array(null);
         }
-
-        $rascunhos = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Rascunho')->get();
 
         //pegar id do usuario
         $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->get();
 
-        $total = AcaoExtensao::where('status', 'Aprovado')->count();
-        $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
-        if(!$total == 0){
-            $porcentagem_unidade = (int) ($total_unidade*100/$total);
-        } else{
-            $porcentagem_unidade = 0;
-        }
+        // $total = AcaoExtensao::where('status', 'Aprovado')->count();
+        // $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
+        // if(!$total == 0){
+        //     $porcentagem_unidade = (int) ($total_unidade*100/$total);
+        // } else{
+        //     $porcentagem_unidade = 0;
+        // }
 
-        $total_cadastrados = AcaoExtensao::where('user_id', $user->id)->count();
-        $total_aprovados = AcaoExtensao::where('user_id', $user->id)->where('status', 'Aprovado')->count();
-        $total_pendentes = AcaoExtensao::where('user_id', $user->id)->where('status', 'Pendente')->count();
-        $total_desativados = AcaoExtensao::where('user_id', $user->id)->where('status', 'Desativado')->count();
+        // $total_cadastrados = AcaoExtensao::where('user_id', $user->id)->count();
+        // $total_aprovados = AcaoExtensao::where('user_id', $user->id)->where('status', 'Aprovado')->count();
+        // $total_pendentes = AcaoExtensao::where('user_id', $user->id)->where('status', 'Pendente')->count();
+        // $total_desativados = AcaoExtensao::where('user_id', $user->id)->where('status', 'Desativado')->count();
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
             'user' => $user,
-            'userNaComissao' => $userNaComissao,
-            'userNaComissaoConext' => $userNaComissaoConext,
-            'acoes_extensao' => $acoes_extensao,
-            'pendentes' => $pendentes,
+            'checaComissaoUnidade' => $checaComissaoUnidade,
+            'checaComissaoGraduacaoUnidade' => $checaComissaoGraduacaoUnidade,
+            // 'acoes_extensao' => $acoes_extensao,
+            'pendentes_graduacao' => $pendentes_graduacao,
             'pendentes_unidade' => $pendentes_unidade,
-            'rascunhos' => $rascunhos,
-            'total' => $total,
-            'total_unidade' => $total_unidade,
-            'porcentagem_unidade' => $porcentagem_unidade,
-            'total_cadastrados' => $total_cadastrados,
-            'total_aprovados' => $total_aprovados,
-            'total_pendentes' => $total_pendentes,
-            'total_desativados' => $total_desativados
+        //     'rascunhos' => $rascunhos,
+        //     'total' => $total,
+        //     'total_unidade' => $total_unidade,
+        //     'porcentagem_unidade' => $porcentagem_unidade,
+        //     'total_cadastrados' => $total_cadastrados,
+        //     'total_aprovados' => $total_aprovados,
+        //     'total_pendentes' => $total_pendentes,
+        //     'total_desativados' => $total_desativados
         ]);
 
     }

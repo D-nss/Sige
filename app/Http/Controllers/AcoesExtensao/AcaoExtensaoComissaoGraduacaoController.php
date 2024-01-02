@@ -49,11 +49,21 @@ class AcaoExtensaoComissaoGraduacaoController extends Controller
             return redirect()->back();
         }
 
+        $comite_graduacao = BuscaUsuariosComissaoGraduacao::execute($acao_extensao->unidade_id);
+
         $acao_extensao->comissao_graduacao_user_id = $user->id;
         $acao_extensao->status_comissao_graduacao = $request->status_comissao_graduacao;
         $acao_extensao->parecer_comissao_graduacao = $request->parecer_comissao_graduacao;
         if($acao_extensao->update()) {
-            //Notification::send($user_comite, new \App\Notifications\AcaoExtensaoNotificacaoComite($acao_extensao));
+            if( $request->status_comissao_graduacao == 'Sim') {
+                Notification::send($acao_extensao->user, new \App\Notifications\AcaoExtensaoNotificacaoAceiteGraduacao($acao_extensao));
+                Notification::send($comite_graduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidadeAceiteGraduacao($acao_extensao));
+            }
+            else {
+                Notification::send($acao_extensao->user, new \App\Notifications\AcaoExtensaoNotificacaoNaoAceiteGraduacao($acao_extensao));
+                Notification::send($comite_graduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidadeNaoAceiteGraduacao($acao_extensao));
+            }
+
             session()->flash('status', 'Parecer de comissão de graduação cadastrado com sucesso');
             session()->flash('alert', 'success');
 

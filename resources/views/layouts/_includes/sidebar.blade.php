@@ -75,7 +75,7 @@
                                 <a href="{{ url('acoes-extensao/painel/extensao') }}" title="Dashboard"
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Painel</span>
                                 </a>
                             </li>
                             <li class="">
