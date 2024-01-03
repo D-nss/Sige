@@ -149,7 +149,7 @@
                                         {{$acao_extensao->updated_at->format('d/m/Y')}}
                                     </td>
                                     <td>
-                                        @if($acao_extensao->status_comissao_graduacao === 'Sim')
+                                        @if($acao_extensao->status_comissao_graduacao === 'Sim' && $acao_extensao->user_id == Auth::user()->id)
                                             <a 
                                                 href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" 
                                                 class="btn btn-primary btn-pills waves-effect waves-themed fs-xl"

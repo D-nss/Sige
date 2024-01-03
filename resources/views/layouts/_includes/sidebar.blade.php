@@ -99,6 +99,22 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
                                 </a>
                             </li>
+                            @hasrole('at_conext')
+                            <li class="">
+                                <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
+                                    data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text"
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="{{ url('acoes-extensao-deliberacao-conext') }}" title="Deliberação"
+                                    data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text"
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Deliberação</span>
+                                </a>
+                            </li>
+                            @endhasrole
                             <li class="">
                                 <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
                                     data-filter-tags="utilities menu child sublevel item">
@@ -106,33 +122,7 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="javascript:void(0);" title="Listagem"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Listagem Pendencias</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ url('acoes-extensao-pendencias-conext') }}"
-                                            title="Pendencias Conext"
-                                            data-filter-tags="utilities menu child sublevel item"
-                                            class=" waves-effect waves-themed">
-                                            <span class="nav-link-text" data-i18n="nav.font_icons_fontawesome_light">Por
-                                                Conext</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('acoes-extensao-pendencias-unidades') }}"
-                                            title="Pendencias Unidades"
-                                            data-filter-tags="utilities menu child sublevel item"
-                                            class=" waves-effect waves-themed">
-                                            <span class="nav-link-text"
-                                                data-i18n="nav.font_icons_fontawesome_regular">Por Unidades</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                             <li class="">
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa"
                                     data-filter-tags="utilities menu child sublevel item">

@@ -84,6 +84,7 @@ class AcaoExtensaoController extends Controller
 
         //pegar id do usuario
         $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->get();
+        $pendentes_comite_consultivo =  AcaoExtensao::where('comite_user_id', $user->id)->get();
 
         // $total = AcaoExtensao::where('status', 'Aprovado')->count();
         // $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
@@ -107,6 +108,7 @@ class AcaoExtensaoController extends Controller
             // 'acoes_extensao' => $acoes_extensao,
             'pendentes_graduacao' => $pendentes_graduacao,
             'pendentes_unidade' => $pendentes_unidade,
+            'pendentes_comite_consultivo' => $pendentes_comite_consultivo,
         //     'rascunhos' => $rascunhos,
         //     'total' => $total,
         //     'total_unidade' => $total_unidade,
@@ -171,7 +173,7 @@ class AcaoExtensaoController extends Controller
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
         $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')
-        ->where('status_comissao_graduacao', 'Sim')
+        ->where('status_avaliacao_conext', 'Reconhecido')
         ->get();
 
         return view('acoes-extensao.catalogo', [
