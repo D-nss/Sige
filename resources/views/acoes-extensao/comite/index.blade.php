@@ -123,7 +123,7 @@
                                     <td>
                                         @if(is_null($acao_extensao->comite_consultivo_id))
                                             <a 
-                                                href="#" 
+                                                href="{{ url('acoes-extensao-comite-consultivo/' . $acao_extensao->id. '/adicionar-membro') }}" 
                                                 class="btn btn-primary btn-pills waves-effect waves-themed fs-xl"
                                                 data-toggle="tooltip" 
                                                 data-placement="bottom" 

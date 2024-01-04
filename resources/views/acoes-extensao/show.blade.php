@@ -127,10 +127,13 @@
         @default
         <span class="badge badge-warning">Indefinido</span>
         @endswitch
+        @if(!is_null($acao_extensao->status_comissao_graduacao ) && $acao_extensao->status_comissao_graduacao == 'Sim')
+        <span class="badge badge-primary">Aceito na Comissão de Graduação</span>
+        @endif
         @if(!is_null($acao_extensao->aceite_comite ) && $acao_extensao->aceite_comite == 'Sim')
         <span class="badge badge-primary">Aceito no Comitê Consultivo</span>
         @endif
-        @if($acao_extensao->status_avaliacao_conext == 'Aprovado')
+        @if($acao_extensao->status_avaliacao_conext == 'Reconhecido')
         <span class="badge badge-primary">Reconhecido Pelo Conext</span>
         @endif
         <small>
