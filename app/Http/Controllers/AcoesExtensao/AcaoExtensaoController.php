@@ -848,7 +848,7 @@ class AcaoExtensaoController extends Controller
             return redirect()->back();
         }
 
-        if(!\App\Services\Comissao\ChecaComissao::execute('unidade', $acaoExtensao->unidade->id, 'Extensão',$user_id)) {
+        if(!\App\Services\Comissao\ChecaComissao::execute('unidade', $acaoExtensao->unidade->id, 'Extensão',$user->id)) {
             session()->flash('status', 'Desculpe! Para aprovar esta ação você deve estar na comissão da unidade '. $acaoExtensao->unidade->sigla .'.');
             session()->flash('alert', 'warning');
 
