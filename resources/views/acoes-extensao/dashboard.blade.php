@@ -147,7 +147,7 @@
                                             >
                                                 <i class="fal fa-file-edit"></i>
                                             </a>
-                                            @if($acao_extensao->status_avaliacao_conext === 'Aprovado')
+                                            @if($acao_extensao->status_avaliacao_conext === 'Reconhecido')
                                                 <a 
                                                     href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" 
                                                     class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
