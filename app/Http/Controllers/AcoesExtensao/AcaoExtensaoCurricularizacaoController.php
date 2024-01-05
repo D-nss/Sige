@@ -71,7 +71,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
         $matricula = Auth::user()->matricula;
-        echo json_encode(Auth::user());
+        echo json_encode(auth()->user);
         // $alunos = json_decode(File::get(storage_path('alunos.json')), true);
         // foreach($alunos as $aluno){
         //     if($aluno["NREGALUN"] == $matricula) {
