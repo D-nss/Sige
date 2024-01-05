@@ -39,8 +39,6 @@ class UserController extends Controller
                     'email' => Auth::user()->id,
                     'unidade_id' => $unidade->id,
                     'ativo' => true,
-                    'matricula' => Auth::user()->matricula,
-                    'tipo' => Auth::user()->employeetype,
                 ])->assignRole('user');
             } else {
                 return 'unidade não encontrada, entre em contato com administrador do sistema!';
