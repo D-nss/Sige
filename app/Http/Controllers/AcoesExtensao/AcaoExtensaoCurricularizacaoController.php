@@ -61,34 +61,33 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
     public function create(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
-        // if(Auth::user()->employeetype != "Aluno UNICAMP") {
-        //     session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if(Auth::user()->employeetype != "Aluno UNICAMP") {
+            session()->flash('status', 'Desculpe! Somente alunos UNICAMP podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
         $matricula = Auth::user()->matricula;
-        $user = Auth::user();
-        echo json_encode(["matricula" => Auth::user()->matricula, "usuario" => $user]);
-        // $alunos = json_decode(File::get(storage_path('alunos.json')), true);
-        // foreach($alunos as $aluno){
-        //     if($aluno["NREGALUN"] == $matricula) {
-        //         $dadosAluno = $aluno;
-        //         break;
-        //     }
-        // }
+        
+        $alunos = json_decode(File::get(storage_path('alunos.json')), true);
+        foreach($alunos as $aluno){
+            if($aluno["NREGALUN"] == $matricula) {
+                $dadosAluno = $aluno;
+                break;
+            }
+        }
 
-        // if(empty($dadosAluno)) {
-        //     session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if(empty($dadosAluno)) {
+            session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
-        // return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+        return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
