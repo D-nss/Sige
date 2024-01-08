@@ -134,7 +134,7 @@
                         <!-- datatable end -->
                         <form action="{{ route('acao_extensao_pendencias.deliberacao_conext.gerar') }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-primary">Gerar Deliberação</button>
+                            <button type="submit" class="btn btn-primary">Gerar Planilha</button>
                         </form>
                     </div>
                 </div>

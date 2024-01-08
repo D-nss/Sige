@@ -47,7 +47,7 @@ class AcaoExtensaoCienciaController extends Controller
 
         $acoes_extensao = AcaoExtensao::where('modalidade', "<>",1)
                                         ->where('status_comissao_graduacao', 'Sim')
-                                        ->whereNull('ciencia')
+                                        ->where('ciencia', 'Gerado')
                                         ->whereNull('ciencia_status')
                                         ->get();
         
