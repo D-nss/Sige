@@ -52,7 +52,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         }
         else {
             //Tratar melhor essa parte do Controller, e tratativa de mensagens ao usuário, pois caso tenha uma ocorrência, mas não tem aluno inscrito, também cai nessa mensagem
-            session()->flash('status', 'Desculpe! Não há ocorrências para esta ação e extensão, por tanto não possui alunos de curricularização');
+            session()->flash('status', 'Desculpe! Não há alunos inscritos para ocorrência desta ação de extensão, por tanto não possui alunos de curricularização');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
@@ -71,6 +71,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
         $matricula = Auth::user()->matricula;
+        
         $alunos = json_decode(File::get(storage_path('alunos.json')), true);
         foreach($alunos as $aluno){
             if($aluno["NREGALUN"] == $matricula) {
