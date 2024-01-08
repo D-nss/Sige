@@ -36,6 +36,7 @@ use App\Http\Controllers\AcoesExtensao\ExtensaoOcorrenciasCatalogoController;
 use App\Http\Controllers\AcoesExtensao\AcaoExtensaoCurricularizacaoController;
 use App\Http\Controllers\AcoesExtensao\AcaoExtensaoComiteController;
 use App\Http\Controllers\AcoesExtensao\AcaoExtensaoDeliberacaoController;
+use App\Http\Controllers\AcoesExtensao\AcaoExtensaoCienciaController;
 use App\Http\Controllers\AcoesExtensao\AcaoExtensaoComissaoGraduacaoController;
 
 //Controllers do modulo de Editais
@@ -168,6 +169,10 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'index'])->name('acao_extensao_pendencias.deliberacao_conext');
     Route::post('/acoes-extensao-deliberacao-conext', [AcaoExtensaoDeliberacaoController::class, 'gerarExcel'])->name('acao_extensao_pendencias.deliberacao_conext.gerar');
     Route::post('/acoes-extensao-deliberacao-conext/reconhecer', [AcaoExtensaoDeliberacaoController::class, 'reconhecer'])->name('acao_extensao_pendencias.deliberacao_conext.reconhecer');
+
+    Route::get('/acoes-extensao-ciencia-conext', [AcaoExtensaoCienciaController::class, 'index'])->name('acao_extensao_pendencias.ciencia_conext');
+    Route::post('/acoes-extensao-ciencia-conext', [AcaoExtensaoCienciaController::class, 'gerarExcel'])->name('acao_extensao_pendencias.ciencia_conext.gerar');
+    Route::post('/acoes-extensao-ciencia-conext/reconhecer', [AcaoExtensaoCienciaController::class, 'reconhecer'])->name('acao_extensao_pendencias.ciencia_conext.reconhecer');
 
     Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/novo', [ExtensaoEquipeController::class, 'create']);
     Route::get('acoes-extensao-ocorrencia/{acao_extensao_ocorrencia}/equipe/', [ExtensaoEquipeController::class, 'index']);

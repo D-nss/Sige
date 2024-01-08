@@ -101,10 +101,10 @@
                             </li>
                             @hasrole('at_conext')
                             <li class="">
-                                <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
+                                <a href="{{ url('acoes-extensao-ciencia-conext') }}" title="Deliberação"
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Ciência Conext</span>
                                 </a>
                             </li>
                             <li class="">
@@ -112,6 +112,13 @@
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Deliberação</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
+                                    data-filter-tags="utilities menu child sublevel item">
+                                    <span class="nav-link-text"
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
                                 </a>
                             </li>
                             @endhasrole
