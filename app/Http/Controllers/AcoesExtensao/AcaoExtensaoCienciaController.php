@@ -51,7 +51,7 @@ class AcaoExtensaoCienciaController extends Controller
                                         ->whereNull('ciencia_status')
                                         ->get();
         
-        return view('acoes-extensao.deliberacao-conext.index', [
+        return view('acoes-extensao.ciencia-conext.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,
             'linhas_extensao' => $linhas_extensao,

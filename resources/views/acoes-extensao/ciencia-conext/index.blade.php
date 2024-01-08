@@ -18,9 +18,9 @@
             As ações listadas abaixo já foram enviadas para ciência, e estão aguardando reconhecimento do Conext.
             </span>
         </div>
-        <form action="{{ route('acao_extensao_pendencias.deliberacao_conext.reconhecer') }}" method="post">
+        <form action="{{ route('acao_extensao_pendencias.ciencia_conext.reconhecer') }}" method="post">
             @csrf
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Reconhecimento</button>
+            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Ciência</button>
         </form>    
     </div>
 </div>
