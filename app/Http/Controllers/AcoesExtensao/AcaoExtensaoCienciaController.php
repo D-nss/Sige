@@ -45,7 +45,7 @@ class AcaoExtensaoCienciaController extends Controller
         $areas_tematicas = AreaTematica::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
-        $acoes_extensao = AcaoExtensao::where('modalidade', "<>",1)
+        $acoes_extensao = AcaoExtensao::where('modalidade', "!=", 1)
                                         ->where('status_comissao_graduacao', 'Sim')
                                         ->where('ciencia', 'Gerado')
                                         ->whereNull('ciencia_status')
@@ -76,7 +76,7 @@ class AcaoExtensaoCienciaController extends Controller
             return redirect()->back();
         }
         
-        AcaoExtensao::where('modalidade', "<>",1)
+        AcaoExtensao::where('modalidade', "!=", 1)
             ->where('status_comissao_graduacao', 'Sim')
             ->whereNull('ciencia')
             ->whereNull('ciencia_status')
@@ -100,13 +100,13 @@ class AcaoExtensaoCienciaController extends Controller
             return redirect()->back();
         }
 
-        $acoes_extensao = AcaoExtensao::where('modalidade', "<>",1)
+        $acoes_extensao = AcaoExtensao::where('modalidade', "!=",1)
             ->where('status_comissao_graduacao', 'Sim')
             ->where('ciencia', 'Gerado')
             ->whereNull('ciencia_status')
             ->get();
         
-        AcaoExtensao::where('modalidade', "<>",1)
+        AcaoExtensao::where('modalidade', "!=",1)
             ->where('status_comissao_graduacao', 'Sim')
             ->where('ciencia', 'Gerado')
             ->whereNull('ciencia_status')
