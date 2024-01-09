@@ -47,20 +47,18 @@ class AcaoExtensaoCienciaController extends Controller
 
         $acoes_extensao = AcaoExtensao::where('modalidade', "!=", 1)
                                         ->where('status_comissao_graduacao', 'Sim')
-                                        // ->where('ciencia', 'Gerado')
-                                        ->whereNull('ciencia')
+                                        ->where('ciencia', 'Gerado')
                                         ->whereNull('ciencia_status')
                                         ->get();
         
-        echo json_encode($acoes_extensao);
-        // return view('acoes-extensao.ciencia-conext.index', [
-        //     'acoes_extensao' => $acoes_extensao,
-        //     'unidades' => $unidades,
-        //     'linhas_extensao' => $linhas_extensao,
-        //     'areas_tematicas' => $areas_tematicas,
-        //     'estados' => $estados,
-        //     'user'    => $user,
-        // ]);
+        return view('acoes-extensao.ciencia-conext.index', [
+            'acoes_extensao' => $acoes_extensao,
+            'unidades' => $unidades,
+            'linhas_extensao' => $linhas_extensao,
+            'areas_tematicas' => $areas_tematicas,
+            'estados' => $estados,
+            'user'    => $user,
+        ]);
     }
 
     public function gerarExcel()
