@@ -51,14 +51,15 @@ class AcaoExtensaoCienciaController extends Controller
                                         ->whereNull('ciencia_status')
                                         ->get();
         
-        return view('acoes-extensao.ciencia-conext.index', [
-            'acoes_extensao' => $acoes_extensao,
-            'unidades' => $unidades,
-            'linhas_extensao' => $linhas_extensao,
-            'areas_tematicas' => $areas_tematicas,
-            'estados' => $estados,
-            'user'    => $user,
-        ]);
+        echo json_encode($acoes_extensao);
+        // return view('acoes-extensao.ciencia-conext.index', [
+        //     'acoes_extensao' => $acoes_extensao,
+        //     'unidades' => $unidades,
+        //     'linhas_extensao' => $linhas_extensao,
+        //     'areas_tematicas' => $areas_tematicas,
+        //     'estados' => $estados,
+        //     'user'    => $user,
+        // ]);
     }
 
     public function gerarExcel()
