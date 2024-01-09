@@ -99,7 +99,7 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
                                 </a>
                             </li>
-                            @hasrole('at_conext')
+                            @hasanyrole('super|admin|at_conext', 'web_user')
                             <li class="">
                                 <a href="{{ url('acoes-extensao-ciencia-conext') }}" title="Ciência Conext"
                                     data-filter-tags="utilities menu child sublevel item">
@@ -121,7 +121,7 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
                                 </a>
                             </li>
-                            @endhasrole
+                            @endhasanyrole
                             <li class="">
                                 <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
                                     data-filter-tags="utilities menu child sublevel item">

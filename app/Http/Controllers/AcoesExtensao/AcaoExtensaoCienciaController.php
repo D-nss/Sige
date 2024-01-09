@@ -82,7 +82,7 @@ class AcaoExtensaoCienciaController extends Controller
             ->whereNull('ciencia_status')
             ->update(['ciencia' => 'Gerado']);
 
-        return Excel::download(new AcoesExtensaoCienciaExport(), 'deliberacao_conext_' . date('d_m_Y_H_i_m') . '.xlsx');
+        return Excel::download(new AcoesExtensaoCienciaExport(), 'ciencia_conext_' . date('d_m_Y_H_i_m') . '.xlsx');
     }
 
     public function reconhecer()
