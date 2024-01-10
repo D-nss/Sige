@@ -147,7 +147,7 @@ Versão: 4.5.1
                 @include('layouts._includes.sidebar')
                 <!-- END Left Aside -->
                 <div class="page-content-wrapper">
-                    
+
                 <!-- BEGIN Page Header -->
                     @include('layouts._includes.header')
                     <!-- END Page Header -->
@@ -1153,6 +1153,11 @@ Versão: 4.5.1
                 @elseif( session('alert') == 'warning')
                     toastr.warning('{{ session('status') }}');
                 @endif
+
+                @php
+                    session()->forget('alert');
+                    session()->forget('status');
+                @endphp
 
                 @if($errors->any())
                     var content = '';
