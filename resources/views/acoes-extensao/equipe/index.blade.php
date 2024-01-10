@@ -26,7 +26,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
-            <a class="btn btn-success btn-lg btn-icon rounded-circle" href="{{ url('/acoes-extensao-ocorrencia/' . $acaoExtensaoOcorrencia->id . '/equipe/novo') }}"><i class="far fa-plus"></i></a> Adicionar Membro
             <div class="mt-3">
                 <div id="panel-1" class="panel mt-2">
                     <div class="panel-hdr">
