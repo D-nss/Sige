@@ -51,6 +51,7 @@
                             <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th class="text-uppercase text-muted py-2 px-3">#</th>
                                         <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
                                         <th class="text-uppercase text-muted py-2 px-3">Modalidade / Linha / Área</th>
@@ -66,8 +67,8 @@
                                             <div class="form-group form-check">
                                                 <input type="checkbox" class="form-check-input" name="selecionados[]" value="{{$acao_extensao->id}}" >
                                             </div>
-                                            {{$acao_extensao->id}}
                                         </td>
+                                        <td>{{$acao_extensao->id}}</td>
                                         <td>
                                             <div class="d-block">
                                                 <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500">
@@ -134,7 +135,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Ciência</button>
+                            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm float-right" >Marcar Ciência</button>
                             <!-- datatable end -->
                         </form>
                         <form action="{{ route('acao_extensao_pendencias.ciencia_conext.gerar') }}" method="post">
