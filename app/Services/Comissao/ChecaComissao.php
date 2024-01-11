@@ -25,9 +25,6 @@ class ChecaComissao
                                 ->first();
         
         if(!$userNaComissao){
-            session()->flash('status', 'Desculpe! Você não faz parte da comissão necessária para acesso!');
-            session()->flash('alert', 'warning');
-
             return false;
         }else {
             return true;

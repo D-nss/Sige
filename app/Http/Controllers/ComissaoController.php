@@ -185,9 +185,10 @@ class ComissaoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Comissao $comissao
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comissao $comissao)
+    public function destroy(Request $request, Comissao $comissao)
     {
         $comissao_user_deleted = ComissaoUser::where('comissao_id', $comissao->id)->delete();
 
