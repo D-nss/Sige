@@ -17,11 +17,7 @@
             <span class="h5">
             As ações listadas abaixo já foram enviadas para deliberação, e estão aguardando reconhecimento do Conext.
             </span>
-        </div>
-        <form action="{{ route('acao_extensao_pendencias.deliberacao_conext.reconhecer') }}" method="post">
-            @csrf
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Reconhecimento</button>
-        </form>    
+        </div>   
     </div>
 </div>
 <div class="subheader">
@@ -48,7 +44,8 @@
                 </div>
                 <div class="panel-container show">
                     <div class="panel-content">
-
+                        <form action="{{ route('acao_extensao_pendencias.deliberacao_conext.reconhecer') }}" method="post">
+                        @csrf
                         <!-- datatable start -->
                         <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
                             <thead>
@@ -64,7 +61,11 @@
                             <tbody>
                                 @foreach($acoes_extensao as $acao_extensao)
                                 <tr>
-                                    <td>{{$acao_extensao->id}}</td>
+                                    <td>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" name="selecionados[]" value="{{$acao_extensao->id}}" >
+                                        </div>
+                                        {{$acao_extensao->id}}</td>
                                     <td>
                                         <div class="d-block">
                                             <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500">
@@ -132,6 +133,8 @@
                             </tbody>
                         </table>
                         <!-- datatable end -->
+                            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Reconhecimento</button>
+                        </form> 
                         <form action="{{ route('acao_extensao_pendencias.deliberacao_conext.gerar') }}" method="post">
                             @csrf
                             <button type="submit" class="btn btn-primary">Gerar Deliberação</button>

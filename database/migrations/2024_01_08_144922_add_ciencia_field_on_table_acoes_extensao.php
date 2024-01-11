@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('acoes_extensao', function (Blueprint $table) {
             $table->string('ciencia', 20)->nullable();
-            $table->string('ciencia_status', 10)->nullable();
+            $table->string('ciencia_status', 20)->nullable();
         });
     }
 

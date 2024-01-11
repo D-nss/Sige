@@ -88,7 +88,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
         return Excel::download(new AcoesExtensaoDeliberacaoExport(), 'deliberacao_conext_' . date('d_m_Y_H_i_m') . '.xlsx');
     }
 
-    public function reconhecer()
+    public function reconhecer(Request $request)
     {
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
@@ -103,36 +103,37 @@ class AcaoExtensaoDeliberacaoController extends Controller
             return redirect()->back();
         }
 
-        $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')
-            ->where('aceite_comite', 'Sim')
-            ->where('deliberacao', 'Gerado')
-            ->whereNull('status_avaliacao_conext')
-            ->whereNull('avaliacao_conext_user_id')
-            ->get();
-        
-        AcaoExtensao::where('status', 'Aprovado')
-            ->where('aceite_comite', 'Sim')
-            ->where('deliberacao', 'Gerado')
-            ->whereNull('status_avaliacao_conext')
-            ->whereNull('avaliacao_conext_user_id')
-            ->update([
-                'status_avaliacao_conext'   => 'Reconhecido',
-                'avaliacao_conext_user_id'  => $user->id
-            ]);
+        $count = 0;
 
-        if( $acoes_extensao->count() == 0 ) {
+        foreach($request->selecionados as $selecionado) {
+            $linhas_afetadas =  AcaoExtensao::where('status', 'Aprovado')
+                ->where('aceite_comite', 'Sim')
+                ->where('deliberacao', 'Gerado')
+                ->whereNull('status_avaliacao_conext')
+                ->whereNull('avaliacao_conext_user_id')
+                ->where('id', $selecionado)
+                ->update([
+                    'status_avaliacao_conext'   => 'Reconhecido',
+                    'avaliacao_conext_user_id'  => $user->id
+                ]);
+
+                if($linhas_afetadas == 1) {
+                    $count += 1;
+                    $acao_extensao = AcaoExtensao::find($selecionado);
+                    $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
+                    $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
+                    Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarReconhecimentoComissaoUnidade($acao_extensao));
+                }
+        }
+
+        if( $count == 0 ) {
             session()->flash('status', 'Nenhuma ação foi reconhecida!');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
 
-        if( $acoes_extensao->count() > 0 ) {
-            foreach($acoes_extensao as $acao_extensao){
-                $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
-                $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
-                Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarReconhecimentoComissaoUnidade($acao_extensao));
-            }
+        if( $count > 0 ) {
             
             session()->flash('status', 'Ações reconhecidas com sucesso!');
             session()->flash('alert', 'success');

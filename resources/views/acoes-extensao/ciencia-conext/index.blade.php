@@ -18,10 +18,7 @@
             As ações listadas abaixo já foram enviadas para ciência, e estão aguardando reconhecimento do Conext.
             </span>
         </div>
-        <form action="{{ route('acao_extensao_pendencias.ciencia_conext.reconhecer') }}" method="post">
-            @csrf
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Ciência</button>
-        </form>    
+         
     </div>
 </div>
 <div class="subheader">
@@ -48,90 +45,98 @@
                 </div>
                 <div class="panel-container show">
                     <div class="panel-content">
-
-                        <!-- datatable start -->
-                        <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-muted py-2 px-3">#</th>
-                                    <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
-                                    <th class="text-uppercase text-muted py-2 px-3">Modalidade / Linha / Área</th>
-                                    <th class="text-uppercase text-muted py-2 px-3">ODS</th>
-                                    <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
-                                    <th class="text-uppercase text-muted py-2 px-3">Atualização</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($acoes_extensao as $acao_extensao)
-                                <tr>
-                                    <td>{{$acao_extensao->id}}</td>
-                                    <td>
-                                        <div class="d-block">
-                                            <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500">
-                                                {{$acao_extensao->titulo}}
+                        <form action="{{ route('acao_extensao_pendencias.ciencia_conext.reconhecer') }}" method="post">
+                            @csrf
+                            <!-- datatable start -->
+                            <table id="dt-acoes-extensao" class="table table-bordered table-hover table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-muted py-2 px-3">#</th>
+                                        <th class="text-uppercase text-muted py-2 px-3">Ação de Extensão</th>
+                                        <th class="text-uppercase text-muted py-2 px-3">Modalidade / Linha / Área</th>
+                                        <th class="text-uppercase text-muted py-2 px-3">ODS</th>
+                                        <th class="text-uppercase text-muted py-2 px-3">Coordenador</th>
+                                        <th class="text-uppercase text-muted py-2 px-3">Atualização</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($acoes_extensao as $acao_extensao)
+                                    <tr>
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" name="selecionados[]" value="{{$acao_extensao->id}}" >
+                                            </div>
+                                            {{$acao_extensao->id}}
+                                        </td>
+                                        <td>
+                                            <div class="d-block">
+                                                <a href="/acoes-extensao/{{$acao_extensao->id}}" class="fs-lg fw-500">
+                                                    {{$acao_extensao->titulo}}
+                                                </a>
+                                            </div>
+                                            <div class="d-block text-muted fs-sm">
+                                                <small class="mt-0 mb-3 text-muted">
+                                                    @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
+                                                    <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-secondary">{{$palavra_chave}}</span></a>
+                                                    @endforeach
+                                                </small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="/acoes-extensao/modalidades/{{$acao_extensao->modalidade}}" class="text-success">
+                                                @switch($acao_extensao->modalidade)
+                                                @case(1)
+                                                Programa
+                                                @break
+                                                @case(2)
+                                                Projeto
+                                                @break
+                                                @case(3)
+                                                Curso
+                                                @break
+                                                @case(4)
+                                                Evento
+                                                @break
+                                                @case(5)
+                                                Prestação de serviços
+                                                @break
+                                                @default
+                                                Indefinido
+                                                @endswitch
                                             </a>
-                                        </div>
-                                        <div class="d-block text-muted fs-sm">
-                                            <small class="mt-0 mb-3 text-muted">
-                                                @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
-                                                <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-secondary">{{$palavra_chave}}</span></a>
-                                                @endforeach
-                                            </small>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="/acoes-extensao/modalidades/{{$acao_extensao->modalidade}}" class="text-success">
-                                            @switch($acao_extensao->modalidade)
-                                            @case(1)
-                                            Programa
-                                            @break
-                                            @case(2)
-                                            Projeto
-                                            @break
-                                            @case(3)
-                                            Curso
-                                            @break
-                                            @case(4)
-                                            Evento
-                                            @break
-                                            @case(5)
-                                            Prestação de serviços
-                                            @break
-                                            @default
-                                            Indefinido
-                                            @endswitch
-                                        </a>
-                                        <div class="d-block text-muted fs-sm">
-                                            <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
-                                        </div>
-                                        @foreach ($acao_extensao->areas_tematicas as $area_tematica)
-                                        <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="text-muted small text-truncate">
-                                            {{$area_tematica->nome}}
-                                        </a>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @foreach ($acao_extensao->objetivos_desenvolvimento_sustentavel as $ods)
-                                        <a href="/acoes-extensao/ods/{{$ods->id}}" class="d-block text-dark fs-sm">
-                                            {{$ods->nome}}
-                                        </a>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        {{$acao_extensao->nome_coordenador}}
-                                        <div class="text-muted small text-truncate">
-                                            Unidade: <a href="/acoes-extensao/unidades/{{$acao_extensao->unidade->id}}">{{$acao_extensao->unidade->sigla}}</a>
-                                            <br>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {{$acao_extensao->updated_at->format('d/m/Y')}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- datatable end -->
+                                            <div class="d-block text-muted fs-sm">
+                                                <a href="/acoes-extensao/linhas/{{$acao_extensao->linha_extensao->id}}" class="fs-xs fw-400 text-dark">{{$acao_extensao->linha_extensao->nome}}</a>
+                                            </div>
+                                            @foreach ($acao_extensao->areas_tematicas as $area_tematica)
+                                            <a href="/acoes-extensao/areas/{{$area_tematica->id}}" class="text-muted small text-truncate">
+                                                {{$area_tematica->nome}}
+                                            </a>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($acao_extensao->objetivos_desenvolvimento_sustentavel as $ods)
+                                            <a href="/acoes-extensao/ods/{{$ods->id}}" class="d-block text-dark fs-sm">
+                                                {{$ods->nome}}
+                                            </a>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{$acao_extensao->nome_coordenador}}
+                                            <div class="text-muted small text-truncate">
+                                                Unidade: <a href="/acoes-extensao/unidades/{{$acao_extensao->unidade->id}}">{{$acao_extensao->unidade->sigla}}</a>
+                                                <br>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm" >Marcar Ciência</button>
+                            <!-- datatable end -->
+                        </form>
                         <form action="{{ route('acao_extensao_pendencias.ciencia_conext.gerar') }}" method="post">
                             @csrf
                             <button type="submit" class="btn btn-primary">Gerar Planilha</button>
