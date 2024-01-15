@@ -49,7 +49,7 @@ class AcaoExtensaoController extends Controller
     public function dashboard(){
 
         if(App::environment('local')){
-            $user = User::where('id', 4)->first();
+            $user = User::where('id', 3)->first();
         } else {
             $user = User::where('email', Auth::user()->id)->first();
         }
@@ -65,7 +65,7 @@ class AcaoExtensaoController extends Controller
             $pendentes_unidade = AcaoExtensao::where('unidade_id', $unidade->id)
             ->where('status', 'Pendente')
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
-            ->get();
+            ->paginate(5);
         } else{
             $pendentes_unidade = array(null);
         }
@@ -77,14 +77,14 @@ class AcaoExtensaoController extends Controller
             ->whereNull('parecer_comissao_graduacao')
             ->whereNull('status_comissao_graduacao')
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
-            ->get();
+            ->paginate(5);
         }else {
             $pendentes_graduacao =  array(null);
         }
 
         //pegar id do usuario
-        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->get();
-        $pendentes_comite_consultivo =  AcaoExtensao::where('comite_user_id', $user->id)->get();
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->orderBy('id','desc')->paginate(5);
+        $pendentes_comite_consultivo =  AcaoExtensao::where('comite_user_id', $user->id)->whereNull('aceite_comite')->paginate(5);;
 
         // $total = AcaoExtensao::where('status', 'Aprovado')->count();
         // $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
