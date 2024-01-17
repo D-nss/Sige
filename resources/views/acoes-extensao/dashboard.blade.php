@@ -52,7 +52,7 @@
         <div id="panel" class="panel">
             <div class="panel-hdr ">
                 <h2>
-                    Minhas Ações de Extensões
+                    Minhas Ações de Extensão
                     <small class="text-muted">Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo</small>
                 </h2>
                 <div class="panel-toolbar">
@@ -149,23 +149,23 @@
                                     </td>
                                     <td>
                                         @if($user->id == $acao_extensao->user_id)
-                                            <a 
-                                                href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" 
+                                            <a
+                                                href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}"
                                                 class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
-                                                data-toggle="tooltip" 
-                                                data-placement="bottom" 
-                                                title="" 
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title=""
                                                 data-original-title="Editar Registro"
                                             >
                                                 <i class="fal fa-file-edit"></i>
                                             </a>
                                             @if($acao_extensao->status_comissao_graduacao === 'Sim')
-                                                <a 
-                                                    href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}" 
+                                                <a
+                                                    href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}"
                                                     class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
-                                                    data-toggle="tooltip" 
-                                                    data-placement="bottom" 
-                                                    title="" 
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title=""
                                                     data-original-title="Ocorrências"
                                                 >
                                                 <i class="fal fa-clipboard-list-check"></i>
@@ -449,9 +449,9 @@
                                     <td>
                                         <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modalAcao{{$acao_extensao->id}}">
                                             <div
-                                                data-toggle="tooltip" 
-                                                data-placement="bottom" 
-                                                title="" 
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title=""
                                                 data-original-title="Analisar parâmetros pedagógicos"
                                             >
                                                 <i class="fal fa-list"></i>
@@ -616,7 +616,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        
+
                                     </td>
                                 </tr>
                                 @endforeach

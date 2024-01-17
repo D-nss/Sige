@@ -28,6 +28,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'uid',
         'email',
         'unidade_id',
         'ativo',
@@ -85,7 +86,7 @@ class User extends Authenticatable
         else {
             return false;
         }
-        
+
     }
 
 }

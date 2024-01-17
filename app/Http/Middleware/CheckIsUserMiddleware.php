@@ -23,7 +23,8 @@ class CheckIsUserMiddleware
     public function handle(Request $request, Closure $next)
     {
         //Usuário do autenticado no SiSe no sistema
-        $user = User::where('email', Auth::user()->id)->first();
+        //$user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first(); //para que se possa alterar a coluna de email para ambiente de desenvolvimento e teste
 
         //Usuário não encontrado
         if (!$user){
@@ -34,12 +35,13 @@ class CheckIsUserMiddleware
                 //Consulta Unidade pela sigla retornado pelo Keycloak
                 $unidade = Unidade::where(DB::raw('lower(sigla)'), 'like', strtolower(Auth::user()->unidade))->first();
             }
-            
+
             $nome = implode(' ',array_unique(explode(' ', Auth::user()->name)));
 
             if($unidade){
                 $user = User::create([
                     'name' => $nome,
+                    'uid' => Auth::user()->id,
                     'email' => Auth::user()->id,
                     'unidade_id' => $unidade->id,
                     'codigoUnidade' => Auth::user()->codigoUnidade,
@@ -76,7 +78,7 @@ class CheckIsUserMiddleware
 
         $user->updated_at = now();
         $user->save();
-        
+
         Auth::guard('web_user')->login($user);
         //Auth::setUser($user);
 
