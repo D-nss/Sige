@@ -28,7 +28,7 @@ class AvaliacaoController extends Controller
      */
     public function create(Inscricao $inscricao)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         $avaliadorSeExiste = AvaliadorPorInscricao::where('user_id', $user->id,)
                                                   ->where('inscricao_id', $inscricao->id)
@@ -37,7 +37,7 @@ class AvaliacaoController extends Controller
         if(!$avaliadorSeExiste) {
             session()->flash('status', 'Desculpe! Acesso não permitido.');
             session()->flash('alert', 'warning');
-        
+
             return redirect()->back();
         }
 
@@ -70,7 +70,7 @@ class AvaliacaoController extends Controller
     */
     public function store(Request $request, Inscricao $inscricao)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         if(isset($request->tipo_avaliacao)) {
             $tipo_avaliacao = [
@@ -97,7 +97,7 @@ class AvaliacaoController extends Controller
     */
     public function update(Request $request, Inscricao $inscricao)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         $parecerista = new Parecerista();
 

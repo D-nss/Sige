@@ -16,7 +16,7 @@ class RoleMiddleware
         }
         //$authGuard = Auth::guard($guard);
         //Pegando Autenticação do Keycloak e buscando usuário do banco e setando ele no sistema
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
         Auth::guard('web_user')->login($user);
         $authGuard = app('auth')->guard('web_user');
 

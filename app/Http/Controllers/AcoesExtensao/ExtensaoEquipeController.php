@@ -26,7 +26,7 @@ class ExtensaoEquipeController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //restringindo usuario gerencia dos membros
@@ -50,7 +50,7 @@ class ExtensaoEquipeController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //restringindo usuario adicionar membros
@@ -83,7 +83,7 @@ class ExtensaoEquipeController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $dados = $request->all();
@@ -125,7 +125,7 @@ class ExtensaoEquipeController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //restringindo usuario gerencia dos membros
@@ -149,7 +149,7 @@ class ExtensaoEquipeController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //restringindo usuario gerencia dos membros

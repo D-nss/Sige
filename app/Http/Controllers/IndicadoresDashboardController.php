@@ -19,7 +19,7 @@ class IndicadoresDashboardController extends Controller
 
     public function index()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         if($user->hasAnyRole('indicadores-admin|admin|super' )) {
             $indicadoresUnidades = DB::table('indicadores_unidades')
@@ -43,5 +43,5 @@ class IndicadoresDashboardController extends Controller
         $unidades = Unidade::whereNotIn('id', array_values(IndicadorUnidade::distinct('unidade_id')->where('ano_base', $request->ano)->get('unidade_id')->toArray()))->get();
 
         echo json_encode($unidades);
-    } 
+    }
 }

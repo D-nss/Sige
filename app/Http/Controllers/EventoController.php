@@ -52,7 +52,7 @@ class EventoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach($user->getRoleNames() as $role) {
@@ -86,7 +86,7 @@ class EventoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $eventosAbertos = Evento::join('comissoes', 'comissoes.evento_id', 'eventos.id')
@@ -110,7 +110,7 @@ class EventoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach($user->getRoleNames() as $role) {
@@ -159,7 +159,7 @@ class EventoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //$certificado_id = 1;
@@ -221,7 +221,7 @@ class EventoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach($user->getRoleNames() as $role) {
@@ -397,7 +397,7 @@ class EventoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach($user->getRoleNames() as $role) {

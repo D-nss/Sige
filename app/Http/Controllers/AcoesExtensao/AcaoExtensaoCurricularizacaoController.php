@@ -23,7 +23,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
@@ -71,7 +71,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
         $dadosAluno = '';
         $matricula = Auth::user()->matricula;
-        
+
         $alunos = json_decode(File::get(storage_path('alunos.json')), true);
         foreach($alunos as $aluno){
             if($aluno["NREGALUN"] == $matricula) {
@@ -95,7 +95,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $unidade = PreparaUnidade::execute($request->munidensi);
@@ -147,7 +147,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
@@ -197,7 +197,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;
@@ -240,7 +240,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $acaoExtensaoOcorrenciaId = $acaoExtensaoCurricularizacao->acao_extensao_ocorrencia->id;

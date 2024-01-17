@@ -20,9 +20,9 @@ use App\Notifications\RecursoAdicionado;
 
 class RecursoInscricaoController extends Controller
 {
-    public function create(Inscricao $inscricao) 
+    public function create(Inscricao $inscricao)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         // $avaliadorPorInscricao = AvaliadorPorInscricao::where('inscricao_id', $inscricao->id)
         //                                                 ->where('user_id', $user->id)
@@ -42,11 +42,11 @@ class RecursoInscricaoController extends Controller
         return view('inscricao.recurso', compact('inscricao', 'user', 'userNaComissao', 'status'));
     }
 
-    public function store(Request $request, Inscricao $inscricao) 
+    public function store(Request $request, Inscricao $inscricao)
     {
         $validated = $request->validate([
             'argumentacao' => 'required|max:5000'
-        ]);    
+        ]);
 
         $recurso = Recurso::create([
             'inscricao_id' => $inscricao->id,
@@ -72,9 +72,9 @@ class RecursoInscricaoController extends Controller
 
     }
 
-    public function avaliar(Request $request) 
+    public function avaliar(Request $request)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         $recurso = Recurso::find($request->recurso_id);
         $recurso->status = $request->status;

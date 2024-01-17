@@ -30,7 +30,7 @@ class AcaoCulturalController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
@@ -81,7 +81,7 @@ class AcaoCulturalController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $acoes_cultural_usuario =  AcaoCultural::where('user_id', $user->id)->get();
@@ -149,7 +149,7 @@ class AcaoCulturalController extends Controller
     public function create()
     {
         $unidades = Unidade::all();
-        //$user = User::where('email', Auth::user()->id)->first();
+        //$user = User::where('uid', Auth::user()->id)->first();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $lista_segmento_cultural = array("Arte, ciência e tecnologia","Artes da cena","Artes plásticas e visuais","Atividades socioculturais","Cinema","Jogos e desportos","Materiais impressos e literatura","Música","Natureza e meio-ambiente","Patrimônio","Rádio e televisão");
         $lista_publico_alvo = array('Alunos', 'Servidores técnico-administrativos', 'Docentes', 'Pesquisadores', 'Público externo à universidade');
@@ -174,7 +174,7 @@ class AcaoCulturalController extends Controller
             $user = User::where('id', 1)->first();
             $vinculo_coordenador = 'Teste Vinculo Coordenador';
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
 
@@ -274,7 +274,7 @@ class AcaoCulturalController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
@@ -619,7 +619,7 @@ class AcaoCulturalController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $avaliacaoDcult = new AvaliacaoDcult();

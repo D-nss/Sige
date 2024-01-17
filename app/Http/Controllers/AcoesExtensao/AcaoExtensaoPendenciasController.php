@@ -29,7 +29,7 @@ class AcaoExtensaoPendenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //populando formulário (filtro)
@@ -48,7 +48,7 @@ class AcaoExtensaoPendenciasController extends Controller
         else {
             $acoes_extensao = [];
         }
-        
+
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,
@@ -59,7 +59,7 @@ class AcaoExtensaoPendenciasController extends Controller
             'userNaComissaoConext' => $userNaComissaoConext
         ]);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -71,7 +71,7 @@ class AcaoExtensaoPendenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 4)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //populando formulário (filtro)
@@ -91,14 +91,14 @@ class AcaoExtensaoPendenciasController extends Controller
         foreach($userNaComissaoUnidades as $userNaComissaoUnidade) {
             array_push($unidadesWhereIn, $userNaComissaoUnidade->unidade_id);
         }
-        
+
         if($userNaComissaoUnidades->count() > 0) {
             $acoes_extensao = AcaoExtensao::where('status', 'Pendente')->whereIn('unidade_id', $unidadesWhereIn)->get();
         }
         else {
             $acoes_extensao = [];
         }
-       
+
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,

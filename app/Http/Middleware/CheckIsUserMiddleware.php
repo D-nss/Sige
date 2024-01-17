@@ -23,7 +23,7 @@ class CheckIsUserMiddleware
     public function handle(Request $request, Closure $next)
     {
         //Usuário do autenticado no SiSe no sistema
-        //$user = User::where('email', Auth::user()->id)->first();
+        //$user = User::where('email', Auth::user()->id)->first(); //antigo
         $user = User::where('uid', Auth::user()->id)->first(); //para que se possa alterar a coluna de email para ambiente de desenvolvimento e teste
 
         //Usuário não encontrado

@@ -1,5 +1,5 @@
 <?php
-    $user = \App\Models\User::where('email', Auth::user()->id)->first();
+    $user = \App\Models\User::where('uid', Auth::user()->id)->first();
 ?>
 <div>
     <a href="#" class="header-icon" data-toggle="dropdown" title="Você tem {{ isset($user->unreadNotifications) ? count($user->unreadNotifications->toArray()) : 0 }} notificações">
@@ -9,7 +9,7 @@
     <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
         <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
             <h4 class="m-0 text-center color-white">
-                
+
                 {{ isset($user->unreadNotifications) ? count($user->unreadNotifications->toArray()) : 0 }}
                 <small class="mb-0 opacity-80">Notificações</small>
             </h4>
@@ -40,7 +40,7 @@
                             <li>
                                 <a href="{{ route('notificacao.show', $unreadNotification->id) }}" class="d-flex align-items-center">
                                     <span class="status status-danger mr-2">
-                                        
+
                                     </span>
                                     <span class="d-flex flex-column flex-1 ml-1">
                                         <span class="name">{{ $unreadNotification->data['dados']['titulo'] }}</span>

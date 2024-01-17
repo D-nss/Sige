@@ -68,7 +68,7 @@ class EventoInscritosController extends Controller
         if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $userNaComissao = ComissaoUser::join('comissoes', 'comissoes.id', 'comissoes_users.comissao_id')
@@ -108,7 +108,7 @@ class EventoInscritosController extends Controller
     public function create(Evento $evento)
     {
         if (Auth::check()) {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if ($evento->status == 'Encerrado') {
@@ -231,7 +231,7 @@ class EventoInscritosController extends Controller
             if (App::environment('local')) {
                 $user = User::where('id', 2)->first();
             } else {
-                $user = User::where('email', Auth::user()->id)->first();
+                $user = User::where('uid', Auth::user()->id)->first();
             }
             $user_id = $user->id;
         } else {
@@ -353,7 +353,7 @@ class EventoInscritosController extends Controller
         if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
         $inscrito = EventoInscrito::find($id);
         $subcomissao = new Subcomissao();
@@ -380,7 +380,7 @@ class EventoInscritosController extends Controller
         if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $inscrito = EventoInscrito::find($id);
@@ -697,7 +697,7 @@ class EventoInscritosController extends Controller
         if (App::environment('local')) {
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach ($user->getRoleNames() as $role) {
@@ -744,7 +744,7 @@ class EventoInscritosController extends Controller
         if (App::environment('local')) {
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach ($user->getRoleNames() as $role) {
@@ -813,7 +813,7 @@ class EventoInscritosController extends Controller
         if (App::environment('local')) {
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         foreach ($user->getRoleNames() as $role) {

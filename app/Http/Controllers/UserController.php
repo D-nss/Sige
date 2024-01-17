@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         //buscando usuário do autenticado no SiSe no sistema
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         //se nao encontrado
         if (!$user){

@@ -39,7 +39,7 @@ class OrcamentoController extends Controller
      */
     public function create(Inscricao $inscricao)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
         if( $inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
             session()->flash('alert', 'warning');
@@ -69,7 +69,7 @@ class OrcamentoController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
         $inscricao = Inscricao::find($request->inscricao_id);
         if( $inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode editar');
@@ -170,14 +170,14 @@ class OrcamentoController extends Controller
      */
     public function destroy(Orcamento $orcamento, Request $request)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
         if( $orcamento->inscricao->user_id != $user->id ) {
             session()->flash('status', 'Desculpe! Somente o coordenador pode remover itens do orçamento');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
-        
+
         if($orcamento->delete()) {
             Log::channel('orcamento')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Operação: Remoção item de orcamento ' . $orcamento->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Item removido com sucesso!');

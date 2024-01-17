@@ -17,7 +17,7 @@ class AcaoExtensaoComiteController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -35,7 +35,7 @@ class AcaoExtensaoComiteController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -56,7 +56,7 @@ class AcaoExtensaoComiteController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -89,7 +89,7 @@ class AcaoExtensaoComiteController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $acao_extensao->comite_user_id != $user->id ) {

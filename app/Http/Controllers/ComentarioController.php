@@ -17,7 +17,7 @@ class ComentarioController extends Controller
             'comentario' => 'required|max:1000'
         ]);
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         $comentario = new Comentario();
         $comentario->inscricao_id = $inscricao->id;
@@ -47,6 +47,6 @@ class ComentarioController extends Controller
 
             return redirect()->back();
         }
-        
+
     }
 }

@@ -63,7 +63,7 @@ class InscricaoController extends Controller
     {
         session()->flash('status', 'Desculpe! O acesso as inscrições agora é feito através do menu Editais.');
         session()->flash('alert', 'warning');
-	
+
         return redirect()->back();
     }
 
@@ -77,7 +77,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $edital = Edital::find($id);
@@ -104,7 +104,7 @@ class InscricaoController extends Controller
         if(ChecaPeriodoInscricao::execute($id)){
             return redirect()->back();
         }
-        
+
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
@@ -126,7 +126,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if(ChecaPublicoAlvo::execute($request->edital_id)) {
@@ -140,7 +140,7 @@ class InscricaoController extends Controller
 
         /* Inserção no banco de dados usando transação, caso alguma inserção de erro ele retorna o banco ao estado anterior */
         $inscricao = CriarInscricao::execute($request, $user);
-       
+
         if(is_null($inscricao) || empty($inscricao)) {
             Log::channel('inscricao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Inscricao não inserida  - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Desculpe! Houve erro ao enviar a inscrição');
@@ -169,7 +169,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
         //$inscricao = Inscricao::find($id);
         $edital = Edital::findOrFail($inscricao->edital_id);
@@ -281,30 +281,30 @@ class InscricaoController extends Controller
      */
     public function showCompleto($id){
         $inscricao = \App\Models\Inscricao::find($id);
-    
+
         $respostasQuestoes = \App\Models\QuestaoRespondida::join(
             'questoes', 'questoes_respondidas.questao_id',
             'questoes.id'
             )->where('questoes_respondidas.inscricao_id', $inscricao->id)
             ->get();
-    
+
         $questoesAvaliacao = $inscricao->edital->questoes->filter(function($value, $key) {
             return data_get($value, 'tipo') == 'Avaliativa';
         });
-    
+
         $notasAvaliacao = \App\Models\RespostasAvaliacoes::select('questoes.enunciado', 'respostas_avaliacoes.valor', 'respostas_avaliacoes.updated_at', 'respostas_avaliacoes.user_id')
                                                 ->join('questoes', 'questoes.id', 'respostas_avaliacoes.questao_id')
                                                 ->where('respostas_avaliacoes.inscricao_id', $inscricao->id)
                                                 ->get();
-    
+
         $parecerAvaliacao = \App\Models\Parecer::select('users.name', 'pareceres.justificativa', 'pareceres.parecer', 'pareceres.user_id')
                                    ->join('inscricoes', 'inscricoes.id', 'pareceres.inscricao_id')
                                    ->join('users', 'users.id', 'inscricoes.user_id')
                                    ->where('inscricoes.id', $inscricao->id)
                                    ->get();
-    
+
         $valorMaxPorInscricao = $inscricao->tipo == 'Programa' ? $inscricao->edital->valor_max_programa : $inscricao->edital->valor_max_inscricao;
-    
+
         $totalItens = \App\Models\Orcamento::where('inscricao_id', $inscricao->id)->sum('valor');
         $itensOrcamento = \App\Models\Orcamento::join('item', 'item.id', 'orcamento_itens.item')
                                     ->join('tipo_item', 'tipo_item.id', 'orcamento_itens.tipo_item')
@@ -326,13 +326,13 @@ class InscricaoController extends Controller
             'Concluído' => 'success',
             'Bloqueado' => 'danger',
         ];
-        
-        return view('inscricao.show-completo', 
+
+        return view('inscricao.show-completo',
             compact(
-                    'inscricao', 
-                    'totalItens', 
-                    'itensOrcamento', 
-                    'questoesAvaliacao', 
+                    'inscricao',
+                    'totalItens',
+                    'itensOrcamento',
+                    'questoesAvaliacao',
                     'notasAvaliacao',
                     'parecerAvaliacao',
                     'valorMaxPorInscricao',
@@ -354,7 +354,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
@@ -405,7 +405,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $inscricao->user_id != $user->id ) {
@@ -414,7 +414,7 @@ class InscricaoController extends Controller
 
             return redirect()->back();
         }
-        
+
         $inputsParaValidar = $request->except(['estado', 'link_lattes', 'link_projeto', 'palavras_chaves']);
         $validar = array();
 
@@ -542,7 +542,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if(ValidaSubmissao::execute($inscricao, $user)){
@@ -578,7 +578,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $user->hasRole('edital-coordenador|edital-analista|edital-avaliador|edital-administrador|super|admin') || !ChecaPublicoAlvo::execute($edital->id) ) {
@@ -610,17 +610,17 @@ class InscricaoController extends Controller
     }
 
     /**
-    * 
+    *
     * @param  \App\Models\Edital $edital
     * @return \Illuminate\Http\Response
     *
     */
-    public function inscricoesPorEdital(Edital $edital) 
+    public function inscricoesPorEdital(Edital $edital)
     {
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $cronograma = new Cronograma();
@@ -653,7 +653,7 @@ class InscricaoController extends Controller
             return view('inscricao.index', compact('edital', 'inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'avaliadorPorInscricao'));
         }
 
-       
+
         if($userNaComissao) {
             /* Lista as incrições se o user estiver em uma comissão */
             // if($edital->tipo === 'PEX') {
@@ -675,11 +675,11 @@ class InscricaoController extends Controller
                     ->where('inscricoes.edital_id', $edital->id)
                     ->distinct()
                     ->get(['inscricoes.*', 'comissoes.atribuicao']);
-            // }         
-            
+            // }
+
             return view('inscricao.index', compact('edital', 'inscricoes', 'user', 'cronograma', 'status', 'userNaComissao', 'userNaComissao', 'avaliadorPorInscricao'));
         }
-    
+
         if($avaliadorPorInscricao) {
             $inscricoes = Inscricao::join('avaliadores_por_inscricao as ai', 'ai.inscricao_id', 'inscricoes.id')
                                 ->where('ai.user_id', $user->id)
@@ -695,7 +695,7 @@ class InscricaoController extends Controller
         return redirect()->back();
     }
 
-    
+
     public function contemplar(Request $request, Inscricao $inscricao)
     {
         $inscricao->qtde_contemplacao = $request->contemplacao;
@@ -723,7 +723,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $inscricao->user_id != $user->id ) {
@@ -734,24 +734,24 @@ class InscricaoController extends Controller
         }
 
         $cronograma = new Cronograma();
-        
+
         if(
             (
-                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id)) 
-                && 
+                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao', $inscricao->edital_id))
+                &&
                 strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio', $inscricao->edital_id))
                 &&
                 $inscricao->tipo == 'Projeto'
             )
             ||
             (
-                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao_programa', $inscricao->edital_id)) 
-                && 
+                strtotime(date('Y-m-d')) >= strtotime($cronograma->getDate('dt_fim_execucao_programa', $inscricao->edital_id))
+                &&
                 strtotime(date('Y-m-d')) <= strtotime($cronograma->getDate('dt_fim_relatorio_programa', $inscricao->edital_id))
                 &&
                 $inscricao->tipo == 'Programa'
             )
-            || 
+            ||
             (
                 $inscricao->edital->tipo == 'Fluxo Contínuo'
             )
@@ -765,7 +765,7 @@ class InscricaoController extends Controller
 
             return redirect()->back();
         }
-        
+
     }
 
     public function relatorioFinalAdicionarTempoExecucao(Request $request, Inscricao $inscricao){
@@ -782,7 +782,7 @@ class InscricaoController extends Controller
             $inscricao->execucao_fim = $request->execucao_fim;
             Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Operação: Relatorio final adicionar tempo execucao incricao ID:' . $inscricao->id . ' - Endereço IP: ' . $request->ip());
             $inscricao->update();
-            
+
             session()->flash('status', 'Data de execução registrada com sucesso.');
             session()->flash('alert', 'success');
 
@@ -803,7 +803,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $inscricao->user_id != $user->id ) {
@@ -841,7 +841,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $inscricao->user_id != $user->id ) {
@@ -883,7 +883,7 @@ class InscricaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( $inscricao->user_id != $user->id ) {
@@ -903,7 +903,7 @@ class InscricaoController extends Controller
 
             Notification::send($users, new EditalRealtorioFinalComissaoNotificar($inscricao));
             Log::channel('inscricao')->info('Usuario Nome: ' . $inscricao->user->name . ' - Usuario ID: ' . $inscricao->user->id . ' - Inscrição "'. $inscricao->titulo .'" enviada para aprovação do relatório final  - Endereço IP: ' . $request->ip());
-            
+
             session()->flash('status', 'Relatório enviado para análise com sucesso!');
             session()->flash('alert', 'success');
 
@@ -931,7 +931,7 @@ class InscricaoController extends Controller
         elseif($request->relatorio_final_status == 'Negado') {
             $inscricao->status = "Bloqueado";
         }
-        
+
         $inscricao->relatorio_final_status = $request->relatorio_final_status;
         $inscricao->relatorio_final_observacao = $request->relatorio_final_observacao;
 
@@ -939,7 +939,7 @@ class InscricaoController extends Controller
 
             $inscricao->user->notify(new \App\Notifications\InscricaoAnaliseRelatorioFinalNotificar($inscricao));
             Log::channel('inscricao')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Inscrição "'. $inscricao->titulo .'" efetuado análise do relatório final  - Endereço IP: ' . $request->ip());
-            
+
             session()->flash('status', 'Relatório analisado com sucesso!');
             session()->flash('alert', 'success');
 

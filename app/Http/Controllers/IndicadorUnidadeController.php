@@ -28,7 +28,7 @@ class IndicadorUnidadeController extends Controller
     public function index()
     {
         //unidade do usuario logado
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
         $indicadores  = IndicadorUnidade::where('unidade_id', $user->unidade->id)
         ->distinct()
         ->orderBy('ano_base', 'desc')
@@ -39,7 +39,7 @@ class IndicadorUnidadeController extends Controller
             $data_limite = IndicadoresParametros::where('ano_base', $row['ano_base'])->get(['data_limite'])->first();
             $indicadores[$key]['data_limite'] = isset($data_limite->data_limite) ? $data_limite->data_limite : '';
         }
-        
+
         return view('indicadores.index', [
             'indicadores' => $indicadores,
             'unidade' => $user->unidade,
@@ -59,7 +59,7 @@ class IndicadorUnidadeController extends Controller
         $indicadoresParametros = IndicadoresParametros::first();
 
         //unidade do usuario logado
-        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
+        $unidade  =  User::where('uid', Auth::user()->id)->first()->unidade;
 
         $anos_cadastrados = IndicadorUnidade::distinct()->where('unidade_id', $unidade->id)->get(['ano_base'])->toArray();
         $anos_cadastrados = array_values($anos_cadastrados);
@@ -105,7 +105,7 @@ class IndicadorUnidadeController extends Controller
 
 
         //id da unidade do usuario logado
-        $unidade_id  = User::where('email', Auth::user()->id)->first()->unidade->id;
+        $unidade_id  = User::where('uid', Auth::user()->id)->first()->unidade->id;
         /* Busca se possui ano base ja cadstrado para a unidade */
         $buscaAnoExistente = IndicadorUnidade::where('unidade_id', $unidade_id)->where('ano_base', $request->ano_base)->count();
         /* Prepara os dados para serem inseridos no bando de dados */
@@ -149,7 +149,7 @@ class IndicadorUnidadeController extends Controller
     public function show($ano)
     {
         //unidade do usuario logado
-        $unidade  =  User::where('email', Auth::user()->id)->first()->unidade;
+        $unidade  =  User::where('uid', Auth::user()->id)->first()->unidade;
 
         $indicardoresPorUnidade = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
             ->where('indicadores_unidades.unidade_id', $unidade->id)
@@ -172,10 +172,10 @@ class IndicadorUnidadeController extends Controller
     public function edit($ano)
     {
         //unidade do usuario logado
-        $user  =  User::where('email', Auth::user()->id)->first();
+        $user  =  User::where('uid', Auth::user()->id)->first();
 
         $indicadoresParametros = IndicadoresParametros::where('ano_base', $ano)->get();
-        
+
         if( (strtotime(date('Y-m-d')) <= strtotime($indicadoresParametros[0]->data_limite)) || $user->hasRole('indicadores-editar') ) {
             $indicadores = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
             ->where('indicadores_unidades.unidade_id', $user->unidade->id)
@@ -202,7 +202,7 @@ class IndicadorUnidadeController extends Controller
             return redirect()->back();
         }
 
-        
+
     }
 
     /**
@@ -215,7 +215,7 @@ class IndicadorUnidadeController extends Controller
     public function update(Request $request, $ano)
     {
         $linhasAfetadas = array();
-        
+
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
                 $valor = str_replace(',', '.', str_replace('.', '',$r));

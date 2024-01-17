@@ -30,7 +30,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -52,7 +52,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
                                         ->whereNull('status_avaliacao_conext')
                                         ->whereNull('avaliacao_conext_user_id')
                                         ->get();
-        
+
         return view('acoes-extensao.deliberacao-conext.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,
@@ -68,7 +68,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -77,7 +77,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
 
             return redirect()->back();
         }
-        
+
         AcaoExtensao::where('status', 'Aprovado')
             ->where('aceite_comite', 'Sim')
             ->whereNull('deliberacao')
@@ -93,7 +93,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -134,7 +134,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
         }
 
         if( $count > 0 ) {
-            
+
             session()->flash('status', 'Ações reconhecidas com sucesso!');
             session()->flash('alert', 'success');
 

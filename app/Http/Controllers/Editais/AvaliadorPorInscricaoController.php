@@ -26,7 +26,7 @@ class AvaliadorPorInscricaoController extends Controller
                         ->orderBy('name', 'asc')
                         ->get(['users.*', 'unidades.sigla']);
 
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         if($inscricao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Não é permitido adicionar avaliadores à própria inscrição');
@@ -37,7 +37,7 @@ class AvaliadorPorInscricaoController extends Controller
 
         return view('inscricao.avaliadores', compact('inscricao', 'users'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -94,13 +94,13 @@ class AvaliadorPorInscricaoController extends Controller
         $respostasAvaliacoes = RespostasAvaliacoes::where('user_id', $request->user_id)
                                                     ->where('inscricao_id', $request->inscricao_id)
                                                     ->count();
-                                                
+
         if($respostasAvaliacoes > 0) {
             session()->flash('status', 'Avaliador não pode ser removido, pois já possui avaliação para esta inscrição.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
-        }                       
+        }
 
         $avaliadorPorInscricao = AvaliadorPorInscricao::where('user_id', $request->user_id)
                                         ->where('inscricao_id', $request->inscricao_id)
@@ -127,7 +127,7 @@ class AvaliadorPorInscricaoController extends Controller
         foreach($inscricao->avaliadores as $avaliador) {
             $avaliador->notify(new \App\Notifications\PareceristasNotificar($inscricao));
         }
-        
+
         session()->flash('status', 'Notificações enviadas com sucesso');
         session()->flash('alert', 'success');
 

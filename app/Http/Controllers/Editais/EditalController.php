@@ -40,7 +40,7 @@ class EditalController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $editais = Edital::all();
@@ -169,7 +169,7 @@ class EditalController extends Controller
         $tipos_editais = TipoEdital::all();
 
         return view('edital.edit', compact('edital', 'tipos_publico', 'tipos_editais'));
-        
+
     }
 
     /**
@@ -300,7 +300,7 @@ class EditalController extends Controller
             $countAvaliadores = $inscricao->avaliadores->count();
 
             $somaNota = RespostasAvaliacoes::where('inscricao_id', $inscricao->id)->sum('valor');
-            
+
             $notaFinal = $somaNota / $countAvaliadores;
 
             $inscricao->nota = $request->forma_avaliacao == 'media' ? $notaFinal : $somaNota;
@@ -315,7 +315,7 @@ class EditalController extends Controller
         return view('inscricao.classificacao', compact('edital', 'inscricoes'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      * @param  \Illuminate\Http\Request  $request

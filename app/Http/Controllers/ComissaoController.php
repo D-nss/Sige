@@ -22,7 +22,7 @@ class ComissaoController extends Controller
 
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -30,13 +30,13 @@ class ComissaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id',3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if($user->hasRole('edital-administrador')) {
             $comissoes = Comissao::where('edital_id', '<>' , null)->get();
         }
-        
+
         if($user->hasRole('extensao-coordenador')){
             $comissoes = Comissao::where('unidade_id', $user->unidade->id)->get();
         }
@@ -50,7 +50,7 @@ class ComissaoController extends Controller
 
      /**
      * Display a listing of the resource.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function buscar(Request $request)
@@ -58,17 +58,17 @@ class ComissaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $comissoesTodas = Comissao::all();
-        
+
         if($user->hasRole('edital-administrador')) {
             $comissoes = $comissoesTodas->where('edital_id', '<>' , null)->filter(function($item) use ($request) {
                 return false !== stristr($item->nome, $request->palavra);
             });
         }
-        
+
         if($user->hasRole('extensao-coordenador')){
             $comissoes = $comissoesTodas->where('unidade_id', $user->unidade->id)->filter(function($item) use ($request) {
                 return false !== stristr($item->nome, $request->palavra);
@@ -95,7 +95,7 @@ class ComissaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
         //echo json_encode($edital_id);
         $editais = Edital::all();
@@ -133,7 +133,7 @@ class ComissaoController extends Controller
             if( $comissao_ext_unidade && !is_null($request->unidade_id) ) {
                 session()->flash('status', 'A unidade já possui uma comissão de extensão cadastrada!!!');
                 session()->flash('alert', 'warning');
-    
+
                 return redirect()->to('/comissoes');
             }
         }
@@ -169,7 +169,7 @@ class ComissaoController extends Controller
             if(!is_null($comissao->evento_id)) {
                 return redirect()->back();
             }
-            
+
             return redirect()->to('/comissoes');
         }
         else {

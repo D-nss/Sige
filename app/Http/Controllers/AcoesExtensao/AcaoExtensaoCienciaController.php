@@ -29,7 +29,7 @@ class AcaoExtensaoCienciaController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -50,7 +50,7 @@ class AcaoExtensaoCienciaController extends Controller
                                         ->where('ciencia', 'Gerado')
                                         ->whereNull('ciencia_status')
                                         ->get();
-        
+
         return view('acoes-extensao.ciencia-conext.index', [
             'acoes_extensao' => $acoes_extensao,
             'unidades' => $unidades,
@@ -66,7 +66,7 @@ class AcaoExtensaoCienciaController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -75,7 +75,7 @@ class AcaoExtensaoCienciaController extends Controller
 
             return redirect()->back();
         }
-        
+
         AcaoExtensao::where('modalidade', "!=", 1)
             ->where('status_comissao_graduacao', 'Sim')
             ->whereNull('ciencia')
@@ -90,7 +90,7 @@ class AcaoExtensaoCienciaController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 3)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if( !$user->hasRole('at_conext') ) {
@@ -129,7 +129,7 @@ class AcaoExtensaoCienciaController extends Controller
         }
 
         if( $count() > 0 ) {
-           
+
             session()->flash('status', 'Ações reconhecidas com sucesso!');
             session()->flash('alert', 'success');
 

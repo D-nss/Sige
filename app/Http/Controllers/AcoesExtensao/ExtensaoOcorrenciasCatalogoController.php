@@ -24,11 +24,11 @@ class ExtensaoOcorrenciasCatalogoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $ocorrencias = AcaoExtensaoOcorrencia::where('fim_inscricoes', '>=', date('Y-m-d'))->get();
-        
+
         return view('acoes-extensao.ocorrencias.catalogo', [
             'ocorrencias'   => $ocorrencias,
             'user'          => $user,

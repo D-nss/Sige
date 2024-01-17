@@ -31,7 +31,7 @@ class ExtensaoOcorrenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         if($acao_extensao->user_id != $user->id){
@@ -57,7 +57,7 @@ class ExtensaoOcorrenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $acao_extensao = AcaoExtensao::where('id', $id)->first();
@@ -91,7 +91,7 @@ class ExtensaoOcorrenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $dados = $request->all();
@@ -125,7 +125,7 @@ class ExtensaoOcorrenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         $graus_envolvimento_equipe = GrauEnvolvimentoEquipe::all();
@@ -155,7 +155,7 @@ class ExtensaoOcorrenciasController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
 
         //restringindo usuario - somente coordenador

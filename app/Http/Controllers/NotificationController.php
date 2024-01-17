@@ -8,18 +8,18 @@ use App\Models\User;
 
 class NotificationController extends Controller
 {
-    public function index() 
+    public function index()
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         $notifications = $user->unreadNotifications;
-        
+
         return view('notificacao.index', compact('notifications'));
     }
 
     public function show($id)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         foreach ($user->unreadNotifications as $notification) {
             if($notification->id == $id) {
@@ -30,7 +30,7 @@ class NotificationController extends Controller
 
     public function markAsRead(Request $request)
     {
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
 
         $id = $request->notification_id;
 
@@ -39,13 +39,13 @@ class NotificationController extends Controller
                 if( $notification->markAsRead() == null ) {
                     session()->flash('status', 'Mensagem macada como lida com sucesso!');
                     session()->flash('alert', 'success');
-        
+
                     return redirect()->to('notificacoes');
                 }
                 else {
                     session()->flash('status', 'Desculpe! Houve erro ao marcar mensagem como lida.');
                     session()->flash('alert', 'warning');
-        
+
                     return redirect()->back();
                 }
             }

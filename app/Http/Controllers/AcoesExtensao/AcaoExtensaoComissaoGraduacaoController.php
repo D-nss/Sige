@@ -21,7 +21,7 @@ class AcaoExtensaoComissaoGraduacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
         //Validar comissão de graduação
         if( !ChecaComissao::execute('unidade', $user->unidade_id, 'Graduação', $user->id) ) {
@@ -34,7 +34,7 @@ class AcaoExtensaoComissaoGraduacaoController extends Controller
                                     ->whereNull('parecer_comissao_graduacao')
                                     ->whereNull('status_comissao_graduacao')
                                     ->get();
-        
+
         return view('acoes-extensao.graduacao.index', compact('acoes_extensao'));
     }
 
@@ -43,13 +43,13 @@ class AcaoExtensaoComissaoGraduacaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
-            $user = User::where('email', Auth::user()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
         //Validar comissão de graduação
         if( !ChecaComissao::execute('unidade', $user->unidade_id, 'Graduação', $user->id) ) {
             session()->flash('status', 'Desculpe! Você não faz parte da comissão necessária para acesso!');
             session()->flash('alert', 'warning');
-            
+
             return redirect()->back();
         }
 

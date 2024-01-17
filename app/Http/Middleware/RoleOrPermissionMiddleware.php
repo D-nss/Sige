@@ -12,7 +12,7 @@ class RoleOrPermissionMiddleware
     public function handle($request, Closure $next, $roleOrPermission, $guard = null)
     {
         //$authGuard = Auth::guard($guard);
-        $user = User::where('email', Auth::user()->id)->first();
+        $user = User::where('uid', Auth::user()->id)->first();
         Auth::guard('web_user')->login($user);
         $authGuard = app('auth')->guard('web_user');
 
