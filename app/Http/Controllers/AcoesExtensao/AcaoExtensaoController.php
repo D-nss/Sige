@@ -887,8 +887,14 @@ class AcaoExtensaoController extends Controller
         $comentario->comentario = $request->comentario;
         $comentario->save();
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Novo Comentário na Ação de Extensão ('. $acaoExtensao->id . ')' . ' - Endereço IP: ' . $request->ip());
-        $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoNovoComentario($acaoExtensao));
-        session()->flash('status', 'Comentario feito! Coordenador da Ação será notificado');
+        $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
+        if($user->id == $acaoExtensao->user->id){
+            Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidadeComentario($acaoExtensao));
+            session()->flash('status', 'Comentario feito! Comissão da Unidade será notificado');
+        }else{
+            $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoNovoComentario($acaoExtensao));
+            session()->flash('status', 'Comentario feito! Coordenador da Ação será notificado');
+        }
         session()->flash('alert', 'success');
 
         return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id]);
