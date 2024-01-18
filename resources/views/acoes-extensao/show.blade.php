@@ -50,12 +50,12 @@
 </div>
 @endif
 @if(
-    isset($acao_extensao->comite_user_id) 
-    && 
-    $acao_extensao->comite_user_id == $user->id 
-    && 
-    is_null($acao_extensao->parecer_comite) 
-    && 
+    isset($acao_extensao->comite_user_id)
+    &&
+    $acao_extensao->comite_user_id == $user->id
+    &&
+    is_null($acao_extensao->parecer_comite)
+    &&
     is_null($acao_extensao->aceite_comite)
 )
 <div class="alert alert-warning alert-dismissible fade show">
@@ -86,11 +86,11 @@
                     @csrf
                     <input type="hidden" id="acao_extensao_id" name="acao_extensao_id" value="{{ $acao_extensao->id }}">
 
-                    <div class="form-group">    
+                    <div class="form-group">
                         <label class="form-label" for="parecer_comite">Descrição (Parecer)</label>
                         <textarea name="parecer_comite" class="form-control" cols="30" rows="10"></textarea>
                     </div>
-                    <div class="form-group">    
+                    <div class="form-group">
                         <label class="form-label" for="simpleinput">De Acordo</label>
                         <select name="aceite_comite" class="form-control w-50">
                             <option value="">Selecione ...</option>
@@ -992,7 +992,7 @@
         </div>
     </div>
 </div>
-@if( $userNaComissao || $userCoordenadorAcao)
+@if( $userNaComissao || $userCoordenadorAcao && ($acao_extensao->status != "Rascunho") )
 <div class="row">
     <div class="col-xl-12">
         @foreach ($acao_extensao->comentarios as $comentario)
