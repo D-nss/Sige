@@ -60,7 +60,7 @@ class AcaoExtensaoController extends Controller
         // $checaComissaoGraduacaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Graduação', $user->id);
 
         $user_unidades_comissoes_extensao_pertencentes = Comissao::join('comissoes_users as cmu', 'cmu.comissao_id', 'comissoes.id')
-            ->join('users', 'cmu.user_id', 'u.id')
+            ->join('users as u', 'cmu.user_id', 'u.id')
             ->whereNotNull('comissoes.unidade_id')
             ->where('comissoes.atribuicao', 'Extensão')
             ->where('cmu.user_id', $user->id)
@@ -72,7 +72,7 @@ class AcaoExtensaoController extends Controller
             ->paginate(5);
 
         $user_unidades_comissoes_graduacao_pertencentes = Comissao::join('comissoes_users as cmu', 'cmu.comissao_id', 'comissoes.id')
-            ->join('users', 'cmu.user_id', 'u.id')
+            ->join('users as u', 'cmu.user_id', 'u.id')
             ->whereNotNull('comissoes.unidade_id')
             ->where('comissoes.atribuicao', 'Graduação')
             ->where('cmu.user_id', $user->id)
