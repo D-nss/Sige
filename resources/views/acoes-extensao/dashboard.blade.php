@@ -17,18 +17,18 @@
     </h1>
 </div>
 
+@if(count($pendentes_graduacao) > 0 || count($pendentes_unidade) > 0 || count($pendentes_comite_consultivo) > 0) 
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
         <div class="alert-icon">
             <i class="fal fa-info-circle"></i>
         </div>
-        @if(count($pendentes_graduacao) > 0 || count($pendentes_unidade) > 0 || count($pendentes_comite_consultivo) > 0) 
         <div class="flex-3">
             <span class="h5">Existem Ações de Extensão que necessitam de sua atenção</span>
         </div>
-        @endif
     </div>
 </div>
+@endif
 
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
     <h1 class="subheader-title">
