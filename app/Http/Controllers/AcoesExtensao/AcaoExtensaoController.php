@@ -78,7 +78,7 @@ class AcaoExtensaoController extends Controller
             ->where('cmu.user_id', $user->id)
             ->get();
 
-        $pendentes_graduacao = AcaoExtensao::where('unidade_id', $user_unidades_comissoes_graduacao_pertencentes)
+        $pendentes_graduacao = AcaoExtensao::whereIn('unidade_id', $user_unidades_comissoes_graduacao_pertencentes)
             ->whereNotNull('aprovado_user_id')
             ->where('status', 'Aprovado')
             ->whereNull('comissao_graduacao_user_id')
