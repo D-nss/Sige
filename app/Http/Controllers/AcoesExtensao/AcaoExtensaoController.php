@@ -59,7 +59,7 @@ class AcaoExtensaoController extends Controller
          // $checaComissaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Extensão', $user->id);
         // $checaComissaoGraduacaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Graduação', $user->id);
 
-        $user_unidades_comissoes_extensao_pertencentes = Comissao::join('comissoes_users cmu', 'cmu.comissao_id', 'comissoes.id')
+        $user_unidades_comissoes_extensao_pertencentes = Comissao::join('comissoes_users as cmu', 'cmu.comissao_id', 'comissoes.id')
             ->join('users', 'cmu.user_id', 'u.id')
             ->whereNotNull('comissoes.unidade_id')
             ->where('comissoes.atribuicao', 'Extensão')
@@ -71,7 +71,7 @@ class AcaoExtensaoController extends Controller
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
             ->paginate(5);
 
-        $user_unidades_comissoes_graduacao_pertencentes = Comissao::join('comissoes_users cmu', 'cmu.comissao_id', 'comissoes.id')
+        $user_unidades_comissoes_graduacao_pertencentes = Comissao::join('comissoes_users as cmu', 'cmu.comissao_id', 'comissoes.id')
             ->join('users', 'cmu.user_id', 'u.id')
             ->whereNotNull('comissoes.unidade_id')
             ->where('comissoes.atribuicao', 'Graduação')
