@@ -56,31 +56,36 @@ class AcaoExtensaoController extends Controller
 
         $unidade = Unidade::where('id', $user->unidade_id)->first();
 
-        $checaComissaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Extensão', $user->id);
-        $checaComissaoGraduacaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Graduação', $user->id);
+         // $checaComissaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Extensão', $user->id);
+        // $checaComissaoGraduacaoUnidade = ChecaComissao::execute('unidade', $unidade->id, 'Graduação', $user->id);
 
-        // $acoes_extensao = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->limit(3)->get();
+        $user_unidades_comissoes_extensao_pertencentes = Comissao::join('comissoes_users cmu', 'cmu.comissao_id', 'comissoes.id')
+            ->join('users', 'cmu.user_id', 'u.id')
+            ->whereNotNull('comissoes.unidade_id')
+            ->where('comissoes.atribuicao', 'Extensão')
+            ->where('cmu.user_id', $user->id)
+            ->get();
 
-        if($checaComissaoUnidade) {
-            $pendentes_unidade = AcaoExtensao::where('unidade_id', $unidade->id)
+        $pendentes_unidade = AcaoExtensao::whereIn('unidade_id', $user_unidades_comissoes_extensao_pertencentes )
             ->where('status', 'Pendente')
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
             ->paginate(5);
-        } else{
-            $pendentes_unidade = array(null);
-        }
 
-        if($checaComissaoGraduacaoUnidade) {
-            $pendentes_graduacao = AcaoExtensao::whereNotNull('aprovado_user_id')
+        $user_unidades_comissoes_graduacao_pertencentes = Comissao::join('comissoes_users cmu', 'cmu.comissao_id', 'comissoes.id')
+            ->join('users', 'cmu.user_id', 'u.id')
+            ->whereNotNull('comissoes.unidade_id')
+            ->where('comissoes.atribuicao', 'Graduação')
+            ->where('cmu.user_id', $user->id)
+            ->get();
+
+        $pendentes_graduacao = AcaoExtensao::where('unidade_id', $user_unidades_comissoes_graduacao_pertencentes)
+            ->whereNotNull('aprovado_user_id')
             ->where('status', 'Aprovado')
             ->whereNull('comissao_graduacao_user_id')
             ->whereNull('parecer_comissao_graduacao')
             ->whereNull('status_comissao_graduacao')
             ->wherenot('user_id', $user->id) //para não mostrar as suas próprias ações, pois usuário não pode aprovar ele mesmo
             ->paginate(5);
-        }else {
-            $pendentes_graduacao =  array(null);
-        }
 
         //pegar id do usuario
         $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->orderBy('id','desc')->paginate(5);
@@ -103,8 +108,8 @@ class AcaoExtensaoController extends Controller
             'unidade' => $unidade,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
             'user' => $user,
-            'checaComissaoUnidade' => $checaComissaoUnidade,
-            'checaComissaoGraduacaoUnidade' => $checaComissaoGraduacaoUnidade,
+            // 'checaComissaoUnidade' => $checaComissaoUnidade,
+            // 'checaComissaoGraduacaoUnidade' => $checaComissaoGraduacaoUnidade,
             // 'acoes_extensao' => $acoes_extensao,
             'pendentes_graduacao' => $pendentes_graduacao,
             'pendentes_unidade' => $pendentes_unidade,
