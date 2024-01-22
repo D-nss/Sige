@@ -778,14 +778,14 @@ class AcaoExtensaoController extends Controller
         if ($user->id != $acaoExtensao->user_id && $acaoExtensao->status == "Rascunho"){
             session()->flash('status', 'Desculpe! Você não é o coordenador da Ação que se encontra em modo Rascunho. Solicite suporte caso discorde.');
             session()->flash('alert', 'warning');
-            return redirect()->to('acao_extensao.painel');
+            return redirect()->to('/acoes-extensao/painel/extensao');
         }
 
         // restrição - somente Comissão quando Ação for Submetida e pendente de aprovação
         if ($user->id != $acaoExtensao->user_id && $acaoExtensao->status == "Pendente" && !$userNaComissao){
             session()->flash('status', 'Desculpe! Você não é o coordenador da Ação e também não está na Comissão de Extensão da Unidade da Ação. Solicite suporte caso discorde.');
             session()->flash('alert', 'warning');
-            return redirect()->to('acao_extensao.painel');
+            return redirect()->to('/acoes-extensao/painel/extensao');
         }
 
 
