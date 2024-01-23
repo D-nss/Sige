@@ -364,6 +364,7 @@ class AcaoExtensaoController extends Controller
         $dados['parecer_comite'] = null;
         $dados['aceite_comite'] = null;
         $dados['deliberacao'] = null;
+        $dados['status_comissao_graduacao'] = null;
         $dados['comissao_graduacao_user_id'] = null;
         $dados['parecer_comissao_graduacao'] = null;
         $dados['status_comissao_graduacao'] = null;
@@ -372,73 +373,75 @@ class AcaoExtensaoController extends Controller
         $areasTematicasInsert = array();
         $odsInsert = array();
 
-        $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
-            $acaoExtensao->user_id = $dados['user_id'];
-            $acaoExtensao->modalidade = $dados['modalidade'];
-            $acaoExtensao->linha_extensao_id = $dados['linha_extensao_id'];
-            $acaoExtensao->titulo = $dados['titulo'];
-            $acaoExtensao->descricao = $dados['descricao'];
-            $acaoExtensao->publico_alvo = $dados['publico_alvo'];
-            $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
-            $acaoExtensao->url = $dados['url'];
-            $acaoExtensao->publico_alvo = $dados['publico_alvo'];
-            $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
-            $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
-            $acaoExtensao->qtd_horas_curricularizacao = $dados['qtd_horas_curricularizacao'];
-            $acaoExtensao->municipio_id = $dados['municipio_id'];
-            $acaoExtensao->unidade_id = $dados['unidade_id'];
-            $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
-            $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
-            $acaoExtensao->status = $dados['status'];
-            $acaoExtensao->aprovado_user_id = $dados['aprovado_user_id'];
-            $acaoExtensao->avaliacao_conext_user_id = $dados['avaliacao_conext_user_id'];
-            $acaoExtensao->status_avaliacao_conext = $dados['status_avaliacao_conext'];
-            if(isset($dados_form['arquivo']) && !is_null($dados['arquivo'])) {
-                $acaoExtensao->arquivo = $dados['arquivo'];
-            }
-            $acaoAtualizada = $acaoExtensao->save();
+        echo json_encode($dados);
 
-            //remove areas temáticas anteriores
-            DB::table('acoes_extensao_areas_tematicas')->where('acao_extensao_id', $acaoExtensao->id)->delete();
+        // $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
+        //     $acaoExtensao->user_id = $dados['user_id'];
+        //     $acaoExtensao->modalidade = $dados['modalidade'];
+        //     $acaoExtensao->linha_extensao_id = $dados['linha_extensao_id'];
+        //     $acaoExtensao->titulo = $dados['titulo'];
+        //     $acaoExtensao->descricao = $dados['descricao'];
+        //     $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+        //     $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
+        //     $acaoExtensao->url = $dados['url'];
+        //     $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+        //     $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
+        //     $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
+        //     $acaoExtensao->qtd_horas_curricularizacao = $dados['qtd_horas_curricularizacao'];
+        //     $acaoExtensao->municipio_id = $dados['municipio_id'];
+        //     $acaoExtensao->unidade_id = $dados['unidade_id'];
+        //     $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
+        //     $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
+        //     $acaoExtensao->status = $dados['status'];
+        //     $acaoExtensao->aprovado_user_id = $dados['aprovado_user_id'];
+        //     $acaoExtensao->avaliacao_conext_user_id = $dados['avaliacao_conext_user_id'];
+        //     $acaoExtensao->status_avaliacao_conext = $dados['status_avaliacao_conext'];
+        //     if(isset($dados['arquivo'])) {
+        //         $acaoExtensao->arquivo = $dados['arquivo'];
+        //     }
+        //     $acaoAtualizada = $acaoExtensao->save();
 
-            // Prepara os dados para inserção das areas temáticas
-            foreach($dados['areas_tematicas'] as $area) {
-                array_push($areasTematicasInsert,[
-                    'area_tematica_id' => $area,
-                    'acao_extensao_id' => $acaoExtensao->id
-                ]);
-            }
-            // faz a inserção das áreas temáticas
-            DB::table('acoes_extensao_areas_tematicas')->insert($areasTematicasInsert);
+        //     //remove areas temáticas anteriores
+        //     DB::table('acoes_extensao_areas_tematicas')->where('acao_extensao_id', $acaoExtensao->id)->delete();
 
-            //remove objetivos desenvolvimento sustentavel anteriores
-            DB::table('acoes_extensao_ods')->where('acao_extensao_id', $acaoExtensao->id)->delete();
+        //     // Prepara os dados para inserção das areas temáticas
+        //     foreach($dados['areas_tematicas'] as $area) {
+        //         array_push($areasTematicasInsert,[
+        //             'area_tematica_id' => $area,
+        //             'acao_extensao_id' => $acaoExtensao->id
+        //         ]);
+        //     }
+        //     // faz a inserção das áreas temáticas
+        //     DB::table('acoes_extensao_areas_tematicas')->insert($areasTematicasInsert);
 
-             // Prepara os dados para inserção dos objetivos desenvolvimento sustentavel
-             foreach($dados['ods'] as $objetivo) {
-                array_push($odsInsert,[
-                    'objetivo_desenvolvimento_sustentavel_id' => $objetivo,
-                    'acao_extensao_id' => $acaoExtensao->id
-                ]);
-            }
-            // faz a inserção dos objetivos  desenvolvimento sustentavel
-            DB::table('acoes_extensao_ods')->insert($odsInsert);
+        //     //remove objetivos desenvolvimento sustentavel anteriores
+        //     DB::table('acoes_extensao_ods')->where('acao_extensao_id', $acaoExtensao->id)->delete();
 
-            return $acaoAtualizada;
-        });
+        //      // Prepara os dados para inserção dos objetivos desenvolvimento sustentavel
+        //      foreach($dados['ods'] as $objetivo) {
+        //         array_push($odsInsert,[
+        //             'objetivo_desenvolvimento_sustentavel_id' => $objetivo,
+        //             'acao_extensao_id' => $acaoExtensao->id
+        //         ]);
+        //     }
+        //     // faz a inserção dos objetivos  desenvolvimento sustentavel
+        //     DB::table('acoes_extensao_ods')->insert($odsInsert);
 
-        if(is_null($transacao) || empty($transacao)) {
-            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: atualização da Ação de Extensão' . $acaoExtensao->id . ' - Endereço IP: ' . $request->ip());
-            session()->flash('status', 'Desculpe! Houve erro na atualização da Ação de Extensão');
-            session()->flash('alert', 'danger');
-            return redirect()->back();
-        }
-        else {
-            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Atualização Ação de Extensão' . $acaoExtensao->id . ' - Endereço IP: ' . $request->ip());
-            session()->flash('status', 'Ação de Extensão atualizada com sucesso!');
-            session()->flash('alert', 'success');
-            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
-        }
+        //     return $acaoAtualizada;
+        // });
+
+        // if(is_null($transacao) || empty($transacao)) {
+        //     Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: atualização da Ação de Extensão' . $acaoExtensao->id . ' - Endereço IP: ' . $request->ip());
+        //     session()->flash('status', 'Desculpe! Houve erro na atualização da Ação de Extensão');
+        //     session()->flash('alert', 'danger');
+        //     return redirect()->back();
+        // }
+        // else {
+        //     Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Atualização Ação de Extensão' . $acaoExtensao->id . ' - Endereço IP: ' . $request->ip());
+        //     session()->flash('status', 'Ação de Extensão atualizada com sucesso!');
+        //     session()->flash('alert', 'success');
+        //     return redirect()->route('acao_extensao.show', ['acao_extensao' => $acaoExtensao->id] );
+        // }
     }
 
     public function insereUnidade(Request $request)
