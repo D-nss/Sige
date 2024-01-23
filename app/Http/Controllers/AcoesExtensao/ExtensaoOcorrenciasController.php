@@ -68,6 +68,12 @@ class ExtensaoOcorrenciasController extends Controller
             return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
         }
 
+        if($acao_extensao->status_comissao_graduacao != 'Sim') {
+            session()->flash('status', 'Ação deve ter um parecer positivo da comissão de graduaçãoo para inclusão de ocorrências.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
+        }
+
         return view('acoes-extensao.ocorrencias.create',[
             'acao_extensao' => $acao_extensao,
         ]);
