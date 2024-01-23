@@ -36,7 +36,6 @@ class UpdateAcaoExtensaoRequest extends FormRequest
             'cidade' => 'required',
             'impactos_universidade' => 'required|max:2500',
             'impactos_sociedade' => 'required|max:2500',
-            'arquivo' => 'required|file|max:5120|mimes:pdf',
         ];
     }
 }
