@@ -149,7 +149,7 @@
                                             >
                                                 <i class="fal fa-file-edit"></i>
                                             </a>
-                                            @if($acao_extensao->status_comissao_graduacao === 'Sim')
+                                            @if($acao_extensao->status_comissao_graduacao === 'Sim' || $acao_extensao->ocorrencia->count() > 0)
                                                 <a
                                                     href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}"
                                                     class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
