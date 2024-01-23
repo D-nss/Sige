@@ -858,11 +858,18 @@ class AcaoExtensaoController extends Controller
 
     public function submeter(AcaoExtensao $acaoExtensao)
     {
+        //Verificar se ação de extensão possui membros na Comissão de Extensão da Unidade
+        $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
+        if(empty($comissaoUnidade)){
+            session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Extensão da sua unidade disponível para avaliar, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.painel');
+        }
+
         $acaoExtensao->status = 'Pendente';
         $acaoExtensao->save();
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoSubmetida($acaoExtensao));
 
-        $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
         Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidade($acaoExtensao));
 
         session()->flash('status', 'Ação de Extensão Submetida para aprovação!');
