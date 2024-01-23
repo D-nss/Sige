@@ -396,6 +396,16 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->aprovado_user_id = $dados['aprovado_user_id'];
             $acaoExtensao->avaliacao_conext_user_id = $dados['avaliacao_conext_user_id'];
             $acaoExtensao->status_avaliacao_conext = $dados['status_avaliacao_conext'];
+            $acaoExtensao->comite_user_id = $dados['comite_user_id'];
+            $acaoExtensao->parecer_comite = $dados['parecer_comite'];
+            $acaoExtensao->aceite__comite = $dados['aceite_comite'];
+            $acaoExtensao->deliberacao = $dados['deliberacao'];
+            $acaoExtensao->status_comissao_graduacao = $dados['status_comissao_graduacao'];
+            $acaoExtensao->comissao_graduacao_user_id = $dados['comissao_graduacao_user_id'];
+            $acaoExtensao->parecer_comissao_graduacao = $dados['parecer_comissao_graduacao'];
+            $acaoExtensao->status_comissao_graduacao = $dados['status_comissao_graduacao'];
+            $acaoExtensao->ciencia = $dados['ciencia'];
+            $acaoExtensao->ciencia_status = $dados['ciencia_status'];
             if(isset($dados['arquivo'])) {
                 $acaoExtensao->arquivo = $dados['arquivo'];
             }
