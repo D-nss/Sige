@@ -861,7 +861,8 @@ class AcaoExtensaoController extends Controller
         //Verificar se ação de extensão possui membros na Comissão de Extensão da Unidade
         $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
 
-        return json_encode($comissaoUnidade);
+        var_dump($comissaoUnidade);
+        //return json_encode($comissaoUnidade);
 
         if(empty($comissaoUnidade)){
             session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Extensão da sua unidade disponível para avaliar, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
