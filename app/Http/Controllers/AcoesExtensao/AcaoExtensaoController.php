@@ -221,7 +221,7 @@ class AcaoExtensaoController extends Controller
     public function edit(AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
@@ -330,7 +330,7 @@ class AcaoExtensaoController extends Controller
     public function update(UpdateAcaoExtensaoRequest $request, AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
             $vinculo_coordenador = 'Teste Vinculo Coordenador';
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
@@ -372,8 +372,6 @@ class AcaoExtensaoController extends Controller
         $dados['ciencia_status'] = null;
         $areasTematicasInsert = array();
         $odsInsert = array();
-
-        echo json_encode($dados);
 
         $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
             $acaoExtensao->user_id = $dados['user_id'];
@@ -765,7 +763,7 @@ class AcaoExtensaoController extends Controller
     public function show(AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }

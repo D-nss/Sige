@@ -45,7 +45,7 @@
                                 {{--<button type="submit" class="btn btn-primary btn-user btn-verde">
                                     <i class="fal fa-check"></i> <b>Criar e Adicionar Datas</b>
                                 </button>--}}
-                                <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
+                                <button class="btn btn-primary" type="button" id="btn-editar-acao"><span class="icon text-white-50">
                                     <i class="fal fa-save"></i>
                                     </span>
                                     <span class="text">Salvar</span>

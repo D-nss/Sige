@@ -1672,6 +1672,18 @@ Versão: 4.5.1
                 $('#step' + divAtual).removeClass('opacity-50');
             });
 
+            @if(isset($acao_extensao))
+            $("#btn-editar-acao").click(function(){
+                var ocorrencias = '{{ $acao_extensao->ocorrencia->count() }}';
+                if(ocorrencias > 0) {
+                    if(confirm('Esta ação existe ocorrências ou inscrições em andamento  as alterações não irão refletir nas mesmas, e esta alteração implicará em uma nova análise das comissões')) {
+                        $('#form_acao_extensao').submit();
+                    }
+                }else {
+                    $('#form_acao_extensao').submit();
+                }
+            });
+            @endif
 
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
