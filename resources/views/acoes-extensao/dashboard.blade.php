@@ -188,7 +188,7 @@
                                                 </div>
                                             </div>
 
-                                            @if($acao_extensao->status == 'Rascunho')
+                                            @if($acao_extensao->status == 'Rascunho' && $acao_extensao->ocorrencia->count() == 0)
                                                 <button type="button" class="btn btn-danger btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modal{{ $acao_extensao->id }}">
                                                     <i class="fal fa-trash-alt"></i>
                                                 </button>
