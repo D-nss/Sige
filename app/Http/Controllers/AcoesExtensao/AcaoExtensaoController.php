@@ -861,7 +861,7 @@ class AcaoExtensaoController extends Controller
         //Verificar se ação de extensão possui membros na Comissão de Extensão da Unidade
         $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
 
-        var_dump($comissaoUnidade);
+        return var_dump($comissaoUnidade);
         //return json_encode($comissaoUnidade);
 
         if(empty($comissaoUnidade)){
