@@ -247,7 +247,7 @@
                         <div class="info-card-text">
                             <div class="fs-lg text-truncate text-truncate-lg">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }}</div>
                             <span class="text-truncate text-truncate-md opacity-80">{{Auth::user()->id}}</span>
-                            <span class="text-truncate text-truncate-md opacity-80">@if(isset($user)) {{Str::upper($user->unidade->sigla)}} @endif</span>
+                            <span class="text-truncate text-truncate-md opacity-80">{{Str::upper(Auth::user()->unidade)}} @endif</span>
                         </div>
                     </div>
                 </div>

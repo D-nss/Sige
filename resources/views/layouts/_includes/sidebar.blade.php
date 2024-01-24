@@ -37,7 +37,7 @@
                 </a>
                 <span
                     class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }},
-                    @if(isset($user)) {{Str::upper($user->unidade->sigla)}} @endif </span><br>
+                    {{Str::upper(Auth::user()->unidade)}} </span><br>
                 <a href="/logout" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</a>
                 @else
                 <a href="#" class="d-flex align-items-center text-white">
@@ -129,7 +129,7 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                 </a>
                             </li>
-                            
+
                             <li class="">
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa"
                                     data-filter-tags="utilities menu child sublevel item">
@@ -232,9 +232,9 @@
                         <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Editais</span>
                         </a>
-                    
 
- 
+
+
                         <ul>
                         @if(Auth::hasUser())
                         @hasanyrole('super|admin|edital-administrador', 'web_user')
