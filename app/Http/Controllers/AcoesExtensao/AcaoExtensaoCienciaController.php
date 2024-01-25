@@ -20,7 +20,7 @@ use App\Models\Municipio;
 
 use App\Exports\AcoesExtensaoCienciaExport;
 
-use App\Services\Comissao\BuscaUsuariosComissaoUnidade;
+use App\Services\Comissao\BuscaUsuariosComissaoExtensao;
 
 class AcaoExtensaoCienciaController extends Controller
 {
@@ -116,7 +116,7 @@ class AcaoExtensaoCienciaController extends Controller
                 $count += 1;
                 $acao_extensao = AcaoExtensao::find($selecionado);
                 $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
-                $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
+                $comissaoUnidade = BuscaUsuariosComissaoExtensao::execute($acao_extensao->unidade);
                 Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarReconhecimentoComissaoUnidade($acao_extensao));
             }
         }

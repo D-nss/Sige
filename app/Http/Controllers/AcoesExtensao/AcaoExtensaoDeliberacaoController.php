@@ -21,7 +21,7 @@ use App\Models\Municipio;
 
 use App\Exports\AcoesExtensaoDeliberacaoExport;
 
-use App\Services\Comissao\BuscaUsuariosComissaoUnidade;
+use App\Services\Comissao\BuscaUsuariosComissaoExtensao;
 
 class AcaoExtensaoDeliberacaoController extends Controller
 {
@@ -121,7 +121,7 @@ class AcaoExtensaoDeliberacaoController extends Controller
                     $count += 1;
                     $acao_extensao = AcaoExtensao::find($selecionado);
                     $acao_extensao->user->notify(new \App\Notifications\AcaoExtensaoNotificaReconhecimento($acao_extensao));
-                    $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acao_extensao->unidade);
+                    $comissaoUnidade = BuscaUsuariosComissaoExtensao::execute($acao_extensao->unidade);
                     Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarReconhecimentoComissaoUnidade($acao_extensao));
                 }
         }

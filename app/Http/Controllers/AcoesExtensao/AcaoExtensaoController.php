@@ -36,7 +36,7 @@ use App\Models\TipoParceiro;
 use App\Models\UploadFile;
 
 use App\Services\Avaliacao\ComissaoConext;
-use App\Services\Comissao\BuscaUsuariosComissaoUnidade;
+use App\Services\Comissao\BuscaUsuariosComissaoExtensao;
 use App\Services\Comissao\ChecaComissao;
 
 class AcaoExtensaoController extends Controller
@@ -375,7 +375,7 @@ class AcaoExtensaoController extends Controller
             $dados['ciencia'] = null;
             $dados['ciencia_status'] = null;
         }
-        
+
         $areasTematicasInsert = array();
         $odsInsert = array();
 
@@ -868,7 +868,7 @@ class AcaoExtensaoController extends Controller
     public function submeter(AcaoExtensao $acaoExtensao)
     {
         //Verificar se ação de extensão possui membros na Comissão de Extensão da Unidade
-        $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
+        $comissaoUnidade = BuscaUsuariosComissaoExtensao::execute($acaoExtensao->unidade);
 
         if($comissaoUnidade->isEmpty()){
             session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Extensão da sua unidade disponível para avaliar, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
@@ -944,7 +944,7 @@ class AcaoExtensaoController extends Controller
         $comentario->comentario = $request->comentario;
         $comentario->save();
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Novo Comentário na Ação de Extensão ('. $acaoExtensao->id . ')' . ' - Endereço IP: ' . $request->ip());
-        $comissaoUnidade = BuscaUsuariosComissaoUnidade::execute($acaoExtensao->unidade);
+        $comissaoUnidade = BuscaUsuariosComissaoExtensao::execute($acaoExtensao->unidade);
         if($user->id == $acaoExtensao->user->id){
             Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidadeComentario($acaoExtensao));
             session()->flash('status', 'Comentario feito! Comissão da Unidade será notificado');
