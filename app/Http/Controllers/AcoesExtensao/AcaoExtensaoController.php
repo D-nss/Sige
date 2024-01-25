@@ -356,7 +356,7 @@ class AcaoExtensaoController extends Controller
         }
 
         $dados = array_merge($dados_form, $dados);
-        $dados['status'] = 'Rascunho';
+        // $dados['status'] = 'Rascunho';
         // $dados['aprovado_user_id'] = null;
         // $dados['avaliacao_conext_user_id'] = null;
         // $dados['status_avaliacao_conext'] = null;
