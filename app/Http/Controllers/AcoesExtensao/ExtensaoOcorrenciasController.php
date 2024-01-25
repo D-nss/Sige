@@ -28,6 +28,12 @@ class ExtensaoOcorrenciasController extends Controller
 
         $acao_extensao = AcaoExtensao::where('id', $id)->first();
 
+        if( ((is_null($acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao->qtd_horas_curricularizacao == 0 ) && (is_null($acao_extensao->vagas_curricularizacao) || $acao_extensao->vagas_curricularizacao == 0) ) ) {
+            session()->flash('status', 'Para poder cadastrar ocorrências essa ação deve ser preenchida como curricularização.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.painel');
+        }
+
         if(App::environment('local')){
             $user = User::where('id', 1)->first();
         } else {
@@ -61,6 +67,12 @@ class ExtensaoOcorrenciasController extends Controller
         }
 
         $acao_extensao = AcaoExtensao::where('id', $id)->first();
+
+        if( ((is_null($acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao->qtd_horas_curricularizacao == 0 ) && (is_null($acao_extensao->vagas_curricularizacao) || $acao_extensao->vagas_curricularizacao == 0) ) ) {
+            session()->flash('status', 'Para poder cadastrar ocorrências essa ação deve ser preenchida como curricularização.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.painel');
+        }
 
         if($acao_extensao->user_id != $user->id){
             session()->flash('status', 'Apenas o Coordenador pode incluir uma Ocorrencia.');

@@ -149,7 +149,15 @@
                                             >
                                                 <i class="fal fa-file-edit"></i>
                                             </a>
-                                            @if($acao_extensao->status_comissao_graduacao === 'Sim' || $acao_extensao->ocorrencia->count() > 0)
+                                            @if( 
+                                                    (
+                                                        $acao_extensao->status_comissao_graduacao === 'Sim' 
+                                                        && is_null($acao_extensao->qtd_horas_curricularizacao) 
+                                                        && is_null($acao_extensao->vagas_curricularizacao) 
+                                                    ) 
+                                                    || 
+                                                    $acao_extensao->ocorrencia->count() > 0
+                                                )
                                                 <a
                                                     href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}"
                                                     class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
