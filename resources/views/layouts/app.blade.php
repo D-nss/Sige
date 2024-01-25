@@ -1676,7 +1676,7 @@ Versão: 4.5.1
             $("#btn-editar-acao").click(function(){
                 var ocorrencias = '{{ $acao_extensao->ocorrencia->count() }}';
                 if(ocorrencias > 0) {
-                    if(confirm('Esta ação existe ocorrências ou inscrições em andamento  as alterações não irão refletir nas mesmas, e esta alteração implicará em uma nova análise das comissões')) {
+                    if(confirm('Esta ação existe ocorrências ou inscrições em andamento  as alterações não irão refletir nas mesmas, para mudanças que alteram a proposta é necessário cadastrar uma nova Ação de Extensão.')) {
                         $('#form_acao_extensao').submit();
                     }
                 }else {

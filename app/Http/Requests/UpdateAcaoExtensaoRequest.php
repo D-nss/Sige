@@ -24,18 +24,18 @@ class UpdateAcaoExtensaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'modalidade' => 'required',
+            // 'modalidade' => 'required',
             'linha_extensao_id' => 'required',
             'areas_tematicas' => 'required',
             'ods' => 'required',
-            'titulo' => 'required',
-            'descricao' => 'required|max:2500',
+            // 'titulo' => 'required',
+            // 'descricao' => 'required|max:2500',
             'publico_alvo' => 'required',
             'vagas_curricularizacao' => 'required',
             'estado' => 'required',
             'cidade' => 'required',
-            'impactos_universidade' => 'required|max:2500',
-            'impactos_sociedade' => 'required|max:2500',
+            // 'impactos_universidade' => 'required|max:2500',
+            // 'impactos_sociedade' => 'required|max:2500',
         ];
     }
 }

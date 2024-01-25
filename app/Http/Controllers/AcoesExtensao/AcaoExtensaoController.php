@@ -343,78 +343,86 @@ class AcaoExtensaoController extends Controller
         $dados['email_coordenador'] = $user->email;
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
         $dados['municipio_id'] = $request->cidade;
-        $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
-        $dados_form = $request->all();
-
-        if( isset($dados_form['arquivo']) && !is_null($dados_form['arquivo']) ) {
-            $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
-            if($arquivoExiste) {
-                Storage::disk('public')->delete($acaoExtensao->arquivo);
-            }
-            $upload = new UploadFile();
-            $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
-        }
+        // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
+        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade');
 
         $dados = array_merge($dados_form, $dados);
-        // $dados['status'] = 'Rascunho';
-        // $dados['aprovado_user_id'] = null;
-        // $dados['avaliacao_conext_user_id'] = null;
-        // $dados['status_avaliacao_conext'] = null;
-        // $dados['comite_user_id'] = null;
-        // $dados['parecer_comite'] = null;
-        // $dados['aceite_comite'] = null;
-        // $dados['deliberacao'] = null;
-        // $dados['status_comissao_graduacao'] = null;
-        // $dados['comissao_graduacao_user_id'] = null;
-        // $dados['parecer_comissao_graduacao'] = null;
-        // $dados['status_comissao_graduacao'] = null;
-        // $dados['ciencia'] = null;
-        // $dados['ciencia_status'] = null;
+
+        if($acaoExtensao->ocorrencia->count() == 0) {
+            if( isset($dados_form['arquivo']) && !is_null($dados_form['arquivo']) ) {
+                $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
+                if($arquivoExiste) {
+                    Storage::disk('public')->delete($acaoExtensao->arquivo);
+                }
+                $upload = new UploadFile();
+                $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
+            }else {
+                $dados_form['arquivo'] = $acaoExtensao->arquivo;
+            }
+
+            $dados['status'] = 'Rascunho';
+            $dados['aprovado_user_id'] = null;
+            $dados['avaliacao_conext_user_id'] = null;
+            $dados['status_avaliacao_conext'] = null;
+            $dados['comite_user_id'] = null;
+            $dados['parecer_comite'] = null;
+            $dados['aceite_comite'] = null;
+            $dados['deliberacao'] = null;
+            $dados['status_comissao_graduacao'] = null;
+            $dados['comissao_graduacao_user_id'] = null;
+            $dados['parecer_comissao_graduacao'] = null;
+            $dados['status_comissao_graduacao'] = null;
+            $dados['ciencia'] = null;
+            $dados['ciencia_status'] = null;
+        }
+        
         $areasTematicasInsert = array();
         $odsInsert = array();
 
-        echo json_encode($dados);
-        $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
-            $acaoExtensao->user_id = $dados['user_id'];
-            $acaoExtensao->modalidade = $dados['modalidade'];
-            $acaoExtensao->linha_extensao_id = $dados['linha_extensao_id'];
-            $acaoExtensao->titulo = $dados['titulo'];
-            $acaoExtensao->descricao = $dados['descricao'];
-            $acaoExtensao->publico_alvo = $dados['publico_alvo'];
-            $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
-            $acaoExtensao->url = $dados['url'];
-            $acaoExtensao->publico_alvo = $dados['publico_alvo'];
-            $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
-            $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
-            $acaoExtensao->qtd_horas_curricularizacao = $dados['qtd_horas_curricularizacao'];
-            $acaoExtensao->municipio_id = $dados['municipio_id'];
-            $acaoExtensao->unidade_id = $dados['unidade_id'];
-            $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
-            $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
-            $acaoExtensao->status = $dados['status'];
-            $acaoExtensao->aprovado_user_id = $dados['aprovado_user_id'];
-            $acaoExtensao->avaliacao_conext_user_id = $dados['avaliacao_conext_user_id'];
-            $acaoExtensao->status_avaliacao_conext = $dados['status_avaliacao_conext'];
-            $acaoExtensao->comite_user_id = $dados['comite_user_id'];
-            $acaoExtensao->parecer_comite = $dados['parecer_comite'];
-            $acaoExtensao->aceite_comite = $dados['aceite_comite'];
-            $acaoExtensao->deliberacao = $dados['deliberacao'];
-            $acaoExtensao->status_comissao_graduacao = $dados['status_comissao_graduacao'];
-            $acaoExtensao->comissao_graduacao_user_id = $dados['comissao_graduacao_user_id'];
-            $acaoExtensao->parecer_comissao_graduacao = $dados['parecer_comissao_graduacao'];
-            $acaoExtensao->status_comissao_graduacao = $dados['status_comissao_graduacao'];
-            $acaoExtensao->ciencia = $dados['ciencia'];
-            $acaoExtensao->ciencia_status = $dados['ciencia_status'];
-            if(isset($dados['arquivo'])) {
-                $acaoExtensao->arquivo = $dados['arquivo'];
-            }
-            $acaoAtualizada = $acaoExtensao->save();
+        // echo json_encode($dados);
+        $transacao = DB::transaction(function() use( $dados, $request, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
+            // $acaoExtensao->user_id = $dados['user_id'];
+            // $acaoExtensao->modalidade = $dados['modalidade'];
+            // $acaoExtensao->linha_extensao_id = $dados['linha_extensao_id'];
+            // $acaoExtensao->titulo = $dados['titulo'];
+            // $acaoExtensao->descricao = $dados['descricao'];
+            // $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+            // $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
+            // $acaoExtensao->url = $dados['url'];
+            // $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+            // $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
+            // $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
+            // $acaoExtensao->qtd_horas_curricularizacao = $dados['qtd_horas_curricularizacao'];
+            // $acaoExtensao->municipio_id = $dados['municipio_id'];
+            // $acaoExtensao->unidade_id = $dados['unidade_id'];
+            // $acaoExtensao->impactos_universidade = $dados['impactos_universidade'];
+            // $acaoExtensao->impactos_sociedade = $dados['impactos_sociedade'];
+            // $acaoExtensao->status = $dados['status'];
+            // $acaoExtensao->aprovado_user_id = $dados['aprovado_user_id'];
+            // $acaoExtensao->avaliacao_conext_user_id = $dados['avaliacao_conext_user_id'];
+            // $acaoExtensao->status_avaliacao_conext = $dados['status_avaliacao_conext'];
+            // $acaoExtensao->comite_user_id = $dados['comite_user_id'];
+            // $acaoExtensao->parecer_comite = $dados['parecer_comite'];
+            // $acaoExtensao->aceite_comite = $dados['aceite_comite'];
+            // $acaoExtensao->deliberacao = $dados['deliberacao'];
+            // $acaoExtensao->status_comissao_graduacao = $dados['status_comissao_graduacao'];
+            // $acaoExtensao->comissao_graduacao_user_id = $dados['comissao_graduacao_user_id'];
+            // $acaoExtensao->parecer_comissao_graduacao = $dados['parecer_comissao_graduacao'];
+            // $acaoExtensao->status_comissao_graduacao = $dados['status_comissao_graduacao'];
+            // $acaoExtensao->ciencia = $dados['ciencia'];
+            // $acaoExtensao->ciencia_status = $dados['ciencia_status'];
+            // if(isset($dados['arquivo'])) {
+            //     $acaoExtensao->arquivo = $dados['arquivo'];
+            // }
+            // $acaoAtualizada = $acaoExtensao->save();
+
+            $acaoAtualizada = AcaoExtensao::where('id', $acaoExtensao->id)->update($dados);
 
             //remove areas temáticas anteriores
             DB::table('acoes_extensao_areas_tematicas')->where('acao_extensao_id', $acaoExtensao->id)->delete();
 
             // Prepara os dados para inserção das areas temáticas
-            foreach($dados['areas_tematicas'] as $area) {
+            foreach($request->areas_tematicas as $area) {
                 array_push($areasTematicasInsert,[
                     'area_tematica_id' => $area,
                     'acao_extensao_id' => $acaoExtensao->id
@@ -427,7 +435,7 @@ class AcaoExtensaoController extends Controller
             DB::table('acoes_extensao_ods')->where('acao_extensao_id', $acaoExtensao->id)->delete();
 
              // Prepara os dados para inserção dos objetivos desenvolvimento sustentavel
-             foreach($dados['ods'] as $objetivo) {
+             foreach($request->ods as $objetivo) {
                 array_push($odsInsert,[
                     'objetivo_desenvolvimento_sustentavel_id' => $objetivo,
                     'acao_extensao_id' => $acaoExtensao->id
