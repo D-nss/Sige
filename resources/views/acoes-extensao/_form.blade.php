@@ -3,7 +3,7 @@
                     <div class="row g-3">
                         <div class="form-group col-md-7">
                             <label class="form-label" for="titulo">Título da Ação <span class="text-danger">*</span></label>
-                            <input type="text" id="titulo" name="titulo" class="form-control @error('titulo') is-invalid @enderror" value="{{isset($acao_extensao->titulo) ? $acao_extensao->titulo : old('titulo')}}">
+                            <input type="text" id="titulo" name="titulo" class="form-control @error('titulo') is-invalid @enderror" value="{{isset($acao_extensao->titulo) ? $acao_extensao->titulo : old('titulo')}}" @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>
                             @error('titulo')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <select class="form-control @error('modalidade') is-invalid @enderror" id="modalidade" name="modalidade">
+                            <select class="form-control @error('modalidade') is-invalid @enderror" id="modalidade" name="modalidade" @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>
                                 @if(isset($acao_extensao))
                                         @switch($acao_extensao->modalidade)
                                             @case(1)
@@ -222,7 +222,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="descricao">Descrição (Resumo)<span class="text-danger">*</span></label>
-                        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" rows="5">{{isset($acao_extensao->descricao) ? $acao_extensao->descricao : old('descricao')}}</textarea>
+                        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" rows="5" @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>{{isset($acao_extensao->descricao) ? $acao_extensao->descricao : old('descricao')}}</textarea>
                         @error('descricao')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -273,7 +273,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="impactos_universidade">Impactos para a universidade <span class="text-danger">*</span></label>
-                        <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" rows="5">{{isset($acao_extensao->impactos_universidade) ? $acao_extensao->impactos_universidade : old('impactos_universidade')}}</textarea>
+                        <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" rows="5" @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>{{isset($acao_extensao->impactos_universidade) ? $acao_extensao->impactos_universidade : old('impactos_universidade')}}</textarea>
                         @error('impactos_universidade')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -282,7 +282,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="impactos_sociedade">Impactos para a sociedade <span class="text-danger">*</span></label>
-                        <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control @error('impactos_sociedade') is-invalid @enderror" rows="5">{{isset($acao_extensao->impactos_sociedade) ? $acao_extensao->impactos_sociedade : old('impactos_sociedade')}}</textarea>
+                        <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control @error('impactos_sociedade') is-invalid @enderror" rows="5" @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>{{isset($acao_extensao->impactos_sociedade) ? $acao_extensao->impactos_sociedade : old('impactos_sociedade')}}</textarea>
                         @error('impactos_sociedade')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -352,14 +352,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif">
                             <h4>Upload de Arquivo</h4>
                             <div class="preview-zone hidden">
                                 <div class="box box-solid">
                                     <div class="box-header with-border">
                                     <div></div>
                                     <div class="box-tools pull-right">
-                                        <button type="button" class="btn btn-secondary btn-xs remove-preview">
+                                        <button type="button" class="btn btn-secondary btn-xs remove-preview" @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>
                                         Limpar
                                         </button>
                                     </div>
@@ -380,13 +380,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="dropzone-wrapper">
+                            <div class="dropzone-wrapper ">
                                 <div class="dropzone-desc">
                                     <i class="glyphicon glyphicon-download-alt"></i>
                                     <p class="font-weight-bold">Arraste o PDF (5MB) aqui, ou clique para selecionar.</p>
 
                                 </div>
-                                <input type="file" name="arquivo" class="dropzone" id="arquivo" {{ isset($acao_extensao->arquivo) ? '' : 'required' }}>
+                                <input type="file" name="arquivo" class="dropzone" id="arquivo" {{ isset($acao_extensao->arquivo) ? '' : 'required' }} @if(isset($acao_extensao) && $acao_extensao->status != 'Rascunho' && $acao_extensao->ocorrencia->count() == 0) disabled @endif>
 
                             </div>
                             <span class="text-info fw-500" id="alert-pdf-format">O arquivo deve ter no máximo 5MB.</span>
