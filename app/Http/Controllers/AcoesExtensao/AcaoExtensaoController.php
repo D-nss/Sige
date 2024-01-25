@@ -49,7 +49,7 @@ class AcaoExtensaoController extends Controller
     public function dashboard(){
 
         if(App::environment('local')){
-            $user = User::where('id', 3)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
@@ -357,22 +357,23 @@ class AcaoExtensaoController extends Controller
 
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Rascunho';
-        $dados['aprovado_user_id'] = null;
-        $dados['avaliacao_conext_user_id'] = null;
-        $dados['status_avaliacao_conext'] = null;
-        $dados['comite_user_id'] = null;
-        $dados['parecer_comite'] = null;
-        $dados['aceite_comite'] = null;
-        $dados['deliberacao'] = null;
-        $dados['status_comissao_graduacao'] = null;
-        $dados['comissao_graduacao_user_id'] = null;
-        $dados['parecer_comissao_graduacao'] = null;
-        $dados['status_comissao_graduacao'] = null;
-        $dados['ciencia'] = null;
-        $dados['ciencia_status'] = null;
+        // $dados['aprovado_user_id'] = null;
+        // $dados['avaliacao_conext_user_id'] = null;
+        // $dados['status_avaliacao_conext'] = null;
+        // $dados['comite_user_id'] = null;
+        // $dados['parecer_comite'] = null;
+        // $dados['aceite_comite'] = null;
+        // $dados['deliberacao'] = null;
+        // $dados['status_comissao_graduacao'] = null;
+        // $dados['comissao_graduacao_user_id'] = null;
+        // $dados['parecer_comissao_graduacao'] = null;
+        // $dados['status_comissao_graduacao'] = null;
+        // $dados['ciencia'] = null;
+        // $dados['ciencia_status'] = null;
         $areasTematicasInsert = array();
         $odsInsert = array();
 
+        echo json_encode($dados);
         $transacao = DB::transaction(function() use( $dados, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
             $acaoExtensao->user_id = $dados['user_id'];
             $acaoExtensao->modalidade = $dados['modalidade'];

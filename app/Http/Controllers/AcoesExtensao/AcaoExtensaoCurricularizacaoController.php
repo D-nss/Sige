@@ -21,7 +21,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
     public function index(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
     {
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
