@@ -121,14 +121,14 @@ class AcaoExtensaoCienciaController extends Controller
             }
         }
 
-        if( $count() == 0 ) {
+        if( $count == 0 ) {
             session()->flash('status', 'Nenhuma ação foi reconhecida!');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
 
-        if( $count() > 0 ) {
+        if( $count > 0 ) {
 
             session()->flash('status', 'Ações reconhecidas com sucesso!');
             session()->flash('alert', 'success');
