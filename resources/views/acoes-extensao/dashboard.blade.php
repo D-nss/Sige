@@ -152,8 +152,8 @@
                                             @if( 
                                                     (
                                                         $acao_extensao->status_comissao_graduacao === 'Sim' 
-                                                        && is_null($acao_extensao->qtd_horas_curricularizacao) 
-                                                        && is_null($acao_extensao->vagas_curricularizacao) 
+                                                        && !is_null($acao_extensao->qtd_horas_curricularizacao) 
+                                                        && !is_null($acao_extensao->vagas_curricularizacao) 
                                                     ) 
                                                     || 
                                                     $acao_extensao->ocorrencia->count() > 0
