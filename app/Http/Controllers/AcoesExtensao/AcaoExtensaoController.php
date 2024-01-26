@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AcoesExtensao;
 
 use App\Http\Controllers\Controller;
 
+use App\Services\Comissao\BuscaUsuariosComissaoGraduacao;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -874,6 +875,16 @@ class AcaoExtensaoController extends Controller
             session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Extensão da sua unidade disponível para avaliar, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
             session()->flash('alert', 'warning');
             return redirect()->route('acao_extensao.painel');
+        }
+
+        if($acaoExtensao->vagas_curricularizacao > 0){
+            $comissaoGraduacaoUnidade = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
+
+            if($comissaoGraduacaoUnidade->isEmpty()){
+                session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Graduação da sua unidade disponível, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
+                session()->flash('alert', 'warning');
+                return redirect()->route('acao_extensao.painel');
+            }
         }
 
         $acaoExtensao->status = 'Pendente';
