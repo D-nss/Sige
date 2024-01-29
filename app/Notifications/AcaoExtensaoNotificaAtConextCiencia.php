@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AcaoExtensaoNotificaAtConext extends Notification
+class AcaoExtensaoNotificaAtConextCiencia extends Notification
 {
     use Queueable;
 
@@ -43,10 +43,10 @@ class AcaoExtensaoNotificaAtConext extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Proposta ' . $this->data['titulo'] . ' está aguardando uma ação sua.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi aprovada pela comissão da unidade e está aguardando indicação do comitê consultivo.')
+            ->subject('Proposta ' . $this->data['titulo'] . ' foi analisada pelo comitê consultivo.')
+            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi analisada pelo comissão de graduação e está disponível para ciência.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
-            ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
+            ->action('Acessar área de ciência das Ações de Extensão', url('acoes-extensao-ciencia-conext'));
     }
 
     /**
