@@ -17,10 +17,10 @@ class BuscaUsuariosComissaoGraduacao
     {
         $usersComissao = User::join('comissoes_users as cmu', 'cmu.user_id', 'users.id')
                                     ->join('comissoes as c', 'c.id', 'cmu.comissao_id')
-                                    ->where('c.unidade_id', $unidade)
+                                    ->where('c.unidade_id', $unidade->id)
                                     ->where('c.atribuicao', 'Graduação')
                                     ->get('users.*');
-        
+
         return $usersComissao;
     }
 }

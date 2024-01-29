@@ -53,7 +53,7 @@ class AcaoExtensaoComissaoGraduacaoController extends Controller
             return redirect()->back();
         }
 
-        $comite_graduacao = BuscaUsuariosComissaoGraduacao::execute($acao_extensao->unidade_id);
+        $comite_graduacao = BuscaUsuariosComissaoGraduacao::execute($acao_extensao->unidade);
 
         $acao_extensao->comissao_graduacao_user_id = $user->id;
         $acao_extensao->status_comissao_graduacao = $request->status_comissao_graduacao;
