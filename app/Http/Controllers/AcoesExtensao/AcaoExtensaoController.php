@@ -928,9 +928,13 @@ class AcaoExtensaoController extends Controller
         Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
         $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
 
-        //$at_conext = User::role('at_conext')->get();
-       // Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
-       //deve notificar a comissão de graduação da unidade
+        
+        $at_conext = User::role('at_conext')->get();
+        Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
+
+        $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
+        Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao)); 
+        
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 

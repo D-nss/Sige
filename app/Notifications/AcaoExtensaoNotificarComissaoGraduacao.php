@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AcaoExtensaoNotificarComissaoUnidade extends Notification
+class AcaoExtensaoNotificarComissaoGraduacao extends Notification
 {
     use Queueable;
 
@@ -47,7 +47,7 @@ class AcaoExtensaoNotificarComissaoUnidade extends Notification
             ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' está aguardando sua análise.')
             ->line('Observação: Caso esta ação não apareça como pendente a mesma foi analisada pro outro membro da comissão')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
-            ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
+            ->action('Visualizar Ação de Extensão', url('acoes-extensao/painel/extensao' ));
     }
 
     /**
