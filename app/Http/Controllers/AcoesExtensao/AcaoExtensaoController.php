@@ -274,7 +274,7 @@ class AcaoExtensaoController extends Controller
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
         $dados['municipio_id'] = $request->cidade;
         //$dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
-        $dados_form = $request->all();
+        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar');
         $upload = new UploadFile();
         $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
         $dados = array_merge($dados_form, $dados);
@@ -345,7 +345,7 @@ class AcaoExtensaoController extends Controller
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
         $dados['municipio_id'] = $request->cidade;
         // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
-        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade');
+        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar');
 
         $dados = array_merge($dados_form, $dados);
 
@@ -935,7 +935,7 @@ class AcaoExtensaoController extends Controller
         else {
             Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConextCiencia($acaoExtensao));
         }
-        
+
         $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
         Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao));
 
