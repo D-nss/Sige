@@ -45,7 +45,7 @@
                         <tbody>
                             
                             @foreach($curricularizacoes as $curricularizacao)
-                            {{ var_dump($curricularizacao->aluno) }}
+                            
                                 <tr>
                                     <td>
                                         <div class="fs-xl fw-700 text-primary">{{ $curricularizacao->aluno->MALUCOMPL }}</div>
