@@ -148,51 +148,49 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $acao_extensao_ocorrencia = AcaoExtensaoOcorrencia::find($acaoExtensaoOcorrenciaId);
 
-        echo json_encode($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->where('status', 'Aceito')->count());
+        if( $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->where('status', 'Aceito')->count() ) {
+            session()->flash('status', 'Desculpe! O numero de vagas disponíveis atingido.');
+            session()->flash('alert', 'warning');
 
-        // if( $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->count()) {
-        //     session()->flash('status', 'Desculpe! As vagas disponíveis já foi atingida.');
-        //     session()->flash('alert', 'warning');
+            return redirect()->back();
+        }
 
-        //     return redirect()->back();
-        // }
+        if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
+            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('alert', 'warning');
 
-        // if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
-        //     session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
-        //     session()->flash('alert', 'warning');
+            return redirect()->back();
+        }
 
-        //     return redirect()->back();
-        // }
+        if($request->status == 'Não Aceito') {
+            $validar = [
+                'status' => 'required',
+                'justificativa' => 'required|max:2500'
+            ];
+        }
+        else {
+            $validar = [
+                'status' => 'required',
+            ];
+        }
 
-        // if($request->status == 'Não Aceito') {
-        //     $validar = [
-        //         'status' => 'required',
-        //         'justificativa' => 'required|max:2500'
-        //     ];
-        // }
-        // else {
-        //     $validar = [
-        //         'status' => 'required',
-        //     ];
-        // }
+        $validado = $request->validate($validar);
 
-        // $validado = $request->validate($validar);
+        $acaoExtensaoCurricularizacao->status = $request->status;
+        $acaoExtensaoCurricularizacao->justificativa = $request->justificativa;
+        if($acaoExtensaoCurricularizacao->update()) {
+            $acaoExtensaoCurricularizacao->user->notify(new \App\Notifications\NotificarAceiteCurricularizacao($acao_extensao_ocorrencia, $acaoExtensaoCurricularizacao->status));
+            session()->flash('status', 'Inscrição atualizada com sucesso.');
+            session()->flash('alert', 'success');
 
-        // $acaoExtensaoCurricularizacao->status = $request->status;
-        // $acaoExtensaoCurricularizacao->justificativa = $request->justificativa;
-        // if($acaoExtensaoCurricularizacao->update()) {
-        //     $acaoExtensaoCurricularizacao->user->notify(new \App\Notifications\NotificarAceiteCurricularizacao($acao_extensao_ocorrencia));
-        //     session()->flash('status', 'Inscrição atualizada com sucesso.');
-        //     session()->flash('alert', 'success');
+            return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao/");
+        }
+        else {
+            session()->flash('status', 'Desculpe! Houve um erro ao atualizar inscrição.');
+            session()->flash('alert', 'danger');
 
-        //     return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao/");
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Houve um erro ao atualizar inscrição.');
-        //     session()->flash('alert', 'danger');
-
-        //     return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao");
-        // }
+            return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao");
+        }
     }
 
     public function apontar(Request $request, AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)

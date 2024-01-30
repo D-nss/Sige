@@ -14,14 +14,16 @@ class NotificarAceiteCurricularizacao extends Notification
     use Queueable;
 
     private $acao_extensao_ocorrencia;
+    private $status;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)
+    public function __construct(AcaoExtensaoOcorrencia $acao_extensao_ocorrencia, $status)
     {
        $this->acao_extensao_ocorrencia = $acao_extensao_ocorrencia;
+       $this->status = $status;
     }
 
     /**
@@ -45,7 +47,7 @@ class NotificarAceiteCurricularizacao extends Notification
     {
         return (new MailMessage)
                     ->subject('Resposta do coordenador sobre sua participação em ação de extensão')
-                    ->line('Sua participação na ação de extensão "'. $this->acao_extensao_ocorrencia->acao_extensao->titulo .'" foi aceita.')
+                    ->line('Sua participação na ação de extensão "'. $this->acao_extensao_ocorrencia->acao_extensao->titulo .'" teve o status atualizado para '. $this->status .'.')
                     ->line('Data Inicio: '. date('d/m/Y', strtotime($this->acao_extensao_ocorrencia->data_hora_inicio)))
                     ->line('Data Fim: '. date('d/m/Y',strtotime( $this->acao_extensao_ocorrencia->data_hora_fim)))
                     //->action('Notification Action', url('/'))
