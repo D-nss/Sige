@@ -255,7 +255,7 @@
                             </label>
                         </div>
 
-                        <div class="{{ old('curricularizar') ? 'd-block' : 'd-none' }}" id="acao_curricularizacao">
+                        <div class="{{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao) ? 'd-block' : 'd-none' }}" id="acao_curricularizacao">
 
                         <div class="form-group col-md-2">
                             <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
