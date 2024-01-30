@@ -33,23 +33,23 @@
                     @csrf
                     <div class="form-group">
                         <label class="form-label" for="ra">Registro do Aluno (RA)</label>
-                        <input type="text" class="form-control w-25" placeholder="Digite seu RA" name="ra" id="ra" value="{{ $dadosAluno['NREGALUN'] }}" readonly>
+                        <input type="text" class="form-control w-25" placeholder="Digite seu RA" name="ra" id="ra" value="{{ $dadosAluno[0]->NREGALUN }}" readonly>
                     </div>
                     <div class="form-group ">
                         <label for="malucompl" class="form-label">Nome Aluno</label>
-                        <input type="text" class="form-control w-50" id="malucompl" value="{{ $dadosAluno['MALUCOMPL'] }}" readonly>
+                        <input type="text" class="form-control w-50" id="malucompl" value="{{ $dadosAluno[0]->MALUCOMPL }}" readonly>
                     </div>
                     <div class="form-group ">
                         <label for="dnascalu" class="form-label">Data Nascimento</label>
-                        <input type="text" class="form-control w-25" id="dnascalu" value="{{ $dadosAluno['DNASCALU'] }}"  readonly>
+                        <input type="text" class="form-control w-25" id="dnascalu" value="{{ $dadosAluno[0]->DNASCALU}}"  readonly>
                     </div>
                     <div class="form-group ">
                         <label for="munidensi" class="form-label">Faculdade ou Instituto</label>
-                        <input type="text" class="form-control w-50" id="munidensi" name="munidensi" value="{{ $dadosAluno['MUNIDENSI'] }}" readonly>
+                        <input type="text" class="form-control w-50" id="munidensi" name="munidensi" value="{{ $dadosAluno[0]->MUNIDENSI }}" readonly>
                     </div>
                     <div class="form-group ">
                         <label for="nivform" class="form-label">Nível Formação</label>
-                        <input type="text" class="form-control w-25" id="nivform" value="{{ $dadosAluno['NIVFORM'] }}" readonly>
+                        <input type="text" class="form-control w-25" id="nivform" value="{{ $dadosAluno[0]->NIVFORM }}" readonly>
                     </div>
                     <div class="form-group ">
                         <label for="nivform" class="form-label">Carta Apresentação</label>
