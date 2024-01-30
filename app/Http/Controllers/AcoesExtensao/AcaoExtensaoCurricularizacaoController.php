@@ -60,6 +60,16 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         $matricula = Auth::user()->matricula;
 
         $dadosAluno = Dbsig::where('NREGALUN', $matricula)->get();
+
+        $checkCurricularizacao = AcaoExtensaoCurricularizacao::where('acao_extensao_ocorrencia_id', $acao_extensao_ocorrencia->id)
+                                                            ->where('aluno_ra', $matricula)->get();
+
+        if(count($checkCurricularizacao) > 0) {
+            session()->flash('status', 'Desculpe! Você já se inscreveu para esta Ação de Extensão.');
+            session()->flash('alert', 'warning');
+
+            return redirect()->back();
+        }
         
         if($dadosAluno[0]->SITALUNO == "Regular - Ativo" || $dadosAluno[0]->SITALUNO == "Especial - Ativo") {
             return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
@@ -138,42 +148,51 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $acao_extensao_ocorrencia = AcaoExtensaoOcorrencia::find($acaoExtensaoOcorrenciaId);
 
-        if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
-            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
-            session()->flash('alert', 'warning');
+        echo json_encode($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->count());
 
-            return redirect()->back();
-        }
+        // if( $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->count()) {
+        //     session()->flash('status', 'Desculpe! As vagas disponíveis já foi atingida.');
+        //     session()->flash('alert', 'warning');
 
-        if($request->status == 'Não Aceito') {
-            $validar = [
-                'status' => 'required',
-                'justificativa' => 'required|max:2500'
-            ];
-        }
-        else {
-            $validar = [
-                'status' => 'required',
-            ];
-        }
+        //     return redirect()->back();
+        // }
 
-        $validado = $request->validate($validar);
+        // if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
+        //     session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+        //     session()->flash('alert', 'warning');
 
-        $acaoExtensaoCurricularizacao->status = $request->status;
-        $acaoExtensaoCurricularizacao->justificativa = $request->justificativa;
-        if($acaoExtensaoCurricularizacao->update()) {
-            $acaoExtensaoCurricularizacao->user->notify(new \App\Notifications\NotificarAceiteCurricularizacao($acao_extensao_ocorrencia));
-            session()->flash('status', 'Inscrição atualizada com sucesso.');
-            session()->flash('alert', 'success');
+        //     return redirect()->back();
+        // }
 
-            return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao/");
-        }
-        else {
-            session()->flash('status', 'Desculpe! Houve um erro ao atualizar inscrição.');
-            session()->flash('alert', 'danger');
+        // if($request->status == 'Não Aceito') {
+        //     $validar = [
+        //         'status' => 'required',
+        //         'justificativa' => 'required|max:2500'
+        //     ];
+        // }
+        // else {
+        //     $validar = [
+        //         'status' => 'required',
+        //     ];
+        // }
 
-            return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao");
-        }
+        // $validado = $request->validate($validar);
+
+        // $acaoExtensaoCurricularizacao->status = $request->status;
+        // $acaoExtensaoCurricularizacao->justificativa = $request->justificativa;
+        // if($acaoExtensaoCurricularizacao->update()) {
+        //     $acaoExtensaoCurricularizacao->user->notify(new \App\Notifications\NotificarAceiteCurricularizacao($acao_extensao_ocorrencia));
+        //     session()->flash('status', 'Inscrição atualizada com sucesso.');
+        //     session()->flash('alert', 'success');
+
+        //     return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao/");
+        // }
+        // else {
+        //     session()->flash('status', 'Desculpe! Houve um erro ao atualizar inscrição.');
+        //     session()->flash('alert', 'danger');
+
+        //     return redirect()->to("acoes-extensao-ocorrencia/$acaoExtensaoOcorrenciaId/curricularizacao");
+        // }
     }
 
     public function apontar(Request $request, AcaoExtensaoCurricularizacao $acaoExtensaoCurricularizacao)
