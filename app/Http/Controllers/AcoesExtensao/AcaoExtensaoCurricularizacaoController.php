@@ -148,7 +148,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $acao_extensao_ocorrencia = AcaoExtensaoOcorrencia::find($acaoExtensaoOcorrenciaId);
 
-        echo json_encode($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->count());
+        echo json_encode($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->where('status', 'Aceito')->count());
 
         // if( $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == $acao_extensao_ocorrencia->curricularizacao->count()) {
         //     session()->flash('status', 'Desculpe! As vagas disponíveis já foi atingida.');
