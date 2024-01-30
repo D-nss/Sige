@@ -337,6 +337,22 @@ Versão: 4.5.1
                     }
                 });
 
+                $("#curricularizar").change(function(){
+                    if ( $('#curricularizar').is(':checked') ) {
+                        $("#acao_curricularizacao").removeClass('d-none')
+                        $("#vagas_curricularizacao").prop('required', true);
+                        $("#qtd_horas_curricularizacao").prop('required', true);
+                    }
+                    else {
+                        $("#acao_curricularizacao").addClass('d-none');
+                        $("#vagas_curricularizacao").prop('required', false);
+                        $("#qtd_horas_curricularizacao").prop('required', false);
+                        $("#acao_curricularizacao").addClass('d-none');
+                        $("#vagas_curricularizacao").val('');
+                        $("#qtd_horas_curricularizacao").val('');
+                    }
+                });
+
                 $("#vagas").change(function(){
                     if($("#vagas").val() < 0) {
                         $("#vagas").val('');
@@ -406,6 +422,8 @@ Versão: 4.5.1
                         $("#div_desc_deficiencia").addClass("d-none");
                     }
                 });
+
+
 
                 $("#data_fim").blur(function(){
                     var dt_inicio = new Date($("#data_inicio").val())

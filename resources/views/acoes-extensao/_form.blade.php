@@ -217,7 +217,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -243,6 +243,20 @@
                             <label class="form-label" for="estimativa_publico">Estimativa de público</label>
                             <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_cultural->estimativa_publico) ? $acao_cultural->estimativa_publico : old('estimativa_publico')}}">
                         </div>
+                    </div>
+                    <div class="form-group border rounded p-3">
+                        <label for="curricularizacao" class="fw-700"><i
+                                class="far fa-pencil mr-2"></i>Curricularização</label>
+                        <div class="custom-control custom-switch mb-3">
+                            <input class="custom-control-input" type="checkbox" id="curricularizar"
+                                name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="curricularizar">
+                                Curricularizar essa Ação de Extensão
+                            </label>
+                        </div>
+
+                        <div class="{{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao) ? 'd-block' : 'd-none' }}" id="acao_curricularizacao">
+
                         <div class="form-group col-md-2">
                             <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
                             <input class="form-control" id="vagas_curricularizacao" type="number" min=1 name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
@@ -269,6 +283,7 @@
                                 </div>
                             </div>
                             <input class="form-control" id="qtd_horas_curricularizacao" type="number" min=1 name="qtd_horas_curricularizacao" value="{{isset($acao_extensao->qtd_horas_curricularizacao) ? $acao_extensao->qtd_horas_curricularizacao : old('qtd_horas_curricularizacao')}}">
+                        </div>
                         </div>
                     </div>
                     <div class="form-group">
