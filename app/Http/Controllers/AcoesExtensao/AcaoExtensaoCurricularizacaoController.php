@@ -13,6 +13,7 @@ use App\Models\AcaoExtensaoOcorrencia;
 use App\Models\AcaoExtensaoCurricularizacao;
 use App\Models\Unidade;
 use App\Models\User;
+use App\Models\Dbsig;
 
 use App\Services\Curricularizacao\PreparaUnidade;
 
@@ -36,18 +37,6 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         if(count($acao_extensao_ocorrencia->curricularizacao) > 0) {
             $curricularizacoes = $acao_extensao_ocorrencia->curricularizacao;
 
-            //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
-            $alunos = json_decode(File::get(storage_path('alunos.json')), true);
-            foreach($curricularizacoes as $c){
-
-                foreach($alunos as $aluno){
-                    if($aluno["NREGALUN"] == $c->aluno_ra) {
-                        $c['aluno_ra'] = $aluno;
-                        break;
-                    }
-                }
-            }
-
             return view('acoes-extensao.curricularizacao.index', compact('curricularizacoes', 'acao_extensao_ocorrencia'));
         }
         else {
@@ -68,26 +57,21 @@ class AcaoExtensaoCurricularizacaoController extends Controller
             return redirect()->back();
         }
 
-        //pegando dados do aluno de um arquivo json com dados dos aluno (Temporário)
-        $dadosAluno = '';
         $matricula = Auth::user()->matricula;
 
-        $alunos = json_decode(File::get(storage_path('alunos.json')), true);
-        foreach($alunos as $aluno){
-            if($aluno["NREGALUN"] == $matricula) {
-                $dadosAluno = $aluno;
-                break;
-            }
+        $dadosAluno = Dbsig::where('NREGALUN', $matricula)->get();
+        
+        if($dadosAluno[0]->SITALUNO == "Regular - Ativo" || $dadosAluno[0]->SITALUNO == "Especial - Ativo") {
+            return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
         }
-
-        if(empty($dadosAluno)) {
+        else {
             session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
         }
 
-        return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+        
     }
 
     public function store(Request $request, AcaoExtensaoOcorrencia $acao_extensao_ocorrencia)

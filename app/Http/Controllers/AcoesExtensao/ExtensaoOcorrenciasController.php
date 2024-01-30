@@ -35,7 +35,7 @@ class ExtensaoOcorrenciasController extends Controller
         }
 
         if(App::environment('local')){
-            $user = User::where('id', 1)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
