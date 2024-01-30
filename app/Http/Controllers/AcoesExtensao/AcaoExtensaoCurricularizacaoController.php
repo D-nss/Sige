@@ -61,7 +61,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
         $dadosAluno = Dbsig::where('NREGALUN', $matricula)->get();
 
-        if($dadosAluno->SITALUNO != "Regular - Ativo" || $dadosAluno->SITALUNO != "Especial - Ativo") {
+        if($dadosAluno['SITALUNO'] != "Regular - Ativo" || $dadosAluno['SITALUNO'] != "Especial - Ativo") {
             session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
             session()->flash('alert', 'warning');
 
