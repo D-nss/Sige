@@ -60,7 +60,7 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         $matricula = Auth::user()->matricula;
 
         $dadosAluno = Dbsig::where('NREGALUN', $matricula)->get();
-        echo json_encode($dadosAluno);
+        echo json_encode($dadosAluno[0]->SITALUNO != "Regular - Ativo");
         // if($dadosAluno[0]->SITALUNO != "Regular - Ativo" || $dadosAluno[0]->SITALUNO != "Especial - Ativo") {
         //     session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
         //     session()->flash('alert', 'warning');
