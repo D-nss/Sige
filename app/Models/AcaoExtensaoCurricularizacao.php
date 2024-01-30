@@ -31,4 +31,9 @@ class AcaoExtensaoCurricularizacao extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function aluno()
+    {
+        return $this->hasOne(Dbsig::class, 'NREGALUN', 'aluno_ra');
+    }
 }

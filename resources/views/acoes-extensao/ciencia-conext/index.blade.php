@@ -15,7 +15,14 @@
         </div>
         <div class="flex-1">
             <span class="h5">
-            As ações listadas abaixo já foram enviadas para ciência, e estão aguardando reconhecimento do Conext.
+            @if($acoes_extensao->count() > 0)
+                As ações listadas abaixo já foram enviadas para ciência, e estão aguardando a resposta do Conext.<br>
+                Para marcar a ciência selecione as ações desejadas e clique no botão "Marcar Ciência"
+
+            @else
+                Para marcar a ciência primeiro deve ser gerado a planilha, clicando no botão "Gerar Planilha".<br>
+                Após passar pelo conext esta página deve ser atualizada.
+            @endif
             </span>
         </div>
          

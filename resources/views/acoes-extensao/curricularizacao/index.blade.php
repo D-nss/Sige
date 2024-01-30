@@ -47,9 +47,9 @@
                             @foreach($curricularizacoes as $curricularizacao)
                                 <tr>
                                     <td>
-                                        <div class="fs-xl fw-700 text-primary">{{ $curricularizacao->aluno_ra['MALUCOMPL'] }}</div>
-                                        <div class="fs-md text-success">{{ $curricularizacao->aluno_ra['NIVFORM'] }} - {{ $curricularizacao->aluno_ra['MUNIDENSI'] }}</div>
-                                        <div class="fs-xs text-muted mb-1">{{ $curricularizacao->aluno_ra['SITALUNO'] }}</div>
+                                        <div class="fs-xl fw-700 text-primary">{{ $curricularizacao->aluno['MALUCOMPL'] }}</div>
+                                        <div class="fs-md text-success">{{ $curricularizacao->aluno['NIVFORM'] }} - {{ $curricularizacao->aluno['MUNIDENSI'] }}</div>
+                                        <div class="fs-xs text-muted mb-1">{{ $curricularizacao->aluno['SITALUNO'] }}</div>
                                                 
                                         <!-- <button class="btn btn-warning btn-xs mb-2" type="button" data-toggle="collapse" data-target="#collapseCoeficientes{{ $curricularizacao->id }}" aria-expanded="false" aria-controls="collapseCoeficientes{{ $curricularizacao->id }}">
                                             Coeficientes DAC

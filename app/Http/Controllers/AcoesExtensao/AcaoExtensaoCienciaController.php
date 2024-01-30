@@ -33,7 +33,7 @@ class AcaoExtensaoCienciaController extends Controller
         }
 
         if( !$user->hasRole('at_conext') ) {
-            session()->flash('status', 'Desculpe! Somente AT Conext pode acessar e gerar a deliberação');
+            session()->flash('status', 'Desculpe! Somente AT Conext pode acessar e gerar a ciência');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
