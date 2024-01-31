@@ -20,7 +20,7 @@
                 Para marcar a deliberação selecione as ações desejadas e clique no botão "Marcar Reconhecimento"
 
             @else
-                Para marcar a ciência primeiro deve ser gerado a planilha, clicando no botão "Gerar Planilha".<br>
+                Para marcar a deliberação primeiro deve ser gerado a planilha clicando no botão "Gerar Deliberação".<br>
                 Após passar pelo conext esta página deve ser atualizada.
             @endif
             </span>
