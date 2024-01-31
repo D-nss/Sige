@@ -46,7 +46,7 @@ class AcaoExtensaoComissaoGraduacaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
         }
         //Validar comissão de graduação
-        if( !ChecaComissao::execute('unidade', $user->unidade_id, 'Graduação', $user->id) ) {
+        if( !ChecaComissao::execute('unidade', $acao_extensao->unidade, 'Graduação', $user->id) ) {
             session()->flash('status', 'Desculpe! Você não faz parte da comissão necessária para acesso!');
             session()->flash('alert', 'warning');
 
