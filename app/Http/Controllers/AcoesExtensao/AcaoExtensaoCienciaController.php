@@ -46,7 +46,7 @@ class AcaoExtensaoCienciaController extends Controller
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
         $acoes_extensao = AcaoExtensao::where('modalidade', "!=", 1)
-                                        ->where('status_comissao_graduacao', 'Sim')
+                                        ->where('status', 'Aprovado')
                                         ->where('ciencia', 'Gerado')
                                         ->whereNull('ciencia_status')
                                         ->get();
@@ -77,7 +77,7 @@ class AcaoExtensaoCienciaController extends Controller
         }
 
         AcaoExtensao::where('modalidade', "!=", 1)
-            ->where('status_comissao_graduacao', 'Sim')
+            ->where('status', 'Aprovado')
             ->whereNull('ciencia')
             ->whereNull('ciencia_status')
             ->update(['ciencia' => 'Gerado']);
@@ -104,7 +104,7 @@ class AcaoExtensaoCienciaController extends Controller
 
         foreach($request->selecionados as $selecionado) {
             $linhas_afetadas = AcaoExtensao::where('modalidade', "!=",1)
-            ->where('status_comissao_graduacao', 'Sim')
+            ->where('status', 'Aprovado')
             ->where('ciencia', 'Gerado')
             ->whereNull('ciencia_status')
             ->where('id', $selecionado)

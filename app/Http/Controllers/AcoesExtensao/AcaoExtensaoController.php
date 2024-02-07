@@ -936,11 +936,9 @@ class AcaoExtensaoController extends Controller
             Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConextCiencia($acaoExtensao));
         }
 
-        $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
-        Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao));
-
-        if($acaoExtensao->modalidade != 1) {
-
+        if( !is_null($acaoExtensao->vagas_curricularizacao) && $acaoExtensao->vagas_curricularizacao >= 0) {
+            $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
+            Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao));
         }
 
         session()->flash('status', 'Ação de Extensão aprovada!');
