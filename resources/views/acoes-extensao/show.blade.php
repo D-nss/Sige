@@ -262,6 +262,16 @@
                             </h5>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                Estimativa Público:
+                                <small class="mt-0 mb-3 text-muted">
+                                    {{$acao_extensao->estimativa_publico}}
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
                     @if(isset($acao_extensao->vagas_curricularizacao))
                     <div class="col-12">
                         <div class="p-0">

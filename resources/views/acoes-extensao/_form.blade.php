@@ -241,7 +241,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label class="form-label" for="estimativa_publico">Estimativa de público</label>
-                            <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_cultural->estimativa_publico) ? $acao_cultural->estimativa_publico : old('estimativa_publico')}}">
+                            <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_extensao->estimativa_publico) ? $acao_extensao->estimativa_publico : old('estimativa_publico')}}">
                         </div>
                     </div>
                     <div class="form-group border rounded p-3">

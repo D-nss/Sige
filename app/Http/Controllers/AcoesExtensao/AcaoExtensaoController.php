@@ -180,6 +180,7 @@ class AcaoExtensaoController extends Controller
 
         $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')
         ->where('status_avaliacao_conext', 'Reconhecido')
+        ->orWhere('ciencia_status', 'Reconhecido')
         ->get();
 
         return view('acoes-extensao.catalogo', [
