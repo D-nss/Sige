@@ -68,6 +68,12 @@ class ExtensaoOcorrenciasController extends Controller
 
         $acao_extensao = AcaoExtensao::where('id', $id)->first();
 
+        if( $acao_extensao->status == 'Desativado' ) {
+            session()->flash('status', 'Esta ação está desativada e não possível cadastrar ocorrências.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.painel');
+        }
+
         if( ((is_null($acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao->qtd_horas_curricularizacao == 0 ) && (is_null($acao_extensao->vagas_curricularizacao) || $acao_extensao->vagas_curricularizacao == 0) ) ) {
             session()->flash('status', 'Para poder cadastrar ocorrências essa ação deve ser preenchida como curricularização.');
             session()->flash('alert', 'warning');

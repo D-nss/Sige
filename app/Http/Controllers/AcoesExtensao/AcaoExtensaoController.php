@@ -81,6 +81,7 @@ class AcaoExtensaoController extends Controller
 
         $pendentes_graduacao = AcaoExtensao::whereIn('unidade_id', $user_unidades_comissoes_graduacao_pertencentes)
             ->whereNotNull('aprovado_user_id')
+            ->whereNotNull('vagas_curricularizacao')
             ->where('status', 'Aprovado')
             ->whereNull('comissao_graduacao_user_id')
             ->whereNull('parecer_comissao_graduacao')
@@ -864,7 +865,7 @@ class AcaoExtensaoController extends Controller
     {
         $acaoExtensao->status = 'Desativado';
         $acaoExtensao->update();
-        return redirect()->route('acao_extensao.index');
+        return redirect()->route('acao_extensao.painel');
     }
 
     public function submeter(AcaoExtensao $acaoExtensao)

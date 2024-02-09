@@ -993,6 +993,12 @@
                             </div>
                         </div>
                     </div>
+                    <a href="/acoes-extensao/painel/extensao" class="btn btn-secondary btn-user ">
+                        <span class="icon text-white-50">
+                        <i class="fal fa-arrow-left"></i>
+                        </span>
+                        <span class="text">Voltar</span>
+                    </a>
                     @if($user->id == $acao_extensao->user_id)
                     <a href="/acoes-extensao/{{$acao_extensao->id}}/editar"><button type="button" class="btn btn-md btn-primary waves-effect waves-themed mt-2">Editar
                         </button></a>
