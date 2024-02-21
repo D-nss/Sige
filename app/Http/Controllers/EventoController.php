@@ -356,6 +356,8 @@ class EventoController extends Controller
             "modelo" => 'file|max:5120|mimes:png'
         ];
 
+        return dd($request);
+
         $request->validate($toValidate);
 
         if( isset($request->modelo) || !$request->modelo == '') {
