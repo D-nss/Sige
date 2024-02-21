@@ -137,7 +137,7 @@
                                         @csrf
                                         @method('PUT')
                                         <div class=" @error('modelo') border border-danger rounded p-3 @enderror mb-2">
-                                            <div class="form-group d-block"
+                                            <div class="form-group @if (!isset($evento->certificado) && !$evento->certificado) d-none @endif "
                                                 id="carregar_modelo">
                                                 <label class="control-label font-weight-bold text-success">Upload do modelo do
                                                     certificado</label>
@@ -151,6 +151,14 @@
                                                                     Limpar
                                                                 </button>
                                                             </div>
+                                                        </div>
+                                                        <div class="box-body" id="box-body">
+                                                            @if (isset($evento->certificado->arquivo) && !!$evento->certificado->arquivo)
+                                                                <img src="{{ url('storage/' . $evento->certificado->arquivo) }}"
+                                                                    alt="{{ $evento->certificado->titulo }}"
+                                                                    class="img-thumbnail mb-2"
+                                                                    style="max-width: 75px;" />
+                                                            @endif
                                                         </div>
                                                         <div class="box-body" id="box-body">
                                                             @if ($errors->any())
