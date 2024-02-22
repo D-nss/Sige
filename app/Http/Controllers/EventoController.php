@@ -358,7 +358,7 @@ class EventoController extends Controller
 
         //return dd($request);
 
-        //$request->validate($toValidate);
+        $request->validate($toValidate);
 
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
