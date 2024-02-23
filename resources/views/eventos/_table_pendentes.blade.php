@@ -152,6 +152,12 @@
                                                                 </button>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="local" class="fw-700">Local do Evento</label>
+                                                            <input type="text" class="form-control @error('local') is-invalid @enderror"
+                                                                name="local" placeholder="Digite o local do Evento."
+                                                                value="@if (isset($evento)) {{ $evento->local }} @endif">
+                                                        </div>
                                                         <div class="box-body" id="box-body">
                                                             @if (isset($evento->certificado->arquivo) && !!$evento->certificado->arquivo)
                                                                 <img src="{{ url('storage/' . $evento->certificado->arquivo) }}"

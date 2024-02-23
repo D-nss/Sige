@@ -353,12 +353,15 @@ class EventoController extends Controller
         $dados = [];
 
         $toValidate = [
-            "modelo" => 'file|max:5120|mimes:png'
+            "local" => 'required',
+            //"modelo" => 'file|max:5120|mimes:png'
         ];
 
         //return dd($request);
 
         $request->validate($toValidate);
+
+        /*
 
         if( isset($request->modelo) || !$request->modelo == '') {
             $upload = new UploadFile();
@@ -378,6 +381,7 @@ class EventoController extends Controller
                 $certificado->save();
             }
         }
+        */
 
         if($evento->update($dados)) {
             session()->flash('status', 'Evento Atualizado com sucesso.');
