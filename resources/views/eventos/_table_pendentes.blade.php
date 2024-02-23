@@ -124,7 +124,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="modalCertificado{{ $evento->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $evento->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <form action="{{route('evento.updateCertificado', ['evento' => $evento->id])}}" method="post">
+                            <form action="{{route('evento.updateCertificado', ['evento' => $evento->id])}}" method="post" enctype="multipart/form-data">
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="modalLabel{{ $evento->id }}">Alterar Certificado</h5>
