@@ -252,9 +252,11 @@
                                             </div>
                                         </div>
                                         @hasrole($evento->grupo_usuario, 'web_user')
+                                            @if($evento->data_fim > now())
                                             <a href="{{ url('/eventos/' . $evento->id . '/editar') }}"
                                                 class="btn btn-primary"><span
                                                 class="fal fa-pencil mr-1"></span>Editar</a>
+                                            @endif
                                         @endhasanyrole
                                         <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </div>
