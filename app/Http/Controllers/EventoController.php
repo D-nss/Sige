@@ -387,7 +387,14 @@ class EventoController extends Controller
             session()->flash('status', 'Certificado Atualizado com sucesso.');
             session()->flash('alert', 'success');
 
-            return redirect()->back();
+            return response()->view('eventos.index')->withHeaders([
+                'Content-Type' => 'text/javascript'
+            ])->setContent("
+                <script>
+                    // Using JavaScript to navigate back in the browser history
+                    window.history.back();
+                </script>
+            ");
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
