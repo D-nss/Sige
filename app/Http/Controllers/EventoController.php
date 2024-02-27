@@ -387,7 +387,7 @@ class EventoController extends Controller
             session()->flash('status', 'Certificado Atualizado com sucesso.');
             session()->flash('alert', 'success');
 
-            return response()->view('eventos.index')->withHeaders([
+            return redirect()->back()->withHeaders([
                 'Content-Type' => 'text/javascript'
             ])->setContent("
                 <script>
