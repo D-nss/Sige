@@ -42,9 +42,6 @@
                     <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id) }}">
                         <span class="a-ic-bt-peq fal fa-eye"></span>Ver Detalhes
                     </a>
-                    <a class="btn-negativo" href="{{ url('/eventos/' . $evento->id . '/editar') }}">
-                        <span class="a-ic-bt-peq fal fa-pencil"></span>Editar
-                    </a>
                 </div>
 
                 <span class="fw-700 text-muted"><small>Local:</small> {{ $evento->local }}</span>

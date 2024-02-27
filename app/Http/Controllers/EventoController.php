@@ -236,6 +236,11 @@ class EventoController extends Controller
 
             return redirect()->to('/eventos');
         }
+        if($evento->data_fim > now()){
+            session()->flash('status', 'Desculpe! Não é permitido a edição de um evento que já terminou.');
+            session()->flash('alert', 'danger');
+            return redirect()->back();
+        }
         if($evento->status == 'Encerrado'){
             if($user->hasRole('super')){
                 session()->flash('status', 'Atenção! Você está acessando um evento que já foi encerrado. Por favor, tenha cuidado ao fazer alterações nos campos');
@@ -379,10 +384,17 @@ class EventoController extends Controller
 
 
         if($evento->update($dados)) {
-            session()->flash('status', 'Evento Atualizado com sucesso.');
+            session()->flash('status', 'Certificado Atualizado com sucesso.');
             session()->flash('alert', 'success');
 
-            return redirect()->to("eventos/$evento->id");
+            return response()->view('eventos')->withHeaders([
+                'Content-Type' => 'text/javascript'
+            ])->setContent("
+                <script>
+                    // Using JavaScript to navigate back in the browser history
+                    window.history.back();
+                </script>
+            ");
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
