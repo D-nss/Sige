@@ -236,7 +236,7 @@ class EventoController extends Controller
 
             return redirect()->to('/eventos');
         }
-        if($evento->data_fim > now()){
+        if($evento->data_fim < now()){
             session()->flash('status', 'Desculpe! Não é permitido a edição de um evento que já terminou.');
             session()->flash('alert', 'danger');
             return redirect()->back();
@@ -387,14 +387,7 @@ class EventoController extends Controller
             session()->flash('status', 'Certificado Atualizado com sucesso.');
             session()->flash('alert', 'success');
 
-            return redirect()->back()->withHeaders([
-                'Content-Type' => 'text/javascript'
-            ])->setContent("
-                <script>
-                    // Using JavaScript to navigate back in the browser history
-                    window.history.back();
-                </script>
-            ");
+            return redirect()->back();
         }
         else {
             session()->flash('status', 'Desculpe! Houve um erro ao atualizar o evento.');
