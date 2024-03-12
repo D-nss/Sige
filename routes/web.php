@@ -110,6 +110,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
 
     // Ações de Extensão - Nao utilizado via resource por problemas envio dos parametros
     //Route::resource('/acoes-extensao', AcaoExtensaoController::class)->names('acao_extensao')->parameters(['acoes_extensao' => 'acao_extensao'])->only(['create']);
+    Route::get('/acoes-extensao/inicio', [AcaoExtensaoController::class, 'inicio'])->name('acao_extensao.inicio');
     Route::get('/acoes-extensao', [AcaoExtensaoController::class, 'index'])->name('acao_extensao.index');
     Route::get('/acoes-extensao-pendencias-conext', [AcaoExtensaoPendenciasController::class, 'porComissaoConext'])->name('acao_extensao_pendencias.por_comissao_conext');
     Route::get('/acoes-extensao-pendencias-unidades', [AcaoExtensaoPendenciasController::class, 'porComissaoUnidades'])->name('acao_extensao_pendencias.por_comissao_unidades');

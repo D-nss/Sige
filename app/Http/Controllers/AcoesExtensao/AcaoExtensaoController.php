@@ -47,6 +47,28 @@ class AcaoExtensaoController extends Controller
         //$this->middleware('role:admin|super');
     }
 
+    public function inicio(){
+
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
+
+        $comissao_extensao = Comissao::where('unidade_id', $user->unidade_id)
+            ->where('atribuicao', 'Extensão')->first();
+
+        $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
+            ->where('atribuicao', 'Graduação')->first();
+
+
+        return view('acoes-extensao.inicio', [
+            'user' => $user,
+            'comissao_extensao' => $comissao_extensao,
+            'comissao_graduacao' => $comissao_graduacao,
+        ]);
+    }
+
     public function dashboard(){
 
         if(App::environment('local')){
