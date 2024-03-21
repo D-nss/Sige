@@ -86,26 +86,26 @@
 
                     <form action="" method="post">
                         <div class="form-group">
-                            <label>Nome da Comissão de Extensão</label>
+                            <h3>Nome da Comissão de Extensão</h3>
                             <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos.">
                         </div>
                         <div class="form-group">
-                            <label>Adicionar membros</label>
+                            <h3>Adicionar membros</h3>
                             <select name="nome_membro" id="nome_membro" class="form-control">
                                 <option value="">Selecione da lista ...</option>
                             </select>
                         </div>
-                        <small>Nomes selecionados</small>
-                        <div class="border rounded">
+                        <span>Nomes selecionados</span>
+                        <div class="border rounded" style="height: 50px">
 
                         </div>
-                        <small>
+                        <p class="mt-2">
                             O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
-                        </small>
-                        <div class="form-group">
+                        </p>
+                        <div class="form-group d-flex flex-direction-column mt-2">
                             <button type="submit" class="btn btn-secondary">
 
-                                Confirmar remoção
+                                Criar
                             </button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal">
                                 Cancelar
