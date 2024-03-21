@@ -332,6 +332,10 @@ label.menu-open-button:hover {
   background: #1dc9b7;
   }
 
+  .badge-primary {
+    background: #4679CC !important;
+  }
+
 /* */
 
 

@@ -95,7 +95,7 @@
                             </select>
                         </div>
                         <span>Nomes selecionados</span>
-                        <div class="border rounded" style="height: 50px">
+                        <div class="border rounded p-3" style="height: 50px">
                             @if($comissao_extensao)
                                 @foreach($comissao_extensao->users as $membro)
                                     <div class="badge badge-primary badge-pill p-2">{{ $membro->name }}</div>
@@ -106,15 +106,21 @@
                             O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
                         </p>
                         <div class="form-group mt-2">
-                            <div class="d-flex flex-direction-row">
+                            <div class="row">
+                                <div class="col">
                                 <button type="submit" class="btn btn-secondary" readonly>
                                     <i class="far fa-check-circle"></i>
                                     Criar
                                 </button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">
-                                    <i class="far fa-times"></i>
-                                    Cancelar
-                                </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"> 
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                        <i class="far fa-times"></i>
+                                        Cancelar
+                                    </button>
+                                </div>                            
                             </div>                            
                         </div>
                     </form>
