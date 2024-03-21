@@ -102,16 +102,17 @@
                         <p class="mt-3">
                             O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
                         </p>
-                        <div class="form-group d-flex flex-direction-row mt-2">
-                            <button type="submit" class="btn btn-secondary">
-                                <i class="far fa-check-circle"></i>
-                                Criar
-                            </button>
-                            <button type="button" class="btn btn-primary mt-2" data-dismiss="modal">
-                                <i class="far fa-times"></i>
-                                Cancelar
-                            </button>
-                            
+                        <div class="form-group mt-2">
+                            <div class="d-flex flex-direction-row">
+                                <button type="submit" class="btn btn-secondary" readonly>
+                                    <i class="far fa-check-circle"></i>
+                                    Criar
+                                </button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                    <i class="far fa-times"></i>
+                                    Cancelar
+                                </button>
+                            </div>                            
                         </div>
                     </form>
                       
