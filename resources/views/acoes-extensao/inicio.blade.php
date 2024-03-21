@@ -114,7 +114,7 @@
                                 </button>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col"> 
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">
                                         <i class="far fa-times"></i>
