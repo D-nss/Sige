@@ -35,7 +35,7 @@
                             @endif
                         @else
                             <p>Sua unidade ainda não tem as comissões necessárias cadastradas.</p>
-                            <p>Para criar novas comissões, <a href="#">Clique aqui</a></p>
+                            <p>Para criar novas comissões, <a href="#" data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a></p>
                         @endif
                         <p>Alternativamente, você pode visualizar e criar as Comissões de Extensão e Graduação de sua Unidade a qualquer momento selecionando <span class="fw-700">Comissões > Comissões</span> no menu principal.
                     @else
@@ -57,6 +57,70 @@
                     @endif
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalComissaoExtensao" tabindex="-1" aria-labelledby="modalLabelComissaoExtensao" aria-hidden="true">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelComissaoExtensao">
+                        Criar Comissão de Extensão - Unidade: {{ $user->unidade->sigla }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    Cadastrar uma <span class="fw-700">Comissão de Extensão</span> é imprescindível para que as Ações de Extensão possam ser reconhecidas. O preenchimento é obrigatório.
+                    </p>
+
+                    <h3>
+                        Suas Atribuições
+                    </h3>
+
+                    <p>
+                    O ExteCult vai habilitar você automaticamente a revisar Ações de outros docentes da sua unidade, e a criar novas Ações de Extensão para revisão de outros integrantes da Comissão. No entanto, você não poderá ser revisor(a) de Ações de Extensão anteriormente criadas por você mesmo(a).
+                    </p>
+
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label>Nome da Comissão de Extensão</label>
+                            <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos.">
+                        </div>
+                        <div class="form-group">
+                            <label>Adicionar membros</label>
+                            <select name="nome_membro" id="nome_membro" class="form-control">
+                                <option value="">Selecione da lista ...</option>
+                            </select>
+                        </div>
+                        <small>Nomes selecionados</small>
+                        <div class="border rounded">
+
+                        </div>
+                        <small>
+                            O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
+                        </small>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-secondary">
+
+                                Confirmar remoção
+                            </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                Cancelar
+                            </button>
+                            
+                        </div>
+                    </form>
+                      
+
+                </div>
+                <!-- <div class="modal-footer">
+                    
+                </div> -->
+                </div>
+            </form>
         </div>
     </div>
 
