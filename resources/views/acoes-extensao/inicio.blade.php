@@ -98,7 +98,7 @@
                         <div class="border rounded p-3" style="height: 50px">
                             @if($comissao_extensao)
                                 @foreach($comissao_extensao->users as $membro)
-                                    <div class="badge badge-primary badge-pill p-2">{{ $membro->name }}</div>
+                                    <div class="badge badge-primary badge-pill p-2" style="background: #4679CC !important">{{ $membro->name }}</div>
                                 @endforeach
                             @endif
                         </div>
