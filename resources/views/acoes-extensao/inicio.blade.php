@@ -108,7 +108,7 @@
                         <div class="form-group mt-2">
                             <div class="row">
                                 <div class="col">
-                                <button type="submit" class="btn btn-secondary" readonly>
+                                <button type="submit" class="btn btn-secondary" @if($comissao_extensao) disabled @endif>
                                     <i class="far fa-check-circle"></i>
                                     Criar
                                 </button>
