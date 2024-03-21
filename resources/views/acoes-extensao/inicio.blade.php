@@ -59,7 +59,6 @@
             </div>
         </div>
     </div>
-    {{ dd($comissao_extensao->users) }}
     <div class="modal fade" id="modalComissaoExtensao" tabindex="-1" aria-labelledby="modalLabelComissaoExtensao" aria-hidden="true">
         <div class="modal-dialog">
                 <div class="modal-content">
@@ -87,7 +86,7 @@
                     <form action="" method="post">
                         <div class="form-group">
                             <h3>Nome da Comissão de Extensão</h3>
-                            <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos.">
+                            <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos." @if($comissao_extensao)value="{{ $comissao_extensao->nome}}" readonly @endif>
                         </div>
                         <div class="form-group">
                             <h3>Adicionar membros</h3>
@@ -97,7 +96,11 @@
                         </div>
                         <span>Nomes selecionados</span>
                         <div class="border rounded" style="height: 50px">
-
+                            @if($comissao_extensao)
+                                @foreach($comissao_extensao->users as $membro)
+                                    <div class="badge badge-primary badge-pill p-2">{{ $membro->name }}</div>
+                                @endforeach
+                            @endif
                         </div>
                         <p class="mt-3">
                             O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
