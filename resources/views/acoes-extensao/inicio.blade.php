@@ -23,7 +23,7 @@
                         comissões adequadas, e obter posteriormente a publicação delas.</p>
                     @if ($user->hasRole('extensao-coordenador'))
                         @if ($comissao_extensao)
-                            <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#">Clique aqui</a>
+                            <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#"  data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a>
                             </p>
                             @if ($comissao_graduacao)
                                 <p>Para visualizar Comissão de Graduação cadastrada da unidade, <a href="#">Clique
