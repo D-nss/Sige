@@ -90,12 +90,12 @@
                         </div>
                         <div class="form-group">
                             <h3>Adicionar membros</h3>
-                            <select name="nome_membro" id="nome_membro" class="form-control">
+                            <select name="nome_membro" id="nome_membro" class="form-control" @if($comissao_extensao) readonly @endif>
                                 <option value="">Selecione da lista ...</option>
                             </select>
                         </div>
                         <span>Nomes selecionados</span>
-                        <div class="border rounded p-3" style="height: 50px">
+                        <div class="border rounded p-2" style="height: 80px">
                             @if($comissao_extensao)
                                 @foreach($comissao_extensao->users as $membro)
                                     <div class="badge badge-primary badge-pill p-2" style="background: #4679CC !important">{{ $membro->name }}</div>
