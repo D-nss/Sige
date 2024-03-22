@@ -61,7 +61,7 @@ class AcaoExtensaoController extends Controller
         $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
             ->where('atribuicao', 'Graduação')->first();
 
-        $users = User::orderBy('name', 'asc')->all();
+        $users = User::orderBy('name', 'asc')->get();
 
 
         return view('acoes-extensao.inicio', [
