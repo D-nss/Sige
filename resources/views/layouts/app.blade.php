@@ -1705,10 +1705,6 @@ Versão: 4.5.1
             });
             @endif
 
-            $("#nome_membro").select2({
-                theme: 'bootstrap-4'
-            });
-
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
 
