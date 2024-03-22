@@ -82,7 +82,7 @@
                     <p>
                     O ExteCult vai habilitar você automaticamente a revisar Ações de outros docentes da sua unidade, e a criar novas Ações de Extensão para revisão de outros integrantes da Comissão. No entanto, você não poderá ser revisor(a) de Ações de Extensão anteriormente criadas por você mesmo(a).
                     </p>
-
+                    {{ dd($users) }}
                     <form action="" method="post">
                         <div class="form-group">
                             <h3>Nome da Comissão de Extensão</h3>
@@ -92,7 +92,7 @@
                             <h3>Adicionar membros</h3>
                             <select name="nome_membro" id="nome_membro" class="form-control" @if($comissao_extensao) disabled @endif>
                                 <option value="">Selecione da lista ...</option>
-                                {{ dd($users) }}
+                               
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->sigla }}</option>
                                 @endforeach
