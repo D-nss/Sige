@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <h3>Adicionar membros</h3>
-                            <select name="nome_membro" id="nome_membro" class="form-control" @if($comissao_extensao) disabled @endif>
+                            <select name="nome_membro[]" id="nome_membro" multiple class="form-control" @if($comissao_extensao) disabled @endif>
                                 <option value="">Selecione da lista ...</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->unidade->sigla }}</option>
@@ -111,7 +111,7 @@
                         <div class="form-group mt-2">
                             <div class="row">
                                 <div class="col">
-                                <button type="submit" class="btn @if($comissao_extensao) btn-secondary @else btn-priimary @endif" @if($comissao_extensao) disabled @endif>
+                                <button type="submit" class="btn @if($comissao_extensao) btn-secondary @else btn-primary @endif" @if($comissao_extensao) disabled @endif>
                                     <i class="far fa-check-circle"></i>
                                     Criar
                                 </button>
