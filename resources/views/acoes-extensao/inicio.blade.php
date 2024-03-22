@@ -92,9 +92,8 @@
                             <h3>Adicionar membros</h3>
                             <select name="nome_membro" id="nome_membro" class="form-control" @if($comissao_extensao) disabled @endif>
                                 <option value="">Selecione da lista ...</option>
-                               
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->sigla }}</option>
+                                    <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->unidade->sigla }}</option>
                                 @endforeach
                             </select>
                         </div>
