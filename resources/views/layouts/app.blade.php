@@ -42,6 +42,7 @@ Versão: 4.5.1
         <link id="stylesheetDatatable" media="screen, print" href="{{asset('smartadmin-4.5.1/css/formplugins/smartwizard/smartwizard.css')}}">
         <link rel="stylesheet" media="screen, print" href="{{ asset('smartadmin-4.5.1/css/notifications/toastr/toastr.css') }}">
         <link rel="stylesheet" media="screen, print" href="{{ asset('smartadmin-4.5.1/css/fa-duotone.css') }}">
+        <link rel="stylesheet" media="screen, print" href="{{ asset('smartadmin-4.5.1/css/select2.min.css') }}">
     </head>
     <!-- BEGIN Body -->
     <!-- Possible Classes
@@ -264,6 +265,7 @@ Versão: 4.5.1
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/easypiechart/easypiechart.bundle.js')}}"></script>
 		<script src="{{asset('smartadmin-4.5.1/js/statistics/flot/flot.bundle.js')}}"></script>
         <script src="{{ asset('smartadmin-4.5.1/ckeditor/ckeditor.js') }}"></script>
+        <script src="{{ asset('smartadmin-4.5.1/js/select2.min.js') }}"></script>
         <script type="text/javascript">
 
             if($('#detalhes').length) {
@@ -1702,6 +1704,8 @@ Versão: 4.5.1
                 }
             });
             @endif
+
+            $("#nome_membro").select2();
 
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...

@@ -86,16 +86,19 @@
                     <form action="" method="post">
                         <div class="form-group">
                             <h3>Nome da Comissão de Extensão</h3>
-                            <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos." @if($comissao_extensao)value="{{ $comissao_extensao->nome}}" readonly @endif>
+                            <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos." @if($comissao_extensao)value="{{ $comissao_extensao->nome}}" disabled @endif>
                         </div>
                         <div class="form-group">
                             <h3>Adicionar membros</h3>
-                            <select name="nome_membro" id="nome_membro" class="form-control" @if($comissao_extensao) readonly @endif>
+                            <select name="nome_membro" id="nome_membro" class="form-control" @if($comissao_extensao) disabled @endif>
                                 <option value="">Selecione da lista ...</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->sigla }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <span>Nomes selecionados</span>
-                        <div class="border rounded p-2" style="height: 80px">
+                        <div class="border rounded p-2" style="min-height: 80px">
                             @if($comissao_extensao)
                                 @foreach($comissao_extensao->users as $membro)
                                     <div class="badge badge-primary badge-pill p-2" style="background: #4679CC !important">{{ $membro->name }}</div>
@@ -108,7 +111,7 @@
                         <div class="form-group mt-2">
                             <div class="row">
                                 <div class="col">
-                                <button type="submit" class="btn btn-secondary" @if($comissao_extensao) disabled @endif>
+                                <button type="submit" class="btn @if($comissao_extensao) btn-secondary @else btn-priimary @endif" @if($comissao_extensao) disabled @endif>
                                     <i class="far fa-check-circle"></i>
                                     Criar
                                 </button>
