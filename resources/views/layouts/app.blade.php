@@ -1739,7 +1739,7 @@ Versão: 4.5.1
                                     </span>`;
                         cont++;
 
-                        console.log('{{ Auth::user()->id }}');
+                        console.log('{{ $user->id }}');
                     });
 
                     $("#nomes_selecionados").html(conteudo);
