@@ -1705,96 +1705,97 @@ Versão: 4.5.1
             });
             @endif
 
-            //criacao da comissao no inicio do modulo de acoes de extensao
-            var membros_selecionados = [];
+            @if(Auth::hasUser())
+                //criacao da comissao no inicio do modulo de acoes de extensao
+                var membros_selecionados = [];
 
-            $("#nome_membro").change(function(){
-                membros_selecionados.push({
-                    "id" : $("#nome_membro").val(),
-                    "nome" : $("#nome_membro option:selected").text()
-                });
-
-                 membros_selecionados_lista();
-               
-            });
-
-            function remove_selecionado(index){
-                membros_selecionados.splice(index, 1);
-
-                 membros_selecionados_lista();
-            }
-
-            function membros_selecionados_lista() {
-                var conteudo = '';
-                var cont = 0;
-
-                 membros_selecionados.map(membro => {
-
-                    conteudo +=  `<span class="badge ${membro.id == '{{ Auth::user()->id }}' ? 'badge-warning' : 'badge-primary' } badge-pill px-3">
-                                    ${membro.nome}
-                                    <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
-                                        <i class="fal fa-times mx-2"></i>
-                                    </button>
-                                </span>`;
-                    cont++;
-
-                    console.log('{{ Auth::user()->id }}');
-                });
-
-                $("#nomes_selecionados").html(conteudo);
-
-                if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
-                    $("#btn-criar-comissao").removeClass("btn-secondary");
-                    $("#btn-criar-comissao").addClass("btn-primary");
-                    $("#btn-criar-comissao").prop("disabled", false);
-                }
-                else {
-                    $("#btn-criar-comissao").addClass("btn-secondary");
-                    $("#btn-criar-comissao").removeClass("btn-primary");
-                    $("#btn-criar-comissao").prop("disabled", true);
-                }
-            }
-
-            $("#nome_comissao").blur(function(){
-                if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
-                    $("#btn-criar-comissao").removeClass("btn-secondary");
-                    $("#btn-criar-comissao").addClass("btn-primary");
-                    $("#btn-criar-comissao").prop("disabled", false);
-                }
-                else {
-                    $("#btn-criar-comissao").addClass("btn-secondary");
-                    $("#btn-criar-comissao").removeClass("btn-primary");
-                    $("#btn-criar-comissao").prop("disabled", true);
-                }
-            });
-            //fim da criacao da comissao no inicio do modulo de acoes de extensao
-
-            $("#btn-criar-comissao").click(function(){
-                $.ajax({
-                        url: "{{ url('acoes-extensao/inicio/store-comissao') }}",
-                        method: "POST",
-                        dataType: 'json',
-                        data: { nome_comissao: $("#nome_comissao").val(), membros: membros_selecionados, _token: '{{ csrf_token() }}' },
-                        success: function(data) {
-                            if(data.alert === 'success') {
-                                toastr.success(data.status);
-                                $('#modalComissaoExtensao').modal('hide');
-                                $('#modalComissaoExtensao').modal('hide');
-                                $('#nome_comissao').val('');
-                                $('#nome_membro').val('');
-                                $("#nomes_selecionados").html('');
-
-                                $('#modalComissaoExtensao').modal('show');
-
-                            }
-                            else if(data.alert === 'danger') {
-                                toastr.danger(data.status);
-                            }
-                        }
+                $("#nome_membro").change(function(){
+                    membros_selecionados.push({
+                        "id" : $("#nome_membro").val(),
+                        "nome" : $("#nome_membro option:selected").text()
                     });
-            });
-            
 
+                    membros_selecionados_lista();
+                
+                });
+
+                function remove_selecionado(index){
+                    membros_selecionados.splice(index, 1);
+
+                    membros_selecionados_lista();
+                }
+
+                function membros_selecionados_lista() {
+                    var conteudo = '';
+                    var cont = 0;
+
+                    membros_selecionados.map(membro => {
+
+                        conteudo +=  `<span class="badge ${membro.id == '{{ Auth::user()->id }}' ? 'badge-warning' : 'badge-primary' } badge-pill px-3">
+                                        ${membro.nome}
+                                        <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
+                                            <i class="fal fa-times mx-2"></i>
+                                        </button>
+                                    </span>`;
+                        cont++;
+
+                        console.log('{{ Auth::user()->id }}');
+                    });
+
+                    $("#nomes_selecionados").html(conteudo);
+
+                    if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
+                        $("#btn-criar-comissao").removeClass("btn-secondary");
+                        $("#btn-criar-comissao").addClass("btn-primary");
+                        $("#btn-criar-comissao").prop("disabled", false);
+                    }
+                    else {
+                        $("#btn-criar-comissao").addClass("btn-secondary");
+                        $("#btn-criar-comissao").removeClass("btn-primary");
+                        $("#btn-criar-comissao").prop("disabled", true);
+                    }
+                }
+
+                $("#nome_comissao").blur(function(){
+                    if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
+                        $("#btn-criar-comissao").removeClass("btn-secondary");
+                        $("#btn-criar-comissao").addClass("btn-primary");
+                        $("#btn-criar-comissao").prop("disabled", false);
+                    }
+                    else {
+                        $("#btn-criar-comissao").addClass("btn-secondary");
+                        $("#btn-criar-comissao").removeClass("btn-primary");
+                        $("#btn-criar-comissao").prop("disabled", true);
+                    }
+                });
+
+                $("#btn-criar-comissao").click(function(){
+                    $.ajax({
+                            url: "{{ url('acoes-extensao/inicio/store-comissao') }}",
+                            method: "POST",
+                            dataType: 'json',
+                            data: { nome_comissao: $("#nome_comissao").val(), membros: membros_selecionados, _token: '{{ csrf_token() }}' },
+                            success: function(data) {
+                                if(data.alert === 'success') {
+                                    toastr.success(data.status);
+                                    $('#modalComissaoExtensao').modal('hide');
+                                    $('#modalComissaoExtensao').modal('hide');
+                                    $('#nome_comissao').val('');
+                                    $('#nome_membro').val('');
+                                    $("#nomes_selecionados").html('');
+
+                                    $('#modalComissaoExtensao').modal('show');
+
+                                }
+                                else if(data.alert === 'danger') {
+                                    toastr.danger(data.status);
+                                }
+                            }
+                        });
+                });
+                
+                //fim da criacao da comissao no inicio do modulo de acoes de extensao
+            @endif
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
 
