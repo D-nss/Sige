@@ -63,14 +63,12 @@ class AcaoExtensaoController extends Controller
 
         $users = User::orderBy('name', 'asc')->get();
 
-        echo json_encode($user);
-
-        // return view('acoes-extensao.inicio', [
-        //     'user'                  => $user,
-        //     'users'                 => $users,
-        //     'comissao_extensao'     => $comissao_extensao,
-        //     'comissao_graduacao'    => $comissao_graduacao,
-        // ]);
+        return view('acoes-extensao.inicio', [
+            'user'                  => $user,
+            'users'                 => $users,
+            'comissao_extensao'     => $comissao_extensao,
+            'comissao_graduacao'    => $comissao_graduacao,
+        ]);
     }
 
     public function dashboard(){
