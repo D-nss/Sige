@@ -29,7 +29,7 @@ class ComissaoAcaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
         }
         
-        $transacao = DB::transaction(function() use ($request){
+        $transacao = DB::transaction(function() use ($request, $user){
             $comissao = Comissao::create(
                 [
                     'nome' => $request->nome_comissao,
