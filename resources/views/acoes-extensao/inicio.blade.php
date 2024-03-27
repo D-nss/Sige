@@ -138,7 +138,6 @@
         </div>
     </div>
 
-    {{ dd($user) }}
     <div class="modal fade" id="modalComissaoGraduacao" tabindex="-1" aria-labelledby="modalLabelComissaoGraduacao" aria-hidden="true">
         <div class="modal-dialog">
                 <div class="modal-content">
