@@ -1793,7 +1793,7 @@ Versão: 4.5.1
                 });
                 //fim da criacao da comissao no inicio do modulo de acoes de extensao
                 
-                @if(isset($comissao_extensao) && $comissao_extensao && isset($comissao_graduacao) && !$comissao_graduacao)
+                @if(isset($comissao_extensao) && $comissao_extensao && !$comissao_graduacao)
                     $("#modalComissaoGraduacao").modal('show');
                 @endif
             @endif
