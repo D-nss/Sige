@@ -1716,6 +1716,8 @@ Versão: 4.5.1
                     });
 
                     membros_selecionados_lista();
+
+                    $('#nome_membro').val('');
                 
                 });
 
