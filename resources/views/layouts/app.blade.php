@@ -1779,12 +1779,11 @@ Versão: 4.5.1
                                 if(data.alert === 'success') {
                                     toastr.success(data.status);
                                     $('#modalComissaoExtensao').modal('hide');
-                                    $('#modalComissaoExtensao').modal('hide');
                                     $('#nome_comissao').val('');
                                     $('#nome_membro').val('');
                                     $("#nomes_selecionados").html('');
 
-                                    $('#modalComissaoExtensao').modal('show');
+                                    $('#modalComissaoGraduacao').modal('show');
 
                                 }
                                 else if(data.alert === 'danger') {
