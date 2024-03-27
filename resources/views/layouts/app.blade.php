@@ -1709,7 +1709,7 @@ Versão: 4.5.1
                 //criacao da comissao no inicio do modulo de acoes de extensao
                 var membros_selecionados = [];
 
-                $("#nome_membro").keyup(function(){
+                $("#nome_membro").change(function(){
                     membros_selecionados.push({
                         "id" : $("#nome_membro").val(),
                         "nome" : $("#nome_membro option:selected").text()
@@ -1754,7 +1754,7 @@ Versão: 4.5.1
                     }
                 }
 
-                $("#nome_comissao").blur(function(){
+                $("#nome_comissao").keyup(function(){
                     if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
                         $("#btn-criar-comissao").removeClass("btn-secondary");
                         $("#btn-criar-comissao").addClass("btn-primary");
