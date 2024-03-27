@@ -1728,9 +1728,8 @@ Versão: 4.5.1
                 function membros_selecionados_lista() {
                     var conteudo = '';
                     var cont = 0;
-
+                    
                     membros_selecionados.map(membro => {
-
                         conteudo +=  `<span class="badge badge-primary badge-pill px-3">
                                         ${membro.nome}
                                         <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">

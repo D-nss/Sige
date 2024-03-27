@@ -99,10 +99,14 @@
                         </div>
                         <span>Nomes selecionados</span>
                         <div class="border rounded p-2" style="min-height: 120px" id="nomes_selecionados">
-                            
+                           
                         </div>
                         <p class="mt-3">
                             O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
+                        </p>
+                        <p class="alert alert-warning">
+                            <i class="far fa-exclamation-circle"></i>
+                            Atenção: você se autopropôs para a Comissão de Extensão. As mesmas atribuições se aplicam - você poderá criar e armazenar novas Ações no sistema, encaminhá-las para revisão de outros participantes da Comissão, e poderá revisar Ações propostas por outros Docentes da mesma Unidade, mas não poderá revisar Ações anteriormente criadas por você mesmo(a).
                         </p>
                         <div class="form-group mt-2">
                             <div class="row">
