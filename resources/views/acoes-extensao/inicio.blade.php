@@ -138,80 +138,78 @@
         </div>
     </div>
 
-    @if($comissao_extensao && !$comissao_graduacao)
-        <div class="modal fade show" id="modalComissaoGraduacao" tabindex="-1" aria-labelledby="modalLabelComissaoGraduacao" aria-hidden="true">
-            <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabelComissaoGraduacao">
-                            Criar Comissão de Graduação - Unidade: {{ $user->unidade->sigla }}
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                        Cadastrar uma <span class="fw-700">Comissão de Graduação</span> 
-                        </p>
+    <div class="modal fade" id="modalComissaoGraduacao" tabindex="-1" aria-labelledby="modalLabelComissaoGraduacao" aria-hidden="true">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelComissaoGraduacao">
+                        Criar Comissão de Graduação - Unidade: {{ $user->unidade->sigla }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    Cadastrar uma <span class="fw-700">Comissão de Graduação</span> 
+                    </p>
 
-                        <h3>
-                            
-                        </h3>
+                    <h3>
+                        
+                    </h3>
 
-                        <p>
+                    <p>
+                
+                    </p>
                     
+                    <!-- <form action="" method="post">
+                        <div class="form-group">
+                            <h3>Nome da Comissão de Extensão</h3>
+                            <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos.">
+                        </div>
+                        <div class="form-group">
+                            <h3>Adicionar membros</h3>
+                            <select name="nome_membro" id="nome_membro" class="form-control" >
+                                <option value="" disabled>Selecione da lista ...</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->unidade->sigla }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <span>Nomes selecionados</span>
+                        <div class="border rounded p-2" style="min-height: 120px" id="nomes_selecionados">
+                            
+                        </div>
+                        <p class="mt-3">
+                            O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
                         </p>
-                        
-                        <!-- <form action="" method="post">
-                            <div class="form-group">
-                                <h3>Nome da Comissão de Extensão</h3>
-                                <input type="text" name="nome_comissao" id="nome_comissao" class="form-control" placeholder="Digite aqui. Letras, números e caracteres especiais são permitidos.">
-                            </div>
-                            <div class="form-group">
-                                <h3>Adicionar membros</h3>
-                                <select name="nome_membro" id="nome_membro" class="form-control" >
-                                    <option value="" disabled>Selecione da lista ...</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->unidade->sigla }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <span>Nomes selecionados</span>
-                            <div class="border rounded p-2" style="min-height: 120px" id="nomes_selecionados">
-                                
-                            </div>
-                            <p class="mt-3">
-                                O próximo passo será a criação de uma Comissão de Graduação, que responderá às solicitações de curricularização.
-                            </p>
-                            <div class="form-group mt-2">
-                                <div class="row">
-                                    <div class="col">
-                                    <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao">
-                                        <i class="far fa-check-circle"></i>
-                                        Criar
-                                    </button>
-                                    </div>
+                        <div class="form-group mt-2">
+                            <div class="row">
+                                <div class="col">
+                                <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao">
+                                    <i class="far fa-check-circle"></i>
+                                    Criar
+                                </button>
                                 </div>
-                                <div class="row mt-2">
-                                    <div class="col"> 
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                                            <i class="far fa-times"></i>
-                                            Cancelar
-                                        </button>
-                                    </div>                            
-                                </div>                            
                             </div>
-                        </form> -->
-                        
+                            <div class="row mt-2">
+                                <div class="col"> 
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                        <i class="far fa-times"></i>
+                                        Cancelar
+                                    </button>
+                                </div>                            
+                            </div>                            
+                        </div>
+                    </form> -->
+                    
 
-                    </div>
-                    <!-- <div class="modal-footer">
-                        
-                    </div> -->
-                    </div>
-                </form>
-            </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    
+                </div> -->
+                </div>
+            </form>
         </div>
-    @endif
+    </div>
 @endsection
