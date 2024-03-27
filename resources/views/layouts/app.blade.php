@@ -1792,7 +1792,6 @@ Versão: 4.5.1
                         });
                 });
                 //fim da criacao da comissao no inicio do modulo de acoes de extensao
-                
             @endif
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...

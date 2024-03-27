@@ -137,7 +137,7 @@
             </form>
         </div>
     </div>
-    {{ dd([$comissao_extensao, $comissao_graduacao]) }}
+
     @if($comissao_extensao && !$comissao_graduacao)
         <div class="modal fade show" id="modalComissaoGraduacao" tabindex="-1" aria-labelledby="modalLabelComissaoGraduacao" aria-hidden="true">
             <div class="modal-dialog">
