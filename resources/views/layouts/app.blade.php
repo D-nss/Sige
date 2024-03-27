@@ -1793,9 +1793,7 @@ Versão: 4.5.1
                 });
                 //fim da criacao da comissao no inicio do modulo de acoes de extensao
                 
-                @if($comissao_extensao && !$comissao_graduacao)
-                    $("#modalComissaoGraduacao").modal('show');
-                @endif
+                
             @endif
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
