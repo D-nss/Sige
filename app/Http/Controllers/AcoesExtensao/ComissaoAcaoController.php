@@ -56,7 +56,7 @@ class ComissaoAcaoController extends Controller
 
                 if($comissao_user) {
                     Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $membro['nome'] .' adicionado a comissao ID '.$membro['id'].' - Endereço IP: ' . $request->ip());
-                    $comissao->user->notify(new \App\Notifications\ComissaoUserAdicionado($comissao_user));
+                    $comissao_user->user->notify(new \App\Notifications\ComissaoUserAdicionado($comissao_user));
 
                 }
                 else {
