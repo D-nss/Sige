@@ -1709,7 +1709,7 @@ Versão: 4.5.1
                 //criacao da comissao no inicio do modulo de acoes de extensao
                 var membros_selecionados = [];
 
-                $("#nome_membro").change(function(){
+                $("#nome_membro").keyup(function(){
                     membros_selecionados.push({
                         "id" : $("#nome_membro").val(),
                         "nome" : $("#nome_membro option:selected").text()
