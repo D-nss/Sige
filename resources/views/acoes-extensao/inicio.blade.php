@@ -14,6 +14,7 @@
         </h1>
     </div>
 
+    {{ dd($user) }}
     <div class="bg-white mb-5 p-5 shadow">
         <div class="d-flex flex-start w-100">
             <div class="d-flex flex-fill">
