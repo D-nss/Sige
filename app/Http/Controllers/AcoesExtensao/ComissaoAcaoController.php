@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Comissao;
 use App\Models\ComissaoUser;
+use App\Models\User;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -21,13 +23,19 @@ class ComissaoAcaoController extends Controller
      */
     public function store(Request $request)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
+        
         $transacao = DB::transaction(function() use ($request){
             $comissao = Comissao::create(
                 [
                     'nome' => $request->nome_comissao,
                     'atribuicao'    => "Extensão",
                     'edital_id'     => null,
-                    'unidade_id'    => Auth::user()->unidade->id,
+                    'unidade_id'    => $user->unidade->id,
                     'evento_id'     => null,
                 ]
             );
