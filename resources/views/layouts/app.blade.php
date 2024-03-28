@@ -1799,7 +1799,7 @@ Versão: 4.5.1
                 var membros_selecionados_graduacao = [];
 
                 $("#nome_membro_graduacao").change(function(){
-                    membros_selecionados.push({
+                    membros_selecionados_graduacao.push({
                         "id" : $("#nome_membro_graduacao").val(),
                         "nome" : $("#nome_membro_graduacao option:selected").text()
                     });
