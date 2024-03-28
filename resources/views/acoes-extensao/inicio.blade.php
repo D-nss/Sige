@@ -173,9 +173,9 @@
                             
                         </div>
                         <div class="form-group mt-2">
-                            <div class="row d-flex flex-direction-column align-items-center">
+                            <div class="row d-flex flex-direction-column">
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao">
+                                    <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao-graduacao">
                                         <i class="far fa-check-circle"></i>
                                         Criar
                                     </button>
