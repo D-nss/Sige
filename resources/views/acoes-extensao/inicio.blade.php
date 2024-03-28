@@ -173,19 +173,21 @@
                             
                         </div>
                         <div class="form-group mt-2">
-                            <div class="row d-flex flex-direction-column">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao-graduacao">
-                                        <i class="far fa-check-circle"></i>
-                                        Criar
-                                    </button>
-                                </div>    
-                                <div class="form-group"> 
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">
-                                        <i class="far fa-arrow-alt-from-left"></i>
-                                        Pular Esta Etapa
-                                    </button>
-                                </div>                       
+                            <div class="row">
+                                <div class="col d-flex flex-direction-column">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao-graduacao">
+                                            <i class="far fa-check-circle"></i>
+                                            Criar
+                                        </button>
+                                    </div>    
+                                    <div class="form-group"> 
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                            <i class="far fa-arrow-alt-from-left"></i>
+                                            Pular Esta Etapa
+                                        </button>
+                                    </div> 
+                                </div>                   
                             </div>                       
                         </div>
                     </form>
