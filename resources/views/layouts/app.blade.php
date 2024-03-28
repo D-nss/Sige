@@ -1785,7 +1785,7 @@ Versão: 4.5.1
 
                                     setInterval(function(){
                                         window.location.reload();
-                                    }, 4000);
+                                    }, 3000);
                                    
                                 }
                                 else if(data.alert === 'danger') {
