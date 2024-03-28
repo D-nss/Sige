@@ -23,7 +23,7 @@
                         comissões adequadas, e obter posteriormente a publicação delas.</p>
                     @if ($user->hasRole('extensao-coordenador'))
                         @if ($comissao_extensao)
-                            <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#"  data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a>
+                            <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#" data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a>
                             </p>
                             @if ($comissao_graduacao)
                                 <p>Para visualizar Comissão de Graduação cadastrada da unidade, <a href="#">Clique
@@ -31,7 +31,7 @@
                             @else
                                 <p>Sua unidade ainda não tem uma Comissão de Graduação cadastrada. Isso impossibilita aos
                                     Coordenadores das Ações de Extensão disponibilizá-las para curricularização.</p>
-                                <p>Para criar a Comissao de Graduação, <a href="#">Clique aqui</a></p>
+                                <p>Para criar a Comissao de Graduação, <a href="#" data-toggle="modal" data-target="#modalComissaoGraduacao">Clique aqui</a></p>
                             @endif
                         @else
                             <p>Sua unidade ainda não tem as comissões necessárias cadastradas.</p>
@@ -175,7 +175,7 @@
                         <div class="form-group mt-2">
                             <div class="row">
                                 <div class="col d-flex flex-direction-column">
-                                    <div class="form-group">
+                                    <div class="form-group mr-2">
                                         <button type="button" class="btn btn-secondary" disabled id="btn-criar-comissao-graduacao">
                                             <i class="far fa-check-circle"></i>
                                             Criar
