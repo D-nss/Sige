@@ -1783,7 +1783,10 @@ Versão: 4.5.1
                                     $('#nome_membro').val('');
                                     $("#nomes_selecionados").html('');
 
-                                    window.location.reload();
+                                    setInterval(function(){
+                                        window.location.reload();
+                                    }, 6000);
+                                   
                                 }
                                 else if(data.alert === 'danger') {
                                     toastr.danger(data.status);
