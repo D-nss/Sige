@@ -1730,7 +1730,7 @@ Versão: 4.5.1
                 function membros_selecionados_lista() {
                     var conteudo = '';
                     var cont = 0;
-                    
+                    console.log('{{ $user->id }}');
                     membros_selecionados.map(membro => {
                         conteudo +=  `<span class="badge ${membro.id == '{{ $user->id }}' ? 'badge-warning' : 'badge-primary' } badge-pill px-3 m-1">
                                         ${membro.nome}
