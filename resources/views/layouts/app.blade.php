@@ -1705,7 +1705,7 @@ Versão: 4.5.1
             });
             @endif
 
-            @if(Auth::hasUser())
+            @if(Auth::hasUser() && isset($user))
                 //criacao da comissao no inicio do modulo de acoes de extensao
                 var membros_selecionados = [];
 
