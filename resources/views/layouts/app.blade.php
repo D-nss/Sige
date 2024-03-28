@@ -1728,8 +1728,8 @@ Versão: 4.5.1
                 }
 
                 function membros_selecionados_lista() {
-                    var conteudo = '';
-                    var cont = 0;
+                    let conteudo = '';
+                    let cont = 0;
 
                     membros_selecionados.map(membro => {
                         conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
@@ -1795,6 +1795,94 @@ Versão: 4.5.1
                         });
                 });
                 //fim da criacao da comissao no inicio do modulo de acoes de extensao
+                //Criacao da comissao da graduacao no inicio de acoes de extensao
+                var membros_selecionados_graduacao = [];
+
+                $("#nome_membro_graduacao").change(function(){
+                    membros_selecionados.push({
+                        "id" : $("#nome_membro_graduacao").val(),
+                        "nome" : $("#nome_membro_graduacao option:selected").text()
+                    });
+
+                    membros_selecionados_lista();
+
+                    $('#nome_membro_graduacao').val('');
+
+                });
+
+                function remove_selecionado_graduacao(index){
+                    membros_selecionados_graduacao.splice(index, 1);
+
+                    membros_selecionados_lista_graduacao();
+                }
+
+                function membros_selecionados_lista_graduacao() {
+                    let conteudo = '';
+                    let cont = 0;
+
+                    membros_selecionados_graduacao.map(membro => {
+                        conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
+                                        ${membro.nome}
+                                        <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
+                                            <i class="fal fa-times mx-2"></i>
+                                        </button>
+                                    </span>`;
+                        cont++;
+
+                    });
+
+                    $("#nomes_selecionados_graduacao").html(conteudo);
+
+                    if($("#nome_comissao_graduacao").val() != '' && membros_selecionados_graduacao.length != 0) {
+                        $("#btn-criar-comissao-graduacao").removeClass("btn-secondary");
+                        $("#btn-criar-comissao-graduacao").addClass("btn-primary");
+                        $("#btn-criar-comissao-graduacao").prop("disabled", false);
+                    }
+                    else {
+                        $("#btn-criar-comissao-graduacao").addClass("btn-secondary");
+                        $("#btn-criar-comissao-graduacao").removeClass("btn-primary");
+                        $("#btn-criar-comissao-graduacao").prop("disabled", true);
+                    }
+                }
+
+                $("#nome_comissao_graduacao").keyup(function(){
+                    if($("#nome_comissao_graduacao").val() != '' && membros_selecionados_graduacao.length != 0) {
+                        $("#btn-criar-comissao-graduacao").removeClass("btn-secondary");
+                        $("#btn-criar-comissao-graduacao").addClass("btn-primary");
+                        $("#btn-criar-comissao-graduacao").prop("disabled", false);
+                    }
+                    else {
+                        $("#btn-criar-comissao-graduacao").addClass("btn-secondary");
+                        $("#btn-criar-comissao-graduacao").removeClass("btn-primary");
+                        $("#btn-criar-comissao-graduacao").prop("disabled", true);
+                    }
+                });
+
+                $("#btn-criar-comissao-graduacao").click(function(){
+                    $.ajax({
+                            url: "{{ url('acoes-extensao/inicio/store-comissao-graduacao') }}",
+                            method: "POST",
+                            dataType: 'json',
+                            data: { nome_comissao: $("#nome_comissao_graduacao").val(), membros: membros_selecionados_graduacao, _token: '{{ csrf_token() }}' },
+                            success: function(data) {
+                                if(data.alert === 'success') {
+                                    toastr.success(data.status);
+                                    $('#nome_comissao_graduacao').val('');
+                                    $('#nome_membro_graduacao').val('');
+                                    $("#nomes_selecionados_graduacao").html('');
+
+                                    setInterval(function(){
+                                        window.location.reload();
+                                    }, 3000);
+                                
+                                }
+                                else if(data.alert === 'danger') {
+                                    toastr.danger(data.status);
+                                }
+                            }
+                        });
+                });
+
                 
                 @if(isset($comissao_extensao) && $comissao_extensao && !$comissao_graduacao)
                     $("#modalComissaoGraduacao").modal('show');

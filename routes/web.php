@@ -39,7 +39,7 @@ use App\Http\Controllers\AcoesExtensao\AcaoExtensaoDeliberacaoController;
 use App\Http\Controllers\AcoesExtensao\AcaoExtensaoCienciaController;
 use App\Http\Controllers\AcoesExtensao\AcaoExtensaoComissaoGraduacaoController;
 use App\Http\Controllers\AcoesExtensao\ComissaoAcaoController;
-
+use App\Http\Controllers\AcoesExtensao\ComissaoGraduacaoAcaoController;
 //Controllers do modulo de Editais
 use App\Http\Controllers\Editais\AvaliadorController;
 use App\Http\Controllers\Editais\AvaliacaoController;
@@ -199,6 +199,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::post('/acoes-extensao-comissao-graduacao/{acao_extensao}', [AcaoExtensaoComissaoGraduacaoController::class, 'store'])->name('acoes_extensao.comissao_graduacao.store');
 
     Route::post('acoes-extensao/inicio/store-comissao', [ComissaoAcaoController::class, 'store'])->name('acoes_extensao.comissao.store');
+    Route::post('acoes-extensao/inicio/store-comissao-graduacao', [ComissaoGraduacaoAcaoController::class, 'store'])->name('acoes_extensao.comissao_graduacao.store');
 
     //Ações Culturais
     Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');

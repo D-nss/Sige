@@ -162,9 +162,9 @@
                         <div class="form-group">
                             <h3>Adicionar membros</h3>
                             <select name="nome_membro_graduacao" id="nome_membro_graduacao" class="form-control" >
-                                <option value="" disabled>Selecione da lista ...</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->unidade->sigla }}</option>
+                                <option value="">Selecione da lista ...</option>
+                                @foreach($users as $us)
+                                    <option value="{{ $us->id }}">{{ $us->name }} - {{ $us->unidade->sigla }}</option>
                                 @endforeach
                             </select>
                         </div>
