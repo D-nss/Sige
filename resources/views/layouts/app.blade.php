@@ -1732,7 +1732,7 @@ Versão: 4.5.1
                     var cont = 0;
 
                     membros_selecionados.map(membro => {
-                        conteudo +=  `<span class="badge badge-pill px-3 m-1">
+                        conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
                                         ${membro.nome}
                                         <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
                                             <i class="fal fa-times mx-2"></i>
