@@ -69,7 +69,7 @@ class ComissaoAcaoController extends Controller
 
         if(is_null($transacao) || empty($transacao)) {
             $session = [
-                'status' => 'Inscrição atualizada com sucesso.',
+                'status' => 'Comissão criada com sucesso.',
                 'alert' => 'success'
             ];           
         }

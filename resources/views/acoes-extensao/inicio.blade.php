@@ -23,7 +23,7 @@
                         comissões adequadas, e obter posteriormente a publicação delas.</p>
                     @if ($user->hasRole('extensao-coordenador'))
                         @if ($comissao_extensao)
-                            <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#" data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a>
+                            <!-- <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#" data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a> -->
                             </p>
                             @if ($comissao_graduacao)
                                 <p>Para visualizar Comissão de Graduação cadastrada da unidade, <a href="#">Clique
@@ -191,6 +191,53 @@
                             </div>                       
                         </div>
                     </form>
+                </div>
+                <!-- <div class="modal-footer">
+                    
+                </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalComissoesCriadas" tabindex="-1" aria-labelledby="modalLabelComissaoCriadas" aria-hidden="true">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelComissaoCriadas">
+                        Comissões Criadas
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    Etapa concluída! A partir de agora, você poderá submeter novas Ações de Extensão para aprovação da sua unidade, e posterior reconhecimento pela ProEC.
+                    </p>
+                    
+                    <p>
+                    Você pode criar/cadastrar uma nova Ação de Extensão agora, ou continuar o processo mais tarde selecionando <span class="fw-700">Ações de Extensão > Cadastrar</span> no menu principal.
+                    </p>
+
+                    <div class="form-group mt-2">
+                        <div class="row">
+                            <div class="col">
+                                <a type="button" class="btn btn-primary" href="{{ url('acoes-extensao/novo') }}">
+                                    <i class="far fa-circle-notch"></i>
+                                    Cadastrar Nova Ação de Extensão Agora
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col"> 
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                    <i class="far fa-long-arrow-right"></i>
+                                    Continuar depois
+                                </button>
+                            </div>                            
+                        </div>                            
+                    </div>
                 </div>
                 <!-- <div class="modal-footer">
                     

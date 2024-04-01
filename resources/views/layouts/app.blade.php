@@ -1796,6 +1796,12 @@ Versão: 4.5.1
                 });
                 //fim da criacao da comissao no inicio do modulo de acoes de extensao
                 //Criacao da comissao da graduacao no inicio de acoes de extensao
+                
+                
+                @if(isset($comissao_extensao) && $comissao_extensao && !$comissao_graduacao)
+                    $("#modalComissaoGraduacao").modal('show');
+                @endif
+
                 var membros_selecionados_graduacao = [];
 
                 $("#nome_membro_graduacao").change(function(){
@@ -1804,7 +1810,7 @@ Versão: 4.5.1
                         "nome" : $("#nome_membro_graduacao option:selected").text()
                     });
 
-                    membros_selecionados_lista();
+                    membros_selecionados_lista_graduacao();
 
                     $('#nome_membro_graduacao').val('');
 
@@ -1823,7 +1829,7 @@ Versão: 4.5.1
                     membros_selecionados_graduacao.map(membro => {
                         conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
                                         ${membro.nome}
-                                        <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
+                                        <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado_graduacao(${cont})">
                                             <i class="fal fa-times mx-2"></i>
                                         </button>
                                     </span>`;
@@ -1883,11 +1889,14 @@ Versão: 4.5.1
                         });
                 });
 
-                
-                @if(isset($comissao_extensao) && $comissao_extensao && !$comissao_graduacao)
-                    $("#modalComissaoGraduacao").modal('show');
+                @if(isset($comissao_extensao) && $comissao_extensao && isset($comissao_graduacao) && $comissao_graduacao)
+                    $("#modalComissoesCriadas").modal('show');
                 @endif
             @endif
+
+            
+
+
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
 
