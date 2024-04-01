@@ -26,8 +26,7 @@
                             <!-- <p>Para visualizar Comissão de Extensão cadastrada da unidade, <a href="#" data-toggle="modal" data-target="#modalComissaoExtensao">Clique aqui</a> -->
                             </p>
                             @if ($comissao_graduacao)
-                                <p>Para visualizar Comissão de Graduação cadastrada da unidade, <a href="#">Clique
-                                        aqui</a></p>
+                                <p>Para cadastrar uma Ação de Extensão, <a href="{{ url('acoes-extensao/novo') }}">Clique aqui</a></p>
                             @else
                                 <p>Sua unidade ainda não tem uma Comissão de Graduação cadastrada. Isso impossibilita aos
                                     Coordenadores das Ações de Extensão disponibilizá-las para curricularização.</p>
