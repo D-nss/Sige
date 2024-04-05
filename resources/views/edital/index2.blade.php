@@ -49,7 +49,7 @@
                             {{ $edital->titulo}}
                         </h4>
                         <span class="ml-auto">
-                            <span class="text-muted text-italic fs-sm">Data de Divulgação: 20/10/2023</span>
+                            <span class="text-muted text-italic fs-sm">Data de Divulgação: {{ date('d/m/Y', strtotime($cronograma->getDate('dt_divulgacao', $edital->id))) }}</span>
                         </span>
                     </a>
                 </div>
