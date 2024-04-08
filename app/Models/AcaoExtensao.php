@@ -36,7 +36,9 @@ class AcaoExtensao extends Model
         'grau_envolvimento_equipe_id',
         'status',
         'arquivo',
-        'programa_id'
+        'programa_id',
+        'anotacoes',
+        'mensagem_extensao'
     ];
 
     public function user()

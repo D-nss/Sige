@@ -103,7 +103,7 @@ Route::get('certificado/validar', [CertificadoController::class, 'index'])->name
 Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo'])->name('acao_extensao.catalogo');
 
 // Adicionar as rotas que necessitam de Autenticação
-Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
+//Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
     Route::get('home', function () {
         return view('home');
@@ -364,7 +364,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::get('notificacoes', [NotificationController::class, 'index'])->name('notificacoes.index');
     Route::get('notificacao/{id}', [NotificationController::class, 'show'])->name('notificacao.show');
     Route::post('notificacoes/marcar-como-lida', [NotificationController::class, 'markAsRead'])->name('marcar.como.lida');
-});
+//});
 
 /*
 Route::get('/login',['as'=>'login','uses'=>'LoginController@index']);

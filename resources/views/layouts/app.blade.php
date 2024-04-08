@@ -1894,7 +1894,65 @@ Versão: 4.5.1
                 @endif
             @endif
 
+            var publico_alvo_sel = [];
+            var publico_alvo = [
+                {texto: 'Superior 1', id:'1'},
+                {texto: 'Superior 2', id:'2'},
+                {texto: 'Superior 3', id:'3'},
+                {texto: 'Superior 4', id:'4'},
+                {texto: 'Superior 5', id:'5'},
+                {texto: 'Superior 6', id:'6'},
+            ];
             
+            function montaPublicoAlvo() {
+                let conteudo_pa = '';
+                publico_alvo.map(pa => {
+                    conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="adiciona_para_selecao_atual('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-plus ml-2"></i></span>`;
+                    
+                });
+                
+                $('#adicione').html(conteudo_pa);
+            }
+
+            function limparSelecaoPublicoAlvo() {
+                publico_alvo_sel.map(pa => {                   
+                   $("#publico").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
+                });
+            }
+
+            function montaPublicoAlvoSelec() {
+                let conteudo_pa = '';
+                publico_alvo_sel.map(pa => {
+                   conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="remove_para_adicicione('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-times ml-2"></i></span>`;
+                   $("#publico").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
+                });
+                
+                $('#selecao_atual').html(conteudo_pa);
+            }
+
+            montaPublicoAlvo();
+
+            function adiciona_para_selecao_atual(texto, id) {
+                publico_alvo_sel.push({texto, id});
+                let index = publico_alvo.findIndex(pa => pa.id === id);
+                publico_alvo.splice(index, 1);
+
+                $("#publico").val([]);
+
+                montaPublicoAlvoSelec();
+                montaPublicoAlvo();
+            }
+
+            function remove_para_adicicione(texto, id) {
+                publico_alvo.push({texto, id});
+                let index = publico_alvo_sel.findIndex(pa => pa.id === id);
+                publico_alvo_sel.splice(index, 1);
+
+                $("#publico").val([]);
+
+                montaPublicoAlvoSelec();
+                montaPublicoAlvo();       
+            }
 
 
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude

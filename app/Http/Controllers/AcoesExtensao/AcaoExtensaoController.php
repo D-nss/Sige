@@ -224,18 +224,29 @@ class AcaoExtensaoController extends Controller
      */
     public function create()
     {
+        if(App::environment('local')){
+            $user = User::where('id', 1)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
+
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
         $ods = ObjetivoDesenvolvimentoSustentavel::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
         $programas = AcaoExtensao::where('modalidade', 1)->where('status', 'Aprovado')->get(['id', 'titulo']);
 
+        $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
+            ->where('atribuicao', 'Graduação')->first();
+
         return view('acoes-extensao.create', [
-            'linhas_extensao' => $linhas_extensao,
-            'areas_tematicas' => $areas_tematicas,
-            'ods' => $ods,
-            'estados' => $estados,
-            'programas' => $programas
+            'linhas_extensao'       => $linhas_extensao,
+            'areas_tematicas'       => $areas_tematicas,
+            'ods'                   => $ods,
+            'estados'               => $estados,
+            'programas'             => $programas,
+            'comissao_graduacao'    => $comissao_graduacao,
+            'user'                  => $user
         ]);
     }
 
@@ -284,7 +295,7 @@ class AcaoExtensaoController extends Controller
      * @param  \App\Http\Requests\StoreAcaoExtensaoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAcaoExtensaoRequest $request)
+    public function store(/*StoreAcaoExtensao*/ Request $request)
     {
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
@@ -293,6 +304,7 @@ class AcaoExtensaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
+
         $dados = array('user_id' => $user->id);
         $dados['unidade_id'] = $user->unidade_id;
         $dados['nome_coordenador'] = $user->name;
@@ -416,7 +428,7 @@ class AcaoExtensaoController extends Controller
             // $acaoExtensao->publico_alvo = $dados['publico_alvo'];
             // $acaoExtensao->palavras_chaves = $dados['palavras_chaves'];
             // $acaoExtensao->url = $dados['url'];
-            // $acaoExtensao->publico_alvo = $dados['publico_alvo'];
+            // $acaoExtensao->publico_alvo = implode(', ', $dados['publico_alvo']);
             // $acaoExtensao->estimativa_publico = $dados['estimativa_publico'];
             // $acaoExtensao->vagas_curricularizacao = $dados['vagas_curricularizacao'];
             // $acaoExtensao->qtd_horas_curricularizacao = $dados['qtd_horas_curricularizacao'];

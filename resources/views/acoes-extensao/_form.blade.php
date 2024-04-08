@@ -2,7 +2,7 @@
 
                     <div class="row g-3">
                         <div class="form-group col-md-7">
-                            <label class="form-label" for="titulo">Título da Ação <span class="text-danger">*</span></label>
+                            <label class="form-label" for="titulo">Nome da Ação <span class="text-danger">*</span></label>
                             <input type="text" id="titulo" name="titulo" class="form-control @error('titulo') is-invalid @enderror" value="{{isset($acao_extensao->titulo) ? $acao_extensao->titulo : old('titulo')}}" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>
                             @error('titulo')
                                 <div class="invalid-feedback">
@@ -11,7 +11,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-5">
-                            <label class="form-label" for="modalidade"><a href="#modal-ajuda-modalidade-acao" data-toggle="modal">Modalidade</a> <span class="text-danger">*</span></label>
+                            <label class="form-label" for="modalidade">Modalidade <a href="#modal-ajuda-modalidade-acao" data-toggle="modal"><span class="text-danger">*</span> <img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a> </label>
                             <!-- Modal center -->
                             <div class="modal fade" id="modal-ajuda-modalidade-acao" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -89,7 +89,8 @@
                     </div>
                     <div class="row g-3">
                         <div class="form-group col-md-4">
-                            <label class="form-label" for="ods"><a href="#modal-ajuda-ods" data-toggle="modal">Objetivos Desenvolvimento Sustentavel</a> <span class="text-danger">*</span></label>
+                            <label class="form-label" for="ods">Objetivos Desenvolvimento Sustentavel <span class="text-danger">*</span><a href="#modal-ajuda-ods" data-toggle="modal"><img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a></label>
+                            <p class="text-muted"><small>Seleção múltipla: Pressione [Ctrl] ao selecionar mais de um.</small></p>
                             <!-- Modal center -->
                             <div class="modal fade" id="modal-ajuda-ods" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -125,7 +126,8 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="form-label" for="areas_tematicas"><a href="#modal-ajuda-areas" data-toggle="modal">Áreas Temáticas</a> <span class="text-danger">*</span></label>
+                            <label class="form-label" for="areas_tematicas">Áreas Temáticas<span class="text-danger">*</span><a href="#modal-ajuda-areas" data-toggle="modal"><img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a></label>
+                            <p class="text-muted"><small>Seleção múltipla é permitida.</small></p>
                             <!-- Modal center -->
                             <div class="modal fade" id="modal-ajuda-areas" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -164,7 +166,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-5">
-                            <label class="form-label" for="linha_extensao_id"><a href="#modal-ajuda-linhas" data-toggle="modal">Linha de Extensão</a> <span class="text-danger">*</span></label>
+                            <label class="form-label" for="linha_extensao_id">Linha de Extensão <span class="text-danger">*</span><a href="#modal-ajuda-linhas" data-toggle="modal"><img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a></label>
                             <!-- Modal center -->
                             <div class="modal fade" id="modal-ajuda-linhas" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -221,88 +223,130 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="descricao">Descrição (Resumo)<span class="text-danger">*</span></label>
-                        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->descricao) ? $acao_extensao->descricao : old('descricao')}}</textarea>
+                        <label class="form-label" for="descricao">Descrição (Resumo) da Ação de Extensão <span class="text-danger">*</span></label>
+                        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" placeholder="Digite aqui a descrição. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->descricao) ? $acao_extensao->descricao : old('descricao')}}</textarea>
                         @error('descricao')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
+                    <hr>
+                    <h2>Público-alvo  <span class="text-danger">*</span></h2>
+                    <hr>
                     <div class="row g-3">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="publico_alvo">Público alvo <span class="text-danger">*</span></label>
-                            <input type="text" id="publico_alvo" name="publico_alvo" class="form-control @error('publico_alvo') is-invalid @enderror" value="{{isset($acao_extensao->publico_alvo) ? $acao_extensao->publico_alvo : old('publico_alvo')}}">
+                            <label class="form-label" for="publico_alvo">Seleção Atual</label>
+                            <select class="d-none" name="publico_alvo[]" id="publico_alvo" multiple>
+                                <option value="Superior 1">Superior 1</option>
+                                <option value="Superior 2">Superior 2</option>
+                                <option value="Superior 3">Superior 3</option>
+                                <option value="Superior 4">Superior 4</option>
+                                <option value="Superior 5">Superior 5</option>
+                                <option value="Superior 6">Superior 6</option>
+                            </select>
+                            <div id="selecao_atual">
+
+                            </div>
+                            <p class="text-muted">Favor escolher abaixo</p>
+                            <label class="form-label">Adicione</label>
+                            <div id="adicione">
+                           
+                            </div>
+                            <!-- <input type="text" id="publico_alvo" name="publico_alvo" class="form-control @error('publico_alvo') is-invalid @enderror" value="{{isset($acao_extensao->publico_alvo) ? $acao_extensao->publico_alvo : old('publico_alvo')}}">
                             @error('publico_alvo')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror -->
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-label" for="estimativa_publico">Estimativa de Público (do seu público-alvo)</label>
+                            <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_extensao->estimativa_publico) ? $acao_extensao->estimativa_publico : old('estimativa_publico')}}">
+                        </div>
+                    </div>
+                    <hr>
+                        <h2>Anotações e Comunicação</h2>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Suas anotações (só ficarão visíveis para você)</label>
+                                <textarea class="form-control" name="anotacoes" id="anotacoes" cols="30" rows="10" placeholder="Digite aqui suas anotações. Limite de 500 caracteres."></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mensagem inicial para a Comissão de Extensão da Unidade</label>
+                                <textarea class="form-control" name="mensagem_extensao" id="mensagem_extensao" cols="30" rows="10" placeholder="Digite aqui sua mensagem inicial para a Coordenação de Extensão da Unidade. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <hr>
+                            <h2>Curricularização</h2>
+                        <hr>
+                        <div class="custom-control custom-switch mb-3">
+                            <input class="custom-control-input" type="checkbox" id="curricularizar"
+                                name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="curricularizar">
+                                A Ação estará disponível para curricularização.
+                                <a href="#modal-ajuda-curricularizacao" data-toggle="modal"><img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a>
+                            </label>
+                        </div>
+
+                        <div class="{{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao) ? 'd-block' : 'd-none' }} row" id="acao_curricularizacao">
+
+                            <div class="form-group col-md-2">
+                                <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
+                                <input class="form-control" id="vagas_curricularizacao" type="number" min=1 name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="form-label" for="qtd_horas_curricularizacao">Horas Curricularização <span class="text-danger">*</span></label>
+                                
+                                <input class="form-control" id="qtd_horas_curricularizacao" type="number" min=1 name="qtd_horas_curricularizacao" value="{{isset($acao_extensao->qtd_horas_curricularizacao) ? $acao_extensao->qtd_horas_curricularizacao : old('qtd_horas_curricularizacao')}}">
+                            </div>
+                        </div>
+                        <!-- Modal center -->
+                        <div class="modal fade" id="modal-ajuda-curricularizacao" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Horas Curricularização:</h4>
+                                        <p>Informe a quantidade de horas por vaga que o aluno terá na Curricularização nesta Ação de Extensão.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                        <h2>Impactos</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="impactos_universidade">Impactos para a universidade <span class="text-danger">*</span></label>
+                            <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" placeholder="Digite aqui. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_universidade) ? $acao_extensao->impactos_universidade : old('impactos_universidade')}}</textarea>
+                            @error('impactos_universidade')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2">
-                            <label class="form-label" for="estimativa_publico">Estimativa de público</label>
-                            <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_extensao->estimativa_publico) ? $acao_extensao->estimativa_publico : old('estimativa_publico')}}">
-                        </div>
-                    </div>
-                    <div class="form-group border rounded p-3">
-                        <label for="curricularizacao" class="fw-700"><i
-                                class="far fa-pencil mr-2"></i>Curricularização</label>
-                        <div class="custom-control custom-switch mb-3">
-                            <input class="custom-control-input" type="checkbox" id="curricularizar"
-                                name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="curricularizar">
-                                Curricularizar essa Ação de Extensão
-                            </label>
-                        </div>
-
-                        <div class="{{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao) ? 'd-block' : 'd-none' }}" id="acao_curricularizacao">
-
-                        <div class="form-group col-md-2">
-                            <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
-                            <input class="form-control" id="vagas_curricularizacao" type="number" min=1 name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label class="form-label" for="qtd_horas_curricularizacao"><a href="#modal-ajuda-curricularizacao" data-toggle="modal">Horas Curricularização</a> <span class="text-danger">*</span></label>
-                            <!-- Modal center -->
-                            <div class="modal fade" id="modal-ajuda-curricularizacao" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h4>Horas Curricularização:</h4>
-                                            <p>Informe a quantidade de horas por vaga que o aluno terá na Curricularização nesta Ação de Extensão.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                        </div>
-                                    </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="impactos_sociedade">Impactos para a sociedade <span class="text-danger">*</span></label>
+                            <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control @error('impactos_sociedade') is-invalid @enderror" placeholder="Digite aqui. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_sociedade) ? $acao_extensao->impactos_sociedade : old('impactos_sociedade')}}</textarea>
+                            @error('impactos_sociedade')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                            </div>
-                            <input class="form-control" id="qtd_horas_curricularizacao" type="number" min=1 name="qtd_horas_curricularizacao" value="{{isset($acao_extensao->qtd_horas_curricularizacao) ? $acao_extensao->qtd_horas_curricularizacao : old('qtd_horas_curricularizacao')}}">
+                            @enderror
                         </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="impactos_universidade">Impactos para a universidade <span class="text-danger">*</span></label>
-                        <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_universidade) ? $acao_extensao->impactos_universidade : old('impactos_universidade')}}</textarea>
-                        @error('impactos_universidade')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="impactos_sociedade">Impactos para a sociedade <span class="text-danger">*</span></label>
-                        <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control @error('impactos_sociedade') is-invalid @enderror" rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_sociedade) ? $acao_extensao->impactos_sociedade : old('impactos_sociedade')}}</textarea>
-                        @error('impactos_sociedade')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
                     <div class="row g-4">
                         <div class="form-group col-md-3">
@@ -389,7 +433,7 @@
                                     @endif
 
                                     @if($errors->any())
-                                        <span class="font-weight-bold text-danger" style="font-size: 16px">Favor Inclua o arquivo novamente.</span>
+                                        <span class="font-weight-bold text-danger" style="font-size: 16px">Por Favor Inclua o arquivo novamente.</span>
                                     @endif
 
                                     </div>
@@ -398,13 +442,19 @@
                             <div class="dropzone-wrapper ">
                                 <div class="dropzone-desc">
                                     <i class="glyphicon glyphicon-download-alt"></i>
-                                    <p class="font-weight-bold">Arraste o PDF (5MB) aqui, ou clique para selecionar.</p>
+                                    <p class="font-weight-bold text-info">Clique e arraste o arquivo até aqui (formato PDF, até 5MB), ou clique dentro desta área para selecionar o arquivo.</p>
 
                                 </div>
                                 <input type="file" name="arquivo" class="dropzone" id="arquivo" {{ isset($acao_extensao->arquivo) ? '' : 'required' }} @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>
 
                             </div>
-                            <span class="text-info fw-500" id="alert-pdf-format">O arquivo deve ter no máximo 5MB.</span>
+                        </div>
+                        
+                    </div>
+                    <div class="row mt-5 p-3">
+                        <div class="col-md-12 form-group alert alert-warning">
+                            <i class="far fa-exclamation-circle"></i>
+                            <span class="fw-700">É altamente recomendável  envio do arquivo PDF do projeto.</span> Após o envio deste formulário não será possível anexar o arquivo a esta proposta, e será necessário reiniciar todo o processo de preenchimento e aprovação.
                         </div>
                     </div>
 
