@@ -1916,7 +1916,7 @@ Versão: 4.5.1
 
             function limparSelecaoPublicoAlvo() {
                 publico_alvo_sel.map(pa => {                   
-                   $("#publico").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
+                   $("#publico_alvo").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
                 });
             }
 
@@ -1924,7 +1924,7 @@ Versão: 4.5.1
                 let conteudo_pa = '';
                 publico_alvo_sel.map(pa => {
                    conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="remove_para_adicicione('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-times ml-2"></i></span>`;
-                   $("#publico").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
+                   $("#publico_alvo").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
                 });
                 
                 $('#selecao_atual').html(conteudo_pa);
@@ -1937,7 +1937,7 @@ Versão: 4.5.1
                 let index = publico_alvo.findIndex(pa => pa.id === id);
                 publico_alvo.splice(index, 1);
 
-                $("#publico").val([]);
+                $("#publico_alvo").val([]);
 
                 montaPublicoAlvoSelec();
                 montaPublicoAlvo();
@@ -1948,7 +1948,7 @@ Versão: 4.5.1
                 let index = publico_alvo_sel.findIndex(pa => pa.id === id);
                 publico_alvo_sel.splice(index, 1);
 
-                $("#publico").val([]);
+                $("#publico_alvo").val([]);
 
                 montaPublicoAlvoSelec();
                 montaPublicoAlvo();       
