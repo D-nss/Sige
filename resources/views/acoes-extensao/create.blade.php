@@ -81,8 +81,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            @dd($comissao_graduacao)
-                            @if($user->hasRole('extensao-coordenador') && !$comissao_graduacao)
+                            @dd(!!$comissao_graduacao)
+                            @if($user->hasRole('extensao-coordenador') && !!$comissao_graduacao)
                                 <!-- coordenador mas sem comissao de graduacao -->
                                 <div class="alert alert-warning">
                                     <i class="far fa-exclamation-circle"></i>
