@@ -287,9 +287,7 @@
                         <div class="custom-control custom-switch mb-3">
                             <input class="custom-control-input" type="checkbox" id="curricularizar"
                                 name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }} 
-                                @if(!!$comissao_graduacao == false)
-                                    disabled
-                                @endif>
+                                
                             <label class="custom-control-label" for="curricularizar">
                                 A Ação estará disponível para curricularização.
                                 <a href="#modal-ajuda-curricularizacao" data-toggle="modal"><img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a>
