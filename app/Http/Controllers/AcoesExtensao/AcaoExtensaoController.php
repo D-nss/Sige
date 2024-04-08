@@ -304,7 +304,7 @@ class AcaoExtensaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
-        echo json_encode($request->publico_alvo);
+        echo json_encode($request->all());
         // $dados = array('user_id' => $user->id);
         // $dados['unidade_id'] = $user->unidade_id;
         // $dados['nome_coordenador'] = $user->name;
