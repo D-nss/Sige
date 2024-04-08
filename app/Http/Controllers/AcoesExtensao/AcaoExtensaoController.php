@@ -295,7 +295,7 @@ class AcaoExtensaoController extends Controller
      * @param  \App\Http\Requests\StoreAcaoExtensaoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAcaoExtensaoRequest $request)
+    public function store(/*StoreAcaoExtensao*/Request $request)
     {
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
