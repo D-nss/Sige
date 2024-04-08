@@ -24,15 +24,15 @@
         <div id="panel-1" class="panel">
             <div class="panel-container show">
                 <div class="panel-content">
-                    <div class="mb-5">
+                    <div class="mb-3">
                         <p>
                             A proposta de Ação será automaticamente enviada para apreciação das comissões, de acordo com a Modalidade escolhida. Quando ela estiver pronta, para enviá-la, selecione o botão ‘Enviar para Aprovação’.
                         </p>
                         <p>
-                            Se for necessário, você pode salvar como rascunho e retomar a edição depois, selecionando o botão ‘Salvar Rascunho’. 
+                            Se for necessário, você pode salvar como rascunho e retomar a edição depois, selecionando o botão 'Salvar Rascunho'. 
                         </p>
                     </div>
-                    <div class="row mb-5">
+                    <div class="row border-top mb-5 pt-3">
                         <div class="col-lg-5">
                             <h2>Situação Atual</h2>
                             <div class=" p-3 bg-secondary rounded" style="height: 80px">
@@ -96,13 +96,13 @@
                             @endif
                         </div>
                     </div>
-                    <hr>
+                    <div class="border-top border-bottom pt-3 pb-2 mb-2">
                         <h2>Informações gerais</h2>
-                    <hr>
+                    </div>
                     <small>
                         Preencha os campos correspondentes. Os campos marcados com asterisco (*) são obrigatórios.
                     </small>
-                    <form class="mt-3" action="{{route('acao_extensao.store')}}" id="form_acao_extensao" method="POST" enctype="multipart/form-data">
+                    <form class="mt-3 mb-5" action="{{route('acao_extensao.store')}}" id="form_acao_extensao" method="POST" enctype="multipart/form-data">
                         @csrf
                         @include('acoes-extensao._form')
                         <div class="row">
@@ -122,10 +122,11 @@
                                     <span class="text">Salvar Rascunho</span></button>
                             </div>
                           </div>
-                    </form>
-                    <hr>
-                    <div class="row">
-                        <div class="form-group col-lg-12">
+                    </form>                    
+                </div>
+                <div class="panel-footer border-top border-secondary">
+                    <div class="row mx-2 my-5">
+                        <div class="col-md-12">
                             <a href="{{ url('acoes-extensao') }}" class="btn btn-primary ">
                                 <span class="icon text-white-50">
                                     <img src="{{ asset('smartadmin-4.5.1/img/381.png') }}" alt="Apreciação">

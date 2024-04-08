@@ -231,10 +231,10 @@
                             </div>
                         @enderror
                     </div>
-                    <hr>
-                    <h2>Público-alvo  <span class="text-danger">*</span></h2>
-                    <hr>
-                    <div class="row g-3">
+                    <div class="border-top border-bottom pt-3 pb-2">
+                        <h2>Público-alvo  <span class="text-danger">*</span></h2>
+                    </div>
+                    <div class="row mt-3">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="publico_alvo">Seleção Atual</label>
                             <select class="d-none" name="publico_alvo[]" id="publico_alvo" multiple>
@@ -265,10 +265,10 @@
                             <input class="form-control" id="estimativa_publico" type="number" min=1 name="estimativa_publico" value="{{isset($acao_extensao->estimativa_publico) ? $acao_extensao->estimativa_publico : old('estimativa_publico')}}">
                         </div>
                     </div>
-                    <hr>
+                    <div class="border-top border-bottom pt-3 pb-2">
                         <h2>Anotações e Comunicação</h2>
-                    <hr>
-                    <div class="form-group">
+                    </div>
+                    <div class="form-group mt-3">
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label">Suas anotações (só ficarão visíveis para você)</label>
@@ -280,13 +280,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <hr>
-                            <h2>Curricularização</h2>
-                        <hr>
+                    <div class="border-top border-bottom pt-3 pb-2">
+                        <h2>Curricularização</h2>
+                    </div>
+                    <div class="form-group border-bottom pt-3 pb-2">
                         <div class="custom-control custom-switch mb-3">
                             <input class="custom-control-input" type="checkbox" id="curricularizar"
-                                name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }}>
+                                name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }} 
+                                @if(!!$comissao_graduacao == false)
+                                    disabled
+                                @endif>
                             <label class="custom-control-label" for="curricularizar">
                                 A Ação estará disponível para curricularização.
                                 <a href="#modal-ajuda-curricularizacao" data-toggle="modal"><img class="ml-1" src="{{ asset('smartadmin-4.5.1/img/ajuda-icon.png') }}" alt=""></a>
@@ -325,10 +328,10 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <div class="border-bottom pt-3">
                         <h2>Impactos</h2>
-                    <hr>
-                    <div class="row">
+                    </div>
+                    <div class="row mt-3">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="impactos_universidade">Impactos para a universidade <span class="text-danger">*</span></label>
                             <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" placeholder="Digite aqui. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_universidade) ? $acao_extensao->impactos_universidade : old('impactos_universidade')}}</textarea>

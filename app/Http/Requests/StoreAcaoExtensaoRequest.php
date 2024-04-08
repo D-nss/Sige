@@ -30,12 +30,14 @@ class StoreAcaoExtensaoRequest extends FormRequest
             'ods' => 'required',
             'titulo' => 'required',
             'descricao' => 'required|max:2500',
-            'publico_alvo' => 'required',
+            'publico_alvo' => 'required|max:250',
             // 'vagas_curricularizacao' => 'required',
             'estado' => 'required',
             'cidade' => 'required',
-            'impactos_universidade' => 'required|max:2500',
-            'impactos_sociedade' => 'required|max:2500',
+            'impactos_universidade' => 'required|max:10000',
+            'impactos_sociedade' => 'required|max:10000',
+            'anotacoes' => 'max:500',
+            'mensagem_extensao' => 'max:500',
             'arquivo' => 'required|file|max:5120|mimes:pdf',
         ];
     }

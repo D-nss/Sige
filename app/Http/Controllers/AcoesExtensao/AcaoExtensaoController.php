@@ -295,7 +295,7 @@ class AcaoExtensaoController extends Controller
      * @param  \App\Http\Requests\StoreAcaoExtensaoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(/*StoreAcaoExtensao*/ Request $request)
+    public function store(StoreAcaoExtensaoRequest $request)
     {
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
@@ -317,6 +317,7 @@ class AcaoExtensaoController extends Controller
         $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
         $dados = array_merge($dados_form, $dados);
         $dados['status'] = 'Rascunho';
+        $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
         $areasTematicasInsert = array();
         $odsInsert = array();
 
