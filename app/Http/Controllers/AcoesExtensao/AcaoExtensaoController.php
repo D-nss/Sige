@@ -304,60 +304,60 @@ class AcaoExtensaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
+        echo json_encode($request->publico_alvo);
+        // $dados = array('user_id' => $user->id);
+        // $dados['unidade_id'] = $user->unidade_id;
+        // $dados['nome_coordenador'] = $user->name;
+        // $dados['email_coordenador'] = $user->email;
+        // $dados['vinculo_coordenador'] = $vinculo_coordenador;
+        // $dados['municipio_id'] = $request->cidade;
+        // //$dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
+        // $dados_form = $request->except('curricularizar');
+        // $upload = new UploadFile();
+        // $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
+        // $dados = array_merge($dados_form, $dados);
+        // $dados['status'] = 'Rascunho';
+        // $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
+        // $areasTematicasInsert = array();
+        // $odsInsert = array();
 
-        $dados = array('user_id' => $user->id);
-        $dados['unidade_id'] = $user->unidade_id;
-        $dados['nome_coordenador'] = $user->name;
-        $dados['email_coordenador'] = $user->email;
-        $dados['vinculo_coordenador'] = $vinculo_coordenador;
-        $dados['municipio_id'] = $request->cidade;
-        //$dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
-        $dados_form = $request->except('curricularizar');
-        $upload = new UploadFile();
-        $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
-        $dados = array_merge($dados_form, $dados);
-        $dados['status'] = 'Rascunho';
-        $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
-        $areasTematicasInsert = array();
-        $odsInsert = array();
+        // $acao_extensao = DB::transaction(function() use( $dados, $areasTematicasInsert, $odsInsert) {
+        //     // Faz a inserção da ação
+        //     $acaoCriada = AcaoExtensao::create($dados);
+        //     // Prepara os dados para inserção das areas temáticas
+        //     foreach($dados['areas_tematicas'] as $area) {
+        //         array_push($areasTematicasInsert,[
+        //             'area_tematica_id' => $area,
+        //             'acao_extensao_id' => $acaoCriada->id
+        //         ]);
+        //     }
+        //     // faz a inserção das áreas temáticas
+        //     DB::table('acoes_extensao_areas_tematicas')->insert($areasTematicasInsert);
+        //     // Prepara os dados para inserção dos objetivos desenvolvimento sustentavel
+        //     foreach($dados['ods'] as $objetivo) {
+        //         array_push($odsInsert,[
+        //             'objetivo_desenvolvimento_sustentavel_id' => $objetivo,
+        //             'acao_extensao_id' => $acaoCriada->id
+        //         ]);
+        //     }
+        //     // faz a inserção dos objetivos  desenvolvimento sustentavel
+        //     DB::table('acoes_extensao_ods')->insert($odsInsert);
 
-        $acao_extensao = DB::transaction(function() use( $dados, $areasTematicasInsert, $odsInsert) {
-            // Faz a inserção da ação
-            $acaoCriada = AcaoExtensao::create($dados);
-            // Prepara os dados para inserção das areas temáticas
-            foreach($dados['areas_tematicas'] as $area) {
-                array_push($areasTematicasInsert,[
-                    'area_tematica_id' => $area,
-                    'acao_extensao_id' => $acaoCriada->id
-                ]);
-            }
-            // faz a inserção das áreas temáticas
-            DB::table('acoes_extensao_areas_tematicas')->insert($areasTematicasInsert);
-            // Prepara os dados para inserção dos objetivos desenvolvimento sustentavel
-            foreach($dados['ods'] as $objetivo) {
-                array_push($odsInsert,[
-                    'objetivo_desenvolvimento_sustentavel_id' => $objetivo,
-                    'acao_extensao_id' => $acaoCriada->id
-                ]);
-            }
-            // faz a inserção dos objetivos  desenvolvimento sustentavel
-            DB::table('acoes_extensao_ods')->insert($odsInsert);
+        //     return $acaoCriada;
+        // });
 
-            return $acaoCriada;
-        });
+        // if($acao_extensao){
+        //     Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
+        //     session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
+        //     session()->flash('alert', 'success');
+        // } else {
+        //     Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação não inserida  - Endereço IP: ' . $request->ip());
+        //     session()->flash('status', 'Erro ao adicionar a Ação de Extensão ao banco de dados.');
+        //     session()->flash('alert', 'danger');
+        //     return back();
+        // }
 
-        if($acao_extensao){
-            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
-            session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
-            session()->flash('alert', 'success');
-        } else {
-            Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação não inserida  - Endereço IP: ' . $request->ip());
-            session()->flash('status', 'Erro ao adicionar a Ação de Extensão ao banco de dados.');
-            session()->flash('alert', 'danger');
-            return back();
-        }
-
-        return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id] );
+        // return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id] );
     }
 
     /**
