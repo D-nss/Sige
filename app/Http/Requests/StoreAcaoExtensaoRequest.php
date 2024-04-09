@@ -38,6 +38,7 @@ class StoreAcaoExtensaoRequest extends FormRequest
             'impactos_sociedade' => 'required|max:10000',
             'anotacoes' => 'max:500',
             'mensagem_extensao' => 'max:500',
+            'motivo_curricularizacao' => $this->input('curricularizar') ? 'required|max:500' : 'max:500',
             'arquivo' => 'required|file|max:5120|mimes:pdf',
         ];
     }

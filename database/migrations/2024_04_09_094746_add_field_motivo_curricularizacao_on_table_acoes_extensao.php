@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('acoes_extensao', function (Blueprint $table) {
-            $table->string('anotacoes', 500)->nullabel();
-            $table->string('mensagem_extensao', 500)->nullable();
+            $table->string('motivo_curricularizacao', 500)->nullable();
         });
     }
 
@@ -27,8 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('acoes_extensao', function (Blueprint $table) {
-            $table->dropColumn('anotacoes');
-            $table->dropColumn('mensagem_extensao');
+            //
         });
     }
 };

@@ -81,13 +81,13 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            @if($user->hasRole('extensao-coordenador') && !!$comissao_graduacao)
+                            @if($user->hasRole('extensao-coordenador') && $comissao_graduacao->count() <= 0)
                                 <!-- coordenador mas sem comissao de graduacao -->
                                 <div class="alert alert-warning">
                                     <i class="far fa-exclamation-circle"></i>
                                     A Ação não poderá ser disponibilizada para curricularização sem uma Comissão de Graduação registrada. Para habilitá-la, cadastre uma comissão em <span class="fw-700">Comissões > Cadastrar Comissão.</span>
                                 </div>
-                            @elseif (!!$comissao_graduacao)
+                            @elseif ($comissao_graduacao->count() <= 0)
                                 <!-- não coordenador mas sem comissao de graduacao -->
                                 <div class="alert alert-warning">
                                     <i class="far fa-exclamation-circle"></i>

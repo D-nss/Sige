@@ -287,7 +287,7 @@
                         <div class="custom-control custom-switch mb-3">
                             <input class="custom-control-input" type="checkbox" id="curricularizar"
                                 name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }} 
-                                @if(!!$comissao_graduacao == false)
+                                @if($comissao_graduacao->count() <= 0)
                                     disabled
                                 @endif>
                             <label class="custom-control-label" for="curricularizar">
@@ -296,16 +296,23 @@
                             </label>
                         </div>
 
-                        <div class="{{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao) ? 'd-block' : 'd-none' }} row" id="acao_curricularizacao">
-
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
-                                <input class="form-control" id="vagas_curricularizacao" type="number" min=1 name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
+                        <div class="{{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao) ? 'd-block' : 'd-none' }}" id="acao_curricularizacao">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="vagas_curricularizacao">Vagas Curricularização <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="vagas_curricularizacao" type="number" min=1 name="vagas_curricularizacao" value="{{isset($acao_extensao->vagas_curricularizacao) ? $acao_extensao->vagas_curricularizacao : old('vagas_curricularizacao')}}">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="qtd_horas_curricularizacao">Horas Curricularização <span class="text-danger">*</span></label>
+                                    
+                                    <input class="form-control" id="qtd_horas_curricularizacao" type="number" min=1 name="qtd_horas_curricularizacao" value="{{isset($acao_extensao->qtd_horas_curricularizacao) ? $acao_extensao->qtd_horas_curricularizacao : old('qtd_horas_curricularizacao')}}">
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="qtd_horas_curricularizacao">Horas Curricularização <span class="text-danger">*</span></label>
-                                
-                                <input class="form-control" id="qtd_horas_curricularizacao" type="number" min=1 name="qtd_horas_curricularizacao" value="{{isset($acao_extensao->qtd_horas_curricularizacao) ? $acao_extensao->qtd_horas_curricularizacao : old('qtd_horas_curricularizacao')}}">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="motivo_curricularizacao">Motivo da Curricularização  <span class="text-danger">*</span></label>
+                                    <textarea name="motivo_curricularizacao" id="motivo_curricularizacao" class="form-control" rows="5" placeholder="Digite aqui o motivo da curricularização. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres.">{{ old('motivo_curricularizacao') }}</textarea>
+                                </div>
                             </div>
                         </div>
                         <!-- Modal center -->
