@@ -287,7 +287,7 @@
                         <div class="custom-control custom-switch mb-3">
                             <input class="custom-control-input" type="checkbox" id="curricularizar"
                                 name="curricularizar" {{ old('curricularizar') || isset($acao_extensao->vagas_curricularizacao)  ? 'checked' : '' }} 
-                                @if($comissao_graduacao->count() <= 0)
+                                @if(is_null($comissao_graduacao))
                                     disabled
                                 @endif>
                             <label class="custom-control-label" for="curricularizar">
