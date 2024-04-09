@@ -81,6 +81,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
+                            @dd([$comissao_graduacao->count(), $comissao_graduacao])
                             @if($user->hasRole('extensao-coordenador') && $comissao_graduacao->count() <= 0)
                                 <!-- coordenador mas sem comissao de graduacao -->
                                 <div class="alert alert-warning">
