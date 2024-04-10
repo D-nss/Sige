@@ -1953,6 +1953,11 @@ Versão: 4.5.1
                 montaPublicoAlvoSelec();
                 montaPublicoAlvo();       
             }
+            
+            $('#btn-apreciacao').click(() => {
+                $('#apreciacao').prop('disabled', false);
+                $('#form_acao_extensao').submit();
+            })
 
 
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude

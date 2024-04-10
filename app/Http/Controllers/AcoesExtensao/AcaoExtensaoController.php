@@ -347,6 +347,10 @@ class AcaoExtensaoController extends Controller
         });
 
         if($acao_extensao){
+            if(isset($request->apreciacao) && $request->apreciacao == 'Sim') {
+                $this->submeter($acao_extensao);
+            }
+
             Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
             session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
             session()->flash('alert', 'success');
@@ -932,7 +936,7 @@ class AcaoExtensaoController extends Controller
 
         Notification::send($comissaoUnidade, new \App\Notifications\AcaoExtensaoNotificarComissaoUnidade($acaoExtensao));
 
-        session()->flash('status', 'Ação de Extensão Submetida para aprovação!');
+        session()->flash('status', 'Ação de Extensão Submetida para apreciação!');
         session()->flash('alert', 'success');
 
         return redirect()->route('acao_extensao.index');

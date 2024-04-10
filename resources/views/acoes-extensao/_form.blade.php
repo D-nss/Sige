@@ -235,7 +235,7 @@
                         <h2>Público-alvo  <span class="text-danger">*</span></h2>
                     </div>
                     <div class="row mt-3">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6 @error('publico_alvo') border border-danger rounded p-2 @enderror">
                             <label class="form-label" for="publico_alvo">Seleção Atual</label>
                             <select class="d-none" name="publico_alvo[]" id="publico_alvo" multiple>
                                 <option value="Superior 1">Superior 1</option>
@@ -253,12 +253,12 @@
                             <div id="adicione">
                            
                             </div>
-                            <!-- <input type="text" id="publico_alvo" name="publico_alvo" class="form-control @error('publico_alvo') is-invalid @enderror" value="{{isset($acao_extensao->publico_alvo) ? $acao_extensao->publico_alvo : old('publico_alvo')}}">
+                            <!-- <input type="text" id="publico_alvo" name="publico_alvo" class="form-control @error('publico_alvo') is-invalid @enderror" value="{{isset($acao_extensao->publico_alvo) ? $acao_extensao->publico_alvo : old('publico_alvo')}}"> -->
                             @error('publico_alvo')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
-                            @enderror -->
+                            @enderror
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-label" for="estimativa_publico">Estimativa de Público (do seu público-alvo)</label>

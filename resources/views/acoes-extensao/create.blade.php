@@ -107,12 +107,13 @@
                         @include('acoes-extensao._form')
                         <div class="row">
                             <div class="form-group mt-3 ml-3">
-                                <a href="#" class="btn btn-primary ">
+                                <input type="hidden" name="apreciacao" id="apreciacao" value="Sim" disabled>
+                                <button type="button" class="btn btn-primary " id="btn-apreciacao">
                                     <span class="icon text-white-50">
                                     <img src="{{ asset('smartadmin-4.5.1/img/icone_aprova.png') }}" alt="Apreciação">
                                     </span>
                                     <span class="text">Enviar para apreciação</span>
-                                </a>
+                                </button>
                                 {{--<button type="submit" class="btn btn-primary btn-user btn-verde">
                                     <i class="fal fa-check"></i> <b>Criar e Adicionar Datas</b>
                                 </button>--}}
