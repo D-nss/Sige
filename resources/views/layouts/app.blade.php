@@ -1798,7 +1798,7 @@ Versão: 4.5.1
                 //Criacao da comissao da graduacao no inicio de acoes de extensao
                 
                 
-                @if(isset($comissao_extensao) && $comissao_extensao && !$comissao_graduacao)
+                @if(isset($comissao_extensao) && !is_null($comissao_extensao) && is_null($comissao_graduacao))
                     $("#modalComissaoGraduacao").modal('show');
                 @endif
 
@@ -1889,7 +1889,7 @@ Versão: 4.5.1
                         });
                 });
 
-                @if(isset($comissao_extensao) && $comissao_extensao && isset($comissao_graduacao) && $comissao_graduacao)
+                @if(isset($comissao_extensao) && !is_null($comissao_extensao) && isset($comissao_graduacao) && !is_null($comissao_graduacao))
                     $("#modalComissoesCriadas").modal('show');
                 @endif
             @endif

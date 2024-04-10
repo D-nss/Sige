@@ -53,7 +53,7 @@
                 <div class="row">
                     @forelse($comissoes as $comissao)
                         <!-- <li class="list-group-item bg-info-50 mb-1"> -->
-                    <div class="col-md-2 bg-light m-2 p-3 d-flex flex-column shadow">
+                    <div class="col-md-3 bg-light m-1 p-3 d-flex flex-column shadow">
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-danger btn-sm btn-icon rounded-circle" data-toggle="modal" data-target="#exampleModal{{$comissao->id}}">
                                 <i class="fal fa-trash"></i>
