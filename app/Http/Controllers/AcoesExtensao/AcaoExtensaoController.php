@@ -271,6 +271,9 @@ class AcaoExtensaoController extends Controller
             return back();
         }
 
+        $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
+        ->where('atribuicao', 'Graduação')->first();
+
         $acaoLocal = Municipio::select('uf', 'nome_municipio')->where('id', $acaoExtensao->municipio_id)->get();
         $linhas_extensao = LinhaExtensao::all();
         $areas_tematicas = AreaTematica::all();
@@ -285,7 +288,8 @@ class AcaoExtensaoController extends Controller
             'areas_tematicas' => $areas_tematicas,
             'ods' => $ods,
             'estados' => $estados,
-            'programas' => $programas
+            'programas' => $programas,
+            'comissao_graduacao'    => $comissao_graduacao,
         ]);
     }
 

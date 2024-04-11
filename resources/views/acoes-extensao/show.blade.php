@@ -147,7 +147,10 @@
         <div id="panel-3" class="panel">
             <div class="panel-container show">
                 <div class="panel-content">
-
+                <div class="row border-top mb-5 pt-3">
+                        @include('acoes-extensao.statusbar')
+                        
+                    </div>
                     <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
                         <div class='icon-stack display-3 flex-shrink-0'>
                             @switch($acao_extensao->modalidade)
