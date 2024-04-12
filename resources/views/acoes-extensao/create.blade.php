@@ -122,7 +122,7 @@
                                     </span>
                                     <span class="text">Salvar Rascunho</span></button>
                             </div>
-                          </div>
+                        </div>
                     </form>                    
                 </div>
                 <div class="panel-footer border-top border-secondary">

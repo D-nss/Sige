@@ -15,17 +15,8 @@
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-1">
-            <span class="h5">Ação de Extensão inserida/atualizada, agora necessita que ela seja submetida para aprovação pela Unidade</span>
-        </div>
-        @if($userCoordenadorAcao)
-        <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
-            @csrf
-            @method('put')
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
-        </form>
-        @endif
-
-        <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
+            <span class="h5">Ação de Extensão inserida/atualizada, agora necessita que ela seja submetida para apreciação pela Unidade, isso pode ser feito através do botão <span class="fw-700">Enviar para Apreciação</span></span>
+        </div>   
     </div>
 </div>
 @endif
@@ -299,6 +290,18 @@
                         </div>
                     </div>
                     @endif
+                    @if(isset($acao_extensao->motivo_curricularizacao))
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                Motivo da Curricularização:
+                                <small class="mt-0 mb-3 text-muted">
+                                    {{$acao_extensao->motivo_curricularizacao}}
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-12">
                         <div class="p-0">
                             <h5>
@@ -341,6 +344,30 @@
                             </h5>
                         </div>
                     </div>
+                    @if(isset($acao_extensao->anotacoes))
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                Suas Anotações:
+                                <small class="mt-0 mb-3 text-muted">
+                                    {{$acao_extensao->anotacoes}}
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
+                    @if(isset($acao_extensao->mensagem_extensao))
+                    <div class="col-12">
+                        <div class="p-0">
+                            <h5>
+                                Mensagem para Comissão de Extensão:
+                                <small class="mt-0 mb-3 text-muted">
+                                    {{$acao_extensao->mensagem_extensao}}
+                                </small>
+                            </h5>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-12">
                         <div class="p-0">
                             <h5>
@@ -352,24 +379,21 @@
                         </div>
                     </div>
                     <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
+                        <div class="card mb-3 shadow">
+                            <div class="card-header bg-primary rounded" id="headingTwo">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     <div class='icon-stack display-3 flex-shrink-0'>
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-warning-400"></i>
-                                        <i class="fal fa-landmark icon-stack-1x opacity-100 color-warning-500"></i>
+                                        <i class="fal fa-landmark icon-stack-1x opacity-100 color-white"></i>
                                     </div>
-                                    <div class="ml-3">
-                                        Unidade
+                                    <div class="ml-3 color-white">
+                                        Unidades
                                     </div>
                                     <span class="ml-auto">
                                         <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
+                                            <i class="far fa-chevron-up icon-stack-0-5x opacity-100 color-white"></i>
                                         </span>
                                         <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
+                                            <i class="far fa-chevron-down icon-stack-0-5x opacity-100 color-white"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -493,8 +517,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
+                        <!-- <div class="card">
+                            <div class="card-header bg-primary rounded" id="headingOne">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                     <div class='icon-stack display-3 flex-shrink-0'>
                                         <i class="fal fa-circle icon-stack-3x opacity-100 color-secondary-400"></i>
@@ -567,25 +591,22 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
+                        </div> -->
+                        <div class="card mb-3 shadow">
+                            <div class="card-header bg-primary rounded" id="headingThree">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     <div class='icon-stack display-3 flex-shrink-0'>
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-primary-400"></i>
-                                        <i class="fal fa-users icon-stack-1x opacity-100 color-primary-500"></i>
+                                        <i class="fal fa-users icon-stack-1x opacity-100 color-white"></i>
                                     </div>
-                                    <div class="ml-3">
+                                    <div class="ml-3 color-white">
                                         Coordenador e Equipe
                                     </div>
                                     <span class="ml-auto">
                                         <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100  color-white"></i>
                                         </span>
                                         <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100  color-white"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -705,7 +726,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <!-- <div class="card">
                             <div class="card-header" id="headingFour">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                     <div class='icon-stack display-3 flex-shrink-0'>
@@ -856,25 +877,22 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingFive">
+                        </div> -->
+                        <div class="card mb-3 shadow">
+                            <div class="card-header bg-primary rounded" id="headingFive">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                     <div class='icon-stack display-3 flex-shrink-0'>
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-success-400"></i>
-                                        <i class="fal fa-map-marked-alt icon-stack-1x opacity-100 color-success-500"></i>
+                                        <i class="fal fa-map-marker-alt icon-stack-1x opacity-100 color-success-500 color-white"></i>
                                     </div>
-                                    <div class="ml-3">
+                                    <div class="ml-3 color-white">
                                         Cidade e Georreferenciação
                                     </div>
                                     <span class="ml-auto">
                                         <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100 color-white"></i>
                                         </span>
                                         <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100 color-white"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -905,24 +923,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header" id="headingArquivo">
+                        <div class="card mb-3">
+                            <div class="card-header bg-primary rounded" id="headingArquivo">
                                 <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#collapseArquivo" aria-expanded="false" aria-controls="collapseArquivo">
                                     <div class='icon-stack display-3 flex-shrink-0'>
-                                        <i class="fal fa-circle icon-stack-3x opacity-100 color-danger-400"></i>
-                                        <i class="far fa-file icon-stack-1x opacity-100 color-danger-500"></i>
+                                        <i class="far fa-file icon-stack-1x opacity-100 color-white"></i>
                                     </div>
-                                    <div class="ml-3">
+                                    <div class="ml-3 color-white">
                                         Arquivos
                                     </div>
                                     <span class="ml-auto">
                                         <span class="collapsed-reveal icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100"></i>
+                                            <i class="fal fa-chevron-up icon-stack-0-5x opacity-100 color-white"></i>
                                         </span>
                                         <span class="collapsed-hidden icon-stack display-4 flex-shrink-01">
-                                            <i class="fal fa-circle icon-stack-2x opacity-40"></i>
-                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100"></i>
+                                            <i class="fal fa-chevron-down icon-stack-0-5x opacity-100 color-white"></i>
                                         </span>
                                     </span>
                                 </a>
@@ -996,16 +1011,34 @@
                             </div>
                         </div>
                     </div>
-                    <a href="/acoes-extensao/painel/extensao" class="btn btn-secondary btn-user ">
-                        <span class="icon text-white-50">
-                        <i class="fal fa-arrow-left"></i>
-                        </span>
-                        <span class="text">Voltar</span>
-                    </a>
-                    @if($user->id == $acao_extensao->user_id)
-                    <a href="/acoes-extensao/{{$acao_extensao->id}}/editar"><button type="button" class="btn btn-md btn-primary waves-effect waves-themed mt-2">Editar
-                        </button></a>
-                    @endif
+                    <div class="row">
+                        <div class="form-group my-5 mx-3">
+                            @if($userCoordenadorAcao && $acao_extensao->status == 'Rascunho')
+                            <form action="{{ url('acoes-extensao/'. $acao_extensao->id .'/submeter') }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-primary ">
+                                    <span class="icon text-white-50">
+                                    <img src="{{ asset('smartadmin-4.5.1/img/icone_aprova.png') }}" alt="Apreciação">
+                                    </span>
+                                    <span class="text">Enviar para apreciação</span>
+                                </button>
+                            </form>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="panel-footer border-top border-secondary">
+                        <div class="row my-5">
+                            <div class="col-md-12">
+                                <a href="{{ url('acoes-extensao') }}" class="btn btn-primary ">
+                                    <span class="icon text-white-50">
+                                        <img src="{{ asset('smartadmin-4.5.1/img/381.png') }}" alt="Apreciação">
+                                    </span>
+                                    <span class="text">Minhas Ações de Extensão</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
