@@ -13,6 +13,9 @@
                         @case('Pendente')
                             bg-success
                             @break
+                        @case('Aprovado')
+                            text-success
+                            @break
                         @default()
                             bg-light
                             @break
@@ -78,9 +81,9 @@
             <div class="d-flex justify-content-center align-items-center mr-2">
                 <div class="d-flex flex-column justify-content-center align-items-center mr-2">
                     <div class="
-                    @if($acao_extensao->satus_avaliacao_conext == 'Reconhecido')
+                    @if($acao_extensao->satus_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                         bg-success
-                    @elseif ($acao_extensao->status == 'Aprovado')
+                    @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->status == 'Aprovado' )
                         bg-warning
                     @else
                         bg-light
@@ -89,9 +92,9 @@
                     <small class="text-center">Reconheci<br>mento ProEC</small>
                 </div>
                 <span class="
-                @if($acao_extensao->satus_avaliacao_conext == 'Reconhecido')
+                @if($acao_extensao->satus_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                     text-success
-                @elseif ($acao_extensao->status == 'Aprovado')
+                @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->status == 'Aprovado' )
                     text-warning
                 @else
                     text-light
