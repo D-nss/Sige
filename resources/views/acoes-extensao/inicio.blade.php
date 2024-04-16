@@ -40,14 +40,14 @@
                     @else
                         @if ($comissao_extensao)
                             @if ($comissao_graduacao)
-                                <p>Para cadastrar uma Ação de Extensão, <a href="#">Clique aqui</a></p>
+                                <p>Para cadastrar uma Ação de Extensão, <a href="{{ url('acoes-extensao/novo') }}">Clique aqui</a></p>
                             @else
                                 <p>Sua unidade ainda não tem uma Comissão de Graduação cadastrada. Isso impossibilita aos
                                     Coordenadores das Ações de Extensão disponibilizá-las para curricularização.</p>
                                 <p>Para solicitar o cadastramento desta comissão, entre em contato com o Coordenador de
                                     Extensão da sua unidade.
                                 <p>
-                                <p>Para cadastrar uma Ação de Extensão, <a href="#">Clique aqui</a></p>
+                                <p>Para cadastrar uma Ação de Extensão, <a href="{{ url('acoes-extensao/novo') }}">Clique aqui</a></p>
                             @endif
                         @else
                             <p>As comissões necessárias ainda não estão cadastradas. Para solicitar o cadastramento das
