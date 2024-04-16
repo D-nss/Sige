@@ -1705,259 +1705,259 @@ Versão: 4.5.1
             });
             @endif
 
-            @if(Auth::hasUser() && isset($user))
-                //criacao da comissao no inicio do modulo de acoes de extensao
-                var membros_selecionados = [];
+            // @if(Auth::hasUser() && isset($user))
+            //     //criacao da comissao no inicio do modulo de acoes de extensao
+            //     var membros_selecionados = [];
 
-                $("#nome_membro").change(function(){
-                    membros_selecionados.push({
-                        "id" : $("#nome_membro").val(),
-                        "nome" : $("#nome_membro option:selected").text()
-                    });
+            //     $("#nome_membro").change(function(){
+            //         membros_selecionados.push({
+            //             "id" : $("#nome_membro").val(),
+            //             "nome" : $("#nome_membro option:selected").text()
+            //         });
 
-                    membros_selecionados_lista();
+            //         membros_selecionados_lista();
 
-                    $('#nome_membro').val('');
+            //         $('#nome_membro').val('');
                 
-                });
+            //     });
 
-                function remove_selecionado(index){
-                    membros_selecionados.splice(index, 1);
+            //     function remove_selecionado(index){
+            //         membros_selecionados.splice(index, 1);
 
-                    membros_selecionados_lista();
-                }
+            //         membros_selecionados_lista();
+            //     }
 
-                function membros_selecionados_lista() {
-                    let conteudo = '';
-                    let cont = 0;
+            //     function membros_selecionados_lista() {
+            //         let conteudo = '';
+            //         let cont = 0;
 
-                    membros_selecionados.map(membro => {
-                        conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
-                                        ${membro.nome}
-                                        <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
-                                            <i class="fal fa-times mx-2"></i>
-                                        </button>
-                                    </span>`;
-                        cont++;
+            //         membros_selecionados.map(membro => {
+            //             conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
+            //                             ${membro.nome}
+            //                             <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado(${cont})">
+            //                                 <i class="fal fa-times mx-2"></i>
+            //                             </button>
+            //                         </span>`;
+            //             cont++;
 
-                    });
+            //         });
 
-                    $("#nomes_selecionados").html(conteudo);
+            //         $("#nomes_selecionados").html(conteudo);
 
-                    if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
-                        $("#btn-criar-comissao").removeClass("btn-secondary");
-                        $("#btn-criar-comissao").addClass("btn-primary");
-                        $("#btn-criar-comissao").prop("disabled", false);
-                    }
-                    else {
-                        $("#btn-criar-comissao").addClass("btn-secondary");
-                        $("#btn-criar-comissao").removeClass("btn-primary");
-                        $("#btn-criar-comissao").prop("disabled", true);
-                    }
-                }
+            //         if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
+            //             $("#btn-criar-comissao").removeClass("btn-secondary");
+            //             $("#btn-criar-comissao").addClass("btn-primary");
+            //             $("#btn-criar-comissao").prop("disabled", false);
+            //         }
+            //         else {
+            //             $("#btn-criar-comissao").addClass("btn-secondary");
+            //             $("#btn-criar-comissao").removeClass("btn-primary");
+            //             $("#btn-criar-comissao").prop("disabled", true);
+            //         }
+            //     }
 
-                $("#nome_comissao").keyup(function(){
-                    if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
-                        $("#btn-criar-comissao").removeClass("btn-secondary");
-                        $("#btn-criar-comissao").addClass("btn-primary");
-                        $("#btn-criar-comissao").prop("disabled", false);
-                    }
-                    else {
-                        $("#btn-criar-comissao").addClass("btn-secondary");
-                        $("#btn-criar-comissao").removeClass("btn-primary");
-                        $("#btn-criar-comissao").prop("disabled", true);
-                    }
-                });
+            //     $("#nome_comissao").keyup(function(){
+            //         if($("#nome_comissao").val() != '' && membros_selecionados.length != 0) {
+            //             $("#btn-criar-comissao").removeClass("btn-secondary");
+            //             $("#btn-criar-comissao").addClass("btn-primary");
+            //             $("#btn-criar-comissao").prop("disabled", false);
+            //         }
+            //         else {
+            //             $("#btn-criar-comissao").addClass("btn-secondary");
+            //             $("#btn-criar-comissao").removeClass("btn-primary");
+            //             $("#btn-criar-comissao").prop("disabled", true);
+            //         }
+            //     });
 
-                $("#btn-criar-comissao").click(function(){
-                    $.ajax({
-                            url: "{{ url('acoes-extensao/inicio/store-comissao') }}",
-                            method: "POST",
-                            dataType: 'json',
-                            data: { nome_comissao: $("#nome_comissao").val(), membros: membros_selecionados, _token: '{{ csrf_token() }}' },
-                            success: function(data) {
-                                if(data.alert === 'success') {
-                                    toastr.success(data.status);
-                                    $('#modalComissaoExtensao').modal('hide');
-                                    $('#nome_comissao').val('');
-                                    $('#nome_membro').val('');
-                                    $("#nomes_selecionados").html('');
+            //     $("#btn-criar-comissao").click(function(){
+            //         $.ajax({
+            //                 url: "{{ url('acoes-extensao/inicio/store-comissao') }}",
+            //                 method: "POST",
+            //                 dataType: 'json',
+            //                 data: { nome_comissao: $("#nome_comissao").val(), membros: membros_selecionados, _token: '{{ csrf_token() }}' },
+            //                 success: function(data) {
+            //                     if(data.alert === 'success') {
+            //                         toastr.success(data.status);
+            //                         $('#modalComissaoExtensao').modal('hide');
+            //                         $('#nome_comissao').val('');
+            //                         $('#nome_membro').val('');
+            //                         $("#nomes_selecionados").html('');
 
-                                    setInterval(function(){
-                                        window.location.reload();
-                                    }, 3000);
+            //                         setInterval(function(){
+            //                             window.location.reload();
+            //                         }, 3000);
                                    
-                                }
-                                else if(data.alert === 'danger') {
-                                    toastr.danger(data.status);
-                                }
-                            }
-                        });
-                });
-                //fim da criacao da comissao no inicio do modulo de acoes de extensao
-                //Criacao da comissao da graduacao no inicio de acoes de extensao
+            //                     }
+            //                     else if(data.alert === 'danger') {
+            //                         toastr.danger(data.status);
+            //                     }
+            //                 }
+            //             });
+            //     });
+            //     //fim da criacao da comissao no inicio do modulo de acoes de extensao
+            //     //Criacao da comissao da graduacao no inicio de acoes de extensao
                 
                 
-                @if(isset($comissao_extensao) && !is_null($comissao_extensao) && is_null($comissao_graduacao))
-                    $("#modalComissaoGraduacao").modal('show');
-                @endif
+            //     @if(isset($comissao_extensao) && !is_null($comissao_extensao) && is_null($comissao_graduacao))
+            //         $("#modalComissaoGraduacao").modal('show');
+            //     @endif
 
-                var membros_selecionados_graduacao = [];
+            //     var membros_selecionados_graduacao = [];
 
-                $("#nome_membro_graduacao").change(function(){
-                    membros_selecionados_graduacao.push({
-                        "id" : $("#nome_membro_graduacao").val(),
-                        "nome" : $("#nome_membro_graduacao option:selected").text()
-                    });
+            //     $("#nome_membro_graduacao").change(function(){
+            //         membros_selecionados_graduacao.push({
+            //             "id" : $("#nome_membro_graduacao").val(),
+            //             "nome" : $("#nome_membro_graduacao option:selected").text()
+            //         });
 
-                    membros_selecionados_lista_graduacao();
+            //         membros_selecionados_lista_graduacao();
 
-                    $('#nome_membro_graduacao').val('');
+            //         $('#nome_membro_graduacao').val('');
 
-                });
+            //     });
 
-                function remove_selecionado_graduacao(index){
-                    membros_selecionados_graduacao.splice(index, 1);
+            //     function remove_selecionado_graduacao(index){
+            //         membros_selecionados_graduacao.splice(index, 1);
 
-                    membros_selecionados_lista_graduacao();
-                }
+            //         membros_selecionados_lista_graduacao();
+            //     }
 
-                function membros_selecionados_lista_graduacao() {
-                    let conteudo = '';
-                    let cont = 0;
+            //     function membros_selecionados_lista_graduacao() {
+            //         let conteudo = '';
+            //         let cont = 0;
 
-                    membros_selecionados_graduacao.map(membro => {
-                        conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
-                                        ${membro.nome}
-                                        <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado_graduacao(${cont})">
-                                            <i class="fal fa-times mx-2"></i>
-                                        </button>
-                                    </span>`;
-                        cont++;
+            //         membros_selecionados_graduacao.map(membro => {
+            //             conteudo +=  `<span class="badge badge-primary badge-pill px-3 m-1">
+            //                             ${membro.nome}
+            //                             <button type="button" class="btn btn-sm btn-icon rounded-circle text-white" onclick="remove_selecionado_graduacao(${cont})">
+            //                                 <i class="fal fa-times mx-2"></i>
+            //                             </button>
+            //                         </span>`;
+            //             cont++;
 
-                    });
+            //         });
 
-                    $("#nomes_selecionados_graduacao").html(conteudo);
+            //         $("#nomes_selecionados_graduacao").html(conteudo);
 
-                    if($("#nome_comissao_graduacao").val() != '' && membros_selecionados_graduacao.length != 0) {
-                        $("#btn-criar-comissao-graduacao").removeClass("btn-secondary");
-                        $("#btn-criar-comissao-graduacao").addClass("btn-primary");
-                        $("#btn-criar-comissao-graduacao").prop("disabled", false);
-                    }
-                    else {
-                        $("#btn-criar-comissao-graduacao").addClass("btn-secondary");
-                        $("#btn-criar-comissao-graduacao").removeClass("btn-primary");
-                        $("#btn-criar-comissao-graduacao").prop("disabled", true);
-                    }
-                }
+            //         if($("#nome_comissao_graduacao").val() != '' && membros_selecionados_graduacao.length != 0) {
+            //             $("#btn-criar-comissao-graduacao").removeClass("btn-secondary");
+            //             $("#btn-criar-comissao-graduacao").addClass("btn-primary");
+            //             $("#btn-criar-comissao-graduacao").prop("disabled", false);
+            //         }
+            //         else {
+            //             $("#btn-criar-comissao-graduacao").addClass("btn-secondary");
+            //             $("#btn-criar-comissao-graduacao").removeClass("btn-primary");
+            //             $("#btn-criar-comissao-graduacao").prop("disabled", true);
+            //         }
+            //     }
 
-                $("#nome_comissao_graduacao").keyup(function(){
-                    if($("#nome_comissao_graduacao").val() != '' && membros_selecionados_graduacao.length != 0) {
-                        $("#btn-criar-comissao-graduacao").removeClass("btn-secondary");
-                        $("#btn-criar-comissao-graduacao").addClass("btn-primary");
-                        $("#btn-criar-comissao-graduacao").prop("disabled", false);
-                    }
-                    else {
-                        $("#btn-criar-comissao-graduacao").addClass("btn-secondary");
-                        $("#btn-criar-comissao-graduacao").removeClass("btn-primary");
-                        $("#btn-criar-comissao-graduacao").prop("disabled", true);
-                    }
-                });
+            //     $("#nome_comissao_graduacao").keyup(function(){
+            //         if($("#nome_comissao_graduacao").val() != '' && membros_selecionados_graduacao.length != 0) {
+            //             $("#btn-criar-comissao-graduacao").removeClass("btn-secondary");
+            //             $("#btn-criar-comissao-graduacao").addClass("btn-primary");
+            //             $("#btn-criar-comissao-graduacao").prop("disabled", false);
+            //         }
+            //         else {
+            //             $("#btn-criar-comissao-graduacao").addClass("btn-secondary");
+            //             $("#btn-criar-comissao-graduacao").removeClass("btn-primary");
+            //             $("#btn-criar-comissao-graduacao").prop("disabled", true);
+            //         }
+            //     });
 
-                $("#btn-criar-comissao-graduacao").click(function(){
-                    $.ajax({
-                            url: "{{ url('acoes-extensao/inicio/store-comissao-graduacao') }}",
-                            method: "POST",
-                            dataType: 'json',
-                            data: { nome_comissao: $("#nome_comissao_graduacao").val(), membros: membros_selecionados_graduacao, _token: '{{ csrf_token() }}' },
-                            success: function(data) {
-                                if(data.alert === 'success') {
-                                    toastr.success(data.status);
-                                    $('#nome_comissao_graduacao').val('');
-                                    $('#nome_membro_graduacao').val('');
-                                    $("#nomes_selecionados_graduacao").html('');
+            //     $("#btn-criar-comissao-graduacao").click(function(){
+            //         $.ajax({
+            //                 url: "{{ url('acoes-extensao/inicio/store-comissao-graduacao') }}",
+            //                 method: "POST",
+            //                 dataType: 'json',
+            //                 data: { nome_comissao: $("#nome_comissao_graduacao").val(), membros: membros_selecionados_graduacao, _token: '{{ csrf_token() }}' },
+            //                 success: function(data) {
+            //                     if(data.alert === 'success') {
+            //                         toastr.success(data.status);
+            //                         $('#nome_comissao_graduacao').val('');
+            //                         $('#nome_membro_graduacao').val('');
+            //                         $("#nomes_selecionados_graduacao").html('');
 
-                                    setInterval(function(){
-                                        window.location.reload();
-                                    }, 3000);
+            //                         setInterval(function(){
+            //                             window.location.reload();
+            //                         }, 3000);
                                 
-                                }
-                                else if(data.alert === 'danger') {
-                                    toastr.danger(data.status);
-                                }
-                            }
-                        });
-                });
+            //                     }
+            //                     else if(data.alert === 'danger') {
+            //                         toastr.danger(data.status);
+            //                     }
+            //                 }
+            //             });
+            //     });
 
-                @if(isset($comissao_extensao) && !is_null($comissao_extensao) && isset($comissao_graduacao) && !is_null($comissao_graduacao))
-                    $("#modalComissoesCriadas").modal('show');
-                @endif
-            @endif
+            //     @if(isset($comissao_extensao) && !is_null($comissao_extensao) && isset($comissao_graduacao) && !is_null($comissao_graduacao))
+            //         $("#modalComissoesCriadas").modal('show');
+            //     @endif
+            // @endif
 
-            var publico_alvo_sel = [];
-            var publico_alvo = [
-                {texto: 'Superior 1', id:'1'},
-                {texto: 'Superior 2', id:'2'},
-                {texto: 'Superior 3', id:'3'},
-                {texto: 'Superior 4', id:'4'},
-                {texto: 'Superior 5', id:'5'},
-                {texto: 'Superior 6', id:'6'},
-            ];
+            // var publico_alvo_sel = [];
+            // var publico_alvo = [
+            //     {texto: 'Superior 1', id:'1'},
+            //     {texto: 'Superior 2', id:'2'},
+            //     {texto: 'Superior 3', id:'3'},
+            //     {texto: 'Superior 4', id:'4'},
+            //     {texto: 'Superior 5', id:'5'},
+            //     {texto: 'Superior 6', id:'6'},
+            // ];
             
-            function montaPublicoAlvo() {
-                let conteudo_pa = '';
-                publico_alvo.map(pa => {
-                    conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="adiciona_para_selecao_atual('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-plus ml-2"></i></span>`;
+            // function montaPublicoAlvo() {
+            //     let conteudo_pa = '';
+            //     publico_alvo.map(pa => {
+            //         conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="adiciona_para_selecao_atual('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-plus ml-2"></i></span>`;
                     
-                });
+            //     });
                 
-                $('#adicione').html(conteudo_pa);
-            }
+            //     $('#adicione').html(conteudo_pa);
+            // }
 
-            function limparSelecaoPublicoAlvo() {
-                publico_alvo_sel.map(pa => {                   
-                   $("#publico_alvo").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
-                });
-            }
+            // function limparSelecaoPublicoAlvo() {
+            //     publico_alvo_sel.map(pa => {                   
+            //        $("#publico_alvo").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
+            //     });
+            // }
 
-            function montaPublicoAlvoSelec() {
-                let conteudo_pa = '';
-                publico_alvo_sel.map(pa => {
-                   conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="remove_para_adicicione('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-times ml-2"></i></span>`;
-                   $("#publico_alvo").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
-                });
+            // function montaPublicoAlvoSelec() {
+            //     let conteudo_pa = '';
+            //     publico_alvo_sel.map(pa => {
+            //        conteudo_pa += `<span class="btn btn-primary btn-pills mb-2 mr-1" id="${pa.id}" onclick="remove_para_adicicione('${pa.texto}', '${pa.id}')">${pa.texto} <i class="far fa-times ml-2"></i></span>`;
+            //        $("#publico_alvo").find(`option[value="${pa.texto}"]`).prop("selected", "selected");
+            //     });
                 
-                $('#selecao_atual').html(conteudo_pa);
-            }
+            //     $('#selecao_atual').html(conteudo_pa);
+            // }
 
-            montaPublicoAlvo();
+            // montaPublicoAlvo();
 
-            function adiciona_para_selecao_atual(texto, id) {
-                publico_alvo_sel.push({texto, id});
-                let index = publico_alvo.findIndex(pa => pa.id === id);
-                publico_alvo.splice(index, 1);
+            // function adiciona_para_selecao_atual(texto, id) {
+            //     publico_alvo_sel.push({texto, id});
+            //     let index = publico_alvo.findIndex(pa => pa.id === id);
+            //     publico_alvo.splice(index, 1);
 
-                $("#publico_alvo").val([]);
+            //     $("#publico_alvo").val([]);
 
-                montaPublicoAlvoSelec();
-                montaPublicoAlvo();
-            }
+            //     montaPublicoAlvoSelec();
+            //     montaPublicoAlvo();
+            // }
 
-            function remove_para_adicicione(texto, id) {
-                publico_alvo.push({texto, id});
-                let index = publico_alvo_sel.findIndex(pa => pa.id === id);
-                publico_alvo_sel.splice(index, 1);
+            // function remove_para_adicicione(texto, id) {
+            //     publico_alvo.push({texto, id});
+            //     let index = publico_alvo_sel.findIndex(pa => pa.id === id);
+            //     publico_alvo_sel.splice(index, 1);
 
-                $("#publico_alvo").val([]);
+            //     $("#publico_alvo").val([]);
 
-                montaPublicoAlvoSelec();
-                montaPublicoAlvo();       
-            }
+            //     montaPublicoAlvoSelec();
+            //     montaPublicoAlvo();       
+            // }
             
-            $('#btn-apreciacao').click(() => {
-                $('#apreciacao').prop('disabled', false);
-                $('#form_acao_extensao').submit();
-            })
+            // $('#btn-apreciacao').click(() => {
+            //     $('#apreciacao').prop('disabled', false);
+            //     $('#form_acao_extensao').submit();
+            // })
 
 
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
