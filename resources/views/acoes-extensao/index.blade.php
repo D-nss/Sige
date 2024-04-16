@@ -20,9 +20,15 @@
             <div id="panel-1" class="panel">
                 <div class="panel-container show">
                     <div class="panel-content">
+                        @if(count($acoes_extensao_usuario) < 1)
                         <p>
-                        Você ainda não criou nenhuma Ação de Extensão. Você pode começar selecionando o botão abaixo, ou acessando <span class="fw-700">Ações de Extensão / Cadastrar</span>
+                        Você ainda não criou nenhuma Ação de Extensão. Você pode começar clicando no botão abaixo, ou acesse <span class="fw-700">Ações de Extensão / Cadastrar</span>
                         </p>
+                        @else
+                        <p>
+                        Abaixo estão listadas suas Ações de Extensão, caso deseje cadastrar uma nova Ação de Extensão clique no botão abaixo, ou acesse <span class="fw-700">Ações de Extensão / Cadastrar</span>
+                        </p>
+                        @endif
                         <div class="form-group">
                             <a href="{{ url('acoes-extensao/novo') }}" class="btn btn-primary btn-pills ">
                                 <i class="far fa-plus-circle"></i>
