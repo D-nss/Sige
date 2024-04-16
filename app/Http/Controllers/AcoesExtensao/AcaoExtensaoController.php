@@ -114,7 +114,6 @@ class AcaoExtensaoController extends Controller
             ->paginate(5);
 
         //pegar id do usuario
-        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->orderBy('id','desc')->paginate(5);
         $pendentes_comite_consultivo =  AcaoExtensao::where('comite_user_id', $user->id)->whereNull('aceite_comite')->paginate(5);;
 
         // $total = AcaoExtensao::where('status', 'Aprovado')->count();
@@ -132,7 +131,7 @@ class AcaoExtensaoController extends Controller
 
         return view('acoes-extensao.dashboard', [
             'unidade' => $unidade,
-            'acoes_extensao_usuario' => $acoes_extensao_usuario,
+            // 'acoes_extensao_usuario' => $acoes_extensao_usuario,
             'user' => $user,
             // 'checaComissaoUnidade' => $checaComissaoUnidade,
             // 'checaComissaoGraduacaoUnidade' => $checaComissaoGraduacaoUnidade,
@@ -174,7 +173,9 @@ class AcaoExtensaoController extends Controller
         $areas_tematicas = AreaTematica::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
-        $acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->where('unidade_id', $user->unidade->id);
+        //$acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->where('unidade_id', $user->unidade->id);
+
+        $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->orderBy('id','desc')->paginate(5);
 
         return view('acoes-extensao.index', [
             'acoes_extensao' => $acoes_extensao,
@@ -182,7 +183,8 @@ class AcaoExtensaoController extends Controller
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados,
-            'user'    => $user
+            'user'    => $user,
+            'acoes_extensao_usuario' => $acoes_extensao_usuario
         ]);
     }
 
