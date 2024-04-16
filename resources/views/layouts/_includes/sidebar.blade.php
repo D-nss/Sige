@@ -86,7 +86,7 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a href="{{ url('acoes-extensao/pendecias/extensao') }}" title="Pendências"
+                                <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Pendências"
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Pendências</span>
