@@ -148,7 +148,8 @@
                                                     title=""
                                                     data-original-title="Editar Registro"
                                                 >
-                                                    <i class="fal fa-file-edit"></i>
+                                                    <!-- <i class="fal fa-file-edit"></i> -->
+                                                    Editar Registro
                                                 </a>
                                                 @if( 
                                                         (
@@ -167,7 +168,8 @@
                                                         title=""
                                                         data-original-title="Ocorrências"
                                                     >
-                                                    <i class="fal fa-clipboard-list-check"></i>
+                                                    <!-- <i class="fal fa-clipboard-list-check"></i> -->
+                                                    Ocorrências
                                                     </a>
                                                 @endif
                                                 <!-- Modal -->
@@ -199,7 +201,8 @@
 
                                                 @if($acao_extensao->status == 'Rascunho' && $acao_extensao->ocorrencia->count() == 0)
                                                     <button type="button" class="btn btn-danger btn-pills waves-effect waves-themed fs-xl" data-toggle="modal" data-target="#modal{{ $acao_extensao->id }}">
-                                                        <i class="fal fa-trash-alt"></i>
+                                                        <!-- <i class="fal fa-trash-alt"></i> -->
+                                                        Remover
                                                     </button>
                                                 @endif
                                             @endif

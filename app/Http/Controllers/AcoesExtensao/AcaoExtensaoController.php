@@ -993,7 +993,7 @@ class AcaoExtensaoController extends Controller
         session()->flash('status', 'Ação de Extensão aprovada!');
         session()->flash('alert', 'success');
 
-        return redirect()->route('acao_extensao.index');
+        return redirect()->route('acao_extensao.pendencias');
     }
 
     public function enviarComentario(AcaoExtensao $acaoExtensao, Request $request)

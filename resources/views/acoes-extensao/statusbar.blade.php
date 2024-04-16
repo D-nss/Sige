@@ -81,9 +81,11 @@
             <div class="d-flex justify-content-center align-items-center mr-2">
                 <div class="d-flex flex-column justify-content-center align-items-center mr-2">
                     <div class="
-                    @if($acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                    @if( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido' ) && $acao_extensao->status == 'Aprovado')
                         bg-success
-                    @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->status == 'Aprovado' )
+                    @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->modalidade == 1 && $acao_extensao->status == 'Aprovado' )
+                        bg-warning
+                    @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
                         bg-warning
                     @else
                         bg-light
@@ -92,9 +94,11 @@
                     <small class="text-center">Reconheci<br>mento ProEC</small>
                 </div>
                 <span class="
-                @if($acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                @if(($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && $acao_extensao->status == 'Aprovado')
                     text-success
-                @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->status == 'Aprovado' )
+                @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->modalidade == 1 && $acao_extensao->status == 'Aprovado' )
+                    text-warning
+                @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
                     text-warning
                 @else
                     text-light
@@ -104,7 +108,9 @@
             <div class="d-flex justify-content-center align-items-center mr-2">
                 <div class="d-flex flex-column justify-content-center align-items-center mr-2">
                     <div class="
-                    @if($acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim'  && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                    @if($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim' && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                        bg-success
+                    @elseif($acao_extensao->ciencia_status == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                         bg-success
                     @else
                         bg-light
@@ -152,13 +158,18 @@
                 Após essa etapa, você poderá acompanhar a apreciação de sua proposta em <span class="fw-700"> Ações de Extensão > Minhas Ações </span>
             @elseif ($acao_extensao->status == 'Pendente')
                 Aguarde o parecer da Comissão de Extensão.
-            @elseif ($acao_extensao->status == 'Aprovado')
+            @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade == 1)
                 Aguarde a análise da proposta pelo Comitê Consultivo, e posterior deliberação do CONEXT.<wbr>
-                A curricularização está sendo analisada em paralelo pela Comissão de Graduação.
-            @elseif ( $acao_extensao->status_avaliacao_conext == 'Reconhecido' && (is_null($acao_extensao->status_comissao_graduacao) || $acao_extensao->status_comissao_graduacao == 'Não') )
+                Se houver curricularização a mesma está sendo analisada em paralelo pela Comissão de Graduação.
+            @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade != 1)
+                Aguarde a análise e ciência pelo do CONEXT.<wbr>
+                Se houver curricularização a mesma está sendo analisada em paralelo pela Comissão de Graduação.
+            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && (is_null($acao_extensao->status_comissao_graduacao) || $acao_extensao->status_comissao_graduacao == 'Não') )
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público. A curricularização no entanto ainda não foi liberada. Favor analisar a mensagem de feedback da Comissão de Graduação e proceder com os ajustes solicitados no campo ‘Motivo da Curricularização’
-            @elseif ( $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status_comissao_graduacao == 'Sim' )
+            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status != 'Reconhecido') && $acao_extensao->status_comissao_graduacao == 'Sim' )
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público e a curricularização foi liberada.
+            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status != 'Reconhecido') && is_null($acao_extensao->vagas_curricularizacao) )
+                Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público.
             @endif
         </p>
     </div>

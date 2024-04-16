@@ -33,17 +33,15 @@
 
 @if(count($pendentes_unidade) > 0)
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
-    <h1 class="subheader-title text-danger">
-        <span>Pendentes (Unidade)</span>
-    </h1>
+    
 </div>
 <div class="row">
     <div class="col-lg-12 col-xl-12">
         <!--Table head-->
         <div id="panel" class="panel">
-            <div class="panel-hdr bg-warning-50">
-                <h2>
-                    Ações de Extensão Pendentes que necessitam de sua análise
+            <div class="panel-hdr bg-primary">
+                <h2 class="text-light">
+                    Ações de Extensão Pendentes de análise pela <span class="fw-700">Comissaõ de Extensão da Unidade</span>
                 </h2>
                 <div class="panel-toolbar">
                     <h5 class="m-0">
@@ -56,6 +54,13 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="frame-wrap">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>
+                                    Clique no título da ação para analisar a Ação de Extenção
+                                </h5>
+                            </div>
+                        </div>
                         <table class="table m-0">
                             <thead class="thead-themed">
                                 <tr>
@@ -153,17 +158,15 @@
 @endif
 @if(count($pendentes_graduacao) > 0 )
 <div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
-    <h1 class="subheader-title text-danger">
-        <span>Pendentes(Graduação)</span>
-    </h1>
+   
 </div>
 <div class="row">
     <div class="col-lg-12 col-xl-12">
         <!--Table head-->
         <div id="panel" class="panel">
-            <div class="panel-hdr bg-warning-50">
-                <h2>
-                    Ações de Extensão Pendentes que necessitam de sua análise
+            <div class="panel-hdr bg-primary">
+                <h2 class="text-light">
+                    Ações de Extensão Pendentes de análise pela <span class="fw-700">Commissão de Graduação</span>
                 </h2>
                 <div class="panel-toolbar">
                     <h5 class="m-0">
@@ -176,6 +179,13 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="frame-wrap">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>
+                                    Clique no botão <span class="fw-700">Analisar parâmetros pedagógicos</span> para fazer sua análise da Ação de Extensão
+                                </h5>
+                            </div>
+                        </div>
                         <table class="table m-0">
                             <thead class="thead-themed">
                                 <tr>
@@ -267,7 +277,8 @@
                                                 title=""
                                                 data-original-title="Analisar parâmetros pedagógicos"
                                             >
-                                                <i class="fal fa-list"></i>
+                                                <!-- <i class="fal fa-list"></i> -->
+                                                Analisar parâmetros pedagógicos
                                             </div>
                                         </button>
                                         <!-- Modal -->
