@@ -1,4 +1,4 @@
-<div class="col-lg-5">
+<div class="@if(!is_null($acao_extensao->vagas_curricularizacao) )col-lg-3 @else col-md-5 @endif">
     <h2>Situação Atual</h2>
     <div class=" p-3 bg-secondary rounded" style="height: 80px">
         <div class="row text-light justify-content-center align-items-center">
@@ -103,13 +103,47 @@
             </div>
             <div class="d-flex justify-content-center align-items-center mr-2">
                 <div class="d-flex flex-column justify-content-center align-items-center mr-2">
-                    <div class="bg-light rounded-circle" style="width:27px; height:27px"></div>
+                    <div class="
+                    @if($acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim'  && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                        bg-success
+                    @else
+                        bg-light
+                    @endif
+                     rounded-circle" style="width:27px; height:27px"></div>
                     <small class="text-center">Ação<br>Publicada!</small>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@if(!is_null($acao_extensao->vagas_curricularizacao))
+<div class="col-lg-2">
+    <h2>Curricularização</h2>
+    <div class=" p-3 bg-secondary rounded" style="height: 80px">
+        <div class="row text-light justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center mr-2">
+                <div class="d-flex flex-column justify-content-center align-items-center mr-2">
+                    <div class="">
+                    <div class="
+                        @if(is_null($acao_extensao->status_comissao_graduacao) && $acao_extensao->status != 'Rascunho')
+                            bg-warning
+                        @elseif($acao_extensao->status_comissao_graduacao == 'Sim')
+                            bg-success
+                        @elseif($acao_extensao->status_comissao_graduacao == 'Não')
+                            bg-danger
+                        @else()
+                            bg-light
+                        @endif
+                        rounded-circle" style="width:27px; height:27px"></div>
+                    </div>
+                    
+                    <small class="text-center">Curricularização</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <div class="col-lg-7">
     <h2>Próximos Passos</h2>
     <div class="p-3 bg-secondary rounded d-flex justify-content-center align-items-center" style="height: 80px">
