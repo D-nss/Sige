@@ -103,7 +103,7 @@ Route::get('certificado/validar', [CertificadoController::class, 'index'])->name
 Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo'])->name('acao_extensao.catalogo');
 
 // Adicionar as rotas que necessitam de Autenticação
-//Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
+Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     //Route::get('/teste', [UserController::class, 'teste']);
     Route::get('home', function () {
         return view('home');
@@ -199,7 +199,7 @@ Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo
     Route::post('/acoes-extensao-comissao-graduacao/{acao_extensao}', [AcaoExtensaoComissaoGraduacaoController::class, 'store'])->name('acoes_extensao.comissao_graduacao.store');
 
     Route::post('acoes-extensao/inicio/store-comissao', [ComissaoAcaoController::class, 'store'])->name('acoes_extensao.comissao.store');
-    Route::post('acoes-extensao/inicio/store-comissao-graduacao', [ComissaoGraduacaoAcaoController::class, 'store'])->name('acoes_extensao.comissao_graduacao.store');
+    Route::post('acoes-extensao/inicio/store-comissao-graduacao', [ComissaoGraduacaoAcaoController::class, 'store'])->name('acoes_extensao.inicio.comissao_graduacao.store');
 
     //Ações Culturais
     Route::get('/acoes-culturais', [AcaoCulturalController::class, 'index'])->name('acao_cultural.index');
@@ -364,7 +364,7 @@ Route::get('/acoes-extensao-catalogo', [AcaoExtensaoController::class, 'catalogo
     Route::get('notificacoes', [NotificationController::class, 'index'])->name('notificacoes.index');
     Route::get('notificacao/{id}', [NotificationController::class, 'show'])->name('notificacao.show');
     Route::post('notificacoes/marcar-como-lida', [NotificationController::class, 'markAsRead'])->name('marcar.como.lida');
-//});
+});
 
 /*
 Route::get('/login',['as'=>'login','uses'=>'LoginController@index']);
