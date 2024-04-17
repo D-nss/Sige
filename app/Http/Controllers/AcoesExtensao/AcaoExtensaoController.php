@@ -822,7 +822,7 @@ class AcaoExtensaoController extends Controller
     public function show(AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }

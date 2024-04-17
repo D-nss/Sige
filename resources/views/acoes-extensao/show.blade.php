@@ -20,26 +20,30 @@
     </div>
 </div>
 @endif
-@if($acao_extensao->status == 'Pendente')
+
+
+@if($userNaComissao && $acao_extensao->user_id != $user->id && $acao_extensao->status == 'Pendente')
 <div class="alert alert-warning alert-dismissible fade show">
     <div class="d-flex align-items-center">
         <div class="alert-icon">
             <i class="fal fa-info-circle"></i>
         </div>
         <div class="flex-1">
-            <span class="h5">Ação de Extensão foi Submetida, e pendende de aprovação pela Unidade</span>
+            <span class="h5">Ação de Extensão foi Submetida, e está pendende de aprovação pela Unidade</span><br>
+            <span class="h5">Para prosseguir com a análise clique no botão <strong>De Acordo</strong></span><br>
+            <span class="h5">Caso deseje mandar uma mensagem ao coordenador com orientações, acesse a sessão de comentários ao final desta página.</span>
         </div>
-        @if($userNaComissao && $acao_extensao->user_id != $user->id)
         <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
             @csrf
             @method('put')
             <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">De Acordo</button>
         </form>
-        @endif
         <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
     </div>
 </div>
 @endif
+        
+
 @if(
     isset($acao_extensao->comite_user_id)
     &&
@@ -57,7 +61,11 @@
         <div class="flex-1">
             <span class="h5">
             Ação de Extensão aprovada pela comissão de extensão, pendente de análise do comitê consultivo
+            </span><br>
+            <span class="h5">
+            Para prosseguir com sua análise clique no botão <strong>Parecer</strong>
             </span>
+            <span class="h5">Caso deseje mandar uma mensagem ao coordenador com orientações, acesse a sessão de comentários ao final desta página.</span>
         </div>
         <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm"  data-toggle="modal" data-target="#modal-parecer-comite">Parecer</button>
     </div>
@@ -124,7 +132,7 @@
         @if(!is_null($acao_extensao->aceite_comite ) && $acao_extensao->aceite_comite == 'Sim')
         <span class="badge badge-primary">Aceito no Comitê Consultivo</span>
         @endif
-        @if($acao_extensao->status_avaliacao_conext == 'Reconhecido')
+        @if($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido')
         <span class="badge badge-primary">Reconhecido Pelo Conext</span>
         @endif
         <small>
