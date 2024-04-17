@@ -356,6 +356,13 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="frame-wrap">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>
+                                    Clique no título da ação para analisar a Ação de Extenção
+                                </h5>
+                            </div>
+                        </div>
                         <table class="table m-0">
                             <thead class="thead-themed">
                                 <tr>
