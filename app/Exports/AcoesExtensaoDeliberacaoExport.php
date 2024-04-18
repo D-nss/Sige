@@ -36,7 +36,8 @@ class AcoesExtensaoDeliberacaoExport implements FromCollection, WithHeadings
             6 => 'Indefinido'
         ];
 
-        $acoes_extensao = AcaoExtensao::where('status', 'Aprovado')
+        $acoes_extensao = AcaoExtensao::where('modalidade', 1)
+            ->where('status', 'Aprovado')
             ->where('aceite_comite', 'Sim')
             ->where('deliberacao', 'Gerado')
             ->whereNull('status_avaliacao_conext')

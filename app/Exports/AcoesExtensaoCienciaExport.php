@@ -35,7 +35,7 @@ class AcoesExtensaoCienciaExport implements FromCollection, WithHeadings
         ];
 
         $acoes_extensao = AcaoExtensao::where('modalidade', "!=", 1)
-        ->where('status_comissao_graduacao', 'Sim')
+        ->where('status', 'Aprovado')
         ->where('ciencia', 'Gerado')
         ->whereNull('ciencia_status')
         ->get();
