@@ -158,10 +158,10 @@
                 Após essa etapa, você poderá acompanhar a apreciação de sua proposta em <span class="fw-700"> Ações de Extensão > Minhas Ações </span>
             @elseif ($acao_extensao->status == 'Pendente')
                 Aguarde o parecer da Comissão de Extensão.
-            @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade == 1 && is_null($acao_extensao->aceite_comite))
+            @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade == 1 && (is_null($acao_extensao->aceite_comite) || is_null($acao_extensao->status_avaliacao_conext)))
                 Aguarde a análise da proposta pelo Comitê Consultivo, e posterior deliberação do CONEXT.<wbr>
                 Se houver curricularização a mesma está sendo analisada em paralelo pela Comissão de Graduação.
-            @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade != 1)
+            @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade != 1 && is_null($acao_extensao->ciencia_status))
                 Aguarde a análise e ciência pelo do CONEXT. <wbr>
                 Se houver curricularização a mesma está sendo analisada em paralelo pela Comissão de Graduação.
             @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && (is_null($acao_extensao->status_comissao_graduacao) || $acao_extensao->status_comissao_graduacao == 'Não') )

@@ -166,7 +166,7 @@
         <div id="panel" class="panel">
             <div class="panel-hdr bg-primary">
                 <h2 class="text-light">
-                    Ações de Extensão Pendentes de análise pela <span class="fw-700">Commissão de Graduação</span>
+                    Ações de Extensão Pendentes de análise pela <span class="fw-700">Comissão de Graduação</span>
                 </h2>
                 <div class="panel-toolbar">
                     <h5 class="m-0">
