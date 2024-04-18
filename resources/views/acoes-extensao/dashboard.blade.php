@@ -41,7 +41,7 @@
         <div id="panel" class="panel">
             <div class="panel-hdr bg-primary">
                 <h2 class="text-light">
-                    Ações de Extensão Pendentes de análise pela <span class="fw-700">Comissaõ de Extensão da Unidade</span>
+                    Ações de Extensão Pendentes de análise pela <span class="fw-700">Comissão de Extensão da Unidade</span>
                 </h2>
                 <div class="panel-toolbar">
                     <h5 class="m-0">
