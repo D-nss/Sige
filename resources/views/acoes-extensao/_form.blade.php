@@ -311,7 +311,7 @@
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="motivo_curricularizacao">Motivo da Curricularização  <span class="text-danger">*</span></label>
-                                    <textarea name="motivo_curricularizacao" id="motivo_curricularizacao" class="form-control" rows="5" placeholder="Digite aqui o motivo da curricularização. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres.">{{ old('motivo_curricularizacao') }}</textarea>
+                                    <textarea name="motivo_curricularizacao" id="motivo_curricularizacao" class="form-control" rows="5" placeholder="Digite aqui o motivo da curricularização. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres.">{{ isset($acao_extensao) ? $acao_extensao->motivo_curricularizacao : old('motivo_curricularizacao') }}</textarea>
                                 </div>
                             </div>
                         </div>
