@@ -347,10 +347,10 @@ Versão: 4.5.1
                         $("#motivo_curricularizacao").prop('required', true);
                     }
                     else {
+                        $("#acao_curricularizacao").removeClass('d-block')
                         $("#acao_curricularizacao").addClass('d-none');
                         $("#vagas_curricularizacao").prop('required', false);
                         $("#qtd_horas_curricularizacao").prop('required', false);
-                        $("#acao_curricularizacao").addClass('d-none');
                         $("#vagas_curricularizacao").val('');
                         $("#qtd_horas_curricularizacao").val('');
                         $("#motivo_curricularizacao").val('');
