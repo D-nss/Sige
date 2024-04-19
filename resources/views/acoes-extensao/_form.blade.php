@@ -246,7 +246,7 @@
                                 <option value="Superior 6">Superior 6</option>
                             </select>
                             <div id="selecao_atual">
-
+                                
                             </div>
                             <p class="text-muted">Favor escolher abaixo</p>
                             <label class="form-label">Adicione</label>

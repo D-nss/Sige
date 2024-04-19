@@ -1957,9 +1957,23 @@ Versão: 4.5.1
             $('#btn-apreciacao').click(() => {
                 $('#apreciacao').prop('disabled', false);
                 $('#form_acao_extensao').submit();
-            })
+            });
 
+            @if(isset($acao_extensao->publico_alvo))
+                function carregaPublicoAlvoAoEditar() {
+                    let finded = '';
+                    @foreach (explode(',', $acao_extensao->publico_alvo) as $pa)
+                        finded = publico_alvo.find(pa => pa.texto === '{{ trim($pa) }}');
+                        publico_alvo_sel.push(finded);
+                        publico_alvo.splice(publico_alvo.findIndex(pa => pa.id === finded.id), 1);
+                    @endforeach
 
+                    montaPublicoAlvoSelec();
+                    montaPublicoAlvo();
+                }
+
+                carregaPublicoAlvoAoEditar();
+            @endif
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
 

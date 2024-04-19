@@ -50,7 +50,7 @@ class AcaoExtensaoController extends Controller
     public function inicio(){
 
         if(App::environment('local')){
-            $user = User::where('id', 2)->first();
+            $user = User::where('id', 4)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
@@ -61,6 +61,10 @@ class AcaoExtensaoController extends Controller
         $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
             ->where('atribuicao', 'Graduação')->first();
 
+        $comite_consultivo = AcaoExtensao::where('comite_user_id', $user->id)->whereNull('aceite_comite')->limit(1)->get()->count('*');
+
+        $at_conext = $user->hasRole('at_conext');
+        
         $users = User::orderBy('name', 'asc')->get();
 
         return view('acoes-extensao.inicio', [
@@ -68,6 +72,8 @@ class AcaoExtensaoController extends Controller
             'users'                 => $users,
             'comissao_extensao'     => $comissao_extensao,
             'comissao_graduacao'    => $comissao_graduacao,
+            'comite_consultivo'     => $comite_consultivo,
+            'at_conext'             => $at_conext
         ]);
     }
 
@@ -857,14 +863,14 @@ class AcaoExtensaoController extends Controller
         if ($user->id != $acaoExtensao->user_id && $acaoExtensao->status == "Rascunho" && !$user->hasRole('super|admin')){
             session()->flash('status', 'Desculpe! Você não é o coordenador da Ação que se encontra em modo Rascunho. Solicite suporte caso discorde.');
             session()->flash('alert', 'warning');
-            return redirect()->to('/acoes-extensao/painel/extensao');
+            return redirect()->to('/acoes-extensao');
         }
 
         // restrição - somente Comissão quando Ação for Submetida e pendente de aprovação
         if ($user->id != $acaoExtensao->user_id && $acaoExtensao->status == "Pendente" && !$userNaComissao && !$user->hasRole('super|admin')){
             session()->flash('status', 'Desculpe! Você não é o coordenador da Ação e também não está na Comissão de Extensão da Unidade da Ação. Solicite suporte caso discorde.');
             session()->flash('alert', 'warning');
-            return redirect()->to('/acoes-extensao/painel/extensao');
+            return redirect()->to('/acoes-extensao');
         }
 
 

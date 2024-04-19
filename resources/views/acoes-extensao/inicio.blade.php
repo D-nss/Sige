@@ -58,6 +58,41 @@
             </div>
         </div>
     </div>
+    @if($comissao_extensao)
+    <div class="bg-white mb-5 p-5 shadow">
+        <div class="d-flex flex-start w-100">
+            <div class="d-flex flex-fill">
+                <div class="flex-fill fs-xl">
+                    Você faz parte de comissão de extensão, a comissão de extensão possui a atribuição de fazer a apreciação das ações de extensão, para tal tarefa cheque as pendências acessando <span class="fw-700">Ações de Extensão / Pedências</span> no menu lateral.
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @if($comissao_graduacao)
+    <div class="bg-white mb-5 p-5 shadow">
+        <div class="d-flex flex-start w-100">
+            <div class="d-flex flex-fill">
+                <div class="flex-fill fs-xl">
+                    Você faz parte de comissão de graduação, a comissão de graduação possui a atribuição de fazer a análise dos parâmetros pedagógicos das ações de extensão, para tal tarefa cheque as pendências acessando <span class="fw-700">Ações de Extensão / Pedências</span> no menu lateral.
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @if($comite_consultivo)
+    <div class="bg-white mb-5 p-5 shadow">
+        <div class="d-flex flex-start w-100">
+            <div class="d-flex flex-fill">
+                <div class="flex-fill fs-xl">
+                    Você faz parte do comitê consultivo das ações de extensão, a comitê possui a atribuição de fazer a análise da proposta e emitir um parecer, para tal tarefa cheque as pendências acessando <span class="fw-700">Ações de Extensão / Pedências</span> no menu lateral.
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="modal fade" id="modalComissaoExtensao" tabindex="-1" aria-labelledby="modalLabelComissaoExtensao" aria-hidden="true">
         <div class="modal-dialog">
                 <div class="modal-content">
