@@ -344,6 +344,7 @@ Versão: 4.5.1
                         $("#acao_curricularizacao").removeClass('d-none')
                         $("#vagas_curricularizacao").prop('required', true);
                         $("#qtd_horas_curricularizacao").prop('required', true);
+                        $("#motivo_curricularizacao").prop('required', true);
                     }
                     else {
                         $("#acao_curricularizacao").addClass('d-none');
@@ -352,6 +353,7 @@ Versão: 4.5.1
                         $("#acao_curricularizacao").addClass('d-none');
                         $("#vagas_curricularizacao").val('');
                         $("#qtd_horas_curricularizacao").val('');
+                        $("#motivo_curricularizacao").val('');
                     }
                 });
 
