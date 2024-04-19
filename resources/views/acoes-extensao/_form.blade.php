@@ -272,11 +272,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label">Suas anotações (só ficarão visíveis para você)</label>
-                                <textarea class="form-control" name="anotacoes" id="anotacoes" cols="30" rows="10" placeholder="Digite aqui suas anotações. Limite de 500 caracteres."></textarea>
+                                <textarea class="form-control" name="anotacoes" id="anotacoes" cols="30" rows="10" placeholder="Digite aqui suas anotações. Limite de 500 caracteres.">{{ isset($acao_extensao) ? $acao_extensao->anotacoes : old('anotacoes')}}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Mensagem inicial para a Comissão de Extensão da Unidade</label>
-                                <textarea class="form-control" name="mensagem_extensao" id="mensagem_extensao" cols="30" rows="10" placeholder="Digite aqui sua mensagem inicial para a Coordenação de Extensão da Unidade. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres."></textarea>
+                                <textarea class="form-control" name="mensagem_extensao" id="mensagem_extensao" cols="30" rows="10" placeholder="Digite aqui sua mensagem inicial para a Coordenação de Extensão da Unidade. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres.">{{ isset($acao_extensao) ? $acao_extensao->mensagem_extensao : old('mensagem_extensao')}}</textarea>
                             </div>
                         </div>
                     </div>
