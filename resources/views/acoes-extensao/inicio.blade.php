@@ -14,6 +14,18 @@
         </h1>
     </div>
 
+    @if(Auth::user()->employeetype == "Aluno UNICAMP")
+    <div class="bg-white mb-5 p-5 shadow">
+        <div class="d-flex flex-start w-100">
+            <div class="d-flex flex-fill">
+                <div class="flex-fill fs-xl">
+                    <p>Seja bem-vindo(a) ao módulo de <span class="fw-700">Ações de Extensão</span>. Nela alunos podem navegar pelas ações de extensão e se inscrever para participar da curricularização, para tal tarefa acesse <span class="fw-700">Ações de Extensão / Incrições Abertas</span>.</p>
+                    <p>Observação: As inscrições para curricularização passam por uma análise do coordenador da ação e podem ser aceitas ou não.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
     <div class="bg-white mb-5 p-5 shadow">
         <div class="d-flex flex-start w-100">
             <div class="d-flex flex-fill">
@@ -58,6 +70,7 @@
             </div>
         </div>
     </div>
+    @endif
     @if($comissao_extensao)
     <div class="bg-white mb-5 p-5 shadow">
         <div class="d-flex flex-start w-100">
@@ -93,6 +106,18 @@
         </div>
     </div>
     @endif
+    @if($at_conext)
+    <div class="bg-white mb-5 p-5 shadow">
+        <div class="d-flex flex-start w-100">
+            <div class="d-flex flex-fill">
+                <div class="flex-fill fs-xl">
+                    Você possui a atribuição de AT Conext, seus papeis são: Indicar uma pessoa do comitê cosultivo para analisar um proposta - para tal tarefa acesse <span class="fw-700">Ações de Extensão / Indicação Comitê Consultivo</span>, marcar o reconhecimento das ações de extensão pelo CONEXT - para tal tarefa acesse <span class="fw-700">Ações de Extensão / Ciência Conext </span> ou <span class="fw-700">Ações de Extensão / Deliberação </span>, todos os acessos se localizam no menu lateral.
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    
     <div class="modal fade" id="modalComissaoExtensao" tabindex="-1" aria-labelledby="modalLabelComissaoExtensao" aria-hidden="true">
         <div class="modal-dialog">
                 <div class="modal-content">
