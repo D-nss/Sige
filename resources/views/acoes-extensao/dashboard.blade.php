@@ -56,7 +56,7 @@
                     <div class="frame-wrap">
                         <div class="row">
                             <div class="col-12">
-                                <h5>
+                                <h5 class="text-muted">
                                     Clique no título da ação para analisar a Ação de Extenção
                                 </h5>
                             </div>
@@ -181,7 +181,7 @@
                     <div class="frame-wrap">
                         <div class="row">
                             <div class="col-12">
-                                <h5>
+                                <h5 class="text-muted">
                                     Clique no botão <span class="fw-700">Analisar parâmetros pedagógicos</span> para fazer sua análise da Ação de Extensão
                                 </h5>
                             </div>
@@ -353,7 +353,7 @@
                     <div class="frame-wrap">
                         <div class="row">
                             <div class="col-12">
-                                <h5>
+                                <h5 class="text-muted">
                                     Clique no título da ação para analisar a Ação de Extenção
                                 </h5>
                             </div>
