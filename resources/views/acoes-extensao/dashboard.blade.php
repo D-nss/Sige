@@ -332,18 +332,13 @@
 </div>
 @endif
 @if(count($pendentes_comite_consultivo) > 0)
-<div class="demo demo-v-spacing-lg" style="padding-bottom: 20px;">
-    <h1 class="subheader-title text-danger">
-        <span>Pendentes (Comitê Consultivo)</span>
-    </h1>
-</div>
 <div class="row">
     <div class="col-lg-12 col-xl-12">
         <!--Table head-->
         <div id="panel" class="panel">
-            <div class="panel-hdr bg-warning-50">
-                <h2>
-                    Ações de Extensão Pendentes que necessitam de sua análise
+            <div class="panel-hdr bg-primary">
+                <h2 class="text-light">
+                    Ações de Extensão Pendentes que necessitam de análise pelo <span class="fw-700">Comitê Consultivo</span>
                 </h2>
                 <div class="panel-toolbar">
                     <h5 class="m-0">
