@@ -120,7 +120,7 @@ class AcaoExtensaoController extends Controller
             ->paginate(5);
 
         //pegar id do usuario
-        $pendentes_comite_consultivo =  AcaoExtensao::where('comite_user_id', $user->id)->whereNull('aceite_comite')->paginate(5);;
+        $pendentes_comite_consultivo =  AcaoExtensao::where('modalidade', 1)->where('comite_user_id', $user->id)->whereNull('aceite_comite')->paginate(5);
 
         // $total = AcaoExtensao::where('status', 'Aprovado')->count();
         // $total_unidade = AcaoExtensao::where('unidade_id', $unidade->id)->where('status', 'Aprovado')->count();
