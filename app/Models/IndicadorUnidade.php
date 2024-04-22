@@ -17,4 +17,12 @@ class IndicadorUnidade extends Model
         'unidade_id',
         'ano_base'
     ];
+
+    public function indicador(){
+        return $this->hasMany(Indicador::class, 'id');
+    }
+
+    public function unidade(){
+        return $this->belongsTo(Unidade::class);
+    }
 }
