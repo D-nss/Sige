@@ -57,7 +57,7 @@
                                 @if($acoes_extensao_usuario->where('status_comissao_graduacao', 'Sim')->whereNotNull('vagas_curricularizacao')->whereNotNull('qtd_horas_curricularizacao')->count())
                                 <div class="col-12">
                                     <h5 class="text-muted">
-                                        * Ações de Extensão que marcaram curricularização podem incluir ocorrências, as ocorrências são as datas e locais nas quais a ação de extensão irá acontecer, após a inclusão da ocorrência os alunos poderão se inscrever para curricularização.
+                                        * Ações de Extensão que marcaram curricularização podem incluir ocorrências, as ocorrências são as datas e locais nos quais a ação de extensão irá acontecer, após a inclusão da ocorrência os alunos poderão se inscrever para curricularização.
                                     </h5>
                                 </div>
                                 @endif
