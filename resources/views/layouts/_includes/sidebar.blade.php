@@ -71,7 +71,7 @@
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                         </a>
                         <ul>
-                            @if(!Auth::user()->comissaoExtensao || !Auth::user()->comissaoGraduacao)
+                            @if(!Auth::user()->comissaoExtensao || !Auth::user()->comissaoGraduacao || Auth::user()->hasRole('super'))
                             <li class="">
                                 <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                     data-filter-tags="utilities menu child sublevel item">
@@ -145,7 +145,7 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                 </a>
                             </li>
-                            @hasrole('extensao_coordenador')
+                            @hasrole('extensao-coordenador')
                             <li class="">
                                 <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa"
                                     data-filter-tags="utilities menu child sublevel item">
