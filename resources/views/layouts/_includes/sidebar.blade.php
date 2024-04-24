@@ -65,157 +65,86 @@
 
                 <ul id="js-nav-menu" class="nav-menu">
                     @if(Auth::hasUser())
-                    @hasanyrole('super|admin|acoes', 'web_user')
-                    <li>
-                        <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
-                        </a>
-                        <ul>
-                            @if(!!Auth::user()->comissaoExtensao || !!Auth::user()->comissaoGraduacao || Auth::user()->hasRole('super'))
-                            <li class="">
-                                <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Inicio</span>
+                        @hasanyrole('super|admin|acoes', 'web_user')
+                            <li>
+                                <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                                 </a>
+                                <ul>
+                                    @if(!!Auth::user()->comissaoExtensao || !!Auth::user()->comissaoGraduacao || Auth::user()->hasRole('super'))
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Inicio</span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    
+                                    @if(Auth::user()->comissaoExtensao || Auth::user()->comissaoGraduacao)
+                                        @include('layouts._includes.menu_acoes.comissao_ext')
+                                    @elseif(Auth::user()->hasRole('at_conext', 'web_user'))
+                                        @include('layouts._includes.menu_acoes.at_conext')
+                                    @elseif(Auth::user()->hasRole('extensao-coordenador', 'web_user'))
+                                        @include('layouts._includes.menu_acoes.coordenador_ext')
+                                    @else
+                                        @include('layouts._includes.menu_acoes.coordenador_acao')
+                                    @endif
+                                </ul>
                             </li>
-                            @endif
-                            <li class="">
-                                <a href="{{ url('acoes-extensao') }}" title="Minhas Ações"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Minhas Ações</span>
+                            <li>
+                                <a href="javascript:void(0);" title="Ações de Cultura" data-filter-tags="utilities menu child">
+                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Cultura</span>
                                 </a>
+                                <ul>
+                                    <li class="">
+                                        <a href="{{ url('painel-cultura') }}" title="Cadastrar"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
+                                        </a>
+                                        <a href="{{ url('acoes-culturais/novo') }}" title="Cadastrar"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
+                                        </a>
+                                        <a href="{{ url('acoes-culturais') }}" title="Listagem"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
+                                        </a>
+                                        <a href="#" title="Listagem" data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Pendências"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Pendências</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-catalogo') }}" title="Catálogo"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Reconhecidas na PROEC</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-unidade') }}" title="Da Unidade"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Da Unidade</span>
-                                </a>
-                            </li>
-                            @hasanyrole('super|admin|at_conext', 'web_user')
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-ciencia-conext') }}" title="Ciência Conext"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Ciência Conext</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-deliberacao-conext') }}" title="Deliberação"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Deliberação</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
-                                </a>
-                            </li>
-                            @endhasanyrole
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
-                                </a>
-                            </li>
-                            @hasrole('extensao-coordenador')
-                            <li class="">
-                                <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa
-                                        das Ações</span>
-                                </a>
-                            </li>
-                            @endhasrole
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" title="Ações de Cultura" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Cultura</span>
-                        </a>
-                        <ul>
-                            <li class="">
-                                <a href="{{ url('painel-cultura') }}" title="Cadastrar"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Dashboard</span>
-                                </a>
-                                <a href="{{ url('acoes-culturais/novo') }}" title="Cadastrar"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
-                                </a>
-                                <a href="{{ url('acoes-culturais') }}" title="Listagem"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Listagem</span>
-                                </a>
-                                <a href="#" title="Listagem" data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Mapa</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endhasanyrole
+                        @endhasanyrole
 
-                    @if(Auth::user()->employeetype == "Aluno UNICAMP" || Auth::user()->hasRole('super|admin'))
-                    <li>
-                        <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
-                        </a>
-                        <ul>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Inicio</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ url('acoes-extensao-participacoes') }}" title="Participações"
-                                    data-filter-tags="utilities menu child sublevel item">
-                                    <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Participações</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endif
+                        @if(Auth::user()->employeetype == "Aluno UNICAMP" || Auth::user()->hasRole('super|admin'))
+                        <li>
+                            <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
+                            </a>
+                            <ul>
+                                <li class="">
+                                    <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
+                                        data-filter-tags="utilities menu child sublevel item">
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{{ url('acoes-extensao-participacoes') }}" title="Participações"
+                                        data-filter-tags="utilities menu child sublevel item">
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.utilities_menu_child_sublevel_item">Participações</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
                     @endif
 
                     @if(Auth::hasUser())
