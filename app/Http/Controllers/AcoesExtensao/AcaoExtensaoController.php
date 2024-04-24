@@ -67,9 +67,7 @@ class AcaoExtensaoController extends Controller
             'user'                  => $user,
             'users'                 => $users,
             'comissao_extensao'     => $comissao_extensao,
-            'comissao_graduacao'    => $comissao_graduacao,
-            'comite_consultivo'     => $comite_consultivo,
-            'at_conext'             => $at_conext
+            'comissao_graduacao'    => $comissao_graduacao
         ]);
     }
 
