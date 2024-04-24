@@ -42,9 +42,9 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 <div class="panel-hdr bg-primary text-light">
-                    <h2>
+                    <h3>
                         Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
-                    </h2>
+                    </h3>
                 </div>
                 <div class="panel-container show">
                     <div class="panel-content">

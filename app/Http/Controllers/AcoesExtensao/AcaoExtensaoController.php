@@ -303,6 +303,12 @@ class AcaoExtensaoController extends Controller
             return back();
         }
 
+        if($acaoExtensao->status != 'Rascunho'){
+            session()->flash('status', 'Apenas o Ações em status rascunho podem ser editadas.');
+            session()->flash('alert', 'warning');
+            return back();
+        }
+
         $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
         ->where('atribuicao', 'Graduação')->first();
 
@@ -415,6 +421,12 @@ class AcaoExtensaoController extends Controller
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
+        }
+
+        if($acaoExtensao->status != 'Rascunho'){
+            session()->flash('status', 'Apenas o Ações em status rascunho podem ser editadas.');
+            session()->flash('alert', 'warning');
+            return back();
         }
 
         $dados = array('user_id' => $user->id);

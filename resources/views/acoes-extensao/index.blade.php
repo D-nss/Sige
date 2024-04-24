@@ -149,17 +149,19 @@
                                         </td>
                                         <td>
                                             @if($user->id == $acao_extensao->user_id)
-                                                <a
-                                                    href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}"
-                                                    class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
-                                                    data-toggle="tooltip"
-                                                    data-placement="bottom"
-                                                    title=""
-                                                    data-original-title="Editar Registro"
-                                                >
-                                                    <!-- <i class="fal fa-file-edit"></i> -->
-                                                    Editar Registro
-                                                </a>
+                                                @if($acao_extensao->status == 'Rascunho')
+                                                    <a
+                                                        href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}"
+                                                        class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
+                                                        data-toggle="tooltip"
+                                                        data-placement="bottom"
+                                                        title=""
+                                                        data-original-title="Editar Registro"
+                                                    >
+                                                        <!-- <i class="fal fa-file-edit"></i> -->
+                                                        Editar Registro
+                                                    </a>
+                                                @endif
                                                 @if( 
                                                         (
                                                             $acao_extensao->status_comissao_graduacao === 'Sim' 
