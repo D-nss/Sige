@@ -50,7 +50,7 @@ class AcaoExtensaoController extends Controller
     public function inicio(){
 
         if(App::environment('local')){
-            $user = User::where('id', 4)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
@@ -60,10 +60,6 @@ class AcaoExtensaoController extends Controller
 
         $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
             ->where('atribuicao', 'Graduação')->first();
-
-        $comite_consultivo = AcaoExtensao::where('comite_user_id', $user->id)->whereNull('aceite_comite')->limit(1)->get()->count('*');
-
-        $at_conext = $user->hasRole('at_conext');
         
         $users = User::orderBy('name', 'asc')->get();
 
@@ -179,8 +175,6 @@ class AcaoExtensaoController extends Controller
         $areas_tematicas = AreaTematica::all();
         $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
 
-        //$acoes_extensao = $acoes_extensao->where('status', 'Aprovado')->where('unidade_id', $user->unidade->id);
-
         $acoes_extensao_usuario =  AcaoExtensao::where('user_id', $user->id)->orderBy('id','desc')->paginate(5);
 
         return view('acoes-extensao.index', [
@@ -222,6 +216,38 @@ class AcaoExtensaoController extends Controller
             'linhas_extensao' => $linhas_extensao,
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados
+        ]);
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listarAcoesUnidades(Collection $acoes_extensao = null)
+    {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::use0r()->id)->first();
+        }
+        //populando formulário (filtro)
+        $unidades = Unidade::all();
+        $linhas_extensao = LinhaExtensao::all();
+        $areas_tematicas = AreaTematica::all();
+        $estados = Municipio::select('uf')->distinct('uf')->orderBy('uf')->get();
+
+        $acoes_extensao_unidade = AcaoExtensao::where('status', 'Aprovado')
+        ->where('unidade_id', $user->unidade_id)
+        ->paginate(5);
+
+        return view('acoes-extensao.catalogo_unidade', [
+            'acoes_extensao_unidade' => $acoes_extensao_unidade,
+            'unidades' => $unidades,
+            'linhas_extensao' => $linhas_extensao,
+            'areas_tematicas' => $areas_tematicas,
+            'estados' => $estados,
+            'user' => $user
         ]);
     }
 

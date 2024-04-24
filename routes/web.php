@@ -127,7 +127,7 @@ Route::group(['middleware' => ['keycloak-web','check_is_user']], function () {
     Route::put('/acoes-extensao/{acao_extensao}/aprovar', [AcaoExtensaoController::class, 'aprovar'])->name('acao_extensao.aprovar');
     Route::put('/acoes-extensao/{acao_extensao}/aprovar_conext', [AcaoExtensaoController::class, 'aprovarConext'])->name('acao_extensao.aprovar_conext');
     Route::put('/acoes-extensao/{acao_extensao}/submeter', [AcaoExtensaoController::class, 'submeter'])->name('acao_extensao.submeter');
-
+    Route::get('/acoes-extensao-unidade', [AcaoExtensaoController::class, 'listarAcoesUnidades'])->name('acao_extensao.catalogo_unidade');
     Route::get('/acoes-extensao/unidades/{unidade}', [AcaoExtensaoController::class, 'acoesPorUnidade'])->name('acao_extensao.unidades.index');
     Route::get('/acoes-extensao/areas/{area_tematica}', [AcaoExtensaoController::class, 'acoesPorArea'])->name('acao_extensao.area_tematica.index');
     Route::get('/acoes-extensao/linhas/{linha_extensao}', [AcaoExtensaoController::class, 'acoesPorLinha'])->name('acao_extensao.linha.index');

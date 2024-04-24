@@ -71,6 +71,7 @@
                             <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                         </a>
                         <ul>
+                            @if($comissao_extensao || $comissao_graduacao)
                             <li class="">
                                 <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                     data-filter-tags="utilities menu child sublevel item">
@@ -78,8 +79,9 @@
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Inicio</span>
                                 </a>
                             </li>
+                            @endif
                             <li class="">
-                                <a href="{{ url('acoes-extensao/') }}" title="Minhas Ações"
+                                <a href="{{ url('acoes-extensao') }}" title="Minhas Ações"
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
                                         data-i18n="nav.utilities_menu_child_sublevel_item">Minhas Ações</span>
@@ -103,14 +105,14 @@
                                 <a href="{{ url('acoes-extensao-catalogo') }}" title="Catálogo"
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo PROEC</span>
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Reconhecidas na PROEC</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="{{ url('acoes-extensao') }}" title="Catálogo da UNIDADE"
+                                <a href="{{ url('acoes-extensao-unidade') }}" title="Da Unidade"
                                     data-filter-tags="utilities menu child sublevel item">
                                     <span class="nav-link-text"
-                                        data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
+                                        data-i18n="nav.utilities_menu_child_sublevel_item">Da Unidade</span>
                                 </a>
                             </li>
                             @hasanyrole('super|admin|at_conext', 'web_user')
