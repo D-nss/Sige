@@ -229,7 +229,7 @@ class AcaoExtensaoController extends Controller
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
-            $user = User::where('uid', Auth::use0r()->id)->first();
+            $user = User::where('uid', Auth::user()->id)->first();
         }
         //populando formulário (filtro)
         $unidades = Unidade::all();
