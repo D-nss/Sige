@@ -81,12 +81,12 @@
                                     </li>
                                     @endif
                                     
-                                    @if(Auth::user()->comissaoExtensao || Auth::user()->comissaoGraduacao)
+                                    @if(Auth::user()->hasRole('extensao-coordenador', 'web_user'))
                                         @include('layouts._includes.menu_acoes.comissao_ext')
+                                    @elseif(Auth::user()->comissaoExtensao || Auth::user()->comissaoGraduacao)
+                                        @include('layouts._includes.menu_acoes.coordenador_ext')
                                     @elseif(Auth::user()->hasRole('at_conext', 'web_user'))
                                         @include('layouts._includes.menu_acoes.at_conext')
-                                    @elseif(Auth::user()->hasRole('extensao-coordenador', 'web_user'))
-                                        @include('layouts._includes.menu_acoes.coordenador_ext')
                                     @else
                                         @include('layouts._includes.menu_acoes.coordenador_acao')
                                     @endif
