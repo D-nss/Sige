@@ -71,7 +71,7 @@
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                                 </a>
                                 <ul>
-                                    {{ var_dump(Auth::user()->hasAnyRole('super', 'web_user')) }}
+                                    {{ var_dump($user->hasRole('super')) }}
                                     @if(!!Auth::user()->comissaoExtensao || !!Auth::user()->comissaoGraduacao || Auth::user()->hasRole('super'))
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
