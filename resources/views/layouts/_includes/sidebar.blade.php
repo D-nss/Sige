@@ -86,31 +86,24 @@
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Pendências"
+                                        <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Aguardando sua análise"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Pendências</span>
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Aguardando sua análise</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar"
+                                        <a href="{{ url('acoes-extensao-catalogo') }}" title="Reconhecidas pela ProEC"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Reconhecidas pela ProEC</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a href="{{ url('acoes-extensao-catalogo') }}" title="Catálogo"
+                                        <a href="{{ url('acoes-extensao-unidade') }}" title="Da UNIDADE"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo PROEC</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{ url('acoes-extensao') }}" title="Catálogo da UNIDADE"
-                                            data-filter-tags="utilities menu child sublevel item">
-                                            <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Da UNIDADE</span>
                                         </a>
                                     </li>
                                     @hasanyrole('super|admin|at_conext', 'web_user')
@@ -136,14 +129,14 @@
                                         </a>
                                     </li>
                                     @endhasanyrole
-                                    <li class="">
+                                    <!-- <li class="">
                                         <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
                                         </a>
-                                    </li>
-
+                                    </li> -->
+                                    @hasanyrole('super|admin|at_conext|extensao-coordenador', 'web_user')
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -151,6 +144,7 @@
                                                 das Ações</span>
                                         </a>
                                     </li>
+                                    @endhasanyrole
                                 </ul>
                             </li>
                             <li>
