@@ -66,13 +66,11 @@
                 <ul id="js-nav-menu" class="nav-menu">
                     @if(Auth::hasUser())
                         @hasanyrole('super|admin|acoes', 'web_user')
-                            <li>
-                                <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
-                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
-                                </a>
+                        <li>
+                            <a href="javascript:void(0);" title="Ações de Extensão" data-filter-tags="utilities menu child">
+                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
+                            </a>
                                 <ul>
-                                    {{ var_dump(auth()->user()->hasRole('super')) }}
-                                    @if(!!Auth::user()->comissaoExtensao || !!Auth::user()->comissaoGraduacao || Auth::user()->hasRole('super'))
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -80,17 +78,79 @@
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Inicio</span>
                                         </a>
                                     </li>
-                                    @endif
-                                    
-                                    @if(Auth::user()->hasRole('extensao-coordenador'))
-                                        @include('layouts._includes.menu_acoes.comissao_ext')
-                                    @elseif(Auth::user()->comissaoExtensao || Auth::user()->comissaoGraduacao)
-                                        @include('layouts._includes.menu_acoes.coordenador_ext')
-                                    @elseif(Auth::user()->hasRole('at_conext'))
-                                        @include('layouts._includes.menu_acoes.at_conext')
-                                    @else
-                                        @include('layouts._includes.menu_acoes.coordenador_acao')
-                                    @endif
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao/') }}" title="Minhas Ações"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Minhas Ações</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Pendências"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Pendências</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao/novo') }}" title="Cadastrar"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao-catalogo') }}" title="Catálogo"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo PROEC</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao') }}" title="Catálogo da UNIDADE"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Catálogo da UNIDADE</span>
+                                        </a>
+                                    </li>
+                                    @hasanyrole('super|admin|at_conext', 'web_user')
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao-ciencia-conext') }}" title="Ciência Conext"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Ciência Conext</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao-deliberacao-conext') }}" title="Deliberação"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Deliberação</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
+                                        </a>
+                                    </li>
+                                    @endhasanyrole
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao-ocorrencias/catalogo') }}" title="Inscrições Abertas"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Inscrições Abertas</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao/mapa/extensao') }}" title="Mapa"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Mapa
+                                                das Ações</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li>
