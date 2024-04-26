@@ -18,7 +18,7 @@
                   <h2 class="font-color-light font-weight-bold">Sistema de Informação Gestão de Extensão e Cultura</h2>
                     <img src="{{ asset('img/proec.svg') }}" alt="Proec - ExteCult" class="w-25 mt-5"/>
                   </div>
-                  {{ dd($request->user) }}
+                  {{ dd($request()->user) }}
                 </div>
               </div>
           <!-- </div>
