@@ -1898,12 +1898,19 @@ Versão: 4.5.1
 
             var publico_alvo_sel = [];
             var publico_alvo = [
-                {texto: 'Superior 1', id:'1'},
-                {texto: 'Superior 2', id:'2'},
-                {texto: 'Superior 3', id:'3'},
-                {texto: 'Superior 4', id:'4'},
-                {texto: 'Superior 5', id:'5'},
-                {texto: 'Superior 6', id:'6'},
+                {texto: 'UNICAMP (Docentes, Discentes e Técnico-Administrativos)', id:'1'},
+                {texto: 'Instituições Públicas (Municipal, Estadual e Federal)', id:'2'},
+                {texto: 'Setor Privado (Comércio, Indústria e Serviço)', id:'3'},
+                {texto: 'Escolas Públicas (Municipal, Estadual e Federal)', id:'4'},
+                {texto: 'Ensino Infantil', id:'5'},
+                {texto: 'Ensino Fundamental I e II', id:'6'},
+                {texto: 'Ensino Médio', id:'7'},
+                {texto: 'Ensino Técnico', id:'8'},
+                {texto: 'Ensino Superior', id:'9'},
+                {texto: 'Comunidades Indígenas, Quilombolas e Assentamentos Rurais', id:'10'},
+                {texto: 'Crianças e/ou Adolescentes', id:'11'},
+                {texto: 'Adultos e/ou Idosos', id:'12'},
+                {texto: 'População em vulnerabilidade', id:'13'},
             ];
             
             function montaPublicoAlvo() {
