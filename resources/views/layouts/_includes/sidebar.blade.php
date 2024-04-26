@@ -71,6 +71,7 @@
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                             </a>
                                 <ul>
+                                    @if(!!request()->user->comissaoExtensao() || !!request()->user->comissaoGraduacao())
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -78,6 +79,7 @@
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Inicio</span>
                                         </a>
                                     </li>
+                                    @endif
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/') }}" title="Minhas Ações"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -85,6 +87,7 @@
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Minhas Ações</span>
                                         </a>
                                     </li>
+                                    @if(request()->user->comissaoExtensao() || request()->user->comissaoGraduacao())
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Aguardando sua análise"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -92,6 +95,7 @@
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Aguardando sua análise</span>
                                         </a>
                                     </li>
+                                    @endif
                                     <li class="">
                                         <a href="{{ url('acoes-extensao-catalogo') }}" title="Reconhecidas pela ProEC"
                                             data-filter-tags="utilities menu child sublevel item">
