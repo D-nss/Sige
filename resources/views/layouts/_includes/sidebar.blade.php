@@ -130,7 +130,7 @@
                                         <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Indicar Comitê Conusultivo</span>
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Indicar Comitê Consultivo</span>
                                         </a>
                                     </li>
                                     @endhasanyrole
