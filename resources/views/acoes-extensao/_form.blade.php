@@ -32,13 +32,13 @@
                                                 prestação de serviços), preferencialmente integrando as ações de extensão, pesquisa e ensino. Tem caráter orgânico-institucional, clareza de diretrizes e orientação para um objetivo comum, sendo executado a médio e longo prazo”.</p>
                                             <h4>II - PROJETO</h4>
                                             <p>“Ação processual e contínua de caráter educativo, social, cultural, científico ou tecnológico, com objetivo específico e prazo determinado”.</p>
-                                            <h4>III – CURSO</h4>
-                                            <p>“Ação pedagógica, de caráter teórico e/ou prático, presencial ou a distância, planejada e organizada de modo sistemático, com carga horária mínima de 8 horas e critérios de avaliação definidos”.</p>
-                                            <h4>IV - EVENTO</h4>
+                                            <!-- <h4>III – CURSO</h4>
+                                            <p>“Ação pedagógica, de caráter teórico e/ou prático, presencial ou a distância, planejada e organizada de modo sistemático, com carga horária mínima de 8 horas e critérios de avaliação definidos”.</p> -->
+                                            <h4>III - EVENTO</h4>
                                             <p>“Ação que implica na apresentação e/ou exibição pública, livre ou com clientela
                                                 específica, do conhecimento ou produto cultural, artístico, esportivo, científico
                                                 e tecnológico desenvolvido, conservado ou reconhecido pela Universidade”.</p>
-                                            <h5>V – PRESTAÇÃO DE SERVIÇO</h5>
+                                            <h5>IV – PRESTAÇÃO DE SERVIÇO</h5>
                                             <p>“Realização de trabalho oferecido pela Instituição de Educação Superior ou contratado por terceiros (comunidade, empresa, órgão público, etc.); a prestação de
                                                 serviços se caracteriza por intangibilidade, inseparabilidade processo/produto e não
                                                 resulta na posse de um bem”.</p>
@@ -58,9 +58,6 @@
                                             @case(2)
                                             <option value="2">Projeto</option>
                                                 @break
-                                            @case(3)
-                                            <option value="3">Curso</option>
-                                                @break
                                             @case(4)
                                             <option value="4">Evento</option>
                                                 @break
@@ -75,7 +72,7 @@
                                 @endif
                                 <option value="1" @if( old('modalidade') == 1 ) selected @endif >Programa</option>
                                 <option value="2" @if( old('modalidade') == 2 ) selected @endif >Projeto</option>
-                                <option value="3" @if( old('modalidade') == 3 ) selected @endif >Curso</option>
+                                <!-- <option value="3" @if( old('modalidade') == 3 ) selected @endif >Curso</option> -->
                                 <option value="4" @if( old('modalidade') == 4 ) selected @endif >Evento</option>
                                 <option value="5" @if( old('modalidade') == 5 ) selected @endif >Prestação de Serviço</option>
                             </select>

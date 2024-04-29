@@ -97,19 +97,20 @@
                                     </li>
                                     @endif
                                     <li class="">
-                                        <a href="{{ url('acoes-extensao-catalogo') }}" title="Reconhecidas pela ProEC"
-                                            data-filter-tags="utilities menu child sublevel item">
-                                            <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Reconhecidas pela ProEC</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
                                         <a href="{{ url('acoes-extensao-unidade') }}" title="Da UNIDADE"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Da UNIDADE</span>
                                         </a>
                                     </li>
+                                    <li class="">
+                                        <a href="{{ url('acoes-extensao-catalogo') }}" title="Reconhecidas pela ProEC"
+                                            data-filter-tags="utilities menu child sublevel item">
+                                            <span class="nav-link-text"
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Reconhecidas pela ProEC</span>
+                                        </a>
+                                    </li>
+                                    
                                     @hasanyrole('super|admin|at_conext', 'web_user')
                                     <li class="">
                                         <a href="{{ url('acoes-extensao-ciencia-conext') }}" title="Ciência Conext"
@@ -129,7 +130,7 @@
                                         <a href="{{ url('acoes-extensao-comite-consultivo') }}" title="Indicação Comitê Conusultivo"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Indicação Comitê Conusultivo</span>
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Indicar Comitê Conusultivo</span>
                                         </a>
                                     </li>
                                     @endhasanyrole
