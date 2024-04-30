@@ -71,7 +71,7 @@
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                             </a>
                                 <ul>
-                                    @if(!!request()->user->comissaoExtensao() || !!request()->user->comissaoGraduacao())
+                                    @if(!!request()->user->comissaoExtensao || !!request()->user->comissaoGraduacao)
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -100,7 +100,7 @@
                                         <a href="{{ url('acoes-extensao-unidade') }}" title="Da UNIDADE"
                                             data-filter-tags="utilities menu child sublevel item">
                                             <span class="nav-link-text"
-                                                data-i18n="nav.utilities_menu_child_sublevel_item">Da UNIDADE</span>
+                                                data-i18n="nav.utilities_menu_child_sublevel_item">Da Unidade</span>
                                         </a>
                                     </li>
                                     <li class="">
@@ -110,7 +110,6 @@
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Reconhecidas pela ProEC</span>
                                         </a>
                                     </li>
-                                    
                                     @hasanyrole('super|admin|at_conext', 'web_user')
                                     <li class="">
                                         <a href="{{ url('acoes-extensao-ciencia-conext') }}" title="Ciência Conext"
