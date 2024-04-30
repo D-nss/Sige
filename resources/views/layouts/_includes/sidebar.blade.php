@@ -71,7 +71,7 @@
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                             </a>
                                 <ul>
-                                    
+                                    @dd(request()->user)
                                     @if( request()->user->comissaoExtensao() || request()->user->comissaoGraduacao() )
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
