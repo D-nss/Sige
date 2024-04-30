@@ -69,7 +69,7 @@
                             </a>
                                 <ul>
                                     
-                                    @if( request()->user->comissaoExtensao() || request()->user->comissaoGraduacao() )
+                                    @if( (!is_null(request()->user) && request()->user->comissaoExtensao()) || ( !is_null(request()->user) && request()->user->comissaoGraduacao()) )
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                             data-filter-tags="utilities menu child sublevel item">
