@@ -38,6 +38,7 @@
                 <span
                     class="d-inline-block text-truncate text-truncate-sm">{{ Str::of(Str::before(Auth::user()->name, ' '))->trim() }},
                     {{Str::upper(Auth::user()->unidade)}} </span><br>
+                    @var_dump(request()->user)
                 <a href="/logout" class="btn btn-xs btn-secondary waves-effect waves-themed">Sair</a>
                 @else
                 <a href="#" class="d-flex align-items-center text-white">
@@ -60,9 +61,6 @@
         <div class="extecult-wrap">
             <div class="extecult-sidebar">
 
-
-
-
                 <ul id="js-nav-menu" class="nav-menu">
                     @if(Auth::hasUser())
                         @hasanyrole('super|admin|acoes', 'web_user')
@@ -71,7 +69,7 @@
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                             </a>
                                 <ul>
-                                    @dd(request()->user)
+                                    
                                     @if( request()->user->comissaoExtensao() || request()->user->comissaoGraduacao() )
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
