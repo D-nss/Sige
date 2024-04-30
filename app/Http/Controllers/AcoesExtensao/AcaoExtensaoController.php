@@ -955,7 +955,7 @@ class AcaoExtensaoController extends Controller
     {
         $acaoExtensao->status = 'Desativado';
         $acaoExtensao->update();
-        return redirect()->route('acao_extensao.painel');
+        return redirect()->route('acao_extensao.pendencias');
     }
 
     public function submeter(AcaoExtensao $acaoExtensao)
@@ -966,7 +966,7 @@ class AcaoExtensaoController extends Controller
         if($comissaoUnidade->isEmpty()){
             session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Extensão da sua unidade disponível para avaliar, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
             session()->flash('alert', 'warning');
-            return redirect()->route('acao_extensao.painel');
+            return redirect()->route('acao_extensao.pendencias');
         }
 
         if($acaoExtensao->vagas_curricularizacao > 0){
@@ -975,7 +975,7 @@ class AcaoExtensaoController extends Controller
             if($comissaoGraduacaoUnidade->isEmpty()){
                 session()->flash('status', 'Desculpe! Sua Ação de Extensão não pode ser submetida. Não há membro de Comissão de Graduação da sua unidade disponível, por favor entre em contato com o Coordenador de Extensão da sua unidade.');
                 session()->flash('alert', 'warning');
-                return redirect()->route('acao_extensao.painel');
+                return redirect()->route('acao_extensao.pendencias');
             }
         }
 
