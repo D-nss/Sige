@@ -235,12 +235,19 @@
                         <div class="form-group col-md-6 @error('publico_alvo') border border-danger rounded p-2 @enderror">
                             <label class="form-label" for="publico_alvo">Seleção Atual</label>
                             <select class="d-none" name="publico_alvo[]" id="publico_alvo" multiple>
-                                <option value="Superior 1">Superior 1</option>
-                                <option value="Superior 2">Superior 2</option>
-                                <option value="Superior 3">Superior 3</option>
-                                <option value="Superior 4">Superior 4</option>
-                                <option value="Superior 5">Superior 5</option>
-                                <option value="Superior 6">Superior 6</option>
+                                <option value="UNICAMP (Docentes, Discentes e Técnico-Administrativos)">UNICAMP (Docentes, Discentes e Técnico-Administrativos)</option>
+                                <option value="Instituições Públicas (Municipal, Estadual e Federal)">Instituições Públicas (Municipal, Estadual e Federal)</option>
+                                <option value="Setor Privado (Comércio, Indústria e Serviço)">Setor Privado (Comércio, Indústria e Serviço)</option>
+                                <option value="Escolas Públicas (Municipal, Estadual e Federal)">Escolas Públicas (Municipal, Estadual e Federal)</option>
+                                <option value="Ensino Infantil">Ensino Infantil</option>
+                                <option value="Ensino Fundamental I e II">Ensino Fundamental I e II</option>
+                                <option value="Ensino Médio">Ensino Médio</option>
+                                <option value="Ensino Técnico">Ensino Técnico</option>
+                                <option value="Ensino Superior">Ensino Superior</option>
+                                <option value="Comunidades Indígenas, Quilombolas e Assentamentos Rurais">Comunidades Indígenas, Quilombolas e Assentamentos Rurais</option>
+                                <option value="Crianças e/ou Adolescentes">Crianças e/ou Adolescentes</option>
+                                <option value="Adultos e/ou Idosos">Adultos e/ou Idosos</option>
+                                <option value="População em vulnerabilidade">População em vulnerabilidade</option>
                             </select>
                             <div id="selecao_atual">
                                 
