@@ -387,21 +387,22 @@ class AcaoExtensaoController extends Controller
 
             return $acaoCriada;
         });
-        dd($acao_extensao);
-        // if($acao_extensao){          
-        //     if(!is_null($request->apreciacao) && $request->apreciacao == 'Sim') {
-        //         $this->submeter($acao_extensao);
-        //     }
 
-        //     Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
-        //     session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
-        //     session()->flash('alert', 'success');
-        // } else {
-        //     Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação não inserida  - Endereço IP: ' . $request->ip());
-        //     session()->flash('status', 'Erro ao adicionar a Ação de Extensão ao banco de dados.');
-        //     session()->flash('alert', 'danger');
-        //     return back();
-        // }
+        if($acao_extensao){     
+            dd(( !is_null($request->apreciacao) && $request->apreciacao == 'Sim') );     
+            // if(!is_null($request->apreciacao) && $request->apreciacao == 'Sim') {
+            //     $this->submeter($acao_extensao);
+            // }
+
+            // Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
+            // session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
+            // session()->flash('alert', 'success');
+        } else {
+            // Log::channel('acao_extensao')->error('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Erro: Ação não inserida  - Endereço IP: ' . $request->ip());
+            // session()->flash('status', 'Erro ao adicionar a Ação de Extensão ao banco de dados.');
+            // session()->flash('alert', 'danger');
+            // return back();
+        }
 
         // return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id] );
     }
