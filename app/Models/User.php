@@ -91,12 +91,12 @@ class User extends Authenticatable
 
     public function comissaoExtensao(){
         return Comissao::where('unidade_id', $this->unidade_id)
-        ->where('atribuicao', 'Extensão')->first();
+        ->where('atribuicao', 'Extensão')->first() ? true : false;
     }
 
     public function comissaoGraduacao(){
         return Comissao::where('unidade_id', $this->unidade_id)
-        ->where('atribuicao', 'Graduação')->first();
+        ->where('atribuicao', 'Graduação')->first() ? true : false;
     }
 
 }
