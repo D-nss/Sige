@@ -389,10 +389,10 @@ class AcaoExtensaoController extends Controller
         });
 
         if($acao_extensao){     
-            dd(( !is_null($request->apreciacao) && $request->apreciacao == 'Sim') );     
-            // if(!is_null($request->apreciacao) && $request->apreciacao == 'Sim') {
-            //     $this->submeter($acao_extensao);
-            // }
+                
+            if(!is_null($request->apreciacao) && $request->apreciacao == 'Sim') {
+                $this->submeter($acao_extensao);
+            }
 
             // Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Nova Ação de Extensão: ' . $acao_extensao->id . ' - Endereço IP: ' . $request->ip());
             // session()->flash('status', 'Ação de Extensão adicionada com sucesso!');
