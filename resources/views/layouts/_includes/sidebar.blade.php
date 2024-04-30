@@ -71,7 +71,8 @@
                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Extensão</span>
                             </a>
                                 <ul>
-                                    @if(!!request()->user->comissaoExtensao || !!request()->user->comissaoGraduacao)
+                                    @dd([request()->user->comissaoExtensao(), request()->user->comissaoGraduacao()])
+                                    @if( !!request()->user->comissaoExtensao() || !!request()->user->comissaoGraduacao() )
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                             data-filter-tags="utilities menu child sublevel item">
