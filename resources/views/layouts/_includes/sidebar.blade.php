@@ -69,7 +69,7 @@
                             </a>
                                 <ul>
                                     
-                                    @if( (!is_null(request()->user) && request()->user->comissaoExtensao()) || ( !is_null(request()->user) && request()->user->comissaoGraduacao()) )
+                                    @if( (!is_null(request()->user) && !request()->user->comissaoExtensao()) || ( !is_null(request()->user) && !request()->user->comissaoGraduacao()) )
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/inicio') }}" title="Inicio"
                                             data-filter-tags="utilities menu child sublevel item">
@@ -85,7 +85,7 @@
                                                 data-i18n="nav.utilities_menu_child_sublevel_item">Minhas Ações</span>
                                         </a>
                                     </li>
-                                    @if(request()->user->comissaoExtensao() || request()->user->comissaoGraduacao())
+                                    @if( (!is_null(request()->user) && request()->user->comissaoExtensao()) || ( !is_null(request()->user) && request()->user->comissaoGraduacao()) )
                                     <li class="">
                                         <a href="{{ url('acoes-extensao/pendencias/extensao') }}" title="Aguardando sua análise"
                                             data-filter-tags="utilities menu child sublevel item">
