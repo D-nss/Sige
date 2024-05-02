@@ -110,6 +110,8 @@
                     <div class="
                     @if($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim' && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                         bg-success
+                    @elseif($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && is_null($acao_extensao->status_comissao_graduacao) && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                        bg-success
                     @elseif($acao_extensao->ciencia_status == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                         bg-success
                     @else
@@ -164,9 +166,9 @@
             @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade != 1 && is_null($acao_extensao->ciencia_status))
                 Aguarde a análise e ciência pelo do CONEXT. <wbr>
                 Se houver curricularização a mesma está sendo analisada em paralelo pela Comissão de Graduação.
-            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && (is_null($acao_extensao->status_comissao_graduacao) || $acao_extensao->status_comissao_graduacao == 'Não') )
+            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && (is_null($acao_extensao->status_comissao_graduacao) || $acao_extensao->status_comissao_graduacao == 'Não') && !is_null($acao_extensao->vagas_curricularizacao) )
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público. A curricularização no entanto ainda não foi liberada. Favor analisar a mensagem de feedback da Comissão de Graduação e proceder com os ajustes solicitados no campo ‘Motivo da Curricularização’
-            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && $acao_extensao->status_comissao_graduacao == 'Sim' )
+            @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && !is_null($acao_extensao->vagas_curricularizacao)  && $acao_extensao->status_comissao_graduacao == 'Sim' )
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público e a curricularização foi liberada.
             @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && is_null($acao_extensao->vagas_curricularizacao) )
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público.
