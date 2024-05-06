@@ -70,18 +70,16 @@ class AcaoExtensaoCurricularizacaoController extends Controller
 
             return redirect()->back();
         }
-
-        echo json_encode([$matricula, $dadosAluno]);
         
-        // if($dadosAluno[0]->SITALUNO == "Regular - Ativo" || $dadosAluno[0]->SITALUNO == "Especial - Ativo") {
-        //     return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
-        // }
-        // else {
-        //     session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
-        //     session()->flash('alert', 'warning');
+        if($dadosAluno[0]->SITALUNO == "Regular - Ativo" || $dadosAluno[0]->SITALUNO == "Especial - Ativo") {
+            return view('acoes-extensao.curricularizacao.create', compact('acao_extensao_ocorrencia', 'dadosAluno'));
+        }
+        else {
+            session()->flash('status', 'Desculpe! Somente alunos regulares e ativos podem participar da curricularização.');
+            session()->flash('alert', 'warning');
 
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
         
     }
