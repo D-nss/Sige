@@ -33,8 +33,8 @@
                             Preenchimento dos Indicadores nas Unidades <span class="fw-300 color-fusion-500"><i>Clique no ano desejado para visualizar os dados</i></span>
                         </h2>
                         <div class="panel-toolbar">
-                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                            <!-- <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button> -->
                         </div>
                     </div>
                     <div class="panel-container show">
@@ -47,7 +47,7 @@
                                         <div class="px-3 py-2 d-flex align-items-center">
                                             <div class="js-easy-pie-chart color-danger-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="{{ floor( ($iu->qtd_unidades * 100) / $unidades ) }}" data-piesize="100" data-linewidth="20" data-linecap="butt" data-scalelength="0">
                                                 <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-lg">
-                                                    <span class="js-percent d-block text-dark"></span>
+                                                    <span class="js-percent d-block text-dark"></span>%
                                                 </div>
                                             </div>
                                             <span class="d-inline-block ml-2 text-muted fs-xl">
