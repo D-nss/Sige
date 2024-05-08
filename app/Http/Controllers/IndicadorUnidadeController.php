@@ -14,6 +14,8 @@ use App\Models\ItemsPlanes;
 use App\Models\IndicadorUnidade;
 use App\Models\IndicadoresParametros;
 
+use App;
+
 class IndicadorUnidadeController extends Controller
 {
     public function __construct()
@@ -28,7 +30,11 @@ class IndicadorUnidadeController extends Controller
     public function index()
     {
         //unidade do usuario logado
-        $user = User::where('uid', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
         $indicadores  = IndicadorUnidade::where('unidade_id', $user->unidade->id)
         ->distinct()
         ->orderBy('ano_base', 'desc')
@@ -58,8 +64,14 @@ class IndicadorUnidadeController extends Controller
         $indicadoresSerializado = $this->serializarIndicadores($indicadores);
         $indicadoresParametros = IndicadoresParametros::first();
 
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
+        
         //unidade do usuario logado
-        $unidade  =  User::where('uid', Auth::user()->id)->first()->unidade;
+        $unidade  =  $user->unidade;
 
         $anos_cadastrados = IndicadorUnidade::distinct()->where('unidade_id', $unidade->id)->get(['ano_base'])->toArray();
         $anos_cadastrados = array_values($anos_cadastrados);
@@ -103,16 +115,21 @@ class IndicadorUnidadeController extends Controller
         $this->validate($request, $validate);
         // Fim da Validação
 
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
 
         //id da unidade do usuario logado
-        $unidade_id  = User::where('uid', Auth::user()->id)->first()->unidade->id;
+        $unidade_id  = $user->unidade->id;
         /* Busca se possui ano base ja cadstrado para a unidade */
         $buscaAnoExistente = IndicadorUnidade::where('unidade_id', $unidade_id)->where('ano_base', $request->ano_base)->count();
         /* Prepara os dados para serem inseridos no bando de dados */
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
                 $valor = str_replace(',', '.', str_replace('.', '',$r));
-                array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $valor, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base));
+                array_push($dados, array('indicador_id' => substr($key, 9, strlen($key)), 'valor' => $valor, 'unidade_id' => $unidade_id, 'ano_base' => $request->ano_base, 'created_at' => date('Y-m-d H:i:s')));
             }
         }
 
@@ -148,8 +165,13 @@ class IndicadorUnidadeController extends Controller
      */
     public function show($ano)
     {
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
         //unidade do usuario logado
-        $unidade  =  User::where('uid', Auth::user()->id)->first()->unidade;
+        $unidade  =  $user->unidade;
 
         $indicardoresPorUnidade = Indicador::join('indicadores_unidades', 'indicadores.id', 'indicadores_unidades.indicador_id')
             ->where('indicadores_unidades.unidade_id', $unidade->id)
@@ -172,7 +194,11 @@ class IndicadorUnidadeController extends Controller
     public function edit($ano)
     {
         //unidade do usuario logado
-        $user  =  User::where('uid', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
 
         $indicadoresParametros = IndicadoresParametros::where('ano_base', $ano)->get();
 
@@ -219,7 +245,7 @@ class IndicadorUnidadeController extends Controller
         foreach($request->input() as $key => $r){
             if(substr($key, 9, strlen($key)) != ""){
                 $valor = str_replace(',', '.', str_replace('.', '',$r));
-                $linha = DB::table('indicadores_unidades')->where('id', substr($key, 9, strlen($key)))->update([ 'valor' => $valor ]);
+                $linha = DB::table('indicadores_unidades')->where('id', substr($key, 9, strlen($key)))->update([ 'valor' => $valor, 'updated_at' => date('Y-m-d H:i:s') ]);
                 array_push($linhasAfetadas, $linha);
             }
         }

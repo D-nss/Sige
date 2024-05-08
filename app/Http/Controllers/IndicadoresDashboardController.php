@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\IndicadorUnidade;
@@ -19,7 +20,11 @@ class IndicadoresDashboardController extends Controller
 
     public function index()
     {
-        $user = User::where('uid', Auth::user()->id)->first();
+        if(App::environment('local')){
+            $user = User::where('id', 2)->first();
+        } else {
+            $user = User::where('uid', Auth::user()->id)->first();
+        }
 
         if($user->hasAnyRole('indicadores-admin|admin|super' )) {
             $indicadoresUnidades = DB::table('indicadores_unidades')
