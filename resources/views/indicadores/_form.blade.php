@@ -14,8 +14,8 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <select class="form-control" name="ano_base" placeholder="Selecione ..." required="required" pattern="[0-9]+$" @if(isset(explode('/', Request::url())[5]) && explode('/', Request::url())[5] == 'editar') disabled @endif>
-                            @foreach($anos_base as $ano)
-                                <option value="{{ $ano->ano_base }}" @if( old('ano_base') == $ano->ano_base) selected @endif>{{ $ano->ano_base }}</option>
+                            @foreach($anos_base as $a)
+                                <option value="{{ $a->ano_base }}" @if( old('ano_base') == $a->ano_base || $a->ano_base == $ano) selected @endif>{{ $a->ano_base }}</option>
                             @endforeach
                         </select>
                         @error( 'ano_base' )
