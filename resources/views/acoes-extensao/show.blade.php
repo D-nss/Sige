@@ -107,285 +107,289 @@
     </div>
 </div>
 @endif
-<div class="subheader">
-    <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-file'></i> {{$acao_extensao->titulo}}
-        @switch($acao_extensao->status)
-        @case('Desativado')
-        <span class="badge badge-danger">Desativado</span>
-        @break
-        @case('Pendente')
-        <span class="badge badge-warning">Pendente</span>
-        @break
-        @case('Rascunho')
-        <span class="badge badge-secondary">Rascunho</span>
-        @break
-        @case('Aprovado')
-        <span class="badge badge-success">Aprovado</span>
-        @break
-        @default
-        <span class="badge badge-warning">Indefinido</span>
-        @endswitch
-        @if(!is_null($acao_extensao->status_comissao_graduacao ) && $acao_extensao->status_comissao_graduacao == 'Sim')
-        <span class="badge badge-primary">Aceito na Comissão de Graduação</span>
-        @endif
-        @if(!is_null($acao_extensao->aceite_comite ) && $acao_extensao->aceite_comite == 'Sim')
-        <span class="badge badge-primary">Aceito no Comitê Consultivo</span>
-        @endif
-        @if($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido')
-        <span class="badge badge-primary">Reconhecido Pelo Conext</span>
-        @endif
-        <small>
-            Exibição das informações desta Ação de Extensão. <span class="text-muted small text-truncate"> (<strong> Cadastrado em:</strong> {{$acao_extensao->created_at->format('d/m/Y')}}. <strong> Atualizado em: </strong> {{$acao_extensao->updated_at->format('d/m/Y')}})</span>
-        </small>
-    </h1>
-</div>
+
 
 <div class="row">
     <div class="col-xl-12">
         <div id="panel-3" class="panel">
             <div class="panel-container show">
                 <div class="panel-content">
-                <div class="row border-top mb-5 pt-3">
-                        @include('acoes-extensao.statusbar')
-                        
+                    <div class="subheader">
+                        <h1 class="subheader-title">
+                            <img src="{{ asset('smartadmin-4.5.1/img/387.png') }}" alt="Icon"> {{$acao_extensao->titulo}}  
+                            <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" class="btn btn-primary btn-xs ml-3"><i class='fal fa-file-edit'></i> Editar</a>  
+                            <div class="row mt-3">
+                                <div class="col-xl-12">                                    
+                                    @if($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim' && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                                        <span class="badge badge-success badge-pill">Publicada</span>bg-success
+                                    @elseif($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && is_null($acao_extensao->status_comissao_graduacao) && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                                        <span class="badge badge-success badge-pill">Publicada</span>
+                                    @elseif($acao_extensao->ciencia_status == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                                        <span class="badge badge-success badge-pill">Publicada</span>
+                                    @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->modalidade == 1 && $acao_extensao->status == 'Aprovado' )
+                                        <span class="badge badge-warning badge-pill">Reconhecimento em Andamento na ProEC </span>
+                                    @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
+                                        <span class="badge badge-warning badge-pill">Reconhecimento em Andamento na ProEC </span>
+                                    @elseif($acao_extensao->status == 'Pendente')
+                                        <span class="badge badge-warning badge-pill">Registro em Andamento na Unidade</span>
+                                    @elseif($acao_extensao->status == 'Rascunho')
+                                        <span class="badge badge-secondary badge-pill">Rascunho</span>
+                                    @endif
+
+                                    <span class="badge badge-primary badge-pill">
+                                        @switch($acao_extensao->modalidade)
+                                            @case(1)
+                                                Programa
+                                                @break
+                                            @case(2)
+                                                Projeto
+                                                @break
+                                            @case(4)
+                                                Evento
+                                                @break
+                                            @case(5)
+                                                Prestação de Serviço
+                                                @break
+                                        @endswitch
+                                    </span>
+
+                                    <span class="badge badge-primary badge-pill">
+                                        {{ $acao_extensao->linha_extensao->nome }}
+                                    </span>
+
+                                    @if(!is_null($acao_extensao->programa))
+                                    <span class="text-muted">
+                                        Vinculado ao Programa 
+                                        <span class="fw-700">
+                                            {{ $acao_extensao->programa->titulo }}
+                                        </span>
+                                    </span>
+                                    @endif
+
+                                    <div class="row mt-3">
+                                        <div class="col-xl-12">
+                                            <span class="text-muted small mr-3"> 
+                                                Cadastrado em: 
+                                                <span class="fw-700">
+                                                    {{$acao_extensao->created_at->format('d/m/Y')}}
+                                                </span> 
+                                            </span> 
+                                            <span class="text-muted small"> 
+                                                Atualizado em: 
+                                                <span class="fw-700">
+                                                    {{$acao_extensao->updated_at->format('d/m/Y')}}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>       
+                        </h1>
                     </div>
-                    <div class="d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0">
-                        <div class='icon-stack display-3 flex-shrink-0'>
-                            @switch($acao_extensao->modalidade)
-                            @case(1)
-                            <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
-                            <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
+                <div class="border-top mb-5 py-3">
+                    <div class="row">
+                        @include('acoes-extensao.statusbar')
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-lg-9">
+                            <div class=" p-3 border rounded" style="height: 130px">
+                                <h2>
+                                    Objetivos de Desenvolvimento Sustentável(ODS) 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        @foreach ($acao_extensao->objetivos_desenvolvimento_sustentavel as $ods)
+                                        <span class="font-italic">{{$ods->nome}}</span>
+                                        @endforeach
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
-                        <div class="ml-3">
-                            <h5 class="mb-0 flex-1 text-dark fw-500">
-                                Programa
-                                @break
-                                @case(2)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
-                                <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <h5 class="mb-0 flex-1 text-dark fw-500">
-                                Projeto
-                                @break
-                                @case(3)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
-                                <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <h5 class="mb-0 flex-1 text-dark fw-500">
-                                Curso
-                                @break
-                                @case(4)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
-                                <i class="fal fa-newspaper icon-stack-1x opacity-100 color-success-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <h5 class="mb-0 flex-1 text-dark fw-500">
-                                Evento
-                                @break
-                                @case(5)
-                                <i class="fal fa-circle icon-stack-3x opacity-100 color-success-500"></i>
-                                <i class="fal fa-inbox icon-stack-1x opacity-100 color-success-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <h5 class="mb-0 flex-1 text-dark fw-500">
-                                Prestação de Serviços
-                                @break
-                                @default
-                                @endswitch
-                                <small class="m-0 l-h-n">
-                                    <b>Linha:</b> {{$acao_extensao->linha_extensao->nome}}
-                                </small>
-                            </h5>
-                            <div>
-                                @foreach ($acao_extensao->areas_tematicas as $area_tematica)
-                                <a href="/acoes-extensao/areas/{{$area_tematica->id}}"><span class="badge badge-success">{{$area_tematica->nome}}</span></a>
-                                @endforeach
+                        <div class="col-lg-3">
+                            <div class=" p-3 border rounded" style="height: 130px">
+                                <h2>
+                                    Link Externo 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        <a href="{{$acao_extensao->url}}" target="_blank" >{{$acao_extensao->url}}</a>
+                                    </small>
+                                </h2>
                             </div>
                         </div>
                     </div>
-                    @if(!empty($acao_extensao->programa))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Essa ação faz parte do programa:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->programa->titulo}}
-                                </small>
-                            </h5>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-9">
+                            <div class=" p-3 border rounded" style="height: 130px">
+                                <h2>
+                                    Áreas Temáticas 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        @foreach ($acao_extensao->areas_tematicas as $at)
+                                        <span class="font-italic">{{$at->nome}}</span>
+                                        @endforeach
+                                    </small>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class=" p-3 border rounded" style="height: 130px">
+                                <h2>
+                                    Arquivo do Projeto 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-1 text-muted">
+                                        <a href='{{ url("storage/$acao_extensao->arquivo") }}' class="" target="_blank" >{{ $acao_extensao->titulo }} - Proposta</a>
+                                        </small>
+                                    <small class="mt-0 mb-3 text-muted font-italic">
+                                        Obs.: ao selecionar qualquer um de seus arquivos, uma nova aba será aberta.
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                    @endif
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Objetivos de Desenvolvimento Sustentável:
-                                <small class="mt-0 mb-3 text-muted">
-                                    @foreach ($acao_extensao->objetivos_desenvolvimento_sustentavel as $ods)
-                                    <a href="#"><span class="badge badge-danger">{{$ods->nome}}</span></a>
-                                    @endforeach
-                                </small>
-                            </h5>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-9">
+                            <div class=" p-3 border rounded" style="height: 130px">
+                                <h2>
+                                    Palavras-Chaves 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
+                                            <span class="">{{$palavra_chave}}</span>,
+                                        @endforeach
+                                    </small>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Descrição:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->descricao}}
-                                </small>
-                            </h5>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <div class=" p-3 border rounded" style="height: 130px">
+                                <h2>
+                                    Descrição 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->descricao}}
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                    @if($acao_extensao->palavras_chaves != "")
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Palavras-chaves:
-                                <small class="mt-0 mb-3 text-muted">
-                                    @foreach (explode(',', $acao_extensao->palavras_chaves) as $palavra_chave)
-                                    <a href="/acoes-extensao/palavra-chave/{{$palavra_chave}}"><span class="badge badge-secondary">{{$palavra_chave}}</span></a>
-                                    @endforeach
-                                </small>
-                            </h5>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <div class=" p-3 border rounded" style="height: 145px">
+                                <h2>
+                                    Público Alvo 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->publico_alvo}}
+                                    </small>
+                                </h2>
+                                <h2>
+                                    Estimativa Público:
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->estimativa_publico}}
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                    @endif
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Público Alvo:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->publico_alvo}}
-                                </small>
-                            </h5>
+                    
+                    <div class="row mt-3">
+                        <div class="col-lg-6">
+                            <div class=" p-3 border rounded" style="height: 145px">
+                                <h2>
+                                    Impactos para a Universidade 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->impactos_universidade}}
+                                    </small>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class=" p-3 border rounded" style="height: 145px">
+                                <h2>
+                                Impactos para a Sociedade 
+                                <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->impactos_sociedade}}
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Estimativa Público:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->estimativa_publico}}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
+
                     @if(isset($acao_extensao->vagas_curricularizacao))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Vagas Curricularização:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->vagas_curricularizacao}}
-                                </small>
-                            </h5>
+                    <div class="row mt-3">
+                        <div class="col-lg-6">
+                            <div class=" p-3 border rounded" style="height: 145px">
+                                <h2>
+                                    Vagas Curricularização 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->vagas_curricularizacao}}
+                                    </small>
+                                </h2>
+                                <h2>
+                                    Quantidade de horas por Aluno na Curricularização 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->qtd_horas_curricularizacao}}
+                                    </small>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class=" p-3 border rounded" style="height: 145px">
+                                <h2>
+                                    Motivo da Curricularização 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->motivo_curricularizacao}}
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
                     </div>
                     @endif
-                    @if(isset($acao_extensao->qtd_horas_curricularizacao))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Quantidade de horas por Aluno na Curricularização:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->qtd_horas_curricularizacao}}
-                                </small>
-                            </h5>
+                    
+                    <div class="row mt-3">
+                        <div class="col-lg-6">
+                        @if(isset($acao_extensao->anotacoes) && $acao_extensao->user->id == $user->id)
+                            <div class=" p-3 border rounded" style="height: 145px">
+                                <h2>
+                                    Suas Anotações 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 text-muted">
+                                        {{$acao_extensao->anotacoes}}
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                    @if(isset($acao_extensao->motivo_curricularizacao))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Motivo da Curricularização:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->motivo_curricularizacao}}
-                                </small>
-                            </h5>
+                        @endif
+                        @if( $acao_extensao->user->id == $user->id  )
+                        <div class="col-lg-6">
+                            <div class=" p-3 rounded alert alert-warning" style="height: 145px">
+                                <h2>
+                                    Mensagem para Comissão de Extensão 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 ">
+                                        {{$acao_extensao->mensagem_extensao}}
+                                    </small>
+                                </h2>
+                            </div>
                         </div>
+                        @endif
                     </div>
-                    @endif
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Impactos para a Universidade:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->impactos_universidade}}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Impactos para a Sociedade:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->impactos_sociedade}}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    @if(isset($acao_extensao->grau_envolvimento_equipe))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Envolvimento da Equipe com a Comunidade:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->grau_envolvimento_equipe->descricao}}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    @endif
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Link Externo:
-                                <small class="mt-0 mb-3 text-muted">
-                                    <a href="{{$acao_extensao->url}}" target="_blank" >{{$acao_extensao->url}}</a>
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    @if(isset($acao_extensao->anotacoes))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Suas Anotações:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->anotacoes}}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    @endif
-                    @if(isset($acao_extensao->mensagem_extensao))
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Mensagem para Comissão de Extensão:
-                                <small class="mt-0 mb-3 text-muted">
-                                    {{$acao_extensao->mensagem_extensao}}
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
-                    @endif
-                    <div class="col-12">
-                        <div class="p-0">
-                            <h5>
-                                Arquivo Projeto:
-                                <small class="mt-0 mb-3 text-muted">
-                                    <a href='{{ url("storage/$acao_extensao->arquivo") }}' class="btn btn-danger " target="_blank" ><i class="far fa-file-pdf mr-1"></i>Projeto em PDF</a>
-                                </small>
-                            </h5>
-                        </div>
-                    </div>
+                    
                     <div class="accordion" id="accordionExample">
                         <div class="card mb-3 shadow">
                             <div class="card-header bg-primary rounded" id="headingTwo">
