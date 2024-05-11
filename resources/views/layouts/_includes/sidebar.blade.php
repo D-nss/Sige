@@ -150,9 +150,9 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" title="Ações de Cultura" data-filter-tags="utilities menu child">
+                                <!-- <a href="javascript:void(0);" title="Ações de Cultura" data-filter-tags="utilities menu child">
                                     <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Ações de Cultura</span>
-                                </a>
+                                </a> -->
                                 <ul>
                                     <li class="">
                                         <a href="{{ url('painel-cultura') }}" title="Cadastrar"
