@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AcaoExtensaoAprovadaUnidade extends Notification
+class AcaoExtensaoNaoAprovadaUnidade extends Notification
 {
     use Queueable;
 
@@ -43,8 +43,8 @@ class AcaoExtensaoAprovadaUnidade extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Ação de Extensão Apreciada pela Unidade')
-                    ->line('Olá Coordenador, sua Ação de Extensão intitulado '. $this->data['titulo'] . ' foi aprovada pela Unidade.')
+                    ->subject('Ação de Extensão - Resposta pela Unidade')
+                    ->line('Olá Coordenador, sua Ação de Extensão intitulado '. $this->data['titulo'] . ' necessita de ajustes para ser apreciada pela Unidade.')
                     ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
                     ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

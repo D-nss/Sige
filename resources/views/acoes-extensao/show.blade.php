@@ -30,15 +30,54 @@
         </div>
         <div class="flex-1">
             <span class="h5">Ação de Extensão foi Submetida, e está pendende de aprovação pela Unidade</span><br>
-            <span class="h5">Para prosseguir com a análise clique no botão <strong>De Acordo</strong></span><br>
+            <span class="h5">Para prosseguir com a análise clique no botão <strong class="fw-700">Apreciar</strong></span><br>
             <span class="h5">Caso deseje mandar uma mensagem ao coordenador com orientações, acesse a sessão de comentários ao final desta página.</span>
         </div>
-        <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
-            @csrf
-            @method('put')
-            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">De Acordo</button>
-        </form>
+        
+        <button type="button" class="btn btn-warning btn-w-m fw-500 btn-sm"  data-toggle="modal" data-target="#modal-apreciacao">Apreciar</button>
+        
         <!--a href="/acoes-extensao/{{$acao_extensao->id}}/aprovar" class="btn btn-warning btn-w-m fw-500 btn-sm"  aria-label="Close">Aprovar</a-->
+    </div>
+</div>
+<!-- Modal Large -->
+<div class="modal fade" id="modal-apreciacao" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Apreciação de Ação de Extensão</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <form action="{{ route('acao_extensao.aprovar', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
+                @csrf
+                @method('put')
+                <div class="modal-body">
+                    <input type="hidden" id="acao_extensao_id" name="acao_extensao_id" value="{{ $acao_extensao->id }}">
+
+                    <div class="form-group">
+                        <label class="form-label" for="parecer_extensao">Descrição (Parecer)</label>
+                        <textarea name="parecer_extensao" class="form-control" cols="30" rows="10" max="1000" placeholder="Digite aqui seu parecer. Limite de 1000 caracteres.">{{ old('parecer_extensao')}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="simpleinput">De Acordo</label>
+                        <select name="aceite_extensao" class="form-control w-50">
+                            <option value="">Selecione ...</option>
+                            <option value="Sim" @if (old('aceite_extensao') == 'Sim')
+                                selected
+                            @endif>Sim</option>
+                            <option value="Não" @if (old('aceite_extensao') == 'Não')
+                                selected
+                            @endif>Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary wave-effect" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary wave-effect">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endif
@@ -116,8 +155,7 @@
                 <div class="panel-content">
                     <div class="subheader">
                         <h1 class="subheader-title">
-                            <img src="{{ asset('smartadmin-4.5.1/img/387.png') }}" alt="Icon"> {{$acao_extensao->titulo}}  
-                            <a href="{{ url('acoes-extensao/'. $acao_extensao->id .'/editar') }}" class="btn btn-primary btn-xs ml-3"><i class='fal fa-file-edit'></i> Editar</a>  
+                            <img src="{{ asset('smartadmin-4.5.1/img/387.png') }}" alt="Icon"> {{$acao_extensao->titulo}}   
                             <div class="row mt-3">
                                 <div class="col-xl-12">                                    
                                     @if($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim' && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
@@ -190,6 +228,18 @@
                     <div class="row">
                         @include('acoes-extensao.statusbar')
                     </div>
+                    @if (isset($acao_extensao->parecer_extensao) && ($acao_extensao->user->id == $user->id || request()->user->comissaoExtensao()))
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem da Comissão de Extensão da Unidade</h2>
+                                <p class="text-dark">{{ $acao_extensao->parecer_extensao }}</p>
+                                <p class="text-muted">Por <span class="fw-700">{{ $acao_extensao->aprovado->name }} ({{ $acao_extensao->aprovado->email }})</span> em <span class="fw-700">{{ date('d/m/Y', strtotime($acao_extensao->updated_at)) }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    
                     <div class="row mt-5">
                         <div class="col-lg-9">
                             <div class=" p-3 border rounded" style="height: 130px">
@@ -362,8 +412,8 @@
                     @endif
                     
                     <div class="row mt-3">
-                        <div class="col-lg-6">
                         @if(isset($acao_extensao->anotacoes) && $acao_extensao->user->id == $user->id)
+                        <div class="col-lg-6">
                             <div class=" p-3 border rounded" style="height: 145px">
                                 <h2>
                                     Suas Anotações 
@@ -375,7 +425,7 @@
                             </div>
                         </div>
                         @endif
-                        @if( $acao_extensao->user->id == $user->id  )
+                        @if( ($acao_extensao->user->id == $user->id || request()->user->comissaoExtensao()) && !is_null($acao_extensao->mensagem_extensao)  )
                         <div class="col-lg-6">
                             <div class=" p-3 rounded alert alert-warning" style="height: 145px">
                                 <h2>
@@ -389,7 +439,34 @@
                         </div>
                         @endif
                     </div>
-                    
+                    <div class="row mt-3 mb-5">
+                        @if ( !is_null($acao_extensao->parecer_comissao_graduacao) && ($acao_extensao->user->id == $user->id || request()->user->comissaoGraduacao()) )
+                        <div class="col-lg-6">
+                            <div class=" p-3 rounded border" style="height: 145px">
+                                <h2>
+                                    Parecer Comissão Graduação 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 ">
+                                        {{$acao_extensao->parecer_comissao_graduacao}}
+                                    </small>
+                                </h2>
+                            </div>
+                        </div>
+                        @endif
+                        @if ( !is_null($acao_extensao->parecer_comite) && ($acao_extensao->user->id == $user->id || $acao_extensao->comite_user_id == $user->id) )
+                        <div class="col-lg-6">
+                            <div class=" p-3 rounded border" style="height: 145px">
+                                <h2>
+                                    Parecer Comitê 
+                                    <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
+                                    <small class="mt-0 mb-3 ">
+                                        {{$acao_extensao->parecer_comite}}
+                                    </small>
+                                </h2>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
                     <div class="accordion" id="accordionExample">
                         <div class="card mb-3 shadow">
                             <div class="card-header bg-primary rounded" id="headingTwo">
@@ -1035,14 +1112,19 @@
                                     </span>
                                     <span class="text">Enviar para apreciação</span>
                                 </button>
+                                <a href="{{ url('acoes-extensao/'.$acao_extensao->id.'/editar') }}" class="btn btn-primary">
+                                    <i class="far fa-edit color-white"></i>
+                                    <span class="text">Editar</span>
+                                </a>
                             </form>
+                            
                             @endif
                         </div>
                     </div>
                     <div class="panel-footer border-top border-secondary">
                         <div class="row my-5">
                             <div class="col-md-12">
-                                <a href="{{ url('acoes-extensao') }}" class="btn btn-primary ">
+                                <a href="{{ url('acoes-extensao') }}" class="btn btn-primary">
                                     <span class="icon text-white-50">
                                         <img src="{{ asset('smartadmin-4.5.1/img/381.png') }}" alt="Apreciação">
                                     </span>

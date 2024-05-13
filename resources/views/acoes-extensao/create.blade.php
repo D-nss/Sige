@@ -120,7 +120,8 @@
                                 <button class="btn btn-primary" type="submit"><span class="icon text-white-50">
                                     <img src="{{ asset('smartadmin-4.5.1/img/salvar.png') }}" alt="Apreciação">
                                     </span>
-                                    <span class="text">Salvar Rascunho</span></button>
+                                    <span class="text">Salvar Rascunho</span>
+                                </button>
                             </div>
                         </div>
                     </form>                    

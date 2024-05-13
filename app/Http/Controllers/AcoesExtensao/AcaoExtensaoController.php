@@ -865,7 +865,7 @@ class AcaoExtensaoController extends Controller
     public function show(AcaoExtensao $acaoExtensao)
     {
         if(App::environment('local')){
-            $user = User::where('id', 4)->first();
+            $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
         }
@@ -991,7 +991,7 @@ class AcaoExtensaoController extends Controller
         return redirect()->route('acao_extensao.index');
     }
 
-    public function aprovar(AcaoExtensao $acaoExtensao){
+    public function aprovar(Request $request, AcaoExtensao $acaoExtensao){
 
         if(App::environment('local')){
             $user = User::where('id', 4)->first();
@@ -1000,6 +1000,11 @@ class AcaoExtensaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
             $acaoExtensao->aprovado_user_id = $user->id;
         }
+
+        $validated = $request->validate([
+            'parecer_extensao' => 'required|max:1000',
+            'aceite_extensao' =>'required'
+        ]);
 
         if($acaoExtensao->user_id == $user->id) {
             session()->flash('status', 'Desculpe! Você não pode aprovar sua própria ação de extensão.');
@@ -1015,26 +1020,36 @@ class AcaoExtensaoController extends Controller
             return redirect()->back();
         }
 
-        $acaoExtensao->status = 'Aprovado';
-        $acaoExtensao->save();
-        Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
-        $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
-
-        $at_conext = User::role('at_conext')->get();
-        if($acaoExtensao->modalidade == 1) {
-            Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
+        if($request->aceite_extensao == 'Sim'){
+            $acaoExtensao->status = 'Aprovado';
+            $acaoExtensao->parecer_extensao = $request->parecer_extensao;
+            $acaoExtensao->save();
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
+            $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
+    
+            $at_conext = User::role('at_conext')->get();
+            if($acaoExtensao->modalidade == 1) {
+                Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
+            }
+            else {
+                Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConextCiencia($acaoExtensao));
+            }
+    
+            if( !is_null($acaoExtensao->vagas_curricularizacao) && $acaoExtensao->vagas_curricularizacao >= 0) {
+                $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
+                Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao));
+            }
+    
+            session()->flash('status', 'Ação de Extensão aprovada!');
+            session()->flash('alert', 'success');
         }
-        else {
-            Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConextCiencia($acaoExtensao));
+        else{
+            $acaoExtensao->status = 'Rascunho';
+            $acaoExtensao->parecer_extensao = $request->parecer_extensao;
+            $acaoExtensao->save();
+            Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Não Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
+            $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoNaoAprovadaUnidade($acaoExtensao));
         }
-
-        if( !is_null($acaoExtensao->vagas_curricularizacao) && $acaoExtensao->vagas_curricularizacao >= 0) {
-            $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
-            Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao));
-        }
-
-        session()->flash('status', 'Ação de Extensão aprovada!');
-        session()->flash('alert', 'success');
 
         return redirect()->route('acao_extensao.pendencias');
     }
