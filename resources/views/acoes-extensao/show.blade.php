@@ -242,7 +242,7 @@
                     
                     <div class="row mt-5">
                         <div class="col-lg-9">
-                            <div class=" p-3 border rounded" style="height: 130px">
+                            <div class=" p-3 border rounded" style="min-height: 130px">
                                 <h2>
                                     Objetivos de Desenvolvimento Sustentável(ODS) 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class=" p-3 border rounded" style="height: 130px">
+                            <div class=" p-3 border rounded" style="min-height: 130px">
                                 <h2>
                                     Link Externo 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -269,7 +269,7 @@
 
                     <div class="row mt-3">
                         <div class="col-lg-9">
-                            <div class=" p-3 border rounded" style="height: 130px">
+                            <div class=" p-3 border rounded" style="min-height: 130px">
                                 <h2>
                                     Áreas Temáticas 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -282,7 +282,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class=" p-3 border rounded" style="height: 130px">
+                            <div class=" p-3 border rounded" style="min-height: 130px">
                                 <h2>
                                     Arquivo do Projeto 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -299,7 +299,7 @@
 
                     <div class="row mt-3">
                         <div class="col-lg-9">
-                            <div class=" p-3 border rounded" style="height: 130px">
+                            <div class=" p-3 border rounded" style="min-height: 130px">
                                 <h2>
                                     Palavras-Chaves 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -318,7 +318,7 @@
 
                     <div class="row mt-3">
                         <div class="col-lg-12">
-                            <div class=" p-3 border rounded" style="height: 130px">
+                            <div class=" p-3 border rounded" style="min-height: 130px">
                                 <h2>
                                     Descrição 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -332,7 +332,7 @@
 
                     <div class="row mt-3">
                         <div class="col-lg-12">
-                            <div class=" p-3 border rounded" style="height: 145px">
+                            <div class=" p-3 border rounded" style="min-height: 145px">
                                 <h2>
                                     Público Alvo 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -352,7 +352,7 @@
                     
                     <div class="row mt-3">
                         <div class="col-lg-6">
-                            <div class=" p-3 border rounded" style="height: 145px">
+                            <div class=" p-3 border rounded" style="min-height: 145px">
                                 <h2>
                                     Impactos para a Universidade 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -364,7 +364,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class=" p-3 border rounded" style="height: 145px">
+                            <div class=" p-3 border rounded" style="min-height: 145px">
                                 <h2>
                                 Impactos para a Sociedade 
                                 <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -380,7 +380,7 @@
                     @if(isset($acao_extensao->vagas_curricularizacao))
                     <div class="row mt-3">
                         <div class="col-lg-6">
-                            <div class=" p-3 border rounded" style="height: 145px">
+                            <div class=" p-3 border rounded" style="min-height: 145px">
                                 <h2>
                                     Vagas Curricularização 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -398,7 +398,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class=" p-3 border rounded" style="height: 145px">
+                            <div class=" p-3 border rounded" style="min-height: 145px">
                                 <h2>
                                     Motivo da Curricularização 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -414,7 +414,7 @@
                     <div class="row mt-3">
                         @if(isset($acao_extensao->anotacoes) && $acao_extensao->user->id == $user->id)
                         <div class="col-lg-6">
-                            <div class=" p-3 border rounded" style="height: 145px">
+                            <div class=" p-3 border rounded" style="min-height: 145px">
                                 <h2>
                                     Suas Anotações 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -427,7 +427,7 @@
                         @endif
                         @if( ($acao_extensao->user->id == $user->id || request()->user->comissaoExtensao()) && !is_null($acao_extensao->mensagem_extensao)  )
                         <div class="col-lg-6">
-                            <div class=" p-3 rounded alert alert-warning" style="height: 145px">
+                            <div class=" p-3 rounded alert alert-warning" style="min-height: 145px">
                                 <h2>
                                     Mensagem para Comissão de Extensão 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -442,7 +442,7 @@
                     <div class="row mt-3 mb-5">
                         @if ( !is_null($acao_extensao->parecer_comissao_graduacao) && ($acao_extensao->user->id == $user->id || request()->user->comissaoGraduacao()) )
                         <div class="col-lg-6">
-                            <div class=" p-3 rounded border" style="height: 145px">
+                            <div class=" p-3 rounded border" style="min-height: 145px">
                                 <h2>
                                     Parecer Comissão Graduação 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
@@ -455,7 +455,7 @@
                         @endif
                         @if ( !is_null($acao_extensao->parecer_comite) && ($acao_extensao->user->id == $user->id || $acao_extensao->comite_user_id == $user->id) )
                         <div class="col-lg-6">
-                            <div class=" p-3 rounded border" style="height: 145px">
+                            <div class=" p-3 rounded border" style="min-height: 145px">
                                 <h2>
                                     Parecer Comitê 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
