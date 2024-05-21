@@ -221,7 +221,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="descricao">Descrição (Resumo) da Ação de Extensão <span class="text-danger">*</span></label>
-                        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" placeholder="Digite aqui a descrição. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->descricao) ? $acao_extensao->descricao : old('descricao')}}</textarea>
+                        <textarea id="descricao" name="descricao" id="descricao" class="form-control @error('descricao') is-invalid @enderror" placeholder="Digite aqui a descrição. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->descricao) ? $acao_extensao->descricao : old('descricao')}}</textarea>
+                        <small class="text-muted d-none" id="caracter-counter-descricao"></small>
                         @error('descricao')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -285,10 +286,12 @@
                             <div class="col-md-6">
                                 <label class="form-label">Suas anotações (só ficarão visíveis para você)</label>
                                 <textarea class="form-control" name="anotacoes" id="anotacoes" cols="30" rows="10" placeholder="Digite aqui suas anotações. Limite de 500 caracteres.">{{ isset($acao_extensao) ? $acao_extensao->anotacoes : old('anotacoes')}}</textarea>
+                                <small class="text-muted d-none" id="caracter-counter-anotacoes"></small>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Mensagem inicial para a Comissão de Extensão da Unidade</label>
                                 <textarea class="form-control" name="mensagem_extensao" id="mensagem_extensao" cols="30" rows="10" placeholder="Digite aqui sua mensagem inicial para a Coordenação de Extensão da Unidade. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres.">{{ isset($acao_extensao) ? $acao_extensao->mensagem_extensao : old('mensagem_extensao')}}</textarea>
+                                <small class="text-muted d-none" id="caracter-counter-mensagem_extensao"></small>
                             </div>
                         </div>
                     </div>
@@ -324,6 +327,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="motivo_curricularizacao">Motivo da Curricularização  <span class="text-danger">*</span></label>
                                     <textarea name="motivo_curricularizacao" id="motivo_curricularizacao" class="form-control" rows="5" placeholder="Digite aqui o motivo da curricularização. Ao rever sua proposta, a Comissão poderá visualizá-la. Limite de 500 caracteres.">{{ isset($acao_extensao) ? $acao_extensao->motivo_curricularizacao : old('motivo_curricularizacao') }}</textarea>
+                                    <small class="text-muted d-none" id="caracter-counter-motivo_curricularizacao"></small>
                                 </div>
                             </div>
                         </div>
@@ -354,6 +358,7 @@
                         <div class="form-group col-md-6">
                             <label class="form-label" for="impactos_universidade">Impactos para a universidade <span class="text-danger">*</span></label>
                             <textarea id="impactos_universidade" name="impactos_universidade" class="form-control @error('impactos_universidade') is-invalid @enderror" placeholder="Digite aqui. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_universidade) ? $acao_extensao->impactos_universidade : old('impactos_universidade')}}</textarea>
+                            <small class="text-muted d-none" id="caracter-counter-impactos_universidade"></small>
                             @error('impactos_universidade')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -363,6 +368,7 @@
                         <div class="form-group col-md-6">
                             <label class="form-label" for="impactos_sociedade">Impactos para a sociedade <span class="text-danger">*</span></label>
                             <textarea id="impactos_sociedade" name="impactos_sociedade" class="form-control @error('impactos_sociedade') is-invalid @enderror" placeholder="Digite aqui. Limite de 10000 caracteres." rows="5" @if(isset($acao_extensao) && $acao_extensao->ocorrencia->count() > 0) disabled @endif>{{isset($acao_extensao->impactos_sociedade) ? $acao_extensao->impactos_sociedade : old('impactos_sociedade')}}</textarea>
+                            <small class="text-muted d-none" id="caracter-counter-impactos_sociedade"></small>
                             @error('impactos_sociedade')
                                 <div class="invalid-feedback">
                                     {{ $message }}

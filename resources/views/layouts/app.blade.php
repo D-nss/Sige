@@ -1991,6 +1991,84 @@ Versão: 4.5.1
 
                 carregaPublicoAlvoAoEditar();
             @endif
+
+            $("#descricao").keyup(function(){
+                const string = $("#descricao").val();
+                if(string.length == 0) {
+                    $("#caracter-counter-descricao").addClass('d-none');
+                }
+                else if(string.length == 1) {
+                    $("#caracter-counter-descricao").removeClass('d-none');
+                }
+                else {
+                    $("#caracter-counter-descricao").html(`Caracteres restantes ${10000 - parseInt(string.length)}`);
+                }
+            });
+
+            $("#anotacoes").keyup(function(){
+                const string = $("#anotacoes").val();
+                if(string.length == 0) {
+                    $("#caracter-counter-anotacoes").addClass('d-none');
+                }
+                else if(string.length == 1) {
+                    $("#caracter-counter-anotacoes").removeClass('d-none');
+                }
+                else {
+                    $("#caracter-counter-anotacoes").html(`Caracteres restantes ${500 - parseInt(string.length)}`);
+                }
+            });
+
+            $("#mensagem_extensao").keyup(function(){
+                const string = $("#mensagem_extensao").val();
+                if(string.length == 0) {
+                    $("#caracter-counter-mensagem_extensao").addClass('d-none');
+                }
+                else if(string.length == 1) {
+                    $("#caracter-counter-mensagem_extensao").removeClass('d-none');
+                }
+                else {
+                    $("#caracter-counter-mensagem_extensao").html(`Caracteres restantes ${500 - parseInt(string.length)}`);
+                }
+            });
+
+            $("#motivo_curricularizacao").keyup(function(){
+                const string = $("#motivo_curricularizacao").val();
+                if(string.length == 0) {
+                    $("#caracter-counter-motivo_curricularizacao").addClass('d-none');
+                }
+                else if(string.length == 1) {
+                    $("#caracter-counter-motivo_curricularizacao").removeClass('d-none');
+                }
+                else {
+                    $("#caracter-counter-motivo_curricularizacao").html(`Caracteres restantes ${500 - parseInt(string.length)}`);
+                }
+            });
+
+            $("#impactos_universidade").keyup(function(){
+                const string = $("#impactos_universidade").val();
+                if(string.length == 0) {
+                    $("#caracter-counter-impactos_universidade").addClass('d-none');
+                }
+                else if(string.length == 1) {
+                    $("#caracter-counter-impactos_universidade").removeClass('d-none');
+                }
+                else {
+                    $("#caracter-counter-impactos_universidade").html(`Caracteres restantes ${10000 - parseInt(string.length)}`);
+                }
+            });
+
+            $("#impactos_sociedade").keyup(function(){
+                const string = $("#impactos_sociedade").val();
+                if(string.length == 0) {
+                    $("#caracter-counter-impactos_sociedade").addClass('d-none');
+                }
+                else if(string.length == 1) {
+                    $("#caracter-counter-impactos_sociedade").removeClass('d-none');
+                }
+                else {
+                    $("#caracter-counter-impactos_sociedade").html(`Caracteres restantes ${10000 - parseInt(string.length)}`);
+                }
+            });
             /* Usando API para auxiar no preenchimento do endereço com latitude e longitude
             Mas apresenta erros - por enquanto desconsiderar...
 
