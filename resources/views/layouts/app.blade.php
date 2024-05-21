@@ -1907,10 +1907,18 @@ Versão: 4.5.1
                 {texto: 'Ensino Médio', id:'7'},
                 {texto: 'Ensino Técnico', id:'8'},
                 {texto: 'Ensino Superior', id:'9'},
-                {texto: 'Comunidades Indígenas, Quilombolas e Assentamentos Rurais', id:'10'},
-                {texto: 'Crianças e/ou Adolescentes', id:'11'},
-                {texto: 'Adultos e/ou Idosos', id:'12'},
-                {texto: 'População em vulnerabilidade', id:'13'},
+                {texto: 'Comunidades Indígenas', id:'10'},
+                {texto: 'Comunidades Quilombolas', id:'11'},
+                {texto: 'Assentamentos Rurais', id:'12'},
+                {texto: 'Crianças', id:'13'},
+                {texto: 'Adolescentes', id:'14'},
+                {texto: 'Idosos', id:'12'},
+                {texto: 'População em Vulnerabilidade Social', id:'13'},
+                {texto: 'Mulheres', id:'14'},
+                {texto: 'Homens', id:'15'},
+                {texto: 'Pessoas com Deficiência', id:'16'},
+                {texto: 'População Negra', id:'17'},
+                {texto: 'LGBTQIA+', id:'18'},
             ];
             
             function montaPublicoAlvo() {

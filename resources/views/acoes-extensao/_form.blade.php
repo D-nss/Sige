@@ -244,10 +244,18 @@
                                 <option value="Ensino Médio">Ensino Médio</option>
                                 <option value="Ensino Técnico">Ensino Técnico</option>
                                 <option value="Ensino Superior">Ensino Superior</option>
-                                <option value="Comunidades Indígenas, Quilombolas e Assentamentos Rurais">Comunidades Indígenas, Quilombolas e Assentamentos Rurais</option>
-                                <option value="Crianças e/ou Adolescentes">Crianças e/ou Adolescentes</option>
-                                <option value="Adultos e/ou Idosos">Adultos e/ou Idosos</option>
-                                <option value="População em vulnerabilidade">População em vulnerabilidade</option>
+                                <option value="Comunidades Indígenas">Comunidades Indígenas</option>
+                                <option value="Comunidades Quilombolas">Comunidades Quilombolas</option>
+                                <option value="Assentamentos Rurais">Assentamentos Rurais</option>
+                                <option value="Crianças">Crianças</option>
+                                <option value="Adolescentes">Adolescentes</option>
+                                <option value="Idosos">Idosos</option>
+                                <option value="População em Vulnerabilidade Social">População em Vulnerabilidade Social</option>
+                                <option value="Mulheres">Mulheres</option>
+                                <option value="Homens">Homens</option>
+                                <option value="Pessoas com Deficiência">Pessoas com Deficiência</option>
+                                <option value="População Negra">População Negra</option>
+                                <option value="LGBTQIA+">LGBTQIA+</option>
                             </select>
                             <div id="selecao_atual">
                                 
