@@ -276,6 +276,16 @@ class AcaoExtensaoController extends Controller
         $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
             ->where('atribuicao', 'Graduação')->first();
 
+        $comissao_extensao = Comissao::where('unidade_id', $user->unidade_id)
+            ->where('atribuicao', 'Extensão')->first();
+
+        //restringindo usuario acesso direto ao formulario sem a comissao de extensão cadastrada
+        if(!$comissao_extensao){
+            session()->flash('status', 'Comissão de Extensão da sua unidade ausente!');
+            session()->flash('alert', 'danger');
+            return back();
+        }
+
         return view('acoes-extensao.create', [
             'linhas_extensao'       => $linhas_extensao,
             'areas_tematicas'       => $areas_tematicas,
