@@ -186,7 +186,8 @@ class AcaoExtensaoController extends Controller
             'areas_tematicas' => $areas_tematicas,
             'estados' => $estados,
             'user'    => $user,
-            'acoes_extensao_usuario' => $acoes_extensao_usuario
+            'acoes_extensao_usuario' => $acoes_extensao_usuario,
+            '$comissao_extensao' => $comissao_extensao
         ]);
     }
 
