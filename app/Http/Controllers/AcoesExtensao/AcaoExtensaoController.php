@@ -60,7 +60,7 @@ class AcaoExtensaoController extends Controller
 
         $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
             ->where('atribuicao', 'Graduação')->first();
-        
+
         $users = User::orderBy('name', 'asc')->get();
 
         return view('acoes-extensao.inicio', [
@@ -166,6 +166,10 @@ class AcaoExtensaoController extends Controller
         if(is_null($acoes_extensao)){
             $acoes_extensao = AcaoExtensao::all();
         }
+
+        //para evitar cadastro de uma proposta do usuário com comissao de extensao ausente
+        $comissao_extensao = Comissao::where('unidade_id', $user->unidade_id)
+            ->where('atribuicao', 'Extensão')->first();
 
         //populando formulário (filtro)
         $unidades = Unidade::all();
@@ -346,7 +350,7 @@ class AcaoExtensaoController extends Controller
             $user = User::where('uid', Auth::user()->id)->first();
             $vinculo_coordenador = Auth::user()->employeetype;
         }
-        
+
         $dados = array('user_id' => $user->id);
         $dados['unidade_id'] = $user->unidade_id;
         $dados['nome_coordenador'] = $user->name;
@@ -388,7 +392,7 @@ class AcaoExtensaoController extends Controller
             return $acaoCriada;
         });
 
-        if($acao_extensao){    
+        if($acao_extensao){
             if(!is_null($request->apreciacao) && $request->apreciacao == 'Sim') {
                 $this->submeter($acao_extensao);
             }
@@ -1026,7 +1030,7 @@ class AcaoExtensaoController extends Controller
             $acaoExtensao->save();
             Log::channel('acao_extensao')->info('Usuario Nome: ' . $user->name . ' - Usuario ID: ' . $user->id . ' - Operação: Aprovação da Ação de Extensão ('. $acaoExtensao->id . ')' );
             $acaoExtensao->user->notify(new \App\Notifications\AcaoExtensaoAprovadaUnidade($acaoExtensao));
-    
+
             $at_conext = User::role('at_conext')->get();
             if($acaoExtensao->modalidade == 1) {
                 Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConext($acaoExtensao));
@@ -1034,12 +1038,12 @@ class AcaoExtensaoController extends Controller
             else {
                 Notification::send($at_conext, new \App\Notifications\AcaoExtensaoNotificaAtConextCiencia($acaoExtensao));
             }
-    
+
             if( !is_null($acaoExtensao->vagas_curricularizacao) && $acaoExtensao->vagas_curricularizacao >= 0) {
                 $comissaoGraduacao = BuscaUsuariosComissaoGraduacao::execute($acaoExtensao->unidade);
                 Notification::send($comissaoGraduacao, new \App\Notifications\AcaoExtensaoNotificarComissaoGraduacao($acaoExtensao));
             }
-    
+
             session()->flash('status', 'Ação de Extensão aprovada!');
             session()->flash('alert', 'success');
         }

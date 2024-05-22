@@ -22,19 +22,27 @@
                     <div class="panel-content">
                         @if(count($acoes_extensao_usuario) < 1)
                         <p>
-                        Você ainda não criou nenhuma Ação de Extensão. Você pode começar clicando no botão abaixo, ou acesse <span class="fw-700">Ações de Extensão / Cadastrar</span>
+                        Você ainda não criou nenhuma Ação de Extensão. Você pode começar clicando no botão abaixo
                         </p>
                         @else
                         <p>
-                        Abaixo estão listadas suas Ações de Extensão, caso deseje cadastrar uma nova Ação de Extensão clique no botão abaixo, ou acesse <span class="fw-700">Ações de Extensão / Cadastrar</span>
+                        Abaixo estão listadas suas Ações de Extensão, caso deseje cadastrar uma nova Ação de Extensão clique no botão abaixo
                         </p>
                         @endif
-                        <div class="form-group">
-                            <a href="{{ url('acoes-extensao/novo') }}" class="btn btn-primary btn-pills ">
-                                <i class="far fa-plus-circle"></i>
-                                Nova Ação
-                            </a>
-                        </div>
+                        @if ($comissao_extensao)
+                            <div class="form-group">
+                                <a href="{{ url('acoes-extensao/novo') }}" class="btn btn-primary btn-pills ">
+                                    <i class="far fa-plus-circle"></i>
+                                    Nova Ação
+                                </a>
+                            </div>
+                        @else
+                            @if(!$user->hasRole('extensao-coordenador'))
+                                <p>Botão "Nova Ação" ausente! Pois a Comissão de Extensão não estão cadastrada. Para solicitar o cadastramento das
+                                    comissão, entre em contato com o Coordenador de Extensão da sua unidade.</p>
+                            @endif
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -53,7 +61,7 @@
                 <div class="panel-container show">
                     <div class="panel-content">
                         <div class="frame-wrap">
-                            <div class="row">                                
+                            <div class="row">
                                 @if($acoes_extensao_usuario->where('status_comissao_graduacao', 'Sim')->whereNotNull('vagas_curricularizacao')->whereNotNull('qtd_horas_curricularizacao')->count())
                                 <div class="col-12">
                                     <h5 class="text-muted">
@@ -162,13 +170,13 @@
                                                         Editar Registro
                                                     </a>
                                                 @endif
-                                                @if( 
+                                                @if(
                                                         (
-                                                            $acao_extensao->status_comissao_graduacao === 'Sim' 
-                                                            && !is_null($acao_extensao->qtd_horas_curricularizacao) 
-                                                            && !is_null($acao_extensao->vagas_curricularizacao) 
-                                                        ) 
-                                                        || 
+                                                            $acao_extensao->status_comissao_graduacao === 'Sim'
+                                                            && !is_null($acao_extensao->qtd_horas_curricularizacao)
+                                                            && !is_null($acao_extensao->vagas_curricularizacao)
+                                                        )
+                                                        ||
                                                         $acao_extensao->ocorrencia->count() > 0
                                                     )
                                                     <a
