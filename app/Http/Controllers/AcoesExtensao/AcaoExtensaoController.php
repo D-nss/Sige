@@ -171,6 +171,10 @@ class AcaoExtensaoController extends Controller
         $comissao_extensao = Comissao::where('unidade_id', $user->unidade_id)
             ->where('atribuicao', 'Extensão')->first();
 
+        //adicionado para correção da chamada do modal
+        $comissao_graduacao = Comissao::where('unidade_id', $user->unidade_id)
+            ->where('atribuicao', 'Graduação')->first();
+
         //populando formulário (filtro)
         $unidades = Unidade::all();
         $linhas_extensao = LinhaExtensao::all();
@@ -187,7 +191,8 @@ class AcaoExtensaoController extends Controller
             'estados' => $estados,
             'user'    => $user,
             'acoes_extensao_usuario' => $acoes_extensao_usuario,
-            'comissao_extensao' => $comissao_extensao
+            'comissao_extensao' => $comissao_extensao,
+            'comissao_graduacao' => $comissao_graduacao
         ]);
     }
 
