@@ -157,8 +157,10 @@
                         <h1 class="subheader-title">
                             <img src="{{ asset('smartadmin-4.5.1/img/387.png') }}" alt="Icon"> {{$acao_extensao->titulo}}   
                             <div class="row mt-3">
-                                <div class="col-xl-12">                                    
-                                    @if($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim' && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
+                                <div class="col-xl-12">
+                                    @if( ($acao_extensao->aceite_comite == 'Não' || $acao_extensao->status_comissao_graduacao == 'Não') && $acao_extensao->modalidade == 1 )
+                                        <span class="badge badge-danger badge-pill">Precisa de Ajustes </span>                               
+                                    @elseif($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && $acao_extensao->status_comissao_graduacao == 'Sim' && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                                         <span class="badge badge-success badge-pill">Publicada</span>bg-success
                                     @elseif($acao_extensao->modalidade == 1 && $acao_extensao->aceite_comite == 'Sim' && is_null($acao_extensao->status_comissao_graduacao) && $acao_extensao->status_avaliacao_conext == 'Reconhecido' && $acao_extensao->status == 'Aprovado')
                                         <span class="badge badge-success badge-pill">Publicada</span>
@@ -168,8 +170,6 @@
                                         <span class="badge badge-warning badge-pill">Reconhecimento em Andamento na ProEC </span>
                                     @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
                                         <span class="badge badge-warning badge-pill">Reconhecimento em Andamento na ProEC </span>
-                                    @elseif ( ($acao_extensao->aceite_comite == 'Não' || $acao_extensao->status_comissao_graduacao == 'Não') && $acao_extensao->modalidade == 1 )
-                                        <span class="badge badge-danger badge-pill">Precisa de Ajustes </span>
                                     @elseif($acao_extensao->status == 'Pendente')
                                         <span class="badge badge-warning badge-pill">Registro em Andamento na Unidade</span>
                                     @elseif($acao_extensao->status == 'Rascunho')

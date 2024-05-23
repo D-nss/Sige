@@ -81,14 +81,14 @@
             <div class="d-flex justify-content-center align-items-center mr-2">
                 <div class="d-flex flex-column justify-content-center align-items-center mr-2">
                     <div class="
-                    @if( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido' ) && $acao_extensao->status == 'Aprovado')
+                    if( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
+                        bg-danger
+                    @elseif( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido' ) && $acao_extensao->status == 'Aprovado')
                         bg-success
                     @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->modalidade == 1 && $acao_extensao->status == 'Aprovado' )
                         bg-warning
                     @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
                         bg-warning
-                    @elseif( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
-                        bg-danger
                     @else
                         bg-light
                     @endif
@@ -96,14 +96,14 @@
                     <small class="text-center">Reconheci<br>mento ProEC</small>
                 </div>
                 <span class="
-                @if(($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && $acao_extensao->status == 'Aprovado')
+                if( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
+                    text-danger
+                @elseif(($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && $acao_extensao->status == 'Aprovado')
                     text-success
                 @elseif ( is_null($acao_extensao->satus_avaliacao_conext) && $acao_extensao->modalidade == 1 && $acao_extensao->status == 'Aprovado' )
                     text-warning
                 @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
                     text-warning
-                @elseif( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
-                    text-danger
                 @else
                     text-light
                 @endif
