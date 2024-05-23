@@ -29,7 +29,7 @@ class StoreAcaoExtensaoRequest extends FormRequest
             'areas_tematicas' => 'required',
             'ods' => 'required',
             'titulo' => 'required',
-            'descricao' => 'required|max:2500',
+            'descricao' => 'required|max:10000',
             'publico_alvo' => 'required|max:250',
             'vagas_curricularizacao' =>  $this->input('vagas_curricularizacao') ? 'required' : '',
             'qtd_horas_curricularizacao' =>  $this->input('qtd_horas_curricularizacao') ? 'required' : '',

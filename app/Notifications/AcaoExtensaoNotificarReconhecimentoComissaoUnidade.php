@@ -44,7 +44,7 @@ class AcaoExtensaoNotificarReconhecimentoComissaoUnidade extends Notification
     {
         return (new MailMessage)
             ->subject('Proposta ' . $this->data['titulo'] . ' foi reconhecida pela PROEC.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi reconhecida pela PROEC.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' foi reconhecida pela PROEC.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

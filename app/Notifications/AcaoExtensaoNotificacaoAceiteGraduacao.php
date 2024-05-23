@@ -44,7 +44,7 @@ class AcaoExtensaoNotificacaoAceiteGraduacao extends Notification
     {
         return (new MailMessage)
             ->subject('Proposta ' . $this->data['titulo'] . ' aceita pela comissão de graduação.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi aceita pela comissão de graduação, sendo liberada para curricularização.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' foi aceita pela comissão de graduação, sendo liberada para curricularização.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

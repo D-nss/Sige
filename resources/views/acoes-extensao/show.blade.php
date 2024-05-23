@@ -489,18 +489,7 @@
                             </div>
                             <div id="collapseTwo" class="collapse d-print-block" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    @if($userCoordenadorAcao && $acao_extensao->status != 'Aprovado')
-                                    <div class="panel-tag">
-                                        Para inserir/remover unidades envolvidas na ação, é necessário que esta seja <code>aprovada pela comissão</code>.
-                                        @if($acao_extensao->status != 'Pendente')
-                                        <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
-                                            @csrf
-                                            @method('put')
-                                            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
-                                        </form>
-                                        @endif
-                                    </div>
-                                    @endif
+                                    
                                     <div class="frame-wrap">
                                         <table class="table m-0">
                                             <thead class="thead-themed">
@@ -702,18 +691,7 @@
                             </div>
                             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    @if($userCoordenadorAcao && $acao_extensao->status != 'Aprovado')
-                                    <div class="panel-tag">
-                                        Para inserir colaboradores na ação, é necessário que esta seja <code>aprovada pela comissão</code>.
-                                        @if($acao_extensao->status != 'Pendente')
-                                        <form action="{{ route('acao_extensao.submeter', ['acao_extensao' => $acao_extensao->id]) }}" method="post">
-                                            @csrf
-                                            @method('put')
-                                            <button type="submit" class="btn btn-warning btn-w-m fw-500 btn-sm">Enviar para Aprovação</button>
-                                        </form>
-                                        @endif
-                                    </div>
-                                    @endif
+                                    
                                     <div class="frame-wrap">
                                         @if($userCoordenadorAcao && $acao_extensao->status == 'Aprovado')
                                         <form action="{{route('acao_extensao.grau_equipe', ['acao_extensao_id' => $acao_extensao->id])}}" id="form_grau_equipe" method="POST">

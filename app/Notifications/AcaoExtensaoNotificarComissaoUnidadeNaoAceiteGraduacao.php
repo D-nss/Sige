@@ -44,7 +44,7 @@ class AcaoExtensaoNotificarComissaoUnidadeNaoAceiteGraduacao extends Notificatio
     {
         return (new MailMessage)
             ->subject('Proposta ' . $this->data['titulo'] . ' obteve retorno da comissão de graduação.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' não atende aos parâmetros pedagógicos e necessita de ajustes e nova submissão para aprovação.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' não atende aos parâmetros pedagógicos e necessita de ajustes e nova submissão para aprovação.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

@@ -44,7 +44,7 @@ class AcaoCulturalAprovada extends Notification
     {
         return (new MailMessage)
                     ->subject('Ação de Cultura Aprovada pela DCULT')
-                    ->line('Olá Coordenador, sua Ação de Cultura intitulado '. $this->data['titulo'] . ' foi aprovada pela DCULT.')
+                    ->line('Olá Coordenador(a), sua Ação de Cultura intitulada '. $this->data['titulo'] . ' foi aprovada pela DCULT.')
                     ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
                     ->action('Visualizar Ação de Cultura', url('/acoes-culturais/' . $this->data['id'] ));
     }

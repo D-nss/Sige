@@ -44,7 +44,7 @@ class AcaoExtensaoNotificarComissaoUnidadeComentario extends Notification
     {
         return (new MailMessage)
             ->subject('Ação de Extensão: ' . $this->data['titulo'] . ' novo comentário do Coordenador.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' possui novo comentário por parte do Coordenador da Ação.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' possui novo comentário por parte do Coordenador da Ação.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

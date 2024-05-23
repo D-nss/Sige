@@ -44,7 +44,7 @@ class AcaoExtensaoNotificaAtConext extends Notification
     {
         return (new MailMessage)
             ->subject('Proposta ' . $this->data['titulo'] . ' está aguardando uma ação sua.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi aprovada pela comissão da unidade e está aguardando indicação do comitê consultivo.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' foi aprovada pela comissão da unidade e está aguardando indicação do comitê consultivo.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

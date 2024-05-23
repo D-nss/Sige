@@ -44,7 +44,7 @@ class AcaoExtensaoNotificaAtConextParecerComite extends Notification
     {
         return (new MailMessage)
             ->subject('Proposta ' . $this->data['titulo'] . ' foi analisada pelo comitê consultivo.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi analisada pelo comitê consultivo e está disponível para deliberação.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' foi analisada pelo comitê consultivo e está disponível para deliberação.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Acessar área de deliberação das Ações de Extensão', url('acoes-extensao-deliberacao-conext'));
     }

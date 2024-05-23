@@ -45,7 +45,7 @@ class AcaoExtensaoNotificaReconhecimento extends Notification
     {
         return (new MailMessage)
             ->subject('Ação de Extensão Reconhecida pela PROEC')
-            ->line('Olá Coordenador, sua Ação de Extensão intitulado '. $this->data['titulo'] . ' foi reconhecida pela PROEC.')
+            ->line('Olá Coordenador(a), sua Ação de Extensão intitulada '. $this->data['titulo'] . ' foi reconhecida pela PROEC.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
             ->action('Visualizar Ação de Extensão', url('/acoes-extensao/' . $this->data['id'] ));
     }

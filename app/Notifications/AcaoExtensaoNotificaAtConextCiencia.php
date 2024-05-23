@@ -43,10 +43,10 @@ class AcaoExtensaoNotificaAtConextCiencia extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Proposta ' . $this->data['titulo'] . ' foi analisada pelo comitê consultivo.')
-            ->line('Olá , a Ação de Extensão intitulado '. $this->data['titulo'] . ' foi analisada pelo comissão de graduação e está disponível para ciência.')
+            ->subject('Proposta ' . $this->data['titulo'] . ' foi analisada pela comissão de graduação.')
+            ->line('Olá , a Ação de Extensão intitulada '. $this->data['titulo'] . ' foi analisada pelo comissão de graduação e está disponível para ciência.')
             ->line('Para visualizar, entre na Extecult, clicando no botão abaixo.')
-            ->action('Acessar área de ciência das Ações de Extensão', url('acoes-extensao-ciencia-conext'));
+            ->action('Acessar área de Ciência Conext no menu das Ações de Extensão', url('acoes-extensao-ciencia-conext'));
     }
 
     /**
