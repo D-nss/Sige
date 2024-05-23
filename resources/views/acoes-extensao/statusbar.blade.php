@@ -162,6 +162,8 @@
         <p class="text-light">
             @if ($acao_extensao->status == 'Rascunho')
                 Após essa etapa, você poderá acompanhar a apreciação de sua proposta em <span class="fw-700"> Ações de Extensão > Minhas Ações </span>
+            @elseif( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
+                Esta Ação não pode mais ser encaminhada para o Reconhecimento da ProEC.
             @elseif ($acao_extensao->status == 'Pendente')
                 Aguarde o parecer da Comissão de Extensão.
             @elseif ($acao_extensao->status == 'Aprovado' && $acao_extensao->modalidade == 1 && (is_null($acao_extensao->aceite_comite) || is_null($acao_extensao->status_avaliacao_conext)))
@@ -176,8 +178,6 @@
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público e a curricularização foi liberada.
             @elseif ( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && is_null($acao_extensao->vagas_curricularizacao) )
                 Parabéns! A Ação foi reconhecida pela ProEC e aberta ao público.
-            @elseif( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
-                Esta Ação não pode mais ser encaminhada para o Reconhecimento da ProEC.
             @endif
         </p>
     </div>
