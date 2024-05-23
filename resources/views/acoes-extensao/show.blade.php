@@ -450,7 +450,7 @@
                         @endif
                         @if( ($acao_extensao->user->id == $user->id || request()->user->comissaoExtensao()) && !is_null($acao_extensao->mensagem_extensao)  )
                         <div class="col-lg-6">
-                            <div class=" p-3 rounded alert alert-warning" style="min-height: 145px">
+                            <div class=" p-3 rounded" style="min-height: 145px">
                                 <h2>
                                     Mensagem para Comissão de Extensão 
                                     <!-- <button class="btn btn-primary btn-xs"><i class='fal fa-file-edit'></i> Editar</button> -->
