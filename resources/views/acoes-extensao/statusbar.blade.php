@@ -81,7 +81,7 @@
             <div class="d-flex justify-content-center align-items-center mr-2">
                 <div class="d-flex flex-column justify-content-center align-items-center mr-2">
                     <div class="
-                    if( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
+                    @if( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
                         bg-danger
                     @elseif( ($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido' ) && $acao_extensao->status == 'Aprovado')
                         bg-success
@@ -96,7 +96,7 @@
                     <small class="text-center">Reconheci<br>mento ProEC</small>
                 </div>
                 <span class="
-                if( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
+                @if( $acao_extensao->aceite_comite == 'Não' && $acao_extensao->modalidade == 1 )
                     text-danger
                 @elseif(($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido') && $acao_extensao->status == 'Aprovado')
                     text-success
