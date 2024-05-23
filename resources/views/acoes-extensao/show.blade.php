@@ -245,7 +245,7 @@
                     <div class="row mt-5">
                         <div class="col-12">
                             <div class="alert alert-warning">
-                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem da Comissão de Extensão da Unidade</h2>
+                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem da Comissão de Graduação da Unidade</h2>
                                 <p class="text-dark">{{ $acao_extensao->parecer_comissao_graduacao }}</p>
                                 <p class="text-muted">Por <span class="fw-700">{{ $acao_extensao->graduacao_user->name }} ({{ $acao_extensao->graduacao_user->email }})</span> em <span class="fw-700">{{ date('d/m/Y', strtotime($acao_extensao->updated_at)) }}</span></p>
                             </div>
@@ -256,7 +256,7 @@
                     <div class="row mt-5">
                         <div class="col-12">
                             <div class="alert alert-warning">
-                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem da Comissão de Extensão da Unidade</h2>
+                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem do Comitê Consultivo</h2>
                                 <p class="text-dark">{{ $acao_extensao->parecer_comite }}</p>
                                 <p class="text-muted">Por <span class="fw-700">{{ $acao_extensao->comite_user->name }} ({{ $acao_extensao->comite_user->email }})</span> em <span class="fw-700">{{ date('d/m/Y', strtotime($acao_extensao->updated_at)) }}</span></p>
                             </div>
