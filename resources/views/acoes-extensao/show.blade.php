@@ -168,6 +168,8 @@
                                         <span class="badge badge-warning badge-pill">Reconhecimento em Andamento na ProEC </span>
                                     @elseif ( is_null($acao_extensao->ciencia_status) && $acao_extensao->modalidade != 1  && $acao_extensao->status == 'Aprovado' )
                                         <span class="badge badge-warning badge-pill">Reconhecimento em Andamento na ProEC </span>
+                                    @elseif ( ($acao_extensao->aceite_comite == 'Não' || $acao_extensao->status_comissao_graduacao == 'Não') && $acao_extensao->modalidade == 1 )
+                                        <span class="badge badge-danger badge-pill">Precisa de Ajustes </span>
                                     @elseif($acao_extensao->status == 'Pendente')
                                         <span class="badge badge-warning badge-pill">Registro em Andamento na Unidade</span>
                                     @elseif($acao_extensao->status == 'Rascunho')
@@ -239,7 +241,28 @@
                         </div>
                     </div>
                     @endif
-                    
+                    @if (isset($acao_extensao->parecer_comissao_graduacao) && ($acao_extensao->user->id == $user->id || request()->user->comissaoGraduacao()))
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem da Comissão de Extensão da Unidade</h2>
+                                <p class="text-dark">{{ $acao_extensao->parecer_comissao_graduacao }}</p>
+                                <p class="text-muted">Por <span class="fw-700">{{ $acao_extensao->graduacao_user->name }} ({{ $acao_extensao->graduacao_user->email }})</span> em <span class="fw-700">{{ date('d/m/Y', strtotime($acao_extensao->updated_at)) }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    @if (isset($acao_extensao->parecer_comite) && ($acao_extensao->user->id == $user->id || $acao_extensao->comite_user_id == $user->id))
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                <h2><img src="{{ asset('smartadmin-4.5.1/img/391.png') }}" class="mr-3" alt="Icon">Última Mensagem da Comissão de Extensão da Unidade</h2>
+                                <p class="text-dark">{{ $acao_extensao->parecer_comite }}</p>
+                                <p class="text-muted">Por <span class="fw-700">{{ $acao_extensao->comite_user->name }} ({{ $acao_extensao->comite_user->email }})</span> em <span class="fw-700">{{ date('d/m/Y', strtotime($acao_extensao->updated_at)) }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="row mt-5">
                         <div class="col-lg-9">
                             <div class=" p-3 border rounded" style="min-height: 130px">

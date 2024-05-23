@@ -51,6 +51,11 @@ class AcaoExtensao extends Model
         return $this->belongsTo(User::class, 'comite_user_id', 'id');
     }
 
+    public function graduacao_user()
+    {
+        return $this->belongsTo(User::class, 'comissao_graduacao_user_id', 'id');
+    }
+
     public function unidade()
     {
         return $this->belongsTo(Unidade::class);
