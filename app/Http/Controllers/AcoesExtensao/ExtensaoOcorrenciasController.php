@@ -28,16 +28,16 @@ class ExtensaoOcorrenciasController extends Controller
 
         $acao_extensao = AcaoExtensao::where('id', $id)->first();
 
-        if( ((is_null($acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao->qtd_horas_curricularizacao == 0 ) && (is_null($acao_extensao->vagas_curricularizacao) || $acao_extensao->vagas_curricularizacao == 0) ) ) {
-            session()->flash('status', 'Para poder cadastrar ocorrências essa ação deve ser preenchida como curricularização.');
-            session()->flash('alert', 'warning');
-            return redirect()->route('acao_extensao.pendencias');
-        }
-
         if(App::environment('local')){
             $user = User::where('id', 2)->first();
         } else {
             $user = User::where('uid', Auth::user()->id)->first();
+        }
+
+        if($acao_extensao->status != "Aprovado"){
+            session()->flash('status', 'Desculpe! Ação deve ser apreciada pela unidade para gerenciar as ocorrências.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
         }
 
         if($acao_extensao->user_id != $user->id){
@@ -68,14 +68,14 @@ class ExtensaoOcorrenciasController extends Controller
 
         $acao_extensao = AcaoExtensao::where('id', $id)->first();
 
-        if( $acao_extensao->status == 'Desativado' ) {
-            session()->flash('status', 'Esta ação está desativada e não possível cadastrar ocorrências.');
+        if($acao_extensao->status != "Aprovado"){
+            session()->flash('status', 'Desculpe! Ação deve ser apreciada pela unidade para gerenciar as ocorrências.');
             session()->flash('alert', 'warning');
-            return redirect()->route('acao_extensao.pendencias');
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
         }
 
-        if( ((is_null($acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao->qtd_horas_curricularizacao == 0 ) && (is_null($acao_extensao->vagas_curricularizacao) || $acao_extensao->vagas_curricularizacao == 0) ) ) {
-            session()->flash('status', 'Para poder cadastrar ocorrências essa ação deve ser preenchida como curricularização.');
+        if( $acao_extensao->status == 'Desativado' ) {
+            session()->flash('status', 'Esta ação está desativada e não possível cadastrar ocorrências.');
             session()->flash('alert', 'warning');
             return redirect()->route('acao_extensao.pendencias');
         }
@@ -83,12 +83,6 @@ class ExtensaoOcorrenciasController extends Controller
         if($acao_extensao->user_id != $user->id){
             session()->flash('status', 'Apenas o Coordenador pode incluir uma Ocorrencia.');
             session()->flash('alert', 'danger');
-            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
-        }
-
-        if($acao_extensao->status_comissao_graduacao != 'Sim') {
-            session()->flash('status', 'Ação deve ter um parecer positivo da comissão de graduaçãoo para inclusão de ocorrências.');
-            session()->flash('alert', 'warning');
             return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
         }
 

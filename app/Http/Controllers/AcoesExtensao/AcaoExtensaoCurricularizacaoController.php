@@ -28,10 +28,23 @@ class AcaoExtensaoCurricularizacaoController extends Controller
         }
 
         if($acao_extensao_ocorrencia->acao_extensao->user_id != $user->id) {
-            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar.');
+            session()->flash('status', 'Desculpe! Somente o coordenador da Ação de Extensão pode gerenciar a curricularização.');
             session()->flash('alert', 'warning');
 
             return redirect()->back();
+        }
+
+        if( ((is_null($acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao == 0 ) && (is_null($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao) || $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao == 0) ) ) {
+            session()->flash('status', 'Desculpe! Esta ação não foi preenchida como curricularização .');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.pendencias');
+        }
+
+
+        if($acao_extensao_ocorrencia->acao_extensao->status_comissao_graduacao != 'Sim') {
+            session()->flash('status', 'Ação deve ter um parecer positivo da comissão de graduação para prosseguir com as curricularizações.');
+            session()->flash('alert', 'warning');
+            return redirect()->route('acao_extensao.show', ['acao_extensao' => $acao_extensao->id]);
         }
 
         if(count($acao_extensao_ocorrencia->curricularizacao) > 0) {

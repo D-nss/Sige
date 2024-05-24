@@ -91,17 +91,18 @@
                                             >
                                                 <i class="fal fa-user-friends"></i>
                                             </a>
-                                            <a 
-                                                href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
-                                                class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
-                                                data-toggle="tooltip" 
-                                                data-placement="bottom" 
-                                                title="" 
-                                                data-original-title="Curricularização"
-                                            >
-                                                <i class="fal fa-clipboard-user"></i>
-                                            </a>
-
+                                            @if( (!is_null($acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao > 0 ) && (!is_null($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao) || $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao > 0 ) && $acao_extensao_ocorrencia->acao_extensao->status_comissao_graduacao == 'Sim' )
+                                                <a 
+                                                    href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
+                                                    class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
+                                                    data-toggle="tooltip" 
+                                                    data-placement="bottom" 
+                                                    title="" 
+                                                    data-original-title="Curricularização"
+                                                >
+                                                    <i class="fal fa-clipboard-user"></i>
+                                                </a>
+                                            @endif
                                             <button 
                                                 type="button" 
                                                 class="btn btn-danger btn-pills waves-effect waves-themed fs-xl " 

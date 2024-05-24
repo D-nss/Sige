@@ -132,25 +132,13 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <a href="/acoes-extensao/situacao/{{$acao_extensao->status}}">
-                                                @switch($acao_extensao->status)
-                                                        @case('Desativado')
-                                                        <span class="badge badge-danger">Desativado</span>
-                                                            @break
-                                                        @case('Pendente')
-                                                            <span class="badge badge-warning">Pendente</span>
-                                                            @break
-                                                        @case('Rascunho')
-                                                            <span class="badge badge-secondary">Rascunho</span>
-                                                            @break
-                                                        @case('Aprovado')
-                                                            <span class="badge badge-success">Aprovado</span>
-                                                            @break
-                                                        @default
-                                                        <span class="badge badge-warning">Indefinido</span>
-                                                @endswitch
-                                            </a>
-
+                                            @if($acao_extensao->status_avaliacao_conext == 'Reconhecido' || $acao_extensao->ciencia_status == 'Reconhecido')
+                                                <span class="badge badge-primary">Reconhecido ProEC</span>
+                                            @elseif($acao_extensao->status == 'Aprovado')
+                                                <span class="badge badge-primary">Aprovado Unidade</span>
+                                            @elseif($acao_extensao->status == 'Rascunho')
+                                                <span class="badge badge-secondary">Rascunho</span>
+                                            @endif
                                             <div class="text-muted small text-truncate">
                                                 Atualizado: {{$acao_extensao->updated_at->format('d/m/Y')}}
                                             </div>
@@ -170,15 +158,7 @@
                                                         Editar Registro
                                                     </a>
                                                 @endif
-                                                @if(
-                                                        (
-                                                            $acao_extensao->status_comissao_graduacao === 'Sim'
-                                                            && !is_null($acao_extensao->qtd_horas_curricularizacao)
-                                                            && !is_null($acao_extensao->vagas_curricularizacao)
-                                                        )
-                                                        ||
-                                                        $acao_extensao->ocorrencia->count() > 0
-                                                    )
+                                                @if($acao_extensao->status == 'Aprovado')
                                                     <a
                                                         href="{{ url('acoes-extensao/'. $acao_extensao->id .'/ocorrencias') }}"
                                                         class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
