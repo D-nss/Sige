@@ -91,7 +91,7 @@
                                             >
                                                 <i class="fal fa-user-friends"></i>
                                             </a>
-                                            @if( (!is_null($ocorrencia->acao_extensao->qtd_horas_curricularizacao)  || $acao_extensao_ocorrencia->acao_extensao->qtd_horas_curricularizacao > 0 ) && (!is_null($acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao) || $acao_extensao_ocorrencia->acao_extensao->vagas_curricularizacao > 0 ) && $acao_extensao_ocorrencia->acao_extensao->status_comissao_graduacao == 'Sim' )
+                                            @if( (!is_null($ocorrencia->acao_extensao->qtd_horas_curricularizacao)  || $ocorrencia->acao_extensao->qtd_horas_curricularizacao > 0 ) && (!is_null($ocorrencia->acao_extensao->vagas_curricularizacao) || $ocorrencia->acao_extensao->vagas_curricularizacao > 0 ) && $ocorrencia->acao_extensao->status_comissao_graduacao == 'Sim' )
                                                 <a 
                                                     href="{{ url('/acoes-extensao-ocorrencia/'. $ocorrencia->id .'/curricularizacao') }}" 
                                                     class="btn btn-primary btn-pills waves-effect waves-themed fs-xl "
