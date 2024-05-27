@@ -456,6 +456,7 @@ class AcaoExtensaoController extends Controller
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
         $dados['municipio_id'] = $request->cidade;
         $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
+        echo json_encode($dados);
         // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar');
 
