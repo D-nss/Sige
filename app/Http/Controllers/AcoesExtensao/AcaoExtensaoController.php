@@ -459,9 +459,8 @@ class AcaoExtensaoController extends Controller
         
         // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar');
-        echo json_encode($dados);
         $dados = array_merge($dados_form, $dados);
-
+        echo json_encode($dados_form);
         if($acaoExtensao->ocorrencia->count() == 0) {
             if( isset($dados_form['arquivo']) && !is_null($dados_form['arquivo']) ) {
                 $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
