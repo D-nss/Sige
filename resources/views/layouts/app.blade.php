@@ -1898,10 +1898,10 @@ Versão: 4.5.1
 
             var publico_alvo_sel = [];
             var publico_alvo = [
-                {texto: 'UNICAMP (Docentes, Discentes e Técnico-Administrativos)', id:'1'},
-                {texto: 'Instituições Públicas (Municipal, Estadual e Federal)', id:'2'},
-                {texto: 'Setor Privado (Comércio, Indústria e Serviço)', id:'3'},
-                {texto: 'Escolas Públicas (Municipal, Estadual e Federal)', id:'4'},
+                {texto: 'UNICAMP (Docentes; Discentes e Técnico-Administrativos)', id:'1'},
+                {texto: 'Instituições Públicas (Municipal; Estadual e Federal)', id:'2'},
+                {texto: 'Setor Privado (Comércio; Indústria e Serviço)', id:'3'},
+                {texto: 'Escolas Públicas (Municipal; Estadual e Federal)', id:'4'},
                 {texto: 'Ensino Infantil', id:'5'},
                 {texto: 'Ensino Fundamental I e II', id:'6'},
                 {texto: 'Ensino Médio', id:'7'},
