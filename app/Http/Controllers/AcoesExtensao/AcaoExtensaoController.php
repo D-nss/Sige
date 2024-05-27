@@ -493,7 +493,6 @@ class AcaoExtensaoController extends Controller
         $areasTematicasInsert = array();
         $odsInsert = array();
 
-        echo json_encode($dados);
         // $transacao = DB::transaction(function() use( $dados, $request, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
         //     // $acaoExtensao->user_id = $dados['user_id'];
         //     // $acaoExtensao->modalidade = $dados['modalidade'];
