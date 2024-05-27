@@ -36,7 +36,7 @@
                         @include('acoes-extensao._form')
                         <div class="row">
                             <div class="form-group mt-3 ml-3">
-                                <a href="/acoes-extensao/painel/extensao" class="btn btn-secondary btn-user ">
+                                <a href="/acoes-extensao" class="btn btn-secondary btn-user ">
                                     <span class="icon text-white-50">
                                     <i class="fal fa-arrow-left"></i>
                                     </span>

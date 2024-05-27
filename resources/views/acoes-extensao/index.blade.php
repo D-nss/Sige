@@ -38,8 +38,7 @@
                             </div>
                         @else
                             @if(!$user->hasRole('extensao-coordenador'))
-                                <p>Botão "Nova Ação" ausente! Pois a Comissão de Extensão não estão cadastrada. Para solicitar o cadastramento das
-                                    comissão, entre em contato com o Coordenador de Extensão da sua unidade.</p>
+                                <p class="color-danger-500">Botão "Nova Ação" ausente! A Comissão de Extensão não está cadastrada. Para solicitar o cadastramento da comissão, entre em contato com o Coordenador de Extensão da sua unidade.</p>
                             @endif
                         @endif
 
