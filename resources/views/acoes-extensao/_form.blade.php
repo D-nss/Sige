@@ -236,10 +236,10 @@
                         <div class="form-group col-md-6 @error('publico_alvo') border border-danger rounded p-2 @enderror">
                             <label class="form-label" for="publico_alvo">Seleção Atual</label>
                             <select class="d-none" name="publico_alvo[]" id="publico_alvo" multiple>
-                                <option value="UNICAMP (Docentes, Discentes e Técnico-Administrativos)">UNICAMP (Docentes, Discentes e Técnico-Administrativos)</option>
-                                <option value="Instituições Públicas (Municipal, Estadual e Federal)">Instituições Públicas (Municipal, Estadual e Federal)</option>
-                                <option value="Setor Privado (Comércio, Indústria e Serviço)">Setor Privado (Comércio, Indústria e Serviço)</option>
-                                <option value="Escolas Públicas (Municipal, Estadual e Federal)">Escolas Públicas (Municipal, Estadual e Federal)</option>
+                                <option value="UNICAMP (Docentes; Discentes e Técnico-Administrativos)">UNICAMP (Docentes, Discentes e Técnico-Administrativos)</option>
+                                <option value="Instituições Públicas (Municipal; Estadual e Federal)">Instituições Públicas (Municipal, Estadual e Federal)</option>
+                                <option value="Setor Privado (Comércio; Indústria e Serviço)">Setor Privado (Comércio, Indústria e Serviço)</option>
+                                <option value="Escolas Públicas (Municipal; Estadual e Federal)">Escolas Públicas (Municipal, Estadual e Federal)</option>
                                 <option value="Ensino Infantil">Ensino Infantil</option>
                                 <option value="Ensino Fundamental I e II">Ensino Fundamental I e II</option>
                                 <option value="Ensino Médio">Ensino Médio</option>
