@@ -14,7 +14,7 @@ class ComissaoUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:extensao-coordenador|edital-administrador|super');
+        //$this->middleware('role:extensao-coordenador|edital-administrador|super');
     }
     
     /**
@@ -81,21 +81,28 @@ class ComissaoUserController extends Controller
      */
     public function destroy(Request $request)
     {
-        $comissao_user_deleted = ComissaoUser::where('comissao_id', $request->comissao_id)->where('user_id', $request->user_id)->delete();
+        $comissao_usuario_contagem = ComissaoUser::where('comissao_id', $request->comissao_id)->count('*');
         
-        if(!!$comissao_user_deleted) {
-            Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' removido a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
-            session()->flash('status', 'Participante de comissão removido com sucesso!!!');
-            session()->flash('alert', 'success');
-
-            return redirect()->back();
+        if($comissao_usuario_contagem > 1){
+            $comissao_user_deleted = ComissaoUser::where('comissao_id', $request->comissao_id)->where('user_id', $request->user_id)->delete();
+        
+            if(!!$comissao_user_deleted) {
+                Log::channel('comissoes')->info('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' removido a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
+                session()->flash('status', 'Participante de comissão removido com sucesso!!!');
+                session()->flash('alert', 'success');
+            }
+            else {
+                Log::channel('comissoes')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' não removido a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
+                session()->flash('status', 'Desculpe! Houve erro ao remover participante na comissão');
+                session()->flash('alert', 'danger');
+            }
         }
         else {
-            Log::channel('comissoes')->error('Usuario Nome: ' . Auth::user()->name . ' - Usuario ID: ' . Auth::user()->id . ' - Info: Usuário ID: '. $request->user_id .' não removido a comissao ID '.$request->comissao_id.' - Endereço IP: ' . $request->ip());
-            session()->flash('status', 'Desculpe! Houve erro ao remover participante na comissão');
+            session()->flash('status', 'Desculpe! A comissão deve conter ao menos um membro.');
             session()->flash('alert', 'danger');
-
-            return redirect()->back();
         }
+
+        return redirect()->back();
+       
     }
 }
