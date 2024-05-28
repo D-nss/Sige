@@ -21,7 +21,7 @@
                 <div class="panel-container show">
                     <div class="panel-content">
                         <p>
-                        Abaixo estão listadas as Ações de Extensão da sua unidade, caso deseje cadastrar uma nova Ação de Extensão clique no botão abaixo, ou acesse <span class="fw-700">Ações de Extensão / Cadastrar</span>
+                        Abaixo estão listadas as Ações de Extensão da sua unidade, caso deseje cadastrar uma nova Ação de Extensão clique no botão abaixo.
                         </p>
                         <div class="form-group">
                             <a href="{{ url('acoes-extensao/novo') }}" class="btn btn-primary btn-pills ">

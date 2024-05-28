@@ -11,7 +11,7 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-list'></i>{{$acaoExtensaoOcorrencia->acao_extensao->titulo}}</span>
+        <span><i class='subheader-icon fal fa-list'></i>{{$acaoExtensaoOcorrencia->acao_extensao->titulo}}</span>
         <small>
         Gestão da equipe da Ocorrência
         </small>
@@ -26,15 +26,29 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <p>Ações de Extensão podem incluir membros de equipe em ocorrências, caso deseje adicionar um membro de equipe clique no botão abaixo.</p>
+                        <div class="form-group">
+                            <a href="{{ url('/acoes-extensao-ocorrencia/' . $acaoExtensaoOcorrencia->id . '/equipe/novo') }}" class="btn btn-primary btn-pills waves-effect waves-themed">
+                                <i class="fal fa-plus-circle"></i>
+                                Novo Membro
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
             <div class="mt-3">
                 <div id="panel-1" class="panel mt-2">
                     <div class="panel-hdr">
                         <h2>
                             Para ver detalhes e atualizar os dados, clique sobre o registro na tabela abaixo
                         </h2>
-                        <div class="panel-toolbar">
-                            <a href="{{ url('/acoes-extensao-ocorrencia/' . $acaoExtensaoOcorrencia->id . '/equipe/novo') }}" class="btn btn-success btn-block btn-pills waves-effect waves-themed"><i class="fal fa-plus-circle"></i> Novo Membro</a>
-                        </div>
                     </div>
                     <div class="panel-container show">
                         <div class="panel-content">

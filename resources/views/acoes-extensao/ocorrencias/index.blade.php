@@ -6,8 +6,6 @@
 <ol class="breadcrumb page-breadcrumb">
     <li class="breadcrumb-item">Ações de Extensão</li>
     <li class="breadcrumb-item active">Ocorrências e Curricularização</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao/{{$acao_extensao->id}}/ocorrencias/novo"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Cadastrar
-    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
@@ -25,12 +23,13 @@
             <div id="panel-1" class="panel">
                 <div class="panel-container show">
                     <div class="panel-content">
-                        <p>Ações de Extensão que marcaram curricularização podem incluir ocorrências, as ocorrências são as datas e locais nos quais a ação de extensão irá acontecer, após a inclusão da ocorrência os alunos poderão se inscrever para curricularização.</p>
+                        <p>Ações de Extensão podem incluir ocorrências, as ocorrências são as datas e locais nos quais a ação de extensão irá acontecer, após a inclusão da ocorrência os alunos poderão se inscrever para curricularização, caso a mesma tenha sido preenchida como curricularização.</p>
                         <div class="form-group">
                             <a href="{{ url('/acoes-extensao/'. $acao_extensao->id . '/ocorrencias/novo') }}" class="btn btn-primary btn-pills waves-effect waves-themed">
                                 <i class="far fa-plus-circle"></i>
                                 Nova Ocorrência
                             </a>
+                            
                         </div>
                     </div>
                 </div>

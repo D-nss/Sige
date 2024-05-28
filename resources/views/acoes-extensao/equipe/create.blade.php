@@ -55,10 +55,10 @@
                                         <form action="{{ url('acoes-extensao-ocorrencia/' . $acaoExtensaoOcorrencia->id . '/equipe') }}" method="post">
                                         @csrf
                                         @include('acoes-extensao.equipe._form')
+                                        <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                         <button type="submit" class="btn btn-primary">
                                             Adicionar
                                         </button>
-                                        <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
                                     </form>
                                 </div>
                             </div>

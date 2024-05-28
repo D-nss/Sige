@@ -27,15 +27,31 @@
     </div>
 </div>
 
-<div class="form-group d-none" id="user_form_group">
-    <label class="form-label fw-500" for="simpleinput">Usuário</label>
-    <select name="user_id" id="user_id" class="form-control w-50">
+<div class="form-group d-none" id="funcionario_form_group">
+    <label class="form-label fw-500" for="simpleinput">Funcionário</label>
+    <select name="func_id" id="func_id" class="form-control w-50">
         <option value="">Selecione ...</option>
         @foreach($users as $user)
-            <option value="{{ $user->id }}" @if( isset($acaoExtensaoOcorrenciaMembro->user_id ) && $acaoExtensaoOcorrenciaMembro->user_id == $user->id ) selected @endif>{{ $user->name }} - {{ $user->sigla }}</option>
+            @if($user->unidade->sigla != 'ALUNO')
+                <option value="{{ $user->id }}" @if( isset($acaoExtensaoOcorrenciaMembro->user_id ) && $acaoExtensaoOcorrenciaMembro->user_id == $user->id ) selected @endif>{{ $user->name }} - {{ $user->sigla }}</option>
+            @endif
         @endforeach
     </select>
 </div>
+
+<div class="form-group d-none" id="aluno_form_group">
+    <label class="form-label fw-500" for="simpleinput">Aluno</label>
+    <select name="aluno_id" id="aluno_id" class="form-control w-50">
+        <option value="">Selecione ...</option>
+        @foreach($users as $user)
+            @if($user->unidade->sigla == 'ALUNO')
+                <option value="{{ $user->id }}" @if( isset($acaoExtensaoOcorrenciaMembro->user_id ) && $acaoExtensaoOcorrenciaMembro->user_id == $user->id ) selected @endif>{{ $user->name }} - {{ $user->sigla }}</option>
+            @endif
+        @endforeach
+    </select>
+</div>
+
+<input type="hidden" name="user_id" id="user_id">
 
 <div class="form-group">
     <label for="nome" class="fw-500">Nome Completo<span class="text-danger">*</span></label>
@@ -85,7 +101,7 @@
 
 <div class="form-group">
     <label class="form-label fw-500">Função<span class="text-danger">*</span></label>
-    <input type="text" class="form-control" name="funcao" id="funcao" placeholder="Digite a função do membro na Ocorrência " value="@if( isset($acaoExtensaoOcorrenciaMembro->funcao) ){{ $acaoExtensaoOcorrenciaMembro->funcao }}@else{{ old('funcao') }}@endif">
+    <input type="text" class="form-control" name="funcao" id="funcao" placeholder="Digite a função do membro na Ação de Extensão " value="@if( isset($acaoExtensaoOcorrenciaMembro->funcao) ){{ $acaoExtensaoOcorrenciaMembro->funcao }}@else{{ old('funcao') }}@endif">
 </div>
 
 <div class="form-group">

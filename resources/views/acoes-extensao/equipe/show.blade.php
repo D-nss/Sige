@@ -11,9 +11,9 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-list'></i>Ocorrência</span>
+        <span><i class='subheader-icon fal fa-list'></i>Equipe da Ocorrência</span>
         <small>
-            Gestão da Ocorrência
+            Gestão da equipe da Ocorrência
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">

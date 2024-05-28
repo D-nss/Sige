@@ -4,17 +4,15 @@
 
 @section('content')
 <ol class="breadcrumb page-breadcrumb">
-    <li class="breadcrumb-item">BAEC</li>
-    <li class="breadcrumb-item active">Listagem Curricularização das Ações de Extensão</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao-ocorrencia/{{ $acao_extensao_ocorrencia->id }}/curricularizacao/novo"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Cadastrar
-    </button></a></li>
+    <li class="breadcrumb-item">{{ $acao_extensao_ocorrencia->acao_extensao->titulo }}</li>
+    <li class="breadcrumb-item active">Gestão Curricularização</li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-list'></i> Ações de Extensão
+        <i class='subheader-icon fal fa-list'></i> {{ $acao_extensao_ocorrencia->acao_extensao->titulo }}
         <small>
-            Listagem das curricularizações cadastradas da Ação de Extensão <span class="text-success">{{ $acao_extensao_ocorrencia->acao_extensao->titulo }}</span>
+            Gestão de Alunos Candidatos a Curricularização
         </small>
     </h1>
 </div>

@@ -392,26 +392,35 @@ Versão: 4.5.1
                 $("#funcionario_unicamp").change(() => {
                     if ( $('#funcionario_unicamp').is(':checked') ) {
                         $("#funcionario_unicamp_label").html('Sim');
-                        $("#user_form_group").removeClass("d-none");
-                        $("#user_form_group").addClass("d-block");
+                        $('#aluno_unicamp').prop('checked', false);
+                        $("#aluno_unicamp_label").html('Não');
+                        $("#funcionario_form_group").removeClass("d-none");
+                        $("#funcionario_form_group").addClass("d-block");
+                        $("#aluno_form_group").removeClass("d-block");
+                        $("#aluno_form_group").addClass("d-none");
                     }
                     else {
                         $("#funcionario_unicamp_label").html('Não');
-                        $("#user_form_group").removeClass("d-block");
-                        $("#user_form_group").addClass("d-none");
+                        $("#funcionario_form_group").removeClass("d-block");
+                        $("#funcionario_form_group").addClass("d-none");
                     }
                 });
 
                 $("#aluno_unicamp").change(() => {
                     if ( $('#aluno_unicamp').is(':checked') ) {
                         $("#aluno_unicamp_label").html('Sim');
-                        $("#user_form_group").removeClass("d-none");
-                        $("#user_form_group").addClass("d-block");
+                        $('#funcionario_unicamp').prop('checked', false);
+                        $("#funcionario_unicamp_label").html('Não');
+                        $("#aluno_form_group").removeClass("d-none");
+                        $("#aluno_form_group").addClass("d-block");
+                        $("#funcionario_form_group").removeClass("d-block");
+                        $("#funcionario_form_group").addClass("d-none");
                     }
                     else {
                         $("#aluno_unicamp_label").html('Não');
-                        $("#user_form_group").removeClass("d-block");
-                        $("#user_form_group").addClass("d-none");
+                        $("#aluno_form_group").removeClass("d-block");
+                        $("#aluno_form_group").addClass("d-none");
+                        
                     }
                 });
 
@@ -505,15 +514,32 @@ Versão: 4.5.1
                     }
                 });
 
-                $('#user_id').change(function(){
+                $('#func_id').change(function(){
                     $.ajax({
-                        url: "{{ url('usuarios/get-data') }}" + "/" + $("#user_id").val(),
+                        url: "{{ url('usuarios/get-data') }}" + "/" + $("#func_id").val(),
                         method: "GET",
                         dataType: 'json',
                         data: { },
                         success: function(data) {
                             $("#nome").val(data.name);
                             $("#email").val(data.email);
+                            $("#user_id").val(data.id);
+                            $("#aluno_id").val('');
+                        }
+                    });
+                });
+
+                $('#aluno_id').change(function(){
+                    $.ajax({
+                        url: "{{ url('usuarios/get-data') }}" + "/" + $("#aluno_id").val(),
+                        method: "GET",
+                        dataType: 'json',
+                        data: { },
+                        success: function(data) {
+                            $("#nome").val(data.name);
+                            $("#email").val(data.email);
+                            $("#user_id").val(data.id);
+                            $("#func_id").val('');
                         }
                     });
                 });

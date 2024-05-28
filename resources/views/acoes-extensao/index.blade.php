@@ -135,6 +135,8 @@
                                                 <span class="badge badge-primary">Reconhecido ProEC</span>
                                             @elseif($acao_extensao->status == 'Aprovado')
                                                 <span class="badge badge-primary">Aprovado Unidade</span>
+                                            @elseif($acao_extensao->status == 'Pendente')
+                                                <span class="badge badge-secondary">Aguardando parecer Unidade</span>
                                             @elseif($acao_extensao->status == 'Rascunho')
                                                 <span class="badge badge-secondary">Rascunho</span>
                                             @endif

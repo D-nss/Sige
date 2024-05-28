@@ -6,8 +6,6 @@
 <ol class="breadcrumb page-breadcrumb">
     <li class="breadcrumb-item"><a href="/acoes-extensao">Ações de Extensão</a></li>
     <li class="breadcrumb-item active">Alterar Ação</li>
-    <li class="breadcrumb-item"><a href="/acoes-extensao"><button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-themed">Listagem
-    </button></a></li>
     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
 </ol>
 <div class="subheader">

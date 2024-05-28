@@ -11,9 +11,9 @@
 </ol>
 <div class="subheader">
     <h1 class="subheader-title">
-        <span class="text-success"><i class='subheader-icon fal fa-plus'></i>Equipe do Evento</span>
+        <span><i class='subheader-icon fal fa-plus'></i>Equipe do Evento</span>
         <small>
-            Gestão da equipe da Ocorrencia {{$acaoExtensaoOcorrencia->acao_extensao->titulo}}
+            Gestão da equipe da Ocorrencia <spsna class="font-weight-bold">{{$acaoExtensaoOcorrencia->acao_extensao->titulo}}</span>
         </small>
     </h1>
     <div class="subheader-block d-lg-flex align-items-center">
