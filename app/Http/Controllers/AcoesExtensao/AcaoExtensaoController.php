@@ -458,7 +458,7 @@ class AcaoExtensaoController extends Controller
         $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
 
         // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
-        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar', 'user');
+        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar', 'user', 'arquivo');
         $dados = array_merge($dados_form, $dados);
 
         if($acaoExtensao->ocorrencia->count() == 0) {
