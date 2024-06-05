@@ -456,11 +456,11 @@ class AcaoExtensaoController extends Controller
         $dados['vinculo_coordenador'] = $vinculo_coordenador;
         $dados['municipio_id'] = $request->cidade;
         $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
-        
+
         // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
         $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar', 'user');
         $dados = array_merge($dados_form, $dados);
-        
+
         if($acaoExtensao->ocorrencia->count() == 0) {
             if( isset($dados_form['arquivo']) && !is_null($dados_form['arquivo']) ) {
                 $arquivoExiste = Storage::disk('public')->exists($acaoExtensao->arquivo);
@@ -472,6 +472,8 @@ class AcaoExtensaoController extends Controller
             }else {
                 $dados_form['arquivo'] = $acaoExtensao->arquivo;
             }
+
+            $dados = array_merge($dados_form, $dados);
 
             $dados['status'] = 'Rascunho';
             $dados['aprovado_user_id'] = null;
@@ -493,7 +495,7 @@ class AcaoExtensaoController extends Controller
         $odsInsert = array();
 
         $transacao = DB::transaction(function() use( $dados, $request, $areasTematicasInsert, $acaoExtensao, $odsInsert) {
-            
+
             $acaoAtualizada = AcaoExtensao::where('id', $acaoExtensao->id)->update($dados);
 
             //remove areas temáticas anteriores
