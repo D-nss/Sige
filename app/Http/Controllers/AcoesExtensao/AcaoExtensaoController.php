@@ -458,7 +458,7 @@ class AcaoExtensaoController extends Controller
         $dados['publico_alvo'] = implode(', ', $request->publico_alvo);
 
         // $dados['investimento'] = str_replace(',', '.', str_replace('.', '',$request->investimento));
-        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar', 'user', 'arquivo');
+        $dados_form = $request->except('_token', '_method', 'ods', 'areas_tematicas', 'estado', 'cidade', 'curricularizar', 'user');
         $dados = array_merge($dados_form, $dados);
 
         if($acaoExtensao->ocorrencia->count() == 0) {
@@ -468,12 +468,10 @@ class AcaoExtensaoController extends Controller
                     Storage::disk('public')->delete($acaoExtensao->arquivo);
                 }
                 $upload = new UploadFile();
-                $dados_form['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
+                $dados['arquivo'] = $upload->execute($request, 'arquivo', 'pdf', 5000000);
             }else {
-                $dados_form['arquivo'] = $acaoExtensao->arquivo;
+                $dados['arquivo'] = $acaoExtensao->arquivo;
             }
-
-            $dados = array_merge($dados_form, $dados);
 
             $dados['status'] = 'Rascunho';
             $dados['aprovado_user_id'] = null;
