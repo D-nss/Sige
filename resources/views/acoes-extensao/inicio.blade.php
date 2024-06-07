@@ -50,7 +50,7 @@
                                 <p>Para cadastrar uma Ação de Extensão, <a href="{{ url('acoes-extensao/novo') }}">Clique aqui</a></p>
                             @endif
                         @else
-                            <p>As comissões necessárias ainda não estão cadastradas. Para solicitar o cadastramento das
+                            <p class="text-danger">As comissões necessárias ainda não estão cadastradas. Para solicitar o cadastramento das
                                 comissões, entre em contato com o Coordenador de Extensão da sua unidade.</p>
                         @endif
                     @endif
