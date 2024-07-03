@@ -34,6 +34,6 @@ class AdminSeeder extends Seeder
             'email' => 'hiltoncr@unicamp.br',
             'unidade_id' => 42, //DTIC
             'ativo' => true,
-        ])->assignRole('super', 'admin', 'gr_dtic');
+        ])->assignRole('super', 'admin', 'gr_dtic', 'at_conext');
     }
 }
