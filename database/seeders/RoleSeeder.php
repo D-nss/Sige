@@ -28,6 +28,7 @@ class RoleSeeder extends Seeder
             'acoes-extensao-user',
             'acoes-extensao-admin',
             'gr_dtic'
+            'at_conext'
         ];
 
         foreach ($roles as $role) {
