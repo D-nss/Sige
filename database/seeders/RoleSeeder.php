@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
             'indicadores-user',
             'acoes-extensao-user',
             'acoes-extensao-admin',
-            'gr_dtic'
+            'gr_dtic',
             'at_conext'
         ];
 
