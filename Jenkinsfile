@@ -64,9 +64,8 @@ pipeline {
                 echo 'Deploy in main branch'
                 sh '''
                 cd /var/lib/jenkins/workspace/sige/Sige
-                git add *
-                git commit -m ""
-                git push origin main
+                git checkout test
+                git rebase main
                 '''
             }
         }
