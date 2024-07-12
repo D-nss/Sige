@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Clone git repo'
                 sh 'rm -fr Sige'
-                sh 'git clone https://github.com/D-nss/Sige.git'
+                sh 'git clone -b test https://github.com/D-nss/Sige.git'
             }
         }
         stage('Copy .env') {
@@ -64,8 +64,9 @@ pipeline {
                 echo 'Deploy in main branch'
                 sh '''
                 cd Sige
+                git add .
                 git checkout main
-                git rebase test
+                git merge test
                 '''
             }
         }
