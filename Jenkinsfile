@@ -59,5 +59,16 @@ pipeline {
                 '''
             }
         }
+        stage('Deploy in main branch') {
+            steps {
+                echo 'Deploy in main branch'
+                sh '''
+                cd /var/lib/jenkins/workspace/sige/Sige
+                git add *
+                git commit -m ""
+                git push origin main
+                '''
+            }
+        }
     }
 }
