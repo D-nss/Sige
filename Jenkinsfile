@@ -64,8 +64,8 @@ pipeline {
                 echo 'Deploy in main branch'
                 sh '''
                 cd Sige
-                git checkout test
-                git rebase main
+                git checkout main
+                git rebase test
                 '''
             }
         }
