@@ -67,6 +67,7 @@ pipeline {
                 git add .
                 git checkout main
                 git merge test
+                git push origin main
                 '''
             }
         }
