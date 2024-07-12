@@ -64,7 +64,7 @@ pipeline {
                 echo 'Deploy in main branch'
                 sh '''
                 cd Sige
-                git add *
+                git add .
                 git checkout main
                 git merge test
                 withCredentials([sshUserPrivateKey(credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')]) {
