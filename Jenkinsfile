@@ -67,7 +67,8 @@ pipeline {
                 git add .
                 git checkout main
                 git merge test
-                git push origin main
+                withCredentials([sshUserPrivateKey(credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')]) {
+                git push origin main}
                 '''
             }
         }
