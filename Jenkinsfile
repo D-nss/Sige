@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Copy .env'
                 sh '''
-                    cd /var/lib/jenkins/workspace/sige/Sige
+                    cd Sige
                     cp .env.example .env
                 '''
             }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Composer install'
                 sh '''
-                    cd /var/lib/jenkins/workspace/sige/Sige
+                    cd Sige
                     composer install
                 '''
             }
@@ -31,7 +31,7 @@ pipeline {
                 echo 'Migarte'
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 sh '''
-                    cd /var/lib/jenkins/workspace/sige/Sige
+                    cd Sige
                     php artisan migrate:fresh
                 '''
                 }
@@ -42,7 +42,7 @@ pipeline {
                 echo 'Seed'
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 sh '''
-                    cd /var/lib/jenkins/workspace/sige/Sige
+                    cd Sige
                     php artisan db:seed
                 '''
                 }
@@ -52,7 +52,7 @@ pipeline {
             steps {
                 echo 'Run tests'
                 sh '''
-                cd /var/lib/jenkins/workspace/sige/Sige
+                cd Sige
                 php artisan config:cache
                 php artisan config:clear
                 vendor/bin/phpunit --verbose tests/
@@ -63,7 +63,7 @@ pipeline {
             steps {
                 echo 'Deploy in main branch'
                 sh '''
-                cd /var/lib/jenkins/workspace/sige/Sige
+                cd Sige
                 git checkout test
                 git rebase main
                 '''
