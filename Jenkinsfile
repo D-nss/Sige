@@ -66,8 +66,8 @@ pipeline {
                 cd Sige
                 git add .
                 git branch
-                git commit -m "deploy"
                 withCredentials([sshUserPrivateKey(credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')]) {
+                git commit -m "deploy"
                 git push origin test}
                 '''
             }
