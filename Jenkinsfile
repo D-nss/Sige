@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+        EXEAMPLE_CREDS = credentials('f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')
+    }
     stages {
         stage('Clone git repo') {
             steps {
@@ -62,8 +65,6 @@ pipeline {
         stage('Deploy in main branch') {
             steps {
                 echo 'Deploy in main branch'
-                credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7',
-                url: 'git@github.com:D-nss/Sige.git'
                 sh '''
                 cd Sige
                 git add .
