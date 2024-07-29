@@ -62,14 +62,13 @@ pipeline {
         stage('Deploy in main branch') {
             steps {
                 echo 'Deploy in main branch'
+                sshagent(['f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7']) {
                 sh '''
                 cd Sige
                 git add .
-                sshagent(['f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7']) {
-                sh "git commit -m 'deploy'"
-                sh "git push origin test"
-                }
-                '''
+                git commit -m "deploy"
+                git push origin test
+                '''}
             }
         }
     }
