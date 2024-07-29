@@ -62,13 +62,14 @@ pipeline {
         stage('Deploy in main branch') {
             steps {
                 echo 'Deploy in main branch'
-                sshagent(['f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7']) {
+                credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7',
+                url: 'git@github.com:D-nss/Sige.git'
                 sh '''
                 cd Sige
                 git add .
                 git commit -m "deploy"
                 git push origin test
-                '''}
+                '''
             }
         }
     }
