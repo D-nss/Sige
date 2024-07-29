@@ -67,6 +67,7 @@ pipeline {
                 git add .
                 git config --global user.name "Daniel Santos"
                 git config --global user.email d260404@dac.unicamp.br
+                git remote add origin https://D-nss:kadinn-25@github.com/D-nss/Sige.git
                 git commit -m "deploy"
                 git push origin test
                 '''
