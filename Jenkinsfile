@@ -1,14 +1,14 @@
 pipeline {
     agent any
     environment{
-        EXEAMPLE_CREDS = credentials('Jenkin-SSH')
+        EXEAMPLE_CREDS = credentials('f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')
     }
     stages {
         stage('Clone git repo') {
             steps {
                 echo 'Clone git repo'
                 sh 'rm -fr Sige'
-                sh 'git clone -b test git@github.com:D-nss/Sige.git'
+                sh 'git clone -b test https://github.com/D-nss/Sige.git'
             }
         }
         stage('Copy .env') {
