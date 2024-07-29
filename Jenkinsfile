@@ -65,6 +65,8 @@ pipeline {
                 sh '''
                 cd Sige
                 git add .
+                git config --global user.name "Daniel Santos"
+                git config --global user.email d260404@dac.unicamp.br
                 git commit -m "deploy"
                 git push origin test
                 '''
