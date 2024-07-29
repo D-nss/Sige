@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo 'Clone git repo'
                 sh 'rm -fr Sige'
-                sh 'git clone -b test https://github.com/D-nss/Sige.git'
+                sh 'git clone -b test git@github.com:D-nss/Sige.git'
             }
         }
         stage('Copy .env') {
