@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        EXEAMPLE_CREDS = credentials('f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')
+        EXEAMPLE_CREDS = credentials('Jenkin-SSH')
     }
     stages {
         stage('Clone git repo') {
