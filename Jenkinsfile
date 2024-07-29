@@ -65,9 +65,6 @@ pipeline {
                 sh '''
                 cd Sige
                 git add .
-                git branch: 'test',
-                credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7',
-                url: 'git@github.com:D-nss/Sige.git'
                 git commit -m "deploy"
                 git push origin test
                 '''
