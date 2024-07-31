@@ -67,7 +67,9 @@ pipeline {
                 echo 'Deploy in main branch'
                 sh '''
                 cd Sige
-                git add .                
+                git add .
+                git commit -m "deploy" 
+                git push origin test
                 '''
             }
         }
