@@ -66,7 +66,7 @@ pipeline {
                 cd Sige
                 git add .
                 git commit -m "deploy"
-                git remote set-url origin https://Jenkins:TOKEN@github.com/D-nss/Sige.git
+                git remote set-url origin https://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@github.com/D-nss/Sige.git
                 git push origin test
                 '''
             }
