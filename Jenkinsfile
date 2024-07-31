@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    checkout changelog: false,
+                scm: scmGit(userRemoteConfigs: [
+                         [ credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7',
+                           url: 'git@github.com:D-nss/Sige.git' ]
+                         ])
     environment{
         EXEAMPLE_CREDS = credentials('f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')
     }
