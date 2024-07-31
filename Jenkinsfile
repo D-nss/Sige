@@ -67,6 +67,7 @@ pipeline {
                 git add .
                 git commit -m "deploy"
                 git remote set-url origin https://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@github.com/D-nss/Sige.git
+                git config --global user.password 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
                 git push origin test
                 '''
             }
