@@ -69,6 +69,8 @@ pipeline {
                 cd Sige
                 git add .
                 git commit -m "deploy" 
+                git config --global user.name "D-nss"
+                git config --global user.password TOKEN
                 git push origin test
                 '''
             }
