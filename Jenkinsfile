@@ -69,6 +69,7 @@ pipeline {
                 git config --global user.name "D-nss"
                 git config --global user.password TOKEN
                 git remote set-url origin https://D-nss:TOKEN@github.com/D-nss/Sige.git
+                git config --global credential.helper '!f() { sleep 1; echo "username=git token=TOKEN"; }; f'
                 git push origin test
                 '''
             }
