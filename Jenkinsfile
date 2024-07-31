@@ -69,8 +69,7 @@ pipeline {
                 cd Sige
                 git add .
                 git remote set-url origin https://D-nss:TOKEN@github.com/D-nss/Sige.git
-                checkout changelog: false,
-                scm: scmGit(userRemoteConfigs: [
+                checkout scm: scmGit(userRemoteConfigs: [
                          [ credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7',
                            url: 'git@github.com:D-nss/Sige.git' ]
                          ])
