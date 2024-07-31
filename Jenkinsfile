@@ -68,6 +68,7 @@ pipeline {
                 git commit -m "deploy" 
                 git config --global user.name "D-nss"
                 git config --global user.password TOKEN
+                git remote set-url origin https://D-nss:TOKEN@github.com/D-nss/Sige.git
                 git push origin test
                 '''
             }
