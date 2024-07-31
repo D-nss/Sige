@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Clone git repo'
                 sh 'rm -fr Sige'
-                sh 'git clone -b test https://github.com/D-nss/Sige.git'
+                sh 'git clone -b test https://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@github.com/D-nss/Sige.git'
             }
         }
         stage('Copy .env') {
@@ -66,7 +66,6 @@ pipeline {
                 cd Sige
                 git add .
                 git commit -m "deploy"
-                git remote set-url origin https://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@github.com/D-nss/Sige.git
                 git config --global user.password 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
                 git push origin test
                 '''
