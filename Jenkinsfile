@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment{
-        EXEAMPLE_CREDS = credentials('f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7')
-    }
     stages {
         stage('Clone git repo') {
             steps {
@@ -65,7 +62,6 @@ pipeline {
         stage('Deploy in main branch') {
             steps {
                 echo 'Deploy in main branch'
-                withCredentials([usernamePassword(credentialsId: 'f4cfc8fe-b09c-4aee-90a1-40df0ff4f8b7', usernameVariable: 'D-nss', passwordVariable: TOKEN )]) {
                 sh '''
                 cd Sige
                 git add .
@@ -73,7 +69,7 @@ pipeline {
                 git config --global user.name "D-nss"
                 git config --global user.password TOKEN
                 git push origin test
-                '''}
+                '''
             }
         }
     }
